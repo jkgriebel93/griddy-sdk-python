@@ -49,14 +49,14 @@ class TestPFFClient:
                     "deepBallGrade": 88.5,
                     "pocketGrade": 95.1,
                     "bigTimeThrows": 3,
-                    "turnoverWorthyPlays": 0
-                }
+                    "turnoverWorthyPlays": 0,
+                },
             }
         }
 
         m.get(
             "https://api.pff.com/v1/players/player123/grades?season=2024&week=1",
-            json=mock_response
+            json=mock_response,
         )
 
         grades = client.get_player_grades("player123", season=2024, week=1)
@@ -86,14 +86,14 @@ class TestPFFClient:
                     "overallGrade": 75.3,
                     "visionGrade": 78.1,
                     "forcedMissedTackles": 12,
-                    "yardsAfterContact": 2.8
-                }
+                    "yardsAfterContact": 2.8,
+                },
             }
         }
 
         m.get(
             "https://api.pff.com/v1/players/player123/grades?season=2024",
-            json=mock_response
+            json=mock_response,
         )
 
         grades = client.get_player_grades("player123", season=2024)
@@ -118,13 +118,13 @@ class TestPFFClient:
                 "passDefenseGrade": 81.5,
                 "runDefenseGrade": 76.2,
                 "pressureRate": 28.5,
-                "redZoneEfficiency": 65.8
+                "redZoneEfficiency": 65.8,
             }
         }
 
         m.get(
             "https://api.pff.com/v1/teams/KC/grades?season=2024&week=1",
-            json=mock_response
+            json=mock_response,
         )
 
         grades = client.get_team_grades("KC", season=2024, week=1)
@@ -149,7 +149,7 @@ class TestPFFClient:
                     "position": "QB",
                     "overallGrade": 92.5,
                     "overallRank": 1,
-                    "snapsPlayed": 650
+                    "snapsPlayed": 650,
                 },
                 {
                     "playerId": "player2",
@@ -157,14 +157,14 @@ class TestPFFClient:
                     "position": "QB",
                     "overallGrade": 89.3,
                     "overallRank": 2,
-                    "snapsPlayed": 598
-                }
+                    "snapsPlayed": 598,
+                },
             ]
         }
 
         m.get(
             "https://api.pff.com/v1/rankings?position=QB&season=2024&limit=50",
-            json=mock_response
+            json=mock_response,
         )
 
         rankings = client.get_position_rankings("QB", season=2024)
@@ -193,13 +193,12 @@ class TestPFFClient:
                 "highestGradedGame": 95.2,
                 "lowestGradedGame": 78.1,
                 "passingGrade": 91.3,
-                "consistencyRating": 88.5
+                "consistencyRating": 88.5,
             }
         }
 
         m.get(
-            "https://api.pff.com/v1/players/player123/seasons/2024",
-            json=mock_response
+            "https://api.pff.com/v1/players/player123/seasons/2024", json=mock_response
         )
 
         summary = client.get_season_summary("player123", 2024)
@@ -219,8 +218,7 @@ class TestPFFClient:
         client = PFFClient()
 
         m.get(
-            "https://api.pff.com/v1/players/invalid/grades?season=2024",
-            status_code=404
+            "https://api.pff.com/v1/players/invalid/grades?season=2024", status_code=404
         )
 
         grades = client.get_player_grades("invalid", season=2024)
@@ -237,7 +235,7 @@ class TestPFFClient:
                         "id": "player1",
                         "name": "Player One",
                         "position": "QB",
-                        "team": "KC"
+                        "team": "KC",
                     }
                 ],
                 "second_team": [
@@ -245,16 +243,13 @@ class TestPFFClient:
                         "id": "player2",
                         "name": "Player Two",
                         "position": "QB",
-                        "team": "BUF"
+                        "team": "BUF",
                     }
-                ]
+                ],
             }
         }
 
-        m.get(
-            "https://api.pff.com/v1/awards/all-pro/2024",
-            json=mock_response
-        )
+        m.get("https://api.pff.com/v1/awards/all-pro/2024", json=mock_response)
 
         teams = client.get_all_pro_teams(2024)
 
@@ -280,15 +275,12 @@ class TestPFFClient:
                     "positionRanking": 1,
                     "roundProjection": 1,
                     "strengths": ["Arm strength", "Accuracy"],
-                    "weaknesses": ["Mobility"]
+                    "weaknesses": ["Mobility"],
                 }
             ]
         }
 
-        m.get(
-            "https://api.pff.com/v1/draft/2024/board?limit=100",
-            json=mock_response
-        )
+        m.get("https://api.pff.com/v1/draft/2024/board?limit=100", json=mock_response)
 
         prospects = client.get_draft_board(2024)
 
@@ -307,7 +299,7 @@ class TestPFFClient:
             "team": "KC",
             "position": "QB",
             "overallGrade": 85.0,
-            "snapsPlayed": 500
+            "snapsPlayed": 500,
         }
 
         grades = client._parse_player_grades(grades_data)
@@ -341,15 +333,15 @@ class TestPFFClient:
                     "defense": {
                         "passRushGrade": 93.5,
                         "pressureRate": 18.5,
-                        "passRushWinRate": 22.3
-                    }
+                        "passRushWinRate": 22.3,
+                    },
                 }
             ]
         }
 
         m.get(
             "https://api.pff.com/v1/leaders?category=pressure&position=EDGE&season=2024&limit=20",
-            json=mock_response
+            json=mock_response,
         )
 
         leaders = client.get_pressure_leaders(2024, "EDGE")

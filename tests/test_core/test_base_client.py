@@ -5,7 +5,12 @@ import requests_mock
 from unittest.mock import patch, MagicMock
 
 from griddy.core.base_client import BaseClient
-from griddy.core.exceptions import APIError, RateLimitError, NotFoundError, AuthenticationError
+from griddy.core.exceptions import (
+    APIError,
+    RateLimitError,
+    NotFoundError,
+    AuthenticationError,
+)
 
 
 class TestBaseClient:
@@ -27,7 +32,7 @@ class TestBaseClient:
             "https://api.example.com/",
             timeout=60,
             rate_limit_delay=2.0,
-            headers=headers
+            headers=headers,
         )
 
         assert client.base_url == "https://api.example.com"
@@ -62,7 +67,11 @@ class TestBaseClient:
         """Test 404 error handling."""
         client = BaseClient("https://api.example.com")
 
-        m.get("https://api.example.com/notfound", status_code=404, json={"error": "Not found"})
+        m.get(
+            "https://api.example.com/notfound",
+            status_code=404,
+            json={"error": "Not found"},
+        )
 
         with pytest.raises(NotFoundError) as exc_info:
             client.get("notfound")
@@ -74,7 +83,11 @@ class TestBaseClient:
         """Test 401 authentication error handling."""
         client = BaseClient("https://api.example.com")
 
-        m.get("https://api.example.com/secure", status_code=401, json={"error": "Unauthorized"})
+        m.get(
+            "https://api.example.com/secure",
+            status_code=401,
+            json={"error": "Unauthorized"},
+        )
 
         with pytest.raises(AuthenticationError) as exc_info:
             client.get("secure")
@@ -90,7 +103,7 @@ class TestBaseClient:
             "https://api.example.com/limited",
             status_code=429,
             json={"error": "Rate limit exceeded"},
-            headers={"Retry-After": "60"}
+            headers={"Retry-After": "60"},
         )
 
         with pytest.raises(RateLimitError) as exc_info:
@@ -104,7 +117,11 @@ class TestBaseClient:
         """Test 500 server error handling."""
         client = BaseClient("https://api.example.com")
 
-        m.get("https://api.example.com/error", status_code=500, json={"error": "Server error"})
+        m.get(
+            "https://api.example.com/error",
+            status_code=500,
+            json={"error": "Server error"},
+        )
 
         with pytest.raises(APIError) as exc_info:
             client.get("error")
@@ -122,7 +139,7 @@ class TestBaseClient:
         result = client.post("create", json_data={"name": "test"})
         assert result == expected_data
 
-    @patch('time.sleep')
+    @patch("time.sleep")
     def test_rate_limiting(self, mock_sleep):
         """Test rate limiting functionality."""
         client = BaseClient("https://api.example.com", rate_limit_delay=1.0)
@@ -141,7 +158,7 @@ class TestBaseClient:
         """Test closing the HTTP session."""
         client = BaseClient("https://api.example.com")
 
-        with patch.object(client.session, 'close') as mock_close:
+        with patch.object(client.session, "close") as mock_close:
             client.close()
             mock_close.assert_called_once()
 

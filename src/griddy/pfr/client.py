@@ -6,8 +6,13 @@ from datetime import datetime
 from ..core.base_client import BaseClient
 from ..core.utils import parse_date, safe_int, safe_float, clean_text
 from .models import (
-    PFRPlayer, PFRPlayerStats, PFRTeamStats, PFRGame,
-    PFRDraftPick, PFRSeasonStats, PFRCareerStats
+    PFRPlayer,
+    PFRPlayerStats,
+    PFRTeamStats,
+    PFRGame,
+    PFRDraftPick,
+    PFRSeasonStats,
+    PFRCareerStats,
 )
 
 
@@ -27,10 +32,12 @@ class PFRClient(BaseClient):
             base_url="https://api.pro-football-reference.com",  # Placeholder URL
             headers={"Accept": "application/json"},
             rate_limit_delay=2.0,  # Be respectful with scraping
-            **kwargs
+            **kwargs,
         )
 
-    def search_players(self, name: str, position: Optional[str] = None) -> List[PFRPlayer]:
+    def search_players(
+        self, name: str, position: Optional[str] = None
+    ) -> List[PFRPlayer]:
         """
         Search for players by name.
 
@@ -77,9 +84,7 @@ class PFRClient(BaseClient):
             return None
 
     def get_player_season_stats(
-        self,
-        player_id: str,
-        season: int
+        self, player_id: str, season: int
     ) -> Optional[PFRSeasonStats]:
         """
         Get player statistics for a specific season.
@@ -116,10 +121,7 @@ class PFRClient(BaseClient):
             return None
 
     def get_player_game_stats(
-        self,
-        player_id: str,
-        season: int,
-        week: Optional[int] = None
+        self, player_id: str, season: int, week: Optional[int] = None
     ) -> List[PFRPlayerStats]:
         """
         Get player game-by-game statistics.
@@ -218,7 +220,7 @@ class PFRClient(BaseClient):
         season: int,
         stat_category: str,
         position: Optional[str] = None,
-        limit: int = 10
+        limit: int = 10,
     ) -> List[PFRPlayerStats]:
         """
         Get statistical leaders for a season.
@@ -232,11 +234,7 @@ class PFRClient(BaseClient):
         Returns:
             List of statistical leaders
         """
-        params = {
-            "season": season,
-            "category": stat_category,
-            "limit": limit
-        }
+        params = {"season": season, "category": stat_category, "limit": limit}
         if position:
             params["position"] = position
 
@@ -246,7 +244,9 @@ class PFRClient(BaseClient):
 
             leaders = []
             for leader_data in leaders_data:
-                leader = self._parse_player_stats(leader_data, leader_data.get("playerId", ""))
+                leader = self._parse_player_stats(
+                    leader_data, leader_data.get("playerId", "")
+                )
                 if leader:
                     leaders.append(leader)
 
@@ -255,10 +255,7 @@ class PFRClient(BaseClient):
             return []
 
     def get_historical_games(
-        self,
-        season: int,
-        week: Optional[int] = None,
-        team: Optional[str] = None
+        self, season: int, week: Optional[int] = None, team: Optional[str] = None
     ) -> List[PFRGame]:
         """
         Get historical game data.
@@ -316,7 +313,9 @@ class PFRClient(BaseClient):
         except Exception:
             return None
 
-    def _parse_player_stats(self, data: Dict[str, Any], player_id: str) -> Optional[PFRPlayerStats]:
+    def _parse_player_stats(
+        self, data: Dict[str, Any], player_id: str
+    ) -> Optional[PFRPlayerStats]:
         """Parse player statistics from API response."""
         try:
             return PFRPlayerStats(

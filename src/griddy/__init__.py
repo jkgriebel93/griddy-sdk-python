@@ -52,11 +52,13 @@ from .core.exceptions import (
 )
 
 # Add exceptions to __all__
-__all__.extend([
-    "GriddyError",
-    "APIError",
-    "RateLimitError",
-    "NotFoundError",
-    "AuthenticationError",
-    "ValidationError",
-])
+__all__.extend(
+    [
+        "GriddyError",
+        "APIError",
+        "RateLimitError",
+        "NotFoundError",
+        "AuthenticationError",
+        "ValidationError",
+    ]
+)

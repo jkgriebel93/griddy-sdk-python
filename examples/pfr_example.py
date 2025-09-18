@@ -112,7 +112,9 @@ def main():
             for stat in game_stats[:3]:  # Show first 3 games
                 print(f"   Week {stat.week}:")
                 if stat.pass_yards:
-                    print(f"     Passing: {stat.pass_completions}/{stat.pass_attempts}, {stat.pass_yards} yards")
+                    print(
+                        f"     Passing: {stat.pass_completions}/{stat.pass_attempts}, {stat.pass_yards} yards"
+                    )
                 if stat.pass_touchdowns:
                     print(f"     Passing TDs: {stat.pass_touchdowns}")
                 if stat.interceptions:
@@ -130,7 +132,9 @@ def main():
             if team_stats.win_percentage:
                 print(f"   Win Percentage: {team_stats.win_percentage:.3f}")
             if team_stats.points_for and team_stats.points_against:
-                print(f"   Points: {team_stats.points_for} for, {team_stats.points_against} against")
+                print(
+                    f"   Points: {team_stats.points_for} for, {team_stats.points_against} against"
+                )
             if team_stats.point_differential:
                 print(f"   Point Differential: {team_stats.point_differential:+}")
         else:
@@ -145,14 +149,18 @@ def main():
             print("   First round picks:")
             first_round = [pick for pick in draft_picks if pick.round == 1]
             for pick in first_round[:5]:  # First 5 picks
-                print(f"     {pick.pick}. {pick.player_name} - {pick.position} ({pick.college})")
+                print(
+                    f"     {pick.pick}. {pick.player_name} - {pick.position} ({pick.college})"
+                )
                 print(f"        Drafted by: {pick.team}")
         else:
             print("   Draft information not found or API unavailable")
 
         # Example 8: Get statistical leaders
         print("\n8. Getting 2023 passing yards leaders:")
-        leaders = client.get_season_leaders(2023, "passing_yards", position="QB", limit=5)
+        leaders = client.get_season_leaders(
+            2023, "passing_yards", position="QB", limit=5
+        )
 
         if leaders:
             print("   Top 5 passing yards leaders:")

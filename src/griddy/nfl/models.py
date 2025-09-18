@@ -44,7 +44,9 @@ class NFLPlayer(Player):
     experience: Optional[int] = Field(None, description="Years of experience")
     college: Optional[str] = Field(None, description="College attended")
     rookie_year: Optional[int] = Field(None, description="Rookie season year")
-    status: Optional[str] = Field(None, description="Player status (active, injured, etc.)")
+    status: Optional[str] = Field(
+        None, description="Player status (active, injured, etc.)"
+    )
     photo_url: Optional[str] = Field(None, description="Player photo URL")
 
 
@@ -60,12 +62,16 @@ class NFLPlayerStats(PlayerStats):
     rushing_touchdowns: Optional[int] = Field(None, description="Rushing touchdowns")
     rushing_attempts: Optional[int] = Field(None, description="Rushing attempts")
     receiving_yards: Optional[int] = Field(None, description="Receiving yards")
-    receiving_touchdowns: Optional[int] = Field(None, description="Receiving touchdowns")
+    receiving_touchdowns: Optional[int] = Field(
+        None, description="Receiving touchdowns"
+    )
     receptions: Optional[int] = Field(None, description="Receptions")
     targets: Optional[int] = Field(None, description="Targets")
     tackles: Optional[int] = Field(None, description="Tackles")
     sacks: Optional[float] = Field(None, description="Sacks")
-    interceptions_defense: Optional[int] = Field(None, description="Interceptions (defense)")
+    interceptions_defense: Optional[int] = Field(
+        None, description="Interceptions (defense)"
+    )
     fumbles_forced: Optional[int] = Field(None, description="Fumbles forced")
     fumbles_recovered: Optional[int] = Field(None, description="Fumbles recovered")
 
@@ -84,7 +90,9 @@ class NFLStandings(BaseModel):
 
     conference: str = Field(..., description="Conference name")
     division: str = Field(..., description="Division name")
-    teams: List[NFLTeam] = Field(default_factory=list, description="Teams in standings order")
+    teams: List[NFLTeam] = Field(
+        default_factory=list, description="Teams in standings order"
+    )
 
 
 class NFLNews(BaseModel):
@@ -99,5 +107,9 @@ class NFLNews(BaseModel):
     url: Optional[str] = Field(None, description="Article URL")
     image_url: Optional[str] = Field(None, description="Article image URL")
     tags: List[str] = Field(default_factory=list, description="Article tags")
-    related_players: List[str] = Field(default_factory=list, description="Related player IDs")
-    related_teams: List[str] = Field(default_factory=list, description="Related team IDs")
+    related_players: List[str] = Field(
+        default_factory=list, description="Related player IDs"
+    )
+    related_teams: List[str] = Field(
+        default_factory=list, description="Related team IDs"
+    )

@@ -22,7 +22,7 @@ class BaseClient:
         max_retries: int = 3,
         rate_limit_delay: float = 1.0,
         headers: Dict[str, str] | None = None,
-        cookies_file: str | None = None
+        cookies_file: str | None = None,
     ):
         """
         Initialize the base client.
@@ -35,7 +35,7 @@ class BaseClient:
             headers: Additional headers to include in requests
             cookies_file: String representing path to a cookies file that will be used for authentication.
         """
-        self.base_url = base_url.rstrip('/')
+        self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         self.rate_limit_delay = rate_limit_delay
         self._last_request_time = 0.0
@@ -76,7 +76,9 @@ class BaseClient:
         self._last_request_time = time.time()
 
     # TODO: Create a TypeVar for this return type.
-    def _handle_response(self, response: requests.Response) -> Dict[str, Any] | List[Any]:
+    def _handle_response(
+        self, response: requests.Response
+    ) -> Dict[str, Any] | List[Any]:
         """
         Handle HTTP response and raise appropriate exceptions.
 

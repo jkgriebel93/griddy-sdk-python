@@ -84,7 +84,9 @@ class ESPNPlayerStats(PlayerStats):
     # Receiving stats
     receiving_receptions: Optional[int] = Field(None, description="Receptions")
     receiving_yards: Optional[int] = Field(None, description="Receiving yards")
-    receiving_touchdowns: Optional[int] = Field(None, description="Receiving touchdowns")
+    receiving_touchdowns: Optional[int] = Field(
+        None, description="Receiving touchdowns"
+    )
     receiving_targets: Optional[int] = Field(None, description="Targets")
     receiving_long: Optional[int] = Field(None, description="Longest reception")
     receiving_average: Optional[float] = Field(None, description="Yards per reception")
@@ -104,10 +106,14 @@ class ESPNPlayerStats(PlayerStats):
 
     # Kicking stats
     field_goals_made: Optional[int] = Field(None, description="Field goals made")
-    field_goals_attempted: Optional[int] = Field(None, description="Field goals attempted")
+    field_goals_attempted: Optional[int] = Field(
+        None, description="Field goals attempted"
+    )
     field_goal_percentage: Optional[float] = Field(None, description="FG percentage")
     extra_points_made: Optional[int] = Field(None, description="Extra points made")
-    extra_points_attempted: Optional[int] = Field(None, description="Extra points attempted")
+    extra_points_attempted: Optional[int] = Field(
+        None, description="Extra points attempted"
+    )
     long_field_goal: Optional[int] = Field(None, description="Longest field goal")
 
     # Punting stats
@@ -118,11 +124,15 @@ class ESPNPlayerStats(PlayerStats):
     punts_inside_20: Optional[int] = Field(None, description="Punts inside 20")
 
     # Return stats
-    kick_return_attempts: Optional[int] = Field(None, description="Kick return attempts")
+    kick_return_attempts: Optional[int] = Field(
+        None, description="Kick return attempts"
+    )
     kick_return_yards: Optional[int] = Field(None, description="Kick return yards")
     kick_return_touchdowns: Optional[int] = Field(None, description="Kick return TDs")
     kick_return_long: Optional[int] = Field(None, description="Longest kick return")
-    punt_return_attempts: Optional[int] = Field(None, description="Punt return attempts")
+    punt_return_attempts: Optional[int] = Field(
+        None, description="Punt return attempts"
+    )
     punt_return_yards: Optional[int] = Field(None, description="Punt return yards")
     punt_return_touchdowns: Optional[int] = Field(None, description="Punt return TDs")
     punt_return_long: Optional[int] = Field(None, description="Longest punt return")
@@ -144,7 +154,9 @@ class ESPNStandings(BaseModel):
 
     season: int = Field(..., description="Season year")
     season_type: str = Field(..., description="Season type")
-    groups: List[Dict[str, Any]] = Field(default_factory=list, description="Standings groups")
+    groups: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Standings groups"
+    )
 
 
 class ESPNNews(BaseModel):
@@ -158,10 +170,14 @@ class ESPNNews(BaseModel):
     last_modified: Optional[datetime] = Field(None, description="Last modified date")
     premium: Optional[bool] = Field(None, description="Premium content")
     links: Optional[Dict[str, str]] = Field(None, description="Related links")
-    categories: List[str] = Field(default_factory=list, description="Article categories")
+    categories: List[str] = Field(
+        default_factory=list, description="Article categories"
+    )
     keywords: List[str] = Field(default_factory=list, description="Article keywords")
     byline: Optional[str] = Field(None, description="Article byline")
-    images: List[Dict[str, Any]] = Field(default_factory=list, description="Article images")
+    images: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Article images"
+    )
     video: Optional[Dict[str, Any]] = Field(None, description="Associated video")
 
 
@@ -190,7 +206,9 @@ class ESPNAthlete(BaseModel):
     position: Optional[Dict[str, Any]] = Field(None, description="Position info")
     team: Optional[Dict[str, Any]] = Field(None, description="Team info")
     status: Optional[Dict[str, Any]] = Field(None, description="Status info")
-    statistics: List[Dict[str, Any]] = Field(default_factory=list, description="Career statistics")
+    statistics: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Career statistics"
+    )
 
 
 class ESPNEvent(BaseModel):
@@ -203,9 +221,15 @@ class ESPNEvent(BaseModel):
     short_name: str = Field(..., description="Event short name")
     season: Dict[str, Any] = Field(..., description="Season info")
     week: Optional[Dict[str, Any]] = Field(None, description="Week info")
-    competitions: List[Dict[str, Any]] = Field(default_factory=list, description="Competition details")
-    links: List[Dict[str, Any]] = Field(default_factory=list, description="Related links")
+    competitions: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Competition details"
+    )
+    links: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Related links"
+    )
     weather: Optional[Dict[str, Any]] = Field(None, description="Weather conditions")
     status: Dict[str, Any] = Field(..., description="Event status")
-    broadcasts: List[Dict[str, Any]] = Field(default_factory=list, description="Broadcast info")
+    broadcasts: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Broadcast info"
+    )
     odds: List[Dict[str, Any]] = Field(default_factory=list, description="Betting odds")

@@ -14,7 +14,7 @@ from griddy.core.utils import (
     extract_cookies_as_dict,
     extract_cookies_as_header,
     parse_cookies_txt,
-    Cookie
+    Cookie,
 )
 
 
@@ -40,7 +40,9 @@ github.com	FALSE	/	TRUE	1735689600	user_session	github_session_123
 .facebook.com	TRUE	/	FALSE	0	locale	en_US
 """
 
-    with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='_cookies.txt') as f:
+    with tempfile.NamedTemporaryFile(
+        mode="w", delete=False, suffix="_cookies.txt"
+    ) as f:
         f.write(sample_content)
         return f.name
 
@@ -64,6 +66,7 @@ def main():
             print(f"     Path: {cookie.path}, Secure: {cookie.secure}")
             if cookie.expires:
                 import datetime
+
                 expiry = datetime.datetime.fromtimestamp(cookie.expires)
                 print(f"     Expires: {expiry}")
             print()
@@ -97,9 +100,7 @@ def main():
         print("   Method 1 - Using cookies dictionary:")
         try:
             response = requests.get(
-                "https://httpbin.org/cookies",
-                cookies=cookies_dict,
-                timeout=5
+                "https://httpbin.org/cookies", cookies=cookies_dict, timeout=5
             )
             print(f"   Response: {response.json()}")
         except Exception as e:
@@ -110,11 +111,11 @@ def main():
         try:
             headers = {"Cookie": cookie_header}
             response = requests.get(
-                "https://httpbin.org/headers",
-                headers=headers,
-                timeout=5
+                "https://httpbin.org/headers", headers=headers, timeout=5
             )
-            cookie_header_received = response.json().get("headers", {}).get("Cookie", "")
+            cookie_header_received = (
+                response.json().get("headers", {}).get("Cookie", "")
+            )
             print(f"   Cookie header sent: {cookie_header_received}")
         except Exception as e:
             print(f"   Request failed: {e}")
@@ -163,8 +164,12 @@ def main():
 
         # Include expired cookies
         old_site_url = "https://old-site.com/"
-        with_expired = extract_cookies_for_url(cookies_file, old_site_url, include_expired=True)
-        without_expired = extract_cookies_for_url(cookies_file, old_site_url, include_expired=False)
+        with_expired = extract_cookies_for_url(
+            cookies_file, old_site_url, include_expired=True
+        )
+        without_expired = extract_cookies_for_url(
+            cookies_file, old_site_url, include_expired=False
+        )
 
         print(f"   URL: {old_site_url}")
         print(f"   With expired cookies: {len(with_expired)}")
@@ -186,7 +191,9 @@ def main():
         print("    cookies = extract_cookies_as_dict('cookies.txt', 'https://nfl.com')")
         print("    ")
         print("    # Create client with custom headers including cookies")
-        print("    client = nfl.Client(headers={'Cookie': extract_cookies_as_header('cookies.txt', 'https://nfl.com')})")
+        print(
+            "    client = nfl.Client(headers={'Cookie': extract_cookies_as_header('cookies.txt', 'https://nfl.com')})"
+        )
         print("    ```")
 
     except Exception as e:

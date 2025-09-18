@@ -11,6 +11,7 @@ class BaseModel(PydanticBaseModel):
 
     class Config:
         """Pydantic configuration."""
+
         use_enum_values = True
         validate_assignment = True
         extra = "forbid"
@@ -28,7 +29,9 @@ class Game(BaseModel):
     start_time: datetime | None = Field(None, description="Game start time")
     week: int | None = Field(None, description="Week number")
     season: int | None = Field(None, description="Season year")
-    season_type: str | None = Field(None, description="Season type (regular, playoffs, etc.)")
+    season_type: str | None = Field(
+        None, description="Season type (regular, playoffs, etc.)"
+    )
 
 
 class Team(BaseModel):
@@ -69,4 +72,6 @@ class APIResponse(BaseModel):
     data: Any | None = Field(None, description="Response data")
     message: str | None = Field(None, description="Response message")
     error: str | None = Field(None, description="Error message if applicable")
-    metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
+    metadata: dict[str, Any] = Field(
+        default_factory=dict, description="Additional metadata"
+    )

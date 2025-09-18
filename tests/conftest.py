@@ -30,7 +30,7 @@ def sample_game_data():
         "startTime": "2024-01-01T13:00:00Z",
         "week": 1,
         "season": 2024,
-        "seasonType": "regular"
+        "seasonType": "regular",
     }
 
 
@@ -43,7 +43,7 @@ def sample_team_data():
         "abbreviation": "KC",
         "city": "Kansas City",
         "conference": "AFC",
-        "division": "West"
+        "division": "West",
     }
 
 
@@ -59,5 +59,5 @@ def sample_player_data():
         "height": "6-3",
         "weight": 230,
         "age": 28,
-        "college": "Texas Tech"
+        "college": "Texas Tech",
     }

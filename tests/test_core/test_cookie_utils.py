@@ -13,7 +13,7 @@ from griddy.core.utils import (
     cookies_to_dict,
     cookies_to_header,
     extract_cookies_as_dict,
-    extract_cookies_as_header
+    extract_cookies_as_header,
 )
 
 
@@ -29,7 +29,7 @@ class TestCookie:
             expires=None,
             name="session_id",
             value="abc123",
-            include_subdomains=False
+            include_subdomains=False,
         )
 
         assert cookie.domain == "example.com"
@@ -46,12 +46,16 @@ class TestCookie:
 
         # Expired cookie
         past_timestamp = int(datetime(2020, 1, 1).timestamp())
-        expired_cookie = Cookie("example.com", "/", False, past_timestamp, "test", "value")
+        expired_cookie = Cookie(
+            "example.com", "/", False, past_timestamp, "test", "value"
+        )
         assert expired_cookie.is_expired
 
         # Future cookie
         future_timestamp = int(datetime(2030, 1, 1).timestamp())
-        future_cookie = Cookie("example.com", "/", False, future_timestamp, "test", "value")
+        future_cookie = Cookie(
+            "example.com", "/", False, future_timestamp, "test", "value"
+        )
         assert not future_cookie.is_expired
 
     def test_domain_matching(self):
@@ -70,7 +74,9 @@ class TestCookie:
         assert not subdomain_cookie.matches_domain("other.com")
 
         # Include subdomains flag
-        include_subs = Cookie("example.com", "/", False, None, "test", "value", include_subdomains=True)
+        include_subs = Cookie(
+            "example.com", "/", False, None, "test", "value", include_subdomains=True
+        )
         assert include_subs.matches_domain("example.com")
         assert include_subs.matches_domain("sub.example.com")
 
@@ -106,7 +112,7 @@ class TestCookieFileParsing:
 
     def create_temp_cookies_file(self, content: str) -> str:
         """Create a temporary cookies.txt file with given content."""
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
             f.write(content)
             return f.name
 
@@ -200,7 +206,7 @@ example.com	FALSE	/	FALSE	0	exact_match	def456
 other.com	FALSE	/	FALSE	0	other_cookie	jkl012
 sub.example.com	FALSE	/	FALSE	0	subdomain_only	mno345
 """
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
             f.write(content)
             return f.name
 
@@ -243,7 +249,9 @@ sub.example.com	FALSE	/	FALSE	0	subdomain_only	mno345
             assert "admin_secure" not in cookie_names
 
             # Test admin path
-            cookies = extract_cookies_for_url(file_path, "https://example.com/admin/users")
+            cookies = extract_cookies_for_url(
+                file_path, "https://example.com/admin/users"
+            )
             cookie_names = [c.name for c in cookies]
 
             # admin_secure should match admin path
@@ -258,12 +266,16 @@ sub.example.com	FALSE	/	FALSE	0	subdomain_only	mno345
 
         try:
             # HTTPS should include secure cookies
-            https_cookies = extract_cookies_for_url(file_path, "https://example.com/admin")
+            https_cookies = extract_cookies_for_url(
+                file_path, "https://example.com/admin"
+            )
             https_names = [c.name for c in https_cookies]
             assert "admin_secure" in https_names
 
             # HTTP should exclude secure cookies
-            http_cookies = extract_cookies_for_url(file_path, "http://example.com/admin")
+            http_cookies = extract_cookies_for_url(
+                file_path, "http://example.com/admin"
+            )
             http_names = [c.name for c in http_cookies]
             assert "admin_secure" not in http_names
 
@@ -320,7 +332,7 @@ class TestCookieUtilities:
         """Test converting list of cookies to dictionary."""
         cookies = [
             Cookie("example.com", "/", False, None, "cookie1", "value1"),
-            Cookie("example.com", "/", False, None, "cookie2", "value2")
+            Cookie("example.com", "/", False, None, "cookie2", "value2"),
         ]
 
         result = cookies_to_dict(cookies)
@@ -331,7 +343,7 @@ class TestCookieUtilities:
         """Test converting list of cookies to header string."""
         cookies = [
             Cookie("example.com", "/", False, None, "cookie1", "value1"),
-            Cookie("example.com", "/", False, None, "cookie2", "value2")
+            Cookie("example.com", "/", False, None, "cookie2", "value2"),
         ]
 
         result = cookies_to_header(cookies)
