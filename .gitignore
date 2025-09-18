@@ -229,3 +229,7 @@ temp/
 # Documentation build
 docs/_build/
 docs/site/
+
+
+# Manually added
+.python-version

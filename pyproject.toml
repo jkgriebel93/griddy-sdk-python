@@ -45,9 +45,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/griddy-sdk"
-Repository = "https://github.com/yourusername/griddy-sdk"
-Issues = "https://github.com/yourusername/griddy-sdk/issues"
+Homepage = "https://github.com/jkgriebel93/griddy-sdk"
+Repository = "https://github.com/jkgriebel93/griddy-sdk"
+Issues = "https://github.com/jkgriebel93/griddy-sdk/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

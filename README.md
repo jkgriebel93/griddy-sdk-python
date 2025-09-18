@@ -26,7 +26,7 @@ pip install griddy
 ### Development Installation
 
 ```bash
-git clone https://github.com/yourusername/griddy-sdk.git
+git clone https://github.com/jkgriebel93/griddy-sdk.git
 cd griddy-sdk
 pip install -e ".[dev]"
 ```
@@ -284,7 +284,7 @@ python examples/pff_example.py
 ### Setup
 
 ```bash
-git clone https://github.com/yourusername/griddy-sdk.git
+git clone https://github.com/jkgriebel93/griddy-sdk.git
 cd griddy-sdk
 pip install -e ".[dev]"
 ```
@@ -371,9 +371,9 @@ The authors are not responsible for how this SDK is used. Always verify that you
 
 ## Support
 
-- 📖 [Documentation](https://github.com/yourusername/griddy-sdk/wiki)
-- 🐛 [Issue Tracker](https://github.com/yourusername/griddy-sdk/issues)
-- 💬 [Discussions](https://github.com/yourusername/griddy-sdk/discussions)
+- 📖 [Documentation](https://github.com/jkgriebel93/griddy-sdk/wiki)
+- 🐛 [Issue Tracker](https://github.com/jkgriebel93/griddy-sdk/issues)
+- 💬 [Discussions](https://github.com/jkgriebel93/griddy-sdk/discussions)
 
 ## Changelog
 
