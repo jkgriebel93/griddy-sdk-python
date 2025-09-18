@@ -12,6 +12,7 @@ A Python SDK for accessing sports data from multiple sources including NFL.com, 
 - ⚡ **Rate Limiting** - Built-in request throttling to respect API limits
 - 🛡️ **Error Handling** - Comprehensive exception handling and retry logic
 - 📝 **Type Safety** - Full type hints and Pydantic models for data validation
+- 🍪 **Cookie Support** - Extract and use cookies from cookies.txt files for authenticated requests
 
 ## Requirements
 
@@ -224,6 +225,26 @@ client = espn.Client(
 )
 ```
 
+### Cookie Extraction
+
+Extract cookies from cookies.txt files for authenticated requests:
+
+```python
+from griddy.core.utils import extract_cookies_as_header, extract_cookies_as_dict
+
+# Extract cookies for a specific URL
+cookies_dict = extract_cookies_as_dict("cookies.txt", "https://example.com")
+cookie_header = extract_cookies_as_header("cookies.txt", "https://example.com")
+
+# Use with HTTP clients
+import requests
+response = requests.get("https://example.com/api", cookies=cookies_dict)
+
+# Or use with Griddy SDK clients
+from griddy import nfl
+client = nfl.Client(headers={"Cookie": cookie_header})
+```
+
 ## Error Handling
 
 The SDK provides comprehensive error handling:
@@ -269,6 +290,7 @@ Check the `examples/` directory for comprehensive usage examples:
 - `examples/pfr_example.py` - Pro Football Reference usage
 - `examples/espn_example.py` - ESPN data integration
 - `examples/pff_example.py` - Pro Football Focus analytics
+- `examples/cookie_extraction_example.py` - Cookie extraction utilities
 
 Run examples:
 
@@ -277,6 +299,7 @@ python examples/nfl_example.py
 python examples/pfr_example.py
 python examples/espn_example.py
 python examples/pff_example.py
+python examples/cookie_extraction_example.py
 ```
 
 ## Development
