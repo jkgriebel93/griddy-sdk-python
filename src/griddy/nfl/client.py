@@ -5,8 +5,6 @@ import requests
 import time
 import urllib
 
-
-from datetime import datetime
 from uuid import uuid4
 
 from typing import Optional, List, Dict, Any
@@ -51,10 +49,19 @@ class NFLClient(BaseClient):
         self._token = self.get_auth_token()
 
     def _token_is_fresh(self) -> bool:
+        """
+        Determine if it's time to refresh our access token
+
+        Returns:
+            A bool which is True if the token is fresh; False otherwise
+        """
         return ((self._token.get("accessToken") is not None)
                 and self._token.get("expiresIn") > time.time() + 30)
 
     def get_auth_token(self):
+        """
+        Get and store an authentication token if necessary.
+        """
         if self._token_is_fresh():
             return
 
@@ -74,6 +81,9 @@ class NFLClient(BaseClient):
         })
 
     def load_account_info(self):
+        """
+        Load account information to be used in token requests.
+        """
         nfl_auth_cookies = extract_cookies_as_dict(self.cookies_file, settings.NFL["auth_url"])
         login_token = nfl_auth_cookies.get(f"glt_{settings.NFL['api_key']}")
         account_post_data = {
@@ -106,7 +116,7 @@ class NFLClient(BaseClient):
         team: str | None = None,
         include_replays: bool = False,
         include_standings: bool = False
-    ) -> list[NFLGame]:
+    ) -> List[Dict]:
         """
         Get NFL games for a specific season and week.
 
@@ -115,6 +125,8 @@ class NFLClient(BaseClient):
             week: Week number (if None, returns all weeks)
             season_type: Season type (regular, playoffs, preseason)
             team: Team abbreviation to filter by
+            include_replays: Whether to include information needed to access game replays
+            include_standings: Whether to include standings information
 
         Returns:
             List of NFL games
@@ -127,22 +139,9 @@ class NFLClient(BaseClient):
             "includeStandings": include_standings
         }
 
-        try:
-            return self.get("experience/weekly-game-details", params=params)
+        return self.get("experience/weekly-game-details", params=params)
 
-            # games = []
-            # for game_data in games_data:
-            #     game = self._parse_game(game_data)
-            #     if game:
-            #         games.append(game)
-            #
-            # return games
-        except Exception:
-            # In a real implementation, you would handle specific exceptions
-            # and potentially fall back to web scraping
-            return []
-
-    def get_teams(self) -> list[NFLTeam]:
+    def get_teams(self) -> List[NFLTeam]:
         """
         Get all NFL teams.
 
@@ -361,7 +360,7 @@ class NFLClient(BaseClient):
         except Exception:
             return []
 
-    def _parse_game(self, data: dict[str, any]) -> NFLGame | None:
+    def _parse_game(self, data: Dict[str, Any]) -> NFLGame | None:
         """Parse game data from API response."""
         try:
             return NFLGame(
