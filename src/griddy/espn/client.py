@@ -6,8 +6,15 @@ from datetime import datetime, date
 from ..core.base_client import BaseClient
 from ..core.utils import parse_date, safe_int, safe_float, clean_text
 from .models import (
-    ESPNGame, ESPNTeam, ESPNPlayer, ESPNPlayerStats, ESPNScoreboard,
-    ESPNStandings, ESPNNews, ESPNAthlete, ESPNEvent
+    ESPNGame,
+    ESPNTeam,
+    ESPNPlayer,
+    ESPNPlayerStats,
+    ESPNScoreboard,
+    ESPNStandings,
+    ESPNNews,
+    ESPNAthlete,
+    ESPNEvent,
 )
 
 
@@ -24,18 +31,13 @@ class ESPNClient(BaseClient):
         # ESPN has a public API available
         super().__init__(
             base_url="https://site.api.espn.com/apis/site/v2/sports/football/nfl",
-            headers={
-                "Accept": "application/json",
-                "User-Agent": "Griddy-SDK/0.1.0"
-            },
+            headers={"Accept": "application/json", "User-Agent": "Griddy-SDK/0.1.0"},
             rate_limit_delay=0.5,  # Be respectful with requests
-            **kwargs
+            **kwargs,
         )
 
     def get_scoreboard(
-        self,
-        date_str: Optional[str] = None,
-        limit: int = 50
+        self, date_str: Optional[str] = None, limit: int = 50
     ) -> Optional[ESPNScoreboard]:
         """
         Get ESPN scoreboard for a specific date.
@@ -66,7 +68,9 @@ class ESPNClient(BaseClient):
         """
         try:
             response = self.get("teams")
-            teams_data = response.get("sports", [{}])[0].get("leagues", [{}])[0].get("teams", [])
+            teams_data = (
+                response.get("sports", [{}])[0].get("leagues", [{}])[0].get("teams", [])
+            )
 
             teams = []
             for team_data in teams_data:
@@ -166,9 +170,7 @@ class ESPNClient(BaseClient):
             return []
 
     def get_news(
-        self,
-        limit: int = 10,
-        team_id: Optional[str] = None
+        self, limit: int = 10, team_id: Optional[str] = None
     ) -> List[ESPNNews]:
         """
         Get NFL news from ESPN.
@@ -228,7 +230,8 @@ class ESPNClient(BaseClient):
         if scoreboard:
             # Filter for live games
             live_games = [
-                game for game in scoreboard.games
+                game
+                for game in scoreboard.games
                 if game.status and "live" in game.status.lower()
             ]
             return live_games
@@ -238,7 +241,7 @@ class ESPNClient(BaseClient):
         self,
         season: Optional[int] = None,
         season_type: Optional[int] = None,
-        week: Optional[int] = None
+        week: Optional[int] = None,
     ) -> List[ESPNGame]:
         """
         Get NFL schedule.
@@ -298,8 +301,12 @@ class ESPNClient(BaseClient):
             competition = competitions[0] if competitions else {}
             competitors = competition.get("competitors", [])
 
-            home_team_data = next((c for c in competitors if c.get("homeAway") == "home"), {})
-            away_team_data = next((c for c in competitors if c.get("homeAway") == "away"), {})
+            home_team_data = next(
+                (c for c in competitors if c.get("homeAway") == "home"), {}
+            )
+            away_team_data = next(
+                (c for c in competitors if c.get("homeAway") == "away"), {}
+            )
 
             venue_data = competition.get("venue", {})
             status_data = data.get("status", {})
@@ -308,16 +315,21 @@ class ESPNClient(BaseClient):
             return ESPNGame(
                 id=str(data.get("id", "")),
                 espn_id=str(data.get("id", "")),
-                home_team=clean_text(home_team_data.get("team", {}).get("abbreviation")) or "",
-                away_team=clean_text(away_team_data.get("team", {}).get("abbreviation")) or "",
+                home_team=clean_text(home_team_data.get("team", {}).get("abbreviation"))
+                or "",
+                away_team=clean_text(away_team_data.get("team", {}).get("abbreviation"))
+                or "",
                 home_score=safe_int(home_team_data.get("score")),
                 away_score=safe_int(away_team_data.get("score")),
-                status=clean_text(status_data.get("type", {}).get("detail")) or "unknown",
+                status=clean_text(status_data.get("type", {}).get("detail"))
+                or "unknown",
                 start_time=parse_date(data.get("date")),
                 week=safe_int(data.get("week", {}).get("number")),
                 season=safe_int(data.get("season", {}).get("year")),
                 season_type=clean_text(data.get("season", {}).get("type")),
-                broadcast_network=clean_text(competition.get("broadcasts", [{}])[0].get("names", [None])[0]),
+                broadcast_network=clean_text(
+                    competition.get("broadcasts", [{}])[0].get("names", [None])[0]
+                ),
                 venue_name=clean_text(venue_data.get("fullName")),
                 venue_city=clean_text(venue_data.get("address", {}).get("city")),
                 venue_state=clean_text(venue_data.get("address", {}).get("state")),
@@ -326,7 +338,11 @@ class ESPNClient(BaseClient):
                 weather_description=clean_text(weather_data.get("displayValue")),
                 is_neutral_site=venue_data.get("neutralSite", False),
                 conference_game=competition.get("conferenceCompetition", False),
-                odds=competition.get("odds", [{}])[0] if competition.get("odds") else None,
+                odds=(
+                    competition.get("odds", [{}])[0]
+                    if competition.get("odds")
+                    else None
+                ),
             )
         except Exception:
             return None
@@ -348,7 +364,9 @@ class ESPNClient(BaseClient):
                 display_name=clean_text(data.get("displayName")),
                 short_display_name=clean_text(data.get("shortDisplayName")),
                 city=clean_text(data.get("location")),
-                conference=clean_text(data.get("groups", {}).get("parent", {}).get("name")),
+                conference=clean_text(
+                    data.get("groups", {}).get("parent", {}).get("name")
+                ),
                 division=clean_text(data.get("groups", {}).get("name")),
                 color=clean_text(data.get("color")),
                 alternate_color=clean_text(data.get("alternateColor")),
@@ -384,7 +402,11 @@ class ESPNClient(BaseClient):
                 jersey=jersey,
                 active=data.get("active", True),
                 injured=data.get("injured", False),
-                injury_status=clean_text(data.get("injuries", [{}])[0].get("details")) if data.get("injuries") else None,
+                injury_status=(
+                    clean_text(data.get("injuries", [{}])[0].get("details"))
+                    if data.get("injuries")
+                    else None
+                ),
             )
         except Exception:
             return None

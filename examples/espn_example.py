@@ -48,7 +48,9 @@ def main():
         if live_games:
             print(f"   {len(live_games)} games currently live:")
             for game in live_games:
-                print(f"   - {game.away_team} {game.away_score} - {game.home_score} {game.home_team}")
+                print(
+                    f"   - {game.away_team} {game.away_score} - {game.home_score} {game.home_team}"
+                )
                 print(f"     Status: {game.status}")
         else:
             print("   No live games or data unavailable")
@@ -145,7 +147,9 @@ def main():
             for article in news:
                 print(f"   - {article.headline}")
                 if article.published:
-                    print(f"     Published: {article.published.strftime('%Y-%m-%d %H:%M')}")
+                    print(
+                        f"     Published: {article.published.strftime('%Y-%m-%d %H:%M')}"
+                    )
                 if article.description:
                     print(f"     Description: {article.description[:100]}...")
                 if article.byline:
@@ -173,7 +177,9 @@ def main():
 
         # Example 10: Get schedule
         print("\n10. Getting NFL schedule:")
-        schedule = client.get_schedule(season=2024, season_type=2, week=1)  # Regular season week 1
+        schedule = client.get_schedule(
+            season=2024, season_type=2, week=1
+        )  # Regular season week 1
 
         if schedule:
             print(f"   Found {len(schedule)} scheduled games")

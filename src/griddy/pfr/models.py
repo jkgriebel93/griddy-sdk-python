@@ -43,15 +43,21 @@ class PFRPlayerStats(PlayerStats):
     rush_yards: Optional[int] = Field(None, description="Rushing yards")
     rush_touchdowns: Optional[int] = Field(None, description="Rushing touchdowns")
     rush_long: Optional[int] = Field(None, description="Longest rush")
-    rush_yards_per_attempt: Optional[float] = Field(None, description="Yards per rushing attempt")
+    rush_yards_per_attempt: Optional[float] = Field(
+        None, description="Yards per rushing attempt"
+    )
 
     # Receiving stats
     receptions: Optional[int] = Field(None, description="Receptions")
     receiving_yards: Optional[int] = Field(None, description="Receiving yards")
-    receiving_touchdowns: Optional[int] = Field(None, description="Receiving touchdowns")
+    receiving_touchdowns: Optional[int] = Field(
+        None, description="Receiving touchdowns"
+    )
     targets: Optional[int] = Field(None, description="Targets")
     receiving_long: Optional[int] = Field(None, description="Longest reception")
-    yards_per_reception: Optional[float] = Field(None, description="Yards per reception")
+    yards_per_reception: Optional[float] = Field(
+        None, description="Yards per reception"
+    )
     catch_percentage: Optional[float] = Field(None, description="Catch percentage")
 
     # Defensive stats
@@ -61,25 +67,37 @@ class PFRPlayerStats(PlayerStats):
     tackles_for_loss: Optional[int] = Field(None, description="Tackles for loss")
     sacks: Optional[float] = Field(None, description="Sacks")
     quarterback_hits: Optional[int] = Field(None, description="QB hits")
-    interceptions_defense: Optional[int] = Field(None, description="Interceptions (defense)")
+    interceptions_defense: Optional[int] = Field(
+        None, description="Interceptions (defense)"
+    )
     passes_defended: Optional[int] = Field(None, description="Passes defended")
     fumbles_forced: Optional[int] = Field(None, description="Fumbles forced")
     fumbles_recovered: Optional[int] = Field(None, description="Fumbles recovered")
-    defensive_touchdowns: Optional[int] = Field(None, description="Defensive touchdowns")
+    defensive_touchdowns: Optional[int] = Field(
+        None, description="Defensive touchdowns"
+    )
 
     # Special teams stats
     field_goals_made: Optional[int] = Field(None, description="Field goals made")
-    field_goals_attempted: Optional[int] = Field(None, description="Field goals attempted")
-    field_goal_percentage: Optional[float] = Field(None, description="Field goal percentage")
+    field_goals_attempted: Optional[int] = Field(
+        None, description="Field goals attempted"
+    )
+    field_goal_percentage: Optional[float] = Field(
+        None, description="Field goal percentage"
+    )
     extra_points_made: Optional[int] = Field(None, description="Extra points made")
-    extra_points_attempted: Optional[int] = Field(None, description="Extra points attempted")
+    extra_points_attempted: Optional[int] = Field(
+        None, description="Extra points attempted"
+    )
     punts: Optional[int] = Field(None, description="Punts")
     punt_yards: Optional[int] = Field(None, description="Punt yards")
     punt_average: Optional[float] = Field(None, description="Punt average")
     punt_long: Optional[int] = Field(None, description="Longest punt")
 
     # Advanced stats
-    approximate_value: Optional[float] = Field(None, description="Approximate Value (AV)")
+    approximate_value: Optional[float] = Field(
+        None, description="Approximate Value (AV)"
+    )
     games_started: Optional[int] = Field(None, description="Games started")
     snap_count: Optional[int] = Field(None, description="Snap count")
     snap_percentage: Optional[float] = Field(None, description="Snap percentage")
@@ -107,20 +125,30 @@ class PFRTeamStats(BaseModel):
     # Defensive stats
     points_against: Optional[int] = Field(None, description="Points allowed")
     total_yards_allowed: Optional[int] = Field(None, description="Total yards allowed")
-    passing_yards_allowed: Optional[int] = Field(None, description="Passing yards allowed")
-    rushing_yards_allowed: Optional[int] = Field(None, description="Rushing yards allowed")
+    passing_yards_allowed: Optional[int] = Field(
+        None, description="Passing yards allowed"
+    )
+    rushing_yards_allowed: Optional[int] = Field(
+        None, description="Rushing yards allowed"
+    )
     takeaways: Optional[int] = Field(None, description="Takeaways forced")
     sacks: Optional[int] = Field(None, description="Sacks")
 
     # Special teams
-    field_goal_percentage: Optional[float] = Field(None, description="Field goal percentage")
+    field_goal_percentage: Optional[float] = Field(
+        None, description="Field goal percentage"
+    )
     punt_average: Optional[float] = Field(None, description="Punt average")
     return_touchdowns: Optional[int] = Field(None, description="Return touchdowns")
 
     # Advanced metrics
-    strength_of_schedule: Optional[float] = Field(None, description="Strength of schedule")
+    strength_of_schedule: Optional[float] = Field(
+        None, description="Strength of schedule"
+    )
     point_differential: Optional[int] = Field(None, description="Point differential")
-    pythagorean_wins: Optional[float] = Field(None, description="Pythagorean win expectation")
+    pythagorean_wins: Optional[float] = Field(
+        None, description="Pythagorean win expectation"
+    )
 
 
 class PFRGame(Game):
@@ -133,8 +161,12 @@ class PFRGame(Game):
     dome: Optional[bool] = Field(None, description="Played in dome")
     playoff_game: Optional[bool] = Field(None, description="Playoff game")
     overtime: Optional[bool] = Field(None, description="Overtime game")
-    home_team_record: Optional[str] = Field(None, description="Home team record before game")
-    away_team_record: Optional[str] = Field(None, description="Away team record before game")
+    home_team_record: Optional[str] = Field(
+        None, description="Home team record before game"
+    )
+    away_team_record: Optional[str] = Field(
+        None, description="Away team record before game"
+    )
     spread: Optional[float] = Field(None, description="Point spread")
     over_under: Optional[float] = Field(None, description="Over/under total")
 
@@ -150,7 +182,9 @@ class PFRDraftPick(BaseModel):
     player_name: str = Field(..., description="Player name")
     position: str = Field(..., description="Player position")
     college: Optional[str] = Field(None, description="College")
-    approximate_value: Optional[float] = Field(None, description="Career Approximate Value")
+    approximate_value: Optional[float] = Field(
+        None, description="Career Approximate Value"
+    )
     years_played: Optional[int] = Field(None, description="Years in NFL")
 
 
@@ -172,9 +206,13 @@ class PFRCareerStats(BaseModel):
     """Career statistics summary."""
 
     player_id: str = Field(..., description="Player identifier")
-    seasons: List[PFRSeasonStats] = Field(default_factory=list, description="Season-by-season stats")
+    seasons: List[PFRSeasonStats] = Field(
+        default_factory=list, description="Season-by-season stats"
+    )
     career_totals: PFRPlayerStats = Field(..., description="Career total statistics")
-    career_averages: PFRPlayerStats = Field(..., description="Career average statistics")
+    career_averages: PFRPlayerStats = Field(
+        ..., description="Career average statistics"
+    )
     hall_of_fame: bool = Field(False, description="Hall of Fame inductee")
     retired: bool = Field(False, description="Retired status")
     retirement_year: Optional[int] = Field(None, description="Retirement year")

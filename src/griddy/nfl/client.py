@@ -1,14 +1,50 @@
 """NFL.com API client."""
 
-from datetime import datetime
+import base64
+import json
+import requests
+import time
+import urllib
 
+from uuid import uuid4
+
+from typing import Optional, List, Dict, Any
+
+from griddy import settings
 from ..core.base_client import BaseClient
-from ..core.utils import parse_date, safe_int, clean_text
-from .models import NFLGame, NFLTeam, NFLPlayer, NFLPlayerStats, NFLSchedule, NFLStandings, NFLNews
+from ..core.utils import parse_date, safe_int, clean_text, extract_cookies_as_dict
+from .models import (
+    NFLGame,
+    NFLTeam,
+    NFLPlayer,
+    NFLPlayerStats,
+    NFLSchedule,
+    NFLStandings,
+    NFLNews,
+)
 
 
 class NFLClient(BaseClient):
     """Client for accessing NFL.com data."""
+
+    _client_data = {
+        "clientKey": settings.NFL["clientKey"],
+        "clientSecret": settings.NFL["clientSecret"],
+        "deviceId": str(uuid4()),
+        "deviceInfo": base64.b64encode(
+            json.dumps(
+                {
+                    "model": "desktop",
+                    "version": "Chrome",
+                    "osName": "Windows",
+                    "osVersion": "10.0",
+                },
+                separators=(",", ":"),
+            ).encode()
+        ).decode(),
+        "networkType": "other",
+        "peacockUUID": "undefined",
+    }
 
     def __init__(self, **kwargs):
         """
@@ -17,21 +53,92 @@ class NFLClient(BaseClient):
         Args:
             **kwargs: Additional arguments passed to BaseClient
         """
-        # Note: NFL.com doesn't have a public API, so this would need to be
-        # adapted to work with web scraping or an unofficial API
         super().__init__(
-            base_url="https://api.nfl.com",  # Placeholder URL
+            base_url=settings.NFL["base_api_url"],
             headers={"Accept": "application/json"},
-            **kwargs
+            **kwargs,
         )
+        self._account_info = self.load_account_info()
+        self._token = {}
+        self._token = self.get_auth_token()
+
+    def _token_is_fresh(self) -> bool:
+        """
+        Determine if it's time to refresh our access token
+
+        Returns:
+            A bool which is True if the token is fresh; False otherwise
+        """
+        return (self._token.get("accessToken") is not None) and self._token.get(
+            "expiresIn"
+        ) > time.time() + 30
+
+    def get_auth_token(self):
+        """
+        Get and store an authentication token if necessary.
+        """
+        if self._token_is_fresh():
+            return
+
+        token_url = settings.NFL["token_url"]
+        if self._token.get("refreshToken"):
+            token_url += "/refresh"
+
+        token_request_data = json.dumps(
+            {**self._client_data, **self._account_info}, separators=(",", ":")
+        ).encode()
+        response = requests.post(
+            token_url,
+            data=token_request_data,
+            headers={"Content-Type": "application/json"},
+        )
+        response.raise_for_status()
+
+        self._token = response.json()
+        self.session.headers.update(
+            {"Authorization": f"Bearer {self._token['accessToken']}"}
+        )
+
+    def load_account_info(self):
+        """
+        Load account information to be used in token requests.
+        """
+        nfl_auth_cookies = extract_cookies_as_dict(
+            self.cookies_file, settings.NFL["auth_url"]
+        )
+        login_token = nfl_auth_cookies.get(f"glt_{settings.NFL['api_key']}")
+        account_post_data = {
+            "include": "profile,data",
+            "lang": "en",
+            "APIKey": settings.NFL["api_key"],
+            "sdk": "js_latest",
+            "login_token": login_token,
+            "authMode": "cookie",
+            "pageURL": "https://www.nfl.com/",
+            "sdkBuild": settings.NFL["sdk_build"],
+            "format": "json",
+        }
+        response = requests.post(
+            settings.NFL["account_url"],
+            data=urllib.parse.urlencode(account_post_data).encode("ascii"),
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        ).json()
+        info = {}
+        for key in ["signatureTimestamp", "UID", "UIDSignature"]:
+            if key in response:
+                info[key] = response[key]
+
+        return info
 
     def get_games(
         self,
         season: int,
-        week: int | None = None,
-        season_type: str = "regular",
-        team: str | None = None
-    ) -> list[NFLGame]:
+        week: int,
+        season_type: str = "REG",
+        team: str | None = None,
+        include_replays: bool = False,
+        include_standings: bool = False,
+    ) -> List[Dict]:
         """
         Get NFL games for a specific season and week.
 
@@ -40,37 +147,23 @@ class NFLClient(BaseClient):
             week: Week number (if None, returns all weeks)
             season_type: Season type (regular, playoffs, preseason)
             team: Team abbreviation to filter by
+            include_replays: Whether to include information needed to access game replays
+            include_standings: Whether to include standings information
 
         Returns:
             List of NFL games
         """
         params = {
             "season": season,
-            "seasonType": season_type,
+            "type": season_type,
+            "week": week,
+            "includeReplays": include_replays,
+            "includeStandings": include_standings,
         }
 
-        if week is not None:
-            params["week"] = week
-        if team:
-            params["team"] = team
+        return self.get("experience/weekly-game-details", params=params)
 
-        try:
-            response = self.get("games", params=params)
-            games_data = response.get("games", [])
-
-            games = []
-            for game_data in games_data:
-                game = self._parse_game(game_data)
-                if game:
-                    games.append(game)
-
-            return games
-        except Exception:
-            # In a real implementation, you would handle specific exceptions
-            # and potentially fall back to web scraping
-            return []
-
-    def get_teams(self) -> list[NFLTeam]:
+    def get_teams(self) -> List[NFLTeam]:
         """
         Get all NFL teams.
 
@@ -112,7 +205,7 @@ class NFLClient(BaseClient):
         self,
         team: Optional[str] = None,
         position: Optional[str] = None,
-        status: str = "active"
+        status: str = "active",
     ) -> List[NFLPlayer]:
         """
         Get NFL players.
@@ -167,7 +260,7 @@ class NFLClient(BaseClient):
         player_id: str,
         season: int,
         week: Optional[int] = None,
-        season_type: str = "regular"
+        season_type: str = "regular",
     ) -> List[NFLPlayerStats]:
         """
         Get player statistics.
@@ -203,10 +296,7 @@ class NFLClient(BaseClient):
             return []
 
     def get_schedule(
-        self,
-        season: int,
-        week: Optional[int] = None,
-        season_type: str = "regular"
+        self, season: int, week: Optional[int] = None, season_type: str = "regular"
     ) -> NFLSchedule:
         """
         Get NFL schedule.
@@ -222,10 +312,7 @@ class NFLClient(BaseClient):
         games = self.get_games(season=season, week=week, season_type=season_type)
 
         return NFLSchedule(
-            week=week or 1,
-            season=season,
-            season_type=season_type,
-            games=games
+            week=week or 1, season=season, season_type=season_type, games=games
         )
 
     def get_standings(self, season: int) -> List[NFLStandings]:
@@ -253,10 +340,7 @@ class NFLClient(BaseClient):
             return []
 
     def get_news(
-        self,
-        team: Optional[str] = None,
-        player: Optional[str] = None,
-        limit: int = 10
+        self, team: Optional[str] = None, player: Optional[str] = None, limit: int = 10
     ) -> List[NFLNews]:
         """
         Get NFL news.
@@ -289,13 +373,15 @@ class NFLClient(BaseClient):
         except Exception:
             return []
 
-    def _parse_game(self, data: dict[str, any]) -> NFLGame | None:
+    def _parse_game(self, data: Dict[str, Any]) -> NFLGame | None:
         """Parse game data from API response."""
         try:
             return NFLGame(
                 id=str(data.get("id", "")),
-                home_team=clean_text(data.get("homeTeam", {}).get("abbreviation")) or "",
-                away_team=clean_text(data.get("awayTeam", {}).get("abbreviation")) or "",
+                home_team=clean_text(data.get("homeTeam", {}).get("abbreviation"))
+                or "",
+                away_team=clean_text(data.get("awayTeam", {}).get("abbreviation"))
+                or "",
                 home_score=safe_int(data.get("homeScore")),
                 away_score=safe_int(data.get("awayScore")),
                 status=clean_text(data.get("status")) or "unknown",
@@ -359,7 +445,9 @@ class NFLClient(BaseClient):
         except Exception:
             return None
 
-    def _parse_player_stats(self, data: Dict[str, Any], player_id: str) -> Optional[NFLPlayerStats]:
+    def _parse_player_stats(
+        self, data: Dict[str, Any], player_id: str
+    ) -> Optional[NFLPlayerStats]:
         """Parse player stats data from API response."""
         try:
             return NFLPlayerStats(

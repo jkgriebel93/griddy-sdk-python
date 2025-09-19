@@ -50,7 +50,9 @@ def main():
 
         if players:
             for player in players:
-                print(f"   - {player.name} (#{player.jersey_number}) - {player.position}")
+                print(
+                    f"   - {player.name} (#{player.jersey_number}) - {player.position}"
+                )
                 if player.college:
                     print(f"     College: {player.college}")
         else:
@@ -78,7 +80,9 @@ def main():
         schedule = client.get_schedule(season=2024, week=1)
 
         if schedule.games:
-            print(f"   Week {schedule.week}, {schedule.season} {schedule.season_type} season")
+            print(
+                f"   Week {schedule.week}, {schedule.season} {schedule.season_type} season"
+            )
             print(f"   {len(schedule.games)} games scheduled")
         else:
             print("   No schedule found or API unavailable")
@@ -92,7 +96,9 @@ def main():
             for standing in standings[:2]:  # Show first 2 divisions
                 print(f"   {standing.conference} {standing.division}:")
                 for team in standing.teams[:3]:  # Show top 3 teams
-                    record = f"{team.wins}-{team.losses}" if team.wins is not None else "N/A"
+                    record = (
+                        f"{team.wins}-{team.losses}" if team.wins is not None else "N/A"
+                    )
                     print(f"     - {team.name}: {record}")
         else:
             print("   No standings found or API unavailable")

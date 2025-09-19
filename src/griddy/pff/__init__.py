@@ -2,9 +2,16 @@
 
 from .client import PFFClient
 from .models import (
-    PFFPlayer, PFFPlayerGrades, PFFPlayerMetrics, PFFTeamGrades,
-    PFFPassingGrades, PFFRushingGrades, PFFReceivingGrades,
-    PFFDefensiveGrades, PFFSpecialTeamsGrades, PFFSeasonSummary
+    PFFPlayer,
+    PFFPlayerGrades,
+    PFFPlayerMetrics,
+    PFFTeamGrades,
+    PFFPassingGrades,
+    PFFRushingGrades,
+    PFFReceivingGrades,
+    PFFDefensiveGrades,
+    PFFSpecialTeamsGrades,
+    PFFSeasonSummary,
 )
 
 __all__ = [

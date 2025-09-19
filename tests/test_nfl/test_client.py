@@ -33,14 +33,14 @@ class TestNFLClient:
                     "status": "final",
                     "week": 1,
                     "season": 2024,
-                    "seasonType": "regular"
+                    "seasonType": "regular",
                 }
             ]
         }
 
         m.get(
             "https://api.nfl.com/games?season=2024&seasonType=regular&week=1",
-            json=mock_response
+            json=mock_response,
         )
 
         games = client.get_games(season=2024, week=1)
@@ -59,7 +59,7 @@ class TestNFLClient:
 
         m.get(
             "https://api.nfl.com/games?season=2024&seasonType=regular",
-            json={"games": []}
+            json={"games": []},
         )
 
         games = client.get_games(season=2024)
@@ -71,8 +71,7 @@ class TestNFLClient:
         client = NFLClient()
 
         m.get(
-            "https://api.nfl.com/games?season=2024&seasonType=regular",
-            status_code=500
+            "https://api.nfl.com/games?season=2024&seasonType=regular", status_code=500
         )
 
         games = client.get_games(season=2024)
@@ -90,7 +89,7 @@ class TestNFLClient:
                     "abbreviation": "KC",
                     "city": "Kansas City",
                     "conference": "AFC",
-                    "division": "West"
+                    "division": "West",
                 }
             ]
         }
@@ -113,7 +112,7 @@ class TestNFLClient:
                 "id": "KC",
                 "name": "Kansas City Chiefs",
                 "abbreviation": "KC",
-                "city": "Kansas City"
+                "city": "Kansas City",
             }
         }
 
@@ -146,7 +145,7 @@ class TestNFLClient:
                     "name": "Patrick Mahomes",
                     "teamId": "KC",
                     "position": "QB",
-                    "jerseyNumber": 15
+                    "jerseyNumber": 15,
                 }
             ]
         }
@@ -171,14 +170,14 @@ class TestNFLClient:
                     "week": 1,
                     "passingYards": 300,
                     "passingTouchdowns": 3,
-                    "interceptions": 0
+                    "interceptions": 0,
                 }
             ]
         }
 
         m.get(
             "https://api.nfl.com/players/player1/stats?season=2024&seasonType=regular&week=1",
-            json=mock_response
+            json=mock_response,
         )
 
         stats = client.get_player_stats("player1", season=2024, week=1)
@@ -196,7 +195,7 @@ class TestNFLClient:
             "id": "test_game",
             "homeTeam": {"abbreviation": "KC"},
             "awayTeam": {"abbreviation": "BUF"},
-            "status": "scheduled"
+            "status": "scheduled",
         }
 
         game = client._parse_game(game_data)
@@ -218,11 +217,7 @@ class TestNFLClient:
     def test_parse_team_with_minimal_data(self):
         """Test team parsing with minimal data."""
         client = NFLClient()
-        team_data = {
-            "id": "KC",
-            "name": "Kansas City Chiefs",
-            "abbreviation": "KC"
-        }
+        team_data = {"id": "KC", "name": "Kansas City Chiefs", "abbreviation": "KC"}
 
         team = client._parse_team(team_data)
 

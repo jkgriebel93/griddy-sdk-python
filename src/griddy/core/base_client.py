@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 
 import requests
 from requests.adapters import HTTPAdapter
+from typing import Dict, Any, List
 from urllib3.util.retry import Retry
 
 from .exceptions import APIError, RateLimitError, NotFoundError, AuthenticationError
@@ -20,7 +21,8 @@ class BaseClient:
         timeout: int = 30,
         max_retries: int = 3,
         rate_limit_delay: float = 1.0,
-        headers: dict[str, str] | None = None,
+        headers: Dict[str, str] | None = None,
+        cookies_file: str | None = None,
     ):
         """
         Initialize the base client.
@@ -31,11 +33,13 @@ class BaseClient:
             max_retries: Maximum number of retries for failed requests
             rate_limit_delay: Delay between requests to avoid rate limiting
             headers: Additional headers to include in requests
+            cookies_file: String representing path to a cookies file that will be used for authentication.
         """
-        self.base_url = base_url.rstrip('/')
+        self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         self.rate_limit_delay = rate_limit_delay
         self._last_request_time = 0.0
+        self.cookies_file = cookies_file
 
         # Create session with retry strategy
         self.session = requests.Session()
@@ -44,7 +48,7 @@ class BaseClient:
         retry_strategy = Retry(
             total=max_retries,
             status_forcelist=[429, 500, 502, 503, 504],
-            method_whitelist=["HEAD", "GET", "OPTIONS"],
+            allowed_methods=["HEAD", "GET", "OPTIONS"],
             backoff_factor=1.0,
         )
 
@@ -54,7 +58,6 @@ class BaseClient:
 
         # Set default headers
         default_headers = {
-            "User-Agent": "Griddy-SDK/0.1.0",
             "Accept": "application/json",
             "Content-Type": "application/json",
         }
@@ -72,7 +75,10 @@ class BaseClient:
                 time.sleep(self.rate_limit_delay - time_since_last)
         self._last_request_time = time.time()
 
-    def _handle_response(self, response: requests.Response) -> dict[str, any]:
+    # TODO: Create a TypeVar for this return type.
+    def _handle_response(
+        self, response: requests.Response
+    ) -> Dict[str, Any] | List[Any]:
         """
         Handle HTTP response and raise appropriate exceptions.
 
@@ -133,9 +139,9 @@ class BaseClient:
     def get(
         self,
         endpoint: str,
-        params: dict[str, any] | None = None,
-        headers: dict[str, str] | None = None,
-    ) -> dict[str, any]:
+        params: Dict[str, Any] | None = None,
+        headers: Dict[str, str] | None = None,
+    ) -> Dict[str, Any] | List[Any]:
         """
         Make a GET request.
 
@@ -164,10 +170,10 @@ class BaseClient:
     def post(
         self,
         endpoint: str,
-        data: dict[str, any] | None = None,
-        json_data: dict[str, any] | None = None,
-        headers: dict[str, str] | None = None,
-    ) -> dict[str, any]:
+        data: Dict[str, Any] | None = None,
+        json_data: Dict[str, Any] | None = None,
+        headers: Dict[str, str] | None = None,
+    ) -> Dict[str, Any]:
         """
         Make a POST request.
 

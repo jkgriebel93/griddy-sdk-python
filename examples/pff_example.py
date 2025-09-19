@@ -20,7 +20,9 @@ def main():
     try:
         # Example 1: Get player grades for a specific week
         print("1. Getting PFF player grades for Week 1, 2024:")
-        player_grades = client.get_player_grades("sample_player_id", season=2024, week=1)
+        player_grades = client.get_player_grades(
+            "sample_player_id", season=2024, week=1
+        )
 
         if player_grades:
             print(f"   Player: {player_grades.player_id}")
@@ -38,14 +40,18 @@ def main():
                 print(f"   - Accuracy: {player_grades.passing.accuracy_grade}")
                 print(f"   - Deep Ball: {player_grades.passing.deep_ball_grade}")
                 print(f"   - Big Time Throws: {player_grades.passing.big_time_throws}")
-                print(f"   - Turnover Worthy Plays: {player_grades.passing.turnover_worthy_plays}")
+                print(
+                    f"   - Turnover Worthy Plays: {player_grades.passing.turnover_worthy_plays}"
+                )
 
             if player_grades.defense:
                 print(f"\n   Defensive Grades:")
                 print(f"   - Overall: {player_grades.defense.overall_grade}")
                 print(f"   - Pass Rush: {player_grades.defense.pass_rush_grade}")
                 print(f"   - Coverage: {player_grades.defense.coverage_grade}")
-                print(f"   - Pass Rush Win Rate: {player_grades.defense.pass_rush_win_rate}%")
+                print(
+                    f"   - Pass Rush Win Rate: {player_grades.defense.pass_rush_win_rate}%"
+                )
         else:
             print("   Player grades not found or API unavailable")
 
@@ -59,7 +65,9 @@ def main():
             if season_grades.receiving:
                 print(f"   Receiving Grade: {season_grades.receiving.overall_grade}")
                 print(f"   Drop Rate: {season_grades.receiving.drop_rate}%")
-                print(f"   YAC per Reception: {season_grades.receiving.yards_after_catch}")
+                print(
+                    f"   YAC per Reception: {season_grades.receiving.yards_after_catch}"
+                )
         else:
             print("   Season grades not found or API unavailable")
 
@@ -169,7 +177,9 @@ def main():
         if draft_board:
             print(f"   Top {len(draft_board)} prospects:")
             for i, prospect in enumerate(draft_board, 1):
-                print(f"   {i}. {prospect.name} - {prospect.position} ({prospect.college})")
+                print(
+                    f"   {i}. {prospect.name} - {prospect.position} ({prospect.college})"
+                )
                 print(f"      PFF Grade: {prospect.pff_grade}")
                 if prospect.round_projection:
                     print(f"      Projected Round: {prospect.round_projection}")
@@ -185,7 +195,9 @@ def main():
         if mock_draft:
             print(f"   First round mock draft ({len(mock_draft)} picks):")
             for pick in mock_draft[:5]:  # Show first 5 picks
-                print(f"   {pick.pick}. {pick.team} - {pick.prospect.name} ({pick.prospect.position})")
+                print(
+                    f"   {pick.pick}. {pick.team} - {pick.prospect.name} ({pick.prospect.position})"
+                )
                 if pick.analysis:
                     print(f"      Analysis: {pick.analysis[:100]}...")
                 if pick.grade:
@@ -218,7 +230,9 @@ def main():
                 if leader.defense:
                     print(f"      Coverage Grade: {leader.defense.coverage_grade}")
                     if leader.defense.passer_rating_allowed:
-                        print(f"      Passer Rating Allowed: {leader.defense.passer_rating_allowed}")
+                        print(
+                            f"      Passer Rating Allowed: {leader.defense.passer_rating_allowed}"
+                        )
         else:
             print("   Coverage leaders not found or API unavailable")
 
@@ -234,7 +248,9 @@ def main():
                 if injury.expected_recovery_time:
                     print(f"     Expected Recovery: {injury.expected_recovery_time}")
                 if injury.games_missed_projection:
-                    print(f"     Games Missed Projection: {injury.games_missed_projection}")
+                    print(
+                        f"     Games Missed Projection: {injury.games_missed_projection}"
+                    )
         else:
             print("   Injury report not found or API unavailable")
 

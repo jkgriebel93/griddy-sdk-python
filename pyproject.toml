@@ -49,6 +49,9 @@ Homepage = "https://github.com/jkgriebel93/griddy-sdk"
 Repository = "https://github.com/jkgriebel93/griddy-sdk"
 Issues = "https://github.com/jkgriebel93/griddy-sdk/issues"
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

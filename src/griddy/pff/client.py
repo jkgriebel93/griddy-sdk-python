@@ -6,10 +6,19 @@ from datetime import datetime
 from ..core.base_client import BaseClient
 from ..core.utils import parse_date, safe_int, safe_float, clean_text
 from .models import (
-    PFFPlayer, PFFPlayerGrades, PFFPlayerMetrics, PFFTeamGrades,
-    PFFSeasonSummary, PFFDraftProspect, PFFMockDraft, PFFInjuryReport,
-    PFFPassingGrades, PFFRushingGrades, PFFReceivingGrades,
-    PFFDefensiveGrades, PFFSpecialTeamsGrades
+    PFFPlayer,
+    PFFPlayerGrades,
+    PFFPlayerMetrics,
+    PFFTeamGrades,
+    PFFSeasonSummary,
+    PFFDraftProspect,
+    PFFMockDraft,
+    PFFInjuryReport,
+    PFFPassingGrades,
+    PFFRushingGrades,
+    PFFReceivingGrades,
+    PFFDefensiveGrades,
+    PFFSpecialTeamsGrades,
 )
 
 
@@ -33,14 +42,11 @@ class PFFClient(BaseClient):
             base_url="https://api.pff.com/v1",  # Placeholder URL
             headers=headers,
             rate_limit_delay=1.0,  # Respectful rate limiting
-            **kwargs
+            **kwargs,
         )
 
     def get_player_grades(
-        self,
-        player_id: str,
-        season: int,
-        week: Optional[int] = None
+        self, player_id: str, season: int, week: Optional[int] = None
     ) -> Optional[PFFPlayerGrades]:
         """
         Get PFF grades for a specific player.
@@ -65,10 +71,7 @@ class PFFClient(BaseClient):
             return None
 
     def get_player_metrics(
-        self,
-        player_id: str,
-        season: int,
-        week: Optional[int] = None
+        self, player_id: str, season: int, week: Optional[int] = None
     ) -> Optional[PFFPlayerMetrics]:
         """
         Get advanced PFF metrics for a player.
@@ -88,15 +91,16 @@ class PFFClient(BaseClient):
         try:
             response = self.get(f"players/{player_id}/metrics", params=params)
             metrics_data = response.get("metrics")
-            return self._parse_player_metrics(metrics_data, player_id, season, week) if metrics_data else None
+            return (
+                self._parse_player_metrics(metrics_data, player_id, season, week)
+                if metrics_data
+                else None
+            )
         except Exception:
             return None
 
     def get_team_grades(
-        self,
-        team_id: str,
-        season: int,
-        week: Optional[int] = None
+        self, team_id: str, season: int, week: Optional[int] = None
     ) -> Optional[PFFTeamGrades]:
         """
         Get PFF team grades.
@@ -116,16 +120,16 @@ class PFFClient(BaseClient):
         try:
             response = self.get(f"teams/{team_id}/grades", params=params)
             grades_data = response.get("grades")
-            return self._parse_team_grades(grades_data, team_id, season, week) if grades_data else None
+            return (
+                self._parse_team_grades(grades_data, team_id, season, week)
+                if grades_data
+                else None
+            )
         except Exception:
             return None
 
     def get_position_rankings(
-        self,
-        position: str,
-        season: int,
-        week: Optional[int] = None,
-        limit: int = 50
+        self, position: str, season: int, week: Optional[int] = None, limit: int = 50
     ) -> List[PFFPlayerGrades]:
         """
         Get PFF rankings for a specific position.
@@ -139,11 +143,7 @@ class PFFClient(BaseClient):
         Returns:
             List of player grades ranked by overall grade
         """
-        params = {
-            "position": position,
-            "season": season,
-            "limit": limit
-        }
+        params = {"position": position, "season": season, "limit": limit}
         if week is not None:
             params["week"] = week
 
@@ -162,9 +162,7 @@ class PFFClient(BaseClient):
             return []
 
     def get_season_summary(
-        self,
-        player_id: str,
-        season: int
+        self, player_id: str, season: int
     ) -> Optional[PFFSeasonSummary]:
         """
         Get season summary with PFF grades and awards.
@@ -179,7 +177,11 @@ class PFFClient(BaseClient):
         try:
             response = self.get(f"players/{player_id}/seasons/{season}")
             summary_data = response.get("summary")
-            return self._parse_season_summary(summary_data, player_id, season) if summary_data else None
+            return (
+                self._parse_season_summary(summary_data, player_id, season)
+                if summary_data
+                else None
+            )
         except Exception:
             return None
 
@@ -210,11 +212,7 @@ class PFFClient(BaseClient):
         except Exception:
             return {}
 
-    def get_team_of_the_week(
-        self,
-        season: int,
-        week: int
-    ) -> List[PFFPlayer]:
+    def get_team_of_the_week(self, season: int, week: int) -> List[PFFPlayer]:
         """
         Get PFF Team of the Week.
 
@@ -240,10 +238,7 @@ class PFFClient(BaseClient):
             return []
 
     def get_draft_board(
-        self,
-        year: int,
-        position: Optional[str] = None,
-        limit: int = 100
+        self, year: int, position: Optional[str] = None, limit: int = 100
     ) -> List[PFFDraftProspect]:
         """
         Get PFF draft board rankings.
@@ -274,7 +269,9 @@ class PFFClient(BaseClient):
         except Exception:
             return []
 
-    def get_mock_draft(self, year: int, round: Optional[int] = None) -> List[PFFMockDraft]:
+    def get_mock_draft(
+        self, year: int, round: Optional[int] = None
+    ) -> List[PFFMockDraft]:
         """
         Get PFF mock draft.
 
@@ -304,9 +301,7 @@ class PFFClient(BaseClient):
             return []
 
     def get_injury_report(
-        self,
-        team: Optional[str] = None,
-        player_id: Optional[str] = None
+        self, team: Optional[str] = None, player_id: Optional[str] = None
     ) -> List[PFFInjuryReport]:
         """
         Get PFF injury analysis.
@@ -339,10 +334,7 @@ class PFFClient(BaseClient):
             return []
 
     def get_pressure_leaders(
-        self,
-        season: int,
-        position: str = "EDGE",
-        limit: int = 20
+        self, season: int, position: str = "EDGE", limit: int = 20
     ) -> List[PFFPlayerGrades]:
         """
         Get pass rush pressure leaders.
@@ -359,7 +351,7 @@ class PFFClient(BaseClient):
             "category": "pressure",
             "position": position,
             "season": season,
-            "limit": limit
+            "limit": limit,
         }
 
         try:
@@ -377,10 +369,7 @@ class PFFClient(BaseClient):
             return []
 
     def get_coverage_leaders(
-        self,
-        season: int,
-        position: str = "CB",
-        limit: int = 20
+        self, season: int, position: str = "CB", limit: int = 20
     ) -> List[PFFPlayerGrades]:
         """
         Get coverage leaders.
@@ -397,7 +386,7 @@ class PFFClient(BaseClient):
             "category": "coverage",
             "position": position,
             "season": season,
-            "limit": limit
+            "limit": limit,
         }
 
         try:
@@ -425,14 +414,28 @@ class PFFClient(BaseClient):
                     accuracy_grade=safe_float(data["passing"].get("accuracyGrade")),
                     deep_ball_grade=safe_float(data["passing"].get("deepBallGrade")),
                     pocket_grade=safe_float(data["passing"].get("pocketGrade")),
-                    play_action_grade=safe_float(data["passing"].get("playActionGrade")),
-                    completion_percentage_above_expectation=safe_float(data["passing"].get("cpoe")),
-                    yards_per_attempt=safe_float(data["passing"].get("yardsPerAttempt")),
-                    air_yards_per_attempt=safe_float(data["passing"].get("airYardsPerAttempt")),
-                    pressure_to_sack_rate=safe_float(data["passing"].get("pressureToSackRate")),
-                    turnover_worthy_plays=safe_int(data["passing"].get("turnoverWorthyPlays")),
+                    play_action_grade=safe_float(
+                        data["passing"].get("playActionGrade")
+                    ),
+                    completion_percentage_above_expectation=safe_float(
+                        data["passing"].get("cpoe")
+                    ),
+                    yards_per_attempt=safe_float(
+                        data["passing"].get("yardsPerAttempt")
+                    ),
+                    air_yards_per_attempt=safe_float(
+                        data["passing"].get("airYardsPerAttempt")
+                    ),
+                    pressure_to_sack_rate=safe_float(
+                        data["passing"].get("pressureToSackRate")
+                    ),
+                    turnover_worthy_plays=safe_int(
+                        data["passing"].get("turnoverWorthyPlays")
+                    ),
                     big_time_throws=safe_int(data["passing"].get("bigTimeThrows")),
-                    pressured_dropbacks=safe_int(data["passing"].get("pressuredDropbacks")),
+                    pressured_dropbacks=safe_int(
+                        data["passing"].get("pressuredDropbacks")
+                    ),
                     time_to_throw=safe_float(data["passing"].get("timeToThrow")),
                 )
 
@@ -442,26 +445,44 @@ class PFFClient(BaseClient):
                     overall_grade=safe_float(data["rushing"].get("overallGrade")),
                     vision_grade=safe_float(data["rushing"].get("visionGrade")),
                     power_grade=safe_float(data["rushing"].get("powerGrade")),
-                    elusiveness_grade=safe_float(data["rushing"].get("elusivenessGrade")),
-                    yards_after_contact=safe_float(data["rushing"].get("yardsAfterContact")),
-                    forced_missed_tackles=safe_int(data["rushing"].get("forcedMissedTackles")),
+                    elusiveness_grade=safe_float(
+                        data["rushing"].get("elusivenessGrade")
+                    ),
+                    yards_after_contact=safe_float(
+                        data["rushing"].get("yardsAfterContact")
+                    ),
+                    forced_missed_tackles=safe_int(
+                        data["rushing"].get("forcedMissedTackles")
+                    ),
                     breakaway_runs=safe_int(data["rushing"].get("breakawayRuns")),
                     stuffed_runs=safe_int(data["rushing"].get("stuffedRuns")),
                     red_zone_attempts=safe_int(data["rushing"].get("redZoneAttempts")),
-                    goal_line_attempts=safe_int(data["rushing"].get("goalLineAttempts")),
+                    goal_line_attempts=safe_int(
+                        data["rushing"].get("goalLineAttempts")
+                    ),
                 )
 
             receiving = None
             if data.get("receiving"):
                 receiving = PFFReceivingGrades(
                     overall_grade=safe_float(data["receiving"].get("overallGrade")),
-                    route_running_grade=safe_float(data["receiving"].get("routeRunningGrade")),
+                    route_running_grade=safe_float(
+                        data["receiving"].get("routeRunningGrade")
+                    ),
                     hands_grade=safe_float(data["receiving"].get("handsGrade")),
-                    contested_catch_grade=safe_float(data["receiving"].get("contestedCatchGrade")),
-                    separation_grade=safe_float(data["receiving"].get("separationGrade")),
-                    yards_after_catch=safe_float(data["receiving"].get("yardsAfterCatch")),
+                    contested_catch_grade=safe_float(
+                        data["receiving"].get("contestedCatchGrade")
+                    ),
+                    separation_grade=safe_float(
+                        data["receiving"].get("separationGrade")
+                    ),
+                    yards_after_catch=safe_float(
+                        data["receiving"].get("yardsAfterCatch")
+                    ),
                     drop_rate=safe_float(data["receiving"].get("dropRate")),
-                    contested_catch_rate=safe_float(data["receiving"].get("contestedCatchRate")),
+                    contested_catch_rate=safe_float(
+                        data["receiving"].get("contestedCatchRate")
+                    ),
                     target_share=safe_float(data["receiving"].get("targetShare")),
                     air_yards_share=safe_float(data["receiving"].get("airYardsShare")),
                     red_zone_targets=safe_int(data["receiving"].get("redZoneTargets")),
@@ -472,15 +493,25 @@ class PFFClient(BaseClient):
                 defense = PFFDefensiveGrades(
                     overall_grade=safe_float(data["defense"].get("overallGrade")),
                     pass_rush_grade=safe_float(data["defense"].get("passRushGrade")),
-                    run_defense_grade=safe_float(data["defense"].get("runDefenseGrade")),
+                    run_defense_grade=safe_float(
+                        data["defense"].get("runDefenseGrade")
+                    ),
                     coverage_grade=safe_float(data["defense"].get("coverageGrade")),
                     tackling_grade=safe_float(data["defense"].get("tacklingGrade")),
-                    pass_rush_win_rate=safe_float(data["defense"].get("passRushWinRate")),
+                    pass_rush_win_rate=safe_float(
+                        data["defense"].get("passRushWinRate")
+                    ),
                     pressure_rate=safe_float(data["defense"].get("pressureRate")),
                     run_stop_rate=safe_float(data["defense"].get("runStopRate")),
-                    missed_tackle_rate=safe_float(data["defense"].get("missedTackleRate")),
-                    yards_per_coverage_snap=safe_float(data["defense"].get("yardsPerCoverageSnap")),
-                    passer_rating_allowed=safe_float(data["defense"].get("passerRatingAllowed")),
+                    missed_tackle_rate=safe_float(
+                        data["defense"].get("missedTackleRate")
+                    ),
+                    yards_per_coverage_snap=safe_float(
+                        data["defense"].get("yardsPerCoverageSnap")
+                    ),
+                    passer_rating_allowed=safe_float(
+                        data["defense"].get("passerRatingAllowed")
+                    ),
                     forced_fumbles=safe_int(data["defense"].get("forcedFumbles")),
                     batted_passes=safe_int(data["defense"].get("battedPasses")),
                 )
@@ -492,12 +523,24 @@ class PFFClient(BaseClient):
                     kicking_grade=safe_float(data["specialTeams"].get("kickingGrade")),
                     punting_grade=safe_float(data["specialTeams"].get("puntingGrade")),
                     return_grade=safe_float(data["specialTeams"].get("returnGrade")),
-                    coverage_grade=safe_float(data["specialTeams"].get("coverageGrade")),
-                    field_goal_percentage=safe_float(data["specialTeams"].get("fieldGoalPercentage")),
-                    extra_point_percentage=safe_float(data["specialTeams"].get("extraPointPercentage")),
-                    punt_net_average=safe_float(data["specialTeams"].get("puntNetAverage")),
-                    touchback_percentage=safe_float(data["specialTeams"].get("touchbackPercentage")),
-                    return_average=safe_float(data["specialTeams"].get("returnAverage")),
+                    coverage_grade=safe_float(
+                        data["specialTeams"].get("coverageGrade")
+                    ),
+                    field_goal_percentage=safe_float(
+                        data["specialTeams"].get("fieldGoalPercentage")
+                    ),
+                    extra_point_percentage=safe_float(
+                        data["specialTeams"].get("extraPointPercentage")
+                    ),
+                    punt_net_average=safe_float(
+                        data["specialTeams"].get("puntNetAverage")
+                    ),
+                    touchback_percentage=safe_float(
+                        data["specialTeams"].get("touchbackPercentage")
+                    ),
+                    return_average=safe_float(
+                        data["specialTeams"].get("returnAverage")
+                    ),
                     long_return=safe_int(data["specialTeams"].get("longReturn")),
                 )
 
@@ -522,11 +565,7 @@ class PFFClient(BaseClient):
             return None
 
     def _parse_player_metrics(
-        self,
-        data: Dict[str, Any],
-        player_id: str,
-        season: int,
-        week: Optional[int]
+        self, data: Dict[str, Any], player_id: str, season: int, week: Optional[int]
     ) -> Optional[PFFPlayerMetrics]:
         """Parse player metrics from API response."""
         try:
@@ -551,11 +590,7 @@ class PFFClient(BaseClient):
             return None
 
     def _parse_team_grades(
-        self,
-        data: Dict[str, Any],
-        team_id: str,
-        season: int,
-        week: Optional[int]
+        self, data: Dict[str, Any], team_id: str, season: int, week: Optional[int]
     ) -> Optional[PFFTeamGrades]:
         """Parse team grades from API response."""
         try:
@@ -563,9 +598,14 @@ class PFFClient(BaseClient):
                 team_id=team_id,
                 season=season,
                 week=week,
-                overall_offense_grade=safe_float(data.get("overallOffenseGrade")) or 0.0,
-                overall_defense_grade=safe_float(data.get("overallDefenseGrade")) or 0.0,
-                overall_special_teams_grade=safe_float(data.get("overallSpecialTeamsGrade")) or 0.0,
+                overall_offense_grade=safe_float(data.get("overallOffenseGrade"))
+                or 0.0,
+                overall_defense_grade=safe_float(data.get("overallDefenseGrade"))
+                or 0.0,
+                overall_special_teams_grade=safe_float(
+                    data.get("overallSpecialTeamsGrade")
+                )
+                or 0.0,
                 passing_offense_grade=safe_float(data.get("passingOffenseGrade")),
                 rushing_offense_grade=safe_float(data.get("rushingOffenseGrade")),
                 offensive_line_grade=safe_float(data.get("offensiveLineGrade")),
@@ -577,7 +617,9 @@ class PFFClient(BaseClient):
                 pressure_allowed_rate=safe_float(data.get("pressureAllowedRate")),
                 explosive_play_rate=safe_float(data.get("explosivePlayRate")),
                 red_zone_efficiency=safe_float(data.get("redZoneEfficiency")),
-                third_down_conversion_rate=safe_float(data.get("thirdDownConversionRate")),
+                third_down_conversion_rate=safe_float(
+                    data.get("thirdDownConversionRate")
+                ),
                 turnover_margin=safe_int(data.get("turnoverMargin")),
             )
         except Exception:
@@ -609,10 +651,7 @@ class PFFClient(BaseClient):
             return None
 
     def _parse_season_summary(
-        self,
-        data: Dict[str, Any],
-        player_id: str,
-        season: int
+        self, data: Dict[str, Any], player_id: str, season: int
     ) -> Optional[PFFSeasonSummary]:
         """Parse season summary from API response."""
         try:
@@ -674,11 +713,15 @@ class PFFClient(BaseClient):
         except Exception:
             return None
 
-    def _parse_mock_draft_pick(self, data: Dict[str, Any], year: int) -> Optional[PFFMockDraft]:
+    def _parse_mock_draft_pick(
+        self, data: Dict[str, Any], year: int
+    ) -> Optional[PFFMockDraft]:
         """Parse mock draft pick from API response."""
         try:
             prospect_data = data.get("prospect", {})
-            prospect = self._parse_draft_prospect(prospect_data) if prospect_data else None
+            prospect = (
+                self._parse_draft_prospect(prospect_data) if prospect_data else None
+            )
 
             if not prospect:
                 return None

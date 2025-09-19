@@ -1,5 +1,7 @@
 """Base models and common data structures for Griddy SDK."""
 
+from typing import Any
+
 from datetime import datetime
 from pydantic import BaseModel as PydanticBaseModel, Field
 
@@ -9,6 +11,7 @@ class BaseModel(PydanticBaseModel):
 
     class Config:
         """Pydantic configuration."""
+
         use_enum_values = True
         validate_assignment = True
         extra = "forbid"
@@ -26,7 +29,9 @@ class Game(BaseModel):
     start_time: datetime | None = Field(None, description="Game start time")
     week: int | None = Field(None, description="Week number")
     season: int | None = Field(None, description="Season year")
-    season_type: str | None = Field(None, description="Season type (regular, playoffs, etc.)")
+    season_type: str | None = Field(
+        None, description="Season type (regular, playoffs, etc.)"
+    )
 
 
 class Team(BaseModel):
@@ -57,14 +62,16 @@ class PlayerStats(BaseModel):
     game_id: str | None = Field(None, description="Game identifier")
     season: int | None = Field(None, description="Season year")
     week: int | None = Field(None, description="Week number")
-    stats: dict[str, any] = Field(default_factory=dict, description="Statistics data")
+    stats: dict[str, Any] = Field(default_factory=dict, description="Statistics data")
 
 
 class APIResponse(BaseModel):
     """Standard API response wrapper."""
 
     success: bool = Field(..., description="Whether the request was successful")
-    data: any | None = Field(None, description="Response data")
+    data: Any | None = Field(None, description="Response data")
     message: str | None = Field(None, description="Response message")
     error: str | None = Field(None, description="Error message if applicable")
-    metadata: dict[str, any] = Field(default_factory=dict, description="Additional metadata")
+    metadata: dict[str, Any] = Field(
+        default_factory=dict, description="Additional metadata"
+    )

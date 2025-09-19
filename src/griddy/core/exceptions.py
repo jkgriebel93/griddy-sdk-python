@@ -4,7 +4,12 @@
 class GriddyError(Exception):
     """Base exception for all Griddy SDK errors."""
 
-    def __init__(self, message: str, status_code: int | None = None, response_data: dict[str, any] | None = None):
+    def __init__(
+        self,
+        message: str,
+        status_code: int | None = None,
+        response_data: dict[str, any] | None = None,
+    ):
         super().__init__(message)
         self.message = message
         self.status_code = status_code
@@ -13,6 +18,7 @@ class GriddyError(Exception):
 
 class APIError(GriddyError):
     """Raised when an API request fails."""
+
     pass
 
 
@@ -26,14 +32,17 @@ class RateLimitError(GriddyError):
 
 class NotFoundError(GriddyError):
     """Raised when a requested resource is not found."""
+
     pass
 
 
 class AuthenticationError(GriddyError):
     """Raised when authentication fails."""
+
     pass
 
 
 class ValidationError(GriddyError):
     """Raised when request validation fails."""
+
     pass

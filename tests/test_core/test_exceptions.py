@@ -8,7 +8,7 @@ from griddy.core.exceptions import (
     RateLimitError,
     NotFoundError,
     AuthenticationError,
-    ValidationError
+    ValidationError,
 )
 
 
@@ -27,11 +27,7 @@ class TestExceptions:
     def test_griddy_error_with_details(self):
         """Test GriddyError with status code and response data."""
         response_data = {"error": "detailed error", "code": "E001"}
-        error = GriddyError(
-            "Test error",
-            status_code=400,
-            response_data=response_data
-        )
+        error = GriddyError("Test error", status_code=400, response_data=response_data)
 
         assert error.message == "Test error"
         assert error.status_code == 400
@@ -47,11 +43,7 @@ class TestExceptions:
 
     def test_rate_limit_error_with_retry_after(self):
         """Test RateLimitError with retry_after parameter."""
-        error = RateLimitError(
-            "Rate limit exceeded",
-            status_code=429,
-            retry_after=60
-        )
+        error = RateLimitError("Rate limit exceeded", status_code=429, retry_after=60)
 
         assert isinstance(error, GriddyError)
         assert error.message == "Rate limit exceeded"
@@ -95,7 +87,7 @@ class TestExceptions:
             RateLimitError("test"),
             NotFoundError("test"),
             AuthenticationError("test"),
-            ValidationError("test")
+            ValidationError("test"),
         ]
 
         for exception in exceptions:
