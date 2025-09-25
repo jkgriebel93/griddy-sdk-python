@@ -1,9 +1,12 @@
 """Utility functions for Griddy SDK."""
 
+import json
 import time
+
+from collections import defaultdict
 from functools import wraps
 from datetime import datetime, timezone
-from typing import TypeVar, Callable
+from typing import TypeVar, Callable, Dict, List
 from urllib.parse import urlparse
 from pathlib import Path
 import re
@@ -431,3 +434,110 @@ def extract_cookies_as_header(
     """
     cookies = extract_cookies_for_url(cookies_file, target_url, include_expired)
     return cookies_to_header(cookies)
+
+
+def extract_minified_har_entry(har_entry: Dict):
+    response_json = json.loads(har_entry["response"]["content"]["text"])
+    request_info = {key: value for key, value in har_entry["request"].items()
+                    if key in ["url", "headers", "queryString", "method", "path"]}
+
+    url = request_info.pop("url")
+    path_with_params = url.split(".com")[-1]
+    path_only = path_with_params.split("?")[0]
+
+    request_info["path"] = path_only
+
+    return {
+        "request": request_info,
+        "response": response_json
+    }
+
+class HarEntryPathManager:
+    def __init__(self, path: str, filename_prefix: str):
+        self.path = path
+        self.headers = {}
+        self.query_params = defaultdict(set)
+        # Not sure if we'll use this
+        self.cookies = {}
+
+        # Can we get away with just one?
+        # if not, do we need to map params to the response?
+        self.response_example = None
+        self.filename_prefix = filename_prefix
+
+    @property
+    def filename(self):
+        sub_name = ""
+        for node in self.path.split("/"):
+            if node == "api":
+                continue
+            sub_name += "_" + node.title()
+
+        name = f"{self.filename_prefix}{sub_name}.json"
+        return name.replace("-", "").replace("__", "_")
+
+    def as_dict(self, exclude: List[str]) -> Dict:
+        obj_dict = {}
+
+        for attr in ["path", "headers", "query_params", "response_example"]:
+            if attr in exclude:
+                continue
+            value = getattr(self, attr)
+            if attr == "query_params":
+                value = {
+                    name: list(param_values)
+                    for name, param_values
+                    in value.items()
+                }
+
+            obj_dict[attr] = value
+
+        return obj_dict
+
+    def add_entry(self, entry: Dict):
+        if entry["request"]["path"] != self.path:
+            raise ValueError(f"Entry path {entry['request']['path']} "
+                             f"does not match the class path {self.path}")
+
+        for req_header in entry["request"]["headers"]:
+            header = req_header["name"]
+            value = req_header["value"]
+            self.headers[header] = value
+
+        for qp in entry["request"]["queryString"]:
+            name = qp["name"]
+            val = qp["value"]
+            self.query_params[name].add(val)
+
+        if entry["response"]:
+            self.response_example = entry["response"]
+
+def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathManager]:
+    consolidated = {}
+
+    for entry in entries:
+        api_path = entry["request"]["path"]
+        if api_path not in consolidated:
+            consolidated[api_path] = HarEntryPathManager(path=api_path, filename_prefix="FiddlerSnapshots/ProNFL")
+
+        consolidated[api_path].add_entry(entry=entry)
+
+    return consolidated
+
+
+def write_consolidated_to_files(consolidated: Dict[str, HarEntryPathManager], exclude: List[str]):
+    for path, entries in consolidated.items():
+        with open(entries.filename, "w") as outfile:
+            jsonified = entries.as_dict(exclude=exclude)
+            json.dump(jsonified, outfile, indent=4)
+
+
+def minify_har(har_file: str):
+    with open(har_file, mode="r", encoding="utf-8-sig") as infile:
+        har_entries = json.load(infile)["log"]["entries"]
+
+    minified_entries = []
+    for entry in har_entries:
+        minified_entries.append(extract_minified_har_entry(entry))
+
+    return minified_entries
