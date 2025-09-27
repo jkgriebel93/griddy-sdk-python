@@ -287,7 +287,7 @@ components:
           example: Pittsburgh Steelers
           type: string
         logo:
-          example: https://static.www.nfl.com/{formatInstructions}/league/api/clubs/logos/PIT
+          example: https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/PIT
           format: uri
           type: string
         nick:
@@ -348,8 +348,8 @@ components:
       description: Team information for teams on bye
       properties:
         currentLogo:
-          description: URL to team logo (contains {formatInstructions} placeholder)
-          example: https://static.www.nfl.com/{formatInstructions}/league/api/clubs/logos/ATL
+          description: URL to team logo (contains formatInstructions placeholder)
+          example: https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ATL
           format: uri
           type: string
         fullName:
@@ -1011,9 +1011,9 @@ components:
           example: 3
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/eradjc0noknlab2smu1e
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/eradjc0noknlab2smu1e
           format: uri
           type: string
         jerseyNumber:
@@ -1169,9 +1169,9 @@ components:
           example: 0
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/vfql05jp29d2pltrlwqz
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/vfql05jp29d2pltrlwqz
           format: uri
           type: string
         int:
@@ -1362,9 +1362,9 @@ components:
           example: 3
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/gbb1sb2kkjlihuax2cud
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/gbb1sb2kkjlihuax2cud
           format: uri
           type: string
         int:
@@ -1690,7 +1690,7 @@ components:
           type: integer
         headshot:
           description: URL to player headshot image
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/player_headshot
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/player_headshot
           format: uri
           type: string
         jerseyNumber:
@@ -2547,7 +2547,7 @@ components:
     GameTeam:
       properties:
         currentLogo:
-          description: URL to team logo (may contain {formatInstructions} placeholder)
+          description: URL to team logo (may contain formatInstructions placeholder)
           format: uri
           type: string
         fullName:
@@ -2745,9 +2745,9 @@ components:
           example: 00-0034796
           type: string
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/cruqs6qpbykh7a2whd7p
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p
           format: uri
           type: string
         id:
@@ -3920,9 +3920,9 @@ components:
           example: 54517
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/cbpyykoguf7rsxezqzvk
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/cbpyykoguf7rsxezqzvk
           format: uri
           type: string
         height:
@@ -4160,9 +4160,9 @@ components:
           example: 3
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/s1oelyaroiaalgilbeqk
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/s1oelyaroiaalgilbeqk
           format: uri
           type: string
         int:
@@ -4484,9 +4484,9 @@ components:
           example: 3
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/f3txbqdarbabqtq4sx98
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/f3txbqdarbabqtq4sx98
           format: uri
           type: string
         int:
@@ -4750,9 +4750,9 @@ components:
           example: 1
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/ixykwytfrfz1cdxlhj5w
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/ixykwytfrfz1cdxlhj5w
           format: uri
           type: string
         inTPct:
@@ -5782,8 +5782,8 @@ components:
           description: Whether this is a Pro Bowl team
           type: boolean
         logo:
-          description: URL to team logo (may contain {formatInstructions} placeholder)
-          example: https://static.www.nfl.com/{formatInstructions}/league/api/clubs/logos/MIN
+          description: URL to team logo (may contain formatInstructions placeholder)
+          example: https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/MIN
           format: uri
           type: string
         name:
@@ -7168,7 +7168,7 @@ components:
           type: number
         teamId:
           description: Team identifier
-          example: 0920
+          example: '0920'
           type: string
         total:
           description: Total offensive plays
@@ -7861,9 +7861,9 @@ components:
           example: 1
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/oyap81gtzcvnfmripis1
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1
           format: uri
           type: string
         int:
@@ -8104,9 +8104,9 @@ components:
           example: 1
           type: integer
         headshot:
-          description: URL to player headshot image (contains {formatInstructions}
+          description: URL to player headshot image (contains formatInstructions
             placeholder)
-          example: https://static.www.nfl.com/image/upload/{formatInstructions}/league/oyap81gtzcvnfmripis1
+          example: https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1
           format: uri
           type: string
         inTPct:
@@ -8770,14 +8770,13 @@ paths:
           type: integer
       - description: Content tags to filter by (supports multiple comma-separated
           tags)
-        example: nfl-pro,fantasy
         explode: true
         in: query
         name: tags
         required: false
         schema:
           example:
-          - nfl-pro,next-gen-stats,pregame
+            - nfl-pro
           items:
             enum:
             - nfl-pro
@@ -9486,31 +9485,6 @@ paths:
         '200':
           content:
             application/json:
-              examples:
-                multipleGames:
-                  summary: Multiple games response
-                  value:
-                  - gameId: 2025092104
-                    gameKey: 59880
-                    plays:
-                    - '...'
-                    pregameAwayTeamWinProbability: 0.5614754110574722
-                    pregameHomeTeamWinProbability: 0.43852458894252777
-                  - gameId: 2025092800
-                    gameKey: 59891
-                    plays:
-                    - '...'
-                    pregameAwayTeamWinProbability: 0.4823
-                    pregameHomeTeamWinProbability: 0.5177
-                singleGame:
-                  summary: Single game response
-                  value:
-                    gameId: 2025092104
-                    gameKey: 59880
-                    plays:
-                    - '...'
-                    pregameAwayTeamWinProbability: 0.5614754110574722
-                    pregameHomeTeamWinProbability: 0.43852458894252777
               schema:
                 oneOf:
                 - $ref: '#/components/schemas/WinProbabilityResponse'
@@ -9800,7 +9774,7 @@ paths:
           - passRatingNd
           - gameSnap
           - snapPct
-          example: yds
+          example: sack
           type: string
       - description: Sort direction
         in: query
@@ -10091,9 +10065,6 @@ paths:
             - WR
             - TE
             - SPEC
-            - RB
-            - WR
-            - TE
             type: string
           type: array
         style: form
@@ -10125,7 +10096,6 @@ paths:
         name: lastNWeeks
         required: false
         schema:
-          default: null
           example: 3
           maximum: 18
           minimum: 1
@@ -12400,7 +12370,8 @@ paths:
           items:
             enum:
             - PRESS
-            - false
+            - MAN
+            - ZONE
             type: string
           type: array
       responses:
