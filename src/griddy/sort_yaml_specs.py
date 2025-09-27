@@ -16,8 +16,7 @@ print(f"Pattern: {pattern}")
 print(f"Output Dir: {output_dir}")
 print(f"Suffix: {suffix}")
 
-yc = YAMLConsolidator(spec_dir=spec_dir,
-                      pattern=pattern)
+yc = YAMLConsolidator(spec_dir=spec_dir, pattern=pattern)
 common_info = {
     "openapi": "3.0.3",
     "info": {
@@ -30,26 +29,13 @@ common_info = {
         This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis,
         player projections, and game insights.""",
         "version": "1.0.0",
-        "contact": {
-            "name": "NFL",
-            "url": "htttps://www.nfl.com"
-        },
+        "contact": {"name": "NFL", "url": "htttps://www.nfl.com"},
     },
     "servers": [
-        {
-            "url": "https://api.nfl.com",
-            "description": "Production Regular NFL API"
-        },
-        {
-            "url": "https://pro.nfl.com",
-            "description": "Production NFL Pro API"
-        }
+        {"url": "https://api.nfl.com", "description": "Production Regular NFL API"},
+        {"url": "https://pro.nfl.com", "description": "Production NFL Pro API"},
     ],
-    "security": [
-        {
-            "BearerAuth": []
-        }
-    ]
+    "security": [{"BearerAuth": []}],
 }
 
 yc.set_common_info(**common_info)
@@ -57,5 +43,4 @@ yc.set_common_info(**common_info)
 yc.combine_all_specs()
 yc.output_diff()
 yc.combined_spec = yc.get_sorted_spec(spec=yc.combined_spec)
-yc.write_spec_to_disk(file_name="nfl-complete-api.yaml",
-                      spec=yc.combined_spec)
+yc.write_spec_to_disk(file_name="nfl-complete-api.yaml", spec=yc.combined_spec)
