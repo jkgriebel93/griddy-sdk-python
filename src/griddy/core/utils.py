@@ -574,6 +574,11 @@ class YAMLConsolidator:
         self.spec_dir = Path(spec_dir)
         self.specs = self.load_specs(pattern=pattern)
 
+        self.open_api = None
+        self.info = {}
+        self.servers = []
+        self.security = []
+
         self.components = {}
         self.paths = {}
         self.tags = []
@@ -590,6 +595,15 @@ class YAMLConsolidator:
         }
 
         self.original_entry_source = {}
+
+        self.combined_spec = {}
+
+    def set_common_info(self, *args, **kwargs):
+        from pprint import pprint
+        pprint(kwargs, indent=4)
+        for key, value in kwargs.items():
+            print(key, value)
+            setattr(self, key, value)
 
     def load_specs(self, pattern: str):
         specs = {}
@@ -759,19 +773,32 @@ class YAMLConsolidator:
             self.cur_spec_name = name
             self.integrate_spec(spec=spec)
 
+        self.combined_spec = {
+            "openapi": self.open_api,
+            "info": self.info,
+            "servers": self.servers,
+            "security": self.security,
+            "tags": self.tags,
+            "paths": self.paths,
+            "components": self.components
+        }
+
+    def write_spec_to_disk(self, file_name: str, spec):
+        print(f"Writing spec to {file_name}")
+
+        with open(file_name, "w") as outfile:
+            yaml.dump(spec, outfile)
+            print(f"Success")
+
     def write_to_disk(self, directory: str = None, suffix: str=""):
         if directory is None:
             directory = os.getcwd()
 
         print(f"Writing all specs to directory: {directory}")
         for name, spec in self.specs.items():
-            file_name = f"{name}{suffix}.yaml"
-            print(f"Writing spec to {file_name}")
-
-            file = Path(directory, file_name)
-            with file.open("w") as outfile:
-                yaml.dump(spec, outfile)
-                print(f"Success")
+            file_name = f"{directory}/{name}{suffix}.yaml"
+            self.write_spec_to_disk(file_name=file_name,
+                                    spec=spec)
 
     def create_full_html_string(self, diffs_list):
         diffs_html = html_template
