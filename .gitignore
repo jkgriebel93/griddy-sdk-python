@@ -234,3 +234,4 @@ docs/site/
 # Manually added
 .python-version
 cookies.txt*
+FiddlerSnapshots/

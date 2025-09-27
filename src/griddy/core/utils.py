@@ -1,9 +1,16 @@
 """Utility functions for Griddy SDK."""
 
+import difflib
+import json
+import os
 import time
+
+import yaml
+
+from collections import defaultdict
 from functools import wraps
 from datetime import datetime, timezone
-from typing import TypeVar, Callable
+from typing import TypeVar, Callable, Dict, List
 from urllib.parse import urlparse
 from pathlib import Path
 import re
@@ -431,3 +438,404 @@ def extract_cookies_as_header(
     """
     cookies = extract_cookies_for_url(cookies_file, target_url, include_expired)
     return cookies_to_header(cookies)
+
+
+def extract_minified_har_entry(har_entry: Dict):
+    response_json = json.loads(har_entry["response"]["content"]["text"])
+    request_info = {key: value for key, value in har_entry["request"].items()
+                    if key in ["url", "headers", "queryString", "method", "path"]}
+
+    url = request_info.pop("url")
+    path_with_params = url.split(".com")[-1]
+    path_only = path_with_params.split("?")[0]
+
+    request_info["path"] = path_only
+
+    return {
+        "request": request_info,
+        "response": response_json
+    }
+
+class HarEntryPathManager:
+    def __init__(self, path: str, filename_prefix: str):
+        self.path = path
+        self.headers = {}
+        self.query_params = defaultdict(set)
+        # Not sure if we'll use this
+        self.cookies = {}
+
+        # Can we get away with just one?
+        # if not, do we need to map params to the response?
+        self.response_example = None
+        self.filename_prefix = filename_prefix
+
+    @property
+    def filename(self):
+        sub_name = ""
+        for node in self.path.split("/"):
+            if node == "api":
+                continue
+            sub_name += "_" + node.title()
+
+        name = f"{self.filename_prefix}{sub_name}.json"
+        return name.replace("-", "").replace("__", "_")
+
+    def as_dict(self, exclude: List[str]) -> Dict:
+        obj_dict = {}
+
+        for attr in ["path", "headers", "query_params", "response_example"]:
+            if attr in exclude:
+                continue
+            value = getattr(self, attr)
+            if attr == "query_params":
+                value = {
+                    name: list(param_values)
+                    for name, param_values
+                    in value.items()
+                }
+
+            obj_dict[attr] = value
+
+        return obj_dict
+
+    def add_entry(self, entry: Dict):
+        if entry["request"]["path"] != self.path:
+            raise ValueError(f"Entry path {entry['request']['path']} "
+                             f"does not match the class path {self.path}")
+
+        for req_header in entry["request"]["headers"]:
+            header = req_header["name"]
+            value = req_header["value"]
+            self.headers[header] = value
+
+        for qp in entry["request"]["queryString"]:
+            name = qp["name"]
+            val = qp["value"]
+            self.query_params[name].add(val)
+
+        if entry["response"]:
+            self.response_example = entry["response"]
+
+def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathManager]:
+    consolidated = {}
+
+    for entry in entries:
+        api_path = entry["request"]["path"]
+        if api_path not in consolidated:
+            consolidated[api_path] = HarEntryPathManager(path=api_path, filename_prefix="FiddlerSnapshots/ProNFL")
+
+        consolidated[api_path].add_entry(entry=entry)
+
+    return consolidated
+
+
+def write_consolidated_to_files(consolidated: Dict[str, HarEntryPathManager], exclude: List[str]):
+    for path, entries in consolidated.items():
+        with open(entries.filename, "w") as outfile:
+            jsonified = entries.as_dict(exclude=exclude)
+            json.dump(jsonified, outfile, indent=4)
+
+
+def minify_har(har_file: str):
+    with open(har_file, mode="r", encoding="utf-8-sig") as infile:
+        har_entries = json.load(infile)["log"]["entries"]
+
+    minified_entries = []
+    for entry in har_entries:
+        minified_entries.append(extract_minified_har_entry(entry))
+
+    return minified_entries
+
+
+html_template = """
+<head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        table.diff {font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace; border:medium}
+        .diff_header {background-color:#e0e0e0}
+        td.diff_header {text-align:right}
+        .diff_next {background-color:#c0c0c0}
+        .diff_add {background-color:#aaffaa}
+        .diff_chg {background-color:#ffff77}
+        .diff_sub {background-color:#ffaaaa}
+    </style>
+</head>
+<body>
+"""
+
+
+class YAMLConsolidator:
+
+    open_api_doc_keys = ["openapi", "info", "servers", "security", "tags", "paths", "components"]
+
+    def __init__(self, spec_dir: str, pattern: str):
+        self.spec_dir = Path(spec_dir)
+        self.specs = self.load_specs(pattern=pattern)
+
+        self.open_api = None
+        self.info = {}
+        self.servers = []
+        self.security = []
+
+        self.components = {}
+        self.paths = {}
+        self.tags = []
+        self.diff_counts = defaultdict(int)
+        self.cur_spec_name = None
+
+        self.diffs = {
+            "components": {
+                "schemas": [],
+                "securitySchemes": []
+            },
+            "paths": [],
+            "tags": []
+        }
+
+        self.original_entry_source = {}
+
+        self.combined_spec = {}
+
+    def set_common_info(self, *args, **kwargs):
+        from pprint import pprint
+        pprint(kwargs, indent=4)
+        for key, value in kwargs.items():
+            print(key, value)
+            setattr(self, key, value)
+
+    def load_specs(self, pattern: str):
+        specs = {}
+        for spec_file in self.spec_dir.glob(pattern=pattern):
+            with spec_file.open() as infile:
+                specs[spec_file.stem] = yaml.full_load(infile)
+
+        return specs
+
+    def _set_openapi_attr(self, attr: str):
+        attr_map = {}
+        for spec_name, spec in self.specs.items():
+            attr_map[spec_name] = spec.get(attr)
+
+        setattr(self, attr, attr_map)
+
+    def get_open_api_attr(self, attr: str):
+        if getattr(self, attr) is None:
+            self._set_openapi_attr(attr=attr)
+
+        return getattr(self, attr)
+
+    def sort_entries_for_attr(self, spec: Dict, attr: str) -> Dict | List | None:
+        sorted_attr_entry = None
+
+        if attr not in spec:
+            return sorted_attr_entry
+
+        if attr == "paths":
+            sorted_attr_entry = dict(sorted(spec["paths"].items()))
+        elif attr == "components":
+            schemas_sorted = dict(sorted(spec["components"]["schemas"].items()))
+            security_schemes_sorted = dict(sorted(spec["components"]["securitySchemes"].items()))
+            sorted_attr_entry = {
+                "schemas": schemas_sorted,
+                "securitySchemes": security_schemes_sorted
+            }
+        elif attr == "tags":
+            sorted_attr_entry = sorted(spec["tags"], key=lambda entry: entry["name"])
+
+        return sorted_attr_entry
+
+    def get_sorted_spec(self, spec: Dict) -> Dict:
+        sorted_spec = {key: spec[key] for key in ["openapi", "info", "servers", "security"]}
+
+        for key in ["tags", "paths", "components"]:
+            sorted_spec[key] = self.sort_entries_for_attr(spec=spec, attr=key)
+
+        return sorted_spec
+
+    def sort_all_specs(self):
+        for name, spec in self.specs.items():
+            self.specs[name] = self.get_sorted_spec(spec=spec)
+
+    def compute_diff_info(self, diff_entry: Dict):
+        differ = difflib.HtmlDiff()
+        try:
+            existing = diff_entry["existing_value"].splitlines()
+            new_ = diff_entry["new_value"].splitlines()
+        except AttributeError as e:
+            from pprint import pprint
+            pprint(diff_entry["existing_value"], indent=4)
+            pprint(diff_entry["new_value"], indent=4)
+            raise e
+
+        diff_html = differ.make_table(existing, new_)
+        similarity_matcher = difflib.SequenceMatcher(None,
+                                                     existing,
+                                                     new_)
+        return {"html": diff_html, "similarity": similarity_matcher.ratio()}
+
+    def integrate_components(self, components):
+        new_components = {}
+
+        for sub_component in ["schemas", "securitySchemes"]:
+
+            existing = self.components.get(sub_component, {})
+            for key, new_entry in components[sub_component].items():
+
+                if key in existing:
+                    if new_entry == (old_entry := existing[key]):
+                        continue
+                    else:
+                        original_source = self.original_entry_source[f"components.{sub_component}.{key}"]
+                        diff_entry = {
+                                "key": key,
+                                "existing_value": json.dumps(old_entry, indent=4),
+                                "existing_source": original_source,
+                                "new_value": json.dumps(new_entry, indent=4),
+                                "new_source": self.cur_spec_name
+                            }
+                        diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
+
+                        self.diffs["components"][sub_component].append(diff_entry)
+                        self.diff_counts[f"components.{sub_component}"] += 1
+                else:
+                    existing[key] = new_entry
+                    self.original_entry_source[f"components.{sub_component}.{key}"] = self.cur_spec_name
+            new_components[sub_component] = existing
+
+        self.components = new_components
+
+    def integrate_tags(self, tags):
+        existing_tags = {t["name"]: t["description"] for t in self.tags}
+
+        for t in tags:
+            if t["name"] in existing_tags:
+                if (new_value := t["description"]) != (old_value := existing_tags[t["name"]]):
+                    diff_entry = {
+                            "key": t["name"],
+                            "existing_value": json.dumps(old_value, indent=4),
+                            "existing_source": self.original_entry_source[f"tags.{t['name']}"],
+                            "new_value": json.dumps(new_value, indent=4),
+                            "new_source": self.cur_spec_name
+                        }
+                    diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
+
+                    self.diffs["tags"].append(diff_entry)
+                    self.diff_counts["tags"] += 1
+            else:
+                self.tags.append(t)
+                self.original_entry_source[f"tags.{t['name']}"] = self.cur_spec_name
+
+    def add_diff_entry(self, attr, key, old, new):
+        diff_entry = {
+            "key": key,
+            "existing_value": json.dumps(old, indent=4),
+            "existing_source": self.original_entry_source[f"{attr}.{key}"],
+            "new_value": json.dumps(new, indent=4),
+            "new_source": self.cur_spec_name
+        }
+        diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
+        self.diffs[attr].append(diff_entry)
+
+    def integrate_attr(self, spec, attr):
+        if attr == "components":
+            self.integrate_components(spec[attr])
+            return
+        elif attr == "tags":
+            self.integrate_tags(tags=spec.get(attr, []))
+            return
+
+        existing_entries = getattr(self, attr)
+
+        for key, new_entry in spec[attr].items():
+            if key in existing_entries:
+                if new_entry == (old_entry := existing_entries[key]):
+                    continue
+                else:
+                    self.add_diff_entry(attr=attr,
+                                        key=key,
+                                        old=old_entry,
+                                        new=new_entry)
+                    self.diff_counts[attr] += 1
+            else:
+                existing_entries[key] = new_entry
+                self.original_entry_source[f"{attr}.{key}"] = self.cur_spec_name
+
+        setattr(self, attr, existing_entries)
+
+    def integrate_spec(self, spec):
+        for key in ["tags", "paths", "components"]:
+            self.integrate_attr(spec, key)
+
+    def combine_all_specs(self):
+        for name, spec in self.specs.items():
+            self.cur_spec_name = name
+            self.integrate_spec(spec=spec)
+
+        self.combined_spec = {
+            "openapi": self.open_api,
+            "info": self.info,
+            "servers": self.servers,
+            "security": self.security,
+            "tags": self.tags,
+            "paths": self.paths,
+            "components": self.components
+        }
+
+    def write_spec_to_disk(self, file_name: str, spec):
+        print(f"Writing spec to {file_name}")
+
+        with open(file_name, "w") as outfile:
+            yaml.dump(spec, outfile)
+            print(f"Success")
+
+    def write_to_disk(self, directory: str = None, suffix: str=""):
+        if directory is None:
+            directory = os.getcwd()
+
+        print(f"Writing all specs to directory: {directory}")
+        for name, spec in self.specs.items():
+            file_name = f"{directory}/{name}{suffix}.yaml"
+            self.write_spec_to_disk(file_name=file_name,
+                                    spec=spec)
+
+    def create_full_html_string(self, diffs_list):
+        diffs_html = html_template
+        for diff_entry in diffs_list:
+            diffs_html += (f"<br>\n"
+                           f"<h3>{diff_entry['key']}</h3>"
+                           f"<p>Original Source: {diff_entry['existing_source']}</p>"
+                           f"<p>New Source: {diff_entry['new_source']}</p>"
+                           f"{diff_entry['html']}\n"
+                           f"<br>\n")
+        diffs_html += (f"\n"
+                       f"</body>\n"
+                       f"</html>")
+        return diffs_html
+
+    def handle_component_diffs(self):
+        schemas_diffs = self.diffs["components"]["schemas"]
+        security_schemes_diffs = self.diffs["components"]["securitySchemes"]
+
+        schemas_html = self.create_full_html_string(schemas_diffs)
+        security_schemes_html = self.create_full_html_string(security_schemes_diffs)
+        return schemas_html, security_schemes_html
+
+    def write_to_html(self, file_name, html_text):
+        with open(file_name, "w") as outfile:
+            outfile.write(html_text)
+
+    def output_diff(self):
+        for diff_type in self.diffs:
+            if diff_type == "components":
+                schemas_html, security_schemes_html = self.handle_component_diffs()
+                self.write_to_html("schemas_diff.html", schemas_html)
+                self.write_to_html("security_schems_diff.html", security_schemes_html)
+
+            elif diff_type == "paths":
+                paths_html = self.create_full_html_string(self.diffs["paths"])
+                self.write_to_html("paths_diff.html", paths_html)
+            elif diff_type == "tags":
+                tags_html = self.create_full_html_string(self.diffs["tags"])
+                self.write_to_html("tags_diff.html", tags_html)
