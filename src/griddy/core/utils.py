@@ -572,6 +572,7 @@ class YAMLConsolidator:
 
     def __init__(self, spec_dir: str, pattern: str):
         self.spec_dir = Path(spec_dir)
+        self.specs = {}
         self.specs = self.load_specs(pattern=pattern)
 
         self.open_api = None
@@ -616,6 +617,17 @@ class YAMLConsolidator:
         diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
         self.diffs[attr].append(diff_entry)
 
+    def add_spec(self, spec_path: str | Path):
+        if isinstance(spec_path, str):
+            spec_path = Path(spec_path)
+        if not spec_path.exists():
+            raise FileNotFoundError(f"{spec_path} does not exist.")
+        if spec_path.stem in self.specs:
+            raise ValueError(f"{spec_path.stem} is already in self.specs.")
+
+        with spec_path.open() as infile:
+            self.specs[spec_path.stem] = yaml.full_load(infile)
+
     def combine_all_specs(self):
         for name, spec in self.specs.items():
             self.cur_spec_name = name
@@ -649,7 +661,7 @@ class YAMLConsolidator:
         return {"html": diff_html, "similarity": similarity_matcher.ratio()}
 
     def create_full_html_string(self, diffs_list):
-        diffs_html = html_template
+        diffs_html = "<div>\n"
         for diff_entry in diffs_list:
             diffs_html += (f"<br>\n"
                            f"<h3>{diff_entry['key']}</h3>"
@@ -657,9 +669,7 @@ class YAMLConsolidator:
                            f"<p>New Source: {diff_entry['new_source']}</p>"
                            f"{diff_entry['html']}\n"
                            f"<br>\n")
-        diffs_html += (f"\n"
-                       f"</body>\n"
-                       f"</html>")
+        diffs_html += f"</div>"
         return diffs_html
 
     def get_open_api_attr(self, attr: str):
@@ -769,30 +779,32 @@ class YAMLConsolidator:
     def load_specs(self, pattern: str):
         specs = {}
         for spec_file in self.spec_dir.glob(pattern=pattern):
-            with spec_file.open() as infile:
-                specs[spec_file.stem] = yaml.full_load(infile)
+            self.add_spec(spec_path=spec_file)
 
         return specs
 
     def output_diff(self):
+        full_html = html_template
         for diff_type in self.diffs:
             if diff_type == "components":
                 schemas_html, security_schemes_html = self.handle_component_diffs()
-                self.write_to_html("schemas_diff.html", schemas_html)
-                self.write_to_html("security_schems_diff.html", security_schemes_html)
-
+                full_html += schemas_html
+                full_html += security_schemes_html
             elif diff_type == "paths":
                 paths_html = self.create_full_html_string(self.diffs["paths"])
-                self.write_to_html("paths_diff.html", paths_html)
+                full_html += paths_html
             elif diff_type == "tags":
                 tags_html = self.create_full_html_string(self.diffs["tags"])
-                self.write_to_html("tags_diff.html", tags_html)
+                full_html += tags_html
+
+        full_html += ("<br>\n"
+                      "\t</body>\n"
+                      "</html>")
+        self.write_to_html(file_name="pro-reg-combined.html",
+                           html_text=full_html)
 
     def set_common_info(self, *args, **kwargs):
-        from pprint import pprint
-        pprint(kwargs, indent=4)
         for key, value in kwargs.items():
-            print(key, value)
             setattr(self, key, value)
 
     def sort_all_specs(self):
