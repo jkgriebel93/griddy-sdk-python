@@ -17,8 +17,7 @@ print(f"Pattern: {pattern}")
 print(f"Output Dir: {output_dir}")
 print(f"Suffix: {suffix}")
 
-yc = YAMLConsolidator(spec_dir=spec_dir,
-                      pattern=pattern)
+yc = YAMLConsolidator(spec_dir=spec_dir, pattern=pattern)
 common_info = {
     "openapi": "3.0.3",
     "info": {
@@ -33,12 +32,12 @@ common_info = {
         "version": "1.0.0",
         "contact": {
             "name": "NFL",
-            "url": "htttps://www.nfl.com"
+            "url": "https://www.nfl.com"
         },
     },
     "servers": [
         {
-            "url": "https://api.nfl.com",
+            "url": "htps://api.nfl.com",
             "description": "Production Regular NFL API"
         },
         {
@@ -64,4 +63,3 @@ yc.output_diff()
 yc.combined_spec = yc.get_sorted_spec(spec=yc.combined_spec)
 yc.write_spec_to_disk(file_name="nfl-reg-pro-combined-api.yaml",
                       spec=yc.combined_spec)
-

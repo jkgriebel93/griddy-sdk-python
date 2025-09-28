@@ -442,8 +442,11 @@ def extract_cookies_as_header(
 
 def extract_minified_har_entry(har_entry: Dict):
     response_json = json.loads(har_entry["response"]["content"]["text"])
-    request_info = {key: value for key, value in har_entry["request"].items()
-                    if key in ["url", "headers", "queryString", "method", "path"]}
+    request_info = {
+        key: value
+        for key, value in har_entry["request"].items()
+        if key in ["url", "headers", "queryString", "method", "path"]
+    }
 
     url = request_info.pop("url")
     path_with_params = url.split(".com")[-1]
@@ -451,10 +454,8 @@ def extract_minified_har_entry(har_entry: Dict):
 
     request_info["path"] = path_only
 
-    return {
-        "request": request_info,
-        "response": response_json
-    }
+    return {"request": request_info, "response": response_json}
+
 
 class HarEntryPathManager:
     def __init__(self, path: str, filename_prefix: str):
@@ -522,7 +523,9 @@ def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathM
     for entry in entries:
         api_path = entry["request"]["path"]
         if api_path not in consolidated:
-            consolidated[api_path] = HarEntryPathManager(path=api_path, filename_prefix="FiddlerSnapshots/ProNFL")
+            consolidated[api_path] = HarEntryPathManager(
+                path=api_path, filename_prefix="FiddlerSnapshots/ProNFL"
+            )
 
         consolidated[api_path].add_entry(entry=entry)
 
@@ -568,7 +571,15 @@ html_template = """
 
 class YAMLConsolidator:
 
-    open_api_doc_keys = ["openapi", "info", "servers", "security", "tags", "paths", "components"]
+    open_api_doc_keys = [
+        "openapi",
+        "info",
+        "servers",
+        "security",
+        "tags",
+        "paths",
+        "components",
+    ]
 
     def __init__(self, spec_dir: str, pattern: str):
         self.spec_dir = Path(spec_dir)
@@ -650,14 +661,13 @@ class YAMLConsolidator:
             new_ = diff_entry["new_value"].splitlines()
         except AttributeError as e:
             from pprint import pprint
+
             pprint(diff_entry["existing_value"], indent=4)
             pprint(diff_entry["new_value"], indent=4)
             raise e
 
         diff_html = differ.make_table(existing, new_)
-        similarity_matcher = difflib.SequenceMatcher(None,
-                                                     existing,
-                                                     new_)
+        similarity_matcher = difflib.SequenceMatcher(None, existing, new_)
         return {"html": diff_html, "similarity": similarity_matcher.ratio()}
 
     def create_full_html_string(self, diffs_list):
