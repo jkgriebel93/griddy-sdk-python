@@ -17,69 +17,71 @@ info:
   version: 1.0.0
 
 servers:
-- description: Production Regular NFL API
-  url: https://api.nfl.com
-- description: Production NFL Pro API
-  url: https://pro.nfl.com
+  - description: Production Regular NFL API
+    url: https://api.nfl.com
+  - description: Production NFL Pro API
+    url: https://pro.nfl.com
+  - description: Authentication and Authorization API
+    url : https://auth-id.nfl.com
 
 security:
-- BearerAuth: []
+  - BearerAuth: []
 
 tags:
-- description: Game betting odds and lines
-  name: Betting
-- description: Game previews, film cards, and insights
-  name: Content
-- description: Editorial insights and analytics content about NFL players and games
-  name: Content Insights
-- description: Individual defensive player pass rush statistics and analytics
-  name: Defensive Pass Rush Statistics
-- description: Comprehensive individual defensive player statistics and analytics
-  name: Defensive Player Overview
-- description: Individual defensive player statistics and coverage analytics
-  name: Defensive Statistics
-- description: Fantasy football player statistics and scoring metrics
-  name: Fantasy Statistics
-- description: Advanced play analysis and film study data
-  name: Filmroom
-- description: Individual player passing statistics and analytics by week
-  name: Player Passing Statistics
-- description: Individual player receiving statistics and analytics
-  name: Player Receiving Statistics
-- description: Individual player rushing statistics and analytics
-  name: Player Rushing Statistics
-- description: Individual player passing statistics and analytics
-  name: Player Statistics
-- description: Player information, statistics, and projections
-  name: Players
-- description: Play-by-play data and film room analysis
-  name: Plays
-- description: Game schedules, matchup rankings, and injury reports
-  name: Schedules
-- description: Current games, standings, and betting futures
-  name: Schedules Extended
-- description: Real-time scoring and game status endpoints
-  name: Scores
-- description: Season weeks and bye information
-  name: Season Schedule
-- description: Premium coaches film video content with multiple camera angles
-  name: Secured Videos
-- description: Comprehensive game and team statistics endpoints
-  name: Stats
-- description: Comprehensive team defensive pass statistics and situational analytics
-  name: Team Defense Pass Statistics
-- description: Comprehensive team defensive rush statistics and situational analytics
-  name: Team Defense Rush Statistics
-- description: Comprehensive team defensive statistics and situational analytics
-  name: Team Defense Statistics
-- description: Comprehensive team offensive overview statistics and situational analytics
-  name: Team Offense Overview Statistics
-- description: Comprehensive team offensive pass statistics and situational analytics
-  name: Team Offense Pass Statistics
-- description: Team information, rosters, and schedules
-  name: Teams
-- description: Game and play-level win probability analytics
-  name: Win Probability
+  - description: Game betting odds and lines
+    name: Betting
+  - description: Game previews, film cards, and insights
+    name: Content
+  - description: Editorial insights and analytics content about NFL players and games
+    name: Content Insights
+  - description: Individual defensive player pass rush statistics and analytics
+    name: Defensive Pass Rush Statistics
+  - description: Comprehensive individual defensive player statistics and analytics
+    name: Defensive Player Overview
+  - description: Individual defensive player statistics and coverage analytics
+    name: Defensive Statistics
+  - description: Fantasy football player statistics and scoring metrics
+    name: Fantasy Statistics
+  - description: Advanced play analysis and film study data
+    name: Filmroom
+  - description: Individual player passing statistics and analytics by week
+    name: Player Passing Statistics
+  - description: Individual player receiving statistics and analytics
+    name: Player Receiving Statistics
+  - description: Individual player rushing statistics and analytics
+    name: Player Rushing Statistics
+  - description: Individual player passing statistics and analytics
+    name: Player Statistics
+  - description: Player information, statistics, and projections
+    name: Players
+  - description: Play-by-play data and film room analysis
+    name: Plays
+  - description: Game schedules, matchup rankings, and injury reports
+    name: Schedules
+  - description: Current games, standings, and betting futures
+    name: Schedules Extended
+  - description: Real-time scoring and game status endpoints
+    name: Scores
+  - description: Season weeks and bye information
+    name: Season Schedule
+  - description: Premium coaches film video content with multiple camera angles
+    name: Secured Videos
+  - description: Comprehensive game and team statistics endpoints
+    name: Stats
+  - description: Comprehensive team defensive pass statistics and situational analytics
+    name: Team Defense Pass Statistics
+  - description: Comprehensive team defensive rush statistics and situational analytics
+    name: Team Defense Rush Statistics
+  - description: Comprehensive team defensive statistics and situational analytics
+    name: Team Defense Statistics
+  - description: Comprehensive team offensive overview statistics and situational analytics
+    name: Team Offense Overview Statistics
+  - description: Comprehensive team offensive pass statistics and situational analytics
+    name: Team Offense Pass Statistics
+  - description: Team information, rosters, and schedules
+    name: Teams
+  - description: Game and play-level win probability analytics
+    name: Win Probability
 
 components:
   schemas:
