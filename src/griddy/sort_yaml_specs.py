@@ -1,3 +1,4 @@
+import os
 import sys
 
 from pathlib import Path
@@ -6,10 +7,10 @@ from core.utils import YAMLConsolidator
 
 _, *args = sys.argv
 
-spec_dir = "/mnt/e/GriddyOpenAPISpecs"
-pattern = "pro-nfl*"
-output_dir = f"{spec_dir}/SortedSpecs"
-suffix = "-sorted"
+spec_dir = f"{os.getcwd()}/docs"
+pattern = "PRE-*"
+output_dir = f"{os.getcwd()}/docs"
+suffix = "-POST"
 
 print(f"Spec Dir: {spec_dir}")
 print(f"Pattern: {pattern}")
@@ -29,10 +30,10 @@ common_info = {
         This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis,
         player projections, and game insights.""",
         "version": "1.0.0",
-        "contact": {"name": "NFL", "url": "htttps://www.nfl.com"},
+        "contact": {"name": "NFL", "url": "https://www.nfl.com"},
     },
     "servers": [
-        {"url": "https://api.nfl.com", "description": "Production Regular NFL API"},
+        {"url": "htps://api.nfl.com", "description": "Production Regular NFL API"},
         {"url": "https://pro.nfl.com", "description": "Production NFL Pro API"},
     ],
     "security": [{"BearerAuth": []}],
@@ -42,5 +43,6 @@ yc.set_common_info(**common_info)
 
 yc.combine_all_specs()
 yc.output_diff()
+
 yc.combined_spec = yc.get_sorted_spec(spec=yc.combined_spec)
-yc.write_spec_to_disk(file_name="nfl-complete-api.yaml", spec=yc.combined_spec)
+yc.write_spec_to_disk(file_name="NEW_ONE.yaml", spec=yc.combined_spec)
