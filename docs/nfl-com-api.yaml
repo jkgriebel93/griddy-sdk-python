@@ -4,14 +4,13 @@ info:
   contact:
     name: NFL
     url: https://www.nfl.com
-  description: "\n        Regular API - NFL's public API for accessing game schedules,\
-    \ team information, standings, statistics, and venue data. \n        This API\
-    \ provides comprehensive access to NFL data including real-time game information,\
-    \ team rosters, \n        seasonal statistics, and historical data. \n       \
-    \ The NFL Pro API is for accessing advanced statistics, film room content, player\
-    \ data, and fantasy information.\n        This API provides comprehensive access\
-    \ to NFL Pro features including Next Gen Stats, Film Room analysis,\n        player\
-    \ projections, and game insights."
+  description: "Regular API - NFL's public API for accessing game schedules,
+    team information, standings, statistics, and venue data. This API
+    provides comprehensive access to NFL data including real-time game information,
+    team rosters, seasonal statistics, and historical data. The NFL Pro API is for 
+    accessing advanced statistics, film room content, player data, and fantasy information. 
+    This API provides comprehensive access to NFL Pro features including Next Gen Stats, 
+    Film Room analysis, player projections, and game insights."
   title: NFL REST APIs
   version: 1.0.0
 
