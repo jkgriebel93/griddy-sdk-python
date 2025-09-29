@@ -584,7 +584,7 @@ class YAMLConsolidator:
     def __init__(self, spec_dir: str, pattern: str):
         self.spec_dir = Path(spec_dir)
         self.specs = {}
-        self.specs = self.load_specs(pattern=pattern)
+        self.load_specs(pattern=pattern)
 
         self.open_api = None
         self.info = {}
@@ -637,10 +637,11 @@ class YAMLConsolidator:
             raise ValueError(f"{spec_path.stem} is already in self.specs.")
 
         with spec_path.open() as infile:
-            self.specs[spec_path.stem] = yaml.full_load(infile)
+            self.specs[spec_path.stem] = self.get_sorted_spec(yaml.full_load(infile))
 
     def combine_all_specs(self):
         for name, spec in self.specs.items():
+            print(name)
             self.cur_spec_name = name
             self.integrate_spec(spec=spec)
 
@@ -810,6 +811,8 @@ class YAMLConsolidator:
         full_html += ("<br>\n"
                       "\t</body>\n"
                       "</html>")
+        from pprint import pprint
+        pprint(self.diff_counts, indent=4)
         self.write_to_html(file_name="pro-reg-combined.html",
                            html_text=full_html)
 

@@ -7,10 +7,10 @@ from core.utils import YAMLConsolidator
 
 _, *args = sys.argv
 
-spec_dir = os.getcwd()
-pattern = "nfl-complete-api*"
-output_dir = f"{spec_dir}/SortedSpecs"
-suffix = "-sorted"
+spec_dir = f"{os.getcwd()}/docs"
+pattern = "PRE-*"
+output_dir = f"{os.getcwd()}/docs"
+suffix = "-POST"
 
 print(f"Spec Dir: {spec_dir}")
 print(f"Pattern: {pattern}")
@@ -53,13 +53,10 @@ common_info = {
 }
 
 yc.set_common_info(**common_info)
-yc.add_spec(spec_path=Path("/mnt/e/GriddyOpenAPISpecs/reg-nfl-api-complete-working.yaml"))
-yc.add_spec(spec_path=Path("/mnt/e/GriddyOpenAPISpecs/reg-nfl-identity-api.yaml"))
-
 
 yc.combine_all_specs()
 yc.output_diff()
 
 yc.combined_spec = yc.get_sorted_spec(spec=yc.combined_spec)
-yc.write_spec_to_disk(file_name="nfl-reg-pro-combined-api.yaml",
+yc.write_spec_to_disk(file_name="NEW_ONE.yaml",
                       spec=yc.combined_spec)
