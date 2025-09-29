@@ -490,9 +490,7 @@ class HarEntryPathManager:
             value = getattr(self, attr)
             if attr == "query_params":
                 value = {
-                    name: list(param_values)
-                    for name, param_values
-                    in value.items()
+                    name: list(param_values) for name, param_values in value.items()
                 }
 
             obj_dict[attr] = value
@@ -501,8 +499,10 @@ class HarEntryPathManager:
 
     def add_entry(self, entry: Dict):
         if entry["request"]["path"] != self.path:
-            raise ValueError(f"Entry path {entry['request']['path']} "
-                             f"does not match the class path {self.path}")
+            raise ValueError(
+                f"Entry path {entry['request']['path']} "
+                f"does not match the class path {self.path}"
+            )
 
         for req_header in entry["request"]["headers"]:
             header = req_header["name"]
@@ -516,6 +516,7 @@ class HarEntryPathManager:
 
         if entry["response"]:
             self.response_example = entry["response"]
+
 
 def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathManager]:
     consolidated = {}
@@ -532,7 +533,9 @@ def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathM
     return consolidated
 
 
-def write_consolidated_to_files(consolidated: Dict[str, HarEntryPathManager], exclude: List[str]):
+def write_consolidated_to_files(
+    consolidated: Dict[str, HarEntryPathManager], exclude: List[str]
+):
     for path, entries in consolidated.items():
         with open(entries.filename, "w") as outfile:
             jsonified = entries.as_dict(exclude=exclude)
@@ -598,12 +601,9 @@ class YAMLConsolidator:
         self.cur_spec_name = None
 
         self.diffs = {
-            "components": {
-                "schemas": [],
-                "securitySchemes": []
-            },
+            "components": {"schemas": [], "securitySchemes": []},
             "paths": [],
-            "tags": []
+            "tags": [],
         }
 
         self.original_entry_source = {}
@@ -623,7 +623,7 @@ class YAMLConsolidator:
             "existing_value": json.dumps(old, indent=4),
             "existing_source": self.original_entry_source[f"{attr}.{key}"],
             "new_value": json.dumps(new, indent=4),
-            "new_source": self.cur_spec_name
+            "new_source": self.cur_spec_name,
         }
         diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
         self.diffs[attr].append(diff_entry)
@@ -652,7 +652,7 @@ class YAMLConsolidator:
             "security": self.security,
             "tags": self.tags,
             "paths": self.paths,
-            "components": self.components
+            "components": self.components,
         }
 
     def compute_diff_info(self, diff_entry: Dict):
@@ -674,12 +674,14 @@ class YAMLConsolidator:
     def create_full_html_string(self, diffs_list):
         diffs_html = "<div>\n"
         for diff_entry in diffs_list:
-            diffs_html += (f"<br>\n"
-                           f"<h3>{diff_entry['key']}</h3>"
-                           f"<p>Original Source: {diff_entry['existing_source']}</p>"
-                           f"<p>New Source: {diff_entry['new_source']}</p>"
-                           f"{diff_entry['html']}\n"
-                           f"<br>\n")
+            diffs_html += (
+                f"<br>\n"
+                f"<h3>{diff_entry['key']}</h3>"
+                f"<p>Original Source: {diff_entry['existing_source']}</p>"
+                f"<p>New Source: {diff_entry['new_source']}</p>"
+                f"{diff_entry['html']}\n"
+                f"<br>\n"
+            )
         diffs_html += f"</div>"
         return diffs_html
 
@@ -690,7 +692,9 @@ class YAMLConsolidator:
         return getattr(self, attr)
 
     def get_sorted_spec(self, spec: Dict) -> Dict:
-        sorted_spec = {key: spec[key] for key in ["openapi", "info", "servers", "security"]}
+        sorted_spec = {
+            key: spec[key] for key in ["openapi", "info", "servers", "security"]
+        }
 
         for key in ["tags", "paths", "components"]:
             sorted_spec[key] = self.sort_entries_for_attr(spec=spec, attr=key)
@@ -720,10 +724,9 @@ class YAMLConsolidator:
                 if new_entry == (old_entry := existing_entries[key]):
                     continue
                 else:
-                    self.add_diff_entry(attr=attr,
-                                        key=key,
-                                        old=old_entry,
-                                        new=new_entry)
+                    self.add_diff_entry(
+                        attr=attr, key=key, old=old_entry, new=new_entry
+                    )
                     self.diff_counts[attr] += 1
             else:
                 existing_entries[key] = new_entry
@@ -743,21 +746,25 @@ class YAMLConsolidator:
                     if new_entry == (old_entry := existing[key]):
                         continue
                     else:
-                        original_source = self.original_entry_source[f"components.{sub_component}.{key}"]
+                        original_source = self.original_entry_source[
+                            f"components.{sub_component}.{key}"
+                        ]
                         diff_entry = {
-                                "key": key,
-                                "existing_value": json.dumps(old_entry, indent=4),
-                                "existing_source": original_source,
-                                "new_value": json.dumps(new_entry, indent=4),
-                                "new_source": self.cur_spec_name
-                            }
+                            "key": key,
+                            "existing_value": json.dumps(old_entry, indent=4),
+                            "existing_source": original_source,
+                            "new_value": json.dumps(new_entry, indent=4),
+                            "new_source": self.cur_spec_name,
+                        }
                         diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
 
                         self.diffs["components"][sub_component].append(diff_entry)
                         self.diff_counts[f"components.{sub_component}"] += 1
                 else:
                     existing[key] = new_entry
-                    self.original_entry_source[f"components.{sub_component}.{key}"] = self.cur_spec_name
+                    self.original_entry_source[f"components.{sub_component}.{key}"] = (
+                        self.cur_spec_name
+                    )
             new_components[sub_component] = existing
 
         self.components = new_components
@@ -771,14 +778,18 @@ class YAMLConsolidator:
 
         for t in tags:
             if t["name"] in existing_tags:
-                if (new_value := t["description"]) != (old_value := existing_tags[t["name"]]):
+                if (new_value := t["description"]) != (
+                    old_value := existing_tags[t["name"]]
+                ):
                     diff_entry = {
-                            "key": t["name"],
-                            "existing_value": json.dumps(old_value, indent=4),
-                            "existing_source": self.original_entry_source[f"tags.{t['name']}"],
-                            "new_value": json.dumps(new_value, indent=4),
-                            "new_source": self.cur_spec_name
-                        }
+                        "key": t["name"],
+                        "existing_value": json.dumps(old_value, indent=4),
+                        "existing_source": self.original_entry_source[
+                            f"tags.{t['name']}"
+                        ],
+                        "new_value": json.dumps(new_value, indent=4),
+                        "new_source": self.cur_spec_name,
+                    }
                     diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
 
                     self.diffs["tags"].append(diff_entry)
@@ -808,13 +819,11 @@ class YAMLConsolidator:
                 tags_html = self.create_full_html_string(self.diffs["tags"])
                 full_html += tags_html
 
-        full_html += ("<br>\n"
-                      "\t</body>\n"
-                      "</html>")
+        full_html += "<br>\n" "\t</body>\n" "</html>"
         from pprint import pprint
+
         pprint(self.diff_counts, indent=4)
-        self.write_to_html(file_name="pro-reg-combined.html",
-                           html_text=full_html)
+        self.write_to_html(file_name="pro-reg-combined.html", html_text=full_html)
 
     def set_common_info(self, *args, **kwargs):
         for key, value in kwargs.items():
@@ -834,10 +843,12 @@ class YAMLConsolidator:
             sorted_attr_entry = dict(sorted(spec["paths"].items()))
         elif attr == "components":
             schemas_sorted = dict(sorted(spec["components"]["schemas"].items()))
-            security_schemes_sorted = dict(sorted(spec["components"]["securitySchemes"].items()))
+            security_schemes_sorted = dict(
+                sorted(spec["components"]["securitySchemes"].items())
+            )
             sorted_attr_entry = {
                 "schemas": schemas_sorted,
-                "securitySchemes": security_schemes_sorted
+                "securitySchemes": security_schemes_sorted,
             }
         elif attr == "tags":
             sorted_attr_entry = sorted(spec["tags"], key=lambda entry: entry["name"])
@@ -851,15 +862,14 @@ class YAMLConsolidator:
             yaml.dump(spec, outfile)
             print(f"Success")
 
-    def write_to_disk(self, directory: str = None, suffix: str=""):
+    def write_to_disk(self, directory: str = None, suffix: str = ""):
         if directory is None:
             directory = os.getcwd()
 
         print(f"Writing all specs to directory: {directory}")
         for name, spec in self.specs.items():
             file_name = f"{directory}/{name}{suffix}.yaml"
-            self.write_spec_to_disk(file_name=file_name,
-                                    spec=spec)
+            self.write_spec_to_disk(file_name=file_name, spec=spec)
 
     def write_to_html(self, file_name, html_text):
         with open(file_name, "w") as outfile:
