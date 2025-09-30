@@ -270,8 +270,10 @@ except GriddyError as e:
 All data is returned as typed Pydantic models:
 
 ```python
+from griddy import nfl
 from griddy.nfl.models import NFLGame
 
+client = nfl.Client()
 # Games have structured data
 game: NFLGame = client.get_games(season=2024, week=1)[0]
 
