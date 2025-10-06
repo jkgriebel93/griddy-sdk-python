@@ -1,22 +1,16 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
 [project]
 name = "griddy"
 version = "0.1.0"
-description = "Python SDK for sports data sources including NFL, Pro Football Reference, and ESPN"
+description = "Python SDK for football data sources."
 authors = [
     {name = "John Griebel", email = "johnkgriebel@gmail.com"}
 ]
 readme = "README.md"
-license = {text = "MIT"}
 requires-python = ">=3.13"
 keywords = ["sports", "nfl", "espn", "data", "api", "sdk"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
@@ -50,11 +44,9 @@ Homepage = "https://github.com/jkgriebel93/griddy-sdk"
 Repository = "https://github.com/jkgriebel93/griddy-sdk"
 Issues = "https://github.com/jkgriebel93/griddy-sdk/issues"
 
-[tool.setuptools]
-include-package-data = true
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.black]
 line-length = 88
