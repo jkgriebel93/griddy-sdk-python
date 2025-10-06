@@ -5,9 +5,9 @@ from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
-from griddy_nfl import models, utils
-from griddy_nfl._hooks import SDKHooks
-from griddy_nfl.types import OptionalNullable, UNSET
+from ..nfl import models, utils
+from ._hooks import SDKHooks
+from .types import OptionalNullable, UNSET
 import httpx
 import importlib
 import sys
@@ -15,38 +15,38 @@ from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
-    from griddy_nfl.authentication import Authentication
-    from griddy_nfl.betting import Betting
-    from griddy_nfl.content_insights import ContentInsights
-    from griddy_nfl.content_sdk import ContentSDK
-    from griddy_nfl.defensive_pass_rush_statistics import DefensivePassRushStatistics
-    from griddy_nfl.defensive_player_overview import DefensivePlayerOverview
-    from griddy_nfl.defensive_statistics import DefensiveStatistics
-    from griddy_nfl.experience import Experience
-    from griddy_nfl.fantasy_statistics import FantasyStatistics
-    from griddy_nfl.filmroom import Filmroom
-    from griddy_nfl.football import Football
-    from griddy_nfl.player_passing_statistics import PlayerPassingStatistics
-    from griddy_nfl.player_receiving_statistics import PlayerReceivingStatistics
-    from griddy_nfl.player_rushing_statistics import PlayerRushingStatistics
-    from griddy_nfl.player_statistics import PlayerStatistics
-    from griddy_nfl.players import Players
-    from griddy_nfl.plays import Plays
-    from griddy_nfl.schedules import Schedules
-    from griddy_nfl.schedules_extended import SchedulesExtended
-    from griddy_nfl.scores import Scores
-    from griddy_nfl.season_schedule import SeasonSchedule
-    from griddy_nfl.secured_videos import SecuredVideos
-    from griddy_nfl.stats_sdk import StatsSDK
-    from griddy_nfl.team_defense_pass_statistics import TeamDefensePassStatistics
-    from griddy_nfl.team_defense_rush_statistics import TeamDefenseRushStatistics
-    from griddy_nfl.team_defense_statistics import TeamDefenseStatistics
-    from griddy_nfl.team_offense_overview_statistics import (
+    from .authentication import Authentication
+    from .betting import Betting
+    from .content_insights import ContentInsights
+    from .content_sdk import ContentSDK
+    from .defensive_pass_rush_statistics import DefensivePassRushStatistics
+    from .defensive_player_overview import DefensivePlayerOverview
+    from .defensive_statistics import DefensiveStatistics
+    from .experience import Experience
+    from .fantasy_statistics import FantasyStatistics
+    from .filmroom import Filmroom
+    from .football import Football
+    from .player_passing_statistics import PlayerPassingStatistics
+    from .player_receiving_statistics import PlayerReceivingStatistics
+    from .player_rushing_statistics import PlayerRushingStatistics
+    from .player_statistics import PlayerStatistics
+    from .players import Players
+    from .plays import Plays
+    from .schedules import Schedules
+    from .schedules_extended import SchedulesExtended
+    from .scores import Scores
+    from .season_schedule import SeasonSchedule
+    from .secured_videos import SecuredVideos
+    from .stats_sdk import StatsSDK
+    from .team_defense_pass_statistics import TeamDefensePassStatistics
+    from .team_defense_rush_statistics import TeamDefenseRushStatistics
+    from .team_defense_statistics import TeamDefenseStatistics
+    from .team_offense_overview_statistics import (
         TeamOffenseOverviewStatistics,
     )
-    from griddy_nfl.team_offense_pass_statistics import TeamOffensePassStatistics
-    from griddy_nfl.teams import Teams
-    from griddy_nfl.win_probability import WinProbability
+    from .team_offense_pass_statistics import TeamOffensePassStatistics
+    from .teams import Teams
+    from .win_probability import WinProbability
 
 
 class GriddyNFL(BaseSDK):

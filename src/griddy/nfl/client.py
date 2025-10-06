@@ -13,7 +13,7 @@ from typing import Optional, List, Dict, Any
 from griddy import settings
 from ..core.base_client import BaseClient
 from ..core.utils import parse_date, safe_int, clean_text, extract_cookies_as_dict
-from .models import (
+from .models_original import (
     NFLGame,
     NFLTeam,
     NFLPlayer,
