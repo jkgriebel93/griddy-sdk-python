@@ -5,7 +5,7 @@ from typing import Any, Optional
 import httpx
 
 from .serializers import unmarshal_json
-from griddy_nfl import errors
+from . import errors
 
 
 def unmarshal_json_response(

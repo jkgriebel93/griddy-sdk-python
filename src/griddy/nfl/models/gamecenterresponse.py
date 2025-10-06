@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .gamecenterschedule import GamecenterSchedule, GamecenterScheduleTypedDict
 from .passerstats import PasserStats, PasserStatsTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

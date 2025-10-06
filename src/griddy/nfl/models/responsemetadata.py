@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from datetime import datetime
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing_extensions import Annotated, TypedDict
 

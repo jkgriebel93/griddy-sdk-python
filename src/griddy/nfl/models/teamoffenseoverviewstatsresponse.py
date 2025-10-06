@@ -7,7 +7,7 @@ from .teamoffenseoverviewstats import (
     TeamOffenseOverviewStats,
     TeamOffenseOverviewStatsTypedDict,
 )
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

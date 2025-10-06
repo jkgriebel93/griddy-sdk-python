@@ -4,7 +4,7 @@ import httpx
 from typing import Optional
 from dataclasses import dataclass
 
-from griddy_nfl.errors import GriddyNFLError
+from ..errors import GriddyNFLError
 
 
 @dataclass(frozen=True)

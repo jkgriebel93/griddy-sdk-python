@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .gameresultenum import GameResultEnum
 from .offensiveskillpositionenum import OffensiveSkillPositionEnum
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .draftpick import DraftPick, DraftPickTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 

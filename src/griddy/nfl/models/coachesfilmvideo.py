@@ -6,7 +6,7 @@ from .videogameplayids import VideoGamePlayIds, VideoGamePlayIdsTypedDict
 from .videotag import VideoTag, VideoTagTypedDict
 from .videothumbnail import VideoThumbnail, VideoThumbnailTypedDict
 from datetime import datetime
-from griddy_nfl.types import (
+from ..types import (
     BaseModel,
     Nullable,
     OptionalNullable,

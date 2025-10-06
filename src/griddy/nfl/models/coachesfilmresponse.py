@@ -4,7 +4,7 @@ from __future__ import annotations
 from .coachesfilmvideo import CoachesFilmVideo, CoachesFilmVideoTypedDict
 from .pagination import Pagination, PaginationTypedDict
 from .responsemetadata import ResponseMetadata, ResponseMetadataTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 

@@ -9,8 +9,8 @@ from ._version import (
 from .httpclient import AsyncHttpClient, HttpClient
 from .utils import Logger, RetryConfig, remove_suffix
 from dataclasses import dataclass
-from griddy_nfl import models
-from griddy_nfl.types import OptionalNullable, UNSET
+from ..nfl import models
+from .types import OptionalNullable, UNSET
 from pydantic import Field
 from typing import Callable, Dict, Optional, Tuple, Union
 

@@ -5,7 +5,7 @@ from .drive import Drive, DriveTypedDict
 from .play import Play, PlayTypedDict
 from .progame import ProGame, ProGameTypedDict
 from .scoringplay import ScoringPlay, ScoringPlayTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

@@ -4,7 +4,7 @@ from __future__ import annotations
 from .proteam import ProTeam, ProTeamTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from datetime import date
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

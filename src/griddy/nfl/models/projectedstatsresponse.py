@@ -10,7 +10,7 @@ from .playerweekprojectedstats import (
     PlayerWeekProjectedStats,
     PlayerWeekProjectedStatsTypedDict,
 )
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 from typing import List, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 

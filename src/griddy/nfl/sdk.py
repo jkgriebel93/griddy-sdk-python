@@ -237,12 +237,7 @@ class GriddyNFL(BaseSDK):
         self._account_info = self.load_account_info()
         self._token = {}
         self.get_auth_token()
-        security: Any = None
-        if callable(nfl_auth):
-            # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(nfl_auth=nfl_auth())
-        else:
-            security = models.Security(nfl_auth=nfl_auth)
+        security = models.Security(nfl_auth=self._token)
 
         if server_url is not None:
             if url_params is not None:

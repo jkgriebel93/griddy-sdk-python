@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .conference import Conference, ConferenceTypedDict
 from .division import Division, DivisionTypedDict
-from griddy_nfl.types import (
+from ..types import (
     BaseModel,
     Nullable,
     OptionalNullable,

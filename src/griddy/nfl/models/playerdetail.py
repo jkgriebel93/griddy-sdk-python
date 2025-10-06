@@ -6,7 +6,7 @@ from .careerstats import CareerStats, CareerStatsTypedDict
 from .contractinfo import ContractInfo, ContractInfoTypedDict
 from .seasonstats import SeasonStats, SeasonStatsTypedDict
 from datetime import date
-from griddy_nfl.types import (
+from ..types import (
     BaseModel,
     Nullable,
     OptionalNullable,

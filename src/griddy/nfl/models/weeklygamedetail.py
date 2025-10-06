@@ -10,7 +10,7 @@ from .team import Team, TeamTypedDict
 from .ticketvendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
 from datetime import date, datetime
-from griddy_nfl.types import (
+from ..types import (
     BaseModel,
     Nullable,
     OptionalNullable,

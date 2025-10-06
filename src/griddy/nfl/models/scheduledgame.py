@@ -6,7 +6,7 @@ from .gamesite import GameSite, GameSiteTypedDict
 from .scheduleteam import ScheduleTeam, ScheduleTeamTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from datetime import date, datetime
-from griddy_nfl.types import (
+from ..types import (
     BaseModel,
     Nullable,
     OptionalNullable,

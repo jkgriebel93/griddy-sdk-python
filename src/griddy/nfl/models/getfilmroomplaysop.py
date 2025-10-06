@@ -5,8 +5,8 @@ from .binaryflagenum import BinaryFlagEnum
 from .playtypeenum import PlayTypeEnum
 from .seasontypeenum import SeasonTypeEnum
 from .weekslugenum import WeekSlugEnum
-from griddy_nfl.types import BaseModel
-from griddy_nfl.utils import FieldMetadata, QueryParamMetadata
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

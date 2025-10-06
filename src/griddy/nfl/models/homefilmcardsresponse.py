@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .filmcard import FilmCard, FilmCardTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 from typing import List
 from typing_extensions import TypedDict
 

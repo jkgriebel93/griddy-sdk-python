@@ -4,7 +4,7 @@ from __future__ import annotations
 from .defensiveplayerstats import DefensivePlayerStats, DefensivePlayerStatsTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

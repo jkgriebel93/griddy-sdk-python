@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .playstat import PlayStat, PlayStatTypedDict
 from datetime import datetime
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

@@ -5,7 +5,7 @@ from .moneyline import MoneyLine, MoneyLineTypedDict
 from .pointspread import PointSpread, PointSpreadTypedDict
 from .totals import Totals, TotalsTypedDict
 from datetime import datetime
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

@@ -6,7 +6,7 @@ from .boxscoresite import BoxscoreSite, BoxscoreSiteTypedDict
 from .boxscoreteam import BoxscoreTeam, BoxscoreTeamTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from datetime import datetime
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

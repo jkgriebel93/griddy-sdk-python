@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from datetime import date
-from griddy_nfl.types import (
+from ..types import (
     BaseModel,
     Nullable,
     OptionalNullable,

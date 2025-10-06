@@ -4,7 +4,7 @@ from __future__ import annotations
 from .pagination import Pagination, PaginationTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .standings import Standings, StandingsTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

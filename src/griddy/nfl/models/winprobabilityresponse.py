@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .playwinprobability import PlayWinProbability, PlayWinProbabilityTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List
 from typing_extensions import Annotated, TypedDict

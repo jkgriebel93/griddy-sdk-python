@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .game import Game, GameTypedDict
 from .seasontypeenum import SeasonTypeEnum
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

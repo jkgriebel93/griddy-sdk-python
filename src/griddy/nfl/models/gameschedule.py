@@ -6,7 +6,7 @@ from .seasontypeenum import SeasonTypeEnum
 from .teaminfo import TeamInfo, TeamInfoTypedDict
 from .venueinfo import VenueInfo, VenueInfoTypedDict
 from datetime import datetime
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

@@ -4,7 +4,7 @@ from __future__ import annotations
 from .gameschedule import GameSchedule, GameScheduleTypedDict
 from .playdetail import PlayDetail, PlayDetailTypedDict
 from .playplayer import PlayPlayer, PlayPlayerTypedDict
-from griddy_nfl.types import BaseModel
+from ..types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

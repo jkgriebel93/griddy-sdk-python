@@ -5,8 +5,8 @@ from .passingstatscategoryenum import PassingStatsCategoryEnum
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 from .weekslugenum import WeekSlugEnum
-from griddy_nfl.types import BaseModel
-from griddy_nfl.utils import FieldMetadata, QueryParamMetadata
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
