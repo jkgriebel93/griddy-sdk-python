@@ -78,16 +78,6 @@ class Replay(BaseModel):
     title: Optional[str] = None
     videos: Optional[list] = None
 
-    def __init__(self, /, **data):
-        for key, value in data.items():
-            if value is None:
-                continue
-            # print(f"key: {key}")
-            # print(f"value: {value}")
-            print(f"{key}: {type(value).__name__}")
-        print("\n\n\n\n\n")
-        super().__init__(**data)
-
 
 class SummaryTypedDict(TypedDict):
     r"""Game summary information"""
