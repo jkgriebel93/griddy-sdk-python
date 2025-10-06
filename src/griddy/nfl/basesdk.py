@@ -2,12 +2,12 @@
 
 from .sdkconfiguration import SDKConfiguration
 from . import errors, models, utils
-from .._hooks import (
+from ..nfl._hooks import (
     AfterErrorContext,
     AfterSuccessContext,
     BeforeRequestContext,
 )
-from ..utils import RetryConfig, SerializedRequestBody, get_body_content
+from ..nfl.utils import RetryConfig, SerializedRequestBody, get_body_content
 import httpx
 from typing import Callable, List, Mapping, Optional, Tuple
 from urllib.parse import parse_qs, urlparse
