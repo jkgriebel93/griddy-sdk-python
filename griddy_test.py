@@ -11,4 +11,7 @@ response = nfl.football.get_weekly_game_details(
     include_standings=True,
     include_tagged_videos=False,
 )
-print(response)
+game = response[0]
+replay = game.replays[0]
+from pprint import pprint
+pprint(replay.model_dump(), indent=4)

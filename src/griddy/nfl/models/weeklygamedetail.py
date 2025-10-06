@@ -62,7 +62,31 @@ class ReplayTypedDict(TypedDict):
 
 
 class Replay(BaseModel):
-    pass
+    type_: Annotated[Optional[str], pydantic.Field(alias="type")] = None
+    authorizations: Optional[dict] = None
+    description: Optional[str] = None
+    duration: Optional[int] = None
+    external_id: Annotated[Optional[str], pydantic.Field(alias="externalId")] = None
+    ids: Optional[dict] = None
+    images: Optional[list] = None
+    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = None
+    play_ids: Annotated[Optional[list], pydantic.Field(alias="playIds")] = None
+    publish_date: Annotated[Optional[str], pydantic.Field(alias="publishDate")] = None
+    sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None
+    tags: Optional[list] = None
+    thumbnail: Optional[dict] = None
+    title: Optional[str] = None
+    videos: Optional[list] = None
+
+    def __init__(self, /, **data):
+        for key, value in data.items():
+            if value is None:
+                continue
+            # print(f"key: {key}")
+            # print(f"value: {value}")
+            print(f"{key}: {type(value).__name__}")
+        print("\n\n\n\n\n")
+        super().__init__(**data)
 
 
 class SummaryTypedDict(TypedDict):

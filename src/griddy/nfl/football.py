@@ -225,7 +225,7 @@ class Football(BaseSDK):
 
 
         :param season: Season year
-        :param type: Season type
+        :param type_: Season type
         :param week: Week number
         :param include_drive_chart: Include drive chart data
         :param include_replays: Include replay videos
