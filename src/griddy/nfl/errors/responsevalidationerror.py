@@ -4,11 +4,11 @@ import httpx
 from typing import Optional
 from dataclasses import dataclass
 
-from ..errors import GriddyNFLError
+from griddy.nfl.errors import GriddyNFLBaseError
 
 
-@dataclass(frozen=True)
-class ResponseValidationError(GriddyNFLError):
+@dataclass(unsafe_hash=True)
+class ResponseValidationError(GriddyNFLBaseError):
     """Error raised when there is a type mismatch between the response data and the expected Pydantic model."""
 
     def __init__(

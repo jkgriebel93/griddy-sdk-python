@@ -1,0 +1,493 @@
+{
+    "path": "/api/secured/videos/coaches",
+    "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6ImU1MzVjN2MwLTgxN2YtNDc3Ni04OTkwLTU2NTU2ZjhiMTkyOCIsImNsaWVudEtleSI6IjRjRlVXNkRtd0pwelQ5TDdMckczcVJBY0FCRzVzMDRnIiwiZGV2aWNlSWQiOiJkNmIwYjA5MS04YzUxLTQ2NjItYmIzNy00MDkzZTY3ZmUwNTEiLCJpc3MiOiJORkwiLCJwbGFucyI6W3sicGxhbiI6ImZyZWUiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjYtMDktMjQiLCJzb3VyY2UiOiJORkwiLCJzdGFydERhdGUiOiIyMDI1LTA5LTI0Iiwic3RhdHVzIjoiQUNUSVZFIiwidHJpYWwiOmZhbHNlfSx7InBsYW4iOiJORkxfUExVU19QUkVNSVVNIiwiYmlsbGluZ1R5cGUiOiJtb250aGx5IiwiZXhwaXJhdGlvbkRhdGUiOiIyMDI1LTA5LTI4IiwiZXh0ZXJuYWxTdWJzY3JpcHRpb25JZCI6Ind6cmw0ZDBpd2wxbiIsInNvdXJjZSI6IldFQiIsInN0YXJ0RGF0ZSI6IjIwMjUtMDgtMjgiLCJzdGF0dXMiOiJBQ1RJVkUiLCJ0cmlhbCI6ZmFsc2V9XSwiRGlzcGxheU5hbWUiOiJXRUJfREVTS1RPUF9ERVNLVE9QIiwiTm90ZXMiOiIiLCJmb3JtRmFjdG9yIjoiREVTS1RPUCIsImx1cmFBcHBLZXkiOiJTWnM1N2RCR1J4Ykw3MjhsVnA3RFlRIiwicGxhdGZvcm0iOiJERVNLVE9QIiwicHJvZHVjdE5hbWUiOiJXRUIiLCJyb2xlcyI6WyJjb250ZW50IiwiZXhwZXJpZW5jZSIsImZvb3RiYWxsIiwidXRpbGl0aWVzIiwidGVhbXMiLCJwbGF5IiwibGl2ZSIsImlkZW50aXR5IiwibmdzX3N0YXRzIiwicGF5bWVudHNfYXBpIiwibmdzX3RyYWNraW5nIiwibmdzX3BsYXRmb3JtIiwibmdzX2NvbnRlbnQiLCJuZ3NfY29tYmluZSIsIm5nc19hZHZhbmNlZF9zdGF0cyIsIm5mbF9wcm8iLCJlY29tbSIsIm5mbF9pZF9hcGkiLCJ1dGlsaXRpZXNfbG9jYXRpb24iLCJpZGVudGl0eV9vaWRjIiwibmdzX3NzZSIsImFjY291bnRzIiwiY29uc2VudHMiLCJzdWJfcGFydG5lcnNoaXBzIiwiY29uY3VycmVuY3kiLCJrZXlzdG9yZSIsImZyZWUiLCJORkxfUExVU19QUkVNSVVNIl0sIm5ldHdvcmtUeXBlIjoib3RoZXIiLCJjaXR5IjoiYXRsYW50YSIsImNvdW50cnlDb2RlIjoiVVMiLCJkbWFDb2RlIjoiNTI0IiwiaG1hVGVhbXMiOlsiMTA0MDAyMDAtZjQwMS00ZTUzLTUxNzUtMDk3NGU0ZjE2Y2Y3Il0sInJlZ2lvbiI6IkdBIiwiemlwQ29kZSI6IjMwMzQ5IiwiYnJvd3NlciI6IkNocm9tZSIsImNlbGx1bGFyIjpmYWxzZSwiZW52aXJvbm1lbnQiOiJwcm9kdWN0aW9uIiwidWlkIjoiZGY5OTBhY2Q5NTFlNGJkNjk0MGMzYmFiYzQzNDE1ODQiLCJleHAiOjE3NTg3MzM1Nzd9.Ey7WvJAhDJVKzXe6lki1vmJM_vzeQQD2rdOgRGJ8NV4",
+        "cache-control": "max-age=60",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "accept": "application/json, text/plain, */*",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "https://pro.nfl.com/film/plays?season=2025&seasonType=REG&weekSlug=WEEK_3&gameId=f665fc10-311e-11f0-b670-ae1250fadad1",
+        "accept-encoding": "gzip, deflate, br, zstd",
+        "accept-language": "en-US,en;q=0.9",
+        "priority": "u=1, i",
+        "cookie": "nfl.v1v2.id=ed3ff26a-63c0-44df-a18d-a7741f29ab12; gig_bootstrap_3_Qa8TkWpIB8ESCBT8tY2TukbVKgO5F6BJVc7N1oComdwFzI7H2L9NOWdm11i_BY9f=auth-id_ver4; __gads=ID=bf031178a45c97e8:T=1758729047:RT=1758729047:S=ALNI_MZeowqGkjunOhQulGJO9uYRr60dDg; __gpi=UID=0000115278ac323c:T=1758729047:RT=1758729047:S=ALNI_MYrVXcjrB6PhCEzCxBjG-puB7CF3Q; __eoi=ID=736039cce8ec577c:T=1758729047:RT=1758729047:S=AA-AfjaeDfHmYZdkm4ECU4G71fJ6; AMCVS_F75C3025512D2C1D0A490D44%40AdobeOrg=1; nflcs.prod.crossDomainStorageCleared=true; s_ecid=MCMID%7C37821682721811146091833466082002814208; cto_bundle=hiCaCF9INUNKVTRYRGc1RUZuT1dMaGMyM0JXNktLSjlkQ0FiS1J2cEJFaXJJZEFWN1YwN2NxcW9YVllMbU4lMkZJRUdUMUpJeW9BU2ZXRkFCYXh5MU5pQXhyenMwRXBSSnl1YThGNklhcDgyQUttYUlFN29qalZXOFZHUFFsMU5QZkJHQzIwbFFrdEhES1FtVSUyRkRQSHdtZ0RDSFF3JTNEJTNE; AMCV_F75C3025512D2C1D0A490D44%40AdobeOrg=179643557%7CMCIDTS%7C20356%7CMCMID%7C37821682721811146091833466082002814208%7CMCAAMLH-1759333847%7C7%7CMCAAMB-1759333847%7C6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y%7CMCOPTOUT-1758736253s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-20363%7CvVersion%7C5.5.0; kndctr_F75C3025512D2C1D0A490D44_AdobeOrg_identity=CiYzNzgyMTY4MjcyMTgxMTE0NjA5MTgzMzQ2NjA4MjAwMjgxNDIwOFIQCN-iruOXMxgBKgNPUjIwA_AB36Ku45cz; kndctr_F75C3025512D2C1D0A490D44_AdobeOrg_cluster=or2; _scor_uid=38cda76f053d4d00bcb8cabe3ec213c3; _gid=GA1.2.1917911646.1758729059; OptanonAlertBoxClosed=2025-09-24T15:51:37.598Z; gig_bootstrap_3_3g_DApOD0TCeN6ZJpzQMr7H1cIbtqtHwDjKVESN3N5oohMleIozT0I9WecPZeytT=auth-id_ver4; glt_3_3g_DApOD0TCeN6ZJpzQMr7H1cIbtqtHwDjKVESN3N5oohMleIozT0I9WecPZeytT=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; _gcl_au=1.1.1921840111.1758729054.187010321.1758729179.1758729179; glt_3_Qa8TkWpIB8ESCBT8tY2TukbVKgO5F6BJVc7N1oComdwFzI7H2L9NOWdm11i_BY9f=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; minUnifiedSessionToken10=%7B%22sessionId%22%3A%2290b30eee81-986c8b97be-47079256f3-3021781759-341e237393%22%2C%22uid%22%3A%22bd06729f7f-509687e8d7-0c18b8efc9-b9a3318deb-addd6c4712%22%2C%22__sidts__%22%3A1758729232797%2C%22__uidts__%22%3A1758729232797%7D; nfl_web_sdk_plugin_storage={%22s_ppv%22:{%22noScrollClick%22:1%2C%22scrollDelta%22:0%2C%22footerSeen%22:false%2C%22lastRecPage%22:%22nfl.com:podcasts:podcasts:landing%22%2C%22percentPageViewed%22:44%2C%22initialPageViewed%22:44%2C%22maxPageViewed%22:739}}; _ga_M6JHFFXV8K=GS2.1.s1758729059$o1$g1$t1758729234$j28$l0$h0; _ga=GA1.1.1043645392.1758729059; gig_bootstrap_4_9iJVkTyrOzMJlUu66ZBRKg=auth-id_ver4; glt_4_9iJVkTyrOzMJlUu66ZBRKg=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; OptanonConsent=isGpcEnabled=0&datestamp=Wed+Sep+24+2025+12%3A06%3A15+GMT-0400+(Eastern+Daylight+Time)&version=202506.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=1c2d9908-516b-4ecf-a7b9-e4095213e98e&interactionCount=2&isAnonUser=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CBG64%3A1%2CC0004%3A1&AwaitingReconsent=false&intType=3&geolocation=US%3BGA; adobeujs-optin=%7B%22aam%22%3Atrue%2C%22adcloud%22%3Afalse%2C%22aa%22%3Atrue%2C%22campaign%22%3Afalse%2C%22ecid%22%3Atrue%2C%22livefyre%22%3Afalse%2C%22target%22%3Atrue%2C%22mediaaa%22%3Atrue%7D; nflcs.prod.nfl.user=eyJkYXRhIjp7Im93bklkIjp7ImNvbm5lY3Rpb25zIjpbeyJmaWRvMkNyZWRlbnRpYWxJZCI6IkpJQzk2dmozRmI0Tk1TNjJGV0RQOFlpSmNDUSIsImlkIjoiSklDOTZ2ajNGYjROTVM2MkZXRFA4WWlKY0NRIiwiZmlkbzJTaWduYXR1cmVDb3VudGVyIjoiMCIsInNvdXJjZSI6InJlZ2lzdGVyIiwiYWRkaXRpb25hbERhdGEiOiJ7XCJmaWRvMlJwSURcIjpcIm5mbC5jb21cIixcIm9zXCI6XCJpb3NcIixcIm9zVmVyc2lvblwiOlwiMTguM1wiLFwiYnJvd3NlclwiOlwic2FmYXJpXCIsXCJjcmVhdGlvblNvdXJjZVwiOlwiYnJvd3NlclwiLFwiY3JlYXRlZFRpbWVzdGFtcFwiOlwiMjAyNS0wMi0xOFQyMjo0MDoyMi4yNDg0MTE1WlwiLFwiaXNTaGFyYWJsZVwiOnRydWV9IiwiYXV0aFR5cGUiOiJmaWRvMiIsInB1YktleSI6InBRRUNBeVlnQVNGWUlOeEg4c3J3RmpCV2pyeXNTTzVjRG1ucDV6ek80V2hfR2ZBUFMtUXVjajJvSWxnZ1gtUXh6ZThFZzdVWWxUUm1nOGdlM3N1NFRUY1Z2SF9ac2FvWnBONUUwWjgifSx7ImZpZG8yQ3JlZGVudGlhbElkIjoidWlJclJDemh1X0ZObHJmSHVaV1ZvSVI5VVZhc2VZYW9RaThWUzctMmVqMCIsImlkIjoidWlJclJDemh1X0ZObHJmSHVaV1ZvSVI5VVZhc2VZYW9RaThWUzctMmVqMCIsImZpZG8yU2lnbmF0dXJlQ291bnRlciI6IjIiLCJzb3VyY2UiOiJyZWdpc3RlciIsImFkZGl0aW9uYWxEYXRhIjoie1wiZmlkbzJScElEXCI6XCJuZmwuY29tXCIsXCJvc1wiOlwid2luZG93cyBudFwiLFwib3NWZXJzaW9uXCI6XCIxMC4wXCIsXCJicm93c2VyXCI6XCJmaXJlZm94XCIsXCJjcmVhdGlvblNvdXJjZVwiOlwiYnJvd3NlclwiLFwiY3JlYXRlZFRpbWVzdGFtcFwiOlwiMjAyNS0wNC0yMlQxOToyMToxOC44MTIzNDEyWlwiLFwiaXNTaGFyYWJsZVwiOmZhbHNlfSIsImF1dGhUeXBlIjoiZmlkbzIiLCJwdWJLZXkiOiJwUUVDQXlZZ0FTRllJTGQ4MERFYzlHWU5ReTRMVm5DSFZEVUx2dHpMZ2FUZ1UzTWlOS08zTGlQMUlsZ2duWk1VWFlXUHhQeUNVbHJkV295LTVjU1d2NUlwRDFTcFhPdGFaRHJ5VHZFIn0seyJmaWRvMkNyZWRlbnRpYWxJZCI6ImJjOEV5MVdTYXo4OWlJcjlpLW1HajN4WnJsUU1MUTM4X0lkcEktTGVQMTQiLCJpZCI6ImJjOEV5MVdTYXo4OWlJcjlpLW1HajN4WnJsUU1MUTM4X0lkcEktTGVQMTQiLCJmaWRvMlNpZ25hdHVyZUNvdW50ZXIiOiIyIiwic291cmNlIjoicmVnaXN0ZXIiLCJhZGRpdGlvbmFsRGF0YSI6IntcImZpZG8yUnBJRFwiOlwibmZsLmNvbVwiLFwib3NcIjpcIndpbmRvd3MgbnRcIixcIm9zVmVyc2lvblwiOlwiMTAuMFwiLFwiYnJvd3NlclwiOlwiY2hyb21lXCIsXCJjcmVhdGlvblNvdXJjZVwiOlwiYnJvd3NlclwiLFwiY3JlYXRlZFRpbWVzdGFtcFwiOlwiMjAyNS0wNi0wMlQxMDoxOToyMy40MTA5MDg0WlwiLFwiaXNTaGFyYWJsZVwiOmZhbHNlfSIsImF1dGhUeXBlIjoiZmlkbzIiLCJwdWJLZXkiOiJwUUVDQXlZZ0FTRllJUGpic0Y0b2dHdk5JbUx6NHdISndDdnF2UVBfclE4ZTFSWHMyNFhKbEJ0a0lsZ2dHLUJaOG8yQTJ3dEVTX1dXMDZsS2EyT2JEWmNSdnJROGgwbkpidWV3ejl3In1dfSwibGVhZ3VlIjp7ImZhdm9yaXRlVGVhbXMiOlsiMTA0MDM5MDAtODI1MS02ODkyLWQ4MWMtNDM0ODUyNWMyZDQ3Il19LCJzaGE1MTJIYXNoZWRMb3dlcmVkRW1haWwiOiI3NjM0ZTQ4ZmM3YzVjYzEzY2Y5NDkxYzU2MmI0ZDI5MzRhMzg5NDcyYWVmNDg3OWQ3ODRiYjE0MjlhODk5NWY1YjhkYTJiM2IxZjNmYzc4MTIyYTAzNjQ4YzgxOWY0ZDNhZjk1ZjFiNDU4YWVkZmFjM2E5ZDU1YWI0NWZmZjg0MCIsImxvd2VyZWRfZW1haWxfaGFzaCI6IjkwZTQ0NzIwMjhjNjcyYWZiZmQzN2VkNDYzNzcyMGI4NjM0ZDg5MzZmNmY1MTMxZGM2YzFmZDkxMTdjYmE5NzYifSwiZXhwIjoxNzU4NzMwMDcwMTgzLCJmaXJzdE5hbWUiOiJKb2huIiwiZ2lneWFVSUQiOiJkZjk5MGFjZDk1MWU0YmQ2OTQwYzNiYWJjNDM0MTU4NCIsImdpZ3lhVUlEU2lnbmF0dXJlIjoiaVJMajJKMjREUEdsVWlmSmR0cU5HOUJaODQ0PSIsImhhc2hlZEVtYWlsIjoiOTBlNDQ3MjAyOGM2NzJhZmJmZDM3ZWQ0NjM3NzIwYjg2MzRkODkzNmY2ZjUxMzFkYzZjMWZkOTExN2NiYTk3NiIsImxhc3ROYW1lIjoiR3JpZWJlbCJ9",
+        "host": "pro.nfl.com"
+    },
+    "query_params": {
+        "gameId": [
+            "f665fc10-311e-11f0-b670-ae1250fadad1",
+            "ae9d66f7-1312-11ef-afd1-646009f18b2e",
+            "f591a382-311e-11f0-b670-ae1250fadad1"
+        ],
+        "playId": [
+            "267",
+            "1162",
+            "496",
+            "139",
+            "264",
+            "259",
+            "151",
+            "2611",
+            "314",
+            "198",
+            "63",
+            "701",
+            "107",
+            "347",
+            "551",
+            "571",
+            "210",
+            "85",
+            "1807",
+            "1302",
+            "1178",
+            "237",
+            "129",
+            "548",
+            "2107",
+            "403",
+            "40",
+            "774",
+            "123",
+            "528"
+        ]
+    },
+    "response_example": {
+        "items": [
+            {
+                "type": "video",
+                "language": null,
+                "advertiserId": null,
+                "author": null,
+                "authorizations": {
+                    "nfl_plus_premium": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "pro_premium": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "nfl_plus_plus": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                "background": {},
+                "cameraSource": "Endzone",
+                "clipType": null,
+                "ctas": [],
+                "ctaLink": null,
+                "ctaText": null,
+                "ctaTarget": null,
+                "description": "9-C.Boswell kicks 64 yards from PIT 35 to NE 1. 4-A.Gibson to NE 27 for 26 yards (33-J.Sawyer; 28-M.Killebrew).",
+                "displayTitle": null,
+                "startDate": null,
+                "endDate": null,
+                "duration": "17",
+                "episodeNumber": null,
+                "entitlement": null,
+                "expirationDate": "2035-09-19T18:13:06.000Z",
+                "externalId": "o6FLUd-MqGjGe2pn9AWzmQ",
+                "fantasyLink": null,
+                "hostNetwork": null,
+                "id": null,
+                "ids": {
+                    "awayTeamId": "10403900-8251-6892-d81c-4348525c2d47",
+                    "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                    "homeTeamId": "10403200-69ab-9ea6-5af5-e240fbc08bea",
+                    "playId": "40"
+                },
+                "images": [],
+                "intendedAudience": null,
+                "introEnd": null,
+                "mcpPlaybackId": "2308013",
+                "mobileLink": null,
+                "mobileTitle": null,
+                "originalAirDate": "2025-09-21T07:00:00.000Z",
+                "outroStart": null,
+                "playIds": [
+                    "40"
+                ],
+                "preRollDisabled": false,
+                "promoAssets": [],
+                "promoLink": null,
+                "promoText": null,
+                "promoTarget": "_self",
+                "lastUpdated": null,
+                "publishDate": "2025-09-22T10:00:00.000Z",
+                "radioStation": null,
+                "seriesTitle": null,
+                "seriesSeason": null,
+                "series": null,
+                "slug": null,
+                "subType": "Coaches Film Pro",
+                "summary": null,
+                "tags": [
+                    {
+                        "title": "Boswell, Christopher (2014 - 2020)",
+                        "slug": "boswell,-christopher-(2014---2020)",
+                        "personId": "3200424f-5374-3355-5a91-480dcb22e23b"
+                    },
+                    {
+                        "title": "Killebrew, Miles",
+                        "slug": "killebrew,-miles",
+                        "personId": "32004b49-4c28-3492-57d3-042b96cef5b8"
+                    },
+                    {
+                        "title": "Gibson, Antonio",
+                        "slug": "gibson,-antonio",
+                        "personId": "32004749-4241-5285-a215-d633ff9a6f70"
+                    },
+                    {
+                        "title": "Sawyer, Jack",
+                        "slug": "sawyer,-jack",
+                        "personId": "32005341-5720-2770-1196-4eaa68443f2e"
+                    },
+                    {
+                        "title": "Patriots",
+                        "slug": "patriots",
+                        "teamId": "10403200_69ab_9ea6_5af5_e240fbc08bea"
+                    },
+                    {
+                        "title": "Steelers",
+                        "slug": "steelers",
+                        "teamId": "10403900_8251_6892_d81c_4348525c2d47"
+                    },
+                    {
+                        "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                        "season": "2025",
+                        "week": "3",
+                        "seasonType": "REG"
+                    },
+                    {
+                        "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                        "season": "2025",
+                        "week": "3",
+                        "seasonType": "REG"
+                    }
+                ],
+                "thumbnail": {
+                    "thumbnailUrl": "https://o300810-mp-lura-live.akamaized.net/1/73/pvw/6FE/F5F/6FEF5FB4858CA5E0E9087008F597FC65_1.jpg?hdntl=st=1715000000~exp=2082787200~acl=/*~hmac=7903d9d310da4e4b7d0867e2098dcbb50dfa5d908bf53dd2c392d70447c347e3"
+                },
+                "title": "PIT  KO  PIT 35",
+                "videos": [],
+                "webLink": null
+            },
+            {
+                "type": "video",
+                "language": null,
+                "advertiserId": null,
+                "author": null,
+                "authorizations": {
+                    "nfl_plus_premium": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "pro_premium": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "nfl_plus_plus": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                "background": {},
+                "cameraSource": "Sideline",
+                "clipType": null,
+                "ctas": [],
+                "ctaLink": null,
+                "ctaText": null,
+                "ctaTarget": null,
+                "description": "9-C.Boswell kicks 64 yards from PIT 35 to NE 1. 4-A.Gibson to NE 27 for 26 yards (33-J.Sawyer; 28-M.Killebrew).",
+                "displayTitle": null,
+                "startDate": null,
+                "endDate": null,
+                "duration": "17",
+                "episodeNumber": null,
+                "entitlement": null,
+                "expirationDate": "2035-09-19T18:13:04.000Z",
+                "externalId": "3I0ESnD_IdGXBvPrZ00k2A",
+                "fantasyLink": null,
+                "hostNetwork": null,
+                "id": null,
+                "ids": {
+                    "awayTeamId": "10403900-8251-6892-d81c-4348525c2d47",
+                    "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                    "homeTeamId": "10403200-69ab-9ea6-5af5-e240fbc08bea",
+                    "playId": "40"
+                },
+                "images": [],
+                "intendedAudience": null,
+                "introEnd": null,
+                "mcpPlaybackId": "2308011",
+                "mobileLink": null,
+                "mobileTitle": null,
+                "originalAirDate": "2025-09-21T07:00:00.000Z",
+                "outroStart": null,
+                "playIds": [
+                    "40"
+                ],
+                "preRollDisabled": false,
+                "promoAssets": [],
+                "promoLink": null,
+                "promoText": null,
+                "promoTarget": "_self",
+                "lastUpdated": null,
+                "publishDate": "2025-09-22T10:00:00.000Z",
+                "radioStation": null,
+                "seriesTitle": null,
+                "seriesSeason": null,
+                "series": null,
+                "slug": null,
+                "subType": "Coaches Film Pro",
+                "summary": null,
+                "tags": [
+                    {
+                        "title": "Boswell, Christopher (2014 - 2020)",
+                        "slug": "boswell,-christopher-(2014---2020)",
+                        "personId": "3200424f-5374-3355-5a91-480dcb22e23b"
+                    },
+                    {
+                        "title": "Killebrew, Miles",
+                        "slug": "killebrew,-miles",
+                        "personId": "32004b49-4c28-3492-57d3-042b96cef5b8"
+                    },
+                    {
+                        "title": "Gibson, Antonio",
+                        "slug": "gibson,-antonio",
+                        "personId": "32004749-4241-5285-a215-d633ff9a6f70"
+                    },
+                    {
+                        "title": "Sawyer, Jack",
+                        "slug": "sawyer,-jack",
+                        "personId": "32005341-5720-2770-1196-4eaa68443f2e"
+                    },
+                    {
+                        "title": "Patriots",
+                        "slug": "patriots",
+                        "teamId": "10403200_69ab_9ea6_5af5_e240fbc08bea"
+                    },
+                    {
+                        "title": "Steelers",
+                        "slug": "steelers",
+                        "teamId": "10403900_8251_6892_d81c_4348525c2d47"
+                    },
+                    {
+                        "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                        "season": "2025",
+                        "week": "3",
+                        "seasonType": "REG"
+                    },
+                    {
+                        "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                        "season": "2025",
+                        "week": "3",
+                        "seasonType": "REG"
+                    }
+                ],
+                "thumbnail": {
+                    "thumbnailUrl": "https://o300810-mp-lura-live.akamaized.net/1/73/pvw/2EE/ECF/2EEECFED96182297D14DD429CE7A3E48_1.jpg?hdntl=st=1715000000~exp=2082787200~acl=/*~hmac=7903d9d310da4e4b7d0867e2098dcbb50dfa5d908bf53dd2c392d70447c347e3"
+                },
+                "title": "PIT  KO  PIT 35",
+                "videos": [],
+                "webLink": null
+            },
+            {
+                "type": "video",
+                "language": null,
+                "advertiserId": null,
+                "author": null,
+                "authorizations": {
+                    "nfl_plus_premium": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "pro_premium": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "nfl_plus_plus": [
+                        {
+                            "NFL PLUS - COACHES FILM": {
+                                "requirements": {
+                                    "countryCode": [
+                                        "US"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                "background": {},
+                "cameraSource": "Broadcast",
+                "clipType": null,
+                "ctas": [],
+                "ctaLink": null,
+                "ctaText": null,
+                "ctaTarget": null,
+                "description": "9-C.Boswell kicks 64 yards from PIT 35 to NE 1. 4-A.Gibson to NE 27 for 26 yards (33-J.Sawyer; 28-M.Killebrew).",
+                "displayTitle": null,
+                "startDate": null,
+                "endDate": null,
+                "duration": "17",
+                "episodeNumber": null,
+                "entitlement": null,
+                "expirationDate": "2035-09-19T18:11:31.000Z",
+                "externalId": "F96jQ0fi_dKu-XegpyV16w",
+                "fantasyLink": null,
+                "hostNetwork": null,
+                "id": null,
+                "ids": {
+                    "awayTeamId": "10403900-8251-6892-d81c-4348525c2d47",
+                    "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                    "homeTeamId": "10403200-69ab-9ea6-5af5-e240fbc08bea",
+                    "playId": "40"
+                },
+                "images": [],
+                "intendedAudience": null,
+                "introEnd": null,
+                "mcpPlaybackId": "2307982",
+                "mobileLink": null,
+                "mobileTitle": null,
+                "originalAirDate": "2025-09-21T07:00:00.000Z",
+                "outroStart": null,
+                "playIds": [
+                    "40"
+                ],
+                "preRollDisabled": false,
+                "promoAssets": [],
+                "promoLink": null,
+                "promoText": null,
+                "promoTarget": "_self",
+                "lastUpdated": null,
+                "publishDate": "2025-09-22T10:00:00.000Z",
+                "radioStation": null,
+                "seriesTitle": null,
+                "seriesSeason": null,
+                "series": null,
+                "slug": null,
+                "subType": "Coaches Film",
+                "summary": null,
+                "tags": [
+                    {
+                        "title": "Boswell, Christopher (2014 - 2020)",
+                        "slug": "boswell,-christopher-(2014---2020)",
+                        "personId": "3200424f-5374-3355-5a91-480dcb22e23b"
+                    },
+                    {
+                        "title": "Killebrew, Miles",
+                        "slug": "killebrew,-miles",
+                        "personId": "32004b49-4c28-3492-57d3-042b96cef5b8"
+                    },
+                    {
+                        "title": "Gibson, Antonio",
+                        "slug": "gibson,-antonio",
+                        "personId": "32004749-4241-5285-a215-d633ff9a6f70"
+                    },
+                    {
+                        "title": "Sawyer, Jack",
+                        "slug": "sawyer,-jack",
+                        "personId": "32005341-5720-2770-1196-4eaa68443f2e"
+                    },
+                    {
+                        "title": "Patriots",
+                        "slug": "patriots",
+                        "teamId": "10403200_69ab_9ea6_5af5_e240fbc08bea"
+                    },
+                    {
+                        "title": "Steelers",
+                        "slug": "steelers",
+                        "teamId": "10403900_8251_6892_d81c_4348525c2d47"
+                    },
+                    {
+                        "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                        "season": "2025",
+                        "week": "3",
+                        "seasonType": "REG"
+                    },
+                    {
+                        "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1",
+                        "season": "2025",
+                        "week": "3",
+                        "seasonType": "REG"
+                    }
+                ],
+                "thumbnail": {
+                    "thumbnailUrl": "https://o300810-mp-lura-live.akamaized.net/1/73/pvw/EA0/A8B/EA0A8B2C2F2091D3BDB6D62B20BC07AD_2.jpg?hdntl=st=1715000000~exp=2082787200~acl=/*~hmac=7903d9d310da4e4b7d0867e2098dcbb50dfa5d908bf53dd2c392d70447c347e3"
+                },
+                "title": "PIT  KO  PIT 35",
+                "videos": [],
+                "webLink": null
+            }
+        ],
+        "metadata": {
+            "generatedAt": "2025-09-24T16:07:01.654Z"
+        },
+        "pagination": {
+            "token": "eyJhbGciOiJIUzI1NiJ9.eyJsaW1pdCI6MjUsIm9mZnNldCI6MjUsInF1ZXJ5Ijp7ImdhbWVpZCI6ImY2NjVmYzEwLTMxMWUtMTFmMC1iNjcwLWFlMTI1MGZhZGFkMSIsInBsYXlpZCI6IjQwIn19.TaxpWfqCkai9njES-xbQE8fUy6Sh17f9B0y-fMmE94A"
+        }
+    }
+}

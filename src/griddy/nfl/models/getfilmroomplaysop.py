@@ -5,86 +5,82 @@ from .binaryflagenum import BinaryFlagEnum
 from .playtypeenum import PlayTypeEnum
 from .seasontypeenum import SeasonTypeEnum
 from .weekslugenum import WeekSlugEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-YardsToGoType = Literal[
-    "SHORT",
-    "MID",
-    "LONG",
+GET_FILMROOM_PLAYS_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
 
 
-QbAlignment = Literal[
-    "PISTOL",
-    "UNDER_CENTER",
-    "SHOTGUN",
-]
+class YardsToGoType(str, Enum):
+    SHORT = "SHORT"
+    MID = "MID"
+    LONG = "LONG"
 
 
-TargetLocation = Literal[
-    "DOWN_SEAMS",
-    "BETWEEN_HASHES",
-    "OUTSIDE_NUMBERS",
-]
+class QbAlignment(str, Enum):
+    PISTOL = "PISTOL"
+    UNDER_CENTER = "UNDER_CENTER"
+    SHOTGUN = "SHOTGUN"
 
 
-AirYardType = Literal[
-    "INTERMEDIATE",
-    "SHORT",
-    "DEEP",
-]
+class TargetLocation(str, Enum):
+    DOWN_SEAMS = "DOWN_SEAMS"
+    BETWEEN_HASHES = "BETWEEN_HASHES"
+    OUTSIDE_NUMBERS = "OUTSIDE_NUMBERS"
 
 
-DropbackTimeType = Literal[
-    "QUICK",
-    "LONG",
-]
+class AirYardType(str, Enum):
+    INTERMEDIATE = "INTERMEDIATE"
+    SHORT = "SHORT"
+    DEEP = "DEEP"
 
 
-RushDirection = Literal[
-    "INSIDE",
-    "OUTSIDE",
-]
+class DropbackTimeType(str, Enum):
+    QUICK = "QUICK"
+    LONG = "LONG"
 
 
-ReceiverAlignment = Literal[
-    "SLOT",
-    "BACKFIELD",
-    "TIGHT",
-    "WIDE",
-]
+class RushDirection(str, Enum):
+    INSIDE = "INSIDE"
+    OUTSIDE = "OUTSIDE"
 
 
-SeparationType = Literal[
-    "OPEN",
-    "TIGHT",
-]
+class ReceiverAlignment(str, Enum):
+    SLOT = "SLOT"
+    BACKFIELD = "BACKFIELD"
+    TIGHT = "TIGHT"
+    WIDE = "WIDE"
 
 
-Personnel = Literal[
-    "NICKEL",
-    "BASE",
-    "DIME",
-]
+class SeparationType(str, Enum):
+    OPEN = "OPEN"
+    TIGHT = "TIGHT"
 
 
-DefendersInTheBoxType = Literal[
-    "LIGHT",
-    "STACKED",
-    "NEUTRAL",
-]
+class Personnel(str, Enum):
+    NICKEL = "NICKEL"
+    BASE = "BASE"
+    DIME = "DIME"
 
 
-DefCoverageType = Literal[
-    "PRESS",
-    "MAN",
-    "ZONE",
-]
+class DefendersInTheBoxType(str, Enum):
+    LIGHT = "LIGHT"
+    STACKED = "STACKED"
+    NEUTRAL = "NEUTRAL"
+
+
+class DefCoverageType(str, Enum):
+    PRESS = "PRESS"
+    MAN = "MAN"
+    ZONE = "ZONE"
 
 
 class GetFilmroomPlaysRequestTypedDict(TypedDict):

@@ -2,19 +2,19 @@
 
 from __future__ import annotations
 from .futuresmarket import FuturesMarket, FuturesMarketTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class FuturesOddsResponseDataTypedDict(TypedDict):
+class DataTypedDict(TypedDict):
     conference: NotRequired[List[FuturesMarketTypedDict]]
     division: NotRequired[List[FuturesMarketTypedDict]]
     super_bowl: NotRequired[List[FuturesMarketTypedDict]]
 
 
-class FuturesOddsResponseData(BaseModel):
+class Data(BaseModel):
     conference: Optional[List[FuturesMarket]] = None
 
     division: Optional[List[FuturesMarket]] = None
@@ -25,8 +25,8 @@ class FuturesOddsResponseData(BaseModel):
 
 
 class FuturesOddsResponseTypedDict(TypedDict):
-    data: NotRequired[FuturesOddsResponseDataTypedDict]
+    data: NotRequired[DataTypedDict]
 
 
 class FuturesOddsResponse(BaseModel):
-    data: Optional[FuturesOddsResponseData] = None
+    data: Optional[Data] = None

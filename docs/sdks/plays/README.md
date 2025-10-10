@@ -19,15 +19,15 @@ statistics, involved players, win probability, and expected points.
 
 <!-- UsageSnippet language="python" operationID="getSummaryPlay" method="get" path="/api/plays/summaryPlay" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.plays.get_summary_play(game_id="f665fc10-311e-11f0-b670-ae1250fadad1", play_id=40)
+    res = griddy_nfl.plays.get_summary_play(game_id="f665fc10-311e-11f0-b670-ae1250fadad1", play_id=40)
 
     assert res is not None
 
@@ -43,6 +43,7 @@ with GriddyNFL(
 | `game_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Game identifier (UUID format)                                       | f665fc10-311e-11f0-b670-ae1250fadad1                                |
 | `play_id`                                                           | *int*                                                               | :heavy_check_mark:                                                  | Play identifier within the game                                     | 40                                                                  |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

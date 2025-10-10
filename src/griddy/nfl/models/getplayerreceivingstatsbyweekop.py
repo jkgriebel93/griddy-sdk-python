@@ -5,11 +5,17 @@ from .receivingstatscategoryenum import ReceivingStatsCategoryEnum
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 from .weekslugenum import WeekSlugEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+GET_PLAYER_RECEIVING_STATS_BY_WEEK_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
+]
 
 
 class GetPlayerReceivingStatsByWeekRequestTypedDict(TypedDict):

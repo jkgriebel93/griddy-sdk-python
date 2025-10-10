@@ -2,19 +2,19 @@
 
 from __future__ import annotations
 from .filmcard import FilmCard, FilmCardTypedDict
-from ..types import BaseModel
-from typing import List
-from typing_extensions import TypedDict
+from griddy.nfl.types import BaseModel
+from typing import List, Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class HomeFilmCardsResponseTypedDict(TypedDict):
-    cards: List[FilmCardTypedDict]
-    title: str
+    cards: NotRequired[List[FilmCardTypedDict]]
+    title: NotRequired[str]
     r"""Title of the film card collection"""
 
 
 class HomeFilmCardsResponse(BaseModel):
-    cards: List[FilmCard]
+    cards: Optional[List[FilmCard]] = None
 
-    title: str
+    title: Optional[str] = None
     r"""Title of the film card collection"""

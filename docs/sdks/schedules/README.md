@@ -23,15 +23,15 @@ and current game status.
 
 <!-- UsageSnippet language="python" operationID="getScheduledGame" method="get" path="/api/schedules/game" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules.get_scheduled_game(game_id="f665fc10-311e-11f0-b670-ae1250fadad1")
+    res = griddy_nfl.schedules.get_scheduled_game(game_id="f665fc10-311e-11f0-b670-ae1250fadad1")
 
     assert res is not None
 
@@ -46,6 +46,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `game_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Game identifier (UUID format)                                       | f665fc10-311e-11f0-b670-ae1250fadad1                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -68,15 +69,15 @@ for various statistical categories.
 
 <!-- UsageSnippet language="python" operationID="getGameMatchupRankings" method="get" path="/api/schedules/game/matchup/rankings" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules.get_game_matchup_rankings(game_id="2025092500")
+    res = griddy_nfl.schedules.get_game_matchup_rankings(game_id="2025092500")
 
     assert res is not None
 
@@ -91,6 +92,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `game_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Game identifier (10-digit format YYYYMMDDNN)                        | 2025092500                                                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -112,15 +114,15 @@ Returns player injury status and details for the specified team and week.
 
 <!-- UsageSnippet language="python" operationID="getTeamInjuries" method="get" path="/api/schedules/game/team/injuries" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules.get_team_injuries(season=2025, season_type=models.SeasonTypeEnum.REG, team_id="10403000-5851-f9d5-da45-78365a05b6b0", week=4)
+    res = griddy_nfl.schedules.get_team_injuries(season=2025, season_type=models.SeasonTypeEnum.REG, team_id="10403000-5851-f9d5-da45-78365a05b6b0", week=4)
 
     assert res is not None
 
@@ -138,6 +140,7 @@ with GriddyNFL(
 | `team_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Team identifier (UUID format)                                       | 10403000-5851-f9d5-da45-78365a05b6b0                                |
 | `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number within the season                                       | 4                                                                   |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -160,15 +163,15 @@ and ticket details for all games in the specified week.
 
 <!-- UsageSnippet language="python" operationID="getScheduledGames" method="get" path="/api/schedules/games" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules.get_scheduled_games(season=2025, season_type=models.SeasonTypeEnum.REG, week=3)
+    res = griddy_nfl.schedules.get_scheduled_games(season=2025, season_type=models.SeasonTypeEnum.REG, week=3)
 
     assert res is not None
 
@@ -185,6 +188,7 @@ with GriddyNFL(
 | `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
 | `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number within the season                                       | 3                                                                   |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

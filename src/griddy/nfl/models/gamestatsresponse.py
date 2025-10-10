@@ -2,25 +2,20 @@
 
 from __future__ import annotations
 from .pagination import Pagination, PaginationTypedDict
-from ..types import BaseModel
+from .summary import Summary, SummaryTypedDict
+from griddy.nfl.types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class GameStatsResponseDataTypedDict(TypedDict):
-    r"""Game statistics data"""
-
-
-class GameStatsResponseData(BaseModel):
-    r"""Game statistics data"""
-
-
 class GameStatsResponseTypedDict(TypedDict):
-    data: NotRequired[List[GameStatsResponseDataTypedDict]]
+    data: NotRequired[List[SummaryTypedDict]]
+    r"""Array of live game state summaries"""
     pagination: NotRequired[PaginationTypedDict]
 
 
 class GameStatsResponse(BaseModel):
-    data: Optional[List[GameStatsResponseData]] = None
+    data: Optional[List[Summary]] = None
+    r"""Array of live game state summaries"""
 
     pagination: Optional[Pagination] = None

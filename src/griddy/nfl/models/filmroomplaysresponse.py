@@ -2,21 +2,21 @@
 
 from __future__ import annotations
 from .filmroomplay import FilmroomPlay, FilmroomPlayTypedDict
-from ..types import BaseModel
-from typing import List
-from typing_extensions import TypedDict
+from griddy.nfl.types import BaseModel
+from typing import List, Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class FilmroomPlaysResponseTypedDict(TypedDict):
-    count: int
+    count: NotRequired[int]
     r"""Total number of plays matching the filter criteria"""
-    plays: List[FilmroomPlayTypedDict]
+    plays: NotRequired[List[FilmroomPlayTypedDict]]
     r"""Array of play data matching the filter criteria"""
 
 
 class FilmroomPlaysResponse(BaseModel):
-    count: int
+    count: Optional[int] = None
     r"""Total number of plays matching the filter criteria"""
 
-    plays: List[FilmroomPlay]
+    plays: Optional[List[FilmroomPlay]] = None
     r"""Array of play data matching the filter criteria"""

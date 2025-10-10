@@ -18,15 +18,15 @@ Creates a new access token and refresh token for a client device. This is the in
 
 <!-- UsageSnippet language="python" operationID="generateToken" method="post" path="/identity/v3/token" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.authentication.generate_token(request={
+    res = griddy_nfl.authentication.generate_token(request={
         "client_key": "4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g",
         "client_secret": "CZuvCL49d9OwfGsR",
         "device_id": "3cfdef35-c7fe-4f2d-8630-1ec72f52b44d",
@@ -47,6 +47,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `request`                                                           | [models.TokenRequest](../../models/tokenrequest.md)                 | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
@@ -66,15 +67,15 @@ Refreshes an existing access token using a valid refresh token. This endpoint ex
 
 <!-- UsageSnippet language="python" operationID="refreshToken" method="post" path="/identity/v3/token/refresh" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.authentication.refresh_token(request={
+    res = griddy_nfl.authentication.refresh_token(request={
         "client_key": "4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g",
         "client_secret": "CZuvCL49d9OwfGsR",
         "device_id": "3cfdef35-c7fe-4f2d-8630-1ec72f52b44d",
@@ -99,6 +100,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `request`                                                           | [models.RefreshTokenRequest](../../models/refreshtokenrequest.md)   | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .player import Player, PlayerTypedDict
 from .teaminfo import TeamInfo, TeamInfoTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

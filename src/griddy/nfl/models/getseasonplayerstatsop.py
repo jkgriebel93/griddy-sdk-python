@@ -2,39 +2,46 @@
 
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetSeasonPlayerStatsPosition = Literal[
-    "QB",
-    "RB",
-    "WR",
-    "TE",
-    "OL",
-    "DL",
-    "LB",
-    "DB",
-    "K",
-    "P",
-    "LS",
+GET_SEASON_PLAYER_STATS_OP_SERVERS = [
+    # Production Regular NFL API
+    "https://api.nfl.com",
 ]
-r"""Filter by position group"""
 
 
-StatCategory = Literal[
-    "passing",
-    "rushing",
-    "receiving",
-    "defense",
-    "kicking",
-    "punting",
-    "returning",
-]
-r"""Statistical category to retrieve"""
+class Position(str, Enum):
+    r"""Filter by position group"""
+
+    QB = "QB"
+    RB = "RB"
+    WR = "WR"
+    TE = "TE"
+    OL = "OL"
+    DL = "DL"
+    LB = "LB"
+    DB = "DB"
+    K = "K"
+    P = "P"
+    LS = "LS"
+
+
+class StatCategory(str, Enum):
+    r"""Statistical category to retrieve"""
+
+    PASSING = "passing"
+    RUSHING = "rushing"
+    RECEIVING = "receiving"
+    DEFENSE = "defense"
+    KICKING = "kicking"
+    PUNTING = "punting"
+    RETURNING = "returning"
 
 
 class GetSeasonPlayerStatsRequestTypedDict(TypedDict):
@@ -42,7 +49,7 @@ class GetSeasonPlayerStatsRequestTypedDict(TypedDict):
     r"""Season year"""
     season_type: SeasonTypeEnum
     r"""Type of season"""
-    position: NotRequired[GetSeasonPlayerStatsPosition]
+    position: NotRequired[Position]
     r"""Filter by position group"""
     team_id: NotRequired[str]
     r"""Filter by team"""
@@ -70,7 +77,7 @@ class GetSeasonPlayerStatsRequest(BaseModel):
     r"""Type of season"""
 
     position: Annotated[
-        Optional[GetSeasonPlayerStatsPosition],
+        Optional[Position],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter by position group"""

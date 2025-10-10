@@ -5,7 +5,7 @@ from .conference import Conference, ConferenceTypedDict
 from .conferenceenum import ConferenceEnum
 from .division import Division, DivisionTypedDict
 from .teamtypeenum import TeamTypeEnum
-from ..types import (
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,

@@ -22,15 +22,15 @@ CPOE (Completion Percentage Over Expected), time to throw metrics, and game-spec
 
 <!-- UsageSnippet language="python" operationID="getPlayerPassingStatsByWeek" method="get" path="/api/secured/stats/players-offense/passing/week" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.player_passing_statistics.get_player_passing_stats_by_week(request={
+    res = griddy_nfl.player_passing_statistics.get_player_passing_stats_by_week(request={
         "season": 2025,
         "season_type": models.SeasonTypeEnum.REG,
         "week": models.WeekSlugEnum.WEEK_10,
@@ -54,6 +54,7 @@ with GriddyNFL(
 | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | `request`                                                                                       | [models.GetPlayerPassingStatsByWeekRequest](../../models/getplayerpassingstatsbyweekrequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 | `retries`                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                | :heavy_minus_sign:                                                                              | Configuration to override the default retry behavior of the client.                             |
+| `server_url`                                                                                    | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | An optional server URL to use.                                                                  |
 
 ### Response
 

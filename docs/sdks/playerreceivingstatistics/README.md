@@ -23,15 +23,15 @@ Data includes catch percentage, yards per reception, EPA (Expected Points Added)
 
 <!-- UsageSnippet language="python" operationID="getPlayerReceivingStatsBySeason" method="get" path="/api/secured/stats/players-offense/receiving/season" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.player_receiving_statistics.get_player_receiving_stats_by_season(request={
+    res = griddy_nfl.player_receiving_statistics.get_player_receiving_stats_by_season(request={
         "season": 2025,
         "season_type": models.SeasonTypeEnum.REG,
         "limit": 3,
@@ -55,6 +55,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `request`                                                                                               | [models.GetPlayerReceivingStatsBySeasonRequest](../../models/getplayerreceivingstatsbyseasonrequest.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 | `retries`                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                        | :heavy_minus_sign:                                                                                      | Configuration to override the default retry behavior of the client.                                     |
+| `server_url`                                                                                            | *Optional[str]*                                                                                         | :heavy_minus_sign:                                                                                      | An optional server URL to use.                                                                          |
 
 ### Response
 
@@ -79,15 +80,15 @@ Data includes catch percentage, yards per reception, EPA (Expected Points Added)
 
 <!-- UsageSnippet language="python" operationID="getPlayerReceivingStatsByWeek" method="get" path="/api/secured/stats/players-offense/receiving/week" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.player_receiving_statistics.get_player_receiving_stats_by_week(request={
+    res = griddy_nfl.player_receiving_statistics.get_player_receiving_stats_by_week(request={
         "season": 2025,
         "season_type": models.SeasonTypeEnum.REG,
         "week": models.WeekSlugEnum.WEEK_10,
@@ -111,6 +112,7 @@ with GriddyNFL(
 | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `request`                                                                                           | [models.GetPlayerReceivingStatsByWeekRequest](../../models/getplayerreceivingstatsbyweekrequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 | `retries`                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                    | :heavy_minus_sign:                                                                                  | Configuration to override the default retry behavior of the client.                                 |
+| `server_url`                                                                                        | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | An optional server URL to use.                                                                      |
 
 ### Response
 

@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+GET_FOOTBALL_GAMES_OP_SERVERS = [
+    # Production Regular NFL API
+    "https://api.nfl.com",
+]
 
 
 class GetFootballGamesRequestTypedDict(TypedDict):

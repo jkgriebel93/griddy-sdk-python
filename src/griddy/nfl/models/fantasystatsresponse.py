@@ -2,65 +2,74 @@
 
 from __future__ import annotations
 from .fantasyplayerstats import FantasyPlayerStats, FantasyPlayerStatsTypedDict
+from .fantasypositiongroupenum import FantasyPositionGroupEnum
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
+from .weekslugenum import WeekSlugEnum
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FantasyStatsResponseTypedDict(TypedDict):
-    limit: int
+    r"""Common pagination and query metadata for stats responses"""
+
+    limit: NotRequired[int]
     r"""Maximum number of results returned"""
-    offset: int
+    offset: NotRequired[int]
     r"""Number of records skipped"""
-    players: List[FantasyPlayerStatsTypedDict]
-    season: int
+    season: NotRequired[int]
     r"""Season year"""
-    season_type: SeasonTypeEnum
+    season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    sort_key: str
+    sort_key: NotRequired[str]
     r"""Field used for sorting"""
-    sort_value: SortOrderEnum
+    sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction for ordered results"""
-    total: int
-    r"""Total number of players matching the criteria"""
+    total: NotRequired[int]
+    r"""Total number of items matching the criteria"""
+    players: NotRequired[List[FantasyPlayerStatsTypedDict]]
     last_n_weeks: NotRequired[int]
     r"""Number of recent weeks analyzed (if applied)"""
     min_offensive_snaps: NotRequired[int]
     r"""Minimum offensive snaps filter applied"""
-    position_group: NotRequired[List[str]]
-    r"""Position groups included in results"""
+    position_group: NotRequired[List[FantasyPositionGroupEnum]]
     team_offense: NotRequired[str]
     r"""Offensive team filter applied (if any)"""
-    week: NotRequired[List[str]]
+    week: NotRequired[List[WeekSlugEnum]]
     r"""Specific weeks included in analysis"""
 
 
 class FantasyStatsResponse(BaseModel):
-    limit: int
+    r"""Common pagination and query metadata for stats responses"""
+
+    limit: Optional[int] = None
     r"""Maximum number of results returned"""
 
-    offset: int
+    offset: Optional[int] = None
     r"""Number of records skipped"""
 
-    players: List[FantasyPlayerStats]
-
-    season: int
+    season: Optional[int] = None
     r"""Season year"""
 
-    season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
     r"""Type of NFL season"""
 
-    sort_key: Annotated[str, pydantic.Field(alias="sortKey")]
+    sort_key: Annotated[Optional[str], pydantic.Field(alias="sortKey")] = None
     r"""Field used for sorting"""
 
-    sort_value: Annotated[SortOrderEnum, pydantic.Field(alias="sortValue")]
+    sort_value: Annotated[
+        Optional[SortOrderEnum], pydantic.Field(alias="sortValue")
+    ] = None
     r"""Sort direction for ordered results"""
 
-    total: int
-    r"""Total number of players matching the criteria"""
+    total: Optional[int] = None
+    r"""Total number of items matching the criteria"""
+
+    players: Optional[List[FantasyPlayerStats]] = None
 
     last_n_weeks: Annotated[Optional[int], pydantic.Field(alias="lastNWeeks")] = None
     r"""Number of recent weeks analyzed (if applied)"""
@@ -71,12 +80,11 @@ class FantasyStatsResponse(BaseModel):
     r"""Minimum offensive snaps filter applied"""
 
     position_group: Annotated[
-        Optional[List[str]], pydantic.Field(alias="positionGroup")
+        Optional[List[FantasyPositionGroupEnum]], pydantic.Field(alias="positionGroup")
     ] = None
-    r"""Position groups included in results"""
 
     team_offense: Annotated[Optional[str], pydantic.Field(alias="teamOffense")] = None
     r"""Offensive team filter applied (if any)"""
 
-    week: Optional[List[str]] = None
+    week: Optional[List[WeekSlugEnum]] = None
     r"""Specific weeks included in analysis"""

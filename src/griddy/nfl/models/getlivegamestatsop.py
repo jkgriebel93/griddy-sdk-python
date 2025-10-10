@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from typing_extensions import Annotated, TypedDict
+
+
+GET_LIVE_GAME_STATS_OP_SERVERS = [
+    # Production Regular NFL API
+    "https://api.nfl.com",
+]
 
 
 class GetLiveGameStatsRequestTypedDict(TypedDict):

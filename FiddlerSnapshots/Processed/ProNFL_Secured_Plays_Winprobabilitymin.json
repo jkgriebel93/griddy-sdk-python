@@ -1,0 +1,1812 @@
+{
+    "path": "/api/secured/plays/winProbabilityMin",
+    "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6ImU1MzVjN2MwLTgxN2YtNDc3Ni04OTkwLTU2NTU2ZjhiMTkyOCIsImNsaWVudEtleSI6IjRjRlVXNkRtd0pwelQ5TDdMckczcVJBY0FCRzVzMDRnIiwiZGV2aWNlSWQiOiJkNmIwYjA5MS04YzUxLTQ2NjItYmIzNy00MDkzZTY3ZmUwNTEiLCJpc3MiOiJORkwiLCJwbGFucyI6W3sicGxhbiI6ImZyZWUiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjYtMDktMjQiLCJzb3VyY2UiOiJORkwiLCJzdGFydERhdGUiOiIyMDI1LTA5LTI0Iiwic3RhdHVzIjoiQUNUSVZFIiwidHJpYWwiOmZhbHNlfSx7InBsYW4iOiJORkxfUExVU19QUkVNSVVNIiwiYmlsbGluZ1R5cGUiOiJtb250aGx5IiwiZXhwaXJhdGlvbkRhdGUiOiIyMDI1LTA5LTI4IiwiZXh0ZXJuYWxTdWJzY3JpcHRpb25JZCI6Ind6cmw0ZDBpd2wxbiIsInNvdXJjZSI6IldFQiIsInN0YXJ0RGF0ZSI6IjIwMjUtMDgtMjgiLCJzdGF0dXMiOiJBQ1RJVkUiLCJ0cmlhbCI6ZmFsc2V9XSwiRGlzcGxheU5hbWUiOiJXRUJfREVTS1RPUF9ERVNLVE9QIiwiTm90ZXMiOiIiLCJmb3JtRmFjdG9yIjoiREVTS1RPUCIsImx1cmFBcHBLZXkiOiJTWnM1N2RCR1J4Ykw3MjhsVnA3RFlRIiwicGxhdGZvcm0iOiJERVNLVE9QIiwicHJvZHVjdE5hbWUiOiJXRUIiLCJyb2xlcyI6WyJjb250ZW50IiwiZXhwZXJpZW5jZSIsImZvb3RiYWxsIiwidXRpbGl0aWVzIiwidGVhbXMiLCJwbGF5IiwibGl2ZSIsImlkZW50aXR5IiwibmdzX3N0YXRzIiwicGF5bWVudHNfYXBpIiwibmdzX3RyYWNraW5nIiwibmdzX3BsYXRmb3JtIiwibmdzX2NvbnRlbnQiLCJuZ3NfY29tYmluZSIsIm5nc19hZHZhbmNlZF9zdGF0cyIsIm5mbF9wcm8iLCJlY29tbSIsIm5mbF9pZF9hcGkiLCJ1dGlsaXRpZXNfbG9jYXRpb24iLCJpZGVudGl0eV9vaWRjIiwibmdzX3NzZSIsImFjY291bnRzIiwiY29uc2VudHMiLCJzdWJfcGFydG5lcnNoaXBzIiwiY29uY3VycmVuY3kiLCJrZXlzdG9yZSIsImZyZWUiLCJORkxfUExVU19QUkVNSVVNIl0sIm5ldHdvcmtUeXBlIjoib3RoZXIiLCJjaXR5IjoiYXRsYW50YSIsImNvdW50cnlDb2RlIjoiVVMiLCJkbWFDb2RlIjoiNTI0IiwiaG1hVGVhbXMiOlsiMTA0MDAyMDAtZjQwMS00ZTUzLTUxNzUtMDk3NGU0ZjE2Y2Y3Il0sInJlZ2lvbiI6IkdBIiwiemlwQ29kZSI6IjMwMzQ5IiwiYnJvd3NlciI6IkNocm9tZSIsImNlbGx1bGFyIjpmYWxzZSwiZW52aXJvbm1lbnQiOiJwcm9kdWN0aW9uIiwidWlkIjoiZGY5OTBhY2Q5NTFlNGJkNjk0MGMzYmFiYzQzNDE1ODQiLCJleHAiOjE3NTg3MzMwNjB9.ke100yxdfSscak38fTPKfv7YAAFDNsTmfGHVjrjXKbg",
+        "cache-control": "max-age=15",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "accept": "application/json, text/plain, */*",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "https://pro.nfl.com/games/scores/2025/REG/3",
+        "accept-encoding": "gzip, deflate, br, zstd",
+        "accept-language": "en-US,en;q=0.9",
+        "priority": "u=1, i",
+        "cookie": "nfl.v1v2.id=ed3ff26a-63c0-44df-a18d-a7741f29ab12; gig_bootstrap_3_Qa8TkWpIB8ESCBT8tY2TukbVKgO5F6BJVc7N1oComdwFzI7H2L9NOWdm11i_BY9f=auth-id_ver4; __gads=ID=bf031178a45c97e8:T=1758729047:RT=1758729047:S=ALNI_MZeowqGkjunOhQulGJO9uYRr60dDg; __gpi=UID=0000115278ac323c:T=1758729047:RT=1758729047:S=ALNI_MYrVXcjrB6PhCEzCxBjG-puB7CF3Q; __eoi=ID=736039cce8ec577c:T=1758729047:RT=1758729047:S=AA-AfjaeDfHmYZdkm4ECU4G71fJ6; AMCVS_F75C3025512D2C1D0A490D44%40AdobeOrg=1; nflcs.prod.crossDomainStorageCleared=true; s_ecid=MCMID%7C37821682721811146091833466082002814208; cto_bundle=hiCaCF9INUNKVTRYRGc1RUZuT1dMaGMyM0JXNktLSjlkQ0FiS1J2cEJFaXJJZEFWN1YwN2NxcW9YVllMbU4lMkZJRUdUMUpJeW9BU2ZXRkFCYXh5MU5pQXhyenMwRXBSSnl1YThGNklhcDgyQUttYUlFN29qalZXOFZHUFFsMU5QZkJHQzIwbFFrdEhES1FtVSUyRkRQSHdtZ0RDSFF3JTNEJTNE; AMCV_F75C3025512D2C1D0A490D44%40AdobeOrg=179643557%7CMCIDTS%7C20356%7CMCMID%7C37821682721811146091833466082002814208%7CMCAAMLH-1759333847%7C7%7CMCAAMB-1759333847%7C6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y%7CMCOPTOUT-1758736253s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-20363%7CvVersion%7C5.5.0; kndctr_F75C3025512D2C1D0A490D44_AdobeOrg_identity=CiYzNzgyMTY4MjcyMTgxMTE0NjA5MTgzMzQ2NjA4MjAwMjgxNDIwOFIQCN-iruOXMxgBKgNPUjIwA_AB36Ku45cz; kndctr_F75C3025512D2C1D0A490D44_AdobeOrg_cluster=or2; _scor_uid=38cda76f053d4d00bcb8cabe3ec213c3; _gid=GA1.2.1917911646.1758729059; OptanonAlertBoxClosed=2025-09-24T15:51:37.598Z; gig_bootstrap_3_3g_DApOD0TCeN6ZJpzQMr7H1cIbtqtHwDjKVESN3N5oohMleIozT0I9WecPZeytT=auth-id_ver4; glt_3_3g_DApOD0TCeN6ZJpzQMr7H1cIbtqtHwDjKVESN3N5oohMleIozT0I9WecPZeytT=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; _gcl_au=1.1.1921840111.1758729054.187010321.1758729179.1758729179; glt_3_Qa8TkWpIB8ESCBT8tY2TukbVKgO5F6BJVc7N1oComdwFzI7H2L9NOWdm11i_BY9f=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; minUnifiedSessionToken10=%7B%22sessionId%22%3A%2290b30eee81-986c8b97be-47079256f3-3021781759-341e237393%22%2C%22uid%22%3A%22bd06729f7f-509687e8d7-0c18b8efc9-b9a3318deb-addd6c4712%22%2C%22__sidts__%22%3A1758729232797%2C%22__uidts__%22%3A1758729232797%7D; nfl_web_sdk_plugin_storage={%22s_ppv%22:{%22noScrollClick%22:1%2C%22scrollDelta%22:0%2C%22footerSeen%22:false%2C%22lastRecPage%22:%22nfl.com:podcasts:podcasts:landing%22%2C%22percentPageViewed%22:44%2C%22initialPageViewed%22:44%2C%22maxPageViewed%22:739}}; _ga_M6JHFFXV8K=GS2.1.s1758729059$o1$g1$t1758729234$j28$l0$h0; _ga=GA1.1.1043645392.1758729059; gig_bootstrap_4_9iJVkTyrOzMJlUu66ZBRKg=auth-id_ver4; glt_4_9iJVkTyrOzMJlUu66ZBRKg=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; nflcs.prod.nfl.user=eyJkYXRhIjoiIiwiZXhwIjoxNzU4NzI5NTE4MDYyLCJmaXJzdE5hbWUiOiIiLCJnaWd5YVVJRCI6IiIsImdpZ3lhVUlEU2lnbmF0dXJlIjoiIiwiaGFzaGVkRW1haWwiOiIiLCJsYXN0TmFtZSI6IiJ9; OptanonConsent=isGpcEnabled=0&datestamp=Wed+Sep+24+2025+11%3A57%3A38+GMT-0400+(Eastern+Daylight+Time)&version=202506.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=1c2d9908-516b-4ecf-a7b9-e4095213e98e&interactionCount=2&isAnonUser=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CBG64%3A1%2CC0004%3A1&AwaitingReconsent=false&intType=3&geolocation=US%3BGA; adobeujs-optin=%7B%22aam%22%3Atrue%2C%22adcloud%22%3Afalse%2C%22aa%22%3Atrue%2C%22campaign%22%3Afalse%2C%22ecid%22%3Atrue%2C%22livefyre%22%3Afalse%2C%22target%22%3Atrue%2C%22mediaaa%22%3Atrue%7D",
+        "host": "pro.nfl.com"
+    },
+    "query_params": {
+        "fapiGameId": [
+            "f666051f-311e-11f0-b670-ae1250fadad1",
+            "f6660056-311e-11f0-b670-ae1250fadad1",
+            "f665fc10-311e-11f0-b670-ae1250fadad1",
+            "f665f386-311e-11f0-b670-ae1250fadad1",
+            "f665e5fd-311e-11f0-b670-ae1250fadad1",
+            "f665eed1-311e-11f0-b670-ae1250fadad1",
+            "f665f7cb-311e-11f0-b670-ae1250fadad1",
+            "f688b03d-311e-11f0-b670-ae1250fadad1",
+            "f665ea74-311e-11f0-b670-ae1250fadad1"
+        ]
+    },
+    "response_example": {
+        "gameId": 2025092106,
+        "gameKey": 59882,
+        "pregameAwayTeamWinProbability": 0.28824037592858076,
+        "pregameHomeTeamWinProbability": 0.7117596240714192,
+        "plays": [
+            {
+                "playDescription": "GAME",
+                "possessionTeamId": "3430",
+                "quarter": 1
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 67 yards from TB 35 to NYJ -2. B.Allen to NYJ 29 for 31 yards (K.Kieft; M.Watts).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7189522758126259,
+                "preSnapVisitorTeamWinProbability": 0.2810477241873741,
+                "postPlayHomeTeamWinProbability": 0.7232312671840191,
+                "postPlayVisitorTeamWinProbability": 0.2767687328159809
+            },
+            {
+                "playDescription": "(14:55) T.Taylor scrambles left end ran ob at NYJ 36 for 7 yards (Z.McCollum).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7232312671840191,
+                "preSnapVisitorTeamWinProbability": 0.2767687328159809,
+                "postPlayHomeTeamWinProbability": 0.6990032643079758,
+                "postPlayVisitorTeamWinProbability": 0.30099673569202423
+            },
+            {
+                "playDescription": "(14:17) (Shotgun) T.Taylor pass short right to A.Smith ran ob at NYJ 42 for 6 yards.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6990032643079758,
+                "preSnapVisitorTeamWinProbability": 0.30099673569202423,
+                "postPlayHomeTeamWinProbability": 0.6713202968239784,
+                "postPlayVisitorTeamWinProbability": 0.3286797031760216
+            },
+            {
+                "playDescription": "(13:47) (Shotgun) B.Hall right guard to NYJ 41 for -1 yards (Y.Diaby).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6713202968239784,
+                "preSnapVisitorTeamWinProbability": 0.3286797031760216,
+                "postPlayHomeTeamWinProbability": 0.6860691923648119,
+                "postPlayVisitorTeamWinProbability": 0.3139308076351881
+            },
+            {
+                "playDescription": "(13:11) (Shotgun) T.Taylor sacked at NYJ 41 for 0 yards (L.Hall).\r\nPENALTY on TB-L.Hall, Horse Collar Tackle, 15 yards, enforced at NYJ 41 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6860691923648119,
+                "preSnapVisitorTeamWinProbability": 0.3139308076351881,
+                "postPlayHomeTeamWinProbability": 0.6558592356741428,
+                "postPlayVisitorTeamWinProbability": 0.34414076432585716
+            },
+            {
+                "playDescription": "(12:54) (Shotgun) T.Taylor scrambles right end to TB 43 for 1 yard (J.Parrish).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6558592356741428,
+                "preSnapVisitorTeamWinProbability": 0.34414076432585716,
+                "postPlayHomeTeamWinProbability": 0.6611977647989988,
+                "postPlayVisitorTeamWinProbability": 0.33880223520100117
+            },
+            {
+                "playDescription": "(12:22) (No Huddle, Shotgun) B.Allen up the middle to TB 39 for 4 yards (V.Vea; Y.Diaby).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6611977647989988,
+                "preSnapVisitorTeamWinProbability": 0.33880223520100117,
+                "postPlayHomeTeamWinProbability": 0.663975439965725,
+                "postPlayVisitorTeamWinProbability": 0.33602456003427505
+            },
+            {
+                "playDescription": "(11:42) (Shotgun) T.Taylor pass short middle to G.Wilson to TB 31 for 8 yards (Z.McCollum) [A.Winfield].",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.663975439965725,
+                "preSnapVisitorTeamWinProbability": 0.33602456003427505,
+                "postPlayHomeTeamWinProbability": 0.6178800389170647,
+                "postPlayVisitorTeamWinProbability": 0.38211996108293533
+            },
+            {
+                "playDescription": "(11:08) (Shotgun) T.Taylor pass short right to B.Hall to TB 30 for 1 yard (C.Braswell).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6178800389170647,
+                "preSnapVisitorTeamWinProbability": 0.38211996108293533,
+                "postPlayHomeTeamWinProbability": 0.6277584731578827,
+                "postPlayVisitorTeamWinProbability": 0.3722415268421173
+            },
+            {
+                "playDescription": "(10:31) (Shotgun) T.Taylor pass incomplete short middle to M.Taylor.\r\nPENALTY on TB-L.David, Defensive Pass Interference, 4 yards, enforced at TB 30 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6277584731578827,
+                "preSnapVisitorTeamWinProbability": 0.3722415268421173,
+                "postPlayHomeTeamWinProbability": 0.6135364975780249,
+                "postPlayVisitorTeamWinProbability": 0.38646350242197514
+            },
+            {
+                "playDescription": "(10:27) (Shotgun) T.Taylor pass short right to B.Hall ran ob at TB 17 for 9 yards (T.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6135364975780249,
+                "preSnapVisitorTeamWinProbability": 0.38646350242197514,
+                "postPlayHomeTeamWinProbability": 0.58534318767488,
+                "postPlayVisitorTeamWinProbability": 0.41465681232511997
+            },
+            {
+                "playDescription": "(9:50) B.Allen up the middle to TB 11 for 6 yards (E.Simmons; T.Smith).\r\nPENALTY on NYJ, Illegal Formation, 5 yards, enforced at TB 17 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.58534318767488,
+                "preSnapVisitorTeamWinProbability": 0.41465681232511997,
+                "postPlayHomeTeamWinProbability": 0.6064389944076538,
+                "postPlayVisitorTeamWinProbability": 0.3935610055923462
+            },
+            {
+                "playDescription": "(9:36) B.Hall right guard to TB 20 for 2 yards (L.David; L.Hall).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6064389944076538,
+                "preSnapVisitorTeamWinProbability": 0.3935610055923462,
+                "postPlayHomeTeamWinProbability": 0.6116098910570145,
+                "postPlayVisitorTeamWinProbability": 0.38839010894298553
+            },
+            {
+                "playDescription": "(9:00) (Shotgun) T.Taylor pass incomplete deep right to G.Wilson.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6116098910570145,
+                "preSnapVisitorTeamWinProbability": 0.38839010894298553,
+                "postPlayHomeTeamWinProbability": 0.6518158912658691,
+                "postPlayVisitorTeamWinProbability": 0.34818410873413086
+            },
+            {
+                "playDescription": "(8:55) N.Folk 38 yard field goal is GOOD, Center-T.Hennessy, Holder-A.McNamara.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6518158912658691,
+                "preSnapVisitorTeamWinProbability": 0.34818410873413086,
+                "postPlayHomeTeamWinProbability": 0.6313259489834309,
+                "postPlayVisitorTeamWinProbability": 0.36867405101656914
+            },
+            {
+                "playDescription": "Timeout at 08:51.",
+                "possessionTeamId": "3430",
+                "quarter": 1
+            },
+            {
+                "playDescription": "N.Folk kicks 58 yards from NYJ 35 to TB 7. S.Tucker to TB 32 for 25 yards (I.Davis; A.Beck).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6313259489834309,
+                "preSnapVisitorTeamWinProbability": 0.36867405101656914,
+                "postPlayHomeTeamWinProbability": 0.6449910625815392,
+                "postPlayVisitorTeamWinProbability": 0.35500893741846085
+            },
+            {
+                "playDescription": "(8:46) B.Irving right guard to TB 36 for 4 yards (M.Carter).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6449910625815392,
+                "preSnapVisitorTeamWinProbability": 0.35500893741846085,
+                "postPlayHomeTeamWinProbability": 0.6440914552658796,
+                "postPlayVisitorTeamWinProbability": 0.35590854473412037
+            },
+            {
+                "playDescription": "(8:27) (No Huddle, Shotgun) B.Irving up the middle to TB 36 for no gain (Q.Williams; W.McDonald).\r\nPENALTY on NYJ-Q.Williams, Face Mask, 15 yards, enforced at TB 36 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6440914552658796,
+                "preSnapVisitorTeamWinProbability": 0.35590854473412037,
+                "postPlayHomeTeamWinProbability": 0.6802548747509718,
+                "postPlayVisitorTeamWinProbability": 0.3197451252490282
+            },
+            {
+                "playDescription": "(8:09) B.Irving left tackle to NYJ 41 for 8 yards (J.Sherwood).\r\nPENALTY on TB-R.Miller, Offensive Holding, 10 yards, enforced at NYJ 47.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6802548747509718,
+                "preSnapVisitorTeamWinProbability": 0.3197451252490282,
+                "postPlayHomeTeamWinProbability": 0.6529772747308016,
+                "postPlayVisitorTeamWinProbability": 0.3470227252691984
+            },
+            {
+                "playDescription": "(7:45) (Shotgun) B.Mayfield pass short right to B.Irving to NYJ 32 for 25 yards (B.Stephens; J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6529772747308016,
+                "preSnapVisitorTeamWinProbability": 0.3470227252691984,
+                "postPlayHomeTeamWinProbability": 0.7235709950327873,
+                "postPlayVisitorTeamWinProbability": 0.2764290049672127
+            },
+            {
+                "playDescription": "(7:11) (No Huddle, Shotgun) B.Irving left guard to NYJ 28 for 4 yards (M.Carter; J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7235709950327873,
+                "preSnapVisitorTeamWinProbability": 0.2764290049672127,
+                "postPlayHomeTeamWinProbability": 0.7215569484978914,
+                "postPlayVisitorTeamWinProbability": 0.2784430515021086
+            },
+            {
+                "playDescription": "(6:46) (No Huddle, Shotgun) B.Mayfield pass short right to E.Egbuka to NYJ 31 for -3 yards (B.Stephens).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7215569484978914,
+                "preSnapVisitorTeamWinProbability": 0.2784430515021086,
+                "postPlayHomeTeamWinProbability": 0.6811096668243408,
+                "postPlayVisitorTeamWinProbability": 0.3188903331756592
+            },
+            {
+                "playDescription": "(6:06) (Shotgun) B.Mayfield pass incomplete short left to R.White.\r\nPENALTY on TB-L.Haggard, Offensive Holding, 10 yards, enforced at NYJ 31 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6811096668243408,
+                "preSnapVisitorTeamWinProbability": 0.3188903331756592,
+                "postPlayHomeTeamWinProbability": 0.6188011281192303,
+                "postPlayVisitorTeamWinProbability": 0.38119887188076973
+            },
+            {
+                "playDescription": "(5:59) (Shotgun) B.Mayfield pass short left to R.White pushed ob at NYJ 31 for 10 yards (A.Gardner; M.Carter).\r\nPENALTY on TB-M.Evans, Offensive Holding, 10 yards, enforced at NYJ 41 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6188011281192303,
+                "preSnapVisitorTeamWinProbability": 0.38119887188076973,
+                "postPlayHomeTeamWinProbability": 0.6103786304593086,
+                "postPlayVisitorTeamWinProbability": 0.3896213695406914
+            },
+            {
+                "playDescription": "(5:30) (Shotgun) B.Mayfield pass incomplete deep right to M.Evans.\r\nPENALTY on NYJ-A.Gardner, Defensive Pass Interference, 26 yards, enforced at TB 49 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6103786304593086,
+                "preSnapVisitorTeamWinProbability": 0.3896213695406914,
+                "postPlayHomeTeamWinProbability": 0.7263410445302725,
+                "postPlayVisitorTeamWinProbability": 0.2736589554697275
+            },
+            {
+                "playDescription": "(5:25) B.Irving right guard to NYJ 22 for 3 yards (M.Clemons; J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7263410445302725,
+                "preSnapVisitorTeamWinProbability": 0.2736589554697275,
+                "postPlayHomeTeamWinProbability": 0.7223850563168526,
+                "postPlayVisitorTeamWinProbability": 0.27761494368314743
+            },
+            {
+                "playDescription": "(4:43) (Shotgun) B.Irving left end to NYJ 19 for 3 yards (F.Mauigoa).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7223850563168526,
+                "preSnapVisitorTeamWinProbability": 0.27761494368314743,
+                "postPlayHomeTeamWinProbability": 0.7198328692466021,
+                "postPlayVisitorTeamWinProbability": 0.28016713075339794
+            },
+            {
+                "playDescription": "(3:57) (Shotgun) B.Mayfield pass short middle to S.Shepard to NYJ 5 for 14 yards (Qu.Williams).\r\nPENALTY on TB-L.Haggard, Offensive Holding, 10 yards, enforced at NYJ 19 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.7198328692466021,
+                "preSnapVisitorTeamWinProbability": 0.28016713075339794,
+                "postPlayHomeTeamWinProbability": 0.6595840994268656,
+                "postPlayVisitorTeamWinProbability": 0.3404159005731344
+            },
+            {
+                "playDescription": "(3:27) (Shotgun) B.Mayfield pass deep left to M.Evans pushed ob at NYJ 7 for 22 yards (A.Gardner).\r\nPENALTY on TB-G.Barton, Offensive Holding, 10 yards, enforced at NYJ 29 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6595840994268656,
+                "preSnapVisitorTeamWinProbability": 0.3404159005731344,
+                "postPlayHomeTeamWinProbability": 0.619737733155489,
+                "postPlayVisitorTeamWinProbability": 0.38026226684451103
+            },
+            {
+                "playDescription": "(3:08) (Shotgun) R.White up the middle to NYJ 35 for 4 yards (Q.Williams; T.Baron).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.619737733155489,
+                "preSnapVisitorTeamWinProbability": 0.38026226684451103,
+                "postPlayHomeTeamWinProbability": 0.6232774723321199,
+                "postPlayVisitorTeamWinProbability": 0.37672252766788006
+            },
+            {
+                "playDescription": "(2:26) C.McLaughlin 54 yard field goal is GOOD, Center-E.Deckers, Holder-R.Dixon.",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6232774723321199,
+                "preSnapVisitorTeamWinProbability": 0.37672252766788006,
+                "postPlayHomeTeamWinProbability": 0.6739379204809666,
+                "postPlayVisitorTeamWinProbability": 0.32606207951903343
+            },
+            {
+                "playDescription": "Timeout at 02:20.",
+                "possessionTeamId": "3430",
+                "quarter": 1
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 59 yards from TB 35 to NYJ 6. I.Davis to NYJ 37 for 31 yards (C.Braswell).",
+                "possessionTeamId": "4900",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6739379204809666,
+                "preSnapVisitorTeamWinProbability": 0.32606207951903343,
+                "postPlayHomeTeamWinProbability": 0.6514398343861103,
+                "postPlayVisitorTeamWinProbability": 0.3485601656138897
+            },
+            {
+                "playDescription": "(2:14) T.Taylor pass deep right to G.Wilson to TB 46 for 17 yards (Z.McCollum) [S.Dennis].",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6514398343861103,
+                "preSnapVisitorTeamWinProbability": 0.3485601656138897,
+                "postPlayHomeTeamWinProbability": 0.6345051676034927,
+                "postPlayVisitorTeamWinProbability": 0.36549483239650726
+            },
+            {
+                "playDescription": "(1:43) (No Huddle, Shotgun) B.Hall left guard to TB 29 for 17 yards (T.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6345051676034927,
+                "preSnapVisitorTeamWinProbability": 0.36549483239650726,
+                "postPlayHomeTeamWinProbability": 0.5956638976931572,
+                "postPlayVisitorTeamWinProbability": 0.4043361023068428
+            },
+            {
+                "playDescription": "(1:22) (No Huddle, Shotgun) B.Hall left tackle to TB 28 for 1 yard (S.Dennis).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.5956638976931572,
+                "preSnapVisitorTeamWinProbability": 0.4043361023068428,
+                "postPlayHomeTeamWinProbability": 0.6099941171705723,
+                "postPlayVisitorTeamWinProbability": 0.3900058828294277
+            },
+            {
+                "playDescription": "(:50) (Shotgun) T.Taylor pass incomplete short left to G.Wilson (J.Dean).\r\nPENALTY on NYJ-O.Fashanu, Offensive Holding, 10 yards, enforced at TB 28 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6099941171705723,
+                "preSnapVisitorTeamWinProbability": 0.3900058828294277,
+                "postPlayHomeTeamWinProbability": 0.6516750641167164,
+                "postPlayVisitorTeamWinProbability": 0.3483249358832836
+            },
+            {
+                "playDescription": "(:44) (Shotgun) T.Taylor pass short middle to G.Wilson to TB 33 for 5 yards (L.David).",
+                "possessionTeamId": "3430",
+                "quarter": 1,
+                "preSnapHomeTeamWinProbability": 0.6516750641167164,
+                "preSnapVisitorTeamWinProbability": 0.3483249358832836,
+                "postPlayHomeTeamWinProbability": 0.6520051043480635,
+                "postPlayVisitorTeamWinProbability": 0.34799489565193653
+            },
+            {
+                "playDescription": "END QUARTER 1",
+                "possessionTeamId": "3430",
+                "quarter": 1
+            },
+            {
+                "playDescription": "(15:00) (Shotgun) T.Taylor pass short left to M.Taylor to TB 24 for 9 yards (J.Parrish).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.6520051043480635,
+                "preSnapVisitorTeamWinProbability": 0.34799489565193653,
+                "postPlayHomeTeamWinProbability": 0.6506091840565205,
+                "postPlayVisitorTeamWinProbability": 0.34939081594347954
+            },
+            {
+                "playDescription": "(14:04) N.Folk 42 yard field goal is GOOD, Center-T.Hennessy, Holder-A.McNamara.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.6506091840565205,
+                "preSnapVisitorTeamWinProbability": 0.34939081594347954,
+                "postPlayHomeTeamWinProbability": 0.611386114731431,
+                "postPlayVisitorTeamWinProbability": 0.388613885268569
+            },
+            {
+                "playDescription": "Timeout at 14:01.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "A.McNamara kicks 64 yards from NYJ 35 to TB 1. S.Tucker to TB 23 for 22 yards (I.Davis; I.Oliver).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.611386114731431,
+                "preSnapVisitorTeamWinProbability": 0.388613885268569,
+                "postPlayHomeTeamWinProbability": 0.606128366664052,
+                "postPlayVisitorTeamWinProbability": 0.393871633335948
+            },
+            {
+                "playDescription": "(13:55) B.Mayfield pass incomplete short right to M.Evans.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.606128366664052,
+                "preSnapVisitorTeamWinProbability": 0.393871633335948,
+                "postPlayHomeTeamWinProbability": 0.5903290286660194,
+                "postPlayVisitorTeamWinProbability": 0.40967097133398056
+            },
+            {
+                "playDescription": "(13:51) (Shotgun) B.Mayfield pass deep right to E.Egbuka pushed ob at NYJ 47 for 30 yards (A.Gardner).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.5903290286660194,
+                "preSnapVisitorTeamWinProbability": 0.40967097133398056,
+                "postPlayHomeTeamWinProbability": 0.6644564475864172,
+                "postPlayVisitorTeamWinProbability": 0.3355435524135828
+            },
+            {
+                "playDescription": "(13:11) B.Mayfield pass short left to E.Egbuka pushed ob at NYJ 39 for 8 yards (B.Stephens).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.6644564475864172,
+                "preSnapVisitorTeamWinProbability": 0.3355435524135828,
+                "postPlayHomeTeamWinProbability": 0.6768587753176689,
+                "postPlayVisitorTeamWinProbability": 0.3231412246823311
+            },
+            {
+                "playDescription": "(12:53) (No Huddle, Shotgun) B.Irving left end to NYJ 45 for -6 yards (M.Clemons).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.6768587753176689,
+                "preSnapVisitorTeamWinProbability": 0.3231412246823311,
+                "postPlayHomeTeamWinProbability": 0.5770225264132023,
+                "postPlayVisitorTeamWinProbability": 0.4229774735867977
+            },
+            {
+                "playDescription": "(12:16) (Shotgun) B.Mayfield pass short middle to S.Shepard to NYJ 29 for 16 yards (J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.5770225264132023,
+                "preSnapVisitorTeamWinProbability": 0.4229774735867977,
+                "postPlayHomeTeamWinProbability": 0.685890719294548,
+                "postPlayVisitorTeamWinProbability": 0.31410928070545197
+            },
+            {
+                "playDescription": "(11:43) (No Huddle, Shotgun) B.Mayfield pass short left to S.Shepard to NYJ 5 for 24 yards (M.Moore).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.685890719294548,
+                "preSnapVisitorTeamWinProbability": 0.31410928070545197,
+                "postPlayHomeTeamWinProbability": 0.7208172995597124,
+                "postPlayVisitorTeamWinProbability": 0.2791827004402876
+            },
+            {
+                "playDescription": "(11:18) (No Huddle, Shotgun) B.Mayfield pass short left to M.Evans for 5 yards, TOUCHDOWN.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7208172995597124,
+                "preSnapVisitorTeamWinProbability": 0.2791827004402876,
+                "postPlayHomeTeamWinProbability": 0.7467570919543505,
+                "postPlayVisitorTeamWinProbability": 0.25324290804564953
+            },
+            {
+                "playDescription": "C.McLaughlin extra point is GOOD, Center-E.Deckers, Holder-R.Dixon.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7467570919543505,
+                "preSnapVisitorTeamWinProbability": 0.25324290804564953,
+                "postPlayHomeTeamWinProbability": 0.7467570919543505,
+                "postPlayVisitorTeamWinProbability": 0.25324290804564953
+            },
+            {
+                "playDescription": "Timeout at 11:15.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 55 yards from TB 35 to NYJ 10. B.Allen to NYJ 35 for 25 yards (R.Miller).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7467570919543505,
+                "preSnapVisitorTeamWinProbability": 0.25324290804564953,
+                "postPlayHomeTeamWinProbability": 0.7390056848526001,
+                "postPlayVisitorTeamWinProbability": 0.2609943151473999
+            },
+            {
+                "playDescription": "(11:11) T.Taylor pass short right to A.Smith to NYJ 31 for -4 yards (B.Morrison).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7390056848526001,
+                "preSnapVisitorTeamWinProbability": 0.2609943151473999,
+                "postPlayHomeTeamWinProbability": 0.7607651352882385,
+                "postPlayVisitorTeamWinProbability": 0.23923486471176147
+            },
+            {
+                "playDescription": "(10:29) (Shotgun) T.Taylor scrambles up the middle to NYJ 35 for 4 yards (S.Dennis).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7607651352882385,
+                "preSnapVisitorTeamWinProbability": 0.23923486471176147,
+                "postPlayHomeTeamWinProbability": 0.761886715888977,
+                "postPlayVisitorTeamWinProbability": 0.23811328411102295
+            },
+            {
+                "playDescription": "(9:45) (Shotgun) T.Taylor pass short left to G.Wilson pushed ob at NYJ 44 for 9 yards (B.Morrison) [J.Parrish].",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.761886715888977,
+                "preSnapVisitorTeamWinProbability": 0.23811328411102295,
+                "postPlayHomeTeamWinProbability": 0.7623071931302547,
+                "postPlayVisitorTeamWinProbability": 0.23769280686974525
+            },
+            {
+                "playDescription": "(9:13) B.Allen up the middle to NYJ 43 for -1 yards (H.Reddick).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7623071931302547,
+                "preSnapVisitorTeamWinProbability": 0.23769280686974525,
+                "postPlayHomeTeamWinProbability": 0.8142278268933296,
+                "postPlayVisitorTeamWinProbability": 0.18577217310667038
+            },
+            {
+                "playDescription": "Timeout at 09:09.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(9:09) (Shotgun) R.White left tackle to NYJ 36 for 7 yards (B.Stephens).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8142278268933296,
+                "preSnapVisitorTeamWinProbability": 0.18577217310667038,
+                "postPlayHomeTeamWinProbability": 0.8220008611679077,
+                "postPlayVisitorTeamWinProbability": 0.17799913883209229
+            },
+            {
+                "playDescription": "(8:51) (No Huddle) R.White left guard to NYJ 36 for no gain (Q.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8220008611679077,
+                "preSnapVisitorTeamWinProbability": 0.17799913883209229,
+                "postPlayHomeTeamWinProbability": 0.816892433911562,
+                "postPlayVisitorTeamWinProbability": 0.18310756608843803
+            },
+            {
+                "playDescription": "(8:18) (Shotgun) R.White right end to NYJ 27 for 9 yards (M.Moore).\r\nPENALTY on TB-E.Klein, Offensive Holding, 10 yards, enforced at NYJ 36 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.816892433911562,
+                "preSnapVisitorTeamWinProbability": 0.18310756608843803,
+                "postPlayHomeTeamWinProbability": 0.7981151938438416,
+                "postPlayVisitorTeamWinProbability": 0.20188480615615845
+            },
+            {
+                "playDescription": "(7:53) (Shotgun) B.Mayfield pass incomplete short right (Qu.Williams) [Qu.Williams].",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7981151938438416,
+                "preSnapVisitorTeamWinProbability": 0.20188480615615845,
+                "postPlayHomeTeamWinProbability": 0.7858899235725403,
+                "postPlayVisitorTeamWinProbability": 0.21411007642745972
+            },
+            {
+                "playDescription": "(7:47) R.Dixon punts 28 yards to NYJ 18, Center-E.Deckers, fair catch by I.Williams.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7858899235725403,
+                "preSnapVisitorTeamWinProbability": 0.21411007642745972,
+                "postPlayHomeTeamWinProbability": 0.7542065400630236,
+                "postPlayVisitorTeamWinProbability": 0.24579345993697643
+            },
+            {
+                "playDescription": "Timeout at 07:40.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(7:40) B.Hall right tackle to NYJ 21 for 3 yards (Y.Diaby; G.Gaines).\r\nPENALTY on TB-Y.Diaby, Defensive Offside, 5 yards, enforced at NYJ 18 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7542065400630236,
+                "preSnapVisitorTeamWinProbability": 0.24579345993697643,
+                "postPlayHomeTeamWinProbability": 0.7416637297719717,
+                "postPlayVisitorTeamWinProbability": 0.2583362702280283
+            },
+            {
+                "playDescription": "(7:23) T.Taylor pass short left to M.Taylor to NYJ 18 for -5 yards (A.Winfield) [Y.Diaby].",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7416637297719717,
+                "preSnapVisitorTeamWinProbability": 0.2583362702280283,
+                "postPlayHomeTeamWinProbability": 0.763511423021555,
+                "postPlayVisitorTeamWinProbability": 0.23648857697844505
+            },
+            {
+                "playDescription": "(6:40) (Shotgun) B.Allen left guard to NYJ 24 for 6 yards (L.David; T.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.763511423021555,
+                "preSnapVisitorTeamWinProbability": 0.23648857697844505,
+                "postPlayHomeTeamWinProbability": 0.7672146391123533,
+                "postPlayVisitorTeamWinProbability": 0.23278536088764668
+            },
+            {
+                "playDescription": "(5:53) (Shotgun) T.Taylor pass incomplete short middle to M.Taylor (E.Roberts) [E.Roberts].\r\nPenalty on NYJ-M.Taylor, Illegal Shift, declined.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7672146391123533,
+                "preSnapVisitorTeamWinProbability": 0.23278536088764668,
+                "postPlayHomeTeamWinProbability": 0.786604156717658,
+                "postPlayVisitorTeamWinProbability": 0.21339584328234196
+            },
+            {
+                "playDescription": "(5:50) A.McNamara punts 46 yards to TB 30, Center-T.Hennessy. K.Johnson to TB 30 for no gain (A.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.786604156717658,
+                "preSnapVisitorTeamWinProbability": 0.21339584328234196,
+                "postPlayHomeTeamWinProbability": 0.8081978373229504,
+                "postPlayVisitorTeamWinProbability": 0.19180216267704964
+            },
+            {
+                "playDescription": "Timeout at 05:41.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(5:41) (Shotgun) PENALTY on TB-B.Bredeson, False Start, 5 yards, enforced at TB 30 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8081978373229504,
+                "preSnapVisitorTeamWinProbability": 0.19180216267704964,
+                "postPlayHomeTeamWinProbability": 0.7950550056993961,
+                "postPlayVisitorTeamWinProbability": 0.20494499430060387
+            },
+            {
+                "playDescription": "(5:41) (Shotgun) B.Mayfield pass incomplete short left to M.Evans.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7950550056993961,
+                "preSnapVisitorTeamWinProbability": 0.20494499430060387,
+                "postPlayHomeTeamWinProbability": 0.7954578921198845,
+                "postPlayVisitorTeamWinProbability": 0.2045421078801155
+            },
+            {
+                "playDescription": "(5:38) (Shotgun) B.Mayfield pass short right to M.Evans to TB 31 for 6 yards (M.Carter, A.Cisco).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7954578921198845,
+                "preSnapVisitorTeamWinProbability": 0.2045421078801155,
+                "postPlayHomeTeamWinProbability": 0.7942720204591751,
+                "postPlayVisitorTeamWinProbability": 0.2057279795408249
+            },
+            {
+                "playDescription": "(4:55) (Shotgun) B.Mayfield sacked at TB 28 for -3 yards (sack split by H.Phillips and Qu.Williams). FUMBLES (H.Phillips) [Qu.Williams], recovered by TB-G.Barton at TB 23.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7942720204591751,
+                "preSnapVisitorTeamWinProbability": 0.2057279795408249,
+                "postPlayHomeTeamWinProbability": 0.7445755694061518,
+                "postPlayVisitorTeamWinProbability": 0.25542443059384823
+            },
+            {
+                "playDescription": "(4:17) R.Dixon punts 39 yards to NYJ 38, Center-E.Deckers, fair catch by I.Williams.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7445755694061518,
+                "preSnapVisitorTeamWinProbability": 0.25542443059384823,
+                "postPlayHomeTeamWinProbability": 0.7384070623666048,
+                "postPlayVisitorTeamWinProbability": 0.2615929376333952
+            },
+            {
+                "playDescription": "Timeout at 04:11.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(4:11) (Shotgun) B.Hall up the middle to NYJ 38 for no gain (H.Reddick).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7384070623666048,
+                "preSnapVisitorTeamWinProbability": 0.2615929376333952,
+                "postPlayHomeTeamWinProbability": 0.7465356886386871,
+                "postPlayVisitorTeamWinProbability": 0.25346431136131287
+            },
+            {
+                "playDescription": "(3:38) (Shotgun) B.Hall left end to NYJ 41 for 3 yards (L.David).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7465356886386871,
+                "preSnapVisitorTeamWinProbability": 0.25346431136131287,
+                "postPlayHomeTeamWinProbability": 0.7560502626001835,
+                "postPlayVisitorTeamWinProbability": 0.2439497373998165
+            },
+            {
+                "playDescription": "(2:59) (Shotgun) T.Taylor sacked at NYJ 32 for -9 yards (A.Winfield). FUMBLES (A.Winfield) [A.Winfield], RECOVERED by TB-V.Vea at NYJ 33.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.7560502626001835,
+                "preSnapVisitorTeamWinProbability": 0.2439497373998165,
+                "postPlayHomeTeamWinProbability": 0.8251682575792074,
+                "postPlayVisitorTeamWinProbability": 0.17483174242079258
+            },
+            {
+                "playDescription": "(2:52) B.Mayfield scrambles up the middle to NYJ 31 for 2 yards (H.Phillips).\r\nPENALTY on NYJ-M.Clemons, Face Mask, 15 yards, enforced at NYJ 31.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8251682575792074,
+                "preSnapVisitorTeamWinProbability": 0.17483174242079258,
+                "postPlayHomeTeamWinProbability": 0.8358607664704323,
+                "postPlayVisitorTeamWinProbability": 0.16413923352956772
+            },
+            {
+                "playDescription": "(2:21) (Shotgun) B.Irving left end to NYJ 18 for -2 yards (Qu.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8358607664704323,
+                "preSnapVisitorTeamWinProbability": 0.16413923352956772,
+                "postPlayHomeTeamWinProbability": 0.8289035763591528,
+                "postPlayVisitorTeamWinProbability": 0.1710964236408472
+            },
+            {
+                "playDescription": "Two-Minute Warning",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(2:00) (Shotgun) B.Mayfield pass short left to B.Irving to NYJ 17 for 1 yard (Qu.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8289035763591528,
+                "preSnapVisitorTeamWinProbability": 0.1710964236408472,
+                "postPlayHomeTeamWinProbability": 0.8212487790733576,
+                "postPlayVisitorTeamWinProbability": 0.17875122092664242
+            },
+            {
+                "playDescription": "Timeout #1 by NYJ at 01:54.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(1:54) (Shotgun) B.Mayfield pass short left to R.White to NYJ 15 for 2 yards (A.Cisco; H.Phillips).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8212487790733576,
+                "preSnapVisitorTeamWinProbability": 0.17875122092664242,
+                "postPlayHomeTeamWinProbability": 0.8171456903219223,
+                "postPlayVisitorTeamWinProbability": 0.1828543096780777
+            },
+            {
+                "playDescription": "Timeout #2 by NYJ at 01:47.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(1:47) C.McLaughlin 33 yard field goal is GOOD, Center-E.Deckers, Holder-R.Dixon.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8171456903219223,
+                "preSnapVisitorTeamWinProbability": 0.1828543096780777,
+                "postPlayHomeTeamWinProbability": 0.8088297992944717,
+                "postPlayVisitorTeamWinProbability": 0.19117020070552826
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 65 yards from TB 35 to end zone, Touchback to the NYJ 35.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8088297992944717,
+                "preSnapVisitorTeamWinProbability": 0.19117020070552826,
+                "postPlayHomeTeamWinProbability": 0.8025791198015213,
+                "postPlayVisitorTeamWinProbability": 0.1974208801984787
+            },
+            {
+                "playDescription": "(1:43) (Shotgun) T.Taylor pass incomplete short middle to G.Wilson (S.Dennis).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8025791198015213,
+                "preSnapVisitorTeamWinProbability": 0.1974208801984787,
+                "postPlayHomeTeamWinProbability": 0.8028085604310036,
+                "postPlayVisitorTeamWinProbability": 0.19719143956899643
+            },
+            {
+                "playDescription": "(1:39) (Shotgun) T.Taylor pass incomplete short right to M.Taylor.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8028085604310036,
+                "preSnapVisitorTeamWinProbability": 0.19719143956899643,
+                "postPlayHomeTeamWinProbability": 0.8113556075841188,
+                "postPlayVisitorTeamWinProbability": 0.18864439241588116
+            },
+            {
+                "playDescription": "(1:36) (Shotgun) T.Taylor sacked at NYJ 25 for -10 yards (J.Parrish).\r\nPenalty on NYJ-O.Fashanu, Offensive Holding, declined.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8113556075841188,
+                "preSnapVisitorTeamWinProbability": 0.18864439241588116,
+                "postPlayHomeTeamWinProbability": 0.8463543690741062,
+                "postPlayVisitorTeamWinProbability": 0.15364563092589378
+            },
+            {
+                "playDescription": "(1:31) A.McNamara punts 51 yards to TB 24, Center-T.Hennessy. K.Johnson to TB 23 for -1 yards (Q.Stiggers).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8463543690741062,
+                "preSnapVisitorTeamWinProbability": 0.15364563092589378,
+                "postPlayHomeTeamWinProbability": 0.8548297621309757,
+                "postPlayVisitorTeamWinProbability": 0.14517023786902428
+            },
+            {
+                "playDescription": "(1:22) (Shotgun) B.Irving up the middle to TB 28 for 5 yards (Qu.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8548297621309757,
+                "preSnapVisitorTeamWinProbability": 0.14517023786902428,
+                "postPlayHomeTeamWinProbability": 0.8574831336736679,
+                "postPlayVisitorTeamWinProbability": 0.1425168663263321
+            },
+            {
+                "playDescription": "(1:04) (No Huddle, Shotgun) B.Mayfield pass short left to B.Irving ran ob at TB 31 for 3 yards (A.Gardner).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8574831336736679,
+                "preSnapVisitorTeamWinProbability": 0.1425168663263321,
+                "postPlayHomeTeamWinProbability": 0.857986818999052,
+                "postPlayVisitorTeamWinProbability": 0.14201318100094795
+            },
+            {
+                "playDescription": "(:56) (Shotgun) B.Irving left end to TB 31 for no gain (T.Baron). NYJ-Qu.Williams was injured during the play.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.857986818999052,
+                "preSnapVisitorTeamWinProbability": 0.14201318100094795,
+                "postPlayHomeTeamWinProbability": 0.8487118631601334,
+                "postPlayVisitorTeamWinProbability": 0.15128813683986664
+            },
+            {
+                "playDescription": "Timeout #3 by NYJ at 00:52.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(:52) R.Dixon punts 35 yards to NYJ 34, Center-E.Deckers, out of bounds.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8487118631601334,
+                "preSnapVisitorTeamWinProbability": 0.15128813683986664,
+                "postPlayHomeTeamWinProbability": 0.8110778201371431,
+                "postPlayVisitorTeamWinProbability": 0.18892217986285686
+            },
+            {
+                "playDescription": "(:45) (Shotgun) T.Taylor scrambles up the middle to NYJ 45 for 11 yards (Z.McCollum).",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8110778201371431,
+                "preSnapVisitorTeamWinProbability": 0.18892217986285686,
+                "postPlayHomeTeamWinProbability": 0.8091795071959496,
+                "postPlayVisitorTeamWinProbability": 0.19082049280405045
+            },
+            {
+                "playDescription": "** Injury Update: TB-L.Hall return is Questionable.",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "(:29) (No Huddle) T.Taylor spiked the ball to stop the clock.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8091795071959496,
+                "preSnapVisitorTeamWinProbability": 0.19082049280405045,
+                "postPlayHomeTeamWinProbability": 0.8084752410650253,
+                "postPlayVisitorTeamWinProbability": 0.19152475893497467
+            },
+            {
+                "playDescription": "(:28) (Shotgun) T.Taylor pass short left intended for G.Wilson INTERCEPTED by J.Dean at TB 45. J.Dean for 55 yards, TOUCHDOWN.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.8084752410650253,
+                "preSnapVisitorTeamWinProbability": 0.19152475893497467,
+                "postPlayHomeTeamWinProbability": 0.9419386573135853,
+                "postPlayVisitorTeamWinProbability": 0.05806134268641472
+            },
+            {
+                "playDescription": "C.McLaughlin extra point is GOOD, Center-E.Deckers, Holder-R.Dixon.",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.9419386573135853,
+                "preSnapVisitorTeamWinProbability": 0.05806134268641472,
+                "postPlayHomeTeamWinProbability": 0.9419386573135853,
+                "postPlayVisitorTeamWinProbability": 0.05806134268641472
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 58 yards from TB 35 to NYJ 7. I.Davis to NYJ 32 for 25 yards (K.Kieft; J.Hayes).",
+                "possessionTeamId": "4900",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.9419386573135853,
+                "preSnapVisitorTeamWinProbability": 0.05806134268641472,
+                "postPlayHomeTeamWinProbability": 0.9419386573135853,
+                "postPlayVisitorTeamWinProbability": 0.05806134268641472
+            },
+            {
+                "playDescription": "(:12) T.Taylor kneels to NYJ 31 for -1 yards.",
+                "possessionTeamId": "3430",
+                "quarter": 2,
+                "preSnapHomeTeamWinProbability": 0.9419386573135853,
+                "preSnapVisitorTeamWinProbability": 0.05806134268641472,
+                "postPlayHomeTeamWinProbability": 0.9592869067564607,
+                "postPlayVisitorTeamWinProbability": 0.04071309324353933
+            },
+            {
+                "playDescription": "END QUARTER 2",
+                "possessionTeamId": "3430",
+                "quarter": 2
+            },
+            {
+                "playDescription": "A.McNamara kicks 66 yards from NYJ 35 to TB -1. S.Tucker to TB 23 for 24 yards (D.Clark; M.McCrary-Ball).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9592869067564607,
+                "preSnapVisitorTeamWinProbability": 0.04071309324353933,
+                "postPlayHomeTeamWinProbability": 0.9586800094693899,
+                "postPlayVisitorTeamWinProbability": 0.041319990530610085
+            },
+            {
+                "playDescription": "** Injury Update: TB-C.Izien is Out of the game.",
+                "possessionTeamId": "3430",
+                "quarter": 3
+            },
+            {
+                "playDescription": "(14:55) B.Irving left guard to TB 39 for 16 yards (A.Cisco).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9586800094693899,
+                "preSnapVisitorTeamWinProbability": 0.041319990530610085,
+                "postPlayHomeTeamWinProbability": 0.9606798458844423,
+                "postPlayVisitorTeamWinProbability": 0.03932015411555767
+            },
+            {
+                "playDescription": "(14:17) B.Irving up the middle to TB 42 for 3 yards (Q.Williams; H.Phillips).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9606798458844423,
+                "preSnapVisitorTeamWinProbability": 0.03932015411555767,
+                "postPlayHomeTeamWinProbability": 0.9610043438151479,
+                "postPlayVisitorTeamWinProbability": 0.03899565618485212
+            },
+            {
+                "playDescription": "(13:36) (Shotgun) B.Mayfield pass short right to B.Irving to TB 46 for 4 yards (J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9610043438151479,
+                "preSnapVisitorTeamWinProbability": 0.03899565618485212,
+                "postPlayHomeTeamWinProbability": 0.9617330320179462,
+                "postPlayVisitorTeamWinProbability": 0.03826696798205376
+            },
+            {
+                "playDescription": "(12:52) (Shotgun) B.Mayfield pass short middle to E.Egbuka to NYJ 43 for 11 yards (J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9617330320179462,
+                "preSnapVisitorTeamWinProbability": 0.03826696798205376,
+                "postPlayHomeTeamWinProbability": 0.9683597660623491,
+                "postPlayVisitorTeamWinProbability": 0.03164023393765092
+            },
+            {
+                "playDescription": "(12:23) (No Huddle, Shotgun) R.White left end to NYJ 38 for 5 yards (W.McDonald).\r\nPENALTY on TB-E.Klein, Offensive Holding, 10 yards, enforced at NYJ 43 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9683597660623491,
+                "preSnapVisitorTeamWinProbability": 0.03164023393765092,
+                "postPlayHomeTeamWinProbability": 0.966214245185256,
+                "postPlayVisitorTeamWinProbability": 0.033785754814743996
+            },
+            {
+                "playDescription": "** Injury Update: NYJ-Qu.Williams is Out of the game.",
+                "possessionTeamId": "3430",
+                "quarter": 3
+            },
+            {
+                "playDescription": "(11:58) (Shotgun) B.Irving left end to NYJ 46 for 7 yards (J.Sherwood, M.McCrary-Ball).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.966214245185256,
+                "preSnapVisitorTeamWinProbability": 0.033785754814743996,
+                "postPlayHomeTeamWinProbability": 0.9641289236024022,
+                "postPlayVisitorTeamWinProbability": 0.03587107639759779
+            },
+            {
+                "playDescription": "(11:17) (Shotgun) B.Irving left end to NYJ 42 for 4 yards (M.McCrary-Ball; J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9641289236024022,
+                "preSnapVisitorTeamWinProbability": 0.03587107639759779,
+                "postPlayHomeTeamWinProbability": 0.9643360804766417,
+                "postPlayVisitorTeamWinProbability": 0.035663919523358345
+            },
+            {
+                "playDescription": "(10:34) (Shotgun) B.Mayfield scrambles right end to NYJ 32 for 10 yards (M.Moore).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9643360804766417,
+                "preSnapVisitorTeamWinProbability": 0.035663919523358345,
+                "postPlayHomeTeamWinProbability": 0.9728925842791796,
+                "postPlayVisitorTeamWinProbability": 0.027107415720820427
+            },
+            {
+                "playDescription": "(9:56) B.Irving left guard to NYJ 35 for -3 yards (Q.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9728925842791796,
+                "preSnapVisitorTeamWinProbability": 0.027107415720820427,
+                "postPlayHomeTeamWinProbability": 0.9692947557196021,
+                "postPlayVisitorTeamWinProbability": 0.030705244280397892
+            },
+            {
+                "playDescription": "(9:17) (Shotgun) B.Mayfield pass short left to M.Evans pushed ob at NYJ 21 for 14 yards (A.Gardner).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9692947557196021,
+                "preSnapVisitorTeamWinProbability": 0.030705244280397892,
+                "postPlayHomeTeamWinProbability": 0.9760488644242287,
+                "postPlayVisitorTeamWinProbability": 0.023951135575771332
+            },
+            {
+                "playDescription": "(8:44) B.Irving right tackle to NYJ 20 for 1 yard (B.Stephens).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9760488644242287,
+                "preSnapVisitorTeamWinProbability": 0.023951135575771332,
+                "postPlayHomeTeamWinProbability": 0.9759637895040214,
+                "postPlayVisitorTeamWinProbability": 0.024036210495978594
+            },
+            {
+                "playDescription": "(8:04) (Shotgun) B.Mayfield pass incomplete deep left to M.Evans.",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9759637895040214,
+                "preSnapVisitorTeamWinProbability": 0.024036210495978594,
+                "postPlayHomeTeamWinProbability": 0.9736296911723912,
+                "postPlayVisitorTeamWinProbability": 0.026370308827608824
+            },
+            {
+                "playDescription": "(8:00) (Shotgun) B.Mayfield pass short right to E.Egbuka to NYJ 9 for 11 yards (M.Carter).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9736296911723912,
+                "preSnapVisitorTeamWinProbability": 0.026370308827608824,
+                "postPlayHomeTeamWinProbability": 0.9789248257875443,
+                "postPlayVisitorTeamWinProbability": 0.02107517421245575
+            },
+            {
+                "playDescription": "(7:19) B.Irving right guard to NYJ 9 for no gain (Q.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9789248257875443,
+                "preSnapVisitorTeamWinProbability": 0.02107517421245575,
+                "postPlayHomeTeamWinProbability": 0.9766726177185774,
+                "postPlayVisitorTeamWinProbability": 0.023327382281422615
+            },
+            {
+                "playDescription": "(6:39) B.Irving left end to NYJ 10 for -1 yards (B.Stephens).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9766726177185774,
+                "preSnapVisitorTeamWinProbability": 0.023327382281422615,
+                "postPlayHomeTeamWinProbability": 0.9757021120749414,
+                "postPlayVisitorTeamWinProbability": 0.024297887925058603
+            },
+            {
+                "playDescription": "(6:00) (Shotgun) B.Mayfield pass incomplete short left to S.Shepard.",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9757021120749414,
+                "preSnapVisitorTeamWinProbability": 0.024297887925058603,
+                "postPlayHomeTeamWinProbability": 0.9709434797987342,
+                "postPlayVisitorTeamWinProbability": 0.029056520201265812
+            },
+            {
+                "playDescription": "(5:54) C.McLaughlin 28 yard field goal is GOOD, Center-E.Deckers, Holder-R.Dixon.",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9709434797987342,
+                "preSnapVisitorTeamWinProbability": 0.029056520201265812,
+                "postPlayHomeTeamWinProbability": 0.9692789749242365,
+                "postPlayVisitorTeamWinProbability": 0.030721025075763464
+            },
+            {
+                "playDescription": "Timeout at 05:51.",
+                "possessionTeamId": "3430",
+                "quarter": 3
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 57 yards from TB 35 to NYJ 8. I.Davis to NYJ 33 for 25 yards (K.Merriweather).\r\nPENALTY on NYJ, Illegal Formation, 5 yards, enforced at NYJ 33.",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9692789749242365,
+                "preSnapVisitorTeamWinProbability": 0.030721025075763464,
+                "postPlayHomeTeamWinProbability": 0.9692789749242365,
+                "postPlayVisitorTeamWinProbability": 0.030721025075763464
+            },
+            {
+                "playDescription": "(5:46) (Shotgun) B.Hall left guard to NYJ 29 for 1 yard (L.David; H.Reddick).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9692789749242365,
+                "preSnapVisitorTeamWinProbability": 0.030721025075763464,
+                "postPlayHomeTeamWinProbability": 0.9708719584159553,
+                "postPlayVisitorTeamWinProbability": 0.029128041584044695
+            },
+            {
+                "playDescription": "(5:12) (Shotgun) T.Taylor pass short right to G.Wilson pushed ob at NYJ 34 for 5 yards (Z.McCollum).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9708719584159553,
+                "preSnapVisitorTeamWinProbability": 0.029128041584044695,
+                "postPlayHomeTeamWinProbability": 0.9723915872164071,
+                "postPlayVisitorTeamWinProbability": 0.02760841278359294
+            },
+            {
+                "playDescription": "(4:32) (Shotgun) T.Taylor pass short right to G.Wilson to NYJ 41 for 7 yards (Z.McCollum) [L.David].",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9723915872164071,
+                "preSnapVisitorTeamWinProbability": 0.02760841278359294,
+                "postPlayHomeTeamWinProbability": 0.9679882070049644,
+                "postPlayVisitorTeamWinProbability": 0.03201179299503565
+            },
+            {
+                "playDescription": "(3:58) (Shotgun) B.Allen right guard to NYJ 45 for 4 yards (Y.Diaby; V.Vea).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9679882070049644,
+                "preSnapVisitorTeamWinProbability": 0.03201179299503565,
+                "postPlayHomeTeamWinProbability": 0.9688819264993072,
+                "postPlayVisitorTeamWinProbability": 0.031118073500692844
+            },
+            {
+                "playDescription": "(3:21) (Shotgun) T.Taylor pass short left to G.Wilson to NYJ 49 for 4 yards (T.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9688819264993072,
+                "preSnapVisitorTeamWinProbability": 0.031118073500692844,
+                "postPlayHomeTeamWinProbability": 0.9707878557965159,
+                "postPlayVisitorTeamWinProbability": 0.02921214420348406
+            },
+            {
+                "playDescription": "(2:34) (Shotgun) T.Taylor scrambles left end pushed ob at TB 45 for 6 yards (L.David). ** Injury Update: TB-L.Hall has returned to the game.",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9707878557965159,
+                "preSnapVisitorTeamWinProbability": 0.02921214420348406,
+                "postPlayHomeTeamWinProbability": 0.9677235651761293,
+                "postPlayVisitorTeamWinProbability": 0.03227643482387066
+            },
+            {
+                "playDescription": "(1:54) (Shotgun) B.Hall right end to TB 44 for 1 yard (Z.McCollum).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9677235651761293,
+                "preSnapVisitorTeamWinProbability": 0.03227643482387066,
+                "postPlayHomeTeamWinProbability": 0.9709231317974627,
+                "postPlayVisitorTeamWinProbability": 0.029076868202537298
+            },
+            {
+                "playDescription": "(1:20) (Shotgun) B.Hall left end to TB 47 for -3 yards (A.Nelson).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9709231317974627,
+                "preSnapVisitorTeamWinProbability": 0.029076868202537298,
+                "postPlayHomeTeamWinProbability": 0.9720414634793997,
+                "postPlayVisitorTeamWinProbability": 0.02795853652060032
+            },
+            {
+                "playDescription": "(:41) (Shotgun) T.Taylor pass incomplete deep left to T.Johnson.",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9720414634793997,
+                "preSnapVisitorTeamWinProbability": 0.02795853652060032,
+                "postPlayHomeTeamWinProbability": 0.9811958745121956,
+                "postPlayVisitorTeamWinProbability": 0.018804125487804413
+            },
+            {
+                "playDescription": "(:35) (Shotgun) T.Taylor pass short right to A.Lazard to TB 38 for 9 yards (T.Smith; J.Parrish).",
+                "possessionTeamId": "3430",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9811958745121956,
+                "preSnapVisitorTeamWinProbability": 0.018804125487804413,
+                "postPlayHomeTeamWinProbability": 0.9875252367928624,
+                "postPlayVisitorTeamWinProbability": 0.012474763207137585
+            },
+            {
+                "playDescription": "Timeout at 00:27.",
+                "possessionTeamId": "3430",
+                "quarter": 3
+            },
+            {
+                "playDescription": "(:27) R.White left guard to TB 45 for 6 yards (M.McCrary-Ball; T.Baron).",
+                "possessionTeamId": "4900",
+                "quarter": 3,
+                "preSnapHomeTeamWinProbability": 0.9875252367928624,
+                "preSnapVisitorTeamWinProbability": 0.012474763207137585,
+                "postPlayHomeTeamWinProbability": 0.9891625586897135,
+                "postPlayVisitorTeamWinProbability": 0.010837441310286522
+            },
+            {
+                "playDescription": "END QUARTER 3",
+                "possessionTeamId": "3430",
+                "quarter": 3
+            },
+            {
+                "playDescription": "(15:00) R.White left end to TB 40 for -5 yards (L.Taylor).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9891625586897135,
+                "preSnapVisitorTeamWinProbability": 0.010837441310286522,
+                "postPlayHomeTeamWinProbability": 0.9825172224082053,
+                "postPlayVisitorTeamWinProbability": 0.01748277759179473
+            },
+            {
+                "playDescription": "(14:18) (Shotgun) B.Mayfield pass incomplete short middle to E.Egbuka.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9825172224082053,
+                "preSnapVisitorTeamWinProbability": 0.01748277759179473,
+                "postPlayHomeTeamWinProbability": 0.9767547813244164,
+                "postPlayVisitorTeamWinProbability": 0.0232452186755836
+            },
+            {
+                "playDescription": "(14:15) R.Dixon punts 60 yards to end zone, Center-E.Deckers, Touchback.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9767547813244164,
+                "preSnapVisitorTeamWinProbability": 0.0232452186755836,
+                "postPlayHomeTeamWinProbability": 0.9790029511786997,
+                "postPlayVisitorTeamWinProbability": 0.020997048821300268
+            },
+            {
+                "playDescription": "Timeout at 14:06.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(14:06) T.Taylor scrambles left end ran ob at NYJ 26 for 6 yards (L.David).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9790029511786997,
+                "preSnapVisitorTeamWinProbability": 0.020997048821300268,
+                "postPlayHomeTeamWinProbability": 0.9789342079311609,
+                "postPlayVisitorTeamWinProbability": 0.021065792068839073
+            },
+            {
+                "playDescription": "(13:36) (Shotgun) T.Taylor pass short left to M.Taylor pushed ob at NYJ 30 for 4 yards (L.David).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9789342079311609,
+                "preSnapVisitorTeamWinProbability": 0.021065792068839073,
+                "postPlayHomeTeamWinProbability": 0.9785673832520843,
+                "postPlayVisitorTeamWinProbability": 0.021432616747915745
+            },
+            {
+                "playDescription": "(13:17) (No Huddle, Shotgun) T.Taylor pass short right to G.Wilson to NYJ 39 for 9 yards (J.Parrish).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9785673832520843,
+                "preSnapVisitorTeamWinProbability": 0.021432616747915745,
+                "postPlayHomeTeamWinProbability": 0.9712639283388853,
+                "postPlayVisitorTeamWinProbability": 0.028736071661114693
+            },
+            {
+                "playDescription": "(12:51) (No Huddle, Shotgun) T.Taylor pass short middle to B.Hall to NYJ 48 for 9 yards (L.David; S.Dennis).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9712639283388853,
+                "preSnapVisitorTeamWinProbability": 0.028736071661114693,
+                "postPlayHomeTeamWinProbability": 0.9741359734907746,
+                "postPlayVisitorTeamWinProbability": 0.02586402650922537
+            },
+            {
+                "playDescription": "(12:09) T.Taylor pass short right to B.Allen pushed ob at TB 40 for 12 yards (Z.McCollum).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9741359734907746,
+                "preSnapVisitorTeamWinProbability": 0.02586402650922537,
+                "postPlayHomeTeamWinProbability": 0.9696506252512336,
+                "postPlayVisitorTeamWinProbability": 0.030349374748766422
+            },
+            {
+                "playDescription": "(11:42) (No Huddle, Shotgun) B.Allen up the middle to TB 31 for 9 yards (A.Nelson).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9696506252512336,
+                "preSnapVisitorTeamWinProbability": 0.030349374748766422,
+                "postPlayHomeTeamWinProbability": 0.9673875104635954,
+                "postPlayVisitorTeamWinProbability": 0.03261248953640461
+            },
+            {
+                "playDescription": "(11:19) (No Huddle, Shotgun) B.Allen up the middle to TB 23 for 8 yards (T.Smith; A.Winfield).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9673875104635954,
+                "preSnapVisitorTeamWinProbability": 0.03261248953640461,
+                "postPlayHomeTeamWinProbability": 0.9675168516114354,
+                "postPlayVisitorTeamWinProbability": 0.03248314838856459
+            },
+            {
+                "playDescription": "(10:48) T.Taylor pass short right to T.Johnson ran ob at TB 11 for 12 yards.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9675168516114354,
+                "preSnapVisitorTeamWinProbability": 0.03248314838856459,
+                "postPlayHomeTeamWinProbability": 0.9648526944220066,
+                "postPlayVisitorTeamWinProbability": 0.03514730557799339
+            },
+            {
+                "playDescription": "(10:20) (Shotgun) T.Taylor pass incomplete short right to B.Hall.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9648526944220066,
+                "preSnapVisitorTeamWinProbability": 0.03514730557799339,
+                "postPlayHomeTeamWinProbability": 0.964300530962646,
+                "postPlayVisitorTeamWinProbability": 0.03569946903735399
+            },
+            {
+                "playDescription": "(10:16) (Shotgun) T.Taylor pass short middle to G.Wilson for 11 yards, TOUCHDOWN.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.964300530962646,
+                "preSnapVisitorTeamWinProbability": 0.03569946903735399,
+                "postPlayHomeTeamWinProbability": 0.9414005661383271,
+                "postPlayVisitorTeamWinProbability": 0.05859943386167288
+            },
+            {
+                "playDescription": "N.Folk extra point is GOOD, Center-T.Hennessy, Holder-A.McNamara.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9414005661383271,
+                "preSnapVisitorTeamWinProbability": 0.05859943386167288,
+                "postPlayHomeTeamWinProbability": 0.9414005661383271,
+                "postPlayVisitorTeamWinProbability": 0.05859943386167288
+            },
+            {
+                "playDescription": "Timeout at 10:12.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "A.McNamara kicks 60 yards from NYJ 35 to TB 5. S.Tucker to TB 27 for 22 yards (D.Clark).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9414005661383271,
+                "preSnapVisitorTeamWinProbability": 0.05859943386167288,
+                "postPlayHomeTeamWinProbability": 0.9415734866634011,
+                "postPlayVisitorTeamWinProbability": 0.05842651333659887
+            },
+            {
+                "playDescription": "(10:07) B.Mayfield pass deep left to S.Shepard to TB 47 for 20 yards (M.Carter).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9415734866634011,
+                "preSnapVisitorTeamWinProbability": 0.05842651333659887,
+                "postPlayHomeTeamWinProbability": 0.9576928336173296,
+                "postPlayVisitorTeamWinProbability": 0.0423071663826704
+            },
+            {
+                "playDescription": "(9:27) B.Irving right guard to NYJ 42 for 11 yards (B.Stephens).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9576928336173296,
+                "preSnapVisitorTeamWinProbability": 0.0423071663826704,
+                "postPlayHomeTeamWinProbability": 0.9632466221228242,
+                "postPlayVisitorTeamWinProbability": 0.03675337787717581
+            },
+            {
+                "playDescription": "(8:43) B.Irving left tackle to NYJ 39 for 3 yards (M.McCrary-Ball; M.Moore).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9632466221228242,
+                "preSnapVisitorTeamWinProbability": 0.03675337787717581,
+                "postPlayHomeTeamWinProbability": 0.9657873334363103,
+                "postPlayVisitorTeamWinProbability": 0.03421266656368971
+            },
+            {
+                "playDescription": "(7:58) (Shotgun) B.Mayfield pass short left to M.Evans to NYJ 31 for 8 yards (A.Gardner).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9657873334363103,
+                "preSnapVisitorTeamWinProbability": 0.03421266656368971,
+                "postPlayHomeTeamWinProbability": 0.9803921827115119,
+                "postPlayVisitorTeamWinProbability": 0.01960781728848815
+            },
+            {
+                "playDescription": "(7:18) B.Irving left guard to NYJ 32 for -1 yards (A.Cisco, A.Gardner). NYJ-A.Gardner was injured during the play.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9803921827115119,
+                "preSnapVisitorTeamWinProbability": 0.01960781728848815,
+                "postPlayHomeTeamWinProbability": 0.9816691726446152,
+                "postPlayVisitorTeamWinProbability": 0.018330827355384827
+            },
+            {
+                "playDescription": "(6:26) (Shotgun) PENALTY on TB-B.Bredeson, False Start, 5 yards, enforced at NYJ 32 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9816691726446152,
+                "preSnapVisitorTeamWinProbability": 0.018330827355384827,
+                "postPlayHomeTeamWinProbability": 0.976751048117876,
+                "postPlayVisitorTeamWinProbability": 0.023248951882123947
+            },
+            {
+                "playDescription": "(6:25) (Shotgun) B.Mayfield pass incomplete short left to M.Evans.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.976751048117876,
+                "preSnapVisitorTeamWinProbability": 0.023248951882123947,
+                "postPlayHomeTeamWinProbability": 0.9633191963657737,
+                "postPlayVisitorTeamWinProbability": 0.03668080363422632
+            },
+            {
+                "playDescription": "(6:22) (Shotgun) B.Mayfield pass incomplete deep right to R.Miller.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9633191963657737,
+                "preSnapVisitorTeamWinProbability": 0.03668080363422632,
+                "postPlayHomeTeamWinProbability": 0.9558041263371706,
+                "postPlayVisitorTeamWinProbability": 0.0441958736628294
+            },
+            {
+                "playDescription": "(6:18) C.McLaughlin 55 yard field goal is GOOD, Center-E.Deckers, Holder-R.Dixon.\r\nPenalty on NYJ-W.McDonald, Running Into the Kicker, declined.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9558041263371706,
+                "preSnapVisitorTeamWinProbability": 0.0441958736628294,
+                "postPlayHomeTeamWinProbability": 0.9646490653976798,
+                "postPlayVisitorTeamWinProbability": 0.035350934602320194
+            },
+            {
+                "playDescription": "Timeout at 06:13.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "** Injury Update: TB-M.Evans return is Questionable.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "C.McLaughlin kicks 58 yards from TB 35 to NYJ 7. B.Allen to NYJ 27 for 20 yards (J.Hayes).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9646490653976798,
+                "preSnapVisitorTeamWinProbability": 0.035350934602320194,
+                "postPlayHomeTeamWinProbability": 0.9649498602375388,
+                "postPlayVisitorTeamWinProbability": 0.035050139762461185
+            },
+            {
+                "playDescription": "(6:06) (Shotgun) T.Taylor pass short middle to M.Taylor to NYJ 37 for 10 yards (L.David).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9649498602375388,
+                "preSnapVisitorTeamWinProbability": 0.035050139762461185,
+                "postPlayHomeTeamWinProbability": 0.9625832000747323,
+                "postPlayVisitorTeamWinProbability": 0.037416799925267696
+            },
+            {
+                "playDescription": "(5:47) (No Huddle, Shotgun) T.Taylor sacked at NYJ 30 for -7 yards (Y.Diaby).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9625832000747323,
+                "preSnapVisitorTeamWinProbability": 0.037416799925267696,
+                "postPlayHomeTeamWinProbability": 0.9790653362870216,
+                "postPlayVisitorTeamWinProbability": 0.020934663712978363
+            },
+            {
+                "playDescription": "(5:22) (No Huddle, Shotgun) T.Taylor pass short left intended for T.Johnson INTERCEPTED by J.Dean at NYJ 44. J.Dean to NYJ 44 for no gain (T.Johnson).\r\nPENALTY on TB-J.Dean, Defensive Pass Interference, 15 yards, enforced at NYJ 30 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9790653362870216,
+                "preSnapVisitorTeamWinProbability": 0.020934663712978363,
+                "postPlayHomeTeamWinProbability": 0.9625934418290854,
+                "postPlayVisitorTeamWinProbability": 0.03740655817091465
+            },
+            {
+                "playDescription": "(5:14) (Shotgun) PENALTY on NYJ-O.Fashanu, False Start, 5 yards, enforced at NYJ 45 - No Play.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9625934418290854,
+                "preSnapVisitorTeamWinProbability": 0.03740655817091465,
+                "postPlayHomeTeamWinProbability": 0.9691806184127927,
+                "postPlayVisitorTeamWinProbability": 0.030819381587207317
+            },
+            {
+                "playDescription": "(5:14) (Shotgun) T.Taylor sacked at NYJ 36 for -4 yards (L.David). TB-L.David was injured during the play.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9691806184127927,
+                "preSnapVisitorTeamWinProbability": 0.030819381587207317,
+                "postPlayHomeTeamWinProbability": 0.9800796345807612,
+                "postPlayVisitorTeamWinProbability": 0.019920365419238806
+            },
+            {
+                "playDescription": "Timeout at 04:55.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(4:50) (Shotgun) T.Taylor pass short middle to T.Johnson ran ob at TB 44 for 20 yards (D.Jones).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9800796345807612,
+                "preSnapVisitorTeamWinProbability": 0.019920365419238806,
+                "postPlayHomeTeamWinProbability": 0.9599913973361254,
+                "postPlayVisitorTeamWinProbability": 0.040008602663874626
+            },
+            {
+                "playDescription": "(4:43) (Shotgun) T.Taylor pass short left to B.Hall to TB 32 for 12 yards (J.Dean). ** Injury Update: TB-L.David has returned to the game.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9599913973361254,
+                "preSnapVisitorTeamWinProbability": 0.040008602663874626,
+                "postPlayHomeTeamWinProbability": 0.95925831515342,
+                "postPlayVisitorTeamWinProbability": 0.04074168484658003
+            },
+            {
+                "playDescription": "** Injury Update: TB-M.Evans is Out of the game.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(4:12) (No Huddle, Shotgun) T.Taylor pass short right to G.Wilson pushed ob at TB 23 for 9 yards (Z.McCollum).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.95925831515342,
+                "preSnapVisitorTeamWinProbability": 0.04074168484658003,
+                "postPlayHomeTeamWinProbability": 0.9538870174437761,
+                "postPlayVisitorTeamWinProbability": 0.04611298255622387
+            },
+            {
+                "playDescription": "(4:07) (Shotgun) T.Taylor scrambles left end ran ob at TB 9 for 14 yards (T.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9538870174437761,
+                "preSnapVisitorTeamWinProbability": 0.04611298255622387,
+                "postPlayHomeTeamWinProbability": 0.9471208797767758,
+                "postPlayVisitorTeamWinProbability": 0.05287912022322416
+            },
+            {
+                "playDescription": "(3:59) (Shotgun) T.Taylor pass short left to B.Allen ran ob at TB 4 for 5 yards.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9471208797767758,
+                "preSnapVisitorTeamWinProbability": 0.05287912022322416,
+                "postPlayHomeTeamWinProbability": 0.9449924882501364,
+                "postPlayVisitorTeamWinProbability": 0.055007511749863625
+            },
+            {
+                "playDescription": "(3:53) (Shotgun) T.Taylor pass incomplete short middle to B.Hall.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9449924882501364,
+                "preSnapVisitorTeamWinProbability": 0.055007511749863625,
+                "postPlayHomeTeamWinProbability": 0.9562295116484165,
+                "postPlayVisitorTeamWinProbability": 0.04377048835158348
+            },
+            {
+                "playDescription": "(3:49) (Shotgun) T.Taylor pass incomplete short middle to A.Lazard (T.Smith).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9562295116484165,
+                "preSnapVisitorTeamWinProbability": 0.04377048835158348,
+                "postPlayHomeTeamWinProbability": 0.9723068126477301,
+                "postPlayVisitorTeamWinProbability": 0.027693187352269888
+            },
+            {
+                "playDescription": "(3:46) (Shotgun) T.Taylor pass short right to A.Lazard for 4 yards, TOUCHDOWN.\r\nThe Replay Official reviewed the pass completion ruling, and the play was Upheld. The ruling on the field stands.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9723068126477301,
+                "preSnapVisitorTeamWinProbability": 0.027693187352269888,
+                "postPlayHomeTeamWinProbability": 0.9372354838997126,
+                "postPlayVisitorTeamWinProbability": 0.06276451610028744
+            },
+            {
+                "playDescription": "N.Folk extra point is GOOD, Center-T.Hennessy, Holder-A.McNamara.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9372354838997126,
+                "preSnapVisitorTeamWinProbability": 0.06276451610028744,
+                "postPlayHomeTeamWinProbability": 0.9372354838997126,
+                "postPlayVisitorTeamWinProbability": 0.06276451610028744
+            },
+            {
+                "playDescription": "A.McNamara kicks 65 yards from NYJ 35 to end zone, Touchback to the TB 35.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9372354838997126,
+                "preSnapVisitorTeamWinProbability": 0.06276451610028744,
+                "postPlayHomeTeamWinProbability": 0.9427652899175882,
+                "postPlayVisitorTeamWinProbability": 0.057234710082411766
+            },
+            {
+                "playDescription": "(3:40) B.Irving left tackle to TB 38 for 3 yards (F.Mauigoa).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9427652899175882,
+                "preSnapVisitorTeamWinProbability": 0.057234710082411766,
+                "postPlayHomeTeamWinProbability": 0.9346280489116907,
+                "postPlayVisitorTeamWinProbability": 0.06537195108830929
+            },
+            {
+                "playDescription": "Timeout #1 by NYJ at 03:36.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(3:36) B.Mayfield scrambles right end to NYJ 29 for 33 yards (M.Carter).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9346280489116907,
+                "preSnapVisitorTeamWinProbability": 0.06537195108830929,
+                "postPlayHomeTeamWinProbability": 0.9770186729729176,
+                "postPlayVisitorTeamWinProbability": 0.022981327027082443
+            },
+            {
+                "playDescription": "Timeout #2 by NYJ at 03:17.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(3:17) B.Irving left guard to NYJ 26 for 3 yards (F.Mauigoa).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9770186729729176,
+                "preSnapVisitorTeamWinProbability": 0.022981327027082443,
+                "postPlayHomeTeamWinProbability": 0.9817918417975307,
+                "postPlayVisitorTeamWinProbability": 0.01820815820246935
+            },
+            {
+                "playDescription": "(2:33) B.Irving up the middle to NYJ 24 for 2 yards (H.Phillips; J.Sherwood).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9817918417975307,
+                "preSnapVisitorTeamWinProbability": 0.01820815820246935,
+                "postPlayHomeTeamWinProbability": 0.9722588295117021,
+                "postPlayVisitorTeamWinProbability": 0.02774117048829794
+            },
+            {
+                "playDescription": "Timeout #3 by NYJ at 02:28.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "Timeout #1 by TB at 02:28.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(2:28) (Shotgun) B.Irving left tackle to NYJ 20 for 4 yards (J.Sherwood; M.Moore).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9722588295117021,
+                "preSnapVisitorTeamWinProbability": 0.02774117048829794,
+                "postPlayHomeTeamWinProbability": 0.9862508163787425,
+                "postPlayVisitorTeamWinProbability": 0.013749183621257544
+            },
+            {
+                "playDescription": "Two-Minute Warning",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(2:00) (Run formation) PENALTY on TB, Delay of Game, 5 yards, enforced at NYJ 20 - No Play.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.9862508163787425,
+                "preSnapVisitorTeamWinProbability": 0.013749183621257544,
+                "postPlayHomeTeamWinProbability": 0.985269836615771,
+                "postPlayVisitorTeamWinProbability": 0.014730163384228945
+            },
+            {
+                "playDescription": "(2:00) C.McLaughlin 43 yard field goal is BLOCKED (W.McDonald), Center-E.Deckers, Holder-R.Dixon, RECOVERED by NYJ-W.McDonald at 50. W.McDonald for 50 yards, TOUCHDOWN.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.985269836615771,
+                "preSnapVisitorTeamWinProbability": 0.014730163384228945,
+                "postPlayHomeTeamWinProbability": 0.5589574724435806,
+                "postPlayVisitorTeamWinProbability": 0.4410425275564194
+            },
+            {
+                "playDescription": "N.Folk extra point is GOOD, Center-T.Hennessy, Holder-A.McNamara.",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.5589574724435806,
+                "preSnapVisitorTeamWinProbability": 0.4410425275564194,
+                "postPlayHomeTeamWinProbability": 0.555755965039134,
+                "postPlayVisitorTeamWinProbability": 0.44424403496086595
+            },
+            {
+                "playDescription": "A.McNamara kicks 62 yards from NYJ 35 to TB 3. S.Tucker to TB 34 for 31 yards (M.McCrary-Ball).",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.555755965039134,
+                "preSnapVisitorTeamWinProbability": 0.44424403496086595,
+                "postPlayHomeTeamWinProbability": 0.608739871562769,
+                "postPlayVisitorTeamWinProbability": 0.391260128437231
+            },
+            {
+                "playDescription": "(1:41) (Shotgun) B.Mayfield pass incomplete deep middle to T.Johnson.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.608739871562769,
+                "preSnapVisitorTeamWinProbability": 0.391260128437231,
+                "postPlayHomeTeamWinProbability": 0.5563305288553237,
+                "postPlayVisitorTeamWinProbability": 0.44366947114467625
+            },
+            {
+                "playDescription": "(1:36) (Shotgun) B.Mayfield pass deep left to E.Egbuka pushed ob at NYJ 38 for 28 yards (A.Cisco).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.5563305288553237,
+                "preSnapVisitorTeamWinProbability": 0.44366947114467625,
+                "postPlayHomeTeamWinProbability": 0.6748603684827685,
+                "postPlayVisitorTeamWinProbability": 0.32513963151723146
+            },
+            {
+                "playDescription": "(1:31) (Shotgun) B.Mayfield pass incomplete deep right to E.Egbuka (A.Thomas).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.6748603684827685,
+                "preSnapVisitorTeamWinProbability": 0.32513963151723146,
+                "postPlayHomeTeamWinProbability": 0.6612583447868625,
+                "postPlayVisitorTeamWinProbability": 0.3387416552131375
+            },
+            {
+                "playDescription": "Timeout #2 by TB at 01:41.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(1:41) (Shotgun) B.Mayfield pass short right to S.Shepard to NYJ 18 for 20 yards (M.McCrary-Ball). ** Injury Update: NYJ-A.Gardner has returned to the game.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.6612583447868625,
+                "preSnapVisitorTeamWinProbability": 0.3387416552131375,
+                "postPlayHomeTeamWinProbability": 0.8492649454002579,
+                "postPlayVisitorTeamWinProbability": 0.15073505459974212
+            },
+            {
+                "playDescription": "(:52) B.Irving up the middle to NYJ 17 for 1 yard (B.McGregor; Q.Williams).",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.8492649454002579,
+                "preSnapVisitorTeamWinProbability": 0.15073505459974212,
+                "postPlayHomeTeamWinProbability": 0.798795280760775,
+                "postPlayVisitorTeamWinProbability": 0.201204719239225
+            },
+            {
+                "playDescription": "(:07) B.Mayfield kneels to NYJ 18 for -1 yards.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.798795280760775,
+                "preSnapVisitorTeamWinProbability": 0.201204719239225,
+                "postPlayHomeTeamWinProbability": 0.90869,
+                "postPlayVisitorTeamWinProbability": 0.09131
+            },
+            {
+                "playDescription": "Timeout #3 by TB at 00:03.",
+                "possessionTeamId": "3430",
+                "quarter": 4
+            },
+            {
+                "playDescription": "(:03) C.McLaughlin 36 yard field goal is GOOD, Center-E.Deckers, Holder-R.Dixon.",
+                "possessionTeamId": "4900",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 0.90869,
+                "preSnapVisitorTeamWinProbability": 0.09131,
+                "postPlayHomeTeamWinProbability": 1,
+                "postPlayVisitorTeamWinProbability": 0
+            },
+            {
+                "playDescription": "END GAME",
+                "possessionTeamId": "3430",
+                "quarter": 4,
+                "preSnapHomeTeamWinProbability": 1,
+                "preSnapVisitorTeamWinProbability": 0
+            }
+        ]
+    }
+}

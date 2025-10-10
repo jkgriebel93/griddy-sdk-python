@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .teamrankingentry import TeamRankingEntry, TeamRankingEntryTypedDict
-from ..types import (
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,

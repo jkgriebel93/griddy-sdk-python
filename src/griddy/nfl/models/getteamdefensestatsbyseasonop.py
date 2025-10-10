@@ -3,66 +3,72 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetTeamDefenseStatsBySeasonSortKey = Literal[
-    "total",
-    "pass",
-    "run",
-    "yds",
-    "passPct",
-    "ypp",
-    "td",
-    "passTd",
-    "rushTd",
-    "epa",
-    "epaPP",
-    "passYds",
-    "passYpp",
-    "epaPass",
-    "epaPassPP",
-    "rushYds",
-    "rushYpp",
-    "epaRush",
-    "epaRushPP",
-    "ttt",
-    "qbp",
-    "qbpPct",
-    "sackedYds",
-    "ryoe",
-    "interception",
-    "forcedFumble",
-    "fumbleRecovered",
-    "defensiveTouchdown",
-    "totalTakeaways",
-    "ppg",
-    "ypg",
-    "passYpg",
-    "rushYpg",
-    "sackedYpg",
+GET_TEAM_DEFENSE_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
 
 
-GetTeamDefenseStatsBySeasonSplit = Literal[
-    "TEAM_DEFENSE_BASE",
-    "TEAM_DEFENSE_NICKEL",
-    "TEAM_DEFENSE_DIME",
-    "TEAM_DEFENSE_WHEN_LEADING",
-    "TEAM_DEFENSE_WHEN_TRAILING",
-    "TEAM_DEFENSE_WHEN_TIED",
-    "TEAM_DEFENSE_RED_ZONE",
-    "TEAM_DEFENSE_GOAL_TO_GO",
-    "TEAM_DEFENSE_SHOTGUN",
-    "TEAM_DEFENSE_UNDER_CENTER",
-    "TEAM_DEFENSE_PISTOL",
-    "TEAM_DEFENSE_MOTION",
-]
+class GetTeamDefenseStatsBySeasonQueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    TOTAL = "total"
+    PASS = "pass"
+    RUN = "run"
+    YDS = "yds"
+    PASS_PCT = "passPct"
+    YPP = "ypp"
+    TD = "td"
+    PASS_TD = "passTd"
+    RUSH_TD = "rushTd"
+    EPA = "epa"
+    EPA_PP = "epaPP"
+    PASS_YDS = "passYds"
+    PASS_YPP = "passYpp"
+    EPA_PASS = "epaPass"
+    EPA_PASS_PP = "epaPassPP"
+    RUSH_YDS = "rushYds"
+    RUSH_YPP = "rushYpp"
+    EPA_RUSH = "epaRush"
+    EPA_RUSH_PP = "epaRushPP"
+    TTT = "ttt"
+    QBP = "qbp"
+    QBP_PCT = "qbpPct"
+    SACKED_YDS = "sackedYds"
+    RYOE = "ryoe"
+    INTERCEPTION = "interception"
+    FORCED_FUMBLE = "forcedFumble"
+    FUMBLE_RECOVERED = "fumbleRecovered"
+    DEFENSIVE_TOUCHDOWN = "defensiveTouchdown"
+    TOTAL_TAKEAWAYS = "totalTakeaways"
+    PPG = "ppg"
+    YPG = "ypg"
+    PASS_YPG = "passYpg"
+    RUSH_YPG = "rushYpg"
+    SACKED_YPG = "sackedYpg"
+
+
+class Split(str, Enum):
+    TEAM_DEFENSE_BASE = "TEAM_DEFENSE_BASE"
+    TEAM_DEFENSE_NICKEL = "TEAM_DEFENSE_NICKEL"
+    TEAM_DEFENSE_DIME = "TEAM_DEFENSE_DIME"
+    TEAM_DEFENSE_WHEN_LEADING = "TEAM_DEFENSE_WHEN_LEADING"
+    TEAM_DEFENSE_WHEN_TRAILING = "TEAM_DEFENSE_WHEN_TRAILING"
+    TEAM_DEFENSE_WHEN_TIED = "TEAM_DEFENSE_WHEN_TIED"
+    TEAM_DEFENSE_RED_ZONE = "TEAM_DEFENSE_RED_ZONE"
+    TEAM_DEFENSE_GOAL_TO_GO = "TEAM_DEFENSE_GOAL_TO_GO"
+    TEAM_DEFENSE_SHOTGUN = "TEAM_DEFENSE_SHOTGUN"
+    TEAM_DEFENSE_UNDER_CENTER = "TEAM_DEFENSE_UNDER_CENTER"
+    TEAM_DEFENSE_PISTOL = "TEAM_DEFENSE_PISTOL"
+    TEAM_DEFENSE_MOTION = "TEAM_DEFENSE_MOTION"
 
 
 class GetTeamDefenseStatsBySeasonRequestTypedDict(TypedDict):
@@ -76,11 +82,11 @@ class GetTeamDefenseStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamDefenseStatsBySeasonSortKey]
+    sort_key: NotRequired[GetTeamDefenseStatsBySeasonQueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
-    split: NotRequired[List[GetTeamDefenseStatsBySeasonSplit]]
+    split: NotRequired[List[Split]]
     r"""Defensive situation splits to filter by (supports multiple values)"""
 
 
@@ -116,10 +122,10 @@ class GetTeamDefenseStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamDefenseStatsBySeasonSortKey],
+        Optional[GetTeamDefenseStatsBySeasonQueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "ypg"
+    ] = GetTeamDefenseStatsBySeasonQueryParamSortKey.YPG
     r"""Field to sort by"""
 
     sort_value: Annotated[
@@ -130,7 +136,7 @@ class GetTeamDefenseStatsBySeasonRequest(BaseModel):
     r"""Sort direction"""
 
     split: Annotated[
-        Optional[List[GetTeamDefenseStatsBySeasonSplit]],
+        Optional[List[Split]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Defensive situation splits to filter by (supports multiple values)"""

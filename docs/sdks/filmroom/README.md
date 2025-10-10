@@ -21,15 +21,15 @@ player involvement, formation types, and tactical elements.
 
 <!-- UsageSnippet language="python" operationID="getFilmroomPlays" method="get" path="/api/secured/videos/filmroom/plays" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.filmroom.get_filmroom_plays(request={
+    res = griddy_nfl.filmroom.get_filmroom_plays(request={
         "game_id": [
             "f665fc10-311e-11f0-b670-ae1250fadad1",
         ],
@@ -153,6 +153,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `request`                                                                 | [models.GetFilmroomPlaysRequest](../../models/getfilmroomplaysrequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
+| `server_url`                                                              | *Optional[str]*                                                           | :heavy_minus_sign:                                                        | An optional server URL to use.                                            |
 
 ### Response
 

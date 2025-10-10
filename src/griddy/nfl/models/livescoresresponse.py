@@ -3,32 +3,34 @@
 from __future__ import annotations
 from .livegame import LiveGame, LiveGameTypedDict
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
-from typing import List
-from typing_extensions import Annotated, TypedDict
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class LiveScoresResponseTypedDict(TypedDict):
-    games: List[LiveGameTypedDict]
+    games: NotRequired[List[LiveGameTypedDict]]
     r"""Array of live game data (empty when no games are active)"""
-    season: str
+    season: NotRequired[str]
     r"""Season year"""
-    season_type: SeasonTypeEnum
+    season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    week: str
+    week: NotRequired[str]
     r"""Week number"""
 
 
 class LiveScoresResponse(BaseModel):
-    games: List[LiveGame]
+    games: Optional[List[LiveGame]] = None
     r"""Array of live game data (empty when no games are active)"""
 
-    season: str
+    season: Optional[str] = None
     r"""Season year"""
 
-    season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
     r"""Type of NFL season"""
 
-    week: str
+    week: Optional[str] = None
     r"""Week number"""

@@ -23,15 +23,15 @@ determines the current week based on the current date.
 
 <!-- UsageSnippet language="python" operationID="getCurrentWeekGames" method="get" path="/api/schedules/current" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules_extended.get_current_week_games()
+    res = griddy_nfl.schedules_extended.get_current_week_games()
 
     assert res is not None
 
@@ -45,6 +45,7 @@ with GriddyNFL(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
@@ -68,15 +69,15 @@ This endpoint provides futures market data across multiple betting hierarchies.
 
 <!-- UsageSnippet language="python" operationID="getFutureBettingOdds" method="get" path="/api/schedules/genius/future/odds" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules_extended.get_future_betting_odds()
+    res = griddy_nfl.schedules_extended.get_future_betting_odds()
 
     assert res is not None
 
@@ -90,6 +91,7 @@ with GriddyNFL(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
@@ -113,15 +115,15 @@ Standings are calculated through the specified week.
 
 <!-- UsageSnippet language="python" operationID="getTeamStandings" method="get" path="/api/schedules/standings" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.schedules_extended.get_team_standings(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
+    res = griddy_nfl.schedules_extended.get_team_standings(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
 
     assert res is not None
 
@@ -138,6 +140,7 @@ with GriddyNFL(
 | `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
 | `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number within the season                                       | 4                                                                   |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

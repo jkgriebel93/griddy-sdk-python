@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .oddsselection import OddsSelection, OddsSelectionTypedDict
-from ..types import (
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,

@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 from .boxscorescore import BoxscoreScore, BoxscoreScoreTypedDict
-from .boxscoresite import BoxscoreSite, BoxscoreSiteTypedDict
 from .boxscoreteam import BoxscoreTeam, BoxscoreTeamTypedDict
 from .seasontypeenum import SeasonTypeEnum
+from .site import Site, SiteTypedDict
 from datetime import datetime
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -34,7 +34,8 @@ class BoxscoreScheduleTypedDict(TypedDict):
     season: NotRequired[int]
     season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    site: NotRequired[BoxscoreSiteTypedDict]
+    site: NotRequired[SiteTypedDict]
+    r"""Stadium or venue information for a game"""
     smart_id: NotRequired[str]
     visitor_display_name: NotRequired[str]
     visitor_nickname: NotRequired[str]
@@ -98,7 +99,8 @@ class BoxscoreSchedule(BaseModel):
     ] = None
     r"""Type of NFL season"""
 
-    site: Optional[BoxscoreSite] = None
+    site: Optional[Site] = None
+    r"""Stadium or venue information for a game"""
 
     smart_id: Annotated[Optional[str], pydantic.Field(alias="smartId")] = None
 

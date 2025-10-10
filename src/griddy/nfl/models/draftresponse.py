@@ -2,28 +2,28 @@
 
 from __future__ import annotations
 from .draftpick import DraftPick, DraftPickTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class RoundTypedDict(TypedDict):
+class RoundsTypedDict(TypedDict):
     picks: NotRequired[List[DraftPickTypedDict]]
     round: NotRequired[int]
 
 
-class Round(BaseModel):
+class Rounds(BaseModel):
     picks: Optional[List[DraftPick]] = None
 
     round: Optional[int] = None
 
 
 class DraftResponseTypedDict(TypedDict):
-    rounds: NotRequired[List[RoundTypedDict]]
+    rounds: NotRequired[List[RoundsTypedDict]]
     year: NotRequired[int]
 
 
 class DraftResponse(BaseModel):
-    rounds: Optional[List[Round]] = None
+    rounds: Optional[List[Rounds]] = None
 
     year: Optional[int] = None

@@ -1,0 +1,169 @@
+{
+    "path": "/api/secured/stats/defense/overview/season",
+    "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6ImU1MzVjN2MwLTgxN2YtNDc3Ni04OTkwLTU2NTU2ZjhiMTkyOCIsImNsaWVudEtleSI6IjRjRlVXNkRtd0pwelQ5TDdMckczcVJBY0FCRzVzMDRnIiwiZGV2aWNlSWQiOiJkNmIwYjA5MS04YzUxLTQ2NjItYmIzNy00MDkzZTY3ZmUwNTEiLCJpc3MiOiJORkwiLCJwbGFucyI6W3sicGxhbiI6ImZyZWUiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjYtMDktMjQiLCJzb3VyY2UiOiJORkwiLCJzdGFydERhdGUiOiIyMDI1LTA5LTI0Iiwic3RhdHVzIjoiQUNUSVZFIiwidHJpYWwiOmZhbHNlfSx7InBsYW4iOiJORkxfUExVU19QUkVNSVVNIiwiYmlsbGluZ1R5cGUiOiJtb250aGx5IiwiZXhwaXJhdGlvbkRhdGUiOiIyMDI1LTA5LTI4IiwiZXh0ZXJuYWxTdWJzY3JpcHRpb25JZCI6Ind6cmw0ZDBpd2wxbiIsInNvdXJjZSI6IldFQiIsInN0YXJ0RGF0ZSI6IjIwMjUtMDgtMjgiLCJzdGF0dXMiOiJBQ1RJVkUiLCJ0cmlhbCI6ZmFsc2V9XSwiRGlzcGxheU5hbWUiOiJXRUJfREVTS1RPUF9ERVNLVE9QIiwiTm90ZXMiOiIiLCJmb3JtRmFjdG9yIjoiREVTS1RPUCIsImx1cmFBcHBLZXkiOiJTWnM1N2RCR1J4Ykw3MjhsVnA3RFlRIiwicGxhdGZvcm0iOiJERVNLVE9QIiwicHJvZHVjdE5hbWUiOiJXRUIiLCJyb2xlcyI6WyJjb250ZW50IiwiZXhwZXJpZW5jZSIsImZvb3RiYWxsIiwidXRpbGl0aWVzIiwidGVhbXMiLCJwbGF5IiwibGl2ZSIsImlkZW50aXR5IiwibmdzX3N0YXRzIiwicGF5bWVudHNfYXBpIiwibmdzX3RyYWNraW5nIiwibmdzX3BsYXRmb3JtIiwibmdzX2NvbnRlbnQiLCJuZ3NfY29tYmluZSIsIm5nc19hZHZhbmNlZF9zdGF0cyIsIm5mbF9wcm8iLCJlY29tbSIsIm5mbF9pZF9hcGkiLCJ1dGlsaXRpZXNfbG9jYXRpb24iLCJpZGVudGl0eV9vaWRjIiwibmdzX3NzZSIsImFjY291bnRzIiwiY29uc2VudHMiLCJzdWJfcGFydG5lcnNoaXBzIiwiY29uY3VycmVuY3kiLCJrZXlzdG9yZSIsImZyZWUiLCJORkxfUExVU19QUkVNSVVNIl0sIm5ldHdvcmtUeXBlIjoib3RoZXIiLCJjaXR5IjoiYXRsYW50YSIsImNvdW50cnlDb2RlIjoiVVMiLCJkbWFDb2RlIjoiNTI0IiwiaG1hVGVhbXMiOlsiMTA0MDAyMDAtZjQwMS00ZTUzLTUxNzUtMDk3NGU0ZjE2Y2Y3Il0sInJlZ2lvbiI6IkdBIiwiemlwQ29kZSI6IjMwMzQ5IiwiYnJvd3NlciI6IkNocm9tZSIsImNlbGx1bGFyIjpmYWxzZSwiZW52aXJvbm1lbnQiOiJwcm9kdWN0aW9uIiwidWlkIjoiZGY5OTBhY2Q5NTFlNGJkNjk0MGMzYmFiYzQzNDE1ODQiLCJleHAiOjE3NTg3MzMwNjB9.ke100yxdfSscak38fTPKfv7YAAFDNsTmfGHVjrjXKbg",
+        "cache-control": "max-age=60",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "accept": "application/json, text/plain, */*",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "https://pro.nfl.com/games/game/f688dfde-311e-11f0-b670-ae1250fadad1",
+        "accept-encoding": "gzip, deflate, br, zstd",
+        "accept-language": "en-US,en;q=0.9",
+        "priority": "u=1, i",
+        "cookie": "nfl.v1v2.id=ed3ff26a-63c0-44df-a18d-a7741f29ab12; gig_bootstrap_3_Qa8TkWpIB8ESCBT8tY2TukbVKgO5F6BJVc7N1oComdwFzI7H2L9NOWdm11i_BY9f=auth-id_ver4; __gads=ID=bf031178a45c97e8:T=1758729047:RT=1758729047:S=ALNI_MZeowqGkjunOhQulGJO9uYRr60dDg; __gpi=UID=0000115278ac323c:T=1758729047:RT=1758729047:S=ALNI_MYrVXcjrB6PhCEzCxBjG-puB7CF3Q; __eoi=ID=736039cce8ec577c:T=1758729047:RT=1758729047:S=AA-AfjaeDfHmYZdkm4ECU4G71fJ6; AMCVS_F75C3025512D2C1D0A490D44%40AdobeOrg=1; nflcs.prod.crossDomainStorageCleared=true; s_ecid=MCMID%7C37821682721811146091833466082002814208; cto_bundle=hiCaCF9INUNKVTRYRGc1RUZuT1dMaGMyM0JXNktLSjlkQ0FiS1J2cEJFaXJJZEFWN1YwN2NxcW9YVllMbU4lMkZJRUdUMUpJeW9BU2ZXRkFCYXh5MU5pQXhyenMwRXBSSnl1YThGNklhcDgyQUttYUlFN29qalZXOFZHUFFsMU5QZkJHQzIwbFFrdEhES1FtVSUyRkRQSHdtZ0RDSFF3JTNEJTNE; AMCV_F75C3025512D2C1D0A490D44%40AdobeOrg=179643557%7CMCIDTS%7C20356%7CMCMID%7C37821682721811146091833466082002814208%7CMCAAMLH-1759333847%7C7%7CMCAAMB-1759333847%7C6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y%7CMCOPTOUT-1758736253s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-20363%7CvVersion%7C5.5.0; kndctr_F75C3025512D2C1D0A490D44_AdobeOrg_identity=CiYzNzgyMTY4MjcyMTgxMTE0NjA5MTgzMzQ2NjA4MjAwMjgxNDIwOFIQCN-iruOXMxgBKgNPUjIwA_AB36Ku45cz; kndctr_F75C3025512D2C1D0A490D44_AdobeOrg_cluster=or2; _scor_uid=38cda76f053d4d00bcb8cabe3ec213c3; _gid=GA1.2.1917911646.1758729059; OptanonAlertBoxClosed=2025-09-24T15:51:37.598Z; gig_bootstrap_3_3g_DApOD0TCeN6ZJpzQMr7H1cIbtqtHwDjKVESN3N5oohMleIozT0I9WecPZeytT=auth-id_ver4; glt_3_3g_DApOD0TCeN6ZJpzQMr7H1cIbtqtHwDjKVESN3N5oohMleIozT0I9WecPZeytT=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; _gcl_au=1.1.1921840111.1758729054.187010321.1758729179.1758729179; glt_3_Qa8TkWpIB8ESCBT8tY2TukbVKgO5F6BJVc7N1oComdwFzI7H2L9NOWdm11i_BY9f=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; minUnifiedSessionToken10=%7B%22sessionId%22%3A%2290b30eee81-986c8b97be-47079256f3-3021781759-341e237393%22%2C%22uid%22%3A%22bd06729f7f-509687e8d7-0c18b8efc9-b9a3318deb-addd6c4712%22%2C%22__sidts__%22%3A1758729232797%2C%22__uidts__%22%3A1758729232797%7D; nfl_web_sdk_plugin_storage={%22s_ppv%22:{%22noScrollClick%22:1%2C%22scrollDelta%22:0%2C%22footerSeen%22:false%2C%22lastRecPage%22:%22nfl.com:podcasts:podcasts:landing%22%2C%22percentPageViewed%22:44%2C%22initialPageViewed%22:44%2C%22maxPageViewed%22:739}}; _ga_M6JHFFXV8K=GS2.1.s1758729059$o1$g1$t1758729234$j28$l0$h0; _ga=GA1.1.1043645392.1758729059; gig_bootstrap_4_9iJVkTyrOzMJlUu66ZBRKg=auth-id_ver4; glt_4_9iJVkTyrOzMJlUu66ZBRKg=st2.s.AtLtBnRwxw.Dfi3C77ftqWOj-slWorju7N4PhqQiYREo6ra7UqptTovb3vKB8yyoH90io_JeY11oxQOTpmX6lDMvdeBracqAccBZeacGW6QfVQDJMQsMDKeslFRBjA_wXtordQBfJRC.owfES5zKRFGFqzrHNAdId7MVnecefKRDeexNnuH66YXijAXzzmKGDqeVit2YVsXU3WxXkNnu1jTh5aDYnpKuBg.sc3; nflcs.prod.nfl.user=eyJkYXRhIjoiIiwiZXhwIjoxNzU4NzI5NTE4MDYyLCJmaXJzdE5hbWUiOiIiLCJnaWd5YVVJRCI6IiIsImdpZ3lhVUlEU2lnbmF0dXJlIjoiIiwiaGFzaGVkRW1haWwiOiIiLCJsYXN0TmFtZSI6IiJ9; OptanonConsent=isGpcEnabled=0&datestamp=Wed+Sep+24+2025+11%3A57%3A38+GMT-0400+(Eastern+Daylight+Time)&version=202506.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=1c2d9908-516b-4ecf-a7b9-e4095213e98e&interactionCount=2&isAnonUser=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CBG64%3A1%2CC0004%3A1&AwaitingReconsent=false&intType=3&geolocation=US%3BGA; adobeujs-optin=%7B%22aam%22%3Atrue%2C%22adcloud%22%3Afalse%2C%22aa%22%3Atrue%2C%22campaign%22%3Afalse%2C%22ecid%22%3Atrue%2C%22livefyre%22%3Afalse%2C%22target%22%3Atrue%2C%22mediaaa%22%3Atrue%7D",
+        "host": "pro.nfl.com"
+    },
+    "query_params": {
+        "limit": [
+            "3"
+        ],
+        "offset": [
+            "0"
+        ],
+        "page": [
+            "1"
+        ],
+        "sortKey": [
+            "yds"
+        ],
+        "sortValue": [
+            "DESC"
+        ],
+        "season": [
+            "2025"
+        ],
+        "qualifiedDefender": [
+            "false"
+        ],
+        "teamDefense": [
+            "3000",
+            "3900"
+        ],
+        "seasonType": [
+            "REG"
+        ]
+    },
+    "response_example": {
+        "limit": 3,
+        "offset": 0,
+        "qualifiedDefender": false,
+        "season": 2025,
+        "seasonType": "REG",
+        "sortKey": "yds",
+        "sortValue": "DESC",
+        "teamDefense": "3900",
+        "total": 26,
+        "defenders": [
+            {
+                "snap": 140,
+                "rd": 61,
+                "pr": 79,
+                "tck": 14,
+                "tStop": 12,
+                "hStop": 0,
+                "qbp": 8,
+                "qbpR": 0.10127,
+                "sack": 1,
+                "tgtNd": 0,
+                "recNd": 0,
+                "recYdsNd": 0,
+                "recTdNd": 0,
+                "int": 0,
+                "passRatingNd": 0,
+                "nflId": "37104",
+                "displayName": "Cameron Heyward",
+                "positionGroup": "DL",
+                "ngsPositionGroup": "DL",
+                "headshot": "https://static.www.nfl.com/image/upload/{formatInstructions}/league/vfql05jp29d2pltrlwqz",
+                "teamId": "3900",
+                "jerseyNumber": 97,
+                "position": "DT",
+                "shortName": "Ca.Heyward",
+                "ngsPosition": "DT",
+                "gp": 3,
+                "gs": 3,
+                "tg": 3,
+                "totalTg": 3,
+                "gameSnap": 140,
+                "teamSnap": 197,
+                "snapPct": 0.71066,
+                "qd": true
+            },
+            {
+                "snap": 187,
+                "rd": 88,
+                "pr": 0,
+                "tck": 10,
+                "tStop": 3,
+                "hStop": 1,
+                "qbp": 0,
+                "qbpR": 0,
+                "sack": 0,
+                "tgtNd": 9,
+                "recNd": 6,
+                "recYdsNd": 71,
+                "recTdNd": 1,
+                "int": 0,
+                "passRatingNd": 127.5463,
+                "nflId": "39984",
+                "displayName": "Darius Slay",
+                "positionGroup": "DB",
+                "ngsPositionGroup": "DB",
+                "headshot": "https://static.www.nfl.com/image/upload/{formatInstructions}/league/r7dwifb7wrqvqj714dgh",
+                "teamId": "3900",
+                "jerseyNumber": 23,
+                "position": "CB",
+                "shortName": "D.Slay",
+                "ngsPosition": "CB",
+                "gp": 3,
+                "gs": 3,
+                "tg": 3,
+                "totalTg": 3,
+                "gameSnap": 187,
+                "teamSnap": 197,
+                "snapPct": 0.94924,
+                "qd": true
+            },
+            {
+                "snap": 197,
+                "rd": 89,
+                "pr": 6,
+                "tck": 10,
+                "tStop": 4,
+                "hStop": 2,
+                "qbp": 1,
+                "qbpR": 0.16667,
+                "sack": 0,
+                "tgtNd": 15,
+                "recNd": 11,
+                "recYdsNd": 134,
+                "recTdNd": 2,
+                "int": 1,
+                "passRatingNd": 112.22222,
+                "nflId": "43294",
+                "displayName": "Jalen Ramsey",
+                "positionGroup": "DB",
+                "ngsPositionGroup": "DB",
+                "headshot": "https://static.www.nfl.com/image/upload/{formatInstructions}/league/pjozgun3xstol72jfoow",
+                "teamId": "3900",
+                "jerseyNumber": 5,
+                "position": "CB",
+                "shortName": "J.Ramsey",
+                "ngsPosition": "CB",
+                "gp": 3,
+                "gs": 3,
+                "tg": 3,
+                "totalTg": 3,
+                "gameSnap": 197,
+                "teamSnap": 197,
+                "snapPct": 1,
+                "qd": true
+            }
+        ]
+    }
+}

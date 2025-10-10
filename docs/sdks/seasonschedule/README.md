@@ -17,15 +17,15 @@ Retrieves all weeks for a specific season including preseason, regular season, a
 
 <!-- UsageSnippet language="python" operationID="getScheduleSeasonWeeks" method="get" path="/api/schedules/weeks" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.season_schedule.get_schedule_season_weeks(season=2025)
+    res = griddy_nfl.season_schedule.get_schedule_season_weeks(season=2025)
 
     assert res is not None
 
@@ -40,6 +40,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

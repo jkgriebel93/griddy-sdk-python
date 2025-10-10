@@ -6,7 +6,7 @@ from .seasontypeenum import SeasonTypeEnum
 from .site import Site, SiteTypedDict
 from .teaminfo import TeamInfo, TeamInfoTypedDict
 from datetime import datetime
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -36,6 +36,7 @@ class GameDetailTypedDict(TypedDict):
     season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
     site: NotRequired[SiteTypedDict]
+    r"""Stadium or venue information for a game"""
     smart_id: NotRequired[str]
     validated: NotRequired[bool]
     visitor_display_name: NotRequired[str]
@@ -104,6 +105,7 @@ class GameDetail(BaseModel):
     r"""Type of NFL season"""
 
     site: Optional[Site] = None
+    r"""Stadium or venue information for a game"""
 
     smart_id: Annotated[Optional[str], pydantic.Field(alias="smartId")] = None
 

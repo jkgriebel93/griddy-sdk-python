@@ -2,23 +2,30 @@
 
 from __future__ import annotations
 from datetime import date
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetTransactionsTransactionType = Literal[
-    "TRADE",
-    "SIGNED",
-    "RELEASED",
-    "WAIVED",
-    "PRACTICE_SQUAD",
-    "IR",
-    "SUSPENDED",
+GET_TRANSACTIONS_OP_SERVERS = [
+    # Production Regular NFL API
+    "https://api.nfl.com",
 ]
-r"""Type of transaction"""
+
+
+class TransactionType(str, Enum):
+    r"""Type of transaction"""
+
+    TRADE = "TRADE"
+    SIGNED = "SIGNED"
+    RELEASED = "RELEASED"
+    WAIVED = "WAIVED"
+    PRACTICE_SQUAD = "PRACTICE_SQUAD"
+    IR = "IR"
+    SUSPENDED = "SUSPENDED"
 
 
 class GetTransactionsRequestTypedDict(TypedDict):
@@ -28,7 +35,7 @@ class GetTransactionsRequestTypedDict(TypedDict):
     r"""End date for transactions (ISO 8601)"""
     team_id: NotRequired[str]
     r"""Filter by team"""
-    transaction_type: NotRequired[GetTransactionsTransactionType]
+    transaction_type: NotRequired[TransactionType]
     r"""Type of transaction"""
     limit: NotRequired[int]
     r"""Maximum number of results"""
@@ -57,7 +64,7 @@ class GetTransactionsRequest(BaseModel):
     r"""Filter by team"""
 
     transaction_type: Annotated[
-        Optional[GetTransactionsTransactionType],
+        Optional[TransactionType],
         pydantic.Field(alias="transactionType"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None

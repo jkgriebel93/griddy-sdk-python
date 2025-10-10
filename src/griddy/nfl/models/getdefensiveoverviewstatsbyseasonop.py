@@ -3,33 +3,40 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetDefensiveOverviewStatsBySeasonSortKey = Literal[
-    "snap",
-    "rd",
-    "pr",
-    "tck",
-    "tStop",
-    "hStop",
-    "qbp",
-    "qbpR",
-    "sack",
-    "tgtNd",
-    "recNd",
-    "recYdsNd",
-    "recTdNd",
-    "int",
-    "passRatingNd",
-    "gameSnap",
-    "snapPct",
+GET_DEFENSIVE_OVERVIEW_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
+
+
+class QueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    SNAP = "snap"
+    RD = "rd"
+    PR = "pr"
+    TCK = "tck"
+    T_STOP = "tStop"
+    H_STOP = "hStop"
+    QBP = "qbp"
+    QBP_R = "qbpR"
+    SACK = "sack"
+    TGT_ND = "tgtNd"
+    REC_ND = "recNd"
+    REC_YDS_ND = "recYdsNd"
+    REC_TD_ND = "recTdNd"
+    INT = "int"
+    PASS_RATING_ND = "passRatingNd"
+    GAME_SNAP = "gameSnap"
+    SNAP_PCT = "snapPct"
 
 
 class GetDefensiveOverviewStatsBySeasonRequestTypedDict(TypedDict):
@@ -43,7 +50,7 @@ class GetDefensiveOverviewStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetDefensiveOverviewStatsBySeasonSortKey]
+    sort_key: NotRequired[QueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
@@ -85,10 +92,10 @@ class GetDefensiveOverviewStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetDefensiveOverviewStatsBySeasonSortKey],
+        Optional[QueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "snap"
+    ] = QueryParamSortKey.SNAP
     r"""Field to sort by"""
 
     sort_value: Annotated[

@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 from datetime import datetime
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ResponseMetadataTypedDict(TypedDict):
-    generated_at: datetime
+    generated_at: NotRequired[datetime]
     r"""Response generation timestamp"""
 
 
 class ResponseMetadata(BaseModel):
-    generated_at: Annotated[datetime, pydantic.Field(alias="generatedAt")]
+    generated_at: Annotated[Optional[datetime], pydantic.Field(alias="generatedAt")] = (
+        None
+    )
     r"""Response generation timestamp"""

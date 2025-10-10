@@ -22,15 +22,15 @@ quarterback disruption stats, and receiver separation allowed.
 
 <!-- UsageSnippet language="python" operationID="getTeamDefensePassStatsBySeason" method="get" path="/api/secured/stats/team-defense/pass/season" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.team_defense_pass_statistics.get_team_defense_pass_stats_by_season(request={
+    res = griddy_nfl.team_defense_pass_statistics.get_team_defense_pass_stats_by_season(request={
         "season": 2025,
         "season_type": models.SeasonTypeEnum.REG,
         "sort_value": models.SortOrderEnum.DESC,
@@ -49,6 +49,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `request`                                                                                               | [models.GetTeamDefensePassStatsBySeasonRequest](../../models/getteamdefensepassstatsbyseasonrequest.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 | `retries`                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                        | :heavy_minus_sign:                                                                                      | Configuration to override the default retry behavior of the client.                                     |
+| `server_url`                                                                                            | *Optional[str]*                                                                                         | :heavy_minus_sign:                                                                                      | An optional server URL to use.                                                                          |
 
 ### Response
 
