@@ -20,17 +20,15 @@ with the latest odds updates from betting markets.
 
 <!-- UsageSnippet language="python" operationID="getWeeklyBettingOdds" method="get" path="/api/schedules/week/odds" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.betting.get_weekly_betting_odds(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
-
-    assert res is not None
+    res = sdk.betting.get_weekly_betting_odds(season=2025, season_type="REG", week=4)
 
     # Handle response
     print(res)
@@ -53,6 +51,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

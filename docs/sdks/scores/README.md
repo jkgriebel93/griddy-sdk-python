@@ -20,17 +20,15 @@ during active games. Returns an empty array when no games are currently being pl
 
 <!-- UsageSnippet language="python" operationID="getLiveGameScores" method="get" path="/api/scores/live/games" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.scores.get_live_game_scores(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
-
-    assert res is not None
+    res = sdk.scores.get_live_game_scores(season=2025, season_type="REG", week=4)
 
     # Handle response
     print(res)
@@ -53,6 +51,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

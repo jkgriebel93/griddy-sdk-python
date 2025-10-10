@@ -23,17 +23,15 @@ and current game status.
 
 <!-- UsageSnippet language="python" operationID="getScheduledGame" method="get" path="/api/schedules/game" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules.get_scheduled_game(game_id="f665fc10-311e-11f0-b670-ae1250fadad1")
-
-    assert res is not None
+    res = sdk.schedules.get_scheduled_game(game_id="f665fc10-311e-11f0-b670-ae1250fadad1")
 
     # Handle response
     print(res)
@@ -54,9 +52,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_game_matchup_rankings
 
@@ -69,17 +67,15 @@ for various statistical categories.
 
 <!-- UsageSnippet language="python" operationID="getGameMatchupRankings" method="get" path="/api/schedules/game/matchup/rankings" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules.get_game_matchup_rankings(game_id="2025092500")
-
-    assert res is not None
+    res = sdk.schedules.get_game_matchup_rankings(game_id="2025092500")
 
     # Handle response
     print(res)
@@ -100,9 +96,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_team_injuries
 
@@ -114,17 +110,15 @@ Returns player injury status and details for the specified team and week.
 
 <!-- UsageSnippet language="python" operationID="getTeamInjuries" method="get" path="/api/schedules/game/team/injuries" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules.get_team_injuries(season=2025, season_type=models.SeasonTypeEnum.REG, team_id="10403000-5851-f9d5-da45-78365a05b6b0", week=4)
-
-    assert res is not None
+    res = sdk.schedules.get_team_injuries(season=2025, season_type="REG", team_id="10403000-5851-f9d5-da45-78365a05b6b0", week=4)
 
     # Handle response
     print(res)
@@ -148,9 +142,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_scheduled_games
 
@@ -163,17 +157,15 @@ and ticket details for all games in the specified week.
 
 <!-- UsageSnippet language="python" operationID="getScheduledGames" method="get" path="/api/schedules/games" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules.get_scheduled_games(season=2025, season_type=models.SeasonTypeEnum.REG, week=3)
-
-    assert res is not None
+    res = sdk.schedules.get_scheduled_games(season=2025, season_type="REG", week=3)
 
     # Handle response
     print(res)
@@ -196,6 +188,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

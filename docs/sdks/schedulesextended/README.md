@@ -23,17 +23,15 @@ determines the current week based on the current date.
 
 <!-- UsageSnippet language="python" operationID="getCurrentWeekGames" method="get" path="/api/schedules/current" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules_extended.get_current_week_games()
-
-    assert res is not None
+    res = sdk.schedules_extended.get_current_week_games()
 
     # Handle response
     print(res)
@@ -53,9 +51,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_future_betting_odds
 
@@ -69,17 +67,15 @@ This endpoint provides futures market data across multiple betting hierarchies.
 
 <!-- UsageSnippet language="python" operationID="getFutureBettingOdds" method="get" path="/api/schedules/genius/future/odds" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules_extended.get_future_betting_odds()
-
-    assert res is not None
+    res = sdk.schedules_extended.get_future_betting_odds()
 
     # Handle response
     print(res)
@@ -99,9 +95,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_team_standings
 
@@ -115,17 +111,15 @@ Standings are calculated through the specified week.
 
 <!-- UsageSnippet language="python" operationID="getTeamStandings" method="get" path="/api/schedules/standings" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.schedules_extended.get_team_standings(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
-
-    assert res is not None
+    res = sdk.schedules_extended.get_team_standings(season=2025, season_type="REG", week=4)
 
     # Handle response
     print(res)
@@ -148,6 +142,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

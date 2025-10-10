@@ -19,17 +19,15 @@ statistics, involved players, win probability, and expected points.
 
 <!-- UsageSnippet language="python" operationID="getSummaryPlay" method="get" path="/api/plays/summaryPlay" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.plays.get_summary_play(game_id="f665fc10-311e-11f0-b670-ae1250fadad1", play_id=40)
-
-    assert res is not None
+    res = sdk.plays.get_summary_play(game_id="f665fc10-311e-11f0-b670-ae1250fadad1", play_id=40)
 
     # Handle response
     print(res)
@@ -51,6 +49,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

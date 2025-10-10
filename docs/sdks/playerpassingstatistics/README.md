@@ -22,20 +22,18 @@ CPOE (Completion Percentage Over Expected), time to throw metrics, and game-spec
 
 <!-- UsageSnippet language="python" operationID="getPlayerPassingStatsByWeek" method="get" path="/api/secured/stats/players-offense/passing/week" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.player_passing_statistics.get_player_passing_stats_by_week(season=2025, season_type=models.SeasonTypeEnum.REG, week=models.WeekSlugEnum.WEEK_10, limit=50, offset=0, page=1, sort_value=models.SortOrderEnum.DESC, qualified_passer=False, team_offense=[
+    res = sdk.player_passing_statistics.get_player_passing_stats_by_week(season=2025, season_type="REG", week="WEEK_10", limit=50, offset=0, page=1, sort_value="DESC", qualified_passer=False, team_offense=[
         "3900",
         "3200",
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -65,6 +63,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
