@@ -1,0 +1,12 @@
+# WinProbabilityResponse
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        | Example                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `game_id`                                                          | *Optional[int]*                                                    | :heavy_minus_sign:                                                 | Game identifier (10-digit format YYYYMMDDNN)                       | 2025092106                                                         |
+| `game_key`                                                         | *Optional[int]*                                                    | :heavy_minus_sign:                                                 | Unique game key identifier                                         | 59882                                                              |
+| `plays`                                                            | List[[models.PlayWinProbability](../models/playwinprobability.md)] | :heavy_minus_sign:                                                 | Chronological list of all plays with win probability data          |                                                                    |
+| `pregame_away_team_win_probability`                                | *Optional[float]*                                                  | :heavy_minus_sign:                                                 | Away team's win probability before the game started                | 0.28824037592858076                                                |
+| `pregame_home_team_win_probability`                                | *Optional[float]*                                                  | :heavy_minus_sign:                                                 | Home team's win probability before the game started                | 0.7117596240714192                                                 |

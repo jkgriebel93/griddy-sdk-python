@@ -1,0 +1,10 @@
+# PassRushers
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `home`                                                                                   | List[[models.PassRusherStats](../models/passrusherstats.md)]                             | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `league_average_separation_to_qb`                                                        | [Optional[models.LeagueAverageSeparationToQb]](../models/leagueaverageseparationtoqb.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `visitor`                                                                                | List[[models.PassRusherStats](../models/passrusherstats.md)]                             | :heavy_minus_sign:                                                                       | N/A                                                                                      |

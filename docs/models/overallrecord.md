@@ -1,0 +1,14 @@
+# OverallRecord
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `losses`                                                                 | *Optional[int]*                                                          | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `ties`                                                                   | *Optional[int]*                                                          | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `wins`                                                                   | *Optional[int]*                                                          | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `points`                                                                 | [Optional[models.OverallRecordPoints]](../models/overallrecordpoints.md) | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `win_pct`                                                                | *Optional[float]*                                                        | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `games`                                                                  | *Optional[int]*                                                          | :heavy_minus_sign:                                                       | Total games played                                                       |
+| `streak`                                                                 | [Optional[models.Streak]](../models/streak.md)                           | :heavy_minus_sign:                                                       | N/A                                                                      |

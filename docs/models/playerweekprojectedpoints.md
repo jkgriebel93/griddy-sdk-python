@@ -1,0 +1,10 @@
+# PlayerWeekProjectedPoints
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `attributes`                                                                                 | [Optional[models.Attributes]](../models/attributes.md)                                       | :heavy_minus_sign:                                                                           | N/A                                                                                          |
+| `id`                                                                                         | *Optional[str]*                                                                              | :heavy_minus_sign:                                                                           | Unique identifier for this projection                                                        |
+| `type`                                                                                       | [Optional[models.PlayerWeekProjectedPointsType]](../models/playerweekprojectedpointstype.md) | :heavy_minus_sign:                                                                           | N/A                                                                                          |

@@ -1,0 +1,10 @@
+# PlayerWeekProjectedStats
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `attributes`                                                                                           | [Optional[models.PlayerWeekProjectedStatsAttributes]](../models/playerweekprojectedstatsattributes.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `id`                                                                                                   | *Optional[str]*                                                                                        | :heavy_minus_sign:                                                                                     | Unique identifier for these stats                                                                      |
+| `type`                                                                                                 | [Optional[models.PlayerWeekProjectedStatsType]](../models/playerweekprojectedstatstype.md)             | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |

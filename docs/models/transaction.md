@@ -1,0 +1,15 @@
+# Transaction
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `compensation_details`                                                   | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | Trade compensation or contract details                                   |
+| `date_`                                                                  | [date](https://docs.python.org/3/library/datetime.html#date-objects)     | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `details`                                                                | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | Transaction details                                                      |
+| `id`                                                                     | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `player`                                                                 | [Optional[models.Player]](../models/player.md)                           | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `related_team`                                                           | [Optional[models.Team]](../models/team.md)                               | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `team`                                                                   | [Optional[models.Team]](../models/team.md)                               | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `type`                                                                   | [Optional[models.TransactionTypeEnum]](../models/transactiontypeenum.md) | :heavy_minus_sign:                                                       | N/A                                                                      |

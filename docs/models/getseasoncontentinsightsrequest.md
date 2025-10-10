@@ -1,0 +1,12 @@
+# GetSeasonContentInsightsRequest
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        | Example                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `season`                                                           | *int*                                                              | :heavy_check_mark:                                                 | Season year                                                        | 2025                                                               |
+| `limit`                                                            | *Optional[int]*                                                    | :heavy_minus_sign:                                                 | Maximum number of insights to return                               | 60                                                                 |
+| `tags`                                                             | List[[models.QueryParamTags](../models/queryparamtags.md)]         | :heavy_minus_sign:                                                 | Content tags to filter by (supports multiple comma-separated tags) | [<br/>"nfl-pro"<br/>]                                              |
+| `team_id`                                                          | *Optional[str]*                                                    | :heavy_minus_sign:                                                 | Filter by specific team identifier                                 | 3900                                                               |
+| `nfl_id`                                                           | *Optional[str]*                                                    | :heavy_minus_sign:                                                 | Filter by specific player NFL identifier                           | 46101                                                              |

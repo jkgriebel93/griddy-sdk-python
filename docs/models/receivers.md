@@ -1,0 +1,10 @@
+# Receivers
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `home`                                                                                           | List[[models.ReceiverStats](../models/receiverstats.md)]                                         | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+| `league_average_receiver_separation`                                                             | [Optional[models.LeagueAverageReceiverSeparation]](../models/leagueaveragereceiverseparation.md) | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+| `visitor`                                                                                        | List[[models.ReceiverStats](../models/receiverstats.md)]                                         | :heavy_minus_sign:                                                                               | N/A                                                                                              |

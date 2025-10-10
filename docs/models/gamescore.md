@@ -1,0 +1,13 @@
+# GameScore
+
+
+## Fields
+
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  | Example                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `away_score`                                                 | *Optional[int]*                                              | :heavy_minus_sign:                                           | Away team current score                                      |                                                              |
+| `home_score`                                                 | *Optional[int]*                                              | :heavy_minus_sign:                                           | Home team current score                                      |                                                              |
+| `home_team_score`                                            | [Optional[models.TeamScore]](../models/teamscore.md)         | :heavy_minus_sign:                                           | N/A                                                          |                                                              |
+| `phase`                                                      | [Optional[models.GamePhaseEnum]](../models/gamephaseenum.md) | :heavy_minus_sign:                                           | Current phase of the game                                    |                                                              |
+| `time`                                                       | *Optional[str]*                                              | :heavy_minus_sign:                                           | Game clock time or status                                    | 11:24                                                        |
+| `visitor_team_score`                                         | [Optional[models.TeamScore]](../models/teamscore.md)         | :heavy_minus_sign:                                           | N/A                                                          |                                                              |

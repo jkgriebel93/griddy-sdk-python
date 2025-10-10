@@ -1,0 +1,9 @@
+# GetCoachesFilmVideosRequest
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `game_id`                                                                          | List[*str*]                                                                        | :heavy_check_mark:                                                                 | Game identifiers (UUID format, supports multiple games)                            | [<br/>"f665fc10-311e-11f0-b670-ae1250fadad1",<br/>"ae9d66f7-1312-11ef-afd1-646009f18b2e"<br/>] |
+| `play_id`                                                                          | List[*str*]                                                                        | :heavy_check_mark:                                                                 | Play identifiers for specific plays within the games                               | [<br/>"267",<br/>"1162",<br/>"496",<br/>"139"<br/>]                                |

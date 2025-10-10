@@ -1,0 +1,15 @@
+# GetSeasonPlayerStatsRequest
+
+
+## Fields
+
+| Field                                                      | Type                                                       | Required                                                   | Description                                                | Example                                                    |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `season`                                                   | *int*                                                      | :heavy_check_mark:                                         | Season year                                                | 2025                                                       |
+| `season_type`                                              | [models.SeasonTypeEnum](../models/seasontypeenum.md)       | :heavy_check_mark:                                         | Type of season                                             | REG                                                        |
+| `position`                                                 | [Optional[models.Position]](../models/position.md)         | :heavy_minus_sign:                                         | Filter by position group                                   |                                                            |
+| `team_id`                                                  | *Optional[str]*                                            | :heavy_minus_sign:                                         | Filter by team                                             |                                                            |
+| `stat_category`                                            | [Optional[models.StatCategory]](../models/statcategory.md) | :heavy_minus_sign:                                         | Statistical category to retrieve                           | passing                                                    |
+| `sort`                                                     | *Optional[str]*                                            | :heavy_minus_sign:                                         | Sort field and order                                       | passingYards:desc                                          |
+| `limit`                                                    | *Optional[int]*                                            | :heavy_minus_sign:                                         | Maximum number of results                                  |                                                            |
+| `offset`                                                   | *Optional[int]*                                            | :heavy_minus_sign:                                         | Offset for pagination                                      |                                                            |
