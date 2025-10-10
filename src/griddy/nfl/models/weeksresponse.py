@@ -2,18 +2,18 @@
 
 from __future__ import annotations
 from .pagination import Pagination, PaginationTypedDict
-from .proweek import ProWeek, ProWeekTypedDict
-from ..types import BaseModel
+from .week import Week, WeekTypedDict
+from griddy.nfl.types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class WeeksResponseTypedDict(TypedDict):
     pagination: NotRequired[PaginationTypedDict]
-    weeks: NotRequired[List[ProWeekTypedDict]]
+    weeks: NotRequired[List[WeekTypedDict]]
 
 
 class WeeksResponse(BaseModel):
     pagination: Optional[Pagination] = None
 
-    weeks: Optional[List[ProWeek]] = None
+    weeks: Optional[List[Week]] = None

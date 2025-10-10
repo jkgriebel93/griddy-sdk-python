@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .teaminjuryreport import TeamInjuryReport, TeamInjuryReportTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 

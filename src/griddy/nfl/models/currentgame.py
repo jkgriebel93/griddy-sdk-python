@@ -10,7 +10,8 @@ from .seasontypeenum import SeasonTypeEnum
 from .ticketvendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
 from datetime import date, datetime
-from ..types import (
+from enum import Enum
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
@@ -19,30 +20,30 @@ from ..types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-CurrentGameCategory = Literal[
-    "MNF",
-    "SNF",
-    "TNF",
-]
-r"""Prime time game designation"""
+class Category(str, Enum):
+    r"""Prime time game designation"""
+
+    MNF = "MNF"
+    SNF = "SNF"
+    TNF = "TNF"
 
 
-class CurrentGameExtensionTypedDict(TypedDict):
+class ExtensionsTypedDict(TypedDict):
     pass
 
 
-class CurrentGameExtension(BaseModel):
+class Extensions(BaseModel):
     pass
 
 
 class CurrentGameTypedDict(TypedDict):
     away_team: NotRequired[GameTeamTypedDict]
     broadcast_info: NotRequired[BroadcastInfoTypedDict]
-    category: NotRequired[Nullable[CurrentGameCategory]]
+    category: NotRequired[Nullable[Category]]
     date_: NotRequired[date]
     r"""Game date (YYYY-MM-DD)"""
     date_am_pm: NotRequired[MeridiemEnum]
@@ -57,7 +58,7 @@ class CurrentGameTypedDict(TypedDict):
     r"""Time without AM/PM"""
     date_time_am_pm: NotRequired[str]
     r"""Time with AM/PM"""
-    extensions: NotRequired[List[CurrentGameExtensionTypedDict]]
+    extensions: NotRequired[List[ExtensionsTypedDict]]
     external_ids: NotRequired[List[ExternalIDTypedDict]]
     game_type: NotRequired[str]
     r"""Type of game"""
@@ -92,7 +93,7 @@ class CurrentGame(BaseModel):
         Optional[BroadcastInfo], pydantic.Field(alias="broadcastInfo")
     ] = None
 
-    category: OptionalNullable[CurrentGameCategory] = UNSET
+    category: OptionalNullable[Category] = UNSET
 
     date_: Annotated[Optional[date], pydantic.Field(alias="date")] = None
     r"""Game date (YYYY-MM-DD)"""
@@ -123,7 +124,7 @@ class CurrentGame(BaseModel):
     )
     r"""Time with AM/PM"""
 
-    extensions: Optional[List[CurrentGameExtension]] = None
+    extensions: Optional[List[Extensions]] = None
 
     external_ids: Annotated[
         Optional[List[ExternalID]], pydantic.Field(alias="externalIds")

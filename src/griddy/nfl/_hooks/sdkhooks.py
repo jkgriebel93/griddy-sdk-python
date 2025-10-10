@@ -13,7 +13,7 @@ from .types import (
 )
 from .registration import init_hooks
 from typing import List, Optional, Tuple
-from ..sdkconfiguration import SDKConfiguration
+from griddy.nfl.sdkconfiguration import SDKConfiguration
 
 
 class SDKHooks(Hooks):

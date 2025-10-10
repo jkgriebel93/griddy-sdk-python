@@ -2,41 +2,31 @@
 
 from __future__ import annotations
 from .player import Player, PlayerTypedDict
-from ..types import BaseModel
-from typing import Literal, Optional
+from .playparticipantroleenum import PlayParticipantRoleEnum
+from griddy.nfl.types import BaseModel
+from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-Role = Literal[
-    "PASSER",
-    "RUSHER",
-    "RECEIVER",
-    "TACKLER",
-    "KICKER",
-    "RETURNER",
-    "BLOCKER",
-]
-
-
-class PlayParticipantStatsTypedDict(TypedDict):
+class StatsModelTypedDict(TypedDict):
     r"""Play-specific statistics"""
 
 
-class PlayParticipantStats(BaseModel):
+class StatsModel(BaseModel):
     r"""Play-specific statistics"""
 
 
 class PlayParticipantTypedDict(TypedDict):
     player: NotRequired[PlayerTypedDict]
-    role: NotRequired[Role]
-    stats: NotRequired[PlayParticipantStatsTypedDict]
+    role: NotRequired[PlayParticipantRoleEnum]
+    stats: NotRequired[StatsModelTypedDict]
     r"""Play-specific statistics"""
 
 
 class PlayParticipant(BaseModel):
     player: Optional[Player] = None
 
-    role: Optional[Role] = None
+    role: Optional[PlayParticipantRoleEnum] = None
 
-    stats: Optional[PlayParticipantStats] = None
+    stats: Optional[StatsModel] = None
     r"""Play-specific statistics"""

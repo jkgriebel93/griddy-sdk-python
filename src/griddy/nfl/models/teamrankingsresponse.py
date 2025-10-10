@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .teamrankings import TeamRankings, TeamRankingsTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

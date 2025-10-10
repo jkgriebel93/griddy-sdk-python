@@ -23,15 +23,15 @@ Supports querying multiple games simultaneously.
 
 <!-- UsageSnippet language="python" operationID="getPlaysWinProbability" method="get" path="/api/secured/plays/winProbability" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.win_probability.get_plays_win_probability(game_id=[
+    res = griddy_nfl.win_probability.get_plays_win_probability(game_id=[
         "2025092800",
         "2025092104",
     ])
@@ -49,6 +49,7 @@ with GriddyNFL(
 | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `game_id`                                                                                                              | [models.GameID](../../models/gameid.md)                                                                                | :heavy_check_mark:                                                                                                     | Game identifier(s) in 10-digit format (YYYYMMDDNN). Can be a single game ID or multiple game IDs for batch retrieval.  |
 | `retries`                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                       | :heavy_minus_sign:                                                                                                     | Configuration to override the default retry behavior of the client.                                                    |
+| `server_url`                                                                                                           | *Optional[str]*                                                                                                        | :heavy_minus_sign:                                                                                                     | An optional server URL to use.                                                                                         |
 
 ### Response
 
@@ -72,15 +73,15 @@ structure for performance. Supports multiple games in a single request.
 
 <!-- UsageSnippet language="python" operationID="getWinProbabilityMin" method="get" path="/api/secured/plays/winProbabilityMin" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.win_probability.get_win_probability_min(fapi_game_id=[
+    res = griddy_nfl.win_probability.get_win_probability_min(fapi_game_id=[
         "f666051f-311e-11f0-b670-ae1250fadad1",
         "f6660056-311e-11f0-b670-ae1250fadad1",
         "f665fc10-311e-11f0-b670-ae1250fadad1",
@@ -99,6 +100,7 @@ with GriddyNFL(
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fapi_game_id`                                                                                                                               | List[*str*]                                                                                                                                  | :heavy_check_mark:                                                                                                                           | Football API game identifiers (UUID format). Supports multiple game IDs<br/>to retrieve win probability data for multiple games simultaneously.<br/> | [<br/>"f666051f-311e-11f0-b670-ae1250fadad1",<br/>"f6660056-311e-11f0-b670-ae1250fadad1",<br/>"f665fc10-311e-11f0-b670-ae1250fadad1"<br/>]   |
 | `retries`                                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                             | :heavy_minus_sign:                                                                                                                           | Configuration to override the default retry behavior of the client.                                                                          |                                                                                                                                              |
+| `server_url`                                                                                                                                 | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | An optional server URL to use.                                                                                                               | http://localhost:8080                                                                                                                        |
 
 ### Response
 

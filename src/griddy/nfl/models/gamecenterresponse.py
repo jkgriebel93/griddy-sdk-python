@@ -2,35 +2,53 @@
 
 from __future__ import annotations
 from .gamecenterschedule import GamecenterSchedule, GamecenterScheduleTypedDict
+from .passdistanceleaderentry import (
+    PassDistanceLeaderEntry,
+    PassDistanceLeaderEntryTypedDict,
+)
 from .passerstats import PasserStats, PasserStatsTypedDict
-from ..types import BaseModel
+from .passrusherstats import PassRusherStats, PassRusherStatsTypedDict
+from .receiverstats import ReceiverStats, ReceiverStatsTypedDict
+from .rusherstats import RusherStats, RusherStatsTypedDict
+from .speedleaderentry import SpeedLeaderEntry, SpeedLeaderEntryTypedDict
+from .timetosackleaderentry import TimeToSackLeaderEntry, TimeToSackLeaderEntryTypedDict
+from griddy.nfl.types import BaseModel
 import pydantic
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class PassDistanceLeadersTypedDict(TypedDict):
-    pass
+    home: NotRequired[List[PassDistanceLeaderEntryTypedDict]]
+    visitor: NotRequired[List[PassDistanceLeaderEntryTypedDict]]
 
 
 class PassDistanceLeaders(BaseModel):
-    pass
+    home: Optional[List[PassDistanceLeaderEntry]] = None
+
+    visitor: Optional[List[PassDistanceLeaderEntry]] = None
 
 
 class SpeedLeadersTypedDict(TypedDict):
-    pass
+    home: NotRequired[List[SpeedLeaderEntryTypedDict]]
+    visitor: NotRequired[List[SpeedLeaderEntryTypedDict]]
 
 
 class SpeedLeaders(BaseModel):
-    pass
+    home: Optional[List[SpeedLeaderEntry]] = None
+
+    visitor: Optional[List[SpeedLeaderEntry]] = None
 
 
 class TimeToSackLeadersTypedDict(TypedDict):
-    pass
+    home: NotRequired[List[TimeToSackLeaderEntryTypedDict]]
+    visitor: NotRequired[List[TimeToSackLeaderEntryTypedDict]]
 
 
 class TimeToSackLeaders(BaseModel):
-    pass
+    home: Optional[List[TimeToSackLeaderEntry]] = None
+
+    visitor: Optional[List[TimeToSackLeaderEntry]] = None
 
 
 class LeadersTypedDict(TypedDict):
@@ -62,20 +80,20 @@ class LeagueAverageSeparationToQb(BaseModel):
 
 
 class PassRushersTypedDict(TypedDict):
-    home: NotRequired[List[Dict[str, Any]]]
+    home: NotRequired[List[PassRusherStatsTypedDict]]
     league_average_separation_to_qb: NotRequired[LeagueAverageSeparationToQbTypedDict]
-    visitor: NotRequired[List[Dict[str, Any]]]
+    visitor: NotRequired[List[PassRusherStatsTypedDict]]
 
 
 class PassRushers(BaseModel):
-    home: Optional[List[Dict[str, Any]]] = None
+    home: Optional[List[PassRusherStats]] = None
 
     league_average_separation_to_qb: Annotated[
         Optional[LeagueAverageSeparationToQb],
         pydantic.Field(alias="leagueAverageSeparationToQb"),
     ] = None
 
-    visitor: Optional[List[Dict[str, Any]]] = None
+    visitor: Optional[List[PassRusherStats]] = None
 
 
 class PassersTypedDict(TypedDict):
@@ -98,33 +116,33 @@ class LeagueAverageReceiverSeparation(BaseModel):
 
 
 class ReceiversTypedDict(TypedDict):
-    home: NotRequired[List[Dict[str, Any]]]
+    home: NotRequired[List[ReceiverStatsTypedDict]]
     league_average_receiver_separation: NotRequired[
         LeagueAverageReceiverSeparationTypedDict
     ]
-    visitor: NotRequired[List[Dict[str, Any]]]
+    visitor: NotRequired[List[ReceiverStatsTypedDict]]
 
 
 class Receivers(BaseModel):
-    home: Optional[List[Dict[str, Any]]] = None
+    home: Optional[List[ReceiverStats]] = None
 
     league_average_receiver_separation: Annotated[
         Optional[LeagueAverageReceiverSeparation],
         pydantic.Field(alias="leagueAverageReceiverSeparation"),
     ] = None
 
-    visitor: Optional[List[Dict[str, Any]]] = None
+    visitor: Optional[List[ReceiverStats]] = None
 
 
 class RushersTypedDict(TypedDict):
-    home: NotRequired[List[Dict[str, Any]]]
-    visitor: NotRequired[List[Dict[str, Any]]]
+    home: NotRequired[List[RusherStatsTypedDict]]
+    visitor: NotRequired[List[RusherStatsTypedDict]]
 
 
 class Rushers(BaseModel):
-    home: Optional[List[Dict[str, Any]]] = None
+    home: Optional[List[RusherStats]] = None
 
-    visitor: Optional[List[Dict[str, Any]]] = None
+    visitor: Optional[List[RusherStats]] = None
 
 
 class GamecenterResponseTypedDict(TypedDict):

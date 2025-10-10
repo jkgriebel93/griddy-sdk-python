@@ -19,15 +19,15 @@ Retrieves preview content and insights for a specific game based on teams and we
 
 <!-- UsageSnippet language="python" operationID="getGamePreview" method="get" path="/api/content/game/preview" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content.get_game_preview(request={
+    res = griddy_nfl.content.get_game_preview(request={
         "season": 2025,
         "season_type": models.SeasonTypeEnum.REG,
         "week": 4,
@@ -48,6 +48,7 @@ with GriddyNFL(
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `request`                                                             | [models.GetGamePreviewRequest](../../models/getgamepreviewrequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
 | `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
+| `server_url`                                                          | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | An optional server URL to use.                                        |
 
 ### Response
 
@@ -67,15 +68,15 @@ Retrieves featured film room content cards for the home page. Returns weekly pla
 
 <!-- UsageSnippet language="python" operationID="getHomeFilmCards" method="get" path="/api/content/home-film-cards" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content.get_home_film_cards()
+    res = griddy_nfl.content.get_home_film_cards()
 
     assert res is not None
 
@@ -89,6 +90,7 @@ with GriddyNFL(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
@@ -108,15 +110,15 @@ Retrieves analytical insights and advanced statistics for a specific game. Can f
 
 <!-- UsageSnippet language="python" operationID="getGameInsights" method="get" path="/api/content/insights/game" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content.get_game_insights(request={
+    res = griddy_nfl.content.get_game_insights(request={
         "season": 2025,
         "limit": 100,
         "tags": "pro-preview",
@@ -139,6 +141,7 @@ with GriddyNFL(
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `request`                                                               | [models.GetGameInsightsRequest](../../models/getgameinsightsrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 | `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| `server_url`                                                            | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | An optional server URL to use.                                          |
 
 ### Response
 

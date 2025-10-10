@@ -2,35 +2,17 @@
 
 from __future__ import annotations
 from .gameresultenum import GameResultEnum
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class WeeklyPlayerPassingStatsTypedDict(TypedDict):
-    att: int
+    r"""Player passing statistics for a single week, extending season stats with game-specific context"""
+
+    att: NotRequired[int]
     r"""Attempts"""
-    cmp: int
-    r"""Completions"""
-    display_name: str
-    r"""Player's full name"""
-    gp: int
-    r"""Games played"""
-    gs: int
-    r"""Games started"""
-    int_: int
-    r"""Interceptions"""
-    nfl_id: str
-    r"""NFL player identifier"""
-    position: str
-    r"""Player position"""
-    td: int
-    r"""Touchdown passes"""
-    team_id: str
-    r"""Team identifier"""
-    yds: int
-    r"""Passing yards"""
     att_pg: NotRequired[float]
     r"""Attempts per game"""
     avg_sep: NotRequired[float]
@@ -46,7 +28,9 @@ class WeeklyPlayerPassingStatsTypedDict(TypedDict):
     ay_att: NotRequired[float]
     r"""Air yards per attempt"""
     blitz_r: NotRequired[float]
-    r"""Blitz rate faced (0-1)"""
+    r"""Blitz rate faced"""
+    cmp: NotRequired[int]
+    r"""Completions"""
     cmp_pg: NotRequired[float]
     r"""Completions per game"""
     cmp_pct: NotRequired[float]
@@ -58,43 +42,43 @@ class WeeklyPlayerPassingStatsTypedDict(TypedDict):
     db_pg: NotRequired[float]
     r"""Dropbacks per game"""
     deep_att_pct: NotRequired[float]
-    r"""Deep attempt percentage (20+ air yards) (0-1)"""
+    r"""Deep attempt percentage (20+ air yards)"""
+    display_name: NotRequired[str]
+    r"""Player's full name"""
     drop: NotRequired[int]
     r"""Dropped passes by receivers"""
     drop_pg: NotRequired[float]
     r"""Drops per game"""
     drop_r: NotRequired[float]
-    r"""Drop rate (0-1)"""
+    r"""Drop rate"""
     epa: NotRequired[float]
     r"""Expected Points Added"""
     epa_db: NotRequired[float]
     r"""EPA per dropback"""
     epa_pg: NotRequired[float]
     r"""EPA per game"""
-    fapi_game_id: NotRequired[str]
-    r"""Football API game identifier"""
-    final_score: NotRequired[str]
-    r"""Final score of the game"""
-    game_id: NotRequired[int]
-    r"""Game identifier (10-digit format YYYYMMDDNN)"""
-    game_result: NotRequired[GameResultEnum]
-    r"""Game result (Win/Loss/Tie)"""
+    gp: NotRequired[int]
+    r"""Games played"""
+    gs: NotRequired[int]
+    r"""Games started"""
     headshot: NotRequired[str]
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
+    int_: NotRequired[int]
+    r"""Interceptions"""
     int_pg: NotRequired[float]
     r"""Interceptions per game"""
-    is_home: NotRequired[bool]
-    r"""Whether player's team was at home"""
     jersey_number: NotRequired[int]
     r"""Player's jersey number"""
+    nfl_id: NotRequired[str]
+    r"""NFL player identifier"""
     ngs_position: NotRequired[str]
     r"""Next Gen Stats position"""
     ngs_position_group: NotRequired[str]
     r"""Next Gen Stats position group"""
-    opponent_team_id: NotRequired[str]
-    r"""Opponent team identifier"""
     pa_db_pct: NotRequired[float]
-    r"""Play action dropback percentage (0-1)"""
+    r"""Play action dropback percentage"""
+    position: NotRequired[str]
+    r"""Player position"""
     position_group: NotRequired[str]
     r"""Position group"""
     qbp: NotRequired[int]
@@ -102,7 +86,7 @@ class WeeklyPlayerPassingStatsTypedDict(TypedDict):
     qbp_pg: NotRequired[float]
     r"""QB pressure per game"""
     qbp_r: NotRequired[float]
-    r"""QB pressure rate (0-1)"""
+    r"""QB pressure rate"""
     qp: NotRequired[bool]
     r"""Qualified passer status"""
     rating: NotRequired[float]
@@ -113,8 +97,12 @@ class WeeklyPlayerPassingStatsTypedDict(TypedDict):
     r"""Sacks per game"""
     short_name: NotRequired[str]
     r"""Abbreviated player name"""
+    td: NotRequired[int]
+    r"""Touchdown passes"""
     td_pg: NotRequired[float]
     r"""Touchdowns per game"""
+    team_id: NotRequired[str]
+    r"""Team identifier"""
     tg: NotRequired[int]
     r"""Team games for player"""
     total_tg: NotRequired[int]
@@ -122,56 +110,42 @@ class WeeklyPlayerPassingStatsTypedDict(TypedDict):
     tw_att_pg: NotRequired[float]
     r"""Two-minute attempts per game"""
     tw_att_pct: NotRequired[float]
-    r"""Two-minute drill attempt percentage (0-1)"""
-    week_slug: NotRequired[str]
-    r"""Week identifier slug"""
+    r"""Two-minute drill attempt percentage"""
     x_cmp: NotRequired[float]
-    r"""Expected completion percentage (0-1)"""
+    r"""Expected completion percentage"""
     x_yac: NotRequired[float]
     r"""Expected yards after catch"""
     yac: NotRequired[float]
     r"""Yards after catch"""
     yac_pct: NotRequired[float]
-    r"""YAC percentage of total yards (0-1)"""
+    r"""YAC percentage of total yards"""
+    yds: NotRequired[int]
+    r"""Passing yards"""
     yds_pg: NotRequired[float]
     r"""Yards per game"""
     ypa: NotRequired[float]
     r"""Yards per attempt"""
+    fapi_game_id: NotRequired[str]
+    r"""Football API game identifier"""
+    final_score: NotRequired[str]
+    r"""Final score of the game"""
+    game_id: NotRequired[int]
+    r"""Game identifier (10-digit format YYYYMMDDNN)"""
+    game_result: NotRequired[GameResultEnum]
+    r"""Game result (Win/Loss/Tie)"""
+    is_home: NotRequired[bool]
+    r"""Whether player's team was at home"""
+    opponent_team_id: NotRequired[str]
+    r"""Opponent team identifier"""
+    week_slug: NotRequired[str]
+    r"""Week identifier slug"""
 
 
 class WeeklyPlayerPassingStats(BaseModel):
-    att: int
+    r"""Player passing statistics for a single week, extending season stats with game-specific context"""
+
+    att: Optional[int] = None
     r"""Attempts"""
-
-    cmp: int
-    r"""Completions"""
-
-    display_name: Annotated[str, pydantic.Field(alias="displayName")]
-    r"""Player's full name"""
-
-    gp: int
-    r"""Games played"""
-
-    gs: int
-    r"""Games started"""
-
-    int_: Annotated[int, pydantic.Field(alias="int")]
-    r"""Interceptions"""
-
-    nfl_id: Annotated[str, pydantic.Field(alias="nflId")]
-    r"""NFL player identifier"""
-
-    position: str
-    r"""Player position"""
-
-    td: int
-    r"""Touchdown passes"""
-
-    team_id: Annotated[str, pydantic.Field(alias="teamId")]
-    r"""Team identifier"""
-
-    yds: int
-    r"""Passing yards"""
 
     att_pg: Annotated[Optional[float], pydantic.Field(alias="attPG")] = None
     r"""Attempts per game"""
@@ -195,7 +169,10 @@ class WeeklyPlayerPassingStats(BaseModel):
     r"""Air yards per attempt"""
 
     blitz_r: Annotated[Optional[float], pydantic.Field(alias="blitzR")] = None
-    r"""Blitz rate faced (0-1)"""
+    r"""Blitz rate faced"""
+
+    cmp: Optional[int] = None
+    r"""Completions"""
 
     cmp_pg: Annotated[Optional[float], pydantic.Field(alias="cmpPG")] = None
     r"""Completions per game"""
@@ -213,7 +190,10 @@ class WeeklyPlayerPassingStats(BaseModel):
     r"""Dropbacks per game"""
 
     deep_att_pct: Annotated[Optional[float], pydantic.Field(alias="deepAttPct")] = None
-    r"""Deep attempt percentage (20+ air yards) (0-1)"""
+    r"""Deep attempt percentage (20+ air yards)"""
+
+    display_name: Annotated[Optional[str], pydantic.Field(alias="displayName")] = None
+    r"""Player's full name"""
 
     drop: Optional[int] = None
     r"""Dropped passes by receivers"""
@@ -222,7 +202,7 @@ class WeeklyPlayerPassingStats(BaseModel):
     r"""Drops per game"""
 
     drop_r: Annotated[Optional[float], pydantic.Field(alias="dropR")] = None
-    r"""Drop rate (0-1)"""
+    r"""Drop rate"""
 
     epa: Optional[float] = None
     r"""Expected Points Added"""
@@ -233,31 +213,26 @@ class WeeklyPlayerPassingStats(BaseModel):
     epa_pg: Annotated[Optional[float], pydantic.Field(alias="epaPG")] = None
     r"""EPA per game"""
 
-    fapi_game_id: Annotated[Optional[str], pydantic.Field(alias="fapiGameId")] = None
-    r"""Football API game identifier"""
+    gp: Optional[int] = None
+    r"""Games played"""
 
-    final_score: Annotated[Optional[str], pydantic.Field(alias="finalScore")] = None
-    r"""Final score of the game"""
-
-    game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
-    r"""Game identifier (10-digit format YYYYMMDDNN)"""
-
-    game_result: Annotated[
-        Optional[GameResultEnum], pydantic.Field(alias="gameResult")
-    ] = None
-    r"""Game result (Win/Loss/Tie)"""
+    gs: Optional[int] = None
+    r"""Games started"""
 
     headshot: Optional[str] = None
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
 
+    int_: Annotated[Optional[int], pydantic.Field(alias="int")] = None
+    r"""Interceptions"""
+
     int_pg: Annotated[Optional[float], pydantic.Field(alias="intPG")] = None
     r"""Interceptions per game"""
 
-    is_home: Annotated[Optional[bool], pydantic.Field(alias="isHome")] = None
-    r"""Whether player's team was at home"""
-
     jersey_number: Annotated[Optional[int], pydantic.Field(alias="jerseyNumber")] = None
     r"""Player's jersey number"""
+
+    nfl_id: Annotated[Optional[str], pydantic.Field(alias="nflId")] = None
+    r"""NFL player identifier"""
 
     ngs_position: Annotated[Optional[str], pydantic.Field(alias="ngsPosition")] = None
     r"""Next Gen Stats position"""
@@ -267,13 +242,11 @@ class WeeklyPlayerPassingStats(BaseModel):
     ] = None
     r"""Next Gen Stats position group"""
 
-    opponent_team_id: Annotated[
-        Optional[str], pydantic.Field(alias="opponentTeamId")
-    ] = None
-    r"""Opponent team identifier"""
-
     pa_db_pct: Annotated[Optional[float], pydantic.Field(alias="paDbPct")] = None
-    r"""Play action dropback percentage (0-1)"""
+    r"""Play action dropback percentage"""
+
+    position: Optional[str] = None
+    r"""Player position"""
 
     position_group: Annotated[Optional[str], pydantic.Field(alias="positionGroup")] = (
         None
@@ -287,7 +260,7 @@ class WeeklyPlayerPassingStats(BaseModel):
     r"""QB pressure per game"""
 
     qbp_r: Annotated[Optional[float], pydantic.Field(alias="qbpR")] = None
-    r"""QB pressure rate (0-1)"""
+    r"""QB pressure rate"""
 
     qp: Optional[bool] = None
     r"""Qualified passer status"""
@@ -304,8 +277,14 @@ class WeeklyPlayerPassingStats(BaseModel):
     short_name: Annotated[Optional[str], pydantic.Field(alias="shortName")] = None
     r"""Abbreviated player name"""
 
+    td: Optional[int] = None
+    r"""Touchdown passes"""
+
     td_pg: Annotated[Optional[float], pydantic.Field(alias="tdPG")] = None
     r"""Touchdowns per game"""
+
+    team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
+    r"""Team identifier"""
 
     tg: Optional[int] = None
     r"""Team games for player"""
@@ -317,13 +296,10 @@ class WeeklyPlayerPassingStats(BaseModel):
     r"""Two-minute attempts per game"""
 
     tw_att_pct: Annotated[Optional[float], pydantic.Field(alias="twAttPct")] = None
-    r"""Two-minute drill attempt percentage (0-1)"""
-
-    week_slug: Annotated[Optional[str], pydantic.Field(alias="weekSlug")] = None
-    r"""Week identifier slug"""
+    r"""Two-minute drill attempt percentage"""
 
     x_cmp: Annotated[Optional[float], pydantic.Field(alias="xCmp")] = None
-    r"""Expected completion percentage (0-1)"""
+    r"""Expected completion percentage"""
 
     x_yac: Annotated[Optional[float], pydantic.Field(alias="xYac")] = None
     r"""Expected yards after catch"""
@@ -332,10 +308,38 @@ class WeeklyPlayerPassingStats(BaseModel):
     r"""Yards after catch"""
 
     yac_pct: Annotated[Optional[float], pydantic.Field(alias="yacPct")] = None
-    r"""YAC percentage of total yards (0-1)"""
+    r"""YAC percentage of total yards"""
+
+    yds: Optional[int] = None
+    r"""Passing yards"""
 
     yds_pg: Annotated[Optional[float], pydantic.Field(alias="ydsPG")] = None
     r"""Yards per game"""
 
     ypa: Optional[float] = None
     r"""Yards per attempt"""
+
+    fapi_game_id: Annotated[Optional[str], pydantic.Field(alias="fapiGameId")] = None
+    r"""Football API game identifier"""
+
+    final_score: Annotated[Optional[str], pydantic.Field(alias="finalScore")] = None
+    r"""Final score of the game"""
+
+    game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
+    r"""Game identifier (10-digit format YYYYMMDDNN)"""
+
+    game_result: Annotated[
+        Optional[GameResultEnum], pydantic.Field(alias="gameResult")
+    ] = None
+    r"""Game result (Win/Loss/Tie)"""
+
+    is_home: Annotated[Optional[bool], pydantic.Field(alias="isHome")] = None
+    r"""Whether player's team was at home"""
+
+    opponent_team_id: Annotated[
+        Optional[str], pydantic.Field(alias="opponentTeamId")
+    ] = None
+    r"""Opponent team identifier"""
+
+    week_slug: Annotated[Optional[str], pydantic.Field(alias="weekSlug")] = None
+    r"""Week identifier slug"""

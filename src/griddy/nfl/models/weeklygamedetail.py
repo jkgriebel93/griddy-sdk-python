@@ -3,14 +3,20 @@
 from __future__ import annotations
 from .broadcastinfo import BroadcastInfo, BroadcastInfoTypedDict
 from .externalid import ExternalID, ExternalIDTypedDict
+from .gamephaseenum import GamePhaseEnum
+from .gamestatusenum import GameStatusEnum
 from .meridiemenum import MeridiemEnum
+from .replay import Replay, ReplayTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .standings import Standings, StandingsTypedDict
+from .summary import Summary, SummaryTypedDict
 from .team import Team, TeamTypedDict
 from .ticketvendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
+from .weektypeenum import WeekTypeEnum
 from datetime import date, datetime
-from ..types import (
+from enum import Enum
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
@@ -19,34 +25,24 @@ from ..types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-WeeklyGameDetailCategory = Literal[
-    "MNF",
-    "SNF",
-    "TNF",
-]
-r"""Prime time game designation"""
+class WeeklyGameDetailCategory(str, Enum):
+    r"""Prime time game designation"""
+
+    MNF = "MNF"
+    SNF = "SNF"
+    TNF = "TNF"
 
 
-class WeeklyGameDetailExtensionTypedDict(TypedDict):
+class WeeklyGameDetailExtensionsTypedDict(TypedDict):
     pass
 
 
-class WeeklyGameDetailExtension(BaseModel):
+class WeeklyGameDetailExtensions(BaseModel):
     pass
-
-
-WeeklyGameDetailStatus = Literal[
-    "SCHEDULED",
-    "IN_PROGRESS",
-    "FINAL",
-    "POSTPONED",
-    "CANCELLED",
-]
-r"""Game status"""
 
 
 class DriveChartTypedDict(TypedDict):
@@ -55,36 +51,6 @@ class DriveChartTypedDict(TypedDict):
 
 class DriveChart(BaseModel):
     r"""Drive-by-drive data"""
-
-
-class ReplayTypedDict(TypedDict):
-    pass
-
-
-class Replay(BaseModel):
-    type_: Annotated[Optional[str], pydantic.Field(alias="type")] = None
-    authorizations: Optional[dict] = None
-    description: Optional[str] = None
-    duration: Optional[int] = None
-    external_id: Annotated[Optional[str], pydantic.Field(alias="externalId")] = None
-    ids: Optional[dict] = None
-    images: Optional[list] = None
-    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = None
-    play_ids: Annotated[Optional[list], pydantic.Field(alias="playIds")] = None
-    publish_date: Annotated[Optional[str], pydantic.Field(alias="publishDate")] = None
-    sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None
-    tags: Optional[list] = None
-    thumbnail: Optional[dict] = None
-    title: Optional[str] = None
-    videos: Optional[list] = None
-
-
-class SummaryTypedDict(TypedDict):
-    r"""Game summary information"""
-
-
-class Summary(BaseModel):
-    r"""Game summary information"""
 
 
 class TaggedVideosTypedDict(TypedDict):
@@ -96,6 +62,8 @@ class TaggedVideos(BaseModel):
 
 
 class WeeklyGameDetailTypedDict(TypedDict):
+    r"""NFL game information including teams, scheduling, and venue details"""
+
     away_team: NotRequired[TeamTypedDict]
     broadcast_info: NotRequired[BroadcastInfoTypedDict]
     category: NotRequired[Nullable[WeeklyGameDetailCategory]]
@@ -113,7 +81,7 @@ class WeeklyGameDetailTypedDict(TypedDict):
     r"""Time without AM/PM"""
     date_time_am_pm: NotRequired[str]
     r"""Time with AM/PM"""
-    extensions: NotRequired[List[WeeklyGameDetailExtensionTypedDict]]
+    extensions: NotRequired[List[WeeklyGameDetailExtensionsTypedDict]]
     r"""Additional game data extensions"""
     external_ids: NotRequired[List[ExternalIDTypedDict]]
     game_type: NotRequired[str]
@@ -125,13 +93,13 @@ class WeeklyGameDetailTypedDict(TypedDict):
     r"""Whether game is played internationally"""
     neutral_site: NotRequired[bool]
     r"""Whether game is at neutral venue"""
-    phase: NotRequired[str]
-    r"""Game phase"""
+    phase: NotRequired[GamePhaseEnum]
+    r"""Current phase of the game"""
     season: NotRequired[int]
     r"""Season year"""
     season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    status: NotRequired[WeeklyGameDetailStatus]
+    status: NotRequired[GameStatusEnum]
     r"""Game status"""
     ticket_url: NotRequired[Nullable[str]]
     r"""Primary ticket purchase URL"""
@@ -143,21 +111,23 @@ class WeeklyGameDetailTypedDict(TypedDict):
     r"""Data version number"""
     week: NotRequired[int]
     r"""Week number"""
-    week_type: NotRequired[str]
-    r"""Week type (e.g., REG, HOF)"""
+    week_type: NotRequired[WeekTypeEnum]
+    r"""Type of week (HOF, Preseason, Regular season)"""
     away_team_standings: NotRequired[StandingsTypedDict]
     drive_chart: NotRequired[Nullable[DriveChartTypedDict]]
     r"""Drive-by-drive data"""
     home_team_standings: NotRequired[StandingsTypedDict]
-    replays: NotRequired[List[ReplayTypedDict]]
-    r"""Replay video links"""
-    summary: NotRequired[Nullable[SummaryTypedDict]]
-    r"""Game summary information"""
+    replays: NotRequired[Nullable[List[ReplayTypedDict]]]
+    r"""Replay video information (populated when includeReplays=true)"""
+    summary: NotRequired[SummaryTypedDict]
+    r"""Live game state summary including score, possession, and game situation"""
     tagged_videos: NotRequired[Nullable[TaggedVideosTypedDict]]
     r"""Tagged video content"""
 
 
 class WeeklyGameDetail(BaseModel):
+    r"""NFL game information including teams, scheduling, and venue details"""
+
     away_team: Annotated[Optional[Team], pydantic.Field(alias="awayTeam")] = None
 
     broadcast_info: Annotated[
@@ -195,7 +165,7 @@ class WeeklyGameDetail(BaseModel):
     )
     r"""Time with AM/PM"""
 
-    extensions: Optional[List[WeeklyGameDetailExtension]] = None
+    extensions: Optional[List[WeeklyGameDetailExtensions]] = None
     r"""Additional game data extensions"""
 
     external_ids: Annotated[
@@ -216,8 +186,8 @@ class WeeklyGameDetail(BaseModel):
     neutral_site: Annotated[Optional[bool], pydantic.Field(alias="neutralSite")] = None
     r"""Whether game is at neutral venue"""
 
-    phase: Optional[str] = None
-    r"""Game phase"""
+    phase: Optional[GamePhaseEnum] = None
+    r"""Current phase of the game"""
 
     season: Optional[int] = None
     r"""Season year"""
@@ -227,7 +197,7 @@ class WeeklyGameDetail(BaseModel):
     ] = None
     r"""Type of NFL season"""
 
-    status: Optional[WeeklyGameDetailStatus] = None
+    status: Optional[GameStatusEnum] = None
     r"""Game status"""
 
     ticket_url: Annotated[OptionalNullable[str], pydantic.Field(alias="ticketUrl")] = (
@@ -250,8 +220,10 @@ class WeeklyGameDetail(BaseModel):
     week: Optional[int] = None
     r"""Week number"""
 
-    week_type: Annotated[Optional[str], pydantic.Field(alias="weekType")] = None
-    r"""Week type (e.g., REG, HOF)"""
+    week_type: Annotated[Optional[WeekTypeEnum], pydantic.Field(alias="weekType")] = (
+        None
+    )
+    r"""Type of week (HOF, Preseason, Regular season)"""
 
     away_team_standings: Annotated[
         Optional[Standings], pydantic.Field(alias="awayTeamStandings")
@@ -266,11 +238,11 @@ class WeeklyGameDetail(BaseModel):
         Optional[Standings], pydantic.Field(alias="homeTeamStandings")
     ] = None
 
-    replays: Optional[List[Replay]] = None
-    r"""Replay video links"""
+    replays: OptionalNullable[List[Replay]] = UNSET
+    r"""Replay video information (populated when includeReplays=true)"""
 
-    summary: OptionalNullable[Summary] = UNSET
-    r"""Game summary information"""
+    summary: Optional[Summary] = None
+    r"""Live game state summary including score, possession, and game situation"""
 
     tagged_videos: Annotated[
         OptionalNullable[TaggedVideos], pydantic.Field(alias="taggedVideos")
@@ -319,7 +291,7 @@ class WeeklyGameDetail(BaseModel):
             "category",
             "ticketUrl",
             "driveChart",
-            "summary",
+            "replays",
             "taggedVideos",
         ]
         null_default_fields = []

@@ -3,54 +3,60 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetTeamOffenseOverviewStatsBySeasonSortKey = Literal[
-    "total",
-    "pass",
-    "run",
-    "yds",
-    "passPct",
-    "ypp",
-    "td",
-    "passTd",
-    "rushTd",
-    "epa",
-    "epaPP",
-    "passYds",
-    "passYpp",
-    "epaPass",
-    "epaPassPP",
-    "rushYds",
-    "rushYpp",
-    "epaRush",
-    "epaRushPP",
-    "to",
-    "ppg",
-    "ypg",
-    "passYpg",
-    "rushYpg",
-    "redZonePct",
-    "thirdDownPct",
+GET_TEAM_OFFENSE_OVERVIEW_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
 
 
-GetTeamOffenseOverviewStatsBySeasonSplit = Literal[
-    "TEAM_SHOTGUN",
-    "TEAM_UNDER_CENTER",
-    "TEAM_PISTOL",
-    "TEAM_WHEN_LEADING",
-    "TEAM_WHEN_TRAILING",
-    "TEAM_WHEN_TIED",
-    "TEAM_RED_ZONE",
-    "TEAM_GOAL_TO_GO",
-]
+class GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    TOTAL = "total"
+    PASS = "pass"
+    RUN = "run"
+    YDS = "yds"
+    PASS_PCT = "passPct"
+    YPP = "ypp"
+    TD = "td"
+    PASS_TD = "passTd"
+    RUSH_TD = "rushTd"
+    EPA = "epa"
+    EPA_PP = "epaPP"
+    PASS_YDS = "passYds"
+    PASS_YPP = "passYpp"
+    EPA_PASS = "epaPass"
+    EPA_PASS_PP = "epaPassPP"
+    RUSH_YDS = "rushYds"
+    RUSH_YPP = "rushYpp"
+    EPA_RUSH = "epaRush"
+    EPA_RUSH_PP = "epaRushPP"
+    TO = "to"
+    PPG = "ppg"
+    YPG = "ypg"
+    PASS_YPG = "passYpg"
+    RUSH_YPG = "rushYpg"
+    RED_ZONE_PCT = "redZonePct"
+    THIRD_DOWN_PCT = "thirdDownPct"
+
+
+class QueryParamSplit(str, Enum):
+    TEAM_SHOTGUN = "TEAM_SHOTGUN"
+    TEAM_UNDER_CENTER = "TEAM_UNDER_CENTER"
+    TEAM_PISTOL = "TEAM_PISTOL"
+    TEAM_WHEN_LEADING = "TEAM_WHEN_LEADING"
+    TEAM_WHEN_TRAILING = "TEAM_WHEN_TRAILING"
+    TEAM_WHEN_TIED = "TEAM_WHEN_TIED"
+    TEAM_RED_ZONE = "TEAM_RED_ZONE"
+    TEAM_GOAL_TO_GO = "TEAM_GOAL_TO_GO"
 
 
 class GetTeamOffenseOverviewStatsBySeasonRequestTypedDict(TypedDict):
@@ -64,13 +70,13 @@ class GetTeamOffenseOverviewStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamOffenseOverviewStatsBySeasonSortKey]
+    sort_key: NotRequired[GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
     team_defense: NotRequired[str]
     r"""Filter by specific team identifier"""
-    split: NotRequired[List[GetTeamOffenseOverviewStatsBySeasonSplit]]
+    split: NotRequired[List[QueryParamSplit]]
     r"""Offensive situation splits to filter by (supports multiple values)"""
 
 
@@ -106,10 +112,10 @@ class GetTeamOffenseOverviewStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamOffenseOverviewStatsBySeasonSortKey],
+        Optional[GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "ypg"
+    ] = GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey.YPG
     r"""Field to sort by"""
 
     sort_value: Annotated[
@@ -127,7 +133,7 @@ class GetTeamOffenseOverviewStatsBySeasonRequest(BaseModel):
     r"""Filter by specific team identifier"""
 
     split: Annotated[
-        Optional[List[GetTeamOffenseOverviewStatsBySeasonSplit]],
+        Optional[List[QueryParamSplit]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Offensive situation splits to filter by (supports multiple values)"""

@@ -3,23 +3,12 @@
 from __future__ import annotations
 from .player import Player, PlayerTypedDict
 from .team import Team, TeamTypedDict
+from .transactiontypeenum import TransactionTypeEnum
 from datetime import datetime
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-TransactionType = Literal[
-    "TRADE",
-    "SIGNED",
-    "RELEASED",
-    "WAIVED",
-    "PRACTICE_SQUAD",
-    "IR",
-    "SUSPENDED",
-    "ACTIVATED",
-]
 
 
 class TransactionTypedDict(TypedDict):
@@ -32,7 +21,7 @@ class TransactionTypedDict(TypedDict):
     player: NotRequired[PlayerTypedDict]
     related_team: NotRequired[TeamTypedDict]
     team: NotRequired[TeamTypedDict]
-    type: NotRequired[TransactionType]
+    type: NotRequired[TransactionTypeEnum]
 
 
 class Transaction(BaseModel):
@@ -54,4 +43,4 @@ class Transaction(BaseModel):
 
     team: Optional[Team] = None
 
-    type: Optional[TransactionType] = None
+    type: Optional[TransactionTypeEnum] = None

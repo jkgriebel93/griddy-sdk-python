@@ -3,32 +3,39 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetDefensiveStatsBySeasonSortKey = Literal[
-    "cov",
-    "covNd",
-    "tgtNd",
-    "recNd",
-    "recYdsNd",
-    "recTdNd",
-    "int",
-    "passRatingNd",
-    "tgtEpaNd",
-    "catchNd",
-    "croeNd",
-    "bhPct",
-    "sep",
-    "twfPct",
-    "yacprNd",
-    "tgtRNd",
+GET_DEFENSIVE_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
+
+
+class SortKey(str, Enum):
+    r"""Field to sort by"""
+
+    COV = "cov"
+    COV_ND = "covNd"
+    TGT_ND = "tgtNd"
+    REC_ND = "recNd"
+    REC_YDS_ND = "recYdsNd"
+    REC_TD_ND = "recTdNd"
+    INT = "int"
+    PASS_RATING_ND = "passRatingNd"
+    TGT_EPA_ND = "tgtEpaNd"
+    CATCH_ND = "catchNd"
+    CROE_ND = "croeNd"
+    BH_PCT = "bhPct"
+    SEP = "sep"
+    TWF_PCT = "twfPct"
+    YACPR_ND = "yacprNd"
+    TGT_R_ND = "tgtRNd"
 
 
 class GetDefensiveStatsBySeasonRequestTypedDict(TypedDict):
@@ -42,7 +49,7 @@ class GetDefensiveStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetDefensiveStatsBySeasonSortKey]
+    sort_key: NotRequired[SortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
@@ -84,10 +91,10 @@ class GetDefensiveStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetDefensiveStatsBySeasonSortKey],
+        Optional[SortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "cov"
+    ] = SortKey.COV
     r"""Field to sort by"""
 
     sort_value: Annotated[

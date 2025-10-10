@@ -3,23 +3,11 @@
 from __future__ import annotations
 from .penalty import Penalty, PenaltyTypedDict
 from .playparticipant import PlayParticipant, PlayParticipantTypedDict
-from ..types import BaseModel
+from .playtypeenum import PlayTypeEnum
+from griddy.nfl.types import BaseModel
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-PlayType = Literal[
-    "PASS",
-    "RUSH",
-    "PUNT",
-    "KICKOFF",
-    "FIELD_GOAL",
-    "EXTRA_POINT",
-    "PENALTY",
-    "TIMEOUT",
-    "TWO_MINUTE_WARNING",
-]
 
 
 class PlayTypedDict(TypedDict):
@@ -30,7 +18,8 @@ class PlayTypedDict(TypedDict):
     penalties: NotRequired[List[PenaltyTypedDict]]
     play_id: NotRequired[str]
     play_number: NotRequired[int]
-    play_type: NotRequired[PlayType]
+    play_type: NotRequired[PlayTypeEnum]
+    r"""Enumeration of all possible play types"""
     players: NotRequired[List[PlayParticipantTypedDict]]
     quarter: NotRequired[int]
     result: NotRequired[str]
@@ -53,7 +42,10 @@ class Play(BaseModel):
 
     play_number: Annotated[Optional[int], pydantic.Field(alias="playNumber")] = None
 
-    play_type: Annotated[Optional[PlayType], pydantic.Field(alias="playType")] = None
+    play_type: Annotated[Optional[PlayTypeEnum], pydantic.Field(alias="playType")] = (
+        None
+    )
+    r"""Enumeration of all possible play types"""
 
     players: Optional[List[PlayParticipant]] = None
 

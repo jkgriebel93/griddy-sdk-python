@@ -22,15 +22,15 @@ limits for targeted content discovery.
 
 <!-- UsageSnippet language="python" operationID="getSeasonContentInsights" method="get" path="/api/content/insights/season" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content_insights.get_season_content_insights(request={
+    res = griddy_nfl.content_insights.get_season_content_insights(request={
         "season": 2025,
         "limit": 60,
         "tags": [
@@ -53,6 +53,7 @@ with GriddyNFL(
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `request`                                                                                 | [models.GetSeasonContentInsightsRequest](../../models/getseasoncontentinsightsrequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 | `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |
+| `server_url`                                                                              | *Optional[str]*                                                                           | :heavy_minus_sign:                                                                        | An optional server URL to use.                                                            |
 
 ### Response
 
