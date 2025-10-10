@@ -3,7 +3,7 @@ name: Generate and Publish SDKs with Speakeasy
 on:
   push:
     branches:
-      - master
+      - foo
   workflow_dispatch:
 
 jobs:
