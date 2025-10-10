@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class PlayerReceivingStatistics(BaseSDK):
@@ -14,10 +14,15 @@ class PlayerReceivingStatistics(BaseSDK):
     def get_player_receiving_stats_by_season(
         self,
         *,
-        request: Union[
-            models.GetPlayerReceivingStatsBySeasonRequest,
-            models.GetPlayerReceivingStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.ReceivingStatsCategoryEnum] = None,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_receiver: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,7 +37,15 @@ class PlayerReceivingStatistics(BaseSDK):
         (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,11 +61,17 @@ class PlayerReceivingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RECEIVING_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerReceivingStatsBySeasonRequest
-            )
-        request = cast(models.GetPlayerReceivingStatsBySeasonRequest, request)
+        request = models.GetPlayerReceivingStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_receiver=qualified_receiver,
+            team_offense=team_offense,
+        )
 
         req = self._build_request(
             method="GET",
@@ -107,10 +126,15 @@ class PlayerReceivingStatistics(BaseSDK):
     async def get_player_receiving_stats_by_season_async(
         self,
         *,
-        request: Union[
-            models.GetPlayerReceivingStatsBySeasonRequest,
-            models.GetPlayerReceivingStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.ReceivingStatsCategoryEnum] = None,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_receiver: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -125,7 +149,15 @@ class PlayerReceivingStatistics(BaseSDK):
         (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -141,11 +173,17 @@ class PlayerReceivingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RECEIVING_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerReceivingStatsBySeasonRequest
-            )
-        request = cast(models.GetPlayerReceivingStatsBySeasonRequest, request)
+        request = models.GetPlayerReceivingStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_receiver=qualified_receiver,
+            team_offense=team_offense,
+        )
 
         req = self._build_request_async(
             method="GET",
@@ -200,10 +238,16 @@ class PlayerReceivingStatistics(BaseSDK):
     def get_player_receiving_stats_by_week(
         self,
         *,
-        request: Union[
-            models.GetPlayerReceivingStatsByWeekRequest,
-            models.GetPlayerReceivingStatsByWeekRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: models.WeekSlugEnum,
+        limit: Optional[int] = 50,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.ReceivingStatsCategoryEnum] = None,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_receiver: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -218,7 +262,16 @@ class PlayerReceivingStatistics(BaseSDK):
         (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week identifier
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -234,11 +287,18 @@ class PlayerReceivingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RECEIVING_STATS_BY_WEEK_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerReceivingStatsByWeekRequest
-            )
-        request = cast(models.GetPlayerReceivingStatsByWeekRequest, request)
+        request = models.GetPlayerReceivingStatsByWeekRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_receiver=qualified_receiver,
+            team_offense=team_offense,
+        )
 
         req = self._build_request(
             method="GET",
@@ -293,10 +353,16 @@ class PlayerReceivingStatistics(BaseSDK):
     async def get_player_receiving_stats_by_week_async(
         self,
         *,
-        request: Union[
-            models.GetPlayerReceivingStatsByWeekRequest,
-            models.GetPlayerReceivingStatsByWeekRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: models.WeekSlugEnum,
+        limit: Optional[int] = 50,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.ReceivingStatsCategoryEnum] = None,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_receiver: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -311,7 +377,16 @@ class PlayerReceivingStatistics(BaseSDK):
         (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week identifier
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -327,11 +402,18 @@ class PlayerReceivingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RECEIVING_STATS_BY_WEEK_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerReceivingStatsByWeekRequest
-            )
-        request = cast(models.GetPlayerReceivingStatsByWeekRequest, request)
+        request = models.GetPlayerReceivingStatsByWeekRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_receiver=qualified_receiver,
+            team_offense=team_offense,
+        )
 
         req = self._build_request_async(
             method="GET",

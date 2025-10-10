@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class TeamOffenseOverviewStatistics(BaseSDK):
@@ -14,10 +14,17 @@ class TeamOffenseOverviewStatistics(BaseSDK):
     def get_team_offense_overview_stats_by_season(
         self,
         *,
-        request: Union[
-            models.GetTeamOffenseOverviewStatsBySeasonRequest,
-            models.GetTeamOffenseOverviewStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey
+        ] = models.GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey.YPG,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        team_defense: Optional[str] = None,
+        split: Optional[List[models.QueryParamSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -27,7 +34,15 @@ class TeamOffenseOverviewStatistics(BaseSDK):
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season. Returns detailed metrics including traditional offensive stats, advanced analytics like EPA and efficiency ratings, Next Gen Stats data, and situational performance breakdowns. Supports filtering by various offensive situations including formations (shotgun, under center, pistol), game situations (leading, trailing, tied), and field positions (red zone, goal-to-go). Includes total offense, passing offense, rushing offense, and scoring metrics.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of teams to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param team_defense: Filter by specific team identifier
+        :param split: Offensive situation splits to filter by (supports multiple values)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -43,11 +58,17 @@ class TeamOffenseOverviewStatistics(BaseSDK):
         else:
             base_url = models.GET_TEAM_OFFENSE_OVERVIEW_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetTeamOffenseOverviewStatsBySeasonRequest
-            )
-        request = cast(models.GetTeamOffenseOverviewStatsBySeasonRequest, request)
+        request = models.GetTeamOffenseOverviewStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            team_defense=team_defense,
+            split=split,
+        )
 
         req = self._build_request(
             method="GET",
@@ -102,10 +123,17 @@ class TeamOffenseOverviewStatistics(BaseSDK):
     async def get_team_offense_overview_stats_by_season_async(
         self,
         *,
-        request: Union[
-            models.GetTeamOffenseOverviewStatsBySeasonRequest,
-            models.GetTeamOffenseOverviewStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey
+        ] = models.GetTeamOffenseOverviewStatsBySeasonQueryParamSortKey.YPG,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        team_defense: Optional[str] = None,
+        split: Optional[List[models.QueryParamSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -115,7 +143,15 @@ class TeamOffenseOverviewStatistics(BaseSDK):
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season. Returns detailed metrics including traditional offensive stats, advanced analytics like EPA and efficiency ratings, Next Gen Stats data, and situational performance breakdowns. Supports filtering by various offensive situations including formations (shotgun, under center, pistol), game situations (leading, trailing, tied), and field positions (red zone, goal-to-go). Includes total offense, passing offense, rushing offense, and scoring metrics.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of teams to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param team_defense: Filter by specific team identifier
+        :param split: Offensive situation splits to filter by (supports multiple values)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -131,11 +167,17 @@ class TeamOffenseOverviewStatistics(BaseSDK):
         else:
             base_url = models.GET_TEAM_OFFENSE_OVERVIEW_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetTeamOffenseOverviewStatsBySeasonRequest
-            )
-        request = cast(models.GetTeamOffenseOverviewStatsBySeasonRequest, request)
+        request = models.GetTeamOffenseOverviewStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            team_defense=team_defense,
+            split=split,
+        )
 
         req = self._build_request_async(
             method="GET",

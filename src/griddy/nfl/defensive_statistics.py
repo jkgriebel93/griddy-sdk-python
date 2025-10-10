@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class DefensiveStatistics(BaseSDK):
@@ -14,10 +14,15 @@ class DefensiveStatistics(BaseSDK):
     def get_defensive_stats_by_season(
         self,
         *,
-        request: Union[
-            models.GetDefensiveStatsBySeasonRequest,
-            models.GetDefensiveStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.SortKey] = models.SortKey.COV,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_defender: Optional[bool] = False,
+        team_defense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -27,7 +32,15 @@ class DefensiveStatistics(BaseSDK):
 
         Retrieves comprehensive defensive statistics for NFL players during a specified season. Returns detailed coverage metrics including targets allowed, completion rates, pass rating allowed, yards after catch prevention, and advanced Next Gen Stats data. Supports filtering by qualified defenders, teams, and various sorting options. Data includes traditional defensive stats and advanced analytics like EPA (Expected Points Added), CROE (Completion Rate Over Expected), receiver separation allowed, and coverage snap counts.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_defender: Filter to only qualified defenders (minimum snap threshold)
+        :param team_defense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -43,9 +56,17 @@ class DefensiveStatistics(BaseSDK):
         else:
             base_url = models.GET_DEFENSIVE_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetDefensiveStatsBySeasonRequest)
-        request = cast(models.GetDefensiveStatsBySeasonRequest, request)
+        request = models.GetDefensiveStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
+            team_defense=team_defense,
+        )
 
         req = self._build_request(
             method="GET",
@@ -100,10 +121,15 @@ class DefensiveStatistics(BaseSDK):
     async def get_defensive_stats_by_season_async(
         self,
         *,
-        request: Union[
-            models.GetDefensiveStatsBySeasonRequest,
-            models.GetDefensiveStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.SortKey] = models.SortKey.COV,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_defender: Optional[bool] = False,
+        team_defense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -113,7 +139,15 @@ class DefensiveStatistics(BaseSDK):
 
         Retrieves comprehensive defensive statistics for NFL players during a specified season. Returns detailed coverage metrics including targets allowed, completion rates, pass rating allowed, yards after catch prevention, and advanced Next Gen Stats data. Supports filtering by qualified defenders, teams, and various sorting options. Data includes traditional defensive stats and advanced analytics like EPA (Expected Points Added), CROE (Completion Rate Over Expected), receiver separation allowed, and coverage snap counts.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_defender: Filter to only qualified defenders (minimum snap threshold)
+        :param team_defense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -129,9 +163,17 @@ class DefensiveStatistics(BaseSDK):
         else:
             base_url = models.GET_DEFENSIVE_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetDefensiveStatsBySeasonRequest)
-        request = cast(models.GetDefensiveStatsBySeasonRequest, request)
+        request = models.GetDefensiveStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
+            team_defense=team_defense,
+        )
 
         req = self._build_request_async(
             method="GET",

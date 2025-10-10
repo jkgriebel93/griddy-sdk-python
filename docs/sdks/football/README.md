@@ -87,11 +87,7 @@ with GriddyNFL(
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as griddy_nfl:
 
-    res = griddy_nfl.football.get_weekly_game_details(request={
-        "season": 2025,
-        "type": models.SeasonTypeEnum.REG,
-        "week": 4,
-    })
+    res = griddy_nfl.football.get_weekly_game_details(season=2025, type_=models.SeasonTypeEnum.REG, week=4, include_drive_chart=False, include_replays=False, include_standings=False, include_tagged_videos=False)
 
     assert res is not None
 
@@ -102,11 +98,17 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `request`                                                                         | [models.GetWeeklyGameDetailsRequest](../../models/getweeklygamedetailsrequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
-| `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |
-| `server_url`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | An optional server URL to use.                                                    |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
+| `type`                                                              | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Season type                                                         | REG                                                                 |
+| `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number                                                         | 4                                                                   |
+| `include_drive_chart`                                               | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Include drive chart data                                            |                                                                     |
+| `include_replays`                                                   | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Include replay videos                                               |                                                                     |
+| `include_standings`                                                 | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Include team standings                                              |                                                                     |
+| `include_tagged_videos`                                             | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Include tagged video content                                        |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -509,12 +511,7 @@ with GriddyNFL(
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as griddy_nfl:
 
-    res = griddy_nfl.football.get_season_player_stats(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "stat_category": models.StatCategory.PASSING,
-        "sort": "passingYards:desc",
-    })
+    res = griddy_nfl.football.get_season_player_stats(season=2025, season_type=models.SeasonTypeEnum.REG, stat_category=models.StatCategory.PASSING, sort="passingYards:desc", limit=50, offset=0)
 
     assert res is not None
 
@@ -525,11 +522,18 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `request`                                                                         | [models.GetSeasonPlayerStatsRequest](../../models/getseasonplayerstatsrequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
-| `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |
-| `server_url`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | An optional server URL to use.                                                    |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
+| `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
+| `position`                                                          | [Optional[models.Position]](../../models/position.md)               | :heavy_minus_sign:                                                  | Filter by position group                                            |                                                                     |
+| `team_id`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter by team                                                      |                                                                     |
+| `stat_category`                                                     | [Optional[models.StatCategory]](../../models/statcategory.md)       | :heavy_minus_sign:                                                  | Statistical category to retrieve                                    | passing                                                             |
+| `sort`                                                              | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Sort field and order                                                | passingYards:desc                                                   |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of results                                           |                                                                     |
+| `offset`                                                            | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Offset for pagination                                               |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -560,10 +564,7 @@ with GriddyNFL(
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as griddy_nfl:
 
-    res = griddy_nfl.football.get_transactions(request={
-        "start_date": date.fromisoformat("2025-01-01"),
-        "end_date": date.fromisoformat("2025-09-24"),
-    })
+    res = griddy_nfl.football.get_transactions(start_date=date.fromisoformat("2025-01-01"), end_date=date.fromisoformat("2025-09-24"), limit=20)
 
     assert res is not None
 
@@ -574,11 +575,15 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `request`                                                               | [models.GetTransactionsRequest](../../models/gettransactionsrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
-| `server_url`                                                            | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | An optional server URL to use.                                          |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `start_date`                                                                 | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects) | :heavy_minus_sign:                                                           | Start date for transactions (ISO 8601)                                       | 2025-01-01                                                                   |
+| `end_date`                                                                   | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects) | :heavy_minus_sign:                                                           | End date for transactions (ISO 8601)                                         | 2025-09-24                                                                   |
+| `team_id`                                                                    | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Filter by team                                                               |                                                                              |
+| `transaction_type`                                                           | [Optional[models.TransactionType]](../../models/transactiontype.md)          | :heavy_minus_sign:                                                           | Type of transaction                                                          |                                                                              |
+| `limit`                                                                      | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | Maximum number of results                                                    |                                                                              |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |                                                                              |
+| `server_url`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | An optional server URL to use.                                               | http://localhost:8080                                                        |
 
 ### Response
 

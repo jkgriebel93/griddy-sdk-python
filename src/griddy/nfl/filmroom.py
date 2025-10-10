@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class Filmroom(BaseSDK):
@@ -14,9 +14,43 @@ class Filmroom(BaseSDK):
     def get_filmroom_plays(
         self,
         *,
-        request: Union[
-            models.GetFilmroomPlaysRequest, models.GetFilmroomPlaysRequestTypedDict
-        ] = models.GetFilmroomPlaysRequest(),
+        game_id: Optional[List[str]] = None,
+        week_slug: Optional[List[models.WeekSlugEnum]] = None,
+        season: Optional[List[int]] = None,
+        season_type: Optional[List[models.SeasonTypeEnum]] = None,
+        nfl_id: Optional[List[str]] = None,
+        quarter: Optional[List[int]] = None,
+        down: Optional[List[int]] = None,
+        yards_to_go_type: Optional[List[models.YardsToGoType]] = None,
+        touchdown: Optional[List[models.BinaryFlagEnum]] = None,
+        rush10_plus_yards: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble_lost: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble: Optional[List[models.BinaryFlagEnum]] = None,
+        qb_alignment: Optional[List[models.QbAlignment]] = None,
+        redzone: Optional[List[models.BinaryFlagEnum]] = None,
+        goal_to_go: Optional[List[models.BinaryFlagEnum]] = None,
+        pass_play: Optional[List[models.BinaryFlagEnum]] = None,
+        run_play: Optional[List[models.BinaryFlagEnum]] = None,
+        play_type: Optional[List[models.PlayTypeEnum]] = None,
+        attempt: Optional[List[models.BinaryFlagEnum]] = None,
+        completion: Optional[List[models.BinaryFlagEnum]] = None,
+        interception: Optional[List[models.BinaryFlagEnum]] = None,
+        reception: Optional[List[models.BinaryFlagEnum]] = None,
+        sack: Optional[List[models.BinaryFlagEnum]] = None,
+        rec_motion: Optional[List[models.BinaryFlagEnum]] = None,
+        target_location: Optional[List[models.TargetLocation]] = None,
+        air_yard_type: Optional[List[models.AirYardType]] = None,
+        dropback_time_type: Optional[List[models.DropbackTimeType]] = None,
+        pressure: Optional[List[models.BinaryFlagEnum]] = None,
+        blitz: Optional[List[models.BinaryFlagEnum]] = None,
+        play_action: Optional[List[models.BinaryFlagEnum]] = None,
+        rush_direction: Optional[List[models.RushDirection]] = None,
+        run_stuff: Optional[List[models.BinaryFlagEnum]] = None,
+        receiver_alignment: Optional[List[models.ReceiverAlignment]] = None,
+        separation_type: Optional[List[models.SeparationType]] = None,
+        personnel: Optional[List[models.Personnel]] = None,
+        defenders_in_the_box_type: Optional[List[models.DefendersInTheBoxType]] = None,
+        def_coverage_type: Optional[List[models.DefCoverageType]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,7 +64,43 @@ class Filmroom(BaseSDK):
         player involvement, formation types, and tactical elements.
 
 
-        :param request: The request object to send.
+        :param game_id: Filter by specific game IDs (supports multiple values)
+        :param week_slug: Filter by week identifier (supports multiple values)
+        :param season: Filter by season year (supports multiple values)
+        :param season_type: Filter by season type
+        :param nfl_id: Filter by player NFL ID
+        :param quarter: Filter by quarter
+        :param down: Filter by down
+        :param yards_to_go_type: Filter by yards to go category
+        :param touchdown: Filter for touchdown plays (1 = yes, 0 = no)
+        :param rush10_plus_yards: Filter for rushing plays of 10+ yards
+        :param fumble_lost: Filter for plays with fumbles lost
+        :param fumble: Filter for plays with fumbles
+        :param qb_alignment: Filter by quarterback alignment
+        :param redzone: Filter for red zone plays
+        :param goal_to_go: Filter for goal-to-go situations
+        :param pass_play: Filter for passing plays
+        :param run_play: Filter for running plays
+        :param play_type: Filter by specific play types
+        :param attempt: Filter for passing attempts
+        :param completion: Filter for completed passes
+        :param interception: Filter for interceptions
+        :param reception: Filter for receptions
+        :param sack: Filter for sacks
+        :param rec_motion: Filter by receiver motion
+        :param target_location: Filter by target location on field
+        :param air_yard_type: Filter by air yards category
+        :param dropback_time_type: Filter by dropback time
+        :param pressure: Filter by quarterback pressure
+        :param blitz: Filter by defensive blitz
+        :param play_action: Filter by play action usage
+        :param rush_direction: Filter by rush direction
+        :param run_stuff: Filter for stuffed runs
+        :param receiver_alignment: Filter by receiver alignment
+        :param separation_type: Filter by receiver separation
+        :param personnel: Filter by defensive personnel package
+        :param defenders_in_the_box_type: Filter by defenders in the box
+        :param def_coverage_type: Filter by defensive coverage type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -46,9 +116,45 @@ class Filmroom(BaseSDK):
         else:
             base_url = models.GET_FILMROOM_PLAYS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetFilmroomPlaysRequest)
-        request = cast(models.GetFilmroomPlaysRequest, request)
+        request = models.GetFilmroomPlaysRequest(
+            game_id=game_id,
+            week_slug=week_slug,
+            season=season,
+            season_type=season_type,
+            nfl_id=nfl_id,
+            quarter=quarter,
+            down=down,
+            yards_to_go_type=yards_to_go_type,
+            touchdown=touchdown,
+            rush10_plus_yards=rush10_plus_yards,
+            fumble_lost=fumble_lost,
+            fumble=fumble,
+            qb_alignment=qb_alignment,
+            redzone=redzone,
+            goal_to_go=goal_to_go,
+            pass_play=pass_play,
+            run_play=run_play,
+            play_type=play_type,
+            attempt=attempt,
+            completion=completion,
+            interception=interception,
+            reception=reception,
+            sack=sack,
+            rec_motion=rec_motion,
+            target_location=target_location,
+            air_yard_type=air_yard_type,
+            dropback_time_type=dropback_time_type,
+            pressure=pressure,
+            blitz=blitz,
+            play_action=play_action,
+            rush_direction=rush_direction,
+            run_stuff=run_stuff,
+            receiver_alignment=receiver_alignment,
+            separation_type=separation_type,
+            personnel=personnel,
+            defenders_in_the_box_type=defenders_in_the_box_type,
+            def_coverage_type=def_coverage_type,
+        )
 
         req = self._build_request(
             method="GET",
@@ -103,9 +209,43 @@ class Filmroom(BaseSDK):
     async def get_filmroom_plays_async(
         self,
         *,
-        request: Union[
-            models.GetFilmroomPlaysRequest, models.GetFilmroomPlaysRequestTypedDict
-        ] = models.GetFilmroomPlaysRequest(),
+        game_id: Optional[List[str]] = None,
+        week_slug: Optional[List[models.WeekSlugEnum]] = None,
+        season: Optional[List[int]] = None,
+        season_type: Optional[List[models.SeasonTypeEnum]] = None,
+        nfl_id: Optional[List[str]] = None,
+        quarter: Optional[List[int]] = None,
+        down: Optional[List[int]] = None,
+        yards_to_go_type: Optional[List[models.YardsToGoType]] = None,
+        touchdown: Optional[List[models.BinaryFlagEnum]] = None,
+        rush10_plus_yards: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble_lost: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble: Optional[List[models.BinaryFlagEnum]] = None,
+        qb_alignment: Optional[List[models.QbAlignment]] = None,
+        redzone: Optional[List[models.BinaryFlagEnum]] = None,
+        goal_to_go: Optional[List[models.BinaryFlagEnum]] = None,
+        pass_play: Optional[List[models.BinaryFlagEnum]] = None,
+        run_play: Optional[List[models.BinaryFlagEnum]] = None,
+        play_type: Optional[List[models.PlayTypeEnum]] = None,
+        attempt: Optional[List[models.BinaryFlagEnum]] = None,
+        completion: Optional[List[models.BinaryFlagEnum]] = None,
+        interception: Optional[List[models.BinaryFlagEnum]] = None,
+        reception: Optional[List[models.BinaryFlagEnum]] = None,
+        sack: Optional[List[models.BinaryFlagEnum]] = None,
+        rec_motion: Optional[List[models.BinaryFlagEnum]] = None,
+        target_location: Optional[List[models.TargetLocation]] = None,
+        air_yard_type: Optional[List[models.AirYardType]] = None,
+        dropback_time_type: Optional[List[models.DropbackTimeType]] = None,
+        pressure: Optional[List[models.BinaryFlagEnum]] = None,
+        blitz: Optional[List[models.BinaryFlagEnum]] = None,
+        play_action: Optional[List[models.BinaryFlagEnum]] = None,
+        rush_direction: Optional[List[models.RushDirection]] = None,
+        run_stuff: Optional[List[models.BinaryFlagEnum]] = None,
+        receiver_alignment: Optional[List[models.ReceiverAlignment]] = None,
+        separation_type: Optional[List[models.SeparationType]] = None,
+        personnel: Optional[List[models.Personnel]] = None,
+        defenders_in_the_box_type: Optional[List[models.DefendersInTheBoxType]] = None,
+        def_coverage_type: Optional[List[models.DefCoverageType]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -119,7 +259,43 @@ class Filmroom(BaseSDK):
         player involvement, formation types, and tactical elements.
 
 
-        :param request: The request object to send.
+        :param game_id: Filter by specific game IDs (supports multiple values)
+        :param week_slug: Filter by week identifier (supports multiple values)
+        :param season: Filter by season year (supports multiple values)
+        :param season_type: Filter by season type
+        :param nfl_id: Filter by player NFL ID
+        :param quarter: Filter by quarter
+        :param down: Filter by down
+        :param yards_to_go_type: Filter by yards to go category
+        :param touchdown: Filter for touchdown plays (1 = yes, 0 = no)
+        :param rush10_plus_yards: Filter for rushing plays of 10+ yards
+        :param fumble_lost: Filter for plays with fumbles lost
+        :param fumble: Filter for plays with fumbles
+        :param qb_alignment: Filter by quarterback alignment
+        :param redzone: Filter for red zone plays
+        :param goal_to_go: Filter for goal-to-go situations
+        :param pass_play: Filter for passing plays
+        :param run_play: Filter for running plays
+        :param play_type: Filter by specific play types
+        :param attempt: Filter for passing attempts
+        :param completion: Filter for completed passes
+        :param interception: Filter for interceptions
+        :param reception: Filter for receptions
+        :param sack: Filter for sacks
+        :param rec_motion: Filter by receiver motion
+        :param target_location: Filter by target location on field
+        :param air_yard_type: Filter by air yards category
+        :param dropback_time_type: Filter by dropback time
+        :param pressure: Filter by quarterback pressure
+        :param blitz: Filter by defensive blitz
+        :param play_action: Filter by play action usage
+        :param rush_direction: Filter by rush direction
+        :param run_stuff: Filter for stuffed runs
+        :param receiver_alignment: Filter by receiver alignment
+        :param separation_type: Filter by receiver separation
+        :param personnel: Filter by defensive personnel package
+        :param defenders_in_the_box_type: Filter by defenders in the box
+        :param def_coverage_type: Filter by defensive coverage type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -135,9 +311,45 @@ class Filmroom(BaseSDK):
         else:
             base_url = models.GET_FILMROOM_PLAYS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetFilmroomPlaysRequest)
-        request = cast(models.GetFilmroomPlaysRequest, request)
+        request = models.GetFilmroomPlaysRequest(
+            game_id=game_id,
+            week_slug=week_slug,
+            season=season,
+            season_type=season_type,
+            nfl_id=nfl_id,
+            quarter=quarter,
+            down=down,
+            yards_to_go_type=yards_to_go_type,
+            touchdown=touchdown,
+            rush10_plus_yards=rush10_plus_yards,
+            fumble_lost=fumble_lost,
+            fumble=fumble,
+            qb_alignment=qb_alignment,
+            redzone=redzone,
+            goal_to_go=goal_to_go,
+            pass_play=pass_play,
+            run_play=run_play,
+            play_type=play_type,
+            attempt=attempt,
+            completion=completion,
+            interception=interception,
+            reception=reception,
+            sack=sack,
+            rec_motion=rec_motion,
+            target_location=target_location,
+            air_yard_type=air_yard_type,
+            dropback_time_type=dropback_time_type,
+            pressure=pressure,
+            blitz=blitz,
+            play_action=play_action,
+            rush_direction=rush_direction,
+            run_stuff=run_stuff,
+            receiver_alignment=receiver_alignment,
+            separation_type=separation_type,
+            personnel=personnel,
+            defenders_in_the_box_type=defenders_in_the_box_type,
+            def_coverage_type=def_coverage_type,
+        )
 
         req = self._build_request_async(
             method="GET",

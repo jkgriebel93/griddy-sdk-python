@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class ContentInsights(BaseSDK):
@@ -14,10 +14,11 @@ class ContentInsights(BaseSDK):
     def get_season_content_insights(
         self,
         *,
-        request: Union[
-            models.GetSeasonContentInsightsRequest,
-            models.GetSeasonContentInsightsRequestTypedDict,
-        ],
+        season: int,
+        limit: Optional[int] = 20,
+        tags: Optional[List[models.QueryParamTags]] = None,
+        team_id: Optional[str] = None,
+        nfl_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,7 +33,11 @@ class ContentInsights(BaseSDK):
         limits for targeted content discovery.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param limit: Maximum number of insights to return
+        :param tags: Content tags to filter by (supports multiple comma-separated tags)
+        :param team_id: Filter by specific team identifier
+        :param nfl_id: Filter by specific player NFL identifier
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,9 +53,13 @@ class ContentInsights(BaseSDK):
         else:
             base_url = models.GET_SEASON_CONTENT_INSIGHTS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetSeasonContentInsightsRequest)
-        request = cast(models.GetSeasonContentInsightsRequest, request)
+        request = models.GetSeasonContentInsightsRequest(
+            season=season,
+            limit=limit,
+            tags=tags,
+            team_id=team_id,
+            nfl_id=nfl_id,
+        )
 
         req = self._build_request(
             method="GET",
@@ -103,10 +112,11 @@ class ContentInsights(BaseSDK):
     async def get_season_content_insights_async(
         self,
         *,
-        request: Union[
-            models.GetSeasonContentInsightsRequest,
-            models.GetSeasonContentInsightsRequestTypedDict,
-        ],
+        season: int,
+        limit: Optional[int] = 20,
+        tags: Optional[List[models.QueryParamTags]] = None,
+        team_id: Optional[str] = None,
+        nfl_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -121,7 +131,11 @@ class ContentInsights(BaseSDK):
         limits for targeted content discovery.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param limit: Maximum number of insights to return
+        :param tags: Content tags to filter by (supports multiple comma-separated tags)
+        :param team_id: Filter by specific team identifier
+        :param nfl_id: Filter by specific player NFL identifier
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -137,9 +151,13 @@ class ContentInsights(BaseSDK):
         else:
             base_url = models.GET_SEASON_CONTENT_INSIGHTS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetSeasonContentInsightsRequest)
-        request = cast(models.GetSeasonContentInsightsRequest, request)
+        request = models.GetSeasonContentInsightsRequest(
+            season=season,
+            limit=limit,
+            tags=tags,
+            team_id=team_id,
+            nfl_id=nfl_id,
+        )
 
         req = self._build_request_async(
             method="GET",

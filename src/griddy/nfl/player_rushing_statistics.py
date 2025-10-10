@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class PlayerRushingStatistics(BaseSDK):
@@ -14,10 +14,17 @@ class PlayerRushingStatistics(BaseSDK):
     def get_player_rushing_stats_by_season(
         self,
         *,
-        request: Union[
-            models.GetPlayerRushingStatsBySeasonRequest,
-            models.GetPlayerRushingStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetPlayerRushingStatsBySeasonQueryParamSortKey
+        ] = models.GetPlayerRushingStatsBySeasonQueryParamSortKey.YDS,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_rusher: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,7 +39,15 @@ class PlayerRushingStatistics(BaseSDK):
         efficiency metrics, yards before/after contact, and situational breakdowns.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_rusher: Filter to only qualified rushers (minimum attempts threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,11 +63,17 @@ class PlayerRushingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RUSHING_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerRushingStatsBySeasonRequest
-            )
-        request = cast(models.GetPlayerRushingStatsBySeasonRequest, request)
+        request = models.GetPlayerRushingStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_rusher=qualified_rusher,
+            team_offense=team_offense,
+        )
 
         req = self._build_request(
             method="GET",
@@ -107,10 +128,17 @@ class PlayerRushingStatistics(BaseSDK):
     async def get_player_rushing_stats_by_season_async(
         self,
         *,
-        request: Union[
-            models.GetPlayerRushingStatsBySeasonRequest,
-            models.GetPlayerRushingStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetPlayerRushingStatsBySeasonQueryParamSortKey
+        ] = models.GetPlayerRushingStatsBySeasonQueryParamSortKey.YDS,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_rusher: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -125,7 +153,15 @@ class PlayerRushingStatistics(BaseSDK):
         efficiency metrics, yards before/after contact, and situational breakdowns.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_rusher: Filter to only qualified rushers (minimum attempts threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -141,11 +177,17 @@ class PlayerRushingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RUSHING_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerRushingStatsBySeasonRequest
-            )
-        request = cast(models.GetPlayerRushingStatsBySeasonRequest, request)
+        request = models.GetPlayerRushingStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_rusher=qualified_rusher,
+            team_offense=team_offense,
+        )
 
         req = self._build_request_async(
             method="GET",
@@ -200,10 +242,18 @@ class PlayerRushingStatistics(BaseSDK):
     def get_player_rushing_stats_by_week(
         self,
         *,
-        request: Union[
-            models.GetPlayerRushingStatsByWeekRequest,
-            models.GetPlayerRushingStatsByWeekRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: models.WeekSlugEnum,
+        limit: Optional[int] = 50,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetPlayerRushingStatsByWeekQueryParamSortKey
+        ] = models.GetPlayerRushingStatsByWeekQueryParamSortKey.YDS,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_rusher: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -218,7 +268,16 @@ class PlayerRushingStatistics(BaseSDK):
         efficiency metrics, yards before/after contact, and game-specific context.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week identifier
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_rusher: Filter to only qualified rushers (minimum attempts threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -234,11 +293,18 @@ class PlayerRushingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RUSHING_STATS_BY_WEEK_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerRushingStatsByWeekRequest
-            )
-        request = cast(models.GetPlayerRushingStatsByWeekRequest, request)
+        request = models.GetPlayerRushingStatsByWeekRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_rusher=qualified_rusher,
+            team_offense=team_offense,
+        )
 
         req = self._build_request(
             method="GET",
@@ -293,10 +359,18 @@ class PlayerRushingStatistics(BaseSDK):
     async def get_player_rushing_stats_by_week_async(
         self,
         *,
-        request: Union[
-            models.GetPlayerRushingStatsByWeekRequest,
-            models.GetPlayerRushingStatsByWeekRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: models.WeekSlugEnum,
+        limit: Optional[int] = 50,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetPlayerRushingStatsByWeekQueryParamSortKey
+        ] = models.GetPlayerRushingStatsByWeekQueryParamSortKey.YDS,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_rusher: Optional[bool] = False,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -311,7 +385,16 @@ class PlayerRushingStatistics(BaseSDK):
         efficiency metrics, yards before/after contact, and game-specific context.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week identifier
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_rusher: Filter to only qualified rushers (minimum attempts threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -327,11 +410,18 @@ class PlayerRushingStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_RUSHING_STATS_BY_WEEK_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerRushingStatsByWeekRequest
-            )
-        request = cast(models.GetPlayerRushingStatsByWeekRequest, request)
+        request = models.GetPlayerRushingStatsByWeekRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_rusher=qualified_rusher,
+            team_offense=team_offense,
+        )
 
         req = self._build_request_async(
             method="GET",

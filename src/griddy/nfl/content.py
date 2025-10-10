@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class Content(BaseSDK):
@@ -14,9 +14,11 @@ class Content(BaseSDK):
     def get_game_preview(
         self,
         *,
-        request: Union[
-            models.GetGamePreviewRequest, models.GetGamePreviewRequestTypedDict
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: int,
+        visitor_display_name: str,
+        home_display_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -26,7 +28,11 @@ class Content(BaseSDK):
 
         Retrieves preview content and insights for a specific game based on teams and week. Returns preview information, matchup analysis, and key storylines.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week number
+        :param visitor_display_name: Visiting team display name
+        :param home_display_name: Home team display name
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -42,9 +48,13 @@ class Content(BaseSDK):
         else:
             base_url = models.GET_GAME_PREVIEW_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetGamePreviewRequest)
-        request = cast(models.GetGamePreviewRequest, request)
+        request = models.GetGamePreviewRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            visitor_display_name=visitor_display_name,
+            home_display_name=home_display_name,
+        )
 
         req = self._build_request(
             method="GET",
@@ -99,9 +109,11 @@ class Content(BaseSDK):
     async def get_game_preview_async(
         self,
         *,
-        request: Union[
-            models.GetGamePreviewRequest, models.GetGamePreviewRequestTypedDict
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: int,
+        visitor_display_name: str,
+        home_display_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -111,7 +123,11 @@ class Content(BaseSDK):
 
         Retrieves preview content and insights for a specific game based on teams and week. Returns preview information, matchup analysis, and key storylines.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week number
+        :param visitor_display_name: Visiting team display name
+        :param home_display_name: Home team display name
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -127,9 +143,13 @@ class Content(BaseSDK):
         else:
             base_url = models.GET_GAME_PREVIEW_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetGamePreviewRequest)
-        request = cast(models.GetGamePreviewRequest, request)
+        request = models.GetGamePreviewRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            visitor_display_name=visitor_display_name,
+            home_display_name=home_display_name,
+        )
 
         req = self._build_request_async(
             method="GET",
@@ -336,9 +356,13 @@ class Content(BaseSDK):
     def get_game_insights(
         self,
         *,
-        request: Union[
-            models.GetGameInsightsRequest, models.GetGameInsightsRequestTypedDict
-        ],
+        season: int,
+        fapi_game_id: str,
+        away_team_id: str,
+        home_team_id: str,
+        limit: Optional[int] = 20,
+        tags: Optional[str] = None,
+        exclude_tags: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -348,7 +372,13 @@ class Content(BaseSDK):
 
         Retrieves analytical insights and advanced statistics for a specific game. Can filter by tags and exclude specific content types.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param fapi_game_id: FAPI Game identifier (UUID)
+        :param away_team_id: Away team identifier
+        :param home_team_id: Home team identifier
+        :param limit: Maximum number of insights to return
+        :param tags: Comma-separated list of tags to filter by
+        :param exclude_tags: Comma-separated list of tags to exclude
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -364,9 +394,15 @@ class Content(BaseSDK):
         else:
             base_url = models.GET_GAME_INSIGHTS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetGameInsightsRequest)
-        request = cast(models.GetGameInsightsRequest, request)
+        request = models.GetGameInsightsRequest(
+            season=season,
+            limit=limit,
+            tags=tags,
+            exclude_tags=exclude_tags,
+            fapi_game_id=fapi_game_id,
+            away_team_id=away_team_id,
+            home_team_id=home_team_id,
+        )
 
         req = self._build_request(
             method="GET",
@@ -419,9 +455,13 @@ class Content(BaseSDK):
     async def get_game_insights_async(
         self,
         *,
-        request: Union[
-            models.GetGameInsightsRequest, models.GetGameInsightsRequestTypedDict
-        ],
+        season: int,
+        fapi_game_id: str,
+        away_team_id: str,
+        home_team_id: str,
+        limit: Optional[int] = 20,
+        tags: Optional[str] = None,
+        exclude_tags: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -431,7 +471,13 @@ class Content(BaseSDK):
 
         Retrieves analytical insights and advanced statistics for a specific game. Can filter by tags and exclude specific content types.
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param fapi_game_id: FAPI Game identifier (UUID)
+        :param away_team_id: Away team identifier
+        :param home_team_id: Home team identifier
+        :param limit: Maximum number of insights to return
+        :param tags: Comma-separated list of tags to filter by
+        :param exclude_tags: Comma-separated list of tags to exclude
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -447,9 +493,15 @@ class Content(BaseSDK):
         else:
             base_url = models.GET_GAME_INSIGHTS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetGameInsightsRequest)
-        request = cast(models.GetGameInsightsRequest, request)
+        request = models.GetGameInsightsRequest(
+            season=season,
+            limit=limit,
+            tags=tags,
+            exclude_tags=exclude_tags,
+            fapi_game_id=fapi_game_id,
+            away_team_id=away_team_id,
+            home_team_id=home_team_id,
+        )
 
         req = self._build_request_async(
             method="GET",

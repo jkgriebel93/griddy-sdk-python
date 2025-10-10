@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import Mapping, Optional
 
 
 class TeamDefenseRushStatistics(BaseSDK):
@@ -14,10 +14,15 @@ class TeamDefenseRushStatistics(BaseSDK):
     def get_team_defense_rush_stats_by_season(
         self,
         *,
-        request: Union[
-            models.GetTeamDefenseRushStatsBySeasonRequest,
-            models.GetTeamDefenseRushStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetTeamDefenseRushStatsBySeasonQueryParamSortKey
+        ] = models.GetTeamDefenseRushStatsBySeasonQueryParamSortKey.RUSH_YPG,
+        sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,7 +37,13 @@ class TeamDefenseRushStatistics(BaseSDK):
         box count distributions, and directional rush defense metrics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of teams to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,11 +59,15 @@ class TeamDefenseRushStatistics(BaseSDK):
         else:
             base_url = models.GET_TEAM_DEFENSE_RUSH_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetTeamDefenseRushStatsBySeasonRequest
-            )
-        request = cast(models.GetTeamDefenseRushStatsBySeasonRequest, request)
+        request = models.GetTeamDefenseRushStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+        )
 
         req = self._build_request(
             method="GET",
@@ -107,10 +122,15 @@ class TeamDefenseRushStatistics(BaseSDK):
     async def get_team_defense_rush_stats_by_season_async(
         self,
         *,
-        request: Union[
-            models.GetTeamDefenseRushStatsBySeasonRequest,
-            models.GetTeamDefenseRushStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[
+            models.GetTeamDefenseRushStatsBySeasonQueryParamSortKey
+        ] = models.GetTeamDefenseRushStatsBySeasonQueryParamSortKey.RUSH_YPG,
+        sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -125,7 +145,13 @@ class TeamDefenseRushStatistics(BaseSDK):
         box count distributions, and directional rush defense metrics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of teams to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -141,11 +167,15 @@ class TeamDefenseRushStatistics(BaseSDK):
         else:
             base_url = models.GET_TEAM_DEFENSE_RUSH_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetTeamDefenseRushStatsBySeasonRequest
-            )
-        request = cast(models.GetTeamDefenseRushStatsBySeasonRequest, request)
+        request = models.GetTeamDefenseRushStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+        )
 
         req = self._build_request_async(
             method="GET",

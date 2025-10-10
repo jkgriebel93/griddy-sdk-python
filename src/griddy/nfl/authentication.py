@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import Mapping, Optional
 
 
 class Authentication(BaseSDK):
@@ -14,7 +14,11 @@ class Authentication(BaseSDK):
     def generate_token(
         self,
         *,
-        request: Union[models.TokenRequest, models.TokenRequestTypedDict],
+        client_key: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        device_id: Optional[str] = None,
+        device_info: Optional[str] = None,
+        network_type: Optional[models.NetworkTypeEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -24,7 +28,11 @@ class Authentication(BaseSDK):
 
         Creates a new access token and refresh token for a client device. This is the initial authentication endpoint that establishes a session for accessing NFL APIs. Requires client credentials and device information.
 
-        :param request: The request object to send.
+        :param client_key: Client application identifier key
+        :param client_secret: Client application secret for authentication
+        :param device_id: Unique device identifier (UUID format)
+        :param device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
+        :param network_type: Type of network connection
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -40,9 +48,13 @@ class Authentication(BaseSDK):
         else:
             base_url = models.GENERATE_TOKEN_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.TokenRequest)
-        request = cast(models.TokenRequest, request)
+        request = models.TokenRequest(
+            client_key=client_key,
+            client_secret=client_secret,
+            device_id=device_id,
+            device_info=device_info,
+            network_type=network_type,
+        )
 
         req = self._build_request(
             method="POST",
@@ -98,7 +110,11 @@ class Authentication(BaseSDK):
     async def generate_token_async(
         self,
         *,
-        request: Union[models.TokenRequest, models.TokenRequestTypedDict],
+        client_key: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        device_id: Optional[str] = None,
+        device_info: Optional[str] = None,
+        network_type: Optional[models.NetworkTypeEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -108,7 +124,11 @@ class Authentication(BaseSDK):
 
         Creates a new access token and refresh token for a client device. This is the initial authentication endpoint that establishes a session for accessing NFL APIs. Requires client credentials and device information.
 
-        :param request: The request object to send.
+        :param client_key: Client application identifier key
+        :param client_secret: Client application secret for authentication
+        :param device_id: Unique device identifier (UUID format)
+        :param device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
+        :param network_type: Type of network connection
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -124,9 +144,13 @@ class Authentication(BaseSDK):
         else:
             base_url = models.GENERATE_TOKEN_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.TokenRequest)
-        request = cast(models.TokenRequest, request)
+        request = models.TokenRequest(
+            client_key=client_key,
+            client_secret=client_secret,
+            device_id=device_id,
+            device_info=device_info,
+            network_type=network_type,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -182,7 +206,15 @@ class Authentication(BaseSDK):
     def refresh_token(
         self,
         *,
-        request: Union[models.RefreshTokenRequest, models.RefreshTokenRequestTypedDict],
+        client_key: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        device_id: Optional[str] = None,
+        device_info: Optional[str] = None,
+        network_type: Optional[models.NetworkTypeEnum] = None,
+        refresh_token: Optional[str] = None,
+        signature_timestamp: Optional[str] = None,
+        uid: Optional[str] = None,
+        uid_signature: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -192,7 +224,15 @@ class Authentication(BaseSDK):
 
         Refreshes an existing access token using a valid refresh token. This endpoint extends the user's session by generating new access and refresh tokens. Requires the previous refresh token and signature verification.
 
-        :param request: The request object to send.
+        :param client_key: Client application identifier key
+        :param client_secret: Client application secret for authentication
+        :param device_id: Unique device identifier (UUID format)
+        :param device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
+        :param network_type: Type of network connection
+        :param refresh_token: Valid refresh token from previous authentication
+        :param signature_timestamp: Unix timestamp for signature verification
+        :param uid: User identifier hash
+        :param uid_signature: HMAC signature for request verification
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -208,9 +248,17 @@ class Authentication(BaseSDK):
         else:
             base_url = models.REFRESH_TOKEN_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.RefreshTokenRequest)
-        request = cast(models.RefreshTokenRequest, request)
+        request = models.RefreshTokenRequest(
+            client_key=client_key,
+            client_secret=client_secret,
+            device_id=device_id,
+            device_info=device_info,
+            network_type=network_type,
+            refresh_token=refresh_token,
+            signature_timestamp=signature_timestamp,
+            uid=uid,
+            uid_signature=uid_signature,
+        )
 
         req = self._build_request(
             method="POST",
@@ -266,7 +314,15 @@ class Authentication(BaseSDK):
     async def refresh_token_async(
         self,
         *,
-        request: Union[models.RefreshTokenRequest, models.RefreshTokenRequestTypedDict],
+        client_key: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        device_id: Optional[str] = None,
+        device_info: Optional[str] = None,
+        network_type: Optional[models.NetworkTypeEnum] = None,
+        refresh_token: Optional[str] = None,
+        signature_timestamp: Optional[str] = None,
+        uid: Optional[str] = None,
+        uid_signature: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -276,7 +332,15 @@ class Authentication(BaseSDK):
 
         Refreshes an existing access token using a valid refresh token. This endpoint extends the user's session by generating new access and refresh tokens. Requires the previous refresh token and signature verification.
 
-        :param request: The request object to send.
+        :param client_key: Client application identifier key
+        :param client_secret: Client application secret for authentication
+        :param device_id: Unique device identifier (UUID format)
+        :param device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
+        :param network_type: Type of network connection
+        :param refresh_token: Valid refresh token from previous authentication
+        :param signature_timestamp: Unix timestamp for signature verification
+        :param uid: User identifier hash
+        :param uid_signature: HMAC signature for request verification
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -292,9 +356,17 @@ class Authentication(BaseSDK):
         else:
             base_url = models.REFRESH_TOKEN_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.RefreshTokenRequest)
-        request = cast(models.RefreshTokenRequest, request)
+        request = models.RefreshTokenRequest(
+            client_key=client_key,
+            client_secret=client_secret,
+            device_id=device_id,
+            device_info=device_info,
+            network_type=network_type,
+            refresh_token=refresh_token,
+            signature_timestamp=signature_timestamp,
+            uid=uid,
+            uid_signature=uid_signature,
+        )
 
         req = self._build_request_async(
             method="POST",

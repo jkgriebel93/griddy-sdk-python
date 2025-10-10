@@ -30,15 +30,10 @@ with GriddyNFL(
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as griddy_nfl:
 
-    res = griddy_nfl.player_statistics.get_player_passing_stats_by_season(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "sort_value": models.SortOrderEnum.DESC,
-        "team_offense": [
-            "3000",
-            "3900",
-        ],
-    })
+    res = griddy_nfl.player_statistics.get_player_passing_stats_by_season(season=2025, season_type=models.SeasonTypeEnum.REG, limit=35, offset=0, page=1, sort_value=models.SortOrderEnum.DESC, qualified_passer=True, team_offense=[
+        "3000",
+        "3900",
+    ])
 
     assert res is not None
 
@@ -49,11 +44,19 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `request`                                                                                           | [models.GetPlayerPassingStatsBySeasonRequest](../../models/getplayerpassingstatsbyseasonrequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
-| `retries`                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                    | :heavy_minus_sign:                                                                                  | Configuration to override the default retry behavior of the client.                                 |
-| `server_url`                                                                                        | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | An optional server URL to use.                                                                      |
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           | Example                                                                               |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `season`                                                                              | *int*                                                                                 | :heavy_check_mark:                                                                    | Season year                                                                           | 2025                                                                                  |
+| `season_type`                                                                         | [models.SeasonTypeEnum](../../models/seasontypeenum.md)                               | :heavy_check_mark:                                                                    | Type of season                                                                        | REG                                                                                   |
+| `limit`                                                                               | *Optional[int]*                                                                       | :heavy_minus_sign:                                                                    | Maximum number of players to return                                                   | 35                                                                                    |
+| `offset`                                                                              | *Optional[int]*                                                                       | :heavy_minus_sign:                                                                    | Number of records to skip for pagination                                              | 0                                                                                     |
+| `page`                                                                                | *Optional[int]*                                                                       | :heavy_minus_sign:                                                                    | Page number for pagination                                                            | 1                                                                                     |
+| `sort_key`                                                                            | [Optional[models.PassingStatsCategoryEnum]](../../models/passingstatscategoryenum.md) | :heavy_minus_sign:                                                                    | Field to sort by                                                                      |                                                                                       |
+| `sort_value`                                                                          | [Optional[models.SortOrderEnum]](../../models/sortorderenum.md)                       | :heavy_minus_sign:                                                                    | Sort direction                                                                        | DESC                                                                                  |
+| `qualified_passer`                                                                    | *Optional[bool]*                                                                      | :heavy_minus_sign:                                                                    | Filter to only qualified passers (minimum attempts threshold)                         | true                                                                                  |
+| `team_offense`                                                                        | List[*str*]                                                                           | :heavy_minus_sign:                                                                    | Filter by specific team IDs (supports multiple teams)                                 | [<br/>"3000",<br/>"3900"<br/>]                                                        |
+| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |                                                                                       |
+| `server_url`                                                                          | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | An optional server URL to use.                                                        | http://localhost:8080                                                                 |
 
 ### Response
 

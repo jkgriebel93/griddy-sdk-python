@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class PlayerStatistics(BaseSDK):
@@ -14,10 +14,15 @@ class PlayerStatistics(BaseSDK):
     def get_player_passing_stats_by_season(
         self,
         *,
-        request: Union[
-            models.GetPlayerPassingStatsBySeasonRequest,
-            models.GetPlayerPassingStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.PassingStatsCategoryEnum] = None,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_passer: Optional[bool] = True,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,7 +37,15 @@ class PlayerStatistics(BaseSDK):
         CPOE (Completion Percentage Over Expected), time to throw metrics, and situational statistics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_passer: Filter to only qualified passers (minimum attempts threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,11 +61,17 @@ class PlayerStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_PASSING_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerPassingStatsBySeasonRequest
-            )
-        request = cast(models.GetPlayerPassingStatsBySeasonRequest, request)
+        request = models.GetPlayerPassingStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_passer=qualified_passer,
+            team_offense=team_offense,
+        )
 
         req = self._build_request(
             method="GET",
@@ -107,10 +126,15 @@ class PlayerStatistics(BaseSDK):
     async def get_player_passing_stats_by_season_async(
         self,
         *,
-        request: Union[
-            models.GetPlayerPassingStatsBySeasonRequest,
-            models.GetPlayerPassingStatsBySeasonRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        limit: Optional[int] = 35,
+        offset: Optional[int] = 0,
+        page: Optional[int] = 1,
+        sort_key: Optional[models.PassingStatsCategoryEnum] = None,
+        sort_value: Optional[models.SortOrderEnum] = None,
+        qualified_passer: Optional[bool] = True,
+        team_offense: Optional[List[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -125,7 +149,15 @@ class PlayerStatistics(BaseSDK):
         CPOE (Completion Percentage Over Expected), time to throw metrics, and situational statistics.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param limit: Maximum number of players to return
+        :param offset: Number of records to skip for pagination
+        :param page: Page number for pagination
+        :param sort_key: Field to sort by
+        :param sort_value: Sort direction
+        :param qualified_passer: Filter to only qualified passers (minimum attempts threshold)
+        :param team_offense: Filter by specific team IDs (supports multiple teams)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -141,11 +173,17 @@ class PlayerStatistics(BaseSDK):
         else:
             base_url = models.GET_PLAYER_PASSING_STATS_BY_SEASON_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetPlayerPassingStatsBySeasonRequest
-            )
-        request = cast(models.GetPlayerPassingStatsBySeasonRequest, request)
+        request = models.GetPlayerPassingStatsBySeasonRequest(
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_passer=qualified_passer,
+            team_offense=team_offense,
+        )
 
         req = self._build_request_async(
             method="GET",

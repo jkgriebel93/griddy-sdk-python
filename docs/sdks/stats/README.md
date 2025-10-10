@@ -75,13 +75,7 @@ with GriddyNFL(
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as griddy_nfl:
 
-    res = griddy_nfl.stats.get_game_team_rankings(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "away_team_id": "10403000-5851-f9d5-da45-78365a05b6b0",
-        "home_team_id": "10403900-8251-6892-d81c-4348525c2d47",
-        "week": 4,
-    })
+    res = griddy_nfl.stats.get_game_team_rankings(season=2025, season_type=models.SeasonTypeEnum.REG, away_team_id="10403000-5851-f9d5-da45-78365a05b6b0", home_team_id="10403900-8251-6892-d81c-4348525c2d47", week=4)
 
     assert res is not None
 
@@ -92,11 +86,15 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `request`                                                                       | [models.GetGameTeamRankingsRequest](../../models/getgameteamrankingsrequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
-| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
-| `server_url`                                                                    | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | An optional server URL to use.                                                  |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
+| `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
+| `away_team_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Away team UUID                                                      | 10403000-5851-f9d5-da45-78365a05b6b0                                |
+| `home_team_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Home team UUID                                                      | 10403900-8251-6892-d81c-4348525c2d47                                |
+| `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number                                                         | 4                                                                   |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -171,15 +169,7 @@ with GriddyNFL(
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as griddy_nfl:
 
-    res = griddy_nfl.stats.get_multiple_rankings_all_teams(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "stat0": "scoring-averagePointsScored",
-        "stat1": "offense-yardsPerGame",
-        "stat2": "offense-rushYardsPerGame",
-        "stat3": "offense-passYardsPerGame",
-        "stat4": "misc-netTurnovers",
-    })
+    res = griddy_nfl.stats.get_multiple_rankings_all_teams(season=2025, season_type=models.SeasonTypeEnum.REG, stat0="scoring-averagePointsScored", stat1="offense-yardsPerGame", stat2="offense-rushYardsPerGame", stat3="offense-passYardsPerGame", stat4="misc-netTurnovers")
 
     assert res is not None
 
@@ -190,11 +180,17 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `request`                                                                                       | [models.GetMultipleRankingsAllTeamsRequest](../../models/getmultiplerankingsallteamsrequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
-| `retries`                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                | :heavy_minus_sign:                                                                              | Configuration to override the default retry behavior of the client.                             |
-| `server_url`                                                                                    | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | An optional server URL to use.                                                                  |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
+| `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
+| `stat0`                                                             | *str*                                                               | :heavy_check_mark:                                                  | First statistical category                                          | scoring-averagePointsScored                                         |
+| `stat1`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Second statistical category                                         | offense-yardsPerGame                                                |
+| `stat2`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Third statistical category                                          | offense-rushYardsPerGame                                            |
+| `stat3`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Fourth statistical category                                         | offense-passYardsPerGame                                            |
+| `stat4`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Fifth statistical category                                          | misc-netTurnovers                                                   |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

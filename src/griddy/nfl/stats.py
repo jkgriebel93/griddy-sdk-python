@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from griddy.nfl import errors, models, utils
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import BaseModel, OptionalNullable, UNSET
+from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional
 
 
 class Stats(BaseSDK):
@@ -180,10 +180,11 @@ class Stats(BaseSDK):
     def get_game_team_rankings(
         self,
         *,
-        request: Union[
-            models.GetGameTeamRankingsRequest,
-            models.GetGameTeamRankingsRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        away_team_id: str,
+        home_team_id: str,
+        week: int,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -195,7 +196,11 @@ class Stats(BaseSDK):
         Returns 300+ statistical categories with rankings for offensive, defensive, and special teams performance.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param away_team_id: Away team UUID
+        :param home_team_id: Home team UUID
+        :param week: Week number
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -211,9 +216,13 @@ class Stats(BaseSDK):
         else:
             base_url = models.GET_GAME_TEAM_RANKINGS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetGameTeamRankingsRequest)
-        request = cast(models.GetGameTeamRankingsRequest, request)
+        request = models.GetGameTeamRankingsRequest(
+            season=season,
+            season_type=season_type,
+            away_team_id=away_team_id,
+            home_team_id=home_team_id,
+            week=week,
+        )
 
         req = self._build_request(
             method="GET",
@@ -268,10 +277,11 @@ class Stats(BaseSDK):
     async def get_game_team_rankings_async(
         self,
         *,
-        request: Union[
-            models.GetGameTeamRankingsRequest,
-            models.GetGameTeamRankingsRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        away_team_id: str,
+        home_team_id: str,
+        week: int,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -283,7 +293,11 @@ class Stats(BaseSDK):
         Returns 300+ statistical categories with rankings for offensive, defensive, and special teams performance.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param away_team_id: Away team UUID
+        :param home_team_id: Home team UUID
+        :param week: Week number
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -299,9 +313,13 @@ class Stats(BaseSDK):
         else:
             base_url = models.GET_GAME_TEAM_RANKINGS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetGameTeamRankingsRequest)
-        request = cast(models.GetGameTeamRankingsRequest, request)
+        request = models.GetGameTeamRankingsRequest(
+            season=season,
+            season_type=season_type,
+            away_team_id=away_team_id,
+            home_team_id=home_team_id,
+            week=week,
+        )
 
         req = self._build_request_async(
             method="GET",
@@ -526,10 +544,13 @@ class Stats(BaseSDK):
     def get_multiple_rankings_all_teams(
         self,
         *,
-        request: Union[
-            models.GetMultipleRankingsAllTeamsRequest,
-            models.GetMultipleRankingsAllTeamsRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        stat0: str,
+        stat1: Optional[str] = None,
+        stat2: Optional[str] = None,
+        stat3: Optional[str] = None,
+        stat4: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -541,7 +562,13 @@ class Stats(BaseSDK):
         Allows comparison of teams across up to 5 different statistics simultaneously.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param stat0: First statistical category
+        :param stat1: Second statistical category
+        :param stat2: Third statistical category
+        :param stat3: Fourth statistical category
+        :param stat4: Fifth statistical category
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -557,11 +584,15 @@ class Stats(BaseSDK):
         else:
             base_url = models.GET_MULTIPLE_RANKINGS_ALL_TEAMS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetMultipleRankingsAllTeamsRequest
-            )
-        request = cast(models.GetMultipleRankingsAllTeamsRequest, request)
+        request = models.GetMultipleRankingsAllTeamsRequest(
+            season=season,
+            season_type=season_type,
+            stat0=stat0,
+            stat1=stat1,
+            stat2=stat2,
+            stat3=stat3,
+            stat4=stat4,
+        )
 
         req = self._build_request(
             method="GET",
@@ -616,10 +647,13 @@ class Stats(BaseSDK):
     async def get_multiple_rankings_all_teams_async(
         self,
         *,
-        request: Union[
-            models.GetMultipleRankingsAllTeamsRequest,
-            models.GetMultipleRankingsAllTeamsRequestTypedDict,
-        ],
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        stat0: str,
+        stat1: Optional[str] = None,
+        stat2: Optional[str] = None,
+        stat3: Optional[str] = None,
+        stat4: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -631,7 +665,13 @@ class Stats(BaseSDK):
         Allows comparison of teams across up to 5 different statistics simultaneously.
 
 
-        :param request: The request object to send.
+        :param season: Season year
+        :param season_type: Type of season
+        :param stat0: First statistical category
+        :param stat1: Second statistical category
+        :param stat2: Third statistical category
+        :param stat3: Fourth statistical category
+        :param stat4: Fifth statistical category
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -647,11 +687,15 @@ class Stats(BaseSDK):
         else:
             base_url = models.GET_MULTIPLE_RANKINGS_ALL_TEAMS_OP_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.GetMultipleRankingsAllTeamsRequest
-            )
-        request = cast(models.GetMultipleRankingsAllTeamsRequest, request)
+        request = models.GetMultipleRankingsAllTeamsRequest(
+            season=season,
+            season_type=season_type,
+            stat0=stat0,
+            stat1=stat1,
+            stat2=stat2,
+            stat3=stat3,
+            stat4=stat4,
+        )
 
         req = self._build_request_async(
             method="GET",
