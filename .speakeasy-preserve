@@ -6,6 +6,7 @@ USAGE.md
 # Custom configurations
 .github/
 .spectral.yaml
+.speakeasy-preserve
 pyproject.toml
 uv.lock
 
