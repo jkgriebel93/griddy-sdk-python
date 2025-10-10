@@ -18,17 +18,15 @@ Creates a new access token and refresh token for a client device. This is the in
 
 <!-- UsageSnippet language="python" operationID="generateToken" method="post" path="/identity/v3/token" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.authentication.generate_token(client_key="4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g", client_secret="CZuvCL49d9OwfGsR", device_id="3cfdef35-c7fe-4f2d-8630-1ec72f52b44d", device_info="eyJtb2RlbCI6ImRlc2t0b3AiLCJ2ZXJzaW9uIjoiQ2hyb21lIiwib3NOYW1lIjoiV2luZG93cyIsIm9zVmVyc2lvbiI6IjEwIn0=", network_type=models.NetworkTypeEnum.OTHER)
-
-    assert res is not None
+    res = sdk.authentication.generate_token(client_key="4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g", client_secret="CZuvCL49d9OwfGsR", device_id="3cfdef35-c7fe-4f2d-8630-1ec72f52b44d", device_info="eyJtb2RlbCI6ImRlc2t0b3AiLCJ2ZXJzaW9uIjoiQ2hyb21lIiwib3NOYW1lIjoiV2luZG93cyIsIm9zVmVyc2lvbiI6IjEwIn0=", network_type="other")
 
     # Handle response
     print(res)
@@ -53,9 +51,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## refresh_token
 
@@ -65,17 +63,15 @@ Refreshes an existing access token using a valid refresh token. This endpoint ex
 
 <!-- UsageSnippet language="python" operationID="refreshToken" method="post" path="/identity/v3/token/refresh" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.authentication.refresh_token(client_key="4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g", client_secret="CZuvCL49d9OwfGsR", device_id="3cfdef35-c7fe-4f2d-8630-1ec72f52b44d", device_info="eyJtb2RlbCI6ImRlc2t0b3AiLCJ2ZXJzaW9uIjoiQ2hyb21lIiwib3NOYW1lIjoiV2luZG93cyIsIm9zVmVyc2lvbiI6IjEwIn0=", network_type=models.NetworkTypeEnum.OTHER, refresh_token="640b00c7-33d8-44f2-ab46-e3d1284a4061", signature_timestamp="1758729181", uid="df990acd951e4bd6940c3babc4341584", uid_signature="587bdNt6EKYhhX9ASFOELX+2lqE=")
-
-    assert res is not None
+    res = sdk.authentication.refresh_token(client_key="4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g", client_secret="CZuvCL49d9OwfGsR", device_id="3cfdef35-c7fe-4f2d-8630-1ec72f52b44d", device_info="eyJtb2RlbCI6ImRlc2t0b3AiLCJ2ZXJzaW9uIjoiQ2hyb21lIiwib3NOYW1lIjoiV2luZG93cyIsIm9zVmVyc2lvbiI6IjEwIn0=", network_type="other", refresh_token="640b00c7-33d8-44f2-ab46-e3d1284a4061", signature_timestamp="1758729181", uid="df990acd951e4bd6940c3babc4341584", uid_signature="587bdNt6EKYhhX9ASFOELX+2lqE=")
 
     # Handle response
     print(res)
@@ -104,6 +100,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

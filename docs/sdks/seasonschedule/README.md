@@ -17,17 +17,15 @@ Retrieves all weeks for a specific season including preseason, regular season, a
 
 <!-- UsageSnippet language="python" operationID="getScheduleSeasonWeeks" method="get" path="/api/schedules/weeks" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.season_schedule.get_schedule_season_weeks(season=2025)
-
-    assert res is not None
+    res = sdk.season_schedule.get_schedule_season_weeks(season=2025)
 
     # Handle response
     print(res)
@@ -48,6 +46,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

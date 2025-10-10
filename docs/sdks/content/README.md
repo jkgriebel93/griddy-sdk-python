@@ -19,17 +19,15 @@ Retrieves preview content and insights for a specific game based on teams and we
 
 <!-- UsageSnippet language="python" operationID="getGamePreview" method="get" path="/api/content/game/preview" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-    assert res is not None
+    res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
     # Handle response
     print(res)
@@ -54,9 +52,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_home_film_cards
 
@@ -66,17 +64,15 @@ Retrieves featured film room content cards for the home page. Returns weekly pla
 
 <!-- UsageSnippet language="python" operationID="getHomeFilmCards" method="get" path="/api/content/home-film-cards" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_home_film_cards()
-
-    assert res is not None
+    res = sdk.content.get_home_film_cards()
 
     # Handle response
     print(res)
@@ -96,9 +92,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_game_insights
 
@@ -108,17 +104,15 @@ Retrieves analytical insights and advanced statistics for a specific game. Can f
 
 <!-- UsageSnippet language="python" operationID="getGameInsights" method="get" path="/api/content/insights/game" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_insights(season=2025, fapi_game_id="f688dfde-311e-11f0-b670-ae1250fadad1", away_team_id="3000", home_team_id="3900", limit=100, tags="pro-preview", exclude_tags="betting")
-
-    assert res is not None
+    res = sdk.content.get_game_insights(season=2025, fapi_game_id="f688dfde-311e-11f0-b670-ae1250fadad1", away_team_id="3000", home_team_id="3900", limit=100, tags="pro-preview", exclude_tags="betting")
 
     # Handle response
     print(res)
@@ -145,6 +139,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

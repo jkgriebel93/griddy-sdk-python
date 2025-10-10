@@ -32,17 +32,15 @@ picks, traded picks, and compensatory selections.
 
 <!-- UsageSnippet language="python" operationID="getDraftInfo" method="get" path="/football/v2/draft/{year}" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_draft_info(year=2025)
-
-    assert res is not None
+    res = sdk.football.get_draft_info(year=2025)
 
     # Handle response
     print(res)
@@ -65,9 +63,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_weekly_game_details
 
@@ -79,17 +77,15 @@ drive charts, replays, and tagged videos.
 
 <!-- UsageSnippet language="python" operationID="getWeeklyGameDetails" method="get" path="/football/v2/experience/weekly-game-details" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_weekly_game_details(season=2025, type_=models.SeasonTypeEnum.REG, week=4, include_drive_chart=False, include_replays=False, include_standings=False, include_tagged_videos=False)
-
-    assert res is not None
+    res = sdk.football.get_weekly_game_details(season=2025, type_="REG", week=4, include_drive_chart=False, include_replays=False, include_standings=False, include_tagged_videos=False)
 
     # Handle response
     print(res)
@@ -116,9 +112,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_football_games
 
@@ -130,17 +126,15 @@ This endpoint provides core game data with external IDs.
 
 <!-- UsageSnippet language="python" operationID="getFootballGames" method="get" path="/football/v2/games/season/{season}/seasonType/{seasonType}/week/{week}" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_football_games(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, with_external_ids=False)
-
-    assert res is not None
+    res = sdk.football.get_football_games(season=2025, season_type="REG", week=4, with_external_ids=False)
 
     # Handle response
     print(res)
@@ -164,9 +158,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_football_box_score
 
@@ -178,17 +172,15 @@ team statistics, individual player statistics, and scoring summary.
 
 <!-- UsageSnippet language="python" operationID="getFootballBoxScore" method="get" path="/football/v2/games/{gameId}/boxscore" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_football_box_score(game_id="ebc07c38-dcb1-4f5e-b7af-7ecdcae7eebe")
-
-    assert res is not None
+    res = sdk.football.get_football_box_score(game_id="ebc07c38-dcb1-4f5e-b7af-7ecdcae7eebe")
 
     # Handle response
     print(res)
@@ -209,9 +201,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_play_by_play
 
@@ -223,17 +215,15 @@ all plays, drives, scoring events, and key statistics.
 
 <!-- UsageSnippet language="python" operationID="getPlayByPlay" method="get" path="/football/v2/games/{gameId}/playbyplay" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_play_by_play(game_id="7dac8dbb-0515-45a5-99f8-c1ecc9cdcbba", include_penalties=True, include_formations=False)
-
-    assert res is not None
+    res = sdk.football.get_play_by_play(game_id="7dac8dbb-0515-45a5-99f8-c1ecc9cdcbba", include_penalties=True, include_formations=False)
 
     # Handle response
     print(res)
@@ -256,9 +246,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_injury_reports
 
@@ -270,17 +260,15 @@ with injury status, designation, and practice participation.
 
 <!-- UsageSnippet language="python" operationID="getInjuryReports" method="get" path="/football/v2/injuries" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_injury_reports(season=2025, week=4)
-
-    assert res is not None
+    res = sdk.football.get_injury_reports(season=2025, week=4)
 
     # Handle response
     print(res)
@@ -303,9 +291,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_players_team_roster
 
@@ -315,17 +303,15 @@ Retrieves the complete roster for a specific team including active, practice squ
 
 <!-- UsageSnippet language="python" operationID="getPlayersTeamRoster" method="get" path="/football/v2/players/teams/{teamId}/roster" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_players_team_roster(team_id="10403800-517c-7b8c-65a3-c61b95d86123", season=2025, include_stats=False)
-
-    assert res is not None
+    res = sdk.football.get_players_team_roster(team_id="10403800-517c-7b8c-65a3-c61b95d86123", season=2025, include_stats=False)
 
     # Handle response
     print(res)
@@ -348,9 +334,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_player_details
 
@@ -362,17 +348,15 @@ career statistics, and current season performance.
 
 <!-- UsageSnippet language="python" operationID="getPlayerDetails" method="get" path="/football/v2/players/{playerId}" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_player_details(player_id="2560726", season=2025)
-
-    assert res is not None
+    res = sdk.football.get_player_details(player_id="2560726", season=2025)
 
     # Handle response
     print(res)
@@ -394,9 +378,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_standings
 
@@ -408,17 +392,15 @@ Includes division, conference, and overall standings with detailed statistics.
 
 <!-- UsageSnippet language="python" operationID="getStandings" method="get" path="/football/v2/standings" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_standings(season=2025, season_type=models.SeasonTypeEnum.REG, week=3, limit=20)
-
-    assert res is not None
+    res = sdk.football.get_standings(season=2025, season_type="REG", week=3, limit=20)
 
     # Handle response
     print(res)
@@ -442,9 +424,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_live_game_stats
 
@@ -456,17 +438,15 @@ Provides real-time statistical data for specified season, type, and week.
 
 <!-- UsageSnippet language="python" operationID="getLiveGameStats" method="get" path="/football/v2/stats/live/game-summaries" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_live_game_stats(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
-
-    assert res is not None
+    res = sdk.football.get_live_game_stats(season=2025, season_type="REG", week=4)
 
     # Handle response
     print(res)
@@ -489,9 +469,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_season_player_stats
 
@@ -503,17 +483,15 @@ options by position, team, and statistical categories.
 
 <!-- UsageSnippet language="python" operationID="getSeasonPlayerStats" method="get" path="/football/v2/stats/players/season" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_season_player_stats(season=2025, season_type=models.SeasonTypeEnum.REG, stat_category=models.StatCategory.PASSING, sort="passingYards:desc", limit=50, offset=0)
-
-    assert res is not None
+    res = sdk.football.get_season_player_stats(season=2025, season_type="REG", stat_category="passing", sort="passingYards:desc", limit=50, offset=0)
 
     # Handle response
     print(res)
@@ -541,9 +519,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_transactions
 
@@ -556,17 +534,15 @@ practice squad moves, and injured reserve designations.
 <!-- UsageSnippet language="python" operationID="getTransactions" method="get" path="/football/v2/transactions" -->
 ```python
 from datetime import date
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_transactions(start_date=date.fromisoformat("2025-01-01"), end_date=date.fromisoformat("2025-09-24"), limit=20)
-
-    assert res is not None
+    res = sdk.football.get_transactions(start_date=date.fromisoformat("2025-01-01"), end_date=date.fromisoformat("2025-09-24"), limit=20)
 
     # Handle response
     print(res)
@@ -591,9 +567,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_venues
 
@@ -605,17 +581,15 @@ Provides venue details such as addresses, locations, and territories.
 
 <!-- UsageSnippet language="python" operationID="getVenues" method="get" path="/football/v2/venues" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_venues(season=2025, limit=20)
-
-    assert res is not None
+    res = sdk.football.get_venues(season=2025, limit=20)
 
     # Handle response
     print(res)
@@ -637,9 +611,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_season_weeks
 
@@ -649,17 +623,15 @@ Retrieves all weeks for a specific season including preseason, regular season, a
 
 <!-- UsageSnippet language="python" operationID="getSeasonWeeks" method="get" path="/football/v2/weeks/season/{season}" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.football.get_season_weeks(season=2025, limit=20)
-
-    assert res is not None
+    res = sdk.football.get_season_weeks(season=2025, limit=20)
 
     # Handle response
     print(res)
@@ -681,6 +653,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

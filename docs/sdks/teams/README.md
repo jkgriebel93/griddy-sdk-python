@@ -22,17 +22,15 @@ Returns comprehensive team data including colors, logos, stadiums, and contact i
 
 <!-- UsageSnippet language="python" operationID="getAllTeams" method="get" path="/api/teams/all" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.teams.get_all_teams()
-
-    assert res is not None
+    res = sdk.teams.get_all_teams()
 
     # Handle response
     print(res)
@@ -52,9 +50,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_team_roster
 
@@ -66,17 +64,15 @@ Returns detailed player information including physical attributes, college info,
 
 <!-- UsageSnippet language="python" operationID="getTeamRoster" method="get" path="/api/teams/roster" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.teams.get_team_roster(team_id="3000", season=2025)
-
-    assert res is not None
+    res = sdk.teams.get_team_roster(team_id="3000", season=2025)
 
     # Handle response
     print(res)
@@ -98,9 +94,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_weekly_team_roster
 
@@ -112,17 +108,15 @@ Returns player information with weekly status and availability.
 
 <!-- UsageSnippet language="python" operationID="getWeeklyTeamRoster" method="get" path="/api/teams/rosterWeek" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.teams.get_weekly_team_roster(team_id="3900", season=2025, season_type=models.SeasonTypeEnum.REG, week=3)
-
-    assert res is not None
+    res = sdk.teams.get_weekly_team_roster(team_id="3900", season=2025, season_type="REG", week=3)
 
     # Handle response
     print(res)
@@ -146,9 +140,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_team_schedule
 
@@ -160,17 +154,15 @@ Returns all games including preseason, regular season, and postseason with score
 
 <!-- UsageSnippet language="python" operationID="getTeamSchedule" method="get" path="/api/teams/schedule" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.teams.get_team_schedule(team_id="3000", season=2025)
-
-    assert res is not None
+    res = sdk.teams.get_team_schedule(team_id="3000", season=2025)
 
     # Handle response
     print(res)
@@ -192,6 +184,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

@@ -21,17 +21,15 @@ team information, draft details, and current status.
 
 <!-- UsageSnippet language="python" operationID="getPlayer" method="get" path="/api/players/player" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.players.get_player(nfl_id=54517)
-
-    assert res is not None
+    res = sdk.players.get_player(nfl_id=54517)
 
     # Handle response
     print(res)
@@ -52,9 +50,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_projected_stats
 
@@ -66,17 +64,15 @@ Returns data in JSON:API format with relationships between players and their pro
 
 <!-- UsageSnippet language="python" operationID="getProjectedStats" method="get" path="/api/players/projectedStats" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.players.get_projected_stats(season=2025, week=4, filter_nfl_team_id="10403000-5851-f9d5-da45-78365a05b6b0", page_size=20)
-
-    assert res is not None
+    res = sdk.players.get_projected_stats(season=2025, week=4, filter_nfl_team_id="10403000-5851-f9d5-da45-78365a05b6b0", page_size=20)
 
     # Handle response
     print(res)
@@ -100,9 +96,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## search_players
 
@@ -114,17 +110,15 @@ including both active and retired players.
 
 <!-- UsageSnippet language="python" operationID="searchPlayers" method="get" path="/api/players/search" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.players.search_players(term="Pickens")
-
-    assert res is not None
+    res = sdk.players.search_players(term="Pickens")
 
     # Handle response
     print(res)
@@ -145,6 +139,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
