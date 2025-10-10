@@ -1,0 +1,16 @@
+# Docs that we don't want to overwrite
+CONTRIBUTING.md
+README.md
+USAGE.md
+
+# Custom configurations
+.github/
+.spectral.yaml
+pyproject.toml
+uv.lock
+
+# Source files containing custom implementation
+src/griddy/nfl/__init__.py
+src/griddy/nfl/_version.py
+src/griddy/nfl/sdk.py
+
