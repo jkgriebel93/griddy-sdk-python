@@ -1,0 +1,13 @@
+# ProjectedStatsResponse
+
+JSON:API formatted response for projected statistics
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `data`                                                                                             | List[[models.PlayerProjection](../models/playerprojection.md)]                                     | :heavy_minus_sign:                                                                                 | Primary player data with relationships                                                             |
+| `included`                                                                                         | List[[models.Included](../models/included.md)]                                                     | :heavy_minus_sign:                                                                                 | Related data included in response                                                                  |
+| `meta`                                                                                             | [Optional[models.Meta]](../models/meta.md)                                                         | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
+| `pagination`                                                                                       | [Optional[models.ProjectedStatsResponsePagination]](../models/projectedstatsresponsepagination.md) | :heavy_minus_sign:                                                                                 | N/A                                                                                                |

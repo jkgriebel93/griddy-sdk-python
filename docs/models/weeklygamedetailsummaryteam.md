@@ -1,0 +1,13 @@
+# WeeklyGameDetailSummaryTeam
+
+Team game state in summary
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `has_possession`                                                                                 | *Optional[bool]*                                                                                 | :heavy_minus_sign:                                                                               | Whether the team currently has possession                                                        |
+| `score`                                                                                          | [Optional[models.WeeklyGameDetailSummaryScore]](../models/weeklygamedetailsummaryscore.md)       | :heavy_minus_sign:                                                                               | Team score breakdown by quarter                                                                  |
+| `team_id`                                                                                        | *Optional[str]*                                                                                  | :heavy_minus_sign:                                                                               | Team identifier (UUID format)                                                                    |
+| `timeouts`                                                                                       | [Optional[models.WeeklyGameDetailSummaryTimeouts]](../models/weeklygamedetailsummarytimeouts.md) | :heavy_minus_sign:                                                                               | Team timeout information                                                                         |

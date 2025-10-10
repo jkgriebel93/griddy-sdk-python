@@ -1,0 +1,12 @@
+# WeeklyRosterResponse
+
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    | Example                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `season`                                                       | *Optional[int]*                                                | :heavy_minus_sign:                                             | Season year                                                    | 2025                                                           |
+| `season_type`                                                  | [Optional[models.SeasonTypeEnum]](../models/seasontypeenum.md) | :heavy_minus_sign:                                             | Type of NFL season                                             | REG                                                            |
+| `team`                                                         | [Optional[models.TeamInfo]](../models/teaminfo.md)             | :heavy_minus_sign:                                             | Basic team information included in roster responses            |                                                                |
+| `team_players`                                                 | List[[models.WeeklyPlayer](../models/weeklyplayer.md)]         | :heavy_minus_sign:                                             | N/A                                                            |                                                                |
+| `week`                                                         | *Optional[int]*                                                | :heavy_minus_sign:                                             | Week number                                                    | 3                                                              |

@@ -1,0 +1,15 @@
+# FuturesMarket
+
+
+## Fields
+
+| Field                                                    | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `fixture`                                                | [OptionalNullable[models.Fixture]](../models/fixture.md) | :heavy_minus_sign:                                       | Associated fixture information                           |                                                          |
+| `fixture_id`                                             | *OptionalNullable[str]*                                  | :heavy_minus_sign:                                       | Associated fixture ID if applicable                      |                                                          |
+| `hierarchy`                                              | *Optional[str]*                                          | :heavy_minus_sign:                                       | Full betting hierarchy path                              | American Football /$/ NFL/$/Futures /$/ Super Bowl 2026  |
+| `is_available`                                           | *Optional[bool]*                                         | :heavy_minus_sign:                                       | Whether market is currently available                    |                                                          |
+| `is_suspended`                                           | *Optional[bool]*                                         | :heavy_minus_sign:                                       | Whether market is currently suspended                    |                                                          |
+| `name`                                                   | *Optional[str]*                                          | :heavy_minus_sign:                                       | Market name (e.g., "Winner", "Division Winner")          |                                                          |
+| `selections`                                             | List[[models.OddsSelection](../models/oddsselection.md)] | :heavy_minus_sign:                                       | N/A                                                      |                                                          |
+| `source_id`                                              | *Optional[str]*                                          | :heavy_minus_sign:                                       | Source identifier for the market                         |                                                          |

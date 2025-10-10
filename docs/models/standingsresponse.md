@@ -1,0 +1,12 @@
+# StandingsResponse
+
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    | Example                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `pagination`                                                   | [Optional[models.Pagination]](../models/pagination.md)         | :heavy_minus_sign:                                             | N/A                                                            |                                                                |
+| `season`                                                       | *Optional[int]*                                                | :heavy_minus_sign:                                             | N/A                                                            |                                                                |
+| `season_type`                                                  | [Optional[models.SeasonTypeEnum]](../models/seasontypeenum.md) | :heavy_minus_sign:                                             | Type of NFL season                                             | REG                                                            |
+| `week`                                                         | *Optional[int]*                                                | :heavy_minus_sign:                                             | Current week for standings                                     |                                                                |
+| `weeks`                                                        | List[[models.Weeks](../models/weeks.md)]                       | :heavy_minus_sign:                                             | N/A                                                            |                                                                |

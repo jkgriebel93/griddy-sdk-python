@@ -1,0 +1,35 @@
+# TeamOffenseOverviewStats
+
+
+## Fields
+
+| Field                                      | Type                                       | Required                                   | Description                                | Example                                    |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| `epa`                                      | *Optional[float]*                          | :heavy_minus_sign:                         | Total EPA (positive is better for offense) | 15.245                                     |
+| `epa_pp`                                   | *Optional[float]*                          | :heavy_minus_sign:                         | EPA per play                               | 0.0824                                     |
+| `epa_pass`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | EPA on passing plays                       | 12.156                                     |
+| `epa_pass_pp`                              | *Optional[float]*                          | :heavy_minus_sign:                         | EPA per pass play                          | 0.1085                                     |
+| `epa_rush`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | EPA on rushing plays                       | 3.089                                      |
+| `epa_rush_pp`                              | *Optional[float]*                          | :heavy_minus_sign:                         | EPA per rush play                          | 0.0423                                     |
+| `gp`                                       | *Optional[int]*                            | :heavy_minus_sign:                         | Games played                               | 3                                          |
+| `pass_`                                    | *Optional[int]*                            | :heavy_minus_sign:                         | Pass attempts (including sacks)            | 112                                        |
+| `pass_pct`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | Percentage of plays that were passes (0-1) | 0.6054                                     |
+| `pass_td`                                  | *Optional[int]*                            | :heavy_minus_sign:                         | Passing touchdowns                         | 5                                          |
+| `pass_yds`                                 | *Optional[int]*                            | :heavy_minus_sign:                         | Passing yards                              | 856                                        |
+| `pass_ypg`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | Pass yards per game                        | 285.33333                                  |
+| `pass_ypp`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | Passing yards per pass attempt             | 7.643                                      |
+| `ppg`                                      | *Optional[float]*                          | :heavy_minus_sign:                         | Points per game                            | 24.33333                                   |
+| `red_zone_pct`                             | *Optional[float]*                          | :heavy_minus_sign:                         | Red zone touchdown percentage (0-1)        | 0.6667                                     |
+| `run`                                      | *Optional[int]*                            | :heavy_minus_sign:                         | Rush attempts                              | 73                                         |
+| `rush_td`                                  | *Optional[int]*                            | :heavy_minus_sign:                         | Rushing touchdowns                         | 3                                          |
+| `rush_yds`                                 | *Optional[int]*                            | :heavy_minus_sign:                         | Rushing yards                              | 400                                        |
+| `rush_ypg`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | Rush yards per game                        | 133.33333                                  |
+| `rush_ypp`                                 | *Optional[float]*                          | :heavy_minus_sign:                         | Rushing yards per rush attempt             | 5.479                                      |
+| `td`                                       | *Optional[int]*                            | :heavy_minus_sign:                         | Total touchdowns                           | 8                                          |
+| `team_id`                                  | *Optional[str]*                            | :heavy_minus_sign:                         | Team identifier                            | 3000                                       |
+| `third_down_pct`                           | *Optional[float]*                          | :heavy_minus_sign:                         | Third down conversion percentage (0-1)     | 0.4286                                     |
+| `to`                                       | *Optional[int]*                            | :heavy_minus_sign:                         | Turnovers                                  | 4                                          |
+| `total`                                    | *Optional[int]*                            | :heavy_minus_sign:                         | Total offensive plays                      | 185                                        |
+| `yds`                                      | *Optional[int]*                            | :heavy_minus_sign:                         | Total offensive yards                      | 1256                                       |
+| `ypg`                                      | *Optional[float]*                          | :heavy_minus_sign:                         | Yards per game                             | 418.66667                                  |
+| `ypp`                                      | *Optional[float]*                          | :heavy_minus_sign:                         | Yards per play                             | 6.789                                      |

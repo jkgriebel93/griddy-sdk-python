@@ -1,0 +1,20 @@
+# Play
+
+
+## Fields
+
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `description`                                                | *Optional[str]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `distance`                                                   | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `down`                                                       | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `game_clock`                                                 | *Optional[str]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `penalties`                                                  | List[[models.Penalty](../models/penalty.md)]                 | :heavy_minus_sign:                                           | N/A                                                          |
+| `play_id`                                                    | *Optional[str]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `play_number`                                                | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `play_type`                                                  | [Optional[models.PlayTypeEnum]](../models/playtypeenum.md)   | :heavy_minus_sign:                                           | Enumeration of all possible play types                       |
+| `players`                                                    | List[[models.PlayParticipant](../models/playparticipant.md)] | :heavy_minus_sign:                                           | N/A                                                          |
+| `quarter`                                                    | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `result`                                                     | *Optional[str]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `yard_line`                                                  | *Optional[str]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `yards_gained`                                               | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |

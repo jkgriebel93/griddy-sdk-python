@@ -1,0 +1,12 @@
+# BroadcastInfo
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `away_network_channels`                                                          | List[*str*]                                                                      | :heavy_minus_sign:                                                               | Networks broadcasting in away market                                             |
+| `home_network_channels`                                                          | List[*str*]                                                                      | :heavy_minus_sign:                                                               | Networks broadcasting in home market                                             |
+| `international_watch_options`                                                    | List[[models.InternationalWatchOptions](../models/internationalwatchoptions.md)] | :heavy_minus_sign:                                                               | International viewing options                                                    |
+| `streaming_networks`                                                             | List[[models.StreamingNetworks](../models/streamingnetworks.md)]                 | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `territory`                                                                      | [Optional[models.Territory]](../models/territory.md)                             | :heavy_minus_sign:                                                               | Broadcast territory scope                                                        |

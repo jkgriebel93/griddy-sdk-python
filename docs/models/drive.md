@@ -1,0 +1,19 @@
+# Drive
+
+
+## Fields
+
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `drive_number`                                                   | *Optional[int]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `end_time`                                                       | *Optional[str]*                                                  | :heavy_minus_sign:                                               | Game clock at drive end                                          |
+| `end_yard_line`                                                  | *Optional[str]*                                                  | :heavy_minus_sign:                                               | Ending field position                                            |
+| `plays`                                                          | List[[models.Play](../models/play.md)]                           | :heavy_minus_sign:                                               | N/A                                                              |
+| `quarter`                                                        | *Optional[int]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `result`                                                         | [Optional[models.DriveResultEnum]](../models/driveresultenum.md) | :heavy_minus_sign:                                               | Outcome of a given drive                                         |
+| `start_time`                                                     | *Optional[str]*                                                  | :heavy_minus_sign:                                               | Game clock at drive start                                        |
+| `start_yard_line`                                                | *Optional[str]*                                                  | :heavy_minus_sign:                                               | Starting field position                                          |
+| `team`                                                           | [Optional[models.Team]](../models/team.md)                       | :heavy_minus_sign:                                               | N/A                                                              |
+| `time_of_possession`                                             | *Optional[str]*                                                  | :heavy_minus_sign:                                               | Drive duration (MM:SS)                                           |
+| `total_plays`                                                    | *Optional[int]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `total_yards`                                                    | *Optional[int]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |

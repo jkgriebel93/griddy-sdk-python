@@ -1,0 +1,17 @@
+# VideoTag
+
+Video tag information
+
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    | Example                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `game_id`                                                      | *Optional[str]*                                                | :heavy_minus_sign:                                             | Game identifier (for game tags)                                | f665fc10-311e-11f0-b670-ae1250fadad1                           |
+| `person_id`                                                    | *Optional[str]*                                                | :heavy_minus_sign:                                             | Person identifier (for player tags)                            | 3200424f-5374-3355-5a91-480dcb22e23b                           |
+| `season`                                                       | *Optional[str]*                                                | :heavy_minus_sign:                                             | Season year (for game tags)                                    | 2025                                                           |
+| `season_type`                                                  | [Optional[models.SeasonTypeEnum]](../models/seasontypeenum.md) | :heavy_minus_sign:                                             | Type of NFL season                                             | REG                                                            |
+| `slug`                                                         | *Optional[str]*                                                | :heavy_minus_sign:                                             | URL-friendly tag identifier                                    | boswell,-christopher-(2014---2020)                             |
+| `team_id`                                                      | *Optional[str]*                                                | :heavy_minus_sign:                                             | Team identifier (for team tags)                                | 10403200_69ab_9ea6_5af5_e240fbc08bea                           |
+| `title`                                                        | *Optional[str]*                                                | :heavy_minus_sign:                                             | Tag title                                                      | Boswell, Christopher (2014 - 2020)                             |
+| `week`                                                         | *Optional[str]*                                                | :heavy_minus_sign:                                             | Week number (for game tags)                                    | 3                                                              |
