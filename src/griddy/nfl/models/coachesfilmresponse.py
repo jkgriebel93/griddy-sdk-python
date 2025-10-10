@@ -4,20 +4,20 @@ from __future__ import annotations
 from .coachesfilmvideo import CoachesFilmVideo, CoachesFilmVideoTypedDict
 from .pagination import Pagination, PaginationTypedDict
 from .responsemetadata import ResponseMetadata, ResponseMetadataTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class CoachesFilmResponseTypedDict(TypedDict):
-    items: List[CoachesFilmVideoTypedDict]
-    metadata: ResponseMetadataTypedDict
+    items: NotRequired[List[CoachesFilmVideoTypedDict]]
+    metadata: NotRequired[ResponseMetadataTypedDict]
     pagination: NotRequired[PaginationTypedDict]
 
 
 class CoachesFilmResponse(BaseModel):
-    items: List[CoachesFilmVideo]
+    items: Optional[List[CoachesFilmVideo]] = None
 
-    metadata: ResponseMetadata
+    metadata: Optional[ResponseMetadata] = None
 
     pagination: Optional[Pagination] = None

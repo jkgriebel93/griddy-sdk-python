@@ -3,124 +3,143 @@
 from __future__ import annotations
 from .playtypeenum import PlayTypeEnum
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
+from .weekslugenum import WeekSlugEnum
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Any, Dict, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FilmroomPlayTypedDict(TypedDict):
-    defense_team_id: str
+    defense_team_id: NotRequired[str]
     r"""Defensive team identifier"""
-    down: int
+    down: NotRequired[int]
     r"""Down number"""
-    fapi_game_id: str
+    fapi_game_id: NotRequired[str]
     r"""Football API game identifier"""
-    game_clock: str
+    game_clock: NotRequired[str]
     r"""Game clock time when play occurred"""
-    game_id: int
+    game_id: NotRequired[int]
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
-    home_team_abbr: str
+    home_team_abbr: NotRequired[str]
     r"""Home team abbreviation"""
-    home_team_id: str
+    home_team_id: NotRequired[str]
     r"""Home team identifier"""
-    play_description: str
+    play_description: NotRequired[str]
     r"""Detailed description of the play"""
-    play_id: int
+    play_id: NotRequired[int]
     r"""Unique play identifier within the game"""
-    play_type: PlayTypeEnum
+    play_type: NotRequired[PlayTypeEnum]
     r"""Enumeration of all possible play types"""
-    possession_team_id: str
+    possession_team_id: NotRequired[str]
     r"""Team with possession of the ball"""
-    quarter: int
+    quarter: NotRequired[int]
     r"""Quarter of the play"""
-    season: int
+    season: NotRequired[int]
     r"""Season year"""
-    season_type: SeasonTypeEnum
+    season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    sequence: int
-    r"""Play sequence number"""
-    visitor_team_abbr: str
-    r"""Visiting team abbreviation"""
-    visitor_team_id: str
-    r"""Visiting team identifier"""
-    week: int
-    r"""Week number"""
-    week_slug: str
-    r"""Week identifier slug"""
-    yardline: str
-    r"""Field position where play occurred"""
-    yards_to_go: int
-    r"""Yards needed for first down"""
     selected_param_values: NotRequired[Dict[str, Any]]
     r"""Selected parameter values for the play filter"""
+    sequence: NotRequired[int]
+    r"""Play sequence number"""
+    visitor_team_abbr: NotRequired[str]
+    r"""Visiting team abbreviation"""
+    visitor_team_id: NotRequired[str]
+    r"""Visiting team identifier"""
+    week: NotRequired[int]
+    r"""Week number"""
+    week_slug: NotRequired[WeekSlugEnum]
+    r"""Week identifier slug"""
+    yardline: NotRequired[str]
+    r"""Field position where play occurred"""
+    yards_to_go: NotRequired[int]
+    r"""Yards needed for first down"""
 
 
 class FilmroomPlay(BaseModel):
-    defense_team_id: Annotated[str, pydantic.Field(alias="defenseTeamId")]
+    defense_team_id: Annotated[Optional[str], pydantic.Field(alias="defenseTeamId")] = (
+        None
+    )
     r"""Defensive team identifier"""
 
-    down: int
+    down: Optional[int] = None
     r"""Down number"""
 
-    fapi_game_id: Annotated[str, pydantic.Field(alias="fapiGameId")]
+    fapi_game_id: Annotated[Optional[str], pydantic.Field(alias="fapiGameId")] = None
     r"""Football API game identifier"""
 
-    game_clock: Annotated[str, pydantic.Field(alias="gameClock")]
+    game_clock: Annotated[Optional[str], pydantic.Field(alias="gameClock")] = None
     r"""Game clock time when play occurred"""
 
-    game_id: Annotated[int, pydantic.Field(alias="gameId")]
+    game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
 
-    home_team_abbr: Annotated[str, pydantic.Field(alias="homeTeamAbbr")]
+    home_team_abbr: Annotated[Optional[str], pydantic.Field(alias="homeTeamAbbr")] = (
+        None
+    )
     r"""Home team abbreviation"""
 
-    home_team_id: Annotated[str, pydantic.Field(alias="homeTeamId")]
+    home_team_id: Annotated[Optional[str], pydantic.Field(alias="homeTeamId")] = None
     r"""Home team identifier"""
 
-    play_description: Annotated[str, pydantic.Field(alias="playDescription")]
+    play_description: Annotated[
+        Optional[str], pydantic.Field(alias="playDescription")
+    ] = None
     r"""Detailed description of the play"""
 
-    play_id: Annotated[int, pydantic.Field(alias="playId")]
+    play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
     r"""Unique play identifier within the game"""
 
-    play_type: Annotated[PlayTypeEnum, pydantic.Field(alias="playType")]
+    play_type: Annotated[Optional[PlayTypeEnum], pydantic.Field(alias="playType")] = (
+        None
+    )
     r"""Enumeration of all possible play types"""
 
-    possession_team_id: Annotated[str, pydantic.Field(alias="possessionTeamId")]
+    possession_team_id: Annotated[
+        Optional[str], pydantic.Field(alias="possessionTeamId")
+    ] = None
     r"""Team with possession of the ball"""
 
-    quarter: int
+    quarter: Optional[int] = None
     r"""Quarter of the play"""
 
-    season: int
+    season: Optional[int] = None
     r"""Season year"""
 
-    season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
     r"""Type of NFL season"""
-
-    sequence: int
-    r"""Play sequence number"""
-
-    visitor_team_abbr: Annotated[str, pydantic.Field(alias="visitorTeamAbbr")]
-    r"""Visiting team abbreviation"""
-
-    visitor_team_id: Annotated[str, pydantic.Field(alias="visitorTeamId")]
-    r"""Visiting team identifier"""
-
-    week: int
-    r"""Week number"""
-
-    week_slug: Annotated[str, pydantic.Field(alias="weekSlug")]
-    r"""Week identifier slug"""
-
-    yardline: str
-    r"""Field position where play occurred"""
-
-    yards_to_go: Annotated[int, pydantic.Field(alias="yardsToGo")]
-    r"""Yards needed for first down"""
 
     selected_param_values: Annotated[
         Optional[Dict[str, Any]], pydantic.Field(alias="selectedParamValues")
     ] = None
     r"""Selected parameter values for the play filter"""
+
+    sequence: Optional[int] = None
+    r"""Play sequence number"""
+
+    visitor_team_abbr: Annotated[
+        Optional[str], pydantic.Field(alias="visitorTeamAbbr")
+    ] = None
+    r"""Visiting team abbreviation"""
+
+    visitor_team_id: Annotated[Optional[str], pydantic.Field(alias="visitorTeamId")] = (
+        None
+    )
+    r"""Visiting team identifier"""
+
+    week: Optional[int] = None
+    r"""Week number"""
+
+    week_slug: Annotated[Optional[WeekSlugEnum], pydantic.Field(alias="weekSlug")] = (
+        None
+    )
+    r"""Week identifier slug"""
+
+    yardline: Optional[str] = None
+    r"""Field position where play occurred"""
+
+    yards_to_go: Annotated[Optional[int], pydantic.Field(alias="yardsToGo")] = None
+    r"""Yards needed for first down"""

@@ -3,35 +3,19 @@
 from __future__ import annotations
 from .gameresultenum import GameResultEnum
 from .offensiveplayerpositionenum import OffensivePlayerPositionEnum
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class WeeklyPlayerRushingStatsTypedDict(TypedDict):
-    att: int
+    att: NotRequired[int]
     r"""Rushing attempts"""
-    display_name: str
-    r"""Player's full name"""
-    gp: int
-    r"""Games played"""
-    gs: int
-    r"""Games started"""
-    nfl_id: str
-    r"""NFL player identifier"""
-    position: OffensivePlayerPositionEnum
-    r"""Offensive player position"""
-    td: int
-    r"""Rushing touchdowns"""
-    team_id: str
-    r"""Team identifier"""
-    yds: int
-    r"""Rushing yards"""
-    ypc: float
-    r"""Yards per carry"""
     att_pg: NotRequired[float]
     r"""Attempts per game"""
+    display_name: NotRequired[str]
+    r"""Player's full name"""
     eff: NotRequired[float]
     r"""Efficiency rating"""
     epa: NotRequired[float]
@@ -52,6 +36,10 @@ class WeeklyPlayerRushingStatsTypedDict(TypedDict):
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
     game_result: NotRequired[GameResultEnum]
     r"""Game result (Win/Loss/Tie)"""
+    gp: NotRequired[int]
+    r"""Games played"""
+    gs: NotRequired[int]
+    r"""Games started"""
     headshot: NotRequired[str]
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
     in_t_pct: NotRequired[float]
@@ -64,12 +52,16 @@ class WeeklyPlayerRushingStatsTypedDict(TypedDict):
     r"""Fumbles lost"""
     lost_pg: NotRequired[float]
     r"""Fumbles lost per game"""
+    nfl_id: NotRequired[str]
+    r"""NFL player identifier"""
     ngs_position: NotRequired[OffensivePlayerPositionEnum]
     r"""Offensive player position"""
     ngs_position_group: NotRequired[OffensivePlayerPositionEnum]
     r"""Offensive player position"""
     opponent_team_id: NotRequired[str]
     r"""Opponent team identifier"""
+    position: NotRequired[OffensivePlayerPositionEnum]
+    r"""Offensive player position"""
     position_group: NotRequired[OffensivePlayerPositionEnum]
     r"""Offensive player position"""
     qr: NotRequired[bool]
@@ -98,8 +90,12 @@ class WeeklyPlayerRushingStatsTypedDict(TypedDict):
     r"""Stacked box percentage (0-1)"""
     success: NotRequired[float]
     r"""Success rate (0-1)"""
+    td: NotRequired[int]
+    r"""Rushing touchdowns"""
     td_pg: NotRequired[float]
     r"""Touchdowns per game"""
+    team_id: NotRequired[str]
+    r"""Team identifier"""
     tg: NotRequired[int]
     r"""Team games for player"""
     total_tg: NotRequired[int]
@@ -124,43 +120,23 @@ class WeeklyPlayerRushingStatsTypedDict(TypedDict):
     r"""Yards before contact"""
     ybco_pg: NotRequired[float]
     r"""Yards before contact per game"""
+    yds: NotRequired[int]
+    r"""Rushing yards"""
     yds_pg: NotRequired[float]
     r"""Yards per game"""
+    ypc: NotRequired[float]
+    r"""Yards per carry"""
 
 
 class WeeklyPlayerRushingStats(BaseModel):
-    att: int
+    att: Optional[int] = None
     r"""Rushing attempts"""
-
-    display_name: Annotated[str, pydantic.Field(alias="displayName")]
-    r"""Player's full name"""
-
-    gp: int
-    r"""Games played"""
-
-    gs: int
-    r"""Games started"""
-
-    nfl_id: Annotated[str, pydantic.Field(alias="nflId")]
-    r"""NFL player identifier"""
-
-    position: OffensivePlayerPositionEnum
-    r"""Offensive player position"""
-
-    td: int
-    r"""Rushing touchdowns"""
-
-    team_id: Annotated[str, pydantic.Field(alias="teamId")]
-    r"""Team identifier"""
-
-    yds: int
-    r"""Rushing yards"""
-
-    ypc: float
-    r"""Yards per carry"""
 
     att_pg: Annotated[Optional[float], pydantic.Field(alias="attPG")] = None
     r"""Attempts per game"""
+
+    display_name: Annotated[Optional[str], pydantic.Field(alias="displayName")] = None
+    r"""Player's full name"""
 
     eff: Optional[float] = None
     r"""Efficiency rating"""
@@ -194,6 +170,12 @@ class WeeklyPlayerRushingStats(BaseModel):
     ] = None
     r"""Game result (Win/Loss/Tie)"""
 
+    gp: Optional[int] = None
+    r"""Games played"""
+
+    gs: Optional[int] = None
+    r"""Games started"""
+
     headshot: Optional[str] = None
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
 
@@ -212,6 +194,9 @@ class WeeklyPlayerRushingStats(BaseModel):
     lost_pg: Annotated[Optional[float], pydantic.Field(alias="lostPG")] = None
     r"""Fumbles lost per game"""
 
+    nfl_id: Annotated[Optional[str], pydantic.Field(alias="nflId")] = None
+    r"""NFL player identifier"""
+
     ngs_position: Annotated[
         Optional[OffensivePlayerPositionEnum], pydantic.Field(alias="ngsPosition")
     ] = None
@@ -226,6 +211,9 @@ class WeeklyPlayerRushingStats(BaseModel):
         Optional[str], pydantic.Field(alias="opponentTeamId")
     ] = None
     r"""Opponent team identifier"""
+
+    position: Optional[OffensivePlayerPositionEnum] = None
+    r"""Offensive player position"""
 
     position_group: Annotated[
         Optional[OffensivePlayerPositionEnum], pydantic.Field(alias="positionGroup")
@@ -277,8 +265,14 @@ class WeeklyPlayerRushingStats(BaseModel):
     success: Optional[float] = None
     r"""Success rate (0-1)"""
 
+    td: Optional[int] = None
+    r"""Rushing touchdowns"""
+
     td_pg: Annotated[Optional[float], pydantic.Field(alias="tdPG")] = None
     r"""Touchdowns per game"""
+
+    team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
+    r"""Team identifier"""
 
     tg: Optional[int] = None
     r"""Team games for player"""
@@ -316,5 +310,11 @@ class WeeklyPlayerRushingStats(BaseModel):
     ybco_pg: Annotated[Optional[float], pydantic.Field(alias="ybcoPG")] = None
     r"""Yards before contact per game"""
 
+    yds: Optional[int] = None
+    r"""Rushing yards"""
+
     yds_pg: Annotated[Optional[float], pydantic.Field(alias="ydsPG")] = None
     r"""Yards per game"""
+
+    ypc: Optional[float] = None
+    r"""Yards per carry"""

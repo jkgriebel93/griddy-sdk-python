@@ -2,11 +2,10 @@
 
 from .basesdk import BaseSDK
 from datetime import date
-from . import errors, models, utils
-from ._hooks import HookContext
-from .types import OptionalNullable, UNSET
-from .utils import get_security_from_env
-from .utils.unmarshal_json_response import unmarshal_json_response
+from griddy.nfl import errors, models, utils
+from griddy.nfl._hooks import HookContext
+from griddy.nfl.types import OptionalNullable, UNSET
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 from typing import List, Mapping, Optional
 
 
@@ -23,7 +22,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DraftResponse:
+    ) -> Optional[models.DraftResponse]:
         r"""Get Draft Information
 
         Retrieves draft information for a specific year including all rounds,
@@ -46,7 +45,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_DRAFT_INFO_OP_SERVERS[0]
 
         request = models.GetDraftInfoRequest(
             year=year,
@@ -83,10 +82,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getDraftInfo",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -94,19 +91,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DraftResponse, http_res)
+            return unmarshal_json_response(Optional[models.DraftResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_draft_info_async(
         self,
@@ -118,7 +111,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DraftResponse:
+    ) -> Optional[models.DraftResponse]:
         r"""Get Draft Information
 
         Retrieves draft information for a specific year including all rounds,
@@ -141,7 +134,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_DRAFT_INFO_OP_SERVERS[0]
 
         request = models.GetDraftInfoRequest(
             year=year,
@@ -178,10 +171,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getDraftInfo",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -189,19 +180,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DraftResponse, http_res)
+            return unmarshal_json_response(Optional[models.DraftResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_weekly_game_details(
         self,
@@ -217,7 +204,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.WeeklyGameDetail]:
+    ) -> Optional[List[models.WeeklyGameDetail]]:
         r"""Get Weekly Game Details with Standings
 
         Retrieves detailed game information for a specific week including team standings,
@@ -244,7 +231,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_WEEKLY_GAME_DETAILS_OP_SERVERS[0]
 
         request = models.GetWeeklyGameDetailsRequest(
             season=season,
@@ -285,10 +272,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getWeeklyGameDetails",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -296,19 +281,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.WeeklyGameDetail], http_res)
+            return unmarshal_json_response(
+                Optional[List[models.WeeklyGameDetail]], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_weekly_game_details_async(
         self,
@@ -324,7 +307,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.WeeklyGameDetail]:
+    ) -> Optional[List[models.WeeklyGameDetail]]:
         r"""Get Weekly Game Details with Standings
 
         Retrieves detailed game information for a specific week including team standings,
@@ -351,7 +334,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_WEEKLY_GAME_DETAILS_OP_SERVERS[0]
 
         request = models.GetWeeklyGameDetailsRequest(
             season=season,
@@ -392,10 +375,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getWeeklyGameDetails",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -403,19 +384,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.WeeklyGameDetail], http_res)
+            return unmarshal_json_response(
+                Optional[List[models.WeeklyGameDetail]], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_football_games(
         self,
@@ -428,7 +407,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.FootballGamesResponse:
+    ) -> Optional[models.FootballGamesResponse]:
         r"""Get Games by Season, Type, and Week
 
         Retrieves game information for a specific season, season type, and week from the Football API.
@@ -452,7 +431,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_FOOTBALL_GAMES_OP_SERVERS[0]
 
         request = models.GetFootballGamesRequest(
             season=season,
@@ -490,10 +469,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getFootballGames",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -501,19 +478,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FootballGamesResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.FootballGamesResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_football_games_async(
         self,
@@ -526,7 +501,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.FootballGamesResponse:
+    ) -> Optional[models.FootballGamesResponse]:
         r"""Get Games by Season, Type, and Week
 
         Retrieves game information for a specific season, season type, and week from the Football API.
@@ -550,7 +525,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_FOOTBALL_GAMES_OP_SERVERS[0]
 
         request = models.GetFootballGamesRequest(
             season=season,
@@ -588,10 +563,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getFootballGames",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -599,19 +572,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FootballGamesResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.FootballGamesResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_football_box_score(
         self,
@@ -621,7 +592,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.BoxScoreResponse2:
+    ) -> Optional[models.BoxScoreResponse]:
         r"""Get Game Box Score (Football API)
 
         Retrieves comprehensive box score data for a specific game including
@@ -642,7 +613,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_FOOTBALL_BOX_SCORE_OP_SERVERS[0]
 
         request = models.GetFootballBoxScoreRequest(
             game_id=game_id,
@@ -677,10 +648,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getFootballBoxScore",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -688,19 +657,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.BoxScoreResponse2, http_res)
+            return unmarshal_json_response(Optional[models.BoxScoreResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_football_box_score_async(
         self,
@@ -710,7 +675,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.BoxScoreResponse2:
+    ) -> Optional[models.BoxScoreResponse]:
         r"""Get Game Box Score (Football API)
 
         Retrieves comprehensive box score data for a specific game including
@@ -731,7 +696,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_FOOTBALL_BOX_SCORE_OP_SERVERS[0]
 
         request = models.GetFootballBoxScoreRequest(
             game_id=game_id,
@@ -766,10 +731,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getFootballBoxScore",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -777,19 +740,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.BoxScoreResponse2, http_res)
+            return unmarshal_json_response(Optional[models.BoxScoreResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_play_by_play(
         self,
@@ -801,7 +760,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlayByPlayResponse:
+    ) -> Optional[models.PlayByPlayResponse]:
         r"""Get Play-by-Play Data
 
         Retrieves detailed play-by-play data for a specific game including
@@ -824,7 +783,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_PLAY_BY_PLAY_OP_SERVERS[0]
 
         request = models.GetPlayByPlayRequest(
             game_id=game_id,
@@ -861,10 +820,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlayByPlay",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -872,19 +829,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlayByPlayResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.PlayByPlayResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_play_by_play_async(
         self,
@@ -896,7 +851,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlayByPlayResponse:
+    ) -> Optional[models.PlayByPlayResponse]:
         r"""Get Play-by-Play Data
 
         Retrieves detailed play-by-play data for a specific game including
@@ -919,7 +874,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_PLAY_BY_PLAY_OP_SERVERS[0]
 
         request = models.GetPlayByPlayRequest(
             game_id=game_id,
@@ -956,10 +911,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlayByPlay",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -967,19 +920,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlayByPlayResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.PlayByPlayResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_injury_reports(
         self,
@@ -991,7 +942,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.InjuryReportResponse:
+    ) -> Optional[models.InjuryReportResponse]:
         r"""Get Injury Reports
 
         Retrieves current injury reports for all teams or specific teams
@@ -1014,7 +965,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_INJURY_REPORTS_OP_SERVERS[0]
 
         request = models.GetInjuryReportsRequest(
             season=season,
@@ -1051,10 +1002,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getInjuryReports",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -1062,19 +1011,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InjuryReportResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.InjuryReportResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_injury_reports_async(
         self,
@@ -1086,7 +1033,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.InjuryReportResponse:
+    ) -> Optional[models.InjuryReportResponse]:
         r"""Get Injury Reports
 
         Retrieves current injury reports for all teams or specific teams
@@ -1109,7 +1056,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_INJURY_REPORTS_OP_SERVERS[0]
 
         request = models.GetInjuryReportsRequest(
             season=season,
@@ -1146,10 +1093,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getInjuryReports",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -1157,19 +1102,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InjuryReportResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.InjuryReportResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_players_team_roster(
         self,
@@ -1181,12 +1124,10 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RosterResponse:
+    ) -> Optional[models.RosterResponse]:
         r"""Get Team Roster
 
-        Retrieves the complete roster for a specific team including active, practice squad,
-        and injured reserve players with detailed player information.
-
+        Retrieves the complete roster for a specific team including active, practice squad, and injured reserve players with detailed player information.
 
         :param team_id: Team identifier (UUID)
         :param season: Season year
@@ -1204,7 +1145,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_PLAYERS_TEAM_ROSTER_OP_SERVERS[0]
 
         request = models.GetPlayersTeamRosterRequest(
             team_id=team_id,
@@ -1241,10 +1182,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlayersTeamRoster",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -1252,19 +1191,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RosterResponse, http_res)
+            return unmarshal_json_response(Optional[models.RosterResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_players_team_roster_async(
         self,
@@ -1276,12 +1211,10 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RosterResponse:
+    ) -> Optional[models.RosterResponse]:
         r"""Get Team Roster
 
-        Retrieves the complete roster for a specific team including active, practice squad,
-        and injured reserve players with detailed player information.
-
+        Retrieves the complete roster for a specific team including active, practice squad, and injured reserve players with detailed player information.
 
         :param team_id: Team identifier (UUID)
         :param season: Season year
@@ -1299,7 +1232,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_PLAYERS_TEAM_ROSTER_OP_SERVERS[0]
 
         request = models.GetPlayersTeamRosterRequest(
             team_id=team_id,
@@ -1336,10 +1269,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlayersTeamRoster",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -1347,19 +1278,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RosterResponse, http_res)
+            return unmarshal_json_response(Optional[models.RosterResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_player_details(
         self,
@@ -1370,7 +1297,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlayerDetail:
+    ) -> Optional[models.PlayerDetail]:
         r"""Get Player Details
 
         Retrieves detailed information about a specific player including biography,
@@ -1392,7 +1319,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_PLAYER_DETAILS_OP_SERVERS[0]
 
         request = models.GetPlayerDetailsRequest(
             player_id=player_id,
@@ -1428,10 +1355,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlayerDetails",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -1439,19 +1364,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlayerDetail, http_res)
+            return unmarshal_json_response(Optional[models.PlayerDetail], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_player_details_async(
         self,
@@ -1462,7 +1383,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlayerDetail:
+    ) -> Optional[models.PlayerDetail]:
         r"""Get Player Details
 
         Retrieves detailed information about a specific player including biography,
@@ -1484,7 +1405,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_PLAYER_DETAILS_OP_SERVERS[0]
 
         request = models.GetPlayerDetailsRequest(
             player_id=player_id,
@@ -1520,10 +1441,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlayerDetails",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
@@ -1531,19 +1450,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlayerDetail, http_res)
+            return unmarshal_json_response(Optional[models.PlayerDetail], http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_standings(
         self,
@@ -1556,7 +1471,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.StandingsResponse:
+    ) -> Optional[models.StandingsResponse]:
         r"""Get Standings
 
         Retrieves team standings for a specific season, season type, and week.
@@ -1580,7 +1495,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_STANDINGS_OP_SERVERS[0]
 
         request = models.GetStandingsRequest(
             season=season,
@@ -1618,10 +1533,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getStandings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -1629,19 +1542,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.StandingsResponse, http_res)
+            return unmarshal_json_response(Optional[models.StandingsResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_standings_async(
         self,
@@ -1654,7 +1563,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.StandingsResponse:
+    ) -> Optional[models.StandingsResponse]:
         r"""Get Standings
 
         Retrieves team standings for a specific season, season type, and week.
@@ -1678,7 +1587,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_STANDINGS_OP_SERVERS[0]
 
         request = models.GetStandingsRequest(
             season=season,
@@ -1716,10 +1625,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getStandings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -1727,19 +1634,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.StandingsResponse, http_res)
+            return unmarshal_json_response(Optional[models.StandingsResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_live_game_stats(
         self,
@@ -1751,7 +1654,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GameStatsResponseData]:
+    ) -> Optional[models.GameStatsResponse]:
         r"""Get Live Game Statistics
 
         Retrieves live game statistics and summaries for games in progress or completed games.
@@ -1774,7 +1677,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_LIVE_GAME_STATS_OP_SERVERS[0]
 
         request = models.GetLiveGameStatsRequest(
             season=season,
@@ -1811,10 +1714,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getLiveGameStats",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -1822,19 +1723,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GameStatsResponse, http_res)
+            return unmarshal_json_response(Optional[models.GameStatsResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_live_game_stats_async(
         self,
@@ -1846,7 +1743,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GameStatsResponseData]:
+    ) -> Optional[models.GameStatsResponse]:
         r"""Get Live Game Statistics
 
         Retrieves live game statistics and summaries for games in progress or completed games.
@@ -1869,7 +1766,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_LIVE_GAME_STATS_OP_SERVERS[0]
 
         request = models.GetLiveGameStatsRequest(
             season=season,
@@ -1906,10 +1803,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getLiveGameStats",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -1917,26 +1812,22 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GameStatsResponse, http_res)
+            return unmarshal_json_response(Optional[models.GameStatsResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_season_player_stats(
         self,
         *,
         season: int,
         season_type: models.SeasonTypeEnum,
-        position: Optional[models.GetSeasonPlayerStatsPosition] = None,
+        position: Optional[models.Position] = None,
         team_id: Optional[str] = None,
         stat_category: Optional[models.StatCategory] = None,
         sort: Optional[str] = None,
@@ -1946,7 +1837,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlayerStatsResponse:
+    ) -> Optional[models.PlayerStatsResponse]:
         r"""Get Season Player Statistics
 
         Retrieves aggregated player statistics for a specific season with filtering
@@ -1974,7 +1865,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_SEASON_PLAYER_STATS_OP_SERVERS[0]
 
         request = models.GetSeasonPlayerStatsRequest(
             season=season,
@@ -2016,10 +1907,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getSeasonPlayerStats",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2027,26 +1916,24 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlayerStatsResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.PlayerStatsResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_season_player_stats_async(
         self,
         *,
         season: int,
         season_type: models.SeasonTypeEnum,
-        position: Optional[models.GetSeasonPlayerStatsPosition] = None,
+        position: Optional[models.Position] = None,
         team_id: Optional[str] = None,
         stat_category: Optional[models.StatCategory] = None,
         sort: Optional[str] = None,
@@ -2056,7 +1943,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlayerStatsResponse:
+    ) -> Optional[models.PlayerStatsResponse]:
         r"""Get Season Player Statistics
 
         Retrieves aggregated player statistics for a specific season with filtering
@@ -2084,7 +1971,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_SEASON_PLAYER_STATS_OP_SERVERS[0]
 
         request = models.GetSeasonPlayerStatsRequest(
             season=season,
@@ -2126,10 +2013,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getSeasonPlayerStats",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2137,19 +2022,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlayerStatsResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.PlayerStatsResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_transactions(
         self,
@@ -2157,13 +2040,13 @@ class Football(BaseSDK):
         start_date: Optional[date] = None,
         end_date: Optional[date] = None,
         team_id: Optional[str] = None,
-        transaction_type: Optional[models.GetTransactionsTransactionType] = None,
+        transaction_type: Optional[models.TransactionType] = None,
         limit: Optional[int] = 20,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TransactionsResponse:
+    ) -> Optional[models.TransactionsResponse]:
         r"""Get Transactions
 
         Retrieves recent transactions including trades, signings, releases,
@@ -2188,7 +2071,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_TRANSACTIONS_OP_SERVERS[0]
 
         request = models.GetTransactionsRequest(
             start_date=start_date,
@@ -2227,10 +2110,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getTransactions",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2238,19 +2119,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TransactionsResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.TransactionsResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_transactions_async(
         self,
@@ -2258,13 +2137,13 @@ class Football(BaseSDK):
         start_date: Optional[date] = None,
         end_date: Optional[date] = None,
         team_id: Optional[str] = None,
-        transaction_type: Optional[models.GetTransactionsTransactionType] = None,
+        transaction_type: Optional[models.TransactionType] = None,
         limit: Optional[int] = 20,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TransactionsResponse:
+    ) -> Optional[models.TransactionsResponse]:
         r"""Get Transactions
 
         Retrieves recent transactions including trades, signings, releases,
@@ -2289,7 +2168,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_TRANSACTIONS_OP_SERVERS[0]
 
         request = models.GetTransactionsRequest(
             start_date=start_date,
@@ -2328,10 +2207,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getTransactions",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2339,19 +2216,17 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TransactionsResponse, http_res)
+            return unmarshal_json_response(
+                Optional[models.TransactionsResponse], http_res
+            )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_venues(
         self,
@@ -2362,7 +2237,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.VenuesResponse:
+    ) -> Optional[models.VenuesResponse]:
         r"""Get NFL Venues
 
         Retrieves information about all NFL stadiums and venues, including international venues.
@@ -2384,7 +2259,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_VENUES_OP_SERVERS[0]
 
         request = models.GetVenuesRequest(
             season=season,
@@ -2420,10 +2295,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getVenues",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2431,19 +2304,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.VenuesResponse, http_res)
+            return unmarshal_json_response(Optional[models.VenuesResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_venues_async(
         self,
@@ -2454,7 +2323,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.VenuesResponse:
+    ) -> Optional[models.VenuesResponse]:
         r"""Get NFL Venues
 
         Retrieves information about all NFL stadiums and venues, including international venues.
@@ -2476,7 +2345,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_VENUES_OP_SERVERS[0]
 
         request = models.GetVenuesRequest(
             season=season,
@@ -2512,10 +2381,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getVenues",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2523,19 +2390,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.VenuesResponse, http_res)
+            return unmarshal_json_response(Optional[models.VenuesResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     def get_season_weeks(
         self,
@@ -2546,7 +2409,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeksResponse:
+    ) -> Optional[models.WeeksResponse]:
         r"""Get Season Weeks
 
         Retrieves all weeks for a specific season including preseason, regular season, and postseason. Includes bye team information for each week.
@@ -2566,7 +2429,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_SEASON_WEEKS_OP_SERVERS[0]
 
         request = models.GetSeasonWeeksRequest(
             season=season,
@@ -2602,10 +2465,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getSeasonWeeks",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2613,19 +2474,15 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WeeksResponse, http_res)
+            return unmarshal_json_response(Optional[models.WeeksResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)
 
     async def get_season_weeks_async(
         self,
@@ -2636,7 +2493,7 @@ class Football(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeksResponse:
+    ) -> Optional[models.WeeksResponse]:
         r"""Get Season Weeks
 
         Retrieves all weeks for a specific season including preseason, regular season, and postseason. Includes bye team information for each week.
@@ -2656,7 +2513,7 @@ class Football(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = self._get_url(base_url, url_variables)
+            base_url = models.GET_SEASON_WEEKS_OP_SERVERS[0]
 
         request = models.GetSeasonWeeksRequest(
             season=season,
@@ -2692,10 +2549,8 @@ class Football(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getSeasonWeeks",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "500", "5XX"],
@@ -2703,16 +2558,12 @@ class Football(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WeeksResponse, http_res)
+            return unmarshal_json_response(Optional[models.WeeksResponse], http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+            raise errors.GriddyNFLError("API error occurred", http_res, http_res_text)
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        raise errors.GriddyNFLError("Unexpected response received", http_res)

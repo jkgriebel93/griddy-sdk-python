@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+GET_MULTIPLE_RANKINGS_ALL_TEAMS_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
+]
 
 
 class GetMultipleRankingsAllTeamsRequestTypedDict(TypedDict):

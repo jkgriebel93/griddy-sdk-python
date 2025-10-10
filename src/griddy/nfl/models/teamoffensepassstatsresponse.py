@@ -4,55 +4,63 @@ from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 from .teamoffensepassstats import TeamOffensePassStats, TeamOffensePassStatsTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TeamOffensePassStatsResponseTypedDict(TypedDict):
-    limit: int
+    r"""Common pagination and query metadata for stats responses"""
+
+    limit: NotRequired[int]
     r"""Maximum number of results returned"""
-    offense: List[TeamOffensePassStatsTypedDict]
-    offset: int
+    offset: NotRequired[int]
     r"""Number of records skipped"""
-    season: int
+    season: NotRequired[int]
     r"""Season year"""
-    season_type: SeasonTypeEnum
+    season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    sort_key: str
+    sort_key: NotRequired[str]
     r"""Field used for sorting"""
-    sort_value: SortOrderEnum
+    sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction for ordered results"""
-    total: int
-    r"""Total number of teams matching the criteria"""
+    total: NotRequired[int]
+    r"""Total number of items matching the criteria"""
+    offense: NotRequired[List[TeamOffensePassStatsTypedDict]]
     team_defense: NotRequired[str]
     r"""Applied team filter (if any)"""
 
 
 class TeamOffensePassStatsResponse(BaseModel):
-    limit: int
+    r"""Common pagination and query metadata for stats responses"""
+
+    limit: Optional[int] = None
     r"""Maximum number of results returned"""
 
-    offense: List[TeamOffensePassStats]
-
-    offset: int
+    offset: Optional[int] = None
     r"""Number of records skipped"""
 
-    season: int
+    season: Optional[int] = None
     r"""Season year"""
 
-    season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
     r"""Type of NFL season"""
 
-    sort_key: Annotated[str, pydantic.Field(alias="sortKey")]
+    sort_key: Annotated[Optional[str], pydantic.Field(alias="sortKey")] = None
     r"""Field used for sorting"""
 
-    sort_value: Annotated[SortOrderEnum, pydantic.Field(alias="sortValue")]
+    sort_value: Annotated[
+        Optional[SortOrderEnum], pydantic.Field(alias="sortValue")
+    ] = None
     r"""Sort direction for ordered results"""
 
-    total: int
-    r"""Total number of teams matching the criteria"""
+    total: Optional[int] = None
+    r"""Total number of items matching the criteria"""
+
+    offense: Optional[List[TeamOffensePassStats]] = None
 
     team_defense: Annotated[Optional[str], pydantic.Field(alias="teamDefense")] = None
     r"""Applied team filter (if any)"""

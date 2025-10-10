@@ -6,7 +6,7 @@ from .overallrecord import OverallRecord, OverallRecordTypedDict
 from .pointsrecord import PointsRecord, PointsRecordTypedDict
 from .record import Record, RecordTypedDict
 from .standingsrecord import StandingsRecord, StandingsRecordTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict

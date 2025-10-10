@@ -23,24 +23,18 @@ Data includes catch percentage, yards per reception, EPA (Expected Points Added)
 
 <!-- UsageSnippet language="python" operationID="getPlayerReceivingStatsBySeason" method="get" path="/api/secured/stats/players-offense/receiving/season" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.player_receiving_statistics.get_player_receiving_stats_by_season(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "limit": 3,
-        "sort_value": models.SortOrderEnum.DESC,
-        "team_offense": [
-            "3000",
-            "3900",
-        ],
-    })
+    res = griddy_nfl.player_receiving_statistics.get_player_receiving_stats_by_season(season=2025, season_type=models.SeasonTypeEnum.REG, limit=3, offset=0, page=1, sort_value=models.SortOrderEnum.DESC, qualified_receiver=False, team_offense=[
+        "3000",
+        "3900",
+    ])
 
     assert res is not None
 
@@ -51,10 +45,19 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                               | [models.GetPlayerReceivingStatsBySeasonRequest](../../models/getplayerreceivingstatsbyseasonrequest.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
-| `retries`                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                        | :heavy_minus_sign:                                                                                      | Configuration to override the default retry behavior of the client.                                     |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               | Example                                                                                   |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `season`                                                                                  | *int*                                                                                     | :heavy_check_mark:                                                                        | Season year                                                                               | 2025                                                                                      |
+| `season_type`                                                                             | [models.SeasonTypeEnum](../../models/seasontypeenum.md)                                   | :heavy_check_mark:                                                                        | Type of season                                                                            | REG                                                                                       |
+| `limit`                                                                                   | *Optional[int]*                                                                           | :heavy_minus_sign:                                                                        | Maximum number of players to return                                                       | 3                                                                                         |
+| `offset`                                                                                  | *Optional[int]*                                                                           | :heavy_minus_sign:                                                                        | Number of records to skip for pagination                                                  | 0                                                                                         |
+| `page`                                                                                    | *Optional[int]*                                                                           | :heavy_minus_sign:                                                                        | Page number for pagination                                                                | 1                                                                                         |
+| `sort_key`                                                                                | [Optional[models.ReceivingStatsCategoryEnum]](../../models/receivingstatscategoryenum.md) | :heavy_minus_sign:                                                                        | Field to sort by                                                                          |                                                                                           |
+| `sort_value`                                                                              | [Optional[models.SortOrderEnum]](../../models/sortorderenum.md)                           | :heavy_minus_sign:                                                                        | Sort direction                                                                            | DESC                                                                                      |
+| `qualified_receiver`                                                                      | *Optional[bool]*                                                                          | :heavy_minus_sign:                                                                        | Filter to only qualified receivers (minimum target threshold)                             | false                                                                                     |
+| `team_offense`                                                                            | List[*str*]                                                                               | :heavy_minus_sign:                                                                        | Filter by specific team IDs (supports multiple teams)                                     | [<br/>"3000",<br/>"3900"<br/>]                                                            |
+| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |                                                                                           |
+| `server_url`                                                                              | *Optional[str]*                                                                           | :heavy_minus_sign:                                                                        | An optional server URL to use.                                                            | http://localhost:8080                                                                     |
 
 ### Response
 
@@ -79,24 +82,18 @@ Data includes catch percentage, yards per reception, EPA (Expected Points Added)
 
 <!-- UsageSnippet language="python" operationID="getPlayerReceivingStatsByWeek" method="get" path="/api/secured/stats/players-offense/receiving/week" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.player_receiving_statistics.get_player_receiving_stats_by_week(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "week": models.WeekSlugEnum.WEEK_10,
-        "sort_value": models.SortOrderEnum.DESC,
-        "team_offense": [
-            "3900",
-            "3200",
-        ],
-    })
+    res = griddy_nfl.player_receiving_statistics.get_player_receiving_stats_by_week(season=2025, season_type=models.SeasonTypeEnum.REG, week=models.WeekSlugEnum.WEEK_10, limit=50, offset=0, page=1, sort_value=models.SortOrderEnum.DESC, qualified_receiver=False, team_offense=[
+        "3900",
+        "3200",
+    ])
 
     assert res is not None
 
@@ -107,10 +104,20 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `request`                                                                                           | [models.GetPlayerReceivingStatsByWeekRequest](../../models/getplayerreceivingstatsbyweekrequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
-| `retries`                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                    | :heavy_minus_sign:                                                                                  | Configuration to override the default retry behavior of the client.                                 |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               | Example                                                                                   |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `season`                                                                                  | *int*                                                                                     | :heavy_check_mark:                                                                        | Season year                                                                               | 2025                                                                                      |
+| `season_type`                                                                             | [models.SeasonTypeEnum](../../models/seasontypeenum.md)                                   | :heavy_check_mark:                                                                        | Type of season                                                                            | REG                                                                                       |
+| `week`                                                                                    | [models.WeekSlugEnum](../../models/weekslugenum.md)                                       | :heavy_check_mark:                                                                        | Week identifier                                                                           |                                                                                           |
+| `limit`                                                                                   | *Optional[int]*                                                                           | :heavy_minus_sign:                                                                        | Maximum number of players to return                                                       | 50                                                                                        |
+| `offset`                                                                                  | *Optional[int]*                                                                           | :heavy_minus_sign:                                                                        | Number of records to skip for pagination                                                  | 0                                                                                         |
+| `page`                                                                                    | *Optional[int]*                                                                           | :heavy_minus_sign:                                                                        | Page number for pagination                                                                | 1                                                                                         |
+| `sort_key`                                                                                | [Optional[models.ReceivingStatsCategoryEnum]](../../models/receivingstatscategoryenum.md) | :heavy_minus_sign:                                                                        | Field to sort by                                                                          |                                                                                           |
+| `sort_value`                                                                              | [Optional[models.SortOrderEnum]](../../models/sortorderenum.md)                           | :heavy_minus_sign:                                                                        | Sort direction                                                                            | DESC                                                                                      |
+| `qualified_receiver`                                                                      | *Optional[bool]*                                                                          | :heavy_minus_sign:                                                                        | Filter to only qualified receivers (minimum target threshold)                             | false                                                                                     |
+| `team_offense`                                                                            | List[*str*]                                                                               | :heavy_minus_sign:                                                                        | Filter by specific team IDs (supports multiple teams)                                     | [<br/>"3900",<br/>"3200"<br/>]                                                            |
+| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |                                                                                           |
+| `server_url`                                                                              | *Optional[str]*                                                                           | :heavy_minus_sign:                                                                        | An optional server URL to use.                                                            | http://localhost:8080                                                                     |
 
 ### Response
 

@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .player import Player, PlayerTypedDict
+from .seasontypeenum import SeasonTypeEnum
 from .team import Team, TeamTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -31,14 +32,14 @@ class PlayerStatsResponseStats(BaseModel):
     r"""Statistics object varies by category"""
 
 
-class PlayerStatsResponsePlayerTypedDict(TypedDict):
+class PlayersModelTypedDict(TypedDict):
     player: NotRequired[PlayerTypedDict]
     stats: NotRequired[PlayerStatsResponseStatsTypedDict]
     r"""Statistics object varies by category"""
     team: NotRequired[TeamTypedDict]
 
 
-class PlayerStatsResponsePlayer(BaseModel):
+class PlayersModel(BaseModel):
     player: Optional[Player] = None
 
     stats: Optional[PlayerStatsResponseStats] = None
@@ -49,19 +50,23 @@ class PlayerStatsResponsePlayer(BaseModel):
 
 class PlayerStatsResponseTypedDict(TypedDict):
     pagination: NotRequired[PlayerStatsResponsePaginationTypedDict]
-    players: NotRequired[List[PlayerStatsResponsePlayerTypedDict]]
+    players: NotRequired[List[PlayersModelTypedDict]]
     season: NotRequired[int]
-    season_type: NotRequired[str]
+    season_type: NotRequired[SeasonTypeEnum]
+    r"""Type of NFL season"""
     stat_category: NotRequired[str]
 
 
 class PlayerStatsResponse(BaseModel):
     pagination: Optional[PlayerStatsResponsePagination] = None
 
-    players: Optional[List[PlayerStatsResponsePlayer]] = None
+    players: Optional[List[PlayersModel]] = None
 
     season: Optional[int] = None
 
-    season_type: Annotated[Optional[str], pydantic.Field(alias="seasonType")] = None
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
+    r"""Type of NFL season"""
 
     stat_category: Annotated[Optional[str], pydantic.Field(alias="statCategory")] = None

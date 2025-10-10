@@ -10,7 +10,7 @@ from .playerweekprojectedstats import (
     PlayerWeekProjectedStats,
     PlayerWeekProjectedStatsTypedDict,
 )
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 from typing import List, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
@@ -62,9 +62,9 @@ class ProjectedStatsResponsePagination(BaseModel):
 class ProjectedStatsResponseTypedDict(TypedDict):
     r"""JSON:API formatted response for projected statistics"""
 
-    data: List[PlayerProjectionTypedDict]
+    data: NotRequired[List[PlayerProjectionTypedDict]]
     r"""Primary player data with relationships"""
-    included: List[IncludedTypedDict]
+    included: NotRequired[List[IncludedTypedDict]]
     r"""Related data included in response"""
     meta: NotRequired[MetaTypedDict]
     pagination: NotRequired[ProjectedStatsResponsePaginationTypedDict]
@@ -73,10 +73,10 @@ class ProjectedStatsResponseTypedDict(TypedDict):
 class ProjectedStatsResponse(BaseModel):
     r"""JSON:API formatted response for projected statistics"""
 
-    data: List[PlayerProjection]
+    data: Optional[List[PlayerProjection]] = None
     r"""Primary player data with relationships"""
 
-    included: List[Included]
+    included: Optional[List[Included]] = None
     r"""Related data included in response"""
 
     meta: Optional[Meta] = None

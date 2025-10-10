@@ -7,7 +7,7 @@ from .passingstats import PassingStats, PassingStatsTypedDict
 from .player import Player, PlayerTypedDict
 from .receivingstats import ReceivingStats, ReceivingStatsTypedDict
 from .rushingstats import RushingStats, RushingStatsTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 

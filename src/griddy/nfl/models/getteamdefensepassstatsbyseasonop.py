@@ -3,38 +3,45 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetTeamDefensePassStatsBySeasonSortKey = Literal[
-    "total",
-    "pass",
-    "passPct",
-    "passTd",
-    "passYds",
-    "passYpp",
-    "epaPass",
-    "epaPassPP",
-    "ttt",
-    "qbp",
-    "qbpPct",
-    "sackedYds",
-    "sack",
-    "sackPct",
-    "ttp",
-    "blitzPct",
-    "yac",
-    "yacoe",
-    "sep",
-    "go",
-    "passYpg",
-    "sackedYpg",
+GET_TEAM_DEFENSE_PASS_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
+
+
+class GetTeamDefensePassStatsBySeasonQueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    TOTAL = "total"
+    PASS = "pass"
+    PASS_PCT = "passPct"
+    PASS_TD = "passTd"
+    PASS_YDS = "passYds"
+    PASS_YPP = "passYpp"
+    EPA_PASS = "epaPass"
+    EPA_PASS_PP = "epaPassPP"
+    TTT = "ttt"
+    QBP = "qbp"
+    QBP_PCT = "qbpPct"
+    SACKED_YDS = "sackedYds"
+    SACK = "sack"
+    SACK_PCT = "sackPct"
+    TTP = "ttp"
+    BLITZ_PCT = "blitzPct"
+    YAC = "yac"
+    YACOE = "yacoe"
+    SEP = "sep"
+    GO = "go"
+    PASS_YPG = "passYpg"
+    SACKED_YPG = "sackedYpg"
 
 
 class GetTeamDefensePassStatsBySeasonRequestTypedDict(TypedDict):
@@ -48,7 +55,7 @@ class GetTeamDefensePassStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamDefensePassStatsBySeasonSortKey]
+    sort_key: NotRequired[GetTeamDefensePassStatsBySeasonQueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
@@ -86,10 +93,10 @@ class GetTeamDefensePassStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamDefensePassStatsBySeasonSortKey],
+        Optional[GetTeamDefensePassStatsBySeasonQueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "passYpg"
+    ] = GetTeamDefensePassStatsBySeasonQueryParamSortKey.PASS_YPG
     r"""Field to sort by"""
 
     sort_value: Annotated[

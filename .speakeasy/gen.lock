@@ -1,0 +1,1551 @@
+lockVersion: 2.0.0
+id: 23e7eb10-1a56-4180-b51c-4acceab99e1b
+management:
+  docChecksum: cf5cbb83fdb2be136976ca2c8a69eb03
+  docVersion: 1.0.0
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.0.1
+  configChecksum: 6d6ad510590fb2c32aacff24636350a4
+features:
+  python:
+    additionalDependencies: 1.0.0
+    configurableModuleName: 0.2.0
+    constsAndDefaults: 1.0.5
+    core: 5.22.1
+    defaultEnabledRetries: 0.2.0
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.3.2
+    flattening: 3.1.1
+    globalSecurity: 3.0.4
+    globalSecurityCallbacks: 1.0.0
+    globalSecurityFlattening: 1.0.0
+    globalServerURLs: 3.1.1
+    methodArguments: 1.0.2
+    methodServerURLs: 3.1.1
+    nullables: 1.0.1
+    responseFormat: 1.0.1
+    retries: 3.0.2
+    sdkHooks: 1.1.0
+    unions: 3.1.0
+generatedFiles:
+  - .gitattributes
+  - .vscode/settings.json
+  - USAGE.md
+  - docs/models/airyardtype.md
+  - docs/models/attributes.md
+  - docs/models/authorizations.md
+  - docs/models/award.md
+  - docs/models/awardtype.md
+  - docs/models/away.md
+  - docs/models/awayteam.md
+  - docs/models/background.md
+  - docs/models/binaryflagenum.md
+  - docs/models/boxscoreplayerextrapointsstatistic.md
+  - docs/models/boxscoreplayerfieldgoalsstatistic.md
+  - docs/models/boxscoreplayerfumblesstatistic.md
+  - docs/models/boxscoreplayerkickingstatistic.md
+  - docs/models/boxscoreplayerkickreturnstatistic.md
+  - docs/models/boxscoreplayerpassingstatistic.md
+  - docs/models/boxscoreplayerpuntingstatistic.md
+  - docs/models/boxscoreplayerpuntreturnstatistic.md
+  - docs/models/boxscoreplayerreceivingstatistic.md
+  - docs/models/boxscoreplayerrushingstatistic.md
+  - docs/models/boxscoreplayertacklesstatistic.md
+  - docs/models/boxscoreresponse.md
+  - docs/models/boxscoreschedule.md
+  - docs/models/boxscorescore.md
+  - docs/models/boxscoreteam.md
+  - docs/models/broadcastinfo.md
+  - docs/models/camerasourceenum.md
+  - docs/models/careerstats.md
+  - docs/models/category.md
+  - docs/models/clinched.md
+  - docs/models/coachesfilevideosubtypeenum.md
+  - docs/models/coachesfilmresponse.md
+  - docs/models/coachesfilmvideo.md
+  - docs/models/coachesfilmvideotype.md
+  - docs/models/conference.md
+  - docs/models/conferenceenum.md
+  - docs/models/contractinfo.md
+  - docs/models/ctas.md
+  - docs/models/currentgame.md
+  - docs/models/currentgamesresponse.md
+  - docs/models/data.md
+  - docs/models/defcoveragetype.md
+  - docs/models/defendersintheboxtype.md
+  - docs/models/defensiveoverviewstatsresponse.md
+  - docs/models/defensivepassrushstats.md
+  - docs/models/defensiveplayeroverviewstats.md
+  - docs/models/defensiveplayerstats.md
+  - docs/models/defensivepositionenum.md
+  - docs/models/defensivepositiongroupenum.md
+  - docs/models/defensivestats.md
+  - docs/models/defensivestatsresponse.md
+  - docs/models/division.md
+  - docs/models/draftpick.md
+  - docs/models/draftresponse.md
+  - docs/models/drive.md
+  - docs/models/drivechart.md
+  - docs/models/driveresultenum.md
+  - docs/models/dropbacktimetype.md
+  - docs/models/experiencegamesresponse.md
+  - docs/models/experienceteamsresponse.md
+  - docs/models/extensions.md
+  - docs/models/externalid.md
+  - docs/models/fantasyplayerpositionenum.md
+  - docs/models/fantasyplayerstats.md
+  - docs/models/fantasypositiongroupenum.md
+  - docs/models/fantasystatsresponse.md
+  - docs/models/filmcard.md
+  - docs/models/filmroomplay.md
+  - docs/models/filmroomplaysresponse.md
+  - docs/models/fixture.md
+  - docs/models/footballgamesresponse.md
+  - docs/models/futuresmarket.md
+  - docs/models/futuresoddsresponse.md
+  - docs/models/game.md
+  - docs/models/gamecategory.md
+  - docs/models/gamecenterresponse.md
+  - docs/models/gamecenterschedule.md
+  - docs/models/gamedetail.md
+  - docs/models/gameextensions.md
+  - docs/models/gameid.md
+  - docs/models/gameinsight.md
+  - docs/models/gameodds.md
+  - docs/models/gamephaseenum.md
+  - docs/models/gamepreviewresponse.md
+  - docs/models/gameresultenum.md
+  - docs/models/gameschedule.md
+  - docs/models/gamescore.md
+  - docs/models/gamesresponse.md
+  - docs/models/gamestatsresponse.md
+  - docs/models/gamestatusenum.md
+  - docs/models/gameteam.md
+  - docs/models/getcoachesfilmvideosrequest.md
+  - docs/models/getdefensiveoverviewstatsbyseasonrequest.md
+  - docs/models/getdefensivepassrushstatsbyseasonqueryparamsortkey.md
+  - docs/models/getdefensivepassrushstatsbyseasonrequest.md
+  - docs/models/getdefensivestatsbyseasonrequest.md
+  - docs/models/getdraftinforequest.md
+  - docs/models/getexperiencegamesrequest.md
+  - docs/models/getexperienceteamsrequest.md
+  - docs/models/getfantasystatsbyseasonqueryparamsortkey.md
+  - docs/models/getfantasystatsbyseasonrequest.md
+  - docs/models/getfilmroomplaysrequest.md
+  - docs/models/getfootballboxscorerequest.md
+  - docs/models/getfootballgamesrequest.md
+  - docs/models/getgamecenterrequest.md
+  - docs/models/getgameinsightsrequest.md
+  - docs/models/getgamematchuprankingsrequest.md
+  - docs/models/getgamepreviewrequest.md
+  - docs/models/getgameteamrankingsrequest.md
+  - docs/models/getinjuryreportsrequest.md
+  - docs/models/getlivegamescoresrequest.md
+  - docs/models/getlivegamestatsrequest.md
+  - docs/models/getmultiplerankingsallteamsrequest.md
+  - docs/models/getplaybyplayrequest.md
+  - docs/models/getplayerdetailsrequest.md
+  - docs/models/getplayerpassingstatsbyseasonrequest.md
+  - docs/models/getplayerpassingstatsbyweekrequest.md
+  - docs/models/getplayerreceivingstatsbyseasonrequest.md
+  - docs/models/getplayerreceivingstatsbyweekrequest.md
+  - docs/models/getplayerrequest.md
+  - docs/models/getplayerrushingstatsbyseasonqueryparamsortkey.md
+  - docs/models/getplayerrushingstatsbyseasonrequest.md
+  - docs/models/getplayerrushingstatsbyweekqueryparamsortkey.md
+  - docs/models/getplayerrushingstatsbyweekrequest.md
+  - docs/models/getplayersteamrosterrequest.md
+  - docs/models/getplayswinprobabilityrequest.md
+  - docs/models/getplayswinprobabilityresponsebody.md
+  - docs/models/getprojectedstatsrequest.md
+  - docs/models/getscheduledgamerequest.md
+  - docs/models/getscheduledgamesrequest.md
+  - docs/models/getscheduleseasonweeksrequest.md
+  - docs/models/getseasoncontentinsightsrequest.md
+  - docs/models/getseasonplayerstatsrequest.md
+  - docs/models/getseasonweeksrequest.md
+  - docs/models/getstandingsrequest.md
+  - docs/models/getstatsboxscorerequest.md
+  - docs/models/getsummaryplayrequest.md
+  - docs/models/getteamdefensepassstatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamdefensepassstatsbyseasonrequest.md
+  - docs/models/getteamdefenserushstatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamdefenserushstatsbyseasonrequest.md
+  - docs/models/getteamdefensestatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamdefensestatsbyseasonrequest.md
+  - docs/models/getteaminjuriesrequest.md
+  - docs/models/getteamoffenseoverviewstatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamoffenseoverviewstatsbyseasonrequest.md
+  - docs/models/getteamoffensepassstatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamoffensepassstatsbyseasonrequest.md
+  - docs/models/getteamrosterrequest.md
+  - docs/models/getteamschedulerequest.md
+  - docs/models/getteamstandingsrequest.md
+  - docs/models/gettransactionsrequest.md
+  - docs/models/getvenuesrequest.md
+  - docs/models/getweeklybettingoddsrequest.md
+  - docs/models/getweeklygamedetailsrequest.md
+  - docs/models/getweeklyteamrosterrequest.md
+  - docs/models/getwinprobabilityminrequest.md
+  - docs/models/home.md
+  - docs/models/homefilmcardsresponse.md
+  - docs/models/hometeam.md
+  - docs/models/ids.md
+  - docs/models/images.md
+  - docs/models/included.md
+  - docs/models/injuredplayergamestatusenum.md
+  - docs/models/injuryentry.md
+  - docs/models/injuryreportresponse.md
+  - docs/models/insight.md
+  - docs/models/internationalwatchoptions.md
+  - docs/models/kickingstats.md
+  - docs/models/leaders.md
+  - docs/models/leagueaveragereceiverseparation.md
+  - docs/models/leagueaverageseparationtoqb.md
+  - docs/models/lineofscrimmagedistanceenum.md
+  - docs/models/linkparams.md
+  - docs/models/livegame.md
+  - docs/models/livescoresresponse.md
+  - docs/models/matchuprankingsresponse.md
+  - docs/models/meridiemenum.md
+  - docs/models/meta.md
+  - docs/models/moneyline.md
+  - docs/models/multiplerankingscategory.md
+  - docs/models/multiplerankingscategorypagination.md
+  - docs/models/networktypeenum.md
+  - docs/models/nextgenstatspositionenum.md
+  - docs/models/nextgenstatspositiongroupenum.md
+  - docs/models/nflpluscoachesfilm.md
+  - docs/models/nflplusplus.md
+  - docs/models/nflpluspremium.md
+  - docs/models/ngsposition.md
+  - docs/models/ngspositiongroup.md
+  - docs/models/oddsselection.md
+  - docs/models/offensiveplayerpositionenum.md
+  - docs/models/offensiveskillpositionenum.md
+  - docs/models/overallrecord.md
+  - docs/models/overallrecordpoints.md
+  - docs/models/page.md
+  - docs/models/pagination.md
+  - docs/models/participantplayerinfo.md
+  - docs/models/passdistanceleaderentry.md
+  - docs/models/passdistanceleaders.md
+  - docs/models/passers.md
+  - docs/models/passerstats.md
+  - docs/models/passinfo.md
+  - docs/models/passingsectionenum.md
+  - docs/models/passingstats.md
+  - docs/models/passingstatscategoryenum.md
+  - docs/models/passingstatsresponse.md
+  - docs/models/passingzonestats.md
+  - docs/models/passrushers.md
+  - docs/models/passrusherstats.md
+  - docs/models/passrushstatsresponse.md
+  - docs/models/penalty.md
+  - docs/models/personnel.md
+  - docs/models/play.md
+  - docs/models/playbyplayresponse.md
+  - docs/models/playdetail.md
+  - docs/models/playdirectionenum.md
+  - docs/models/player.md
+  - docs/models/playerdetail.md
+  - docs/models/playergamestats.md
+  - docs/models/playerngsposition.md
+  - docs/models/playerngspositiongroup.md
+  - docs/models/playerpassingstats.md
+  - docs/models/playerprojection.md
+  - docs/models/playerprojectionschemastype.md
+  - docs/models/playerprojectiontype.md
+  - docs/models/playerreceivingstats.md
+  - docs/models/playerrushingstats.md
+  - docs/models/playersearchresponse.md
+  - docs/models/playersearchresult.md
+  - docs/models/playersearchresultngsposition.md
+  - docs/models/playersearchresultngspositiongroup.md
+  - docs/models/playersmodel.md
+  - docs/models/playerstats.md
+  - docs/models/playerstatsresponse.md
+  - docs/models/playerstatsresponsepagination.md
+  - docs/models/playerstatsresponsestats.md
+  - docs/models/playerweekprojectedpoints.md
+  - docs/models/playerweekprojectedpointstype.md
+  - docs/models/playerweekprojectedstats.md
+  - docs/models/playerweekprojectedstatsattributes.md
+  - docs/models/playerweekprojectedstatstype.md
+  - docs/models/playparticipant.md
+  - docs/models/playparticipantroleenum.md
+  - docs/models/playstat.md
+  - docs/models/playstateenum.md
+  - docs/models/playsummaryresponse.md
+  - docs/models/playtypeenum.md
+  - docs/models/playwinprobability.md
+  - docs/models/points.md
+  - docs/models/pointspread.md
+  - docs/models/pointsrecord.md
+  - docs/models/pointsrecordpoints.md
+  - docs/models/position.md
+  - docs/models/positiongroup.md
+  - docs/models/positiongroupenum.md
+  - docs/models/practicestatus.md
+  - docs/models/practicestatusenum.md
+  - docs/models/preview.md
+  - docs/models/projectedstatsresponse.md
+  - docs/models/projectedstatsresponsepagination.md
+  - docs/models/promoassets.md
+  - docs/models/propremium.md
+  - docs/models/proteam.md
+  - docs/models/qbalignment.md
+  - docs/models/queryparamsortkey.md
+  - docs/models/queryparamsplit.md
+  - docs/models/queryparamtags.md
+  - docs/models/receiveralignment.md
+  - docs/models/receivers.md
+  - docs/models/receiverstats.md
+  - docs/models/receivingstats.md
+  - docs/models/receivingstatscategoryenum.md
+  - docs/models/receivingstatsresponse.md
+  - docs/models/receptioninfo.md
+  - docs/models/record.md
+  - docs/models/refreshtokenrequest.md
+  - docs/models/relationships.md
+  - docs/models/replay.md
+  - docs/models/replaybackground.md
+  - docs/models/replayctas.md
+  - docs/models/replayimages.md
+  - docs/models/replaypromoassets.md
+  - docs/models/replayvideos.md
+  - docs/models/requirements.md
+  - docs/models/responsemetadata.md
+  - docs/models/rooftypeenum.md
+  - docs/models/roster.md
+  - docs/models/rosterresponse.md
+  - docs/models/rounds.md
+  - docs/models/rushdirection.md
+  - docs/models/rushers.md
+  - docs/models/rusherstats.md
+  - docs/models/rushinginfo.md
+  - docs/models/rushingmap.md
+  - docs/models/rushingstats.md
+  - docs/models/rushingstatsresponse.md
+  - docs/models/rushlocationmapentry.md
+  - docs/models/scheduledgame.md
+  - docs/models/score.md
+  - docs/models/scoretypeenum.md
+  - docs/models/scoringplay.md
+  - docs/models/searchplayersrequest.md
+  - docs/models/seasonstats.md
+  - docs/models/seasontypeenum.md
+  - docs/models/seasonweeksresponse.md
+  - docs/models/secondteamtype.md
+  - docs/models/security.md
+  - docs/models/separationtype.md
+  - docs/models/site.md
+  - docs/models/socialmedia.md
+  - docs/models/sortkey.md
+  - docs/models/sortorderenum.md
+  - docs/models/speedleaderentry.md
+  - docs/models/speedleaders.md
+  - docs/models/split.md
+  - docs/models/standings.md
+  - docs/models/standingsrecord.md
+  - docs/models/standingsresponse.md
+  - docs/models/standingsteam.md
+  - docs/models/statcategory.md
+  - docs/models/statistic.md
+  - docs/models/statisticranking.md
+  - docs/models/statsmodel.md
+  - docs/models/streak.md
+  - docs/models/streamingnetworks.md
+  - docs/models/successlevelenum.md
+  - docs/models/summary.md
+  - docs/models/tackleinfo.md
+  - docs/models/taggedvideos.md
+  - docs/models/tags.md
+  - docs/models/targetlocation.md
+  - docs/models/team.md
+  - docs/models/teamboxscore.md
+  - docs/models/teamboxscore1.md
+  - docs/models/teamdefensepassstats.md
+  - docs/models/teamdefensepassstatsresponse.md
+  - docs/models/teamdefenserushstats.md
+  - docs/models/teamdefenserushstatsresponse.md
+  - docs/models/teamdefensestats.md
+  - docs/models/teamdefensestatsresponse.md
+  - docs/models/teamgamestats.md
+  - docs/models/teaminfo.md
+  - docs/models/teaminjuryreport.md
+  - docs/models/teammatchuprankings.md
+  - docs/models/teamoffenseoverviewstats.md
+  - docs/models/teamoffenseoverviewstatsresponse.md
+  - docs/models/teamoffensepassstats.md
+  - docs/models/teamoffensepassstatsresponse.md
+  - docs/models/teamrankingentry.md
+  - docs/models/teamrankings.md
+  - docs/models/teamrankingsresponse.md
+  - docs/models/teamrosterresponse.md
+  - docs/models/teamscore.md
+  - docs/models/teamstats.md
+  - docs/models/teamtypeenum.md
+  - docs/models/territory.md
+  - docs/models/thumbnail.md
+  - docs/models/ticketvendor.md
+  - docs/models/timetosackleaderentry.md
+  - docs/models/timetosackleaders.md
+  - docs/models/tokenrequest.md
+  - docs/models/tokenresponse.md
+  - docs/models/totals.md
+  - docs/models/transaction.md
+  - docs/models/transactionsresponse.md
+  - docs/models/transactiontype.md
+  - docs/models/transactiontypeenum.md
+  - docs/models/type.md
+  - docs/models/utils/retryconfig.md
+  - docs/models/venue.md
+  - docs/models/venueinfo.md
+  - docs/models/venuesresponse.md
+  - docs/models/videoauthorizations.md
+  - docs/models/videoauthorizationsnflpluscoachesfilm.md
+  - docs/models/videoauthorizationsrequirements.md
+  - docs/models/videoauthorizationsschemasnflpluscoachesfilm.md
+  - docs/models/videoauthorizationsschemasrequirements.md
+  - docs/models/videogameplayids.md
+  - docs/models/videos.md
+  - docs/models/videotag.md
+  - docs/models/videothumbnail.md
+  - docs/models/week.md
+  - docs/models/weeklygamedetail.md
+  - docs/models/weeklygamedetailcategory.md
+  - docs/models/weeklygamedetailextensions.md
+  - docs/models/weeklygamedetailsummaryscore.md
+  - docs/models/weeklygamedetailsummaryteam.md
+  - docs/models/weeklygamedetailsummarytimeouts.md
+  - docs/models/weeklyoddsresponse.md
+  - docs/models/weeklypassingstatsresponse.md
+  - docs/models/weeklyplayer.md
+  - docs/models/weeklyplayerngsposition.md
+  - docs/models/weeklyplayerngspositiongroup.md
+  - docs/models/weeklyplayerpassingstats.md
+  - docs/models/weeklyplayerrushingstats.md
+  - docs/models/weeklyrosterresponse.md
+  - docs/models/weeklyrushingstatsresponse.md
+  - docs/models/weekpoints.md
+  - docs/models/weeks.md
+  - docs/models/weekslugenum.md
+  - docs/models/weeksresponse.md
+  - docs/models/weekstats.md
+  - docs/models/weektypeenum.md
+  - docs/models/winprobabilityresponse.md
+  - docs/models/yardstogotype.md
+  - docs/sdks/authentication/README.md
+  - docs/sdks/betting/README.md
+  - docs/sdks/content/README.md
+  - docs/sdks/contentinsights/README.md
+  - docs/sdks/defensivepassrushstatistics/README.md
+  - docs/sdks/defensiveplayeroverview/README.md
+  - docs/sdks/defensivestatistics/README.md
+  - docs/sdks/experience/README.md
+  - docs/sdks/fantasystatistics/README.md
+  - docs/sdks/filmroom/README.md
+  - docs/sdks/football/README.md
+  - docs/sdks/playerpassingstatistics/README.md
+  - docs/sdks/playerreceivingstatistics/README.md
+  - docs/sdks/playerrushingstatistics/README.md
+  - docs/sdks/players/README.md
+  - docs/sdks/playerstatistics/README.md
+  - docs/sdks/plays/README.md
+  - docs/sdks/schedules/README.md
+  - docs/sdks/schedulesextended/README.md
+  - docs/sdks/scores/README.md
+  - docs/sdks/seasonschedule/README.md
+  - docs/sdks/securedvideos/README.md
+  - docs/sdks/stats/README.md
+  - docs/sdks/teamdefensepassstatistics/README.md
+  - docs/sdks/teamdefenserushstatistics/README.md
+  - docs/sdks/teamdefensestatistics/README.md
+  - docs/sdks/teamoffenseoverviewstatistics/README.md
+  - docs/sdks/teamoffensepassstatistics/README.md
+  - docs/sdks/teams/README.md
+  - docs/sdks/winprobability/README.md
+  - py.typed
+  - pylintrc
+  - pyproject.toml
+  - scripts/publish.sh
+  - src/griddy/nfl/__init__.py
+  - src/griddy/nfl/_hooks/__init__.py
+  - src/griddy/nfl/_hooks/sdkhooks.py
+  - src/griddy/nfl/_hooks/types.py
+  - src/griddy/nfl/_version.py
+  - src/griddy/nfl/authentication.py
+  - src/griddy/nfl/basesdk.py
+  - src/griddy/nfl/betting.py
+  - src/griddy/nfl/content.py
+  - src/griddy/nfl/content_insights.py
+  - src/griddy/nfl/defensive_pass_rush_statistics.py
+  - src/griddy/nfl/defensive_player_overview.py
+  - src/griddy/nfl/defensive_statistics.py
+  - src/griddy/nfl/errors/__init__.py
+  - src/griddy/nfl/errors/griddynflbaseerror.py
+  - src/griddy/nfl/errors/griddynflerror.py
+  - src/griddy/nfl/errors/no_response_error.py
+  - src/griddy/nfl/errors/responsevalidationerror.py
+  - src/griddy/nfl/experience.py
+  - src/griddy/nfl/fantasy_statistics.py
+  - src/griddy/nfl/filmroom.py
+  - src/griddy/nfl/football.py
+  - src/griddy/nfl/httpclient.py
+  - src/griddy/nfl/models/__init__.py
+  - src/griddy/nfl/models/award.py
+  - src/griddy/nfl/models/binaryflagenum.py
+  - src/griddy/nfl/models/boxscoreplayerextrapointsstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerfieldgoalsstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerfumblesstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerkickingstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerkickreturnstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerpassingstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerpuntingstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerpuntreturnstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerreceivingstatistic.py
+  - src/griddy/nfl/models/boxscoreplayerrushingstatistic.py
+  - src/griddy/nfl/models/boxscoreplayertacklesstatistic.py
+  - src/griddy/nfl/models/boxscoreresponse.py
+  - src/griddy/nfl/models/boxscoreschedule.py
+  - src/griddy/nfl/models/boxscorescore.py
+  - src/griddy/nfl/models/boxscoreteam.py
+  - src/griddy/nfl/models/broadcastinfo.py
+  - src/griddy/nfl/models/camerasourceenum.py
+  - src/griddy/nfl/models/careerstats.py
+  - src/griddy/nfl/models/clinched.py
+  - src/griddy/nfl/models/coachesfilevideosubtypeenum.py
+  - src/griddy/nfl/models/coachesfilmresponse.py
+  - src/griddy/nfl/models/coachesfilmvideo.py
+  - src/griddy/nfl/models/conference.py
+  - src/griddy/nfl/models/conferenceenum.py
+  - src/griddy/nfl/models/contractinfo.py
+  - src/griddy/nfl/models/currentgame.py
+  - src/griddy/nfl/models/currentgamesresponse.py
+  - src/griddy/nfl/models/defensiveoverviewstatsresponse.py
+  - src/griddy/nfl/models/defensivepassrushstats.py
+  - src/griddy/nfl/models/defensiveplayeroverviewstats.py
+  - src/griddy/nfl/models/defensiveplayerstats.py
+  - src/griddy/nfl/models/defensivepositionenum.py
+  - src/griddy/nfl/models/defensivepositiongroupenum.py
+  - src/griddy/nfl/models/defensivestats.py
+  - src/griddy/nfl/models/defensivestatsresponse.py
+  - src/griddy/nfl/models/division.py
+  - src/griddy/nfl/models/draftpick.py
+  - src/griddy/nfl/models/draftresponse.py
+  - src/griddy/nfl/models/drive.py
+  - src/griddy/nfl/models/driveresultenum.py
+  - src/griddy/nfl/models/experiencegamesresponse.py
+  - src/griddy/nfl/models/experienceteamsresponse.py
+  - src/griddy/nfl/models/externalid.py
+  - src/griddy/nfl/models/fantasyplayerpositionenum.py
+  - src/griddy/nfl/models/fantasyplayerstats.py
+  - src/griddy/nfl/models/fantasypositiongroupenum.py
+  - src/griddy/nfl/models/fantasystatsresponse.py
+  - src/griddy/nfl/models/filmcard.py
+  - src/griddy/nfl/models/filmroomplay.py
+  - src/griddy/nfl/models/filmroomplaysresponse.py
+  - src/griddy/nfl/models/footballgamesresponse.py
+  - src/griddy/nfl/models/futuresmarket.py
+  - src/griddy/nfl/models/futuresoddsresponse.py
+  - src/griddy/nfl/models/game.py
+  - src/griddy/nfl/models/gamecenterresponse.py
+  - src/griddy/nfl/models/gamecenterschedule.py
+  - src/griddy/nfl/models/gamedetail.py
+  - src/griddy/nfl/models/gameinsight.py
+  - src/griddy/nfl/models/gameodds.py
+  - src/griddy/nfl/models/gamephaseenum.py
+  - src/griddy/nfl/models/gamepreviewresponse.py
+  - src/griddy/nfl/models/gameresultenum.py
+  - src/griddy/nfl/models/gameschedule.py
+  - src/griddy/nfl/models/gamescore.py
+  - src/griddy/nfl/models/gamesresponse.py
+  - src/griddy/nfl/models/gamestatsresponse.py
+  - src/griddy/nfl/models/gamestatusenum.py
+  - src/griddy/nfl/models/gameteam.py
+  - src/griddy/nfl/models/generatetokenop.py
+  - src/griddy/nfl/models/getallteamsop.py
+  - src/griddy/nfl/models/getcoachesfilmvideosop.py
+  - src/griddy/nfl/models/getcurrentweekgamesop.py
+  - src/griddy/nfl/models/getdefensiveoverviewstatsbyseasonop.py
+  - src/griddy/nfl/models/getdefensivepassrushstatsbyseasonop.py
+  - src/griddy/nfl/models/getdefensivestatsbyseasonop.py
+  - src/griddy/nfl/models/getdraftinfoop.py
+  - src/griddy/nfl/models/getexperiencegamesop.py
+  - src/griddy/nfl/models/getexperienceteamsop.py
+  - src/griddy/nfl/models/getfantasystatsbyseasonop.py
+  - src/griddy/nfl/models/getfilmroomplaysop.py
+  - src/griddy/nfl/models/getfootballboxscoreop.py
+  - src/griddy/nfl/models/getfootballgamesop.py
+  - src/griddy/nfl/models/getfuturebettingoddsop.py
+  - src/griddy/nfl/models/getgamecenterop.py
+  - src/griddy/nfl/models/getgameinsightsop.py
+  - src/griddy/nfl/models/getgamematchuprankingsop.py
+  - src/griddy/nfl/models/getgamepreviewop.py
+  - src/griddy/nfl/models/getgameteamrankingsop.py
+  - src/griddy/nfl/models/gethomefilmcardsop.py
+  - src/griddy/nfl/models/getinjuryreportsop.py
+  - src/griddy/nfl/models/getlivegamescoresop.py
+  - src/griddy/nfl/models/getlivegamestatsop.py
+  - src/griddy/nfl/models/getmultiplerankingsallteamsop.py
+  - src/griddy/nfl/models/getplaybyplayop.py
+  - src/griddy/nfl/models/getplayerdetailsop.py
+  - src/griddy/nfl/models/getplayerop.py
+  - src/griddy/nfl/models/getplayerpassingstatsbyseasonop.py
+  - src/griddy/nfl/models/getplayerpassingstatsbyweekop.py
+  - src/griddy/nfl/models/getplayerreceivingstatsbyseasonop.py
+  - src/griddy/nfl/models/getplayerreceivingstatsbyweekop.py
+  - src/griddy/nfl/models/getplayerrushingstatsbyseasonop.py
+  - src/griddy/nfl/models/getplayerrushingstatsbyweekop.py
+  - src/griddy/nfl/models/getplayersteamrosterop.py
+  - src/griddy/nfl/models/getplayswinprobabilityop.py
+  - src/griddy/nfl/models/getprojectedstatsop.py
+  - src/griddy/nfl/models/getscheduledgameop.py
+  - src/griddy/nfl/models/getscheduledgamesop.py
+  - src/griddy/nfl/models/getscheduleseasonweeksop.py
+  - src/griddy/nfl/models/getseasoncontentinsightsop.py
+  - src/griddy/nfl/models/getseasonplayerstatsop.py
+  - src/griddy/nfl/models/getseasonweeksop.py
+  - src/griddy/nfl/models/getstandingsop.py
+  - src/griddy/nfl/models/getstatsboxscoreop.py
+  - src/griddy/nfl/models/getsummaryplayop.py
+  - src/griddy/nfl/models/getteamdefensepassstatsbyseasonop.py
+  - src/griddy/nfl/models/getteamdefenserushstatsbyseasonop.py
+  - src/griddy/nfl/models/getteamdefensestatsbyseasonop.py
+  - src/griddy/nfl/models/getteaminjuriesop.py
+  - src/griddy/nfl/models/getteamoffenseoverviewstatsbyseasonop.py
+  - src/griddy/nfl/models/getteamoffensepassstatsbyseasonop.py
+  - src/griddy/nfl/models/getteamrosterop.py
+  - src/griddy/nfl/models/getteamscheduleop.py
+  - src/griddy/nfl/models/getteamstandingsop.py
+  - src/griddy/nfl/models/gettransactionsop.py
+  - src/griddy/nfl/models/getvenuesop.py
+  - src/griddy/nfl/models/getweeklybettingoddsop.py
+  - src/griddy/nfl/models/getweeklygamedetailsop.py
+  - src/griddy/nfl/models/getweeklyteamrosterop.py
+  - src/griddy/nfl/models/getwinprobabilityminop.py
+  - src/griddy/nfl/models/homefilmcardsresponse.py
+  - src/griddy/nfl/models/injuredplayergamestatusenum.py
+  - src/griddy/nfl/models/injuryentry.py
+  - src/griddy/nfl/models/injuryreportresponse.py
+  - src/griddy/nfl/models/insight.py
+  - src/griddy/nfl/models/kickingstats.py
+  - src/griddy/nfl/models/lineofscrimmagedistanceenum.py
+  - src/griddy/nfl/models/livegame.py
+  - src/griddy/nfl/models/livescoresresponse.py
+  - src/griddy/nfl/models/matchuprankingsresponse.py
+  - src/griddy/nfl/models/meridiemenum.py
+  - src/griddy/nfl/models/moneyline.py
+  - src/griddy/nfl/models/multiplerankingscategory.py
+  - src/griddy/nfl/models/networktypeenum.py
+  - src/griddy/nfl/models/nextgenstatspositionenum.py
+  - src/griddy/nfl/models/nextgenstatspositiongroupenum.py
+  - src/griddy/nfl/models/oddsselection.py
+  - src/griddy/nfl/models/offensiveplayerpositionenum.py
+  - src/griddy/nfl/models/offensiveskillpositionenum.py
+  - src/griddy/nfl/models/overallrecord.py
+  - src/griddy/nfl/models/pagination.py
+  - src/griddy/nfl/models/participantplayerinfo.py
+  - src/griddy/nfl/models/passdistanceleaderentry.py
+  - src/griddy/nfl/models/passerstats.py
+  - src/griddy/nfl/models/passingsectionenum.py
+  - src/griddy/nfl/models/passingstats.py
+  - src/griddy/nfl/models/passingstatscategoryenum.py
+  - src/griddy/nfl/models/passingstatsresponse.py
+  - src/griddy/nfl/models/passingzonestats.py
+  - src/griddy/nfl/models/passrusherstats.py
+  - src/griddy/nfl/models/passrushstatsresponse.py
+  - src/griddy/nfl/models/penalty.py
+  - src/griddy/nfl/models/play.py
+  - src/griddy/nfl/models/playbyplayresponse.py
+  - src/griddy/nfl/models/playdetail.py
+  - src/griddy/nfl/models/playdirectionenum.py
+  - src/griddy/nfl/models/player.py
+  - src/griddy/nfl/models/playerdetail.py
+  - src/griddy/nfl/models/playergamestats.py
+  - src/griddy/nfl/models/playerpassingstats.py
+  - src/griddy/nfl/models/playerprojection.py
+  - src/griddy/nfl/models/playerreceivingstats.py
+  - src/griddy/nfl/models/playerrushingstats.py
+  - src/griddy/nfl/models/playersearchresponse.py
+  - src/griddy/nfl/models/playersearchresult.py
+  - src/griddy/nfl/models/playerstatsresponse.py
+  - src/griddy/nfl/models/playerweekprojectedpoints.py
+  - src/griddy/nfl/models/playerweekprojectedstats.py
+  - src/griddy/nfl/models/playparticipant.py
+  - src/griddy/nfl/models/playparticipantroleenum.py
+  - src/griddy/nfl/models/playstat.py
+  - src/griddy/nfl/models/playstateenum.py
+  - src/griddy/nfl/models/playsummaryresponse.py
+  - src/griddy/nfl/models/playtypeenum.py
+  - src/griddy/nfl/models/playwinprobability.py
+  - src/griddy/nfl/models/pointspread.py
+  - src/griddy/nfl/models/pointsrecord.py
+  - src/griddy/nfl/models/positiongroupenum.py
+  - src/griddy/nfl/models/practicestatusenum.py
+  - src/griddy/nfl/models/projectedstatsresponse.py
+  - src/griddy/nfl/models/proteam.py
+  - src/griddy/nfl/models/receiverstats.py
+  - src/griddy/nfl/models/receivingstats.py
+  - src/griddy/nfl/models/receivingstatscategoryenum.py
+  - src/griddy/nfl/models/receivingstatsresponse.py
+  - src/griddy/nfl/models/record.py
+  - src/griddy/nfl/models/refreshtokenop.py
+  - src/griddy/nfl/models/refreshtokenrequest.py
+  - src/griddy/nfl/models/replay.py
+  - src/griddy/nfl/models/responsemetadata.py
+  - src/griddy/nfl/models/rooftypeenum.py
+  - src/griddy/nfl/models/rosterresponse.py
+  - src/griddy/nfl/models/rusherstats.py
+  - src/griddy/nfl/models/rushinginfo.py
+  - src/griddy/nfl/models/rushingmap.py
+  - src/griddy/nfl/models/rushingstats.py
+  - src/griddy/nfl/models/rushingstatsresponse.py
+  - src/griddy/nfl/models/rushlocationmapentry.py
+  - src/griddy/nfl/models/scheduledgame.py
+  - src/griddy/nfl/models/scoretypeenum.py
+  - src/griddy/nfl/models/scoringplay.py
+  - src/griddy/nfl/models/searchplayersop.py
+  - src/griddy/nfl/models/seasonstats.py
+  - src/griddy/nfl/models/seasontypeenum.py
+  - src/griddy/nfl/models/seasonweeksresponse.py
+  - src/griddy/nfl/models/security.py
+  - src/griddy/nfl/models/site.py
+  - src/griddy/nfl/models/socialmedia.py
+  - src/griddy/nfl/models/sortorderenum.py
+  - src/griddy/nfl/models/speedleaderentry.py
+  - src/griddy/nfl/models/standings.py
+  - src/griddy/nfl/models/standingsrecord.py
+  - src/griddy/nfl/models/standingsresponse.py
+  - src/griddy/nfl/models/statisticranking.py
+  - src/griddy/nfl/models/successlevelenum.py
+  - src/griddy/nfl/models/summary.py
+  - src/griddy/nfl/models/team.py
+  - src/griddy/nfl/models/teamboxscore.py
+  - src/griddy/nfl/models/teamboxscore1.py
+  - src/griddy/nfl/models/teamdefensepassstats.py
+  - src/griddy/nfl/models/teamdefensepassstatsresponse.py
+  - src/griddy/nfl/models/teamdefenserushstats.py
+  - src/griddy/nfl/models/teamdefenserushstatsresponse.py
+  - src/griddy/nfl/models/teamdefensestats.py
+  - src/griddy/nfl/models/teamdefensestatsresponse.py
+  - src/griddy/nfl/models/teamgamestats.py
+  - src/griddy/nfl/models/teaminfo.py
+  - src/griddy/nfl/models/teaminjuryreport.py
+  - src/griddy/nfl/models/teammatchuprankings.py
+  - src/griddy/nfl/models/teamoffenseoverviewstats.py
+  - src/griddy/nfl/models/teamoffenseoverviewstatsresponse.py
+  - src/griddy/nfl/models/teamoffensepassstats.py
+  - src/griddy/nfl/models/teamoffensepassstatsresponse.py
+  - src/griddy/nfl/models/teamrankingentry.py
+  - src/griddy/nfl/models/teamrankings.py
+  - src/griddy/nfl/models/teamrankingsresponse.py
+  - src/griddy/nfl/models/teamrosterresponse.py
+  - src/griddy/nfl/models/teamscore.py
+  - src/griddy/nfl/models/teamtypeenum.py
+  - src/griddy/nfl/models/ticketvendor.py
+  - src/griddy/nfl/models/timetosackleaderentry.py
+  - src/griddy/nfl/models/tokenrequest.py
+  - src/griddy/nfl/models/tokenresponse.py
+  - src/griddy/nfl/models/totals.py
+  - src/griddy/nfl/models/transaction.py
+  - src/griddy/nfl/models/transactionsresponse.py
+  - src/griddy/nfl/models/transactiontypeenum.py
+  - src/griddy/nfl/models/venue.py
+  - src/griddy/nfl/models/venueinfo.py
+  - src/griddy/nfl/models/venuesresponse.py
+  - src/griddy/nfl/models/videoauthorizations.py
+  - src/griddy/nfl/models/videogameplayids.py
+  - src/griddy/nfl/models/videotag.py
+  - src/griddy/nfl/models/videothumbnail.py
+  - src/griddy/nfl/models/week.py
+  - src/griddy/nfl/models/weeklygamedetail.py
+  - src/griddy/nfl/models/weeklygamedetailsummaryscore.py
+  - src/griddy/nfl/models/weeklygamedetailsummaryteam.py
+  - src/griddy/nfl/models/weeklygamedetailsummarytimeouts.py
+  - src/griddy/nfl/models/weeklyoddsresponse.py
+  - src/griddy/nfl/models/weeklypassingstatsresponse.py
+  - src/griddy/nfl/models/weeklyplayer.py
+  - src/griddy/nfl/models/weeklyplayerpassingstats.py
+  - src/griddy/nfl/models/weeklyplayerrushingstats.py
+  - src/griddy/nfl/models/weeklyrosterresponse.py
+  - src/griddy/nfl/models/weeklyrushingstatsresponse.py
+  - src/griddy/nfl/models/weekslugenum.py
+  - src/griddy/nfl/models/weeksresponse.py
+  - src/griddy/nfl/models/weektypeenum.py
+  - src/griddy/nfl/models/winprobabilityresponse.py
+  - src/griddy/nfl/player_passing_statistics.py
+  - src/griddy/nfl/player_receiving_statistics.py
+  - src/griddy/nfl/player_rushing_statistics.py
+  - src/griddy/nfl/player_statistics.py
+  - src/griddy/nfl/players.py
+  - src/griddy/nfl/plays.py
+  - src/griddy/nfl/py.typed
+  - src/griddy/nfl/schedules.py
+  - src/griddy/nfl/schedules_extended.py
+  - src/griddy/nfl/scores.py
+  - src/griddy/nfl/sdk.py
+  - src/griddy/nfl/sdkconfiguration.py
+  - src/griddy/nfl/season_schedule.py
+  - src/griddy/nfl/secured_videos.py
+  - src/griddy/nfl/stats.py
+  - src/griddy/nfl/team_defense_pass_statistics.py
+  - src/griddy/nfl/team_defense_rush_statistics.py
+  - src/griddy/nfl/team_defense_statistics.py
+  - src/griddy/nfl/team_offense_overview_statistics.py
+  - src/griddy/nfl/team_offense_pass_statistics.py
+  - src/griddy/nfl/teams.py
+  - src/griddy/nfl/types/__init__.py
+  - src/griddy/nfl/types/basemodel.py
+  - src/griddy/nfl/utils/__init__.py
+  - src/griddy/nfl/utils/annotations.py
+  - src/griddy/nfl/utils/datetimes.py
+  - src/griddy/nfl/utils/enums.py
+  - src/griddy/nfl/utils/eventstreaming.py
+  - src/griddy/nfl/utils/forms.py
+  - src/griddy/nfl/utils/headers.py
+  - src/griddy/nfl/utils/logger.py
+  - src/griddy/nfl/utils/metadata.py
+  - src/griddy/nfl/utils/queryparams.py
+  - src/griddy/nfl/utils/requestbodies.py
+  - src/griddy/nfl/utils/retries.py
+  - src/griddy/nfl/utils/security.py
+  - src/griddy/nfl/utils/serializers.py
+  - src/griddy/nfl/utils/unmarshal_json_response.py
+  - src/griddy/nfl/utils/url.py
+  - src/griddy/nfl/utils/values.py
+  - src/griddy/nfl/win_probability.py
+examples:
+  getGamePreview:
+    speakeasy-default-get-game-preview:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+          visitorDisplayName: "Minnesota Vikings"
+          homeDisplayName: "Pittsburgh Steelers"
+      responses:
+        "200":
+          application/json: {}
+  getHomeFilmCards:
+    speakeasy-default-get-home-film-cards:
+      responses:
+        "200":
+          application/json: {"cards": [{"teamId": "4400", "title": "Justin Herbert Dropbacks vs. DEN"}], "title": "Week 3 Playlists"}
+  getGameInsights:
+    speakeasy-default-get-game-insights:
+      parameters:
+        query:
+          season: 2025
+          limit: 100
+          tags: "pro-preview"
+          excludeTags: "betting"
+          fapiGameId: "f688dfde-311e-11f0-b670-ae1250fadad1"
+          awayTeamId: "3000"
+          homeTeamId: "3900"
+      responses:
+        "200":
+          application/json: [{"seasonType": "REG", "nflId": 47834, "playerName": "A.J. Brown", "gameId": 2025100900, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "tags": ["next-gen-stats"], "id": "68e583063593b744ef32f18f"}]
+  getSeasonContentInsights:
+    speakeasy-default-get-season-content-insights:
+      parameters:
+        query:
+          season: 2025
+          limit: 60
+          tags: ["nfl-pro"]
+          teamId: "3900"
+          nflId: "46101"
+      responses:
+        "200":
+          application/json: [{"createdAt": "2025-09-23T14:55:11.714", "createdBy": "nfullerton", "date": "2025-09-23", "esbId": "JAC323395", "evergreen": false, "gameId": 2025092810, "gsisId": "00-0034796", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "id": "68d3173f10a19b830a9020e0", "imageUrl": "https://static.nflngs.com/tools/insights/2025/REG/3/68d217c4f31dbb03d8d6961c-pass-chart_JAC323395_2025-REG-3.png", "jerseyNumber": 8, "nflId": 46101, "playerName": "Lamar Jackson", "season": 2025, "seasonType": "REG", "secondTeamAbbr": "KC", "secondTeamId": "2310", "secondTeamType": "defense", "smartId": "32004a41-4332-3395-efb0-6c7b75de50af", "subNote1": "Jackson leads the league this season with 6 touchdowns against the blitz, while generating a 60.5% success rate and +0.70 EPA per dropback when facing a blitz. The Chiefs defense has blitzed at a 36.5% rate this season (8th-highest in the NFL), including the 4th-highest rate on early downs at 40.0%. Despite their aggressive approach, Kansas City has experienced the largest decrease in pressure rate when blitzing in the league, generating a 39.4% quarterback pressure rate when not blitzing compared to just 31.6% when sending extra rushers.", "tags": ["next-gen-stats", "nfl-pro", "pregame", "pro-preview", "pro-matchup"], "teamAbbr": "BAL", "teamId": "0325", "title": "Lamar Jackson completed 12 of 14 passes for 189 yards and all three touchdowns against the blitz in Week 3.", "updatedAt": "2025-09-23T14:55:11.714", "updatedBy": "nfullerton", "week": 4}]
+  getPlayer:
+    speakeasy-default-get-player:
+      parameters:
+        query:
+          nflId: 54517
+      responses:
+        "200":
+          application/json: {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18", "careerStats": {"seasonStats": [{"seasonType": "REG"}]}, "currentSeasonStats": {"seasonType": "REG"}}
+  getProjectedStats:
+    speakeasy-default-get-projected-stats:
+      parameters:
+        query:
+          filter[nflTeamId]: "10403000-5851-f9d5-da45-78365a05b6b0"
+          season: 2025
+          week: 4
+          page[size]: 20
+      responses:
+        "200":
+          application/json: {"data": [{"id": "32004d41-5312-5056-fafb-b3b690e395a1"}]}
+  searchPlayers:
+    speakeasy-default-search-players:
+      parameters:
+        query:
+          term: "Pickens"
+      responses:
+        "200":
+          application/json: {"players": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18", "careerStats": {"seasonStats": [{"seasonType": "REG"}]}, "currentSeasonStats": {"seasonType": "REG"}}], "term": "Pickens"}
+  getSummaryPlay:
+    speakeasy-default-get-summary-play:
+      parameters:
+        query:
+          gameId: "f665fc10-311e-11f0-b670-ae1250fadad1"
+          playId: 40
+      responses:
+        "200":
+          application/json: {"gameId": 2025092104, "gameKey": 59880, "play": {"gameClock": "15:00", "yardline": "PIT 35"}, "schedule": {"gameType": "REG", "homeTeam": {"abbr": "MIN", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "fullName": "Minnesota Vikings", "nick": "Vikings"}, "score": {"time": "11:24"}, "seasonType": "REG", "visitorTeam": {"abbr": "MIN", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "fullName": "Minnesota Vikings", "nick": "Vikings"}, "weekNameAbbr": "Week 3"}}
+  getCurrentWeekGames:
+    speakeasy-default-get-current-week-games:
+      responses:
+        "200":
+          application/json: {"games": [{"externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}}], "season": 2025, "seasonType": "REG"}
+  getFutureBettingOdds:
+    speakeasy-default-get-future-betting-odds:
+      responses:
+        "200":
+          application/json: {"data": {"conference": [{"hierarchy": "American Football /$/ NFL/$/Futures /$/ Super Bowl 2026", "selections": [{"decimal": 5.5}]}], "division": [{"hierarchy": "American Football /$/ NFL/$/Futures /$/ Super Bowl 2026", "selections": [{"decimal": 5.5}]}], "superBowl": [{"hierarchy": "American Football /$/ NFL/$/Futures /$/ Super Bowl 2026", "selections": [{"decimal": 5.5}]}]}}
+  getTeamStandings:
+    speakeasy-default-get-team-standings:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+      responses:
+        "200":
+          application/json: {"pagination": {"limit": 40}, "seasonType": "REG"}
+  getScheduledGame:
+    speakeasy-default-get-scheduled-game:
+      parameters:
+        query:
+          gameId: "f665fc10-311e-11f0-b670-ae1250fadad1"
+      responses:
+        "200":
+          application/json: {"gameDate": "09/21/2025", "gameType": "REG", "homeTeam": {"abbr": "MIN", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "fullName": "Minnesota Vikings", "nick": "Vikings"}, "score": {"time": "11:24"}, "seasonType": "REG", "site": {"postalCode": "D03 P6K7", "siteCity": "Dublin", "siteFullName": "Croke Park", "siteId": 1685, "smartId": "00081685-c941-9e9a-e0cd-ee645ca67a74"}, "visitorTeam": {"abbr": "MIN", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "fullName": "Minnesota Vikings", "nick": "Vikings"}}
+  getGameMatchupRankings:
+    speakeasy-default-get-game-matchup-rankings:
+      parameters:
+        query:
+          gameId: "2025092500"
+      responses:
+        "200":
+          application/json: {"gameId": 2025092500, "homeTeamMatchupRankings": {"teamId": "3800"}, "seasonType": "REG", "visitorTeamMatchupRankings": {"teamId": "3800"}}
+  getTeamInjuries:
+    speakeasy-default-get-team-injuries:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          teamId: "10403000-5851-f9d5-da45-78365a05b6b0"
+          week: 4
+      responses:
+        "200":
+          application/json: {"reports": [{"injuries": [{"injury": "Ankle", "player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}], "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}]}
+  getScheduledGames:
+    speakeasy-default-get-scheduled-games:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 3
+      responses:
+        "200":
+          application/json: {"games": [{"awayTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "homeTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}}], "season": "2025", "seasonType": "REG", "week": "3"}
+  getWeeklyBettingOdds:
+    speakeasy-default-get-weekly-betting-odds:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+      responses:
+        "200":
+          application/json: {"games": [{"gameId": 2025092500, "gameKey": 59891, "homeTeamAbbr": "ARI", "homeTeamId": "3800", "moneyline": {"awayPrice": "-125", "homePrice": "+105"}, "spread": {"awayHandicap": "-1.5", "awayPrice": "-105", "homeHandicap": "+1.5", "homePrice": "-115"}, "totals": {"overHandicap": 43.5, "overPrice": -105, "underHandicap": 43.5, "underPrice": -115}, "updatedAt": "2025-09-24T15:50:03Z", "visitorTeamAbbr": "SEA", "visitorTeamId": "4600"}], "season": "2025", "seasonType": "REG", "week": "4"}
+  getScheduleSeasonWeeks:
+    speakeasy-default-get-schedule-season-weeks:
+      parameters:
+        query:
+          season: 2025
+      responses:
+        "200":
+          application/json: {"pagination": {"limit": 40}, "season": "2025", "weeks": [{"byeTeams": [{"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}], "dateBegin": "2025-09-24", "dateEnd": "2025-10-01", "season": 2025, "seasonType": "REG", "seasonTypeWeek": "REG-4", "text": "Week 4", "week": 4}]}
+  getLiveGameScores:
+    speakeasy-default-get-live-game-scores:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+      responses:
+        "200":
+          application/json: {"season": "2025", "seasonType": "REG", "week": "4"}
+  getPlaysWinProbability:
+    multiple:
+      parameters:
+        query:
+          gameId: ["2025092800", "2025092104"]
+      responses:
+        "200":
+          application/json: {"gameId": 2025092106, "gameKey": 59882, "plays": [{"down": 1, "homeScore": 0, "homeTeamWinProbabilityAdded": 0.014431197196245193, "homeTimeoutsLeft": 3, "playDescription": "(14:55) T.Taylor scrambles left end ran ob at NYJ 36 for 7 yards (Z.McCollum).", "playId": 63, "possessionTeamId": "3200", "postPlayHomeTeamWinProbability": 0.45082369819283485, "postPlayVisitorTeamWinProbability": 0.5491763018071651, "preSnapHomeScore": 0, "preSnapHomeTeamWinProbability": 0.43639250099658966, "preSnapVisitorScore": 7, "preSnapVisitorTeamWinProbability": 0.5636074990034103, "quarter": 1, "sequence": 63, "visitorScore": 7, "visitorTeamWinProbabilityAdded": -0.014431197196245193, "visitorTimeoutsLeft": 3, "yardline": "NE 27", "yardlineNumber": 27, "yardlineSide": "NE", "yardsToGo": 10}], "pregameAwayTeamWinProbability": 0.28824037592858076, "pregameHomeTeamWinProbability": 0.7117596240714192}
+    single:
+      parameters:
+        query:
+          gameId: "2025092800"
+      responses:
+        "200":
+          application/json: []
+  getWinProbabilityMin:
+    speakeasy-default-get-win-probability-min:
+      parameters:
+        query:
+          fapiGameId: ["f666051f-311e-11f0-b670-ae1250fadad1", "f6660056-311e-11f0-b670-ae1250fadad1", "f665fc10-311e-11f0-b670-ae1250fadad1"]
+      responses:
+        "200":
+          application/json: {"gameId": 2025092106, "gameKey": 59882, "plays": [{"down": 1, "homeScore": 0, "homeTeamWinProbabilityAdded": 0.014431197196245193, "homeTimeoutsLeft": 3, "playDescription": "(14:55) T.Taylor scrambles left end ran ob at NYJ 36 for 7 yards (Z.McCollum).", "playId": 63, "possessionTeamId": "3200", "postPlayHomeTeamWinProbability": 0.45082369819283485, "postPlayVisitorTeamWinProbability": 0.5491763018071651, "preSnapHomeScore": 0, "preSnapHomeTeamWinProbability": 0.43639250099658966, "preSnapVisitorScore": 7, "preSnapVisitorTeamWinProbability": 0.5636074990034103, "quarter": 1, "sequence": 63, "visitorScore": 7, "visitorTeamWinProbabilityAdded": -0.014431197196245193, "visitorTimeoutsLeft": 3, "yardline": "NE 27", "yardlineNumber": 27, "yardlineSide": "NE", "yardsToGo": 10}], "pregameAwayTeamWinProbability": 0.28824037592858076, "pregameHomeTeamWinProbability": 0.7117596240714192}
+  getDefensiveStatsBySeason:
+    speakeasy-default-get-defensive-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "cov"
+          sortValue: "DESC"
+          qualifiedDefender: false
+          teamDefense: ["3800", "1800"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "defenders": [{"bhPct": 0.0625, "catchNd": 0.5625, "cov": 147, "covNd": 143, "croeNd": -0.03838, "displayName": "Jalen Thompson", "gameSnap": 208, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/gbb1sb2kkjlihuax2cud", "int": 0, "jerseyNumber": 34, "nflId": "49410", "passRatingNd": 74.47917, "qd": true, "recNd": 9, "recTdNd": 0, "recYdsNd": 98, "sep": 2.74855, "shortName": "J.Thompson", "teamId": "3800", "teamSnap": 208, "tg": 3, "tgtEpaNd": 2.0264879380119964, "tgtNd": 16, "tgtRNd": 0.11189, "totalTg": 3, "twfPct": 0.125, "yacprNd": 3.55556}], "qualifiedDefender": false}
+  getDefensiveOverviewStatsBySeason:
+    speakeasy-default-get-defensive-overview-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 3
+          offset: 0
+          page: 1
+          sortKey: "sack"
+          sortValue: "DESC"
+          qualifiedDefender: false
+          teamDefense: ["3000", "3900"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "defenders": [{"displayName": "Cameron Heyward", "gameSnap": 140, "gp": 3, "gs": 3, "hStop": 0, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/vfql05jp29d2pltrlwqz", "int": 0, "jerseyNumber": 97, "nflId": "37104", "passRatingNd": 0, "position": "FS", "pr": 79, "qbp": 8, "qbpR": 0.10127, "qd": true, "rd": 61, "recNd": 0, "recTdNd": 0, "recYdsNd": 0, "sack": 1, "shortName": "Ca.Heyward", "snap": 140, "snapPct": 0.71066, "tStop": 12, "tck": 14, "teamId": "3900", "teamSnap": 197, "tg": 3, "tgtNd": 0, "totalTg": 3}], "qualifiedDefender": false, "teamDefense": "3900"}
+  getDefensivePassRushStatsBySeason:
+    speakeasy-default-get-defensive-pass-rush-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "pr"
+          sortValue: "DESC"
+          qualifiedDefender: false
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "defenders": [{"displayName": "Maxx Crosby", "gameSnap": 176, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/eradjc0noknlab2smu1e", "jerseyNumber": 98, "nflId": "47889", "pr": 105, "prGo": 0.76679, "prR": 0.95455, "qbp": 12, "qbpR": 0.11429, "qd": true, "qp": 5, "sack": 2, "sackR": 0.01905, "shortName": "M.Crosby", "teamId": "2520", "teamSnap": 177, "tg": 3, "totalTg": 3, "ttp": 2.89167, "tts": 4.7575, "turnQbp": 1}], "qualifiedDefender": false}
+  getFantasyStatsBySeason:
+    speakeasy-default-get-fantasy-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "fpStd"
+          sortValue: "DESC"
+          positionGroup: ["QB"]
+          teamOffense: "3900"
+          teamDefense: "4600"
+          minOffensiveSnaps: 75
+          lastNWeeks: 3
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "players": [{"displayName": "Justin Herbert", "fpHalfPpr": 49.05, "fpPpr": 52.3, "fpPprPG": 17.43, "fpStd": 45.8, "fpStdPG": 15.27, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/player_headshot", "jerseyNumber": 10, "nflId": "52414", "passInt": 1, "passTd": 6, "passYds": 860, "passYdsPG": 286.67, "rec": 0, "recPG": 0, "recTd": 0, "recYds": 0, "redZoneTargets": 5, "rushTd": 0, "rushYds": 45, "rushYdsPG": 15, "shortName": "J.Herbert", "snapPct": 0.95, "targetShare": 0.25, "teamId": "4400", "tgt": 0}], "lastNWeeks": 3, "minOffensiveSnaps": 75, "teamOffense": "3900", "week": ["WEEK_16", "WEEK_17", "WEEK_18"]}
+  getPlayerPassingStatsBySeason:
+    speakeasy-default-get-player-passing-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortValue: "DESC"
+          qualifiedPasser: true
+          teamOffense: ["3000", "3900"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "passers": [{"att": 108, "attPG": 36, "avgSep": 3.36518, "avgTTP": 2.68913, "avgTTS": 4.4533, "avgTTT": 2.93205, "ay": 515.96, "ayAtt": 9.22093, "blitzR": 0.33858, "cmp": 72, "cmpPG": 24, "cmpPct": 0.66667, "cpoe": 0.02541, "db": 127, "dbPG": 42.33333, "deepAttPct": 0.08333, "displayName": "Justin Herbert", "drop": 7, "dropPG": 2.33333, "dropR": 0.06481, "epa": 25.00208, "epaDb": 0.19687, "epaPG": 8.33403, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/s1oelyaroiaalgilbeqk", "int": 1, "intPG": 0.33333, "jerseyNumber": 10, "nflId": "52414", "ngsPosition": "QB", "ngsPositionGroup": "QB", "paDbPct": 0.31496, "position": "QB", "positionGroup": "QB", "qbp": 52, "qbpPG": 17.33333, "qbpR": 0.40945, "qp": true, "rating": 105.4784, "sack": 10, "sackPG": 3.33333, "shortName": "J.Herbert", "td": 6, "tdPG": 2, "teamId": "4400", "tg": 3, "totalTg": 3, "twAttPG": 7, "twAttPct": 0.19444, "xCmp": 0.64125, "xYac": 306.44823, "yac": 365.75, "yacPct": 0.42529, "yds": 860, "ydsPG": 286.66667, "ypa": 7.96296}], "qualifiedPasser": true}
+  getPlayerPassingStatsByWeek:
+    speakeasy-default-get-player-passing-stats-by-week:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: "WEEK_10"
+          limit: 50
+          offset: 0
+          page: 1
+          sortValue: "DESC"
+          qualifiedPasser: false
+          teamOffense: ["3900", "3200"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "passers": [{"att": 108, "attPG": 36, "avgSep": 3.36518, "avgTTP": 2.68913, "avgTTS": 4.4533, "avgTTT": 2.93205, "ay": 515.96, "ayAtt": 9.22093, "blitzR": 0.33858, "cmp": 72, "cmpPG": 24, "cmpPct": 0.66667, "cpoe": 0.02541, "db": 127, "dbPG": 42.33333, "deepAttPct": 0.08333, "displayName": "Justin Herbert", "drop": 7, "dropPG": 2.33333, "dropR": 0.06481, "epa": 25.00208, "epaDb": 0.19687, "epaPG": 8.33403, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/s1oelyaroiaalgilbeqk", "int": 1, "intPG": 0.33333, "jerseyNumber": 10, "nflId": "52414", "ngsPosition": "QB", "ngsPositionGroup": "QB", "paDbPct": 0.31496, "position": "QB", "positionGroup": "QB", "qbp": 52, "qbpPG": 17.33333, "qbpR": 0.40945, "qp": true, "rating": 105.4784, "sack": 10, "sackPG": 3.33333, "shortName": "J.Herbert", "td": 6, "tdPG": 2, "teamId": "4400", "tg": 3, "totalTg": 3, "twAttPG": 7, "twAttPct": 0.19444, "xCmp": 0.64125, "xYac": 306.44823, "yac": 365.75, "yacPct": 0.42529, "yds": 860, "ydsPG": 286.66667, "ypa": 7.96296, "fapiGameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "finalScore": "14-21", "gameId": 2025092104, "isHome": true, "opponentTeamId": "3900", "weekSlug": "WEEK_3"}], "qualifiedPasser": false, "teamOffense": "3200", "week": "WEEK_3"}
+  getPlayerReceivingStatsBySeason:
+    speakeasy-default-get-player-receiving-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 3
+          offset: 0
+          page: 1
+          sortValue: "DESC"
+          qualifiedReceiver: false
+          teamOffense: ["3000", "3900"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "receivers": [{"avgRtDep": 8, "avgSep": 2.78224, "ay": 89.74, "ayPG": 89.74, "ayTgt": 8.15818, "catch": 0.72727, "croe": 0.12896, "deepTgtPct": 0, "displayName": "Jaylen Warren", "drop": 0, "dropPG": 0, "dropTgt": 0, "epa": 8.48132, "epaPG": 2.16307, "epaRt": 0.25701, "epaTgt": 0.77103, "ezRec": 1, "ezRecPG": 1, "ezTgt": 2, "ezTgtPG": 2, "fapiGameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "finalScore": "14-21", "gameId": 2025092104, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/f3txbqdarbabqtq4sx98", "int": 0, "intPG": 0, "isHome": true, "jerseyNumber": 85, "nflId": "54905", "opponentTeamId": "3900", "qr": true, "rating": 136.36364, "rec": 8, "recPG": 3.66667, "rt": 40, "rtPG": 33, "shortName": "J.Warren", "td": 2, "tdPG": 0.33333, "teamId": "3200", "tg": 3, "tgt": 12, "tgtPG": 11, "tgtRt": 0.33333, "totalTg": 3, "twPct": 0.09091, "weekSlug": "WEEK_3", "xCatch": 0.59831, "xYac": 33, "xYacPG": 28.33333, "yac": 33, "yacPG": 52.33333, "yacRec": 4.125, "yacoe": 0, "yacoePG": 24, "yds": 90, "ydsPG": 47.33333, "ydsRec": 11.25, "ydsRt": 2.72727}], "qualifiedReceiver": false, "teamOffense": "3900"}
+  getPlayerReceivingStatsByWeek:
+    speakeasy-default-get-player-receiving-stats-by-week:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: "WEEK_10"
+          limit: 50
+          offset: 0
+          page: 1
+          sortValue: "DESC"
+          qualifiedReceiver: false
+          teamOffense: ["3900", "3200"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "receivers": [{"avgRtDep": 8, "avgSep": 2.78224, "ay": 89.74, "ayPG": 89.74, "ayTgt": 8.15818, "catch": 0.72727, "croe": 0.12896, "deepTgtPct": 0, "displayName": "Jaylen Warren", "drop": 0, "dropPG": 0, "dropTgt": 0, "epa": 8.48132, "epaPG": 2.16307, "epaRt": 0.25701, "epaTgt": 0.77103, "ezRec": 1, "ezRecPG": 1, "ezTgt": 2, "ezTgtPG": 2, "fapiGameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "finalScore": "14-21", "gameId": 2025092104, "gp": 3, "gs": 3, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/f3txbqdarbabqtq4sx98", "int": 0, "intPG": 0, "isHome": true, "jerseyNumber": 85, "nflId": "54905", "opponentTeamId": "3900", "qr": true, "rating": 136.36364, "rec": 8, "recPG": 3.66667, "rt": 40, "rtPG": 33, "shortName": "J.Warren", "td": 2, "tdPG": 0.33333, "teamId": "3200", "tg": 3, "tgt": 12, "tgtPG": 11, "tgtRt": 0.33333, "totalTg": 3, "twPct": 0.09091, "weekSlug": "WEEK_3", "xCatch": 0.59831, "xYac": 33, "xYacPG": 28.33333, "yac": 33, "yacPG": 52.33333, "yacRec": 4.125, "yacoe": 0, "yacoePG": 24, "yds": 90, "ydsPG": 47.33333, "ydsRec": 11.25, "ydsRt": 2.72727}], "qualifiedReceiver": false, "teamOffense": "3900"}
+  getPlayerRushingStatsBySeason:
+    speakeasy-default-get-player-rushing-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 3
+          offset: 0
+          page: 1
+          sortKey: "yds"
+          sortValue: "DESC"
+          qualifiedRusher: false
+          teamOffense: ["3000", "3900"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "rushers": [{"att": 40, "attPG": 13.33333, "displayName": "Jordan Mason", "eff": 17.80575, "epa": 3.36212, "epaAtt": 0.08405, "epaPG": 1.12071, "fum": 0, "fumPG": 0, "gp": 3, "gs": 1, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/ixykwytfrfz1cdxlhj5w", "inTPct": 0.475, "jerseyNumber": 27, "lost": 0, "lostPG": 0, "nflId": "55113", "qr": true, "rush10PYds": 6, "rush10PYdsPG": 2, "rush15PMph": 6, "rush15PMphPG": 2, "rush20PMph": 0, "rush20PMphPG": 0, "ryoe": 61.15662, "ryoeAtt": 1.56812, "ryoePG": 20.38554, "shortName": "J.Mason", "stBoxPct": 0.075, "success": 0.475, "td": 2, "tdPG": 0.66667, "teamId": "3000", "tg": 3, "totalTg": 3, "underPct": 0.75, "xRy": 142.84338, "xRyPG": 47.61446, "xYpc": 3.66265, "yaco": 133.62, "yacoAtt": 3.3405, "yacoPG": 44.54, "ybco": 80.38, "ybcoPG": 26.79333, "yds": 214, "ydsPG": 71.33333, "ypc": 5.35}], "qualifiedRusher": false, "teamOffense": "3000"}
+  getPlayerRushingStatsByWeek:
+    speakeasy-default-get-player-rushing-stats-by-week:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: "WEEK_4"
+          limit: 50
+          offset: 0
+          page: 1
+          sortKey: "yds"
+          sortValue: "DESC"
+          qualifiedRusher: false
+          teamOffense: ["3900", "3200"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "rushers": [{"att": 7, "attPG": 7, "displayName": "Drake Maye", "eff": 27.35429, "epa": 2.84474, "epaAtt": 0.40639, "epaPG": 2.84474, "fapiGameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "finalScore": "14-21", "fum": 0, "fumPG": 0, "gameId": 2025092104, "gp": 1, "gs": 1, "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "inTPct": 0.28571, "isHome": true, "jerseyNumber": 10, "lost": 0, "lostPG": 0, "nflId": "57124", "opponentTeamId": "3900", "qr": true, "rush10PYds": 2, "rush10PYdsPG": 2, "rush15PMph": 3, "rush15PMphPG": 3, "rush20PMph": 0, "rush20PMphPG": 0, "ryoe": 11.70498, "ryoeAtt": 1.67214, "ryoePG": 11.70498, "shortName": "D.Maye", "stBoxPct": 0.28571, "success": 0.71429, "td": 0, "tdPG": 0, "teamId": "3200", "tg": 1, "totalTg": 1, "underPct": 0.71429, "weekSlug": "WEEK_3", "xRy": 33.29502, "xRyPG": 33.29502, "xYpc": 4.75643, "yaco": 0.94, "yacoAtt": 0.13429, "yacoPG": 0.94, "ybco": 44.06, "ybcoPG": 44.06, "yds": 45, "ydsPG": 45, "ypc": 6.42857}], "qualifiedRusher": false, "teamOffense": "3200"}
+  getTeamDefenseStatsBySeason:
+    speakeasy-default-get-team-defense-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "ypg"
+          sortValue: "DESC"
+          split: ["TEAM_DEFENSE_NICKEL", "TEAM_DEFENSE_RED_ZONE"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "defense": [{"defensiveTouchdown": 0, "epa": -13.93551, "epaPP": -0.16995, "epaPass": -14.27448, "epaPassPP": -0.25043, "epaRush": 0.33897, "epaRushPP": 0.01356, "forcedFumble": 0, "fumbleRecovered": 0, "gp": 3, "interception": 2, "pass": 57, "passPct": 0.69512, "passTd": 1, "passYds": 275, "passYpg": 91.66667, "passYpp": 4.82456, "ppg": 16.66667, "qbp": 22, "qbpPct": 0.35484, "run": 25, "rushTd": 1, "rushYds": 95, "rushYpg": 31.66667, "rushYpp": 3.8, "ryoe": -29.45588, "sackedYds": 45, "sackedYpg": 15, "td": 2, "teamId": "4400", "total": 82, "totalTakeaways": 2, "ttt": 2.71508, "yds": 370, "ypg": 123.33333, "ypp": 4.5122}], "split": ["TEAM_DEFENSE_MOTION"]}
+  getTeamDefensePassStatsBySeason:
+    speakeasy-default-get-team-defense-pass-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "passYpg"
+          sortValue: "DESC"
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "defense": [{"blitzPct": 0.40426, "epaPass": -18.49695, "epaPassPP": -0.21761, "go": 0.82397, "gp": 3, "pass": 85, "passPct": 0.5414, "passTd": 3, "passYds": 393, "passYpg": 131, "passYpp": 4.62353, "qbp": 38, "qbpPct": 0.40426, "sack": 8, "sackPct": 0.08511, "sackedYds": 53, "sackedYpg": 17.66667, "sep": 3.27409, "teamId": "0200", "total": 157, "ttp": 2.65806, "ttt": 2.96977, "yac": 178, "yacoe": -50}]}
+  getTeamDefenseRushStatsBySeason:
+    speakeasy-default-get-team-defense-rush-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "rushYpg"
+          sortValue: "DESC"
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "defense": [{"epaRush": -17.00447, "epaRushPP": -0.22673, "gp": 3, "inPct": 0.41333, "lightPct": 0.25333, "outPct": 0.53333, "run": 75, "runPct": 0.46012, "rush10PYds": 2, "rushTd": 1, "rushYds": 172, "rushYpg": 57.33333, "rushYpp": 2.29333, "ryoe": -64.76961, "ryoeAtt": -0.92528, "stackedPct": 0.30667, "stuffPct": 0.21333, "teamId": "1050", "total": 163, "yacoAtt": 2.86693, "ybcoAtt": -0.50693}]}
+  getTeamOffenseOverviewStatsBySeason:
+    speakeasy-default-get-team-offense-overview-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "ypg"
+          sortValue: "DESC"
+          teamDefense: "2250"
+          split: ["TEAM_WHEN_LEADING"]
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "offense": [{"epa": 15.245, "epaPP": 0.0824, "epaPass": 12.156, "epaPassPP": 0.1085, "epaRush": 3.089, "epaRushPP": 0.0423, "gp": 3, "pass": 112, "passPct": 0.6054, "passTd": 5, "passYds": 856, "passYpg": 285.33333, "passYpp": 7.643, "ppg": 24.33333, "redZonePct": 0.6667, "run": 73, "rushTd": 3, "rushYds": 400, "rushYpg": 133.33333, "rushYpp": 5.479, "td": 8, "teamId": "3000", "thirdDownPct": 0.4286, "to": 4, "total": 185, "yds": 1256, "ypg": 418.66667, "ypp": 6.789}], "split": ["TEAM_WHEN_LEADING"], "teamDefense": "2250"}
+  getTeamOffensePassStatsBySeason:
+    speakeasy-default-get-team-offense-pass-stats-by-season:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          limit: 35
+          offset: 0
+          page: 1
+          sortKey: "passYpg"
+          sortValue: "DESC"
+          teamDefense: "2250"
+      responses:
+        "200":
+          application/json: {"seasonType": "REG", "sortValue": "DESC", "offense": [{"att": 45, "blitzPct": 0.29167, "epaPass": -4.45186, "epaPassPP": -0.09275, "gp": 1, "paPct": 0.125, "pass": 48, "passPct": 0.73846, "passTd": 3, "passYds": 302, "passYpg": 302, "passYpp": 6.29167, "qbp": 14, "qbpPct": 0.29167, "sack": 3, "sackPct": 0.0625, "sackedYds": 15, "sackedYpg": 15, "sep": 2.65768, "teamId": "920", "total": 65, "ttp": 2.36429, "ttt": 2.52951, "yac": 138, "yacoe": 49}], "teamDefense": "2250"}
+  getCoachesFilmVideos:
+    speakeasy-default-get-coaches-film-videos:
+      parameters:
+        query:
+          gameId: ["f665fc10-311e-11f0-b670-ae1250fadad1", "ae9d66f7-1312-11ef-afd1-646009f18b2e"]
+          playId: ["267", "1162", "496", "139"]
+      responses:
+        "200":
+          application/json: {"items": [{"authorizations": {"nfl_plus_plus": [{"NFL PLUS - COACHES FILM": {"requirements": {"countryCode": ["US"]}}}], "nfl_plus_premium": [{"NFL PLUS - COACHES FILM": {"requirements": {"countryCode": ["US"]}}}], "pro_premium": [{"NFL PLUS - COACHES FILM": {"requirements": {"countryCode": ["US"]}}}]}, "description": "9-C.Boswell kicks 64 yards from PIT 35 to NE 1. 4-A.Gibson to NE 27 for 26 yards (33-J.Sawyer; 28-M.Killebrew).", "duration": 17, "expirationDate": "2035-09-19T18:13:06.000Z", "externalId": "o6FLUd-MqGjGe2pn9AWzmQ", "ids": {"awayTeamId": "10403900-8251-6892-d81c-4348525c2d47", "gameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "homeTeamId": "10403200-69ab-9ea6-5af5-e240fbc08bea", "playId": "40"}, "mcpPlaybackId": "2308013", "originalAirDate": "2025-09-21T07:00:00.000Z", "playIds": ["40"], "preRollDisabled": false, "promoTarget": "_self", "publishDate": "2025-09-22T10:00:00.000Z", "tags": [{"gameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "personId": "3200424f-5374-3355-5a91-480dcb22e23b", "season": "2025", "seasonType": "REG", "slug": "boswell,-christopher-(2014---2020)", "teamId": "10403200_69ab_9ea6_5af5_e240fbc08bea", "title": "Boswell, Christopher (2014 - 2020)", "week": "3"}], "thumbnail": {"thumbnailUrl": "https://o300810-mp-lura-live.akamaized.net/1/73/pvw/6FE/F5F/6FEF5FB4858CA5E0E9087008F597FC65_1.jpg?hdntl=st=1715000000~exp=2082787200~acl=/*~hmac=7903d9d310da4e4b7d0867e2098dcbb50dfa5d908bf53dd2c392d70447c347e3"}, "title": "PIT  KO  PIT 35"}], "metadata": {"generatedAt": "2025-09-24T16:07:01.654Z"}, "pagination": {"limit": 40}}
+  getFilmroomPlays:
+    speakeasy-default-get-filmroom-plays:
+      parameters:
+        query:
+          gameId: ["f665fc10-311e-11f0-b670-ae1250fadad1"]
+          season: [2025]
+          seasonType: ["REG"]
+          nflId: ["54517"]
+          quarter: [1]
+          down: [1]
+          yardsToGoType: ["SHORT"]
+          touchdown: [1]
+          rush10PlusYards: [1]
+          fumbleLost: [1]
+          fumble: [1]
+          qbAlignment: ["SHOTGUN"]
+          redzone: [1]
+          goalToGo: [1]
+          passPlay: [1]
+          runPlay: [1]
+          playType: ["play_type_rush"]
+          attempt: [1]
+          completion: [1]
+          interception: [1]
+          reception: [1]
+          sack: [1]
+          rec_motion: [1]
+          targetLocation: ["BETWEEN_HASHES"]
+          airYardType: ["SHORT"]
+          dropbackTimeType: ["QUICK"]
+          pressure: [1]
+          blitz: [1]
+          playAction: [1]
+          rushDirection: ["INSIDE"]
+          runStuff: [1]
+          receiverAlignment: ["SLOT"]
+          separationType: ["OPEN"]
+          personnel: ["NICKEL"]
+          defendersInTheBoxType: ["STACKED"]
+          def_coverageType: ["PRESS"]
+      responses:
+        "200":
+          application/json: {"count": 148, "plays": [{"defenseTeamId": "3200", "down": 1, "fapiGameId": "f665fc10-311e-11f0-b670-ae1250fadad1", "gameClock": "14:38", "gameId": 2025092104, "homeTeamAbbr": "NE", "homeTeamId": "3200", "playDescription": "(14:38) J.Warren right end to NE 12 for 1 yard (H.Landry; K.Dugger).", "playId": 1033, "possessionTeamId": "3900", "quarter": 2, "season": 2025, "seasonType": "REG", "sequence": 1033, "visitorTeamAbbr": "PIT", "visitorTeamId": "3900", "week": 3, "yardline": "NE 13", "yardsToGo": 10}]}
+  getStatsBoxscore:
+    speakeasy-default-get-stats-boxscore:
+      parameters:
+        query:
+          gameId: "2025092800"
+      responses:
+        "200":
+          application/json: {"away": {"extraPoints": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "fieldGoals": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "fumbles": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "kickReturn": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "kicking": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "passing": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "attempts": 47, "completions": 30, "completionPct": 63.8, "yards": 389, "yardsPerAttempt": 8.3, "lostSackedYards": 11, "sacks": 1, "touchdowns": 3, "longestPassCompletion": 38, "longestTdPass": 14, "interceptions": 0}], "puntReturn": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "punting": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "receiving": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "rushing": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "tackles": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "sacks": 1.5}]}, "gameId": "2025092800", "home": {"extraPoints": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "fieldGoals": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "fumbles": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "kickReturn": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "kicking": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "passing": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "attempts": 47, "completions": 30, "completionPct": 63.8, "yards": 389, "yardsPerAttempt": 8.3, "lostSackedYards": 11, "sacks": 1, "touchdowns": 3, "longestPassCompletion": 38, "longestTdPass": 14, "interceptions": 0}], "puntReturn": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "punting": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "receiving": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "rushing": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1"}], "tackles": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "sacks": 1.5}]}, "schedule": {"gameDate": "09/28/2025", "gameId": "2025092800", "gameKey": 59892, "gameTime": "2025-09-28T13:30:00Z", "gameTimeEastern": "09:30:00", "gameType": "REG", "homeDisplayName": "Pittsburgh Steelers", "homeNickname": "Steelers", "homeTeam": {"abbr": "PIT", "cityState": "Pittsburgh", "divisionAbbr": "ACN", "fullName": "Pittsburgh Steelers", "logo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/PIT", "nick": "Steelers", "smartId": "10403900-8251-6892-d81c-4348525c2d47", "teamId": "3900"}, "homeTeamAbbr": "PIT", "homeTeamId": "3900", "isoTime": 1759066200000, "networkChannel": "NFL NETWORK", "score": {"phase": "P"}, "season": 2025, "seasonType": "REG", "site": {"postalCode": "D03 P6K7", "siteCity": "Dublin", "siteFullName": "Croke Park", "siteId": 1685, "smartId": "00081685-c941-9e9a-e0cd-ee645ca67a74"}, "smartId": "f688dfde-311e-11f0-b670-ae1250fadad1", "visitorDisplayName": "Minnesota Vikings", "visitorNickname": "Vikings", "visitorTeam": {"abbr": "PIT", "cityState": "Pittsburgh", "divisionAbbr": "ACN", "fullName": "Pittsburgh Steelers", "logo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/PIT", "nick": "Steelers", "smartId": "10403900-8251-6892-d81c-4348525c2d47", "teamId": "3900"}, "visitorTeamAbbr": "MIN", "visitorTeamId": "3000", "week": 4, "weekNameAbbr": "Week 4"}}
+  getGameTeamRankings:
+    speakeasy-default-get-game-team-rankings:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          awayTeamId: "10403000-5851-f9d5-da45-78365a05b6b0"
+          homeTeamId: "10403900-8251-6892-d81c-4348525c2d47"
+          week: 4
+      responses:
+        "200":
+          application/json: {"awayRankings": {"season": 2025, "seasonType": "REG", "statistics": [{"rank": 11, "statistic": {"type": "DefenseAllKickBlocked", "value": 0}}], "teamId": "10403000-5851-f9d5-da45-78365a05b6b0"}, "homeRankings": {"season": 2025, "seasonType": "REG", "statistics": [{"rank": 11, "statistic": {"type": "DefenseAllKickBlocked", "value": 0}}], "teamId": "10403000-5851-f9d5-da45-78365a05b6b0"}}
+  getGamecenter:
+    speakeasy-default-get-gamecenter:
+      parameters:
+        query:
+          gameId: "2025092800"
+      responses:
+        "200":
+          application/json: {"leaders": {"passDistanceLeaders": {"home": [{"gsisPlayId": 4847, "esbId": "ATW460468", "jerseyNumber": 5, "playerName": "Tutu Atwell", "shortName": "T. Atwell", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "passInfo": {"airDistance": 53.34561369034946}}], "visitor": [{"gsisPlayId": 4847, "esbId": "ATW460468", "jerseyNumber": 5, "playerName": "Tutu Atwell", "shortName": "T. Atwell", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "passInfo": {"airDistance": 53.34561369034946}}]}, "speedLeaders": {"home": [{"gsisPlayId": 4847, "esbId": "ATW460468", "jerseyNumber": 5, "playerName": "Tutu Atwell", "shortName": "T. Atwell", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "maxSpeed": 20.0250000445}], "visitor": [{"gsisPlayId": 4847, "esbId": "ATW460468", "jerseyNumber": 5, "playerName": "Tutu Atwell", "shortName": "T. Atwell", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "maxSpeed": 20.0250000445}]}, "timeToSackLeaders": {"home": [{"gsisPlayId": 4847, "esbId": "ATW460468", "jerseyNumber": 5, "playerName": "Tutu Atwell", "shortName": "T. Atwell", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "tackleInfo": {"timeToTackle": 3.75}}], "visitor": [{"gsisPlayId": 4847, "esbId": "ATW460468", "jerseyNumber": 5, "playerName": "Tutu Atwell", "shortName": "T. Atwell", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/cruqs6qpbykh7a2whd7p", "tackleInfo": {"timeToTackle": 3.75}}]}}, "passRushers": {"home": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "blitzCount": 37, "avgSeparationToQb": 4.797052221914545, "tackles": 4, "assists": 2, "sacks": 1.5, "forcedFumbles": 1}], "leagueAverageSeparationToQb": {"avg": 4.573071521158667}, "visitor": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "blitzCount": 37, "avgSeparationToQb": 4.797052221914545, "tackles": 4, "assists": 2, "sacks": 1.5, "forcedFumbles": 1}]}, "passers": {"home": {"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "zones": [{"type": "threeColumns", "completionPct": 0.5, "qbRating": 102.311256}]}, "visitor": {"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "zones": [{"type": "threeColumns", "completionPct": 0.5, "qbRating": 102.311256}]}}, "receivers": {"home": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "recYards": 85, "targets": 12, "receptions": 10, "touchdowns": 1, "receptionInfo": {"avgAirYards": 9.5725, "avgCushion": 6.998333333333334, "avgSeparation": 3.486743522705502}}], "leagueAverageReceiverSeparation": {"avg": 2.981539130225725}, "visitor": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "recYards": 85, "targets": 12, "receptions": 10, "touchdowns": 1, "receptionInfo": {"avgAirYards": 9.5725, "avgCushion": 6.998333333333334, "avgSeparation": 3.486743522705502}}]}, "rushers": {"home": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "yards": 131, "attempts": 14, "touchdowns": 2, "rushInfo": {"distance": 190.789999999, "avgYards": 4.642857, "avgDistance": 13.627857, "avgTimeToLos": 2.57414}}], "visitor": [{"nflId": 34452, "gsisId": "00-0039852", "esbId": "NAC559347", "jerseyNumber": 9, "playerName": "Matthew Stafford", "shortName": "M.Stafford", "teamId": "2510", "headshot": "https://static.www.nfl.com/image/upload/formatInstructions/league/oyap81gtzcvnfmripis1", "yards": 131, "attempts": 14, "touchdowns": 2, "rushInfo": {"distance": 190.789999999, "avgYards": 4.642857, "avgDistance": 13.627857, "avgTimeToLos": 2.57414}}]}}
+  getMultipleRankingsAllTeams:
+    speakeasy-default-get-multiple-rankings-all-teams:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          stat0: "scoring-averagePointsScored"
+          stat1: "offense-yardsPerGame"
+          stat2: "offense-rushYardsPerGame"
+          stat3: "offense-passYardsPerGame"
+          stat4: "misc-netTurnovers"
+      responses:
+        "200":
+          application/json: [{"statCategory": "scoring", "statName": "averagePointsScored", "teams": [{"rank": 1, "stats": 37, "teamId": "10400325-48de-3d6a-be29-8f829437f4c8"}]}]
+  getAllTeams:
+    speakeasy-default-get-all-teams:
+      responses:
+        "200":
+          application/json: [{"abbr": "MIN", "altColor": "#ffffff", "city": "Minnesota", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "darkColor": "#ffc62f", "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "domain": "vikings", "fullName": "Minnesota Vikings", "isProBowl": false, "logo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/MIN", "name": "Minnesota Vikings", "nick": "Vikings", "nickname": "Vikings", "primaryColor": "#4F2683", "season": 2025, "secondaryColor": "#ffc62f", "slug": "minnesota-vikings", "smartId": "10403000-5851-f9d5-da45-78365a05b6b0", "stadiumName": "U.S. Bank Stadium", "teamId": "3000", "tertiaryColor": "#ffffff", "yearFound": 1961}]
+  getTeamRoster:
+    speakeasy-default-get-team-roster:
+      parameters:
+        query:
+          teamId: "3000"
+          season: 2025
+      responses:
+        "200":
+          application/json: {"season": 2025, "team": {"abbr": "MIN", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "fullName": "Minnesota Vikings", "nick": "Vikings"}, "teamPlayers": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}]}
+  getWeeklyTeamRoster:
+    speakeasy-default-get-weekly-team-roster:
+      parameters:
+        query:
+          teamId: "3900"
+          season: 2025
+          seasonType: "REG"
+          week: 3
+      responses:
+        "200":
+          application/json: {"season": 2025, "seasonType": "REG", "team": {"abbr": "MIN", "cityState": "Minnesota", "conference": {"fullName": "National Football Conference", "id": "0015"}, "division": {"abbr": "NCN", "fullName": "NFC North Division", "id": "0017"}, "fullName": "Minnesota Vikings", "nick": "Vikings"}, "teamPlayers": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18", "seasonType": "REG"}], "week": 3}
+  getTeamSchedule:
+    speakeasy-default-get-team-schedule:
+      parameters:
+        query:
+          teamId: "3000"
+          season: 2025
+      responses:
+        "200":
+          application/json: [{"gameKey": 59892, "gameType": "REG", "homeTeam": {"abbr": "PIT", "cityState": "Pittsburgh", "divisionAbbr": "ACN", "fullName": "Pittsburgh Steelers", "logo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/PIT", "nick": "Steelers", "smartId": "10403900-8251-6892-d81c-4348525c2d47", "teamId": "3900"}, "networkChannel": "NBC", "score": {"time": "11:24"}, "seasonType": "REG", "site": {"postalCode": "D03 P6K7", "siteCity": "Dublin", "siteFullName": "Croke Park", "siteId": 1685, "smartId": "00081685-c941-9e9a-e0cd-ee645ca67a74"}, "visitorTeam": {"abbr": "PIT", "cityState": "Pittsburgh", "divisionAbbr": "ACN", "fullName": "Pittsburgh Steelers", "logo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/PIT", "nick": "Steelers", "smartId": "10403900-8251-6892-d81c-4348525c2d47", "teamId": "3900"}, "weekNameAbbr": "Week 4"}]
+  getExperienceGames:
+    speakeasy-default-get-experience-games:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+      responses:
+        "200":
+          application/json: {"games": [{"awayTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "homeTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}}], "pagination": {"limit": 40}}
+  getExperienceTeams:
+    speakeasy-default-get-experience-teams:
+      parameters:
+        query:
+          allteams: true
+          season: 2025
+      responses:
+        "200":
+          application/json: {"teams": [{"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}]}
+  getDraftInfo:
+    speakeasy-default-get-draft-info:
+      parameters:
+        path:
+          year: 2025
+      responses:
+        "200":
+          application/json: {"rounds": [{"picks": [{"originalTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}]}]}
+  getWeeklyGameDetails:
+    speakeasy-default-get-weekly-game-details:
+      parameters:
+        query:
+          season: 2025
+          type: "REG"
+          week: 4
+          includeDriveChart: false
+          includeReplays: false
+          includeStandings: false
+          includeTaggedVideos: false
+      responses:
+        "200":
+          application/json: [{"awayTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "homeTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}, "replays": [{"duration": "8577", "promoTarget": "_self", "subType": "Full Game - Spanish", "title": "TNF en Espanol", "type": "video"}], "summary": {"attendance": 73652, "awayTeam": {"score": {"ot": 3, "q1": 7, "q2": 10, "q3": 3, "q4": 3, "total": 26}, "timeouts": {"remaining": 1, "used": 1}}, "clock": "03:36", "distance": 10, "down": 1, "homeTeam": {"score": {"ot": 3, "q1": 7, "q2": 10, "q3": 3, "q4": 3, "total": 26}, "timeouts": {"remaining": 1, "used": 1}}, "offset": 603, "phase": "FINAL_OVERTIME", "quarter": "END_OF_GAME", "weather": "Cloudy Temp: 71° F, Humidity: 65%, Wind: S 5 mph", "yardLine": "SF 11"}}]
+  getFootballGames:
+    speakeasy-default-get-football-games:
+      parameters:
+        path:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+        query:
+          withExternalIds: false
+      responses:
+        "200":
+          application/json: {"games": [{"awayTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "homeTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}}], "pagination": {"limit": 40}}
+  getFootballBoxScore:
+    speakeasy-default-get-football-box-score:
+      parameters:
+        path:
+          gameId: "ebc07c38-dcb1-4f5e-b7af-7ecdcae7eebe"
+      responses:
+        "200":
+          application/json: {"game": {"awayTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "homeTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}}, "playerStats": {"away": {"defense": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}], "offense": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}]}, "home": {"defense": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}], "offense": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}]}}, "scoringSummary": [{"team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}], "teamStats": {"away": {"fourthDownConversions": "1/2", "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "thirdDownConversions": "5/12", "timeOfPossession": "31:45"}, "home": {"fourthDownConversions": "1/2", "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "thirdDownConversions": "5/12", "timeOfPossession": "31:45"}}}
+  getPlayByPlay:
+    speakeasy-default-get-play-by-play:
+      parameters:
+        path:
+          gameId: "7dac8dbb-0515-45a5-99f8-c1ecc9cdcbba"
+        query:
+          includePenalties: true
+          includeFormations: false
+      responses:
+        "200":
+          application/json: {"currentDrive": {"plays": [{"penalties": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}], "players": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}]}], "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}, "drives": [{"plays": [{"penalties": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}], "players": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}]}], "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}], "game": {"awayTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "externalIds": [{"source": "elias"}], "gameType": "UNSPECIFIED", "homeTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "seasonType": "REG", "ticketVendors": [{"vendorName": "ticketmaster"}], "venue": {"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}}, "lastPlay": {"penalties": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}], "players": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}]}, "scoringSummary": [{"team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}]}
+  getInjuryReports:
+    speakeasy-default-get-injury-reports:
+      parameters:
+        query:
+          season: 2025
+          week: 4
+      responses:
+        "200":
+          application/json: {"reports": [{"injuries": [{"injury": "Ankle", "player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}}], "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}]}
+  getPlayersTeamRoster:
+    speakeasy-default-get-players-team-roster:
+      parameters:
+        path:
+          teamId: "10403800-517c-7b8c-65a3-c61b95d86123"
+        query:
+          season: 2025
+          includeStats: false
+      responses:
+        "200":
+          application/json: {"roster": {"defense": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}], "injuredReserve": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}], "offense": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}], "practiceSquad": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}], "specialTeams": [{"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}]}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}
+  getPlayerDetails:
+    speakeasy-default-get-player-details:
+      parameters:
+        path:
+          playerId: "2560726"
+        query:
+          season: 2025
+      responses:
+        "200":
+          application/json: {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18", "careerStats": {"seasonStats": [{"seasonType": "REG"}]}, "currentSeasonStats": {"seasonType": "REG"}}
+  getStandings:
+    speakeasy-default-get-standings:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 3
+          limit: 20
+      responses:
+        "200":
+          application/json: {"pagination": {"limit": 40}, "seasonType": "REG"}
+  getLiveGameStats:
+    speakeasy-default-get-live-game-stats:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          week: 4
+      responses:
+        "200":
+          application/json: {"data": [{"attendance": 73652, "awayTeam": {"score": {"ot": 3, "q1": 7, "q2": 10, "q3": 3, "q4": 3, "total": 26}, "timeouts": {"remaining": 1, "used": 1}}, "clock": "03:36", "distance": 10, "down": 1, "homeTeam": {"score": {"ot": 3, "q1": 7, "q2": 10, "q3": 3, "q4": 3, "total": 26}, "timeouts": {"remaining": 1, "used": 1}}, "offset": 603, "phase": "FINAL_OVERTIME", "quarter": "END_OF_GAME", "weather": "Cloudy Temp: 71° F, Humidity: 65%, Wind: S 5 mph", "yardLine": "SF 11"}], "pagination": {"limit": 40}}
+  getSeasonPlayerStats:
+    speakeasy-default-get-season-player-stats:
+      parameters:
+        query:
+          season: 2025
+          seasonType: "REG"
+          statCategory: "passing"
+          sort: "passingYards:desc"
+          limit: 50
+          offset: 0
+      responses:
+        "200":
+          application/json: {"players": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}], "seasonType": "REG"}
+  getTransactions:
+    speakeasy-default-get-transactions:
+      parameters:
+        query:
+          startDate: "2025-01-01"
+          endDate: "2025-09-24"
+          limit: 20
+      responses:
+        "200":
+          application/json: {"pagination": {"limit": 40}, "transactions": [{"player": {"collegeConference": "Southeastern Conference", "collegeName": "Louisiana State", "displayName": "Justin Jefferson", "height": "6-3", "nflId": 52430, "shortName": "J.Jefferson", "status": "ACT", "statusDescriptionAbbr": "A01", "statusShortDescription": "Active", "uniformNumber": "18"}, "relatedTeam": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}, "team": {"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}}]}
+  getVenues:
+    speakeasy-default-get-venues:
+      parameters:
+        query:
+          season: 2025
+          limit: 20
+      responses:
+        "200":
+          application/json: {"pagination": {"limit": 40}, "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}]}
+  getSeasonWeeks:
+    speakeasy-default-get-season-weeks:
+      parameters:
+        path:
+          season: 2025
+        query:
+          limit: 20
+      responses:
+        "200":
+          application/json: {"pagination": {"limit": 40}, "weeks": [{"byeTeams": [{"abbreviation": "ARI", "conferenceFullName": "National Football Conference", "currentLogo": "https://static.www.nfl.com/formatInstructions/league/api/clubs/logos/ARI", "divisionFullName": "NFC West", "fullName": "Arizona Cardinals", "id": "10403800-517c-7b8c-65a3-c61b95d86123", "league": "National Football League", "location": "Arizona", "nickName": "Cardinals", "primaryColor": "#97233F", "season": "2025", "secondaryColor": "#000000", "socials": [{"platform": "Facebook"}], "venues": [{"city": "Glendale", "country": "USA", "name": "State Farm Stadium", "territory": "AZ"}], "yearEstablished": 1920}], "dateBegin": "2025-09-24", "dateEnd": "2025-10-01", "season": 2025, "seasonType": "REG", "seasonTypeWeek": "REG-4", "text": "Week 4", "week": 4}]}
+  generateToken:
+    speakeasy-default-generate-token:
+      requestBody:
+        application/json: {"clientKey": "4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g", "clientSecret": "CZuvCL49d9OwfGsR", "deviceId": "3cfdef35-c7fe-4f2d-8630-1ec72f52b44d", "deviceInfo": "eyJtb2RlbCI6ImRlc2t0b3AiLCJ2ZXJzaW9uIjoiQ2hyb21lIiwib3NOYW1lIjoiV2luZG93cyIsIm9zVmVyc2lvbiI6IjEwIn0="}
+      responses:
+        "200":
+          application/json: {"accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...", "expiresIn": 1758732647, "refreshToken": "0f5452b5-7f40-4c8e-9801-cf7fd2830de3"}
+  refreshToken:
+    speakeasy-default-refresh-token:
+      requestBody:
+        application/json: {"clientKey": "4cFUW6DmwJpzT9L7LrG3qRAcABG5s04g", "clientSecret": "CZuvCL49d9OwfGsR", "deviceId": "3cfdef35-c7fe-4f2d-8630-1ec72f52b44d", "deviceInfo": "eyJtb2RlbCI6ImRlc2t0b3AiLCJ2ZXJzaW9uIjoiQ2hyb21lIiwib3NOYW1lIjoiV2luZG93cyIsIm9zVmVyc2lvbiI6IjEwIn0=", "refreshToken": "640b00c7-33d8-44f2-ab46-e3d1284a4061", "signatureTimestamp": "1758729181", "uid": "df990acd951e4bd6940c3babc4341584", "uidSignature": "587bdNt6EKYhhX9ASFOELX+2lqE="}
+      responses:
+        "200":
+          application/json: {"accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...", "expiresIn": 1758732647, "refreshToken": "0f5452b5-7f40-4c8e-9801-cf7fd2830de3"}
+examplesVersion: 1.0.2
+generatedTests: {}

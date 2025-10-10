@@ -5,33 +5,30 @@ from .winprobabilityresponse import (
     WinProbabilityResponse,
     WinProbabilityResponseTypedDict,
 )
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from typing import List, Union
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
 
-GameIDTypedDict = TypeAliasType("GameIDTypedDict", Union[str, List[str]])
-r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).
-Can be a single game ID or multiple game IDs for batch retrieval.
+GET_PLAYS_WIN_PROBABILITY_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
+]
 
-"""
+
+GameIDTypedDict = TypeAliasType("GameIDTypedDict", Union[str, List[str]])
+r"""Game identifier(s) in 10-digit format (YYYYMMDDNN). Can be a single game ID or multiple game IDs for batch retrieval."""
 
 
 GameID = TypeAliasType("GameID", Union[str, List[str]])
-r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).
-Can be a single game ID or multiple game IDs for batch retrieval.
-
-"""
+r"""Game identifier(s) in 10-digit format (YYYYMMDDNN). Can be a single game ID or multiple game IDs for batch retrieval."""
 
 
 class GetPlaysWinProbabilityRequestTypedDict(TypedDict):
     game_id: GameIDTypedDict
-    r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).
-    Can be a single game ID or multiple game IDs for batch retrieval.
-
-    """
+    r"""Game identifier(s) in 10-digit format (YYYYMMDDNN). Can be a single game ID or multiple game IDs for batch retrieval."""
 
 
 class GetPlaysWinProbabilityRequest(BaseModel):
@@ -40,21 +37,18 @@ class GetPlaysWinProbabilityRequest(BaseModel):
         pydantic.Field(alias="gameId"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
-    r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).
-    Can be a single game ID or multiple game IDs for batch retrieval.
-
-    """
+    r"""Game identifier(s) in 10-digit format (YYYYMMDDNN). Can be a single game ID or multiple game IDs for batch retrieval."""
 
 
-GetPlaysWinProbabilityResponseTypedDict = TypeAliasType(
-    "GetPlaysWinProbabilityResponseTypedDict",
+GetPlaysWinProbabilityResponseBodyTypedDict = TypeAliasType(
+    "GetPlaysWinProbabilityResponseBodyTypedDict",
     Union[WinProbabilityResponseTypedDict, List[WinProbabilityResponseTypedDict]],
 )
 r"""Successfully retrieved win probability data"""
 
 
-GetPlaysWinProbabilityResponse = TypeAliasType(
-    "GetPlaysWinProbabilityResponse",
+GetPlaysWinProbabilityResponseBody = TypeAliasType(
+    "GetPlaysWinProbabilityResponseBody",
     Union[WinProbabilityResponse, List[WinProbabilityResponse]],
 )
 r"""Successfully retrieved win probability data"""

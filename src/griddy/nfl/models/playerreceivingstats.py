@@ -3,35 +3,13 @@
 from __future__ import annotations
 from .gameresultenum import GameResultEnum
 from .offensiveskillpositionenum import OffensiveSkillPositionEnum
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class PlayerReceivingStatsTypedDict(TypedDict):
-    display_name: str
-    r"""Player's full name"""
-    gp: int
-    r"""Games played"""
-    gs: int
-    r"""Games started"""
-    nfl_id: str
-    r"""NFL player identifier"""
-    position: OffensiveSkillPositionEnum
-    r"""Offensive skill position (excluding QB)"""
-    rec: int
-    r"""Receptions"""
-    rt: int
-    r"""Routes run"""
-    td: int
-    r"""Touchdown receptions"""
-    team_id: str
-    r"""Team identifier"""
-    tgt: int
-    r"""Targets"""
-    yds: int
-    r"""Receiving yards"""
     avg_rt_dep: NotRequired[float]
     r"""Average route depth (yards)"""
     avg_sep: NotRequired[float]
@@ -48,6 +26,8 @@ class PlayerReceivingStatsTypedDict(TypedDict):
     r"""Catch Rate Over Expected"""
     deep_tgt_pct: NotRequired[float]
     r"""Deep target percentage (20+ air yards)"""
+    display_name: NotRequired[str]
+    r"""Player's full name"""
     drop: NotRequired[int]
     r"""Dropped passes"""
     drop_pg: NotRequired[float]
@@ -78,6 +58,10 @@ class PlayerReceivingStatsTypedDict(TypedDict):
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
     game_result: NotRequired[GameResultEnum]
     r"""Game result (Win/Loss/Tie)"""
+    gp: NotRequired[int]
+    r"""Games played"""
+    gs: NotRequired[int]
+    r"""Games started"""
     headshot: NotRequired[str]
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
     int_: NotRequired[int]
@@ -88,28 +72,42 @@ class PlayerReceivingStatsTypedDict(TypedDict):
     r"""Whether player's team was at home"""
     jersey_number: NotRequired[int]
     r"""Player's jersey number"""
+    nfl_id: NotRequired[str]
+    r"""NFL player identifier"""
     ngs_position: NotRequired[OffensiveSkillPositionEnum]
     r"""Offensive skill position (excluding QB)"""
     ngs_position_group: NotRequired[OffensiveSkillPositionEnum]
     r"""Offensive skill position (excluding QB)"""
     opponent_team_id: NotRequired[str]
     r"""Opponent team identifier"""
+    position: NotRequired[OffensiveSkillPositionEnum]
+    r"""Offensive skill position (excluding QB)"""
     position_group: NotRequired[OffensiveSkillPositionEnum]
     r"""Offensive skill position (excluding QB)"""
     qr: NotRequired[bool]
     r"""Qualified receiver status"""
     rating: NotRequired[float]
     r"""Passer rating when targeting this receiver"""
+    rec: NotRequired[int]
+    r"""Receptions"""
     rec_pg: NotRequired[float]
     r"""Receptions per game"""
+    rt: NotRequired[int]
+    r"""Routes run"""
     rt_pg: NotRequired[float]
     r"""Routes per game"""
     short_name: NotRequired[str]
     r"""Abbreviated player name"""
+    td: NotRequired[int]
+    r"""Touchdown receptions"""
     td_pg: NotRequired[float]
     r"""Touchdowns per game"""
+    team_id: NotRequired[str]
+    r"""Team identifier"""
     tg: NotRequired[int]
     r"""Team games for player"""
+    tgt: NotRequired[int]
+    r"""Targets"""
     tgt_pg: NotRequired[float]
     r"""Targets per game"""
     tgt_rt: NotRequired[float]
@@ -136,6 +134,8 @@ class PlayerReceivingStatsTypedDict(TypedDict):
     r"""Yards after catch over expected"""
     yacoe_pg: NotRequired[float]
     r"""YACOE per game"""
+    yds: NotRequired[int]
+    r"""Receiving yards"""
     yds_pg: NotRequired[float]
     r"""Yards per game"""
     yds_rec: NotRequired[float]
@@ -145,39 +145,6 @@ class PlayerReceivingStatsTypedDict(TypedDict):
 
 
 class PlayerReceivingStats(BaseModel):
-    display_name: Annotated[str, pydantic.Field(alias="displayName")]
-    r"""Player's full name"""
-
-    gp: int
-    r"""Games played"""
-
-    gs: int
-    r"""Games started"""
-
-    nfl_id: Annotated[str, pydantic.Field(alias="nflId")]
-    r"""NFL player identifier"""
-
-    position: OffensiveSkillPositionEnum
-    r"""Offensive skill position (excluding QB)"""
-
-    rec: int
-    r"""Receptions"""
-
-    rt: int
-    r"""Routes run"""
-
-    td: int
-    r"""Touchdown receptions"""
-
-    team_id: Annotated[str, pydantic.Field(alias="teamId")]
-    r"""Team identifier"""
-
-    tgt: int
-    r"""Targets"""
-
-    yds: int
-    r"""Receiving yards"""
-
     avg_rt_dep: Annotated[Optional[float], pydantic.Field(alias="avgRtDep")] = None
     r"""Average route depth (yards)"""
 
@@ -201,6 +168,9 @@ class PlayerReceivingStats(BaseModel):
 
     deep_tgt_pct: Annotated[Optional[float], pydantic.Field(alias="deepTgtPct")] = None
     r"""Deep target percentage (20+ air yards)"""
+
+    display_name: Annotated[Optional[str], pydantic.Field(alias="displayName")] = None
+    r"""Player's full name"""
 
     drop: Optional[int] = None
     r"""Dropped passes"""
@@ -249,6 +219,12 @@ class PlayerReceivingStats(BaseModel):
     ] = None
     r"""Game result (Win/Loss/Tie)"""
 
+    gp: Optional[int] = None
+    r"""Games played"""
+
+    gs: Optional[int] = None
+    r"""Games started"""
+
     headshot: Optional[str] = None
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
 
@@ -263,6 +239,9 @@ class PlayerReceivingStats(BaseModel):
 
     jersey_number: Annotated[Optional[int], pydantic.Field(alias="jerseyNumber")] = None
     r"""Player's jersey number"""
+
+    nfl_id: Annotated[Optional[str], pydantic.Field(alias="nflId")] = None
+    r"""NFL player identifier"""
 
     ngs_position: Annotated[
         Optional[OffensiveSkillPositionEnum], pydantic.Field(alias="ngsPosition")
@@ -279,6 +258,9 @@ class PlayerReceivingStats(BaseModel):
     ] = None
     r"""Opponent team identifier"""
 
+    position: Optional[OffensiveSkillPositionEnum] = None
+    r"""Offensive skill position (excluding QB)"""
+
     position_group: Annotated[
         Optional[OffensiveSkillPositionEnum], pydantic.Field(alias="positionGroup")
     ] = None
@@ -290,8 +272,14 @@ class PlayerReceivingStats(BaseModel):
     rating: Optional[float] = None
     r"""Passer rating when targeting this receiver"""
 
+    rec: Optional[int] = None
+    r"""Receptions"""
+
     rec_pg: Annotated[Optional[float], pydantic.Field(alias="recPG")] = None
     r"""Receptions per game"""
+
+    rt: Optional[int] = None
+    r"""Routes run"""
 
     rt_pg: Annotated[Optional[float], pydantic.Field(alias="rtPG")] = None
     r"""Routes per game"""
@@ -299,11 +287,20 @@ class PlayerReceivingStats(BaseModel):
     short_name: Annotated[Optional[str], pydantic.Field(alias="shortName")] = None
     r"""Abbreviated player name"""
 
+    td: Optional[int] = None
+    r"""Touchdown receptions"""
+
     td_pg: Annotated[Optional[float], pydantic.Field(alias="tdPG")] = None
     r"""Touchdowns per game"""
 
+    team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
+    r"""Team identifier"""
+
     tg: Optional[int] = None
     r"""Team games for player"""
+
+    tgt: Optional[int] = None
+    r"""Targets"""
 
     tgt_pg: Annotated[Optional[float], pydantic.Field(alias="tgtPG")] = None
     r"""Targets per game"""
@@ -343,6 +340,9 @@ class PlayerReceivingStats(BaseModel):
 
     yacoe_pg: Annotated[Optional[float], pydantic.Field(alias="yacoePG")] = None
     r"""YACOE per game"""
+
+    yds: Optional[int] = None
+    r"""Receiving yards"""
 
     yds_pg: Annotated[Optional[float], pydantic.Field(alias="ydsPG")] = None
     r"""Yards per game"""

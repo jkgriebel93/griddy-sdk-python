@@ -2,41 +2,41 @@
 
 from __future__ import annotations
 from .playwinprobability import PlayWinProbability, PlayWinProbabilityTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
-from typing import List
-from typing_extensions import Annotated, TypedDict
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class WinProbabilityResponseTypedDict(TypedDict):
-    game_id: int
+    game_id: NotRequired[int]
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
-    game_key: int
+    game_key: NotRequired[int]
     r"""Unique game key identifier"""
-    plays: List[PlayWinProbabilityTypedDict]
+    plays: NotRequired[List[PlayWinProbabilityTypedDict]]
     r"""Chronological list of all plays with win probability data"""
-    pregame_away_team_win_probability: float
+    pregame_away_team_win_probability: NotRequired[float]
     r"""Away team's win probability before the game started"""
-    pregame_home_team_win_probability: float
+    pregame_home_team_win_probability: NotRequired[float]
     r"""Home team's win probability before the game started"""
 
 
 class WinProbabilityResponse(BaseModel):
-    game_id: Annotated[int, pydantic.Field(alias="gameId")]
+    game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
 
-    game_key: Annotated[int, pydantic.Field(alias="gameKey")]
+    game_key: Annotated[Optional[int], pydantic.Field(alias="gameKey")] = None
     r"""Unique game key identifier"""
 
-    plays: List[PlayWinProbability]
+    plays: Optional[List[PlayWinProbability]] = None
     r"""Chronological list of all plays with win probability data"""
 
     pregame_away_team_win_probability: Annotated[
-        float, pydantic.Field(alias="pregameAwayTeamWinProbability")
-    ]
+        Optional[float], pydantic.Field(alias="pregameAwayTeamWinProbability")
+    ] = None
     r"""Away team's win probability before the game started"""
 
     pregame_home_team_win_probability: Annotated[
-        float, pydantic.Field(alias="pregameHomeTeamWinProbability")
-    ]
+        Optional[float], pydantic.Field(alias="pregameHomeTeamWinProbability")
+    ] = None
     r"""Home team's win probability before the game started"""

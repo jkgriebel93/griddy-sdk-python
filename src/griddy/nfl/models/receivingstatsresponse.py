@@ -4,59 +4,68 @@ from __future__ import annotations
 from .playerreceivingstats import PlayerReceivingStats, PlayerReceivingStatsTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
+from .weekslugenum import WeekSlugEnum
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ReceivingStatsResponseTypedDict(TypedDict):
-    limit: int
+    r"""Common pagination and query metadata for stats responses"""
+
+    limit: NotRequired[int]
     r"""Maximum number of results returned"""
-    offset: int
+    offset: NotRequired[int]
     r"""Number of records skipped"""
-    receivers: List[PlayerReceivingStatsTypedDict]
-    season: int
+    season: NotRequired[int]
     r"""Season year"""
-    season_type: SeasonTypeEnum
+    season_type: NotRequired[SeasonTypeEnum]
     r"""Type of NFL season"""
-    sort_key: str
+    sort_key: NotRequired[str]
     r"""Field used for sorting"""
-    sort_value: SortOrderEnum
+    sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction for ordered results"""
-    total: int
-    r"""Total number of players matching the criteria"""
+    total: NotRequired[int]
+    r"""Total number of items matching the criteria"""
+    receivers: NotRequired[List[PlayerReceivingStatsTypedDict]]
     qualified_receiver: NotRequired[bool]
     r"""Whether results are filtered to qualified receivers only"""
     team_offense: NotRequired[str]
     r"""Team filter applied (if any)"""
-    week: NotRequired[str]
-    r"""Week identifier"""
+    week: NotRequired[WeekSlugEnum]
+    r"""Week identifier slug"""
 
 
 class ReceivingStatsResponse(BaseModel):
-    limit: int
+    r"""Common pagination and query metadata for stats responses"""
+
+    limit: Optional[int] = None
     r"""Maximum number of results returned"""
 
-    offset: int
+    offset: Optional[int] = None
     r"""Number of records skipped"""
 
-    receivers: List[PlayerReceivingStats]
-
-    season: int
+    season: Optional[int] = None
     r"""Season year"""
 
-    season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
     r"""Type of NFL season"""
 
-    sort_key: Annotated[str, pydantic.Field(alias="sortKey")]
+    sort_key: Annotated[Optional[str], pydantic.Field(alias="sortKey")] = None
     r"""Field used for sorting"""
 
-    sort_value: Annotated[SortOrderEnum, pydantic.Field(alias="sortValue")]
+    sort_value: Annotated[
+        Optional[SortOrderEnum], pydantic.Field(alias="sortValue")
+    ] = None
     r"""Sort direction for ordered results"""
 
-    total: int
-    r"""Total number of players matching the criteria"""
+    total: Optional[int] = None
+    r"""Total number of items matching the criteria"""
+
+    receivers: Optional[List[PlayerReceivingStats]] = None
 
     qualified_receiver: Annotated[
         Optional[bool], pydantic.Field(alias="qualifiedReceiver")
@@ -66,5 +75,5 @@ class ReceivingStatsResponse(BaseModel):
     team_offense: Annotated[Optional[str], pydantic.Field(alias="teamOffense")] = None
     r"""Team filter applied (if any)"""
 
-    week: Optional[str] = None
-    r"""Week identifier"""
+    week: Optional[WeekSlugEnum] = None
+    r"""Week identifier slug"""

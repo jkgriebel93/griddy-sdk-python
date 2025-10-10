@@ -3,28 +3,35 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetDefensivePassRushStatsBySeasonSortKey = Literal[
-    "pr",
-    "prR",
-    "qbp",
-    "qbpR",
-    "ttp",
-    "qp",
-    "sack",
-    "sackR",
-    "tts",
-    "prGo",
-    "turnQbp",
-    "gameSnap",
+GET_DEFENSIVE_PASS_RUSH_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
+
+
+class GetDefensivePassRushStatsBySeasonQueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    PR = "pr"
+    PR_R = "prR"
+    QBP = "qbp"
+    QBP_R = "qbpR"
+    TTP = "ttp"
+    QP = "qp"
+    SACK = "sack"
+    SACK_R = "sackR"
+    TTS = "tts"
+    PR_GO = "prGo"
+    TURN_QBP = "turnQbp"
+    GAME_SNAP = "gameSnap"
 
 
 class GetDefensivePassRushStatsBySeasonRequestTypedDict(TypedDict):
@@ -38,7 +45,7 @@ class GetDefensivePassRushStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetDefensivePassRushStatsBySeasonSortKey]
+    sort_key: NotRequired[GetDefensivePassRushStatsBySeasonQueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
@@ -78,10 +85,10 @@ class GetDefensivePassRushStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetDefensivePassRushStatsBySeasonSortKey],
+        Optional[GetDefensivePassRushStatsBySeasonQueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "pr"
+    ] = GetDefensivePassRushStatsBySeasonQueryParamSortKey.PR
     r"""Field to sort by"""
 
     sort_value: Annotated[

@@ -4,39 +4,46 @@ from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 from .weekslugenum import WeekSlugEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetPlayerRushingStatsByWeekSortKey = Literal[
-    "att",
-    "yds",
-    "td",
-    "ypc",
-    "epa",
-    "epaAtt",
-    "xRy",
-    "xYpc",
-    "ryoe",
-    "ryoeAtt",
-    "yaco",
-    "yacoAtt",
-    "ybco",
-    "success",
-    "fum",
-    "lost",
-    "rush10PYds",
-    "rush15PMph",
-    "rush20PMph",
-    "eff",
-    "inTPct",
-    "stBoxPct",
-    "underPct",
+GET_PLAYER_RUSHING_STATS_BY_WEEK_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
+
+
+class GetPlayerRushingStatsByWeekQueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    ATT = "att"
+    YDS = "yds"
+    TD = "td"
+    YPC = "ypc"
+    EPA = "epa"
+    EPA_ATT = "epaAtt"
+    X_RY = "xRy"
+    X_YPC = "xYpc"
+    RYOE = "ryoe"
+    RYOE_ATT = "ryoeAtt"
+    YACO = "yaco"
+    YACO_ATT = "yacoAtt"
+    YBCO = "ybco"
+    SUCCESS = "success"
+    FUM = "fum"
+    LOST = "lost"
+    RUSH10_P_YDS = "rush10PYds"
+    RUSH15_P_MPH = "rush15PMph"
+    RUSH20_P_MPH = "rush20PMph"
+    EFF = "eff"
+    IN_T_PCT = "inTPct"
+    ST_BOX_PCT = "stBoxPct"
+    UNDER_PCT = "underPct"
 
 
 class GetPlayerRushingStatsByWeekRequestTypedDict(TypedDict):
@@ -52,7 +59,7 @@ class GetPlayerRushingStatsByWeekRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetPlayerRushingStatsByWeekSortKey]
+    sort_key: NotRequired[GetPlayerRushingStatsByWeekQueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
@@ -100,10 +107,10 @@ class GetPlayerRushingStatsByWeekRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetPlayerRushingStatsByWeekSortKey],
+        Optional[GetPlayerRushingStatsByWeekQueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "yds"
+    ] = GetPlayerRushingStatsByWeekQueryParamSortKey.YDS
     r"""Field to sort by"""
 
     sort_value: Annotated[

@@ -22,15 +22,15 @@ Returns comprehensive team data including colors, logos, stadiums, and contact i
 
 <!-- UsageSnippet language="python" operationID="getAllTeams" method="get" path="/api/teams/all" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.teams.get_all_teams()
+    res = griddy_nfl.teams.get_all_teams()
 
     assert res is not None
 
@@ -44,6 +44,7 @@ with GriddyNFL(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
@@ -65,15 +66,15 @@ Returns detailed player information including physical attributes, college info,
 
 <!-- UsageSnippet language="python" operationID="getTeamRoster" method="get" path="/api/teams/roster" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.teams.get_team_roster(team_id="3000", season=2025)
+    res = griddy_nfl.teams.get_team_roster(team_id="3000", season=2025)
 
     assert res is not None
 
@@ -89,6 +90,7 @@ with GriddyNFL(
 | `team_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Team identifier (4-digit string)                                    | 3000                                                                |
 | `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -110,15 +112,15 @@ Returns player information with weekly status and availability.
 
 <!-- UsageSnippet language="python" operationID="getWeeklyTeamRoster" method="get" path="/api/teams/rosterWeek" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.teams.get_weekly_team_roster(team_id="3900", season=2025, season_type=models.SeasonTypeEnum.REG, week=3)
+    res = griddy_nfl.teams.get_weekly_team_roster(team_id="3900", season=2025, season_type=models.SeasonTypeEnum.REG, week=3)
 
     assert res is not None
 
@@ -136,6 +138,7 @@ with GriddyNFL(
 | `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
 | `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number within the season                                       | 3                                                                   |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -157,15 +160,15 @@ Returns all games including preseason, regular season, and postseason with score
 
 <!-- UsageSnippet language="python" operationID="getTeamSchedule" method="get" path="/api/teams/schedule" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.teams.get_team_schedule(team_id="3000", season=2025)
+    res = griddy_nfl.teams.get_team_schedule(team_id="3000", season=2025)
 
     assert res is not None
 
@@ -181,6 +184,7 @@ with GriddyNFL(
 | `team_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Team identifier (4-digit string)                                    | 3000                                                                |
 | `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

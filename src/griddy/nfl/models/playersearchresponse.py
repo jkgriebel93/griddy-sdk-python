@@ -2,21 +2,21 @@
 
 from __future__ import annotations
 from .playersearchresult import PlayerSearchResult, PlayerSearchResultTypedDict
-from ..types import BaseModel
-from typing import List
-from typing_extensions import TypedDict
+from griddy.nfl.types import BaseModel
+from typing import List, Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class PlayerSearchResponseTypedDict(TypedDict):
-    players: List[PlayerSearchResultTypedDict]
+    players: NotRequired[List[PlayerSearchResultTypedDict]]
     r"""Array of players matching search criteria"""
-    term: str
+    term: NotRequired[str]
     r"""Search term used"""
 
 
 class PlayerSearchResponse(BaseModel):
-    players: List[PlayerSearchResult]
+    players: Optional[List[PlayerSearchResult]] = None
     r"""Array of players matching search criteria"""
 
-    term: str
+    term: Optional[str] = None
     r"""Search term used"""

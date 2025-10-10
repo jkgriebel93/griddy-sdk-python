@@ -2,46 +2,39 @@
 
 from __future__ import annotations
 from .gameschedule import GameSchedule, GameScheduleTypedDict
+from .participantplayerinfo import ParticipantPlayerInfo, ParticipantPlayerInfoTypedDict
 from .playdetail import PlayDetail, PlayDetailTypedDict
-from .playplayer import PlayPlayer, PlayPlayerTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class PlaySummaryResponseTypedDict(TypedDict):
-    game_id: int
-    r"""Game identifier in integer format"""
-    play: PlayDetailTypedDict
-    play_id: int
-    r"""Play identifier"""
-    schedule: GameScheduleTypedDict
-    away: NotRequired[List[PlayPlayerTypedDict]]
+    away: NotRequired[List[ParticipantPlayerInfoTypedDict]]
     r"""Away team players involved in the play"""
+    game_id: NotRequired[int]
+    r"""Game identifier in integer format"""
     game_key: NotRequired[int]
     r"""Unique game key"""
     gsis_play_id: NotRequired[int]
     r"""GSIS play identifier"""
-    home: NotRequired[List[PlayPlayerTypedDict]]
+    home: NotRequired[List[ParticipantPlayerInfoTypedDict]]
     r"""Home team players involved in the play"""
     home_is_offense: NotRequired[bool]
     r"""Whether home team has offensive possession"""
+    play: NotRequired[PlayDetailTypedDict]
+    play_id: NotRequired[int]
+    r"""Play identifier"""
+    schedule: NotRequired[GameScheduleTypedDict]
 
 
 class PlaySummaryResponse(BaseModel):
-    game_id: Annotated[int, pydantic.Field(alias="gameId")]
-    r"""Game identifier in integer format"""
-
-    play: PlayDetail
-
-    play_id: Annotated[int, pydantic.Field(alias="playId")]
-    r"""Play identifier"""
-
-    schedule: GameSchedule
-
-    away: Optional[List[PlayPlayer]] = None
+    away: Optional[List[ParticipantPlayerInfo]] = None
     r"""Away team players involved in the play"""
+
+    game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
+    r"""Game identifier in integer format"""
 
     game_key: Annotated[Optional[int], pydantic.Field(alias="gameKey")] = None
     r"""Unique game key"""
@@ -49,10 +42,17 @@ class PlaySummaryResponse(BaseModel):
     gsis_play_id: Annotated[Optional[int], pydantic.Field(alias="gsisPlayId")] = None
     r"""GSIS play identifier"""
 
-    home: Optional[List[PlayPlayer]] = None
+    home: Optional[List[ParticipantPlayerInfo]] = None
     r"""Home team players involved in the play"""
 
     home_is_offense: Annotated[
         Optional[bool], pydantic.Field(alias="homeIsOffense")
     ] = None
     r"""Whether home team has offensive possession"""
+
+    play: Optional[PlayDetail] = None
+
+    play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
+    r"""Play identifier"""
+
+    schedule: Optional[GameSchedule] = None

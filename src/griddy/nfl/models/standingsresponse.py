@@ -4,18 +4,18 @@ from __future__ import annotations
 from .pagination import Pagination, PaginationTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .standings import Standings, StandingsTypedDict
-from ..types import BaseModel
+from griddy.nfl.types import BaseModel
 import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class StandingsResponseWeekTypedDict(TypedDict):
+class WeeksTypedDict(TypedDict):
     standings: NotRequired[List[StandingsTypedDict]]
     week: NotRequired[int]
 
 
-class StandingsResponseWeek(BaseModel):
+class Weeks(BaseModel):
     standings: Optional[List[Standings]] = None
 
     week: Optional[int] = None
@@ -28,7 +28,7 @@ class StandingsResponseTypedDict(TypedDict):
     r"""Type of NFL season"""
     week: NotRequired[int]
     r"""Current week for standings"""
-    weeks: NotRequired[List[StandingsResponseWeekTypedDict]]
+    weeks: NotRequired[List[WeeksTypedDict]]
 
 
 class StandingsResponse(BaseModel):
@@ -44,4 +44,4 @@ class StandingsResponse(BaseModel):
     week: Optional[int] = None
     r"""Current week for standings"""
 
-    weeks: Optional[List[StandingsResponseWeek]] = None
+    weeks: Optional[List[Weeks]] = None

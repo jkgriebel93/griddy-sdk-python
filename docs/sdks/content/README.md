@@ -19,21 +19,15 @@ Retrieves preview content and insights for a specific game based on teams and we
 
 <!-- UsageSnippet language="python" operationID="getGamePreview" method="get" path="/api/content/game/preview" -->
 ```python
-from griddy_nfl import GriddyNFL, models
+from griddy.nfl import GriddyNFL, models
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content.get_game_preview(request={
-        "season": 2025,
-        "season_type": models.SeasonTypeEnum.REG,
-        "week": 4,
-        "visitor_display_name": "Minnesota Vikings",
-        "home_display_name": "Pittsburgh Steelers",
-    })
+    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
     assert res is not None
 
@@ -44,10 +38,15 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `request`                                                             | [models.GetGamePreviewRequest](../../models/getgamepreviewrequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
-| `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
+| `season_type`                                                       | [models.SeasonTypeEnum](../../models/seasontypeenum.md)             | :heavy_check_mark:                                                  | Type of season                                                      | REG                                                                 |
+| `week`                                                              | *int*                                                               | :heavy_check_mark:                                                  | Week number                                                         | 4                                                                   |
+| `visitor_display_name`                                              | *str*                                                               | :heavy_check_mark:                                                  | Visiting team display name                                          | Minnesota Vikings                                                   |
+| `home_display_name`                                                 | *str*                                                               | :heavy_check_mark:                                                  | Home team display name                                              | Pittsburgh Steelers                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -67,15 +66,15 @@ Retrieves featured film room content cards for the home page. Returns weekly pla
 
 <!-- UsageSnippet language="python" operationID="getHomeFilmCards" method="get" path="/api/content/home-film-cards" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content.get_home_film_cards()
+    res = griddy_nfl.content.get_home_film_cards()
 
     assert res is not None
 
@@ -89,6 +88,7 @@ with GriddyNFL(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
@@ -108,23 +108,15 @@ Retrieves analytical insights and advanced statistics for a specific game. Can f
 
 <!-- UsageSnippet language="python" operationID="getGameInsights" method="get" path="/api/content/insights/game" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.content.get_game_insights(request={
-        "season": 2025,
-        "limit": 100,
-        "tags": "pro-preview",
-        "exclude_tags": "betting",
-        "fapi_game_id": "f688dfde-311e-11f0-b670-ae1250fadad1",
-        "away_team_id": "3000",
-        "home_team_id": "3900",
-    })
+    res = griddy_nfl.content.get_game_insights(season=2025, fapi_game_id="f688dfde-311e-11f0-b670-ae1250fadad1", away_team_id="3000", home_team_id="3900", limit=100, tags="pro-preview", exclude_tags="betting")
 
     assert res is not None
 
@@ -135,10 +127,17 @@ with GriddyNFL(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `request`                                                               | [models.GetGameInsightsRequest](../../models/getgameinsightsrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `season`                                                            | *int*                                                               | :heavy_check_mark:                                                  | Season year                                                         | 2025                                                                |
+| `fapi_game_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | FAPI Game identifier (UUID)                                         | f688dfde-311e-11f0-b670-ae1250fadad1                                |
+| `away_team_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Away team identifier                                                | 3000                                                                |
+| `home_team_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Home team identifier                                                | 3900                                                                |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of insights to return                                | 100                                                                 |
+| `tags`                                                              | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Comma-separated list of tags to filter by                           | pro-preview                                                         |
+| `exclude_tags`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Comma-separated list of tags to exclude                             | betting                                                             |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 

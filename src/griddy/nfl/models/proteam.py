@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 from .conference import Conference, ConferenceTypedDict
+from .conferenceenum import ConferenceEnum
 from .division import Division, DivisionTypedDict
-from ..types import (
+from .teamtypeenum import TeamTypeEnum
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
@@ -12,22 +14,8 @@ from ..types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-ProTeamConferenceAbbr = Literal[
-    "AFC",
-    "NFC",
-]
-r"""Conference abbreviation"""
-
-
-ProTeamTeamType = Literal[
-    "TEAM",
-    "PRO",
-]
-r"""Type of team (regular or Pro Bowl)"""
 
 
 class ProTeamTypedDict(TypedDict):
@@ -40,8 +28,8 @@ class ProTeamTypedDict(TypedDict):
     city_state: NotRequired[str]
     r"""Team city and state"""
     conference: NotRequired[ConferenceTypedDict]
-    conference_abbr: NotRequired[ProTeamConferenceAbbr]
-    r"""Conference abbreviation"""
+    conference_abbr: NotRequired[ConferenceEnum]
+    r"""NFL conference"""
     dark_color: NotRequired[str]
     r"""Dark team color in hex format"""
     division: NotRequired[DivisionTypedDict]
@@ -77,8 +65,8 @@ class ProTeamTypedDict(TypedDict):
     r"""URL to team's ticket purchase page"""
     team_site_url: NotRequired[Nullable[str]]
     r"""Team's official website URL"""
-    team_type: NotRequired[ProTeamTeamType]
-    r"""Type of team (regular or Pro Bowl)"""
+    team_type: NotRequired[TeamTypeEnum]
+    r"""Team type classification"""
     tertiary_color: NotRequired[str]
     r"""Tertiary team color in hex format"""
     ticket_phone_number: NotRequired[Nullable[str]]
@@ -103,9 +91,9 @@ class ProTeam(BaseModel):
     conference: Optional[Conference] = None
 
     conference_abbr: Annotated[
-        Optional[ProTeamConferenceAbbr], pydantic.Field(alias="conferenceAbbr")
+        Optional[ConferenceEnum], pydantic.Field(alias="conferenceAbbr")
     ] = None
-    r"""Conference abbreviation"""
+    r"""NFL conference"""
 
     dark_color: Annotated[Optional[str], pydantic.Field(alias="darkColor")] = None
     r"""Dark team color in hex format"""
@@ -166,10 +154,10 @@ class ProTeam(BaseModel):
     ] = UNSET
     r"""Team's official website URL"""
 
-    team_type: Annotated[
-        Optional[ProTeamTeamType], pydantic.Field(alias="teamType")
-    ] = None
-    r"""Type of team (regular or Pro Bowl)"""
+    team_type: Annotated[Optional[TeamTypeEnum], pydantic.Field(alias="teamType")] = (
+        None
+    )
+    r"""Team type classification"""
 
     tertiary_color: Annotated[Optional[str], pydantic.Field(alias="tertiaryColor")] = (
         None

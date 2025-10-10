@@ -3,40 +3,46 @@
 from __future__ import annotations
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+from enum import Enum
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Literal, Optional
+from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-GetFantasyStatsBySeasonSortKey = Literal[
-    "fpStd",
-    "fpPpr",
-    "fpHalfPpr",
-    "passYds",
-    "passTd",
-    "passInt",
-    "rushYds",
-    "rushTd",
-    "recYds",
-    "recTd",
-    "rec",
-    "tgt",
-    "snapPct",
-    "targetShare",
-    "redZoneTargets",
+GET_FANTASY_STATS_BY_SEASON_OP_SERVERS = [
+    # Production NFL Pro API
+    "https://pro.nfl.com",
 ]
-r"""Field to sort by"""
 
 
-GetFantasyStatsBySeasonPositionGroup = Literal[
-    "QB",
-    "RB",
-    "WR",
-    "TE",
-    "SPEC",
-]
+class GetFantasyStatsBySeasonQueryParamSortKey(str, Enum):
+    r"""Field to sort by"""
+
+    FP_STD = "fpStd"
+    FP_PPR = "fpPpr"
+    FP_HALF_PPR = "fpHalfPpr"
+    PASS_YDS = "passYds"
+    PASS_TD = "passTd"
+    PASS_INT = "passInt"
+    RUSH_YDS = "rushYds"
+    RUSH_TD = "rushTd"
+    REC_YDS = "recYds"
+    REC_TD = "recTd"
+    REC = "rec"
+    TGT = "tgt"
+    SNAP_PCT = "snapPct"
+    TARGET_SHARE = "targetShare"
+    RED_ZONE_TARGETS = "redZoneTargets"
+
+
+class PositionGroup(str, Enum):
+    QB = "QB"
+    RB = "RB"
+    WR = "WR"
+    TE = "TE"
+    SPEC = "SPEC"
 
 
 class GetFantasyStatsBySeasonRequestTypedDict(TypedDict):
@@ -50,11 +56,11 @@ class GetFantasyStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetFantasyStatsBySeasonSortKey]
+    sort_key: NotRequired[GetFantasyStatsBySeasonQueryParamSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
-    position_group: NotRequired[List[GetFantasyStatsBySeasonPositionGroup]]
+    position_group: NotRequired[List[PositionGroup]]
     r"""Filter by position groups (supports multiple positions)"""
     team_offense: NotRequired[str]
     r"""Filter by specific offensive team ID"""
@@ -98,10 +104,10 @@ class GetFantasyStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetFantasyStatsBySeasonSortKey],
+        Optional[GetFantasyStatsBySeasonQueryParamSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "fpStd"
+    ] = GetFantasyStatsBySeasonQueryParamSortKey.FP_STD
     r"""Field to sort by"""
 
     sort_value: Annotated[
@@ -112,7 +118,7 @@ class GetFantasyStatsBySeasonRequest(BaseModel):
     r"""Sort direction"""
 
     position_group: Annotated[
-        Optional[List[GetFantasyStatsBySeasonPositionGroup]],
+        Optional[List[PositionGroup]],
         pydantic.Field(alias="positionGroup"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None

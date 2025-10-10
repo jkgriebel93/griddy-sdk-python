@@ -4,9 +4,12 @@ from __future__ import annotations
 from .award import Award, AwardTypedDict
 from .careerstats import CareerStats, CareerStatsTypedDict
 from .contractinfo import ContractInfo, ContractInfoTypedDict
+from .nextgenstatspositionenum import NextGenStatsPositionEnum
+from .nextgenstatspositiongroupenum import NextGenStatsPositionGroupEnum
 from .seasonstats import SeasonStats, SeasonStatsTypedDict
 from datetime import date
-from ..types import (
+from enum import Enum
+from griddy.nfl.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
@@ -17,6 +20,52 @@ import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class NgsPosition(str, Enum):
+    r"""Next Gen Stats player position"""
+
+    C = "C"
+    CB = "CB"
+    DB = "DB"
+    DE = "DE"
+    DT = "DT"
+    ED = "ED"
+    FB = "FB"
+    FS = "FS"
+    G = "G"
+    ILB = "ILB"
+    K = "K"
+    LB = "LB"
+    LS = "LS"
+    MLB = "MLB"
+    NT = "NT"
+    OL = "OL"
+    OLB = "OLB"
+    P = "P"
+    QB = "QB"
+    RB = "RB"
+    S = "S"
+    SCB = "SCB"
+    SS = "SS"
+    T = "T"
+    TE = "TE"
+    WR = "WR"
+
+
+class NgsPositionGroup(str, Enum):
+    r"""Next Gen Stats position group"""
+
+    DB = "DB"
+    DL = "DL"
+    K = "K"
+    LB = "LB"
+    OL = "OL"
+    P = "P"
+    QB = "QB"
+    RB = "RB"
+    TE = "TE"
+    WR = "WR"
 
 
 class PlayerDetailTypedDict(TypedDict):
@@ -58,14 +107,12 @@ class PlayerDetailTypedDict(TypedDict):
     r"""Player's last name"""
     nfl_id: NotRequired[int]
     r"""NFL player identifier"""
-    ngs_position: NotRequired[Nullable[str]]
-    r"""Next Gen Stats position"""
-    ngs_position_group: NotRequired[Nullable[str]]
+    ngs_position: NotRequired[Nullable[NgsPosition]]
+    ngs_position_group: NotRequired[Nullable[NgsPositionGroup]]
+    position: NotRequired[NextGenStatsPositionEnum]
+    r"""Next Gen Stats player position"""
+    position_group: NotRequired[NextGenStatsPositionGroupEnum]
     r"""Next Gen Stats position group"""
-    position: NotRequired[str]
-    r"""Player's position"""
-    position_group: NotRequired[str]
-    r"""Player's position group"""
     rookie_year: NotRequired[int]
     r"""Player's rookie year"""
     season: NotRequired[int]
@@ -163,22 +210,20 @@ class PlayerDetail(BaseModel):
     r"""NFL player identifier"""
 
     ngs_position: Annotated[
-        OptionalNullable[str], pydantic.Field(alias="ngsPosition")
+        OptionalNullable[NgsPosition], pydantic.Field(alias="ngsPosition")
     ] = UNSET
-    r"""Next Gen Stats position"""
 
     ngs_position_group: Annotated[
-        OptionalNullable[str], pydantic.Field(alias="ngsPositionGroup")
+        OptionalNullable[NgsPositionGroup], pydantic.Field(alias="ngsPositionGroup")
     ] = UNSET
+
+    position: Optional[NextGenStatsPositionEnum] = None
+    r"""Next Gen Stats player position"""
+
+    position_group: Annotated[
+        Optional[NextGenStatsPositionGroupEnum], pydantic.Field(alias="positionGroup")
+    ] = None
     r"""Next Gen Stats position group"""
-
-    position: Optional[str] = None
-    r"""Player's position"""
-
-    position_group: Annotated[Optional[str], pydantic.Field(alias="positionGroup")] = (
-        None
-    )
-    r"""Player's position group"""
 
     rookie_year: Annotated[Optional[int], pydantic.Field(alias="rookieYear")] = None
     r"""Player's rookie year"""

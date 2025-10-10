@@ -21,15 +21,15 @@ team information, draft details, and current status.
 
 <!-- UsageSnippet language="python" operationID="getPlayer" method="get" path="/api/players/player" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.players.get_player(nfl_id=54517)
+    res = griddy_nfl.players.get_player(nfl_id=54517)
 
     assert res is not None
 
@@ -44,6 +44,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `nfl_id`                                                            | *int*                                                               | :heavy_check_mark:                                                  | NFL player identifier                                               | 54517                                                               |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -65,15 +66,15 @@ Returns data in JSON:API format with relationships between players and their pro
 
 <!-- UsageSnippet language="python" operationID="getProjectedStats" method="get" path="/api/players/projectedStats" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.players.get_projected_stats(season=2025, week=4, filter_nfl_team_id="10403000-5851-f9d5-da45-78365a05b6b0", page_size=20)
+    res = griddy_nfl.players.get_projected_stats(season=2025, week=4, filter_nfl_team_id="10403000-5851-f9d5-da45-78365a05b6b0", page_size=20)
 
     assert res is not None
 
@@ -91,6 +92,7 @@ with GriddyNFL(
 | `filter_nfl_team_id`                                                | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter by NFL team ID (UUID format)                                 | 10403000-5851-f9d5-da45-78365a05b6b0                                |
 | `page_size`                                                         | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Number of results per page                                          |                                                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
@@ -112,15 +114,15 @@ including both active and retired players.
 
 <!-- UsageSnippet language="python" operationID="searchPlayers" method="get" path="/api/players/search" -->
 ```python
-from griddy_nfl import GriddyNFL
+from griddy.nfl import GriddyNFL
 
 
 with GriddyNFL(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as gn_client:
+) as griddy_nfl:
 
-    res = gn_client.players.search_players(term="Pickens")
+    res = griddy_nfl.players.search_players(term="Pickens")
 
     assert res is not None
 
@@ -135,6 +137,7 @@ with GriddyNFL(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `term`                                                              | *str*                                                               | :heavy_check_mark:                                                  | Search term for player name (first or last name)                    | Pickens                                                             |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
 
 ### Response
 
