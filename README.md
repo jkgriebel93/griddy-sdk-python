@@ -1,9 +1,9 @@
-# griddy-nfl
+# openapi
 
-Developer-friendly & type-safe Python SDK specifically catered to leverage *griddy-nfl* API.
+Developer-friendly & type-safe Python SDK specifically catered to leverage *openapi* API.
 
 <div align="left" style="margin-bottom: 0;">
-    <a href="https://www.speakeasy.com/?utm_source=griddy-nfl&utm_campaign=python" class="badge-link">
+    <a href="https://www.speakeasy.com/?utm_source=openapi&utm_campaign=python" class="badge-link">
         <span class="badge-container">
             <span class="badge-icon-section">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 30 30" fill="none" style="vertical-align: middle;"><title>Speakeasy Logo</title><path fill="currentColor" d="m20.639 27.548-19.17-2.724L0 26.1l20.639 2.931 8.456-7.336-1.468-.208-6.988 6.062Z"></path><path fill="currentColor" d="m20.639 23.1 8.456-7.336-1.468-.207-6.988 6.06-6.84-.972-9.394-1.333-2.936-.417L0 20.169l2.937.416L0 23.132l20.639 2.931 8.456-7.334-1.468-.208-6.986 6.062-9.78-1.39 1.468-1.273 8.31 1.18Z"></path><path fill="currentColor" d="m20.639 18.65-19.17-2.724L0 17.201l20.639 2.931 8.456-7.334-1.468-.208-6.988 6.06Z"></path><path fill="currentColor" d="M27.627 6.658 24.69 9.205 20.64 12.72l-7.923-1.126L1.469 9.996 0 11.271l11.246 1.596-1.467 1.275-8.311-1.181L0 14.235l20.639 2.932 8.456-7.334-2.937-.418 2.937-2.549-1.468-.208Z"></path><path fill="currentColor" d="M29.095 3.902 8.456.971 0 8.305l20.639 2.934 8.456-7.337Z"></path></svg>
@@ -32,7 +32,7 @@ NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [griddy-nfl](#griddy-nfl)
+* [openapi](#openapi)
   * [SDK Installation](#sdk-installation)
   * [IDE Support](#ide-support)
   * [SDK Example Usage](#sdk-example-usage)
@@ -92,7 +92,7 @@ poetry add git+<UNSET>.git
 You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and the `uvx` command that comes with it like so:
 
 ```shell
-uvx --from griddy-nfl python
+uvx --from openapi python
 ```
 
 It's also possible to write a standalone Python script without needing to set up a whole project like so:
@@ -102,13 +102,13 @@ It's also possible to write a standalone Python script without needing to set up
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
-#     "griddy-nfl",
+#     "openapi",
 # ]
 # ///
 
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
-sdk = GriddyNFL(
+sdk = SDK(
   # SDK arguments
 )
 
@@ -136,17 +136,15 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 
 ```python
 # Synchronous Example
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-    assert res is not None
+    res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
     # Handle response
     print(res)
@@ -159,18 +157,16 @@ The same SDK client can also be used to make asynchronous requests by importing 
 ```python
 # Asynchronous Example
 import asyncio
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 async def main():
 
-    async with GriddyNFL(
+    async with SDK(
         server_url="https://api.example.com",
         nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as griddy_nfl:
+    ) as sdk:
 
-        res = await griddy_nfl.content.get_game_preview_async(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-        assert res is not None
+        res = await sdk.content.get_game_preview_async(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
         # Handle response
         print(res)
@@ -192,17 +188,15 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `nfl_auth` parameter must be set when initializing the SDK client instance. For example:
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-    assert res is not None
+    res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
     # Handle response
     print(res)
@@ -330,12 +324,12 @@ with GriddyNFL(
 
 * [get_coaches_film_videos](docs/sdks/securedvideos/README.md#get_coaches_film_videos) - Get Coaches Film Videos
 
-### [stats](docs/sdks/stats/README.md)
+### [stats](docs/sdks/statssdk/README.md)
 
-* [get_stats_boxscore](docs/sdks/stats/README.md#get_stats_boxscore) - Get Game Boxscore (Stats API)
-* [get_game_team_rankings](docs/sdks/stats/README.md#get_game_team_rankings) - Get Team Rankings for Game
-* [get_gamecenter](docs/sdks/stats/README.md#get_gamecenter) - Get Gamecenter Statistics
-* [get_multiple_rankings_all_teams](docs/sdks/stats/README.md#get_multiple_rankings_all_teams) - Get Multiple Rankings for All Teams
+* [get_stats_boxscore](docs/sdks/statssdk/README.md#get_stats_boxscore) - Get Game Boxscore (Stats API)
+* [get_game_team_rankings](docs/sdks/statssdk/README.md#get_game_team_rankings) - Get Team Rankings for Game
+* [get_gamecenter](docs/sdks/statssdk/README.md#get_gamecenter) - Get Gamecenter Statistics
+* [get_multiple_rankings_all_teams](docs/sdks/statssdk/README.md#get_multiple_rankings_all_teams) - Get Multiple Rankings for All Teams
 
 ### [team_defense_pass_statistics](docs/sdks/teamdefensepassstatistics/README.md)
 
@@ -379,19 +373,17 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
-from griddy.nfl import GriddyNFL, models
-from griddy.nfl.utils import BackoffStrategy, RetryConfig
+from openapi import SDK
+from openapi.utils import BackoffStrategy, RetryConfig
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers",
+    res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers",
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -400,19 +392,17 @@ with GriddyNFL(
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
-from griddy.nfl import GriddyNFL, models
-from griddy.nfl.utils import BackoffStrategy, RetryConfig
+from openapi import SDK
+from openapi.utils import BackoffStrategy, RetryConfig
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-    assert res is not None
+    res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
     # Handle response
     print(res)
@@ -423,7 +413,7 @@ with GriddyNFL(
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`GriddyNFLBaseError`](./src/griddy/nfl/errors/griddynflbaseerror.py) is the base class for all HTTP error responses. It has the following properties:
+[`SDKError`](./src/openapi/errors/sdkerror.py) is the base class for all HTTP error responses. It has the following properties:
 
 | Property           | Type             | Description                                            |
 | ------------------ | ---------------- | ------------------------------------------------------ |
@@ -435,25 +425,23 @@ with GriddyNFL(
 
 ### Example
 ```python
-from griddy.nfl import GriddyNFL, errors, models
+from openapi import SDK, errors
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
     res = None
     try:
 
-        res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-        assert res is not None
+        res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
         # Handle response
         print(res)
 
 
-    except errors.GriddyNFLBaseError as e:
+    except errors.SDKError as e:
         # The base class for HTTP error responses
         print(e.message)
         print(e.status_code)
@@ -465,7 +453,7 @@ with GriddyNFL(
 
 ### Error Classes
 **Primary error:**
-* [`GriddyNFLBaseError`](./src/griddy/nfl/errors/griddynflbaseerror.py): The base class for HTTP error responses.
+* [`SDKError`](./src/openapi/errors/sdkerror.py): The base class for HTTP error responses.
 
 <details><summary>Less common errors (5)</summary>
 
@@ -477,8 +465,8 @@ with GriddyNFL(
     * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
 
 
-**Inherit from [`GriddyNFLBaseError`](./src/griddy/nfl/errors/griddynflbaseerror.py)**:
-* [`ResponseValidationError`](./src/griddy/nfl/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
+**Inherit from [`SDKError`](./src/openapi/errors/sdkerror.py)**:
+* [`ResponseValidationError`](./src/openapi/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
 <!-- End Error Handling [errors] -->
@@ -492,17 +480,17 @@ This allows you to wrap the client with your own custom logic, such as adding cu
 
 For example, you could specify a header for every request that this sdk makes as follows:
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 import httpx
 
 http_client = httpx.Client(headers={"x-custom-header": "someValue"})
-s = GriddyNFL(client=http_client)
+s = SDK(client=http_client)
 ```
 
 or you could wrap the client with your own custom logic:
 ```python
-from griddy.nfl import GriddyNFL
-from griddy.nfl.httpclient import AsyncHttpClient
+from openapi import SDK
+from openapi.httpclient import AsyncHttpClient
 import httpx
 
 class CustomClient(AsyncHttpClient):
@@ -560,35 +548,35 @@ class CustomClient(AsyncHttpClient):
             extensions=extensions,
         )
 
-s = GriddyNFL(async_client=CustomClient(httpx.AsyncClient()))
+s = SDK(async_client=CustomClient(httpx.AsyncClient()))
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Resource Management [resource-management] -->
 ## Resource Management
 
-The `GriddyNFL` class implements the context manager protocol and registers a finalizer function to close the underlying sync and async HTTPX clients it uses under the hood. This will close HTTP connections, release memory and free up other resources held by the SDK. In short-lived Python programs and notebooks that make a few SDK method calls, resource management may not be a concern. However, in longer-lived programs, it is beneficial to create a single SDK instance via a [context manager][context-manager] and reuse it across the application.
+The `SDK` class implements the context manager protocol and registers a finalizer function to close the underlying sync and async HTTPX clients it uses under the hood. This will close HTTP connections, release memory and free up other resources held by the SDK. In short-lived Python programs and notebooks that make a few SDK method calls, resource management may not be a concern. However, in longer-lived programs, it is beneficial to create a single SDK instance via a [context manager][context-manager] and reuse it across the application.
 
 [context-manager]: https://docs.python.org/3/reference/datamodel.html#context-managers
 
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 def main():
 
-    with GriddyNFL(
+    with SDK(
         server_url="https://api.example.com",
         nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as griddy_nfl:
+    ) as sdk:
         # Rest of application here...
 
 
 # Or when using async:
 async def amain():
 
-    async with GriddyNFL(
+    async with SDK(
         server_url="https://api.example.com",
         nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as griddy_nfl:
+    ) as sdk:
         # Rest of application here...
 ```
 <!-- End Resource Management [resource-management] -->
@@ -600,11 +588,11 @@ You can setup your SDK to emit debug logs for SDK requests and responses.
 
 You can pass your own logger class directly into your SDK.
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-s = GriddyNFL(server_url="https://example.com", debug_logger=logging.getLogger("griddy.nfl"))
+s = SDK(server_url="https://example.com", debug_logger=logging.getLogger("openapi"))
 ```
 <!-- End Debugging [debug] -->
 
@@ -623,7 +611,7 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=griddy-nfl&utm_campaign=python)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=python)
 
 <style>
   :root {

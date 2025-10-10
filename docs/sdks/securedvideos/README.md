@@ -21,15 +21,15 @@ and appropriate geographic restrictions apply (US only).
 
 <!-- UsageSnippet language="python" operationID="getCoachesFilmVideos" method="get" path="/api/secured/videos/coaches" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.secured_videos.get_coaches_film_videos(game_id=[
+    res = sdk.secured_videos.get_coaches_film_videos(game_id=[
         "f665fc10-311e-11f0-b670-ae1250fadad1",
         "ae9d66f7-1312-11ef-afd1-646009f18b2e",
     ], play_id=[
@@ -38,8 +38,6 @@ with GriddyNFL(
         "496",
         "139",
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -61,6 +59,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

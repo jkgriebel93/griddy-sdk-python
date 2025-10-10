@@ -23,20 +23,18 @@ Supports querying multiple games simultaneously.
 
 <!-- UsageSnippet language="python" operationID="getPlaysWinProbability" method="get" path="/api/secured/plays/winProbability" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.win_probability.get_plays_win_probability(game_id=[
+    res = sdk.win_probability.get_plays_win_probability(game_id=[
         "2025092800",
         "2025092104",
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -53,13 +51,13 @@ with GriddyNFL(
 
 ### Response
 
-**[models.GetPlaysWinProbabilityResponseBody](../../models/getplayswinprobabilityresponsebody.md)**
+**[models.GetPlaysWinProbabilityResponse](../../models/getplayswinprobabilityresponse.md)**
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_win_probability_min
 
@@ -73,21 +71,19 @@ structure for performance. Supports multiple games in a single request.
 
 <!-- UsageSnippet language="python" operationID="getWinProbabilityMin" method="get" path="/api/secured/plays/winProbabilityMin" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.win_probability.get_win_probability_min(fapi_game_id=[
+    res = sdk.win_probability.get_win_probability_min(fapi_game_id=[
         "f666051f-311e-11f0-b670-ae1250fadad1",
         "f6660056-311e-11f0-b670-ae1250fadad1",
         "f665fc10-311e-11f0-b670-ae1250fadad1",
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -108,6 +104,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

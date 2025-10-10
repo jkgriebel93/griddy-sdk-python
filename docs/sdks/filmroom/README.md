@@ -21,20 +21,20 @@ player involvement, formation types, and tactical elements.
 
 <!-- UsageSnippet language="python" operationID="getFilmroomPlays" method="get" path="/api/secured/videos/filmroom/plays" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.filmroom.get_filmroom_plays(game_id=[
+    res = sdk.filmroom.get_filmroom_plays(game_id=[
         "f665fc10-311e-11f0-b670-ae1250fadad1",
     ], season=[
         2025,
     ], season_type=[
-        models.SeasonTypeEnum.REG,
+        "REG",
     ], nfl_id=[
         "54517",
     ], quarter=[
@@ -42,68 +42,66 @@ with GriddyNFL(
     ], down=[
         1,
     ], yards_to_go_type=[
-        models.YardsToGoType.SHORT,
+        "SHORT",
     ], touchdown=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], rush10_plus_yards=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], fumble_lost=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], fumble=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], qb_alignment=[
-        models.QbAlignment.SHOTGUN,
+        "SHOTGUN",
     ], redzone=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], goal_to_go=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], pass_play=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], run_play=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], play_type=[
-        models.PlayTypeEnum.PLAY_TYPE_RUSH,
+        "play_type_rush",
     ], attempt=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], completion=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], interception=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], reception=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], sack=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], rec_motion=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], target_location=[
-        models.TargetLocation.BETWEEN_HASHES,
+        "BETWEEN_HASHES",
     ], air_yard_type=[
-        models.AirYardType.SHORT,
+        "SHORT",
     ], dropback_time_type=[
-        models.DropbackTimeType.QUICK,
+        "QUICK",
     ], pressure=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], blitz=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], play_action=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], rush_direction=[
-        models.RushDirection.INSIDE,
+        "INSIDE",
     ], run_stuff=[
-        models.BinaryFlagEnum.ONE,
+        1,
     ], receiver_alignment=[
-        models.ReceiverAlignment.SLOT,
+        "SLOT",
     ], separation_type=[
-        models.SeparationType.OPEN,
+        "OPEN",
     ], personnel=[
-        models.Personnel.NICKEL,
+        "NICKEL",
     ], defenders_in_the_box_type=[
-        models.DefendersInTheBoxType.STACKED,
+        "STACKED",
     ], def_coverage_type=[
-        models.DefCoverageType.PRESS,
+        "PRESS",
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -160,6 +158,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

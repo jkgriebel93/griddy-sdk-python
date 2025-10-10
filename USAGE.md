@@ -1,17 +1,15 @@
 <!-- Start SDK Example Usage [usage] -->
 ```python
 # Synchronous Example
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.content.get_game_preview(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-    assert res is not None
+    res = sdk.content.get_game_preview(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
     # Handle response
     print(res)
@@ -24,18 +22,16 @@ The same SDK client can also be used to make asynchronous requests by importing 
 ```python
 # Asynchronous Example
 import asyncio
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 async def main():
 
-    async with GriddyNFL(
+    async with SDK(
         server_url="https://api.example.com",
         nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as griddy_nfl:
+    ) as sdk:
 
-        res = await griddy_nfl.content.get_game_preview_async(season=2025, season_type=models.SeasonTypeEnum.REG, week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
-
-        assert res is not None
+        res = await sdk.content.get_game_preview_async(season=2025, season_type="REG", week=4, visitor_display_name="Minnesota Vikings", home_display_name="Pittsburgh Steelers")
 
         # Handle response
         print(res)

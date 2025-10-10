@@ -20,17 +20,15 @@ Returns comprehensive game data including teams, venues, broadcast information, 
 
 <!-- UsageSnippet language="python" operationID="getExperienceGames" method="get" path="/experience/v1/games" -->
 ```python
-from griddy.nfl import GriddyNFL, models
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.experience.get_experience_games(season=2025, season_type=models.SeasonTypeEnum.REG, week=4)
-
-    assert res is not None
+    res = sdk.experience.get_experience_games(season=2025, season_type="REG", week=4)
 
     # Handle response
     print(res)
@@ -53,9 +51,9 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_experience_teams
 
@@ -67,17 +65,15 @@ Returns comprehensive team data including logos, colors, venues, and social medi
 
 <!-- UsageSnippet language="python" operationID="getExperienceTeams" method="get" path="/experience/v1/teams" -->
 ```python
-from griddy.nfl import GriddyNFL
+from openapi import SDK
 
 
-with GriddyNFL(
+with SDK(
     server_url="https://api.example.com",
     nfl_auth="<YOUR_BEARER_TOKEN_HERE>",
-) as griddy_nfl:
+) as sdk:
 
-    res = griddy_nfl.experience.get_experience_teams(season=2025, allteams=True)
-
-    assert res is not None
+    res = sdk.experience.get_experience_teams(season=2025, allteams=True)
 
     # Handle response
     print(res)
@@ -99,6 +95,6 @@ with GriddyNFL(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GriddyNFLError | 4XX, 5XX              | \*/\*                 |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |

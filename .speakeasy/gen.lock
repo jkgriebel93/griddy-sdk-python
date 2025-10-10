@@ -1,21 +1,21 @@
 lockVersion: 2.0.0
-id: 23e7eb10-1a56-4180-b51c-4acceab99e1b
+id: e98b1ca2-5712-46bf-9ffd-1767e7b893f1
 management:
   docChecksum: cf5cbb83fdb2be136976ca2c8a69eb03
   docVersion: 1.0.0
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
   releaseVersion: 0.0.1
-  configChecksum: 6d6ad510590fb2c32aacff24636350a4
+  configChecksum: a68b974a01b02be27c0920f017bde73c
 features:
   python:
     additionalDependencies: 1.0.0
-    configurableModuleName: 0.2.0
     constsAndDefaults: 1.0.5
     core: 5.22.1
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
+    flatRequests: 1.0.1
     flattening: 3.1.1
     globalSecurity: 3.0.4
     globalSecurityCallbacks: 1.0.0
@@ -33,13 +33,12 @@ generatedFiles:
   - .vscode/settings.json
   - USAGE.md
   - docs/models/airyardtype.md
-  - docs/models/attributes.md
   - docs/models/authorizations.md
   - docs/models/award.md
   - docs/models/awardtype.md
   - docs/models/away.md
   - docs/models/awayteam.md
-  - docs/models/background.md
+  - docs/models/awayteamboxscore.md
   - docs/models/binaryflagenum.md
   - docs/models/boxscoreplayerextrapointsstatistic.md
   - docs/models/boxscoreplayerfieldgoalsstatistic.md
@@ -59,17 +58,22 @@ generatedFiles:
   - docs/models/broadcastinfo.md
   - docs/models/camerasourceenum.md
   - docs/models/careerstats.md
-  - docs/models/category.md
   - docs/models/clinched.md
   - docs/models/coachesfilevideosubtypeenum.md
   - docs/models/coachesfilmresponse.md
   - docs/models/coachesfilmvideo.md
+  - docs/models/coachesfilmvideobackground.md
+  - docs/models/coachesfilmvideocta.md
+  - docs/models/coachesfilmvideoimage.md
+  - docs/models/coachesfilmvideopromoasset.md
   - docs/models/coachesfilmvideotype.md
+  - docs/models/coachesfilmvideovideo.md
   - docs/models/conference.md
   - docs/models/conferenceenum.md
   - docs/models/contractinfo.md
-  - docs/models/ctas.md
   - docs/models/currentgame.md
+  - docs/models/currentgamecategory.md
+  - docs/models/currentgameextension.md
   - docs/models/currentgamesresponse.md
   - docs/models/data.md
   - docs/models/defcoveragetype.md
@@ -91,7 +95,6 @@ generatedFiles:
   - docs/models/dropbacktimetype.md
   - docs/models/experiencegamesresponse.md
   - docs/models/experienceteamsresponse.md
-  - docs/models/extensions.md
   - docs/models/externalid.md
   - docs/models/fantasyplayerpositionenum.md
   - docs/models/fantasyplayerstats.md
@@ -109,7 +112,7 @@ generatedFiles:
   - docs/models/gamecenterresponse.md
   - docs/models/gamecenterschedule.md
   - docs/models/gamedetail.md
-  - docs/models/gameextensions.md
+  - docs/models/gameextension.md
   - docs/models/gameid.md
   - docs/models/gameinsight.md
   - docs/models/gameodds.md
@@ -124,14 +127,16 @@ generatedFiles:
   - docs/models/gameteam.md
   - docs/models/getcoachesfilmvideosrequest.md
   - docs/models/getdefensiveoverviewstatsbyseasonrequest.md
-  - docs/models/getdefensivepassrushstatsbyseasonqueryparamsortkey.md
+  - docs/models/getdefensiveoverviewstatsbyseasonsortkey.md
   - docs/models/getdefensivepassrushstatsbyseasonrequest.md
+  - docs/models/getdefensivepassrushstatsbyseasonsortkey.md
   - docs/models/getdefensivestatsbyseasonrequest.md
+  - docs/models/getdefensivestatsbyseasonsortkey.md
   - docs/models/getdraftinforequest.md
   - docs/models/getexperiencegamesrequest.md
   - docs/models/getexperienceteamsrequest.md
-  - docs/models/getfantasystatsbyseasonqueryparamsortkey.md
   - docs/models/getfantasystatsbyseasonrequest.md
+  - docs/models/getfantasystatsbyseasonsortkey.md
   - docs/models/getfilmroomplaysrequest.md
   - docs/models/getfootballboxscorerequest.md
   - docs/models/getfootballgamesrequest.md
@@ -151,34 +156,37 @@ generatedFiles:
   - docs/models/getplayerreceivingstatsbyseasonrequest.md
   - docs/models/getplayerreceivingstatsbyweekrequest.md
   - docs/models/getplayerrequest.md
-  - docs/models/getplayerrushingstatsbyseasonqueryparamsortkey.md
   - docs/models/getplayerrushingstatsbyseasonrequest.md
-  - docs/models/getplayerrushingstatsbyweekqueryparamsortkey.md
+  - docs/models/getplayerrushingstatsbyseasonsortkey.md
   - docs/models/getplayerrushingstatsbyweekrequest.md
+  - docs/models/getplayerrushingstatsbyweeksortkey.md
   - docs/models/getplayersteamrosterrequest.md
   - docs/models/getplayswinprobabilityrequest.md
-  - docs/models/getplayswinprobabilityresponsebody.md
+  - docs/models/getplayswinprobabilityresponse.md
   - docs/models/getprojectedstatsrequest.md
   - docs/models/getscheduledgamerequest.md
   - docs/models/getscheduledgamesrequest.md
   - docs/models/getscheduleseasonweeksrequest.md
   - docs/models/getseasoncontentinsightsrequest.md
+  - docs/models/getseasoncontentinsightstag.md
   - docs/models/getseasonplayerstatsrequest.md
   - docs/models/getseasonweeksrequest.md
   - docs/models/getstandingsrequest.md
   - docs/models/getstatsboxscorerequest.md
   - docs/models/getsummaryplayrequest.md
-  - docs/models/getteamdefensepassstatsbyseasonqueryparamsortkey.md
   - docs/models/getteamdefensepassstatsbyseasonrequest.md
-  - docs/models/getteamdefenserushstatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamdefensepassstatsbyseasonsortkey.md
   - docs/models/getteamdefenserushstatsbyseasonrequest.md
-  - docs/models/getteamdefensestatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamdefenserushstatsbyseasonsortkey.md
   - docs/models/getteamdefensestatsbyseasonrequest.md
+  - docs/models/getteamdefensestatsbyseasonsortkey.md
+  - docs/models/getteamdefensestatsbyseasonsplit.md
   - docs/models/getteaminjuriesrequest.md
-  - docs/models/getteamoffenseoverviewstatsbyseasonqueryparamsortkey.md
   - docs/models/getteamoffenseoverviewstatsbyseasonrequest.md
-  - docs/models/getteamoffensepassstatsbyseasonqueryparamsortkey.md
+  - docs/models/getteamoffenseoverviewstatsbyseasonsortkey.md
+  - docs/models/getteamoffenseoverviewstatsbyseasonsplit.md
   - docs/models/getteamoffensepassstatsbyseasonrequest.md
+  - docs/models/getteamoffensepassstatsbyseasonsortkey.md
   - docs/models/getteamrosterrequest.md
   - docs/models/getteamschedulerequest.md
   - docs/models/getteamstandingsrequest.md
@@ -192,13 +200,12 @@ generatedFiles:
   - docs/models/homefilmcardsresponse.md
   - docs/models/hometeam.md
   - docs/models/ids.md
-  - docs/models/images.md
   - docs/models/included.md
   - docs/models/injuredplayergamestatusenum.md
   - docs/models/injuryentry.md
   - docs/models/injuryreportresponse.md
   - docs/models/insight.md
-  - docs/models/internationalwatchoptions.md
+  - docs/models/internationalwatchoption.md
   - docs/models/kickingstats.md
   - docs/models/leaders.md
   - docs/models/leagueaveragereceiverseparation.md
@@ -216,11 +223,12 @@ generatedFiles:
   - docs/models/networktypeenum.md
   - docs/models/nextgenstatspositionenum.md
   - docs/models/nextgenstatspositiongroupenum.md
-  - docs/models/nflpluscoachesfilm.md
   - docs/models/nflplusplus.md
+  - docs/models/nflplusplusnflpluscoachesfilm.md
+  - docs/models/nflplusplusrequirements.md
   - docs/models/nflpluspremium.md
-  - docs/models/ngsposition.md
-  - docs/models/ngspositiongroup.md
+  - docs/models/nflpluspremiumnflpluscoachesfilm.md
+  - docs/models/nflpluspremiumrequirements.md
   - docs/models/oddsselection.md
   - docs/models/offensiveplayerpositionenum.md
   - docs/models/offensiveskillpositionenum.md
@@ -250,37 +258,38 @@ generatedFiles:
   - docs/models/playdirectionenum.md
   - docs/models/player.md
   - docs/models/playerdetail.md
+  - docs/models/playerdetailngsposition.md
+  - docs/models/playerdetailngspositiongroup.md
   - docs/models/playergamestats.md
   - docs/models/playerngsposition.md
   - docs/models/playerngspositiongroup.md
   - docs/models/playerpassingstats.md
   - docs/models/playerprojection.md
-  - docs/models/playerprojectionschemastype.md
-  - docs/models/playerprojectiontype.md
   - docs/models/playerreceivingstats.md
   - docs/models/playerrushingstats.md
   - docs/models/playersearchresponse.md
   - docs/models/playersearchresult.md
   - docs/models/playersearchresultngsposition.md
   - docs/models/playersearchresultngspositiongroup.md
-  - docs/models/playersmodel.md
   - docs/models/playerstats.md
   - docs/models/playerstatsresponse.md
   - docs/models/playerstatsresponsepagination.md
+  - docs/models/playerstatsresponseplayer.md
   - docs/models/playerstatsresponsestats.md
   - docs/models/playerweekprojectedpoints.md
+  - docs/models/playerweekprojectedpointsattributes.md
   - docs/models/playerweekprojectedpointstype.md
   - docs/models/playerweekprojectedstats.md
   - docs/models/playerweekprojectedstatsattributes.md
   - docs/models/playerweekprojectedstatstype.md
   - docs/models/playparticipant.md
   - docs/models/playparticipantroleenum.md
+  - docs/models/playparticipantstats.md
   - docs/models/playstat.md
   - docs/models/playstateenum.md
   - docs/models/playsummaryresponse.md
   - docs/models/playtypeenum.md
   - docs/models/playwinprobability.md
-  - docs/models/points.md
   - docs/models/pointspread.md
   - docs/models/pointsrecord.md
   - docs/models/pointsrecordpoints.md
@@ -292,13 +301,11 @@ generatedFiles:
   - docs/models/preview.md
   - docs/models/projectedstatsresponse.md
   - docs/models/projectedstatsresponsepagination.md
-  - docs/models/promoassets.md
   - docs/models/propremium.md
+  - docs/models/propremiumnflpluscoachesfilm.md
+  - docs/models/propremiumrequirements.md
   - docs/models/proteam.md
   - docs/models/qbalignment.md
-  - docs/models/queryparamsortkey.md
-  - docs/models/queryparamsplit.md
-  - docs/models/queryparamtags.md
   - docs/models/receiveralignment.md
   - docs/models/receivers.md
   - docs/models/receiverstats.md
@@ -309,18 +316,19 @@ generatedFiles:
   - docs/models/record.md
   - docs/models/refreshtokenrequest.md
   - docs/models/relationships.md
+  - docs/models/relationshipstypeplayerweekprojectedpoints.md
+  - docs/models/relationshipstypeplayerweekprojectedstats.md
   - docs/models/replay.md
   - docs/models/replaybackground.md
-  - docs/models/replayctas.md
-  - docs/models/replayimages.md
-  - docs/models/replaypromoassets.md
-  - docs/models/replayvideos.md
-  - docs/models/requirements.md
+  - docs/models/replaycta.md
+  - docs/models/replayimage.md
+  - docs/models/replaypromoasset.md
+  - docs/models/replayvideo.md
   - docs/models/responsemetadata.md
   - docs/models/rooftypeenum.md
   - docs/models/roster.md
   - docs/models/rosterresponse.md
-  - docs/models/rounds.md
+  - docs/models/round.md
   - docs/models/rushdirection.md
   - docs/models/rushers.md
   - docs/models/rusherstats.md
@@ -342,30 +350,28 @@ generatedFiles:
   - docs/models/separationtype.md
   - docs/models/site.md
   - docs/models/socialmedia.md
-  - docs/models/sortkey.md
   - docs/models/sortorderenum.md
   - docs/models/speedleaderentry.md
   - docs/models/speedleaders.md
-  - docs/models/split.md
   - docs/models/standings.md
   - docs/models/standingsrecord.md
+  - docs/models/standingsrecordpoints.md
   - docs/models/standingsresponse.md
+  - docs/models/standingsresponseweek.md
   - docs/models/standingsteam.md
   - docs/models/statcategory.md
   - docs/models/statistic.md
   - docs/models/statisticranking.md
-  - docs/models/statsmodel.md
   - docs/models/streak.md
-  - docs/models/streamingnetworks.md
+  - docs/models/streamingnetwork.md
   - docs/models/successlevelenum.md
   - docs/models/summary.md
   - docs/models/tackleinfo.md
+  - docs/models/tag.md
   - docs/models/taggedvideos.md
-  - docs/models/tags.md
   - docs/models/targetlocation.md
   - docs/models/team.md
   - docs/models/teamboxscore.md
-  - docs/models/teamboxscore1.md
   - docs/models/teamdefensepassstats.md
   - docs/models/teamdefensepassstatsresponse.md
   - docs/models/teamdefenserushstats.md
@@ -399,24 +405,19 @@ generatedFiles:
   - docs/models/transactionsresponse.md
   - docs/models/transactiontype.md
   - docs/models/transactiontypeenum.md
-  - docs/models/type.md
+  - docs/models/typeplayer.md
   - docs/models/utils/retryconfig.md
   - docs/models/venue.md
   - docs/models/venueinfo.md
   - docs/models/venuesresponse.md
   - docs/models/videoauthorizations.md
-  - docs/models/videoauthorizationsnflpluscoachesfilm.md
-  - docs/models/videoauthorizationsrequirements.md
-  - docs/models/videoauthorizationsschemasnflpluscoachesfilm.md
-  - docs/models/videoauthorizationsschemasrequirements.md
   - docs/models/videogameplayids.md
-  - docs/models/videos.md
   - docs/models/videotag.md
   - docs/models/videothumbnail.md
   - docs/models/week.md
   - docs/models/weeklygamedetail.md
   - docs/models/weeklygamedetailcategory.md
-  - docs/models/weeklygamedetailextensions.md
+  - docs/models/weeklygamedetailextension.md
   - docs/models/weeklygamedetailsummaryscore.md
   - docs/models/weeklygamedetailsummaryteam.md
   - docs/models/weeklygamedetailsummarytimeouts.md
@@ -429,11 +430,10 @@ generatedFiles:
   - docs/models/weeklyplayerrushingstats.md
   - docs/models/weeklyrosterresponse.md
   - docs/models/weeklyrushingstatsresponse.md
-  - docs/models/weekpoints.md
-  - docs/models/weeks.md
+  - docs/models/weekpoint.md
   - docs/models/weekslugenum.md
   - docs/models/weeksresponse.md
-  - docs/models/weekstats.md
+  - docs/models/weekstat.md
   - docs/models/weektypeenum.md
   - docs/models/winprobabilityresponse.md
   - docs/models/yardstogotype.md
@@ -459,7 +459,7 @@ generatedFiles:
   - docs/sdks/scores/README.md
   - docs/sdks/seasonschedule/README.md
   - docs/sdks/securedvideos/README.md
-  - docs/sdks/stats/README.md
+  - docs/sdks/statssdk/README.md
   - docs/sdks/teamdefensepassstatistics/README.md
   - docs/sdks/teamdefenserushstatistics/README.md
   - docs/sdks/teamdefensestatistics/README.md
@@ -471,352 +471,352 @@ generatedFiles:
   - pylintrc
   - pyproject.toml
   - scripts/publish.sh
-  - src/griddy/nfl/__init__.py
-  - src/griddy/nfl/_hooks/__init__.py
-  - src/griddy/nfl/_hooks/sdkhooks.py
-  - src/griddy/nfl/_hooks/types.py
-  - src/griddy/nfl/_version.py
-  - src/griddy/nfl/authentication.py
-  - src/griddy/nfl/basesdk.py
-  - src/griddy/nfl/betting.py
-  - src/griddy/nfl/content.py
-  - src/griddy/nfl/content_insights.py
-  - src/griddy/nfl/defensive_pass_rush_statistics.py
-  - src/griddy/nfl/defensive_player_overview.py
-  - src/griddy/nfl/defensive_statistics.py
-  - src/griddy/nfl/errors/__init__.py
-  - src/griddy/nfl/errors/griddynflbaseerror.py
-  - src/griddy/nfl/errors/griddynflerror.py
-  - src/griddy/nfl/errors/no_response_error.py
-  - src/griddy/nfl/errors/responsevalidationerror.py
-  - src/griddy/nfl/experience.py
-  - src/griddy/nfl/fantasy_statistics.py
-  - src/griddy/nfl/filmroom.py
-  - src/griddy/nfl/football.py
-  - src/griddy/nfl/httpclient.py
-  - src/griddy/nfl/models/__init__.py
-  - src/griddy/nfl/models/award.py
-  - src/griddy/nfl/models/binaryflagenum.py
-  - src/griddy/nfl/models/boxscoreplayerextrapointsstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerfieldgoalsstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerfumblesstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerkickingstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerkickreturnstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerpassingstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerpuntingstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerpuntreturnstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerreceivingstatistic.py
-  - src/griddy/nfl/models/boxscoreplayerrushingstatistic.py
-  - src/griddy/nfl/models/boxscoreplayertacklesstatistic.py
-  - src/griddy/nfl/models/boxscoreresponse.py
-  - src/griddy/nfl/models/boxscoreschedule.py
-  - src/griddy/nfl/models/boxscorescore.py
-  - src/griddy/nfl/models/boxscoreteam.py
-  - src/griddy/nfl/models/broadcastinfo.py
-  - src/griddy/nfl/models/camerasourceenum.py
-  - src/griddy/nfl/models/careerstats.py
-  - src/griddy/nfl/models/clinched.py
-  - src/griddy/nfl/models/coachesfilevideosubtypeenum.py
-  - src/griddy/nfl/models/coachesfilmresponse.py
-  - src/griddy/nfl/models/coachesfilmvideo.py
-  - src/griddy/nfl/models/conference.py
-  - src/griddy/nfl/models/conferenceenum.py
-  - src/griddy/nfl/models/contractinfo.py
-  - src/griddy/nfl/models/currentgame.py
-  - src/griddy/nfl/models/currentgamesresponse.py
-  - src/griddy/nfl/models/defensiveoverviewstatsresponse.py
-  - src/griddy/nfl/models/defensivepassrushstats.py
-  - src/griddy/nfl/models/defensiveplayeroverviewstats.py
-  - src/griddy/nfl/models/defensiveplayerstats.py
-  - src/griddy/nfl/models/defensivepositionenum.py
-  - src/griddy/nfl/models/defensivepositiongroupenum.py
-  - src/griddy/nfl/models/defensivestats.py
-  - src/griddy/nfl/models/defensivestatsresponse.py
-  - src/griddy/nfl/models/division.py
-  - src/griddy/nfl/models/draftpick.py
-  - src/griddy/nfl/models/draftresponse.py
-  - src/griddy/nfl/models/drive.py
-  - src/griddy/nfl/models/driveresultenum.py
-  - src/griddy/nfl/models/experiencegamesresponse.py
-  - src/griddy/nfl/models/experienceteamsresponse.py
-  - src/griddy/nfl/models/externalid.py
-  - src/griddy/nfl/models/fantasyplayerpositionenum.py
-  - src/griddy/nfl/models/fantasyplayerstats.py
-  - src/griddy/nfl/models/fantasypositiongroupenum.py
-  - src/griddy/nfl/models/fantasystatsresponse.py
-  - src/griddy/nfl/models/filmcard.py
-  - src/griddy/nfl/models/filmroomplay.py
-  - src/griddy/nfl/models/filmroomplaysresponse.py
-  - src/griddy/nfl/models/footballgamesresponse.py
-  - src/griddy/nfl/models/futuresmarket.py
-  - src/griddy/nfl/models/futuresoddsresponse.py
-  - src/griddy/nfl/models/game.py
-  - src/griddy/nfl/models/gamecenterresponse.py
-  - src/griddy/nfl/models/gamecenterschedule.py
-  - src/griddy/nfl/models/gamedetail.py
-  - src/griddy/nfl/models/gameinsight.py
-  - src/griddy/nfl/models/gameodds.py
-  - src/griddy/nfl/models/gamephaseenum.py
-  - src/griddy/nfl/models/gamepreviewresponse.py
-  - src/griddy/nfl/models/gameresultenum.py
-  - src/griddy/nfl/models/gameschedule.py
-  - src/griddy/nfl/models/gamescore.py
-  - src/griddy/nfl/models/gamesresponse.py
-  - src/griddy/nfl/models/gamestatsresponse.py
-  - src/griddy/nfl/models/gamestatusenum.py
-  - src/griddy/nfl/models/gameteam.py
-  - src/griddy/nfl/models/generatetokenop.py
-  - src/griddy/nfl/models/getallteamsop.py
-  - src/griddy/nfl/models/getcoachesfilmvideosop.py
-  - src/griddy/nfl/models/getcurrentweekgamesop.py
-  - src/griddy/nfl/models/getdefensiveoverviewstatsbyseasonop.py
-  - src/griddy/nfl/models/getdefensivepassrushstatsbyseasonop.py
-  - src/griddy/nfl/models/getdefensivestatsbyseasonop.py
-  - src/griddy/nfl/models/getdraftinfoop.py
-  - src/griddy/nfl/models/getexperiencegamesop.py
-  - src/griddy/nfl/models/getexperienceteamsop.py
-  - src/griddy/nfl/models/getfantasystatsbyseasonop.py
-  - src/griddy/nfl/models/getfilmroomplaysop.py
-  - src/griddy/nfl/models/getfootballboxscoreop.py
-  - src/griddy/nfl/models/getfootballgamesop.py
-  - src/griddy/nfl/models/getfuturebettingoddsop.py
-  - src/griddy/nfl/models/getgamecenterop.py
-  - src/griddy/nfl/models/getgameinsightsop.py
-  - src/griddy/nfl/models/getgamematchuprankingsop.py
-  - src/griddy/nfl/models/getgamepreviewop.py
-  - src/griddy/nfl/models/getgameteamrankingsop.py
-  - src/griddy/nfl/models/gethomefilmcardsop.py
-  - src/griddy/nfl/models/getinjuryreportsop.py
-  - src/griddy/nfl/models/getlivegamescoresop.py
-  - src/griddy/nfl/models/getlivegamestatsop.py
-  - src/griddy/nfl/models/getmultiplerankingsallteamsop.py
-  - src/griddy/nfl/models/getplaybyplayop.py
-  - src/griddy/nfl/models/getplayerdetailsop.py
-  - src/griddy/nfl/models/getplayerop.py
-  - src/griddy/nfl/models/getplayerpassingstatsbyseasonop.py
-  - src/griddy/nfl/models/getplayerpassingstatsbyweekop.py
-  - src/griddy/nfl/models/getplayerreceivingstatsbyseasonop.py
-  - src/griddy/nfl/models/getplayerreceivingstatsbyweekop.py
-  - src/griddy/nfl/models/getplayerrushingstatsbyseasonop.py
-  - src/griddy/nfl/models/getplayerrushingstatsbyweekop.py
-  - src/griddy/nfl/models/getplayersteamrosterop.py
-  - src/griddy/nfl/models/getplayswinprobabilityop.py
-  - src/griddy/nfl/models/getprojectedstatsop.py
-  - src/griddy/nfl/models/getscheduledgameop.py
-  - src/griddy/nfl/models/getscheduledgamesop.py
-  - src/griddy/nfl/models/getscheduleseasonweeksop.py
-  - src/griddy/nfl/models/getseasoncontentinsightsop.py
-  - src/griddy/nfl/models/getseasonplayerstatsop.py
-  - src/griddy/nfl/models/getseasonweeksop.py
-  - src/griddy/nfl/models/getstandingsop.py
-  - src/griddy/nfl/models/getstatsboxscoreop.py
-  - src/griddy/nfl/models/getsummaryplayop.py
-  - src/griddy/nfl/models/getteamdefensepassstatsbyseasonop.py
-  - src/griddy/nfl/models/getteamdefenserushstatsbyseasonop.py
-  - src/griddy/nfl/models/getteamdefensestatsbyseasonop.py
-  - src/griddy/nfl/models/getteaminjuriesop.py
-  - src/griddy/nfl/models/getteamoffenseoverviewstatsbyseasonop.py
-  - src/griddy/nfl/models/getteamoffensepassstatsbyseasonop.py
-  - src/griddy/nfl/models/getteamrosterop.py
-  - src/griddy/nfl/models/getteamscheduleop.py
-  - src/griddy/nfl/models/getteamstandingsop.py
-  - src/griddy/nfl/models/gettransactionsop.py
-  - src/griddy/nfl/models/getvenuesop.py
-  - src/griddy/nfl/models/getweeklybettingoddsop.py
-  - src/griddy/nfl/models/getweeklygamedetailsop.py
-  - src/griddy/nfl/models/getweeklyteamrosterop.py
-  - src/griddy/nfl/models/getwinprobabilityminop.py
-  - src/griddy/nfl/models/homefilmcardsresponse.py
-  - src/griddy/nfl/models/injuredplayergamestatusenum.py
-  - src/griddy/nfl/models/injuryentry.py
-  - src/griddy/nfl/models/injuryreportresponse.py
-  - src/griddy/nfl/models/insight.py
-  - src/griddy/nfl/models/kickingstats.py
-  - src/griddy/nfl/models/lineofscrimmagedistanceenum.py
-  - src/griddy/nfl/models/livegame.py
-  - src/griddy/nfl/models/livescoresresponse.py
-  - src/griddy/nfl/models/matchuprankingsresponse.py
-  - src/griddy/nfl/models/meridiemenum.py
-  - src/griddy/nfl/models/moneyline.py
-  - src/griddy/nfl/models/multiplerankingscategory.py
-  - src/griddy/nfl/models/networktypeenum.py
-  - src/griddy/nfl/models/nextgenstatspositionenum.py
-  - src/griddy/nfl/models/nextgenstatspositiongroupenum.py
-  - src/griddy/nfl/models/oddsselection.py
-  - src/griddy/nfl/models/offensiveplayerpositionenum.py
-  - src/griddy/nfl/models/offensiveskillpositionenum.py
-  - src/griddy/nfl/models/overallrecord.py
-  - src/griddy/nfl/models/pagination.py
-  - src/griddy/nfl/models/participantplayerinfo.py
-  - src/griddy/nfl/models/passdistanceleaderentry.py
-  - src/griddy/nfl/models/passerstats.py
-  - src/griddy/nfl/models/passingsectionenum.py
-  - src/griddy/nfl/models/passingstats.py
-  - src/griddy/nfl/models/passingstatscategoryenum.py
-  - src/griddy/nfl/models/passingstatsresponse.py
-  - src/griddy/nfl/models/passingzonestats.py
-  - src/griddy/nfl/models/passrusherstats.py
-  - src/griddy/nfl/models/passrushstatsresponse.py
-  - src/griddy/nfl/models/penalty.py
-  - src/griddy/nfl/models/play.py
-  - src/griddy/nfl/models/playbyplayresponse.py
-  - src/griddy/nfl/models/playdetail.py
-  - src/griddy/nfl/models/playdirectionenum.py
-  - src/griddy/nfl/models/player.py
-  - src/griddy/nfl/models/playerdetail.py
-  - src/griddy/nfl/models/playergamestats.py
-  - src/griddy/nfl/models/playerpassingstats.py
-  - src/griddy/nfl/models/playerprojection.py
-  - src/griddy/nfl/models/playerreceivingstats.py
-  - src/griddy/nfl/models/playerrushingstats.py
-  - src/griddy/nfl/models/playersearchresponse.py
-  - src/griddy/nfl/models/playersearchresult.py
-  - src/griddy/nfl/models/playerstatsresponse.py
-  - src/griddy/nfl/models/playerweekprojectedpoints.py
-  - src/griddy/nfl/models/playerweekprojectedstats.py
-  - src/griddy/nfl/models/playparticipant.py
-  - src/griddy/nfl/models/playparticipantroleenum.py
-  - src/griddy/nfl/models/playstat.py
-  - src/griddy/nfl/models/playstateenum.py
-  - src/griddy/nfl/models/playsummaryresponse.py
-  - src/griddy/nfl/models/playtypeenum.py
-  - src/griddy/nfl/models/playwinprobability.py
-  - src/griddy/nfl/models/pointspread.py
-  - src/griddy/nfl/models/pointsrecord.py
-  - src/griddy/nfl/models/positiongroupenum.py
-  - src/griddy/nfl/models/practicestatusenum.py
-  - src/griddy/nfl/models/projectedstatsresponse.py
-  - src/griddy/nfl/models/proteam.py
-  - src/griddy/nfl/models/receiverstats.py
-  - src/griddy/nfl/models/receivingstats.py
-  - src/griddy/nfl/models/receivingstatscategoryenum.py
-  - src/griddy/nfl/models/receivingstatsresponse.py
-  - src/griddy/nfl/models/record.py
-  - src/griddy/nfl/models/refreshtokenop.py
-  - src/griddy/nfl/models/refreshtokenrequest.py
-  - src/griddy/nfl/models/replay.py
-  - src/griddy/nfl/models/responsemetadata.py
-  - src/griddy/nfl/models/rooftypeenum.py
-  - src/griddy/nfl/models/rosterresponse.py
-  - src/griddy/nfl/models/rusherstats.py
-  - src/griddy/nfl/models/rushinginfo.py
-  - src/griddy/nfl/models/rushingmap.py
-  - src/griddy/nfl/models/rushingstats.py
-  - src/griddy/nfl/models/rushingstatsresponse.py
-  - src/griddy/nfl/models/rushlocationmapentry.py
-  - src/griddy/nfl/models/scheduledgame.py
-  - src/griddy/nfl/models/scoretypeenum.py
-  - src/griddy/nfl/models/scoringplay.py
-  - src/griddy/nfl/models/searchplayersop.py
-  - src/griddy/nfl/models/seasonstats.py
-  - src/griddy/nfl/models/seasontypeenum.py
-  - src/griddy/nfl/models/seasonweeksresponse.py
-  - src/griddy/nfl/models/security.py
-  - src/griddy/nfl/models/site.py
-  - src/griddy/nfl/models/socialmedia.py
-  - src/griddy/nfl/models/sortorderenum.py
-  - src/griddy/nfl/models/speedleaderentry.py
-  - src/griddy/nfl/models/standings.py
-  - src/griddy/nfl/models/standingsrecord.py
-  - src/griddy/nfl/models/standingsresponse.py
-  - src/griddy/nfl/models/statisticranking.py
-  - src/griddy/nfl/models/successlevelenum.py
-  - src/griddy/nfl/models/summary.py
-  - src/griddy/nfl/models/team.py
-  - src/griddy/nfl/models/teamboxscore.py
-  - src/griddy/nfl/models/teamboxscore1.py
-  - src/griddy/nfl/models/teamdefensepassstats.py
-  - src/griddy/nfl/models/teamdefensepassstatsresponse.py
-  - src/griddy/nfl/models/teamdefenserushstats.py
-  - src/griddy/nfl/models/teamdefenserushstatsresponse.py
-  - src/griddy/nfl/models/teamdefensestats.py
-  - src/griddy/nfl/models/teamdefensestatsresponse.py
-  - src/griddy/nfl/models/teamgamestats.py
-  - src/griddy/nfl/models/teaminfo.py
-  - src/griddy/nfl/models/teaminjuryreport.py
-  - src/griddy/nfl/models/teammatchuprankings.py
-  - src/griddy/nfl/models/teamoffenseoverviewstats.py
-  - src/griddy/nfl/models/teamoffenseoverviewstatsresponse.py
-  - src/griddy/nfl/models/teamoffensepassstats.py
-  - src/griddy/nfl/models/teamoffensepassstatsresponse.py
-  - src/griddy/nfl/models/teamrankingentry.py
-  - src/griddy/nfl/models/teamrankings.py
-  - src/griddy/nfl/models/teamrankingsresponse.py
-  - src/griddy/nfl/models/teamrosterresponse.py
-  - src/griddy/nfl/models/teamscore.py
-  - src/griddy/nfl/models/teamtypeenum.py
-  - src/griddy/nfl/models/ticketvendor.py
-  - src/griddy/nfl/models/timetosackleaderentry.py
-  - src/griddy/nfl/models/tokenrequest.py
-  - src/griddy/nfl/models/tokenresponse.py
-  - src/griddy/nfl/models/totals.py
-  - src/griddy/nfl/models/transaction.py
-  - src/griddy/nfl/models/transactionsresponse.py
-  - src/griddy/nfl/models/transactiontypeenum.py
-  - src/griddy/nfl/models/venue.py
-  - src/griddy/nfl/models/venueinfo.py
-  - src/griddy/nfl/models/venuesresponse.py
-  - src/griddy/nfl/models/videoauthorizations.py
-  - src/griddy/nfl/models/videogameplayids.py
-  - src/griddy/nfl/models/videotag.py
-  - src/griddy/nfl/models/videothumbnail.py
-  - src/griddy/nfl/models/week.py
-  - src/griddy/nfl/models/weeklygamedetail.py
-  - src/griddy/nfl/models/weeklygamedetailsummaryscore.py
-  - src/griddy/nfl/models/weeklygamedetailsummaryteam.py
-  - src/griddy/nfl/models/weeklygamedetailsummarytimeouts.py
-  - src/griddy/nfl/models/weeklyoddsresponse.py
-  - src/griddy/nfl/models/weeklypassingstatsresponse.py
-  - src/griddy/nfl/models/weeklyplayer.py
-  - src/griddy/nfl/models/weeklyplayerpassingstats.py
-  - src/griddy/nfl/models/weeklyplayerrushingstats.py
-  - src/griddy/nfl/models/weeklyrosterresponse.py
-  - src/griddy/nfl/models/weeklyrushingstatsresponse.py
-  - src/griddy/nfl/models/weekslugenum.py
-  - src/griddy/nfl/models/weeksresponse.py
-  - src/griddy/nfl/models/weektypeenum.py
-  - src/griddy/nfl/models/winprobabilityresponse.py
-  - src/griddy/nfl/player_passing_statistics.py
-  - src/griddy/nfl/player_receiving_statistics.py
-  - src/griddy/nfl/player_rushing_statistics.py
-  - src/griddy/nfl/player_statistics.py
-  - src/griddy/nfl/players.py
-  - src/griddy/nfl/plays.py
-  - src/griddy/nfl/py.typed
-  - src/griddy/nfl/schedules.py
-  - src/griddy/nfl/schedules_extended.py
-  - src/griddy/nfl/scores.py
-  - src/griddy/nfl/sdk.py
-  - src/griddy/nfl/sdkconfiguration.py
-  - src/griddy/nfl/season_schedule.py
-  - src/griddy/nfl/secured_videos.py
-  - src/griddy/nfl/stats.py
-  - src/griddy/nfl/team_defense_pass_statistics.py
-  - src/griddy/nfl/team_defense_rush_statistics.py
-  - src/griddy/nfl/team_defense_statistics.py
-  - src/griddy/nfl/team_offense_overview_statistics.py
-  - src/griddy/nfl/team_offense_pass_statistics.py
-  - src/griddy/nfl/teams.py
-  - src/griddy/nfl/types/__init__.py
-  - src/griddy/nfl/types/basemodel.py
-  - src/griddy/nfl/utils/__init__.py
-  - src/griddy/nfl/utils/annotations.py
-  - src/griddy/nfl/utils/datetimes.py
-  - src/griddy/nfl/utils/enums.py
-  - src/griddy/nfl/utils/eventstreaming.py
-  - src/griddy/nfl/utils/forms.py
-  - src/griddy/nfl/utils/headers.py
-  - src/griddy/nfl/utils/logger.py
-  - src/griddy/nfl/utils/metadata.py
-  - src/griddy/nfl/utils/queryparams.py
-  - src/griddy/nfl/utils/requestbodies.py
-  - src/griddy/nfl/utils/retries.py
-  - src/griddy/nfl/utils/security.py
-  - src/griddy/nfl/utils/serializers.py
-  - src/griddy/nfl/utils/unmarshal_json_response.py
-  - src/griddy/nfl/utils/url.py
-  - src/griddy/nfl/utils/values.py
-  - src/griddy/nfl/win_probability.py
+  - src/openapi/__init__.py
+  - src/openapi/_hooks/__init__.py
+  - src/openapi/_hooks/sdkhooks.py
+  - src/openapi/_hooks/types.py
+  - src/openapi/_version.py
+  - src/openapi/authentication.py
+  - src/openapi/basesdk.py
+  - src/openapi/betting.py
+  - src/openapi/content.py
+  - src/openapi/content_insights.py
+  - src/openapi/defensive_pass_rush_statistics.py
+  - src/openapi/defensive_player_overview.py
+  - src/openapi/defensive_statistics.py
+  - src/openapi/errors/__init__.py
+  - src/openapi/errors/no_response_error.py
+  - src/openapi/errors/responsevalidationerror.py
+  - src/openapi/errors/sdkdefaulterror.py
+  - src/openapi/errors/sdkerror.py
+  - src/openapi/experience.py
+  - src/openapi/fantasy_statistics.py
+  - src/openapi/filmroom.py
+  - src/openapi/football.py
+  - src/openapi/httpclient.py
+  - src/openapi/models/__init__.py
+  - src/openapi/models/award.py
+  - src/openapi/models/away_teamboxscore.py
+  - src/openapi/models/binaryflagenum.py
+  - src/openapi/models/boxscoreplayerextrapointsstatistic.py
+  - src/openapi/models/boxscoreplayerfieldgoalsstatistic.py
+  - src/openapi/models/boxscoreplayerfumblesstatistic.py
+  - src/openapi/models/boxscoreplayerkickingstatistic.py
+  - src/openapi/models/boxscoreplayerkickreturnstatistic.py
+  - src/openapi/models/boxscoreplayerpassingstatistic.py
+  - src/openapi/models/boxscoreplayerpuntingstatistic.py
+  - src/openapi/models/boxscoreplayerpuntreturnstatistic.py
+  - src/openapi/models/boxscoreplayerreceivingstatistic.py
+  - src/openapi/models/boxscoreplayerrushingstatistic.py
+  - src/openapi/models/boxscoreplayertacklesstatistic.py
+  - src/openapi/models/boxscoreresponse.py
+  - src/openapi/models/boxscoreschedule.py
+  - src/openapi/models/boxscorescore.py
+  - src/openapi/models/boxscoreteam.py
+  - src/openapi/models/broadcastinfo.py
+  - src/openapi/models/camerasourceenum.py
+  - src/openapi/models/careerstats.py
+  - src/openapi/models/clinched.py
+  - src/openapi/models/coachesfilevideosubtypeenum.py
+  - src/openapi/models/coachesfilmresponse.py
+  - src/openapi/models/coachesfilmvideo.py
+  - src/openapi/models/conference.py
+  - src/openapi/models/conferenceenum.py
+  - src/openapi/models/contractinfo.py
+  - src/openapi/models/currentgame.py
+  - src/openapi/models/currentgamesresponse.py
+  - src/openapi/models/defensiveoverviewstatsresponse.py
+  - src/openapi/models/defensivepassrushstats.py
+  - src/openapi/models/defensiveplayeroverviewstats.py
+  - src/openapi/models/defensiveplayerstats.py
+  - src/openapi/models/defensivepositionenum.py
+  - src/openapi/models/defensivepositiongroupenum.py
+  - src/openapi/models/defensivestats.py
+  - src/openapi/models/defensivestatsresponse.py
+  - src/openapi/models/division.py
+  - src/openapi/models/draftpick.py
+  - src/openapi/models/draftresponse.py
+  - src/openapi/models/drive.py
+  - src/openapi/models/driveresultenum.py
+  - src/openapi/models/experiencegamesresponse.py
+  - src/openapi/models/experienceteamsresponse.py
+  - src/openapi/models/externalid.py
+  - src/openapi/models/fantasyplayerpositionenum.py
+  - src/openapi/models/fantasyplayerstats.py
+  - src/openapi/models/fantasypositiongroupenum.py
+  - src/openapi/models/fantasystatsresponse.py
+  - src/openapi/models/filmcard.py
+  - src/openapi/models/filmroomplay.py
+  - src/openapi/models/filmroomplaysresponse.py
+  - src/openapi/models/footballgamesresponse.py
+  - src/openapi/models/futuresmarket.py
+  - src/openapi/models/futuresoddsresponse.py
+  - src/openapi/models/game.py
+  - src/openapi/models/gamecenterresponse.py
+  - src/openapi/models/gamecenterschedule.py
+  - src/openapi/models/gamedetail.py
+  - src/openapi/models/gameinsight.py
+  - src/openapi/models/gameodds.py
+  - src/openapi/models/gamephaseenum.py
+  - src/openapi/models/gamepreviewresponse.py
+  - src/openapi/models/gameresultenum.py
+  - src/openapi/models/gameschedule.py
+  - src/openapi/models/gamescore.py
+  - src/openapi/models/gamesresponse.py
+  - src/openapi/models/gamestatsresponse.py
+  - src/openapi/models/gamestatusenum.py
+  - src/openapi/models/gameteam.py
+  - src/openapi/models/generatetokenop.py
+  - src/openapi/models/getallteamsop.py
+  - src/openapi/models/getcoachesfilmvideosop.py
+  - src/openapi/models/getcurrentweekgamesop.py
+  - src/openapi/models/getdefensiveoverviewstatsbyseasonop.py
+  - src/openapi/models/getdefensivepassrushstatsbyseasonop.py
+  - src/openapi/models/getdefensivestatsbyseasonop.py
+  - src/openapi/models/getdraftinfoop.py
+  - src/openapi/models/getexperiencegamesop.py
+  - src/openapi/models/getexperienceteamsop.py
+  - src/openapi/models/getfantasystatsbyseasonop.py
+  - src/openapi/models/getfilmroomplaysop.py
+  - src/openapi/models/getfootballboxscoreop.py
+  - src/openapi/models/getfootballgamesop.py
+  - src/openapi/models/getfuturebettingoddsop.py
+  - src/openapi/models/getgamecenterop.py
+  - src/openapi/models/getgameinsightsop.py
+  - src/openapi/models/getgamematchuprankingsop.py
+  - src/openapi/models/getgamepreviewop.py
+  - src/openapi/models/getgameteamrankingsop.py
+  - src/openapi/models/gethomefilmcardsop.py
+  - src/openapi/models/getinjuryreportsop.py
+  - src/openapi/models/getlivegamescoresop.py
+  - src/openapi/models/getlivegamestatsop.py
+  - src/openapi/models/getmultiplerankingsallteamsop.py
+  - src/openapi/models/getplaybyplayop.py
+  - src/openapi/models/getplayerdetailsop.py
+  - src/openapi/models/getplayerop.py
+  - src/openapi/models/getplayerpassingstatsbyseasonop.py
+  - src/openapi/models/getplayerpassingstatsbyweekop.py
+  - src/openapi/models/getplayerreceivingstatsbyseasonop.py
+  - src/openapi/models/getplayerreceivingstatsbyweekop.py
+  - src/openapi/models/getplayerrushingstatsbyseasonop.py
+  - src/openapi/models/getplayerrushingstatsbyweekop.py
+  - src/openapi/models/getplayersteamrosterop.py
+  - src/openapi/models/getplayswinprobabilityop.py
+  - src/openapi/models/getprojectedstatsop.py
+  - src/openapi/models/getscheduledgameop.py
+  - src/openapi/models/getscheduledgamesop.py
+  - src/openapi/models/getscheduleseasonweeksop.py
+  - src/openapi/models/getseasoncontentinsightsop.py
+  - src/openapi/models/getseasonplayerstatsop.py
+  - src/openapi/models/getseasonweeksop.py
+  - src/openapi/models/getstandingsop.py
+  - src/openapi/models/getstatsboxscoreop.py
+  - src/openapi/models/getsummaryplayop.py
+  - src/openapi/models/getteamdefensepassstatsbyseasonop.py
+  - src/openapi/models/getteamdefenserushstatsbyseasonop.py
+  - src/openapi/models/getteamdefensestatsbyseasonop.py
+  - src/openapi/models/getteaminjuriesop.py
+  - src/openapi/models/getteamoffenseoverviewstatsbyseasonop.py
+  - src/openapi/models/getteamoffensepassstatsbyseasonop.py
+  - src/openapi/models/getteamrosterop.py
+  - src/openapi/models/getteamscheduleop.py
+  - src/openapi/models/getteamstandingsop.py
+  - src/openapi/models/gettransactionsop.py
+  - src/openapi/models/getvenuesop.py
+  - src/openapi/models/getweeklybettingoddsop.py
+  - src/openapi/models/getweeklygamedetailsop.py
+  - src/openapi/models/getweeklyteamrosterop.py
+  - src/openapi/models/getwinprobabilityminop.py
+  - src/openapi/models/homefilmcardsresponse.py
+  - src/openapi/models/injuredplayergamestatusenum.py
+  - src/openapi/models/injuryentry.py
+  - src/openapi/models/injuryreportresponse.py
+  - src/openapi/models/insight.py
+  - src/openapi/models/kickingstats.py
+  - src/openapi/models/lineofscrimmagedistanceenum.py
+  - src/openapi/models/livegame.py
+  - src/openapi/models/livescoresresponse.py
+  - src/openapi/models/matchuprankingsresponse.py
+  - src/openapi/models/meridiemenum.py
+  - src/openapi/models/moneyline.py
+  - src/openapi/models/multiplerankingscategory.py
+  - src/openapi/models/networktypeenum.py
+  - src/openapi/models/nextgenstatspositionenum.py
+  - src/openapi/models/nextgenstatspositiongroupenum.py
+  - src/openapi/models/oddsselection.py
+  - src/openapi/models/offensiveplayerpositionenum.py
+  - src/openapi/models/offensiveskillpositionenum.py
+  - src/openapi/models/overallrecord.py
+  - src/openapi/models/pagination.py
+  - src/openapi/models/participantplayerinfo.py
+  - src/openapi/models/passdistanceleaderentry.py
+  - src/openapi/models/passerstats.py
+  - src/openapi/models/passingsectionenum.py
+  - src/openapi/models/passingstats.py
+  - src/openapi/models/passingstatscategoryenum.py
+  - src/openapi/models/passingstatsresponse.py
+  - src/openapi/models/passingzonestats.py
+  - src/openapi/models/passrusherstats.py
+  - src/openapi/models/passrushstatsresponse.py
+  - src/openapi/models/penalty.py
+  - src/openapi/models/play.py
+  - src/openapi/models/playbyplayresponse.py
+  - src/openapi/models/playdetail.py
+  - src/openapi/models/playdirectionenum.py
+  - src/openapi/models/player.py
+  - src/openapi/models/playerdetail.py
+  - src/openapi/models/playergamestats.py
+  - src/openapi/models/playerpassingstats.py
+  - src/openapi/models/playerprojection.py
+  - src/openapi/models/playerreceivingstats.py
+  - src/openapi/models/playerrushingstats.py
+  - src/openapi/models/playersearchresponse.py
+  - src/openapi/models/playersearchresult.py
+  - src/openapi/models/playerstatsresponse.py
+  - src/openapi/models/playerweekprojectedpoints.py
+  - src/openapi/models/playerweekprojectedstats.py
+  - src/openapi/models/playparticipant.py
+  - src/openapi/models/playparticipantroleenum.py
+  - src/openapi/models/playstat.py
+  - src/openapi/models/playstateenum.py
+  - src/openapi/models/playsummaryresponse.py
+  - src/openapi/models/playtypeenum.py
+  - src/openapi/models/playwinprobability.py
+  - src/openapi/models/pointspread.py
+  - src/openapi/models/pointsrecord.py
+  - src/openapi/models/positiongroupenum.py
+  - src/openapi/models/practicestatusenum.py
+  - src/openapi/models/projectedstatsresponse.py
+  - src/openapi/models/proteam.py
+  - src/openapi/models/receiverstats.py
+  - src/openapi/models/receivingstats.py
+  - src/openapi/models/receivingstatscategoryenum.py
+  - src/openapi/models/receivingstatsresponse.py
+  - src/openapi/models/record.py
+  - src/openapi/models/refreshtokenop.py
+  - src/openapi/models/refreshtokenrequest.py
+  - src/openapi/models/replay.py
+  - src/openapi/models/responsemetadata.py
+  - src/openapi/models/rooftypeenum.py
+  - src/openapi/models/rosterresponse.py
+  - src/openapi/models/rusherstats.py
+  - src/openapi/models/rushinginfo.py
+  - src/openapi/models/rushingmap.py
+  - src/openapi/models/rushingstats.py
+  - src/openapi/models/rushingstatsresponse.py
+  - src/openapi/models/rushlocationmapentry.py
+  - src/openapi/models/scheduledgame.py
+  - src/openapi/models/scoretypeenum.py
+  - src/openapi/models/scoringplay.py
+  - src/openapi/models/searchplayersop.py
+  - src/openapi/models/seasonstats.py
+  - src/openapi/models/seasontypeenum.py
+  - src/openapi/models/seasonweeksresponse.py
+  - src/openapi/models/security.py
+  - src/openapi/models/site.py
+  - src/openapi/models/socialmedia.py
+  - src/openapi/models/sortorderenum.py
+  - src/openapi/models/speedleaderentry.py
+  - src/openapi/models/standings.py
+  - src/openapi/models/standingsrecord.py
+  - src/openapi/models/standingsresponse.py
+  - src/openapi/models/statisticranking.py
+  - src/openapi/models/successlevelenum.py
+  - src/openapi/models/summary.py
+  - src/openapi/models/team.py
+  - src/openapi/models/teamboxscore.py
+  - src/openapi/models/teamdefensepassstats.py
+  - src/openapi/models/teamdefensepassstatsresponse.py
+  - src/openapi/models/teamdefenserushstats.py
+  - src/openapi/models/teamdefenserushstatsresponse.py
+  - src/openapi/models/teamdefensestats.py
+  - src/openapi/models/teamdefensestatsresponse.py
+  - src/openapi/models/teamgamestats.py
+  - src/openapi/models/teaminfo.py
+  - src/openapi/models/teaminjuryreport.py
+  - src/openapi/models/teammatchuprankings.py
+  - src/openapi/models/teamoffenseoverviewstats.py
+  - src/openapi/models/teamoffenseoverviewstatsresponse.py
+  - src/openapi/models/teamoffensepassstats.py
+  - src/openapi/models/teamoffensepassstatsresponse.py
+  - src/openapi/models/teamrankingentry.py
+  - src/openapi/models/teamrankings.py
+  - src/openapi/models/teamrankingsresponse.py
+  - src/openapi/models/teamrosterresponse.py
+  - src/openapi/models/teamscore.py
+  - src/openapi/models/teamtypeenum.py
+  - src/openapi/models/ticketvendor.py
+  - src/openapi/models/timetosackleaderentry.py
+  - src/openapi/models/tokenrequest.py
+  - src/openapi/models/tokenresponse.py
+  - src/openapi/models/totals.py
+  - src/openapi/models/transaction.py
+  - src/openapi/models/transactionsresponse.py
+  - src/openapi/models/transactiontypeenum.py
+  - src/openapi/models/venue.py
+  - src/openapi/models/venueinfo.py
+  - src/openapi/models/venuesresponse.py
+  - src/openapi/models/videoauthorizations.py
+  - src/openapi/models/videogameplayids.py
+  - src/openapi/models/videotag.py
+  - src/openapi/models/videothumbnail.py
+  - src/openapi/models/week.py
+  - src/openapi/models/weeklygamedetail.py
+  - src/openapi/models/weeklygamedetailsummaryscore.py
+  - src/openapi/models/weeklygamedetailsummaryteam.py
+  - src/openapi/models/weeklygamedetailsummarytimeouts.py
+  - src/openapi/models/weeklyoddsresponse.py
+  - src/openapi/models/weeklypassingstatsresponse.py
+  - src/openapi/models/weeklyplayer.py
+  - src/openapi/models/weeklyplayerpassingstats.py
+  - src/openapi/models/weeklyplayerrushingstats.py
+  - src/openapi/models/weeklyrosterresponse.py
+  - src/openapi/models/weeklyrushingstatsresponse.py
+  - src/openapi/models/weekslugenum.py
+  - src/openapi/models/weeksresponse.py
+  - src/openapi/models/weektypeenum.py
+  - src/openapi/models/winprobabilityresponse.py
+  - src/openapi/player_passing_statistics.py
+  - src/openapi/player_receiving_statistics.py
+  - src/openapi/player_rushing_statistics.py
+  - src/openapi/player_statistics.py
+  - src/openapi/players.py
+  - src/openapi/plays.py
+  - src/openapi/py.typed
+  - src/openapi/schedules.py
+  - src/openapi/schedules_extended.py
+  - src/openapi/scores.py
+  - src/openapi/sdk.py
+  - src/openapi/sdkconfiguration.py
+  - src/openapi/season_schedule.py
+  - src/openapi/secured_videos.py
+  - src/openapi/stats_sdk.py
+  - src/openapi/team_defense_pass_statistics.py
+  - src/openapi/team_defense_rush_statistics.py
+  - src/openapi/team_defense_statistics.py
+  - src/openapi/team_offense_overview_statistics.py
+  - src/openapi/team_offense_pass_statistics.py
+  - src/openapi/teams.py
+  - src/openapi/types/__init__.py
+  - src/openapi/types/basemodel.py
+  - src/openapi/utils/__init__.py
+  - src/openapi/utils/annotations.py
+  - src/openapi/utils/datetimes.py
+  - src/openapi/utils/enums.py
+  - src/openapi/utils/eventstreaming.py
+  - src/openapi/utils/forms.py
+  - src/openapi/utils/headers.py
+  - src/openapi/utils/logger.py
+  - src/openapi/utils/metadata.py
+  - src/openapi/utils/queryparams.py
+  - src/openapi/utils/requestbodies.py
+  - src/openapi/utils/retries.py
+  - src/openapi/utils/security.py
+  - src/openapi/utils/serializers.py
+  - src/openapi/utils/unmarshal_json_response.py
+  - src/openapi/utils/url.py
+  - src/openapi/utils/values.py
+  - src/openapi/win_probability.py
 examples:
   getGamePreview:
     speakeasy-default-get-game-preview:
@@ -1548,4 +1548,3 @@ examples:
         "200":
           application/json: {"accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...", "expiresIn": 1758732647, "refreshToken": "0f5452b5-7f40-4c8e-9801-cf7fd2830de3"}
 examplesVersion: 1.0.2
-generatedTests: {}
