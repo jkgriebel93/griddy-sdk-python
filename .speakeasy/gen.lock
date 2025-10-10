@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
-id: 23e7eb10-1a56-4180-b51c-4acceab99e1b
+id: 92865a0c-d7bc-42b3-a812-dc379721855d
 management:
   docChecksum: cf5cbb83fdb2be136976ca2c8a69eb03
   docVersion: 1.0.0
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.0.1
-  configChecksum: 6d6ad510590fb2c32aacff24636350a4
+  releaseVersion: 0.1.0
+  configChecksum: 5688f6e234d3835d5c65717348b85c64
 features:
   python:
     additionalDependencies: 1.0.0
@@ -16,6 +16,7 @@ features:
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
+    flatRequests: 1.0.1
     flattening: 3.1.1
     globalSecurity: 3.0.4
     globalSecurityCallbacks: 1.0.0
