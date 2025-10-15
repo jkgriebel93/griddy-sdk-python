@@ -1,5 +1,4 @@
 from ._version import (
-    __gen_version__,
     __openapi_doc_version__,
     __user_agent__,
     __version__,
@@ -35,7 +34,6 @@ class SDKConfiguration:
     language: str = "python"
     openapi_doc_version: str = __openapi_doc_version__
     sdk_version: str = __version__
-    gen_version: str = __gen_version__
     user_agent: str = __user_agent__
     retry_config: OptionalNullable[RetryConfig] = Field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
