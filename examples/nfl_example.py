@@ -12,7 +12,7 @@ from griddy.core.exceptions import GriddyError
 def main():
     """Main example function."""
     # Initialize the NFL client
-    client = nfl.Client()
+    client = nfl.GriddyNFL()
 
     print("=== Griddy SDK - NFL Example ===\n")
 

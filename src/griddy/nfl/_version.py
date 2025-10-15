@@ -3,7 +3,7 @@ import importlib.metadata
 from griddy.settings import *
 
 __title__: str = "griddy-nfl"
-__version__: str = "0.1.3"
+__version__: str = "0.3.0"
 __openapi_doc_version__: str = "1.0.0"
 __user_agent__: str = NFL.get("user_agent")
 

@@ -25,6 +25,8 @@ dependencies = [
     "pyyaml==6.0.3",
     "httpx==0.28.1",
     "black>=25.9.0",
+    "pytest>=8.4.2",
+    "requests-mock>=1.12.1",
 ]
 
 [project.optional-dependencies]
