@@ -1,6 +1,7 @@
 import os
 import requests
 from datetime import datetime
+import sys
 from griddy.nfl import GriddyNFL
 from griddy.nfl.errors.griddynfldefaulterror import GriddyNFLDefaultError
 from griddy.core.utils import parse_cookies_txt
@@ -12,7 +13,9 @@ os.environ['GRIDDY_NFL_DEBUG'] = '1'
 # Optional: Set output file (None = stdout only, or provide a filename)
 OUTPUT_FILE = "request_comparison.log"  # Set to None to disable file output
 
-nfl = GriddyNFL("cookies.txt")
+_, bearer_token = sys.argv
+
+nfl = GriddyNFL(nfl_auth=f"Bearer {bearer_token}")
 
 # response = nfl.football.get_weekly_game_details(
 #     season=2025,
