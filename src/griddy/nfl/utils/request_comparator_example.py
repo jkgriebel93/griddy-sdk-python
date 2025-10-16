@@ -8,7 +8,7 @@ from griddy.core.utils import parse_cookies_txt
 from request_comparator import RequestComparator, compare_requests, print_direct_request_details
 
 # Enable SDK debug logging
-os.environ['GRIDDY_NFL_DEBUG'] = '1'
+# os.environ['GRIDDY_NFL_DEBUG'] = '1'
 
 # Optional: Set output file (None = stdout only, or provide a filename)
 OUTPUT_FILE = "request_comparison.log"  # Set to None to disable file output

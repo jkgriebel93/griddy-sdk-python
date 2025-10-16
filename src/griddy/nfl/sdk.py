@@ -8,7 +8,6 @@ import time
 import urllib
 import weakref
 
-from uuid import uuid4
 from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 
 from ..core.utils import extract_cookies_as_dict
@@ -221,7 +220,7 @@ class GriddyNFL(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param nfl_auth: The file path of a Netscape formatted cookies file used to set up NFL auth.
+        :param nfl_auth: Bearer token
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with

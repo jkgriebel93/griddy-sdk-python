@@ -4,7 +4,6 @@ from ._version import (
     __openapi_doc_version__,
     __user_agent__,
 )
-from .client import NFLClient
 from .sdk import *
 from .sdkconfiguration import *
 
