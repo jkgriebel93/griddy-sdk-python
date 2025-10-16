@@ -3,6 +3,16 @@ from importlib import import_module
 import builtins
 import sys
 
+from ..models_original import (
+    NFLGame,
+    NFLNews,
+    NFLPlayer,
+    NFLPlayerStats,
+    NFLStandings,
+    NFLSchedule,
+    NFLTeam,
+)
+
 if TYPE_CHECKING:
     from .award import Award, AwardType, AwardTypedDict
     from .binaryflagenum import BinaryFlagEnum
@@ -1474,6 +1484,18 @@ __all__ = [
     "Zone",
     "ZoneTypedDict",
 ]
+
+__all__.extend(
+    [
+        "NFLGame",
+        "NFLNews",
+        "NFLPlayer",
+        "NFLPlayerStats",
+        "NFLStandings",
+        "NFLSchedule",
+        "NFLTeam",
+    ]
+)
 
 _dynamic_imports: dict[str, str] = {
     "Award": ".award",
