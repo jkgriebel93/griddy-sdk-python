@@ -191,7 +191,7 @@ class GriddyNFL(BaseSDK):
     _client_data = {
         "clientKey": settings.NFL["clientKey"],
         "clientSecret": settings.NFL["clientSecret"],
-        "deviceId": str(uuid4()),
+        "deviceId": settings.NFL["deviceId"],
         "deviceInfo": base64.b64encode(
             json.dumps(
                 {
@@ -209,7 +209,6 @@ class GriddyNFL(BaseSDK):
 
     def __init__(
         self,
-        cookies_file: str,
         nfl_auth: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
@@ -252,11 +251,12 @@ class GriddyNFL(BaseSDK):
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
-        self.cookies_file = cookies_file
-        self._account_info = self.load_account_info()
-        self._token = {}
-        self.get_auth_token()
-        security = models.Security(nfl_auth=self._token["accessToken"])
+        security: Any = None
+        if callable(nfl_auth):
+            # pylint: disable=unnecessary-lambda-assignment
+            security = lambda: models.Security(nfl_auth=nfl_auth())
+        else:
+            security = models.Security(nfl_auth=nfl_auth)
 
         if server_url is not None:
             if url_params is not None:

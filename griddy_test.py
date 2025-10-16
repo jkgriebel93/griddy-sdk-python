@@ -1,6 +1,9 @@
+import sys
 from griddy.nfl import GriddyNFL
 
-nfl = GriddyNFL("cookies.txt")
+_, bearer_token = sys.argv
+
+nfl = GriddyNFL(nfl_auth=f"Bearer {bearer_token}")
 
 response = nfl.football.get_weekly_game_details(
     season=2025,
