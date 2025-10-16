@@ -68,7 +68,7 @@ class TestSecuredVideosAsync:
         """Create a SecuredVideos instance with mock configuration."""
         return SecuredVideos(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.secured_videos.SecuredVideos.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, secured_videos, mock_http_response):
         """Test async retrieval of data."""

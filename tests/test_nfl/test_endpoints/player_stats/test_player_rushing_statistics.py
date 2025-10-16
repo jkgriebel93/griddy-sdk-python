@@ -74,7 +74,7 @@ class TestPlayerRushingStatisticsAsync:
         """Create a PlayerRushingStatistics instance with mock configuration."""
         return PlayerRushingStatistics(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request_async')
     async def test_get_rushing_stats_async(self, mock_do_request_async, player_rushing_statistics, mock_http_response):
         """Test async retrieval of rushing statistics."""

@@ -61,7 +61,7 @@ class TestStatsSDKAsync:
         """Create a StatsSDK instance with mock configuration."""
         return StatsSDK(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.stats_sdk.StatsSDK.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, stats_sdk, mock_http_response):
         """Test async retrieval of data."""

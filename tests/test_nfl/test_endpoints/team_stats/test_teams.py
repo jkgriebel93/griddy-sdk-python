@@ -79,7 +79,7 @@ class TestTeamsAsync:
         """Create a Teams instance with mock configuration."""
         return Teams(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.teams.Teams.do_request_async')
     async def test_get_teams_async(self, mock_do_request_async, teams, mock_http_response):
         """Test async retrieval of teams."""

@@ -69,7 +69,7 @@ class TestTeamDefensePassStatisticsAsync:
         """Create a TeamDefensePassStatistics instance with mock configuration."""
         return TeamDefensePassStatistics(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.team_defense_pass_statistics.TeamDefensePassStatistics.do_request_async')
     async def test_get_pass_defense_stats_async(self, mock_do_request_async, team_defense_pass_statistics, mock_http_response):
         """Test async retrieval of team pass defense statistics."""

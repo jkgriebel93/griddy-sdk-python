@@ -68,7 +68,7 @@ class TestSchedulesExtendedAsync:
         """Create a SchedulesExtended instance with mock configuration."""
         return SchedulesExtended(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.schedules_extended.SchedulesExtended.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, schedules_extended, mock_http_response):
         """Test async retrieval of data."""

@@ -238,3 +238,6 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "content: mark test as content endpoint test"
     )
+    config.addinivalue_line(
+        "markers", "async_: mark test as asynchronous test"
+    )

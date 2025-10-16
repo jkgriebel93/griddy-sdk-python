@@ -68,7 +68,7 @@ class TestSeasonScheduleAsync:
         """Create a SeasonSchedule instance with mock configuration."""
         return SeasonSchedule(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.season_schedule.SeasonSchedule.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, season_schedule, mock_http_response):
         """Test async retrieval of data."""

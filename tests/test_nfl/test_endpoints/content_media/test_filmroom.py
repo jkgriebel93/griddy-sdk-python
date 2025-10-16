@@ -68,7 +68,7 @@ class TestFilmroomAsync:
         """Create a Filmroom instance with mock configuration."""
         return Filmroom(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.filmroom.Filmroom.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, filmroom, mock_http_response):
         """Test async retrieval of data."""

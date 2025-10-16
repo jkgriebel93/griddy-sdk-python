@@ -68,7 +68,7 @@ class TestWinProbabilityAsync:
         """Create a WinProbability instance with mock configuration."""
         return WinProbability(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.win_probability.WinProbability.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, win_probability, mock_http_response):
         """Test async retrieval of data."""

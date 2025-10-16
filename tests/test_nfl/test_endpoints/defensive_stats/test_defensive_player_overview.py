@@ -68,7 +68,7 @@ class TestDefensivePlayerOverviewAsync:
         """Create a DefensivePlayerOverview instance with mock configuration."""
         return DefensivePlayerOverview(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request_async')
     async def test_get_defensive_player_overview_async(self, mock_do_request_async, defensive_player_overview, mock_http_response):
         """Test async retrieval of defensive player overview."""

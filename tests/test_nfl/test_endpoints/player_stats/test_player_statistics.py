@@ -246,7 +246,7 @@ class TestPlayerStatisticsAsync:
         """Create a PlayerStatistics instance with mock configuration."""
         return PlayerStatistics(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request_async')
     async def test_get_season_player_stats_async_success(
         self,

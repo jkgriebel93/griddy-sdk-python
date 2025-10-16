@@ -68,7 +68,7 @@ class TestFootballAsync:
         """Create a Football instance with mock configuration."""
         return Football(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.football.Football.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, football, mock_http_response):
         """Test async retrieval of data."""

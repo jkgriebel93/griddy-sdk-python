@@ -61,7 +61,7 @@ class TestAuthenticationAsync:
         """Create a Authentication instance with mock configuration."""
         return Authentication(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.authentication.Authentication.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, authentication, mock_http_response):
         """Test async retrieval of data."""

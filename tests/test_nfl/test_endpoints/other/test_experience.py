@@ -61,7 +61,7 @@ class TestExperienceAsync:
         """Create a Experience instance with mock configuration."""
         return Experience(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.experience.Experience.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, experience, mock_http_response):
         """Test async retrieval of data."""

@@ -1,7 +1,8 @@
 """Pytest configuration and shared fixtures."""
 
 import pytest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
+from griddy import settings
 
 
 @pytest.fixture
@@ -61,3 +62,56 @@ def sample_player_data():
         "age": 28,
         "college": "Texas Tech",
     }
+
+
+@pytest.fixture(autouse=True)
+def mock_nfl_cookies():
+    """Mock cookie extraction for all NFLClient tests."""
+    # Get API key from settings, or use a mock value if not set
+    api_key = settings.NFL.get("api_key") or "mock_api_key"
+
+    mock_cookies = {
+        f"glt_{api_key}": "mock_login_token_12345",
+        "session_id": "mock_session_abc",
+    }
+
+    # Patch where the function is imported and used, not where it's defined
+    with patch('griddy.nfl.client.extract_cookies_as_dict', return_value=mock_cookies):
+        yield mock_cookies
+
+
+@pytest.fixture(autouse=True)
+def mock_nfl_auth_requests(requests_mock):
+    """Mock authentication-related HTTP requests for NFLClient."""
+    import time
+
+    mock_account_response = {
+        "signatureTimestamp": "1234567890",
+        "UID": "mock_uid_12345",
+        "UIDSignature": "mock_signature_abc",
+    }
+
+    mock_token_response = {
+        "accessToken": "mock_access_token",
+        "refreshToken": "mock_refresh_token",
+        "expiresIn": int(time.time()) + 3600,  # 1 hour from now
+    }
+
+    # Mock the account info endpoint
+    requests_mock.post(
+        settings.NFL["account_url"],
+        json=mock_account_response
+    )
+
+    # Mock the token endpoint (both initial and refresh)
+    requests_mock.post(
+        settings.NFL["token_url"],
+        json=mock_token_response
+    )
+
+    requests_mock.post(
+        f"{settings.NFL['token_url']}/refresh",
+        json=mock_token_response
+    )
+
+    yield requests_mock

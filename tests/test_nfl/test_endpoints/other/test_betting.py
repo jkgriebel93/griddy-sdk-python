@@ -61,7 +61,7 @@ class TestBettingAsync:
         """Create a Betting instance with mock configuration."""
         return Betting(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.betting.Betting.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, betting, mock_http_response):
         """Test async retrieval of data."""

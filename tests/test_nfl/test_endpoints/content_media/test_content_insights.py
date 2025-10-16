@@ -68,7 +68,7 @@ class TestContentInsightsAsync:
         """Create a ContentInsights instance with mock configuration."""
         return ContentInsights(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
+    @pytest.mark.async_
     @patch('griddy.nfl.content_insights.ContentInsights.do_request_async')
     async def test_get_data_async(self, mock_do_request_async, content_insights, mock_http_response):
         """Test async retrieval of data."""
