@@ -24,15 +24,15 @@ class TestPlayerStatistics:
     def test_initialization(self, player_statistics, mock_sdk_configuration):
         """Test PlayerStatistics initialization with SDK configuration."""
         assert player_statistics.sdk_configuration == mock_sdk_configuration
-        assert hasattr(player_statistics, 'sdk_configuration')
+        assert hasattr(player_statistics, "sdk_configuration")
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
     def test_get_season_player_stats_success(
         self,
         mock_do_request,
         player_statistics,
         mock_http_response,
-        sample_player_stats
+        sample_player_stats,
     ):
         """Test successful retrieval of season player statistics."""
         # Arrange
@@ -49,12 +49,9 @@ class TestPlayerStatistics:
         # assert len(result) == 1
         pass
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
     def test_get_player_stats_with_invalid_season(
-        self,
-        mock_do_request,
-        player_statistics,
-        mock_error_response
+        self, mock_do_request, player_statistics, mock_error_response
     ):
         """Test player statistics retrieval with invalid season parameter."""
         # Arrange
@@ -66,12 +63,9 @@ class TestPlayerStatistics:
         #     player_statistics.get_season_stats(season=1800)
         pass
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
     def test_get_player_stats_empty_response(
-        self,
-        mock_do_request,
-        player_statistics,
-        mock_http_response
+        self, mock_do_request, player_statistics, mock_http_response
     ):
         """Test handling of empty response from API."""
         # Arrange
@@ -85,12 +79,8 @@ class TestPlayerStatistics:
         # assert result == [] or result is None
         pass
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
-    def test_get_player_stats_network_error(
-        self,
-        mock_do_request,
-        player_statistics
-    ):
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
+    def test_get_player_stats_network_error(self, mock_do_request, player_statistics):
         """Test handling of network errors."""
         # Arrange
         mock_do_request.side_effect = Exception("Network error")
@@ -126,22 +116,16 @@ class TestPlayerStatistics:
         #     player_statistics.get_weekly_stats(season=2024, week=25)
         pass
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
     def test_response_schema_validation(
-        self,
-        mock_do_request,
-        player_statistics,
-        mock_http_response
+        self, mock_do_request, player_statistics, mock_http_response
     ):
         """Test that response data matches expected schema."""
         # Arrange
         response_data = {
             "playerId": "player123",
             "season": 2024,
-            "stats": {
-                "passingYards": 4000,
-                "touchdowns": 30
-            }
+            "stats": {"passingYards": 4000, "touchdowns": 30},
         }
         mock_http_response.json = Mock(return_value=response_data)
         mock_do_request.return_value = mock_http_response
@@ -156,12 +140,9 @@ class TestPlayerStatistics:
         # assert hasattr(result, 'stats')
         pass
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
     def test_authentication_header_included(
-        self,
-        mock_do_request,
-        player_statistics,
-        mock_http_response
+        self, mock_do_request, player_statistics, mock_http_response
     ):
         """Test that authentication headers are properly included in requests."""
         # This test verifies security configuration is applied
@@ -175,12 +156,9 @@ class TestPlayerStatistics:
         # mock_do_request.assert_called_once()
         pass
 
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request")
     def test_retry_on_rate_limit(
-        self,
-        mock_do_request,
-        player_statistics,
-        mock_http_response
+        self, mock_do_request, player_statistics, mock_http_response
     ):
         """Test that rate limit responses trigger retry logic."""
         # Arrange
@@ -213,18 +191,18 @@ class TestPlayerStatistics:
         # )
         pass
 
-    @pytest.mark.parametrize("season,expected_valid", [
-        (2024, True),
-        (2023, True),
-        (2000, True),
-        (1999, False),  # Before modern era
-        (2099, False),  # Future season
-    ])
+    @pytest.mark.parametrize(
+        "season,expected_valid",
+        [
+            (2024, True),
+            (2023, True),
+            (2000, True),
+            (1999, False),  # Before modern era
+            (2099, False),  # Future season
+        ],
+    )
     def test_season_parameter_validation(
-        self,
-        player_statistics,
-        season,
-        expected_valid
+        self, player_statistics, season, expected_valid
     ):
         """Test season parameter validation with various inputs."""
         # if expected_valid:
@@ -247,13 +225,13 @@ class TestPlayerStatisticsAsync:
         return PlayerStatistics(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.player_statistics.PlayerStatistics.do_request_async')
+    @patch("griddy.nfl.player_statistics.PlayerStatistics.do_request_async")
     async def test_get_season_player_stats_async_success(
         self,
         mock_do_request_async,
         player_statistics,
         mock_http_response,
-        sample_player_stats
+        sample_player_stats,
     ):
         """Test successful async retrieval of season player statistics."""
         # Arrange

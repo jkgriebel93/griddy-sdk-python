@@ -23,27 +23,35 @@ class TestContentInsights:
         """Test ContentInsights initialization with SDK configuration."""
         assert content_insights.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request')
-    def test_get_data_success(self, mock_do_request, content_insights, mock_http_response):
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request")
+    def test_get_data_success(
+        self, mock_do_request, content_insights, mock_http_response
+    ):
         """Test successful retrieval of data."""
         pass
 
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request')
-    def test_get_content_by_type(self, mock_do_request, content_insights, mock_http_response):
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request")
+    def test_get_content_by_type(
+        self, mock_do_request, content_insights, mock_http_response
+    ):
         """Test retrieval of content by type."""
         pass
 
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request')
-    def test_invalid_parameters(self, mock_do_request, content_insights, mock_error_response):
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request")
+    def test_invalid_parameters(
+        self, mock_do_request, content_insights, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request')
-    def test_empty_response(self, mock_do_request, content_insights, mock_http_response):
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request")
+    def test_empty_response(
+        self, mock_do_request, content_insights, mock_http_response
+    ):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request')
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request")
     def test_network_error(self, mock_do_request, content_insights):
         """Test handling of network errors."""
         pass
@@ -52,8 +60,10 @@ class TestContentInsights:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request')
-    def test_response_schema_validation(self, mock_do_request, content_insights, mock_http_response):
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, content_insights, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -69,7 +79,9 @@ class TestContentInsightsAsync:
         return ContentInsights(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.content_insights.ContentInsights.do_request_async')
-    async def test_get_data_async(self, mock_do_request_async, content_insights, mock_http_response):
+    @patch("griddy.nfl.content_insights.ContentInsights.do_request_async")
+    async def test_get_data_async(
+        self, mock_do_request_async, content_insights, mock_http_response
+    ):
         """Test async retrieval of data."""
         pass

@@ -23,27 +23,35 @@ class TestDefensivePlayerOverview:
         """Test DefensivePlayerOverview initialization with SDK configuration."""
         assert defensive_player_overview.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request')
-    def test_get_defensive_player_overview_success(self, mock_do_request, defensive_player_overview, mock_http_response):
+    @patch("griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request")
+    def test_get_defensive_player_overview_success(
+        self, mock_do_request, defensive_player_overview, mock_http_response
+    ):
         """Test successful retrieval of defensive player overview."""
         pass
 
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request')
-    def test_get_overview_by_player(self, mock_do_request, defensive_player_overview, mock_http_response):
+    @patch("griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request")
+    def test_get_overview_by_player(
+        self, mock_do_request, defensive_player_overview, mock_http_response
+    ):
         """Test retrieval of overview by player."""
         pass
 
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request')
-    def test_invalid_parameters(self, mock_do_request, defensive_player_overview, mock_error_response):
+    @patch("griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request")
+    def test_invalid_parameters(
+        self, mock_do_request, defensive_player_overview, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request')
-    def test_empty_response(self, mock_do_request, defensive_player_overview, mock_http_response):
+    @patch("griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request")
+    def test_empty_response(
+        self, mock_do_request, defensive_player_overview, mock_http_response
+    ):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request')
+    @patch("griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request")
     def test_network_error(self, mock_do_request, defensive_player_overview):
         """Test handling of network errors."""
         pass
@@ -52,8 +60,10 @@ class TestDefensivePlayerOverview:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request')
-    def test_response_schema_validation(self, mock_do_request, defensive_player_overview, mock_http_response):
+    @patch("griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, defensive_player_overview, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -69,7 +79,11 @@ class TestDefensivePlayerOverviewAsync:
         return DefensivePlayerOverview(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request_async')
-    async def test_get_defensive_player_overview_async(self, mock_do_request_async, defensive_player_overview, mock_http_response):
+    @patch(
+        "griddy.nfl.defensive_player_overview.DefensivePlayerOverview.do_request_async"
+    )
+    async def test_get_defensive_player_overview_async(
+        self, mock_do_request_async, defensive_player_overview, mock_http_response
+    ):
         """Test async retrieval of defensive player overview."""
         pass

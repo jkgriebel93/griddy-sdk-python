@@ -67,7 +67,9 @@ class Replay(BaseModel):
     external_id: Annotated[Optional[str], pydantic.Field(alias="externalId")] = None
     ids: Optional[dict] = None
     images: Optional[list] = None
-    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = None
+    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = (
+        None
+    )
     play_ids: Annotated[Optional[list], pydantic.Field(alias="playIds")] = None
     publish_date: Annotated[Optional[str], pydantic.Field(alias="publishDate")] = None
     sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None

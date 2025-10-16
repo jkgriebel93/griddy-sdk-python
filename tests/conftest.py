@@ -76,7 +76,7 @@ def mock_nfl_cookies():
     }
 
     # Patch where the function is imported and used, not where it's defined
-    with patch('griddy.nfl.client.extract_cookies_as_dict', return_value=mock_cookies):
+    with patch("griddy.nfl.client.extract_cookies_as_dict", return_value=mock_cookies):
         yield mock_cookies
 
 
@@ -98,20 +98,11 @@ def mock_nfl_auth_requests(requests_mock):
     }
 
     # Mock the account info endpoint
-    requests_mock.post(
-        settings.NFL["account_url"],
-        json=mock_account_response
-    )
+    requests_mock.post(settings.NFL["account_url"], json=mock_account_response)
 
     # Mock the token endpoint (both initial and refresh)
-    requests_mock.post(
-        settings.NFL["token_url"],
-        json=mock_token_response
-    )
+    requests_mock.post(settings.NFL["token_url"], json=mock_token_response)
 
-    requests_mock.post(
-        f"{settings.NFL['token_url']}/refresh",
-        json=mock_token_response
-    )
+    requests_mock.post(f"{settings.NFL['token_url']}/refresh", json=mock_token_response)
 
     yield requests_mock

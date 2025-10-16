@@ -27,42 +27,40 @@ from griddy.nfl import models
 
 import os
 
+
 def make_manual_token_request():
     url = NFL["token_url"]
 
-    headers = {"host": "api.nfl.com",
-     "accept-encoding": "gzip, deflate",
-     "connection": "keep-alive",
-     "accept": "application/json",
-     "user-agent": NFL["user_agent"],
-     "content-type": "application/json"}
+    headers = {
+        "host": "api.nfl.com",
+        "accept-encoding": "gzip, deflate",
+        "connection": "keep-alive",
+        "accept": "application/json",
+        "user-agent": NFL["user_agent"],
+        "content-type": "application/json",
+    }
 
     data = {
         "clientKey": NFL["clientKey"],
         "clientSecret": NFL["clientSecret"],
         "deviceId": NFL["deviceId"],
         "deviceInfo": NFL["deviceInfo"],
-        "networkType":"ethernet"
+        "networkType": "ethernet",
     }
 
     payload = json.dumps(data)
-    http_res = requests.post(url=url,
-                         headers=headers,
-                         data=payload)
+    http_res = requests.post(url=url, headers=headers, data=payload)
 
     if match_response(http_res, "200", "application/json"):
         return unmarshal_json_response(models.TokenResponse, http_res)
     if match_response(http_res, ["400", "401", "4XX"], "*"):
         http_res_text = stream_to_text(http_res)
-        raise GriddyNFLDefaultError(
-            "API error occurred", http_res, http_res_text
-        )
+        raise GriddyNFLDefaultError("API error occurred", http_res, http_res_text)
     if match_response(http_res, ["500", "5XX"], "*"):
         http_res_text = stream_to_text(http_res)
-        raise GriddyNFLDefaultError(
-            "API error occurred", http_res, http_res_text
-        )
+        raise GriddyNFLDefaultError("API error occurred", http_res, http_res_text)
     raise GriddyNFLDefaultError("Unexpected response received", http_res)
+
 
 def get_security(security: Any) -> Tuple[Dict[str, str], Dict[str, List[str]]]:
     headers: Dict[str, str] = {}

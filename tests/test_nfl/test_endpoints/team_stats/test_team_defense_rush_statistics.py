@@ -22,29 +22,47 @@ class TestTeamDefenseRushStatistics:
     def test_initialization(self, team_defense_rush_statistics, mock_sdk_configuration):
         """Test TeamDefenseRushStatistics initialization with SDK configuration."""
         assert team_defense_rush_statistics.sdk_configuration == mock_sdk_configuration
-        assert hasattr(team_defense_rush_statistics, 'sdk_configuration')
+        assert hasattr(team_defense_rush_statistics, "sdk_configuration")
 
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request')
-    def test_get_rush_defense_stats_success(self, mock_do_request, team_defense_rush_statistics, mock_http_response):
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request"
+    )
+    def test_get_rush_defense_stats_success(
+        self, mock_do_request, team_defense_rush_statistics, mock_http_response
+    ):
         """Test successful retrieval of team rush defense statistics."""
         pass
 
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request')
-    def test_get_rush_defense_stats_by_season(self, mock_do_request, team_defense_rush_statistics, mock_http_response):
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request"
+    )
+    def test_get_rush_defense_stats_by_season(
+        self, mock_do_request, team_defense_rush_statistics, mock_http_response
+    ):
         """Test retrieval of rush defense stats by season."""
         pass
 
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request')
-    def test_invalid_parameters(self, mock_do_request, team_defense_rush_statistics, mock_error_response):
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request"
+    )
+    def test_invalid_parameters(
+        self, mock_do_request, team_defense_rush_statistics, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request')
-    def test_empty_response(self, mock_do_request, team_defense_rush_statistics, mock_http_response):
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request"
+    )
+    def test_empty_response(
+        self, mock_do_request, team_defense_rush_statistics, mock_http_response
+    ):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request')
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request"
+    )
     def test_network_error(self, mock_do_request, team_defense_rush_statistics):
         """Test handling of network errors."""
         pass
@@ -53,8 +71,12 @@ class TestTeamDefenseRushStatistics:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request')
-    def test_response_schema_validation(self, mock_do_request, team_defense_rush_statistics, mock_http_response):
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request"
+    )
+    def test_response_schema_validation(
+        self, mock_do_request, team_defense_rush_statistics, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -70,7 +92,11 @@ class TestTeamDefenseRushStatisticsAsync:
         return TeamDefenseRushStatistics(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request_async')
-    async def test_get_rush_defense_stats_async(self, mock_do_request_async, team_defense_rush_statistics, mock_http_response):
+    @patch(
+        "griddy.nfl.team_defense_rush_statistics.TeamDefenseRushStatistics.do_request_async"
+    )
+    async def test_get_rush_defense_stats_async(
+        self, mock_do_request_async, team_defense_rush_statistics, mock_http_response
+    ):
         """Test async retrieval of team rush defense statistics."""
         pass

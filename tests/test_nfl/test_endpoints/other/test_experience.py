@@ -22,22 +22,22 @@ class TestExperience:
         """Test Experience initialization with SDK configuration."""
         assert experience.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.experience.Experience.do_request')
+    @patch("griddy.nfl.experience.Experience.do_request")
     def test_get_data_success(self, mock_do_request, experience, mock_http_response):
         """Test successful retrieval of data."""
         pass
 
-    @patch('griddy.nfl.experience.Experience.do_request')
+    @patch("griddy.nfl.experience.Experience.do_request")
     def test_invalid_parameters(self, mock_do_request, experience, mock_error_response):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.experience.Experience.do_request')
+    @patch("griddy.nfl.experience.Experience.do_request")
     def test_empty_response(self, mock_do_request, experience, mock_http_response):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.experience.Experience.do_request')
+    @patch("griddy.nfl.experience.Experience.do_request")
     def test_network_error(self, mock_do_request, experience):
         """Test handling of network errors."""
         pass
@@ -46,8 +46,10 @@ class TestExperience:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.experience.Experience.do_request')
-    def test_response_schema_validation(self, mock_do_request, experience, mock_http_response):
+    @patch("griddy.nfl.experience.Experience.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, experience, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -62,7 +64,9 @@ class TestExperienceAsync:
         return Experience(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.experience.Experience.do_request_async')
-    async def test_get_data_async(self, mock_do_request_async, experience, mock_http_response):
+    @patch("griddy.nfl.experience.Experience.do_request_async")
+    async def test_get_data_async(
+        self, mock_do_request_async, experience, mock_http_response
+    ):
         """Test async retrieval of data."""
         pass

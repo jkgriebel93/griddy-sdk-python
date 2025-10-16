@@ -22,34 +22,44 @@ class TestPlayerRushingStatistics:
     def test_initialization(self, player_rushing_statistics, mock_sdk_configuration):
         """Test PlayerRushingStatistics initialization with SDK configuration."""
         assert player_rushing_statistics.sdk_configuration == mock_sdk_configuration
-        assert hasattr(player_rushing_statistics, 'sdk_configuration')
+        assert hasattr(player_rushing_statistics, "sdk_configuration")
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
-    def test_get_rushing_stats_success(self, mock_do_request, player_rushing_statistics, mock_http_response):
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
+    def test_get_rushing_stats_success(
+        self, mock_do_request, player_rushing_statistics, mock_http_response
+    ):
         """Test successful retrieval of rushing statistics."""
         pass
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
-    def test_get_rushing_stats_by_season(self, mock_do_request, player_rushing_statistics, mock_http_response):
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
+    def test_get_rushing_stats_by_season(
+        self, mock_do_request, player_rushing_statistics, mock_http_response
+    ):
         """Test retrieval of rushing stats by season."""
         pass
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
-    def test_get_rushing_stats_by_week(self, mock_do_request, player_rushing_statistics, mock_http_response):
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
+    def test_get_rushing_stats_by_week(
+        self, mock_do_request, player_rushing_statistics, mock_http_response
+    ):
         """Test retrieval of rushing stats by week."""
         pass
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
-    def test_invalid_parameters(self, mock_do_request, player_rushing_statistics, mock_error_response):
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
+    def test_invalid_parameters(
+        self, mock_do_request, player_rushing_statistics, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
-    def test_empty_response(self, mock_do_request, player_rushing_statistics, mock_http_response):
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
+    def test_empty_response(
+        self, mock_do_request, player_rushing_statistics, mock_http_response
+    ):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
     def test_network_error(self, mock_do_request, player_rushing_statistics):
         """Test handling of network errors."""
         pass
@@ -58,8 +68,10 @@ class TestPlayerRushingStatistics:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request')
-    def test_response_schema_validation(self, mock_do_request, player_rushing_statistics, mock_http_response):
+    @patch("griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, player_rushing_statistics, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -75,7 +87,11 @@ class TestPlayerRushingStatisticsAsync:
         return PlayerRushingStatistics(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request_async')
-    async def test_get_rushing_stats_async(self, mock_do_request_async, player_rushing_statistics, mock_http_response):
+    @patch(
+        "griddy.nfl.player_rushing_statistics.PlayerRushingStatistics.do_request_async"
+    )
+    async def test_get_rushing_stats_async(
+        self, mock_do_request_async, player_rushing_statistics, mock_http_response
+    ):
         """Test async retrieval of rushing statistics."""
         pass

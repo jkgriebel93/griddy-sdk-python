@@ -23,27 +23,27 @@ class TestPlays:
         """Test Plays initialization with SDK configuration."""
         assert plays.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.plays.Plays.do_request')
+    @patch("griddy.nfl.plays.Plays.do_request")
     def test_get_data_success(self, mock_do_request, plays, mock_http_response):
         """Test successful retrieval of data."""
         pass
 
-    @patch('griddy.nfl.plays.Plays.do_request')
+    @patch("griddy.nfl.plays.Plays.do_request")
     def test_get_data_by_game(self, mock_do_request, plays, mock_http_response):
         """Test retrieval of data by game."""
         pass
 
-    @patch('griddy.nfl.plays.Plays.do_request')
+    @patch("griddy.nfl.plays.Plays.do_request")
     def test_invalid_parameters(self, mock_do_request, plays, mock_error_response):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.plays.Plays.do_request')
+    @patch("griddy.nfl.plays.Plays.do_request")
     def test_empty_response(self, mock_do_request, plays, mock_http_response):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.plays.Plays.do_request')
+    @patch("griddy.nfl.plays.Plays.do_request")
     def test_network_error(self, mock_do_request, plays):
         """Test handling of network errors."""
         pass
@@ -52,8 +52,10 @@ class TestPlays:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.plays.Plays.do_request')
-    def test_response_schema_validation(self, mock_do_request, plays, mock_http_response):
+    @patch("griddy.nfl.plays.Plays.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, plays, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -69,7 +71,9 @@ class TestPlaysAsync:
         return Plays(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.plays.Plays.do_request_async')
-    async def test_get_data_async(self, mock_do_request_async, plays, mock_http_response):
+    @patch("griddy.nfl.plays.Plays.do_request_async")
+    async def test_get_data_async(
+        self, mock_do_request_async, plays, mock_http_response
+    ):
         """Test async retrieval of data."""
         pass

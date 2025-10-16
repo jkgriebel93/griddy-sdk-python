@@ -71,7 +71,7 @@ def mock_httpx_client(mock_http_response):
 def create_mock_response(
     data: Dict[str, Any],
     status_code: int = 200,
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, str]] = None,
 ) -> Mock:
     """
     Helper function to create a mock HTTP response with custom data.
@@ -193,7 +193,9 @@ class MockSDKHelper:
         return mock_response
 
     @staticmethod
-    def mock_error_request(sdk_instance, status_code: int = 400, error_message: str = "Bad Request"):
+    def mock_error_request(
+        sdk_instance, status_code: int = 400, error_message: str = "Bad Request"
+    ):
         """
         Mock a failed SDK request.
 
@@ -217,9 +219,7 @@ def mock_sdk_helper():
 # Markers for different test categories
 def pytest_configure(config):
     """Register custom markers."""
-    config.addinivalue_line(
-        "markers", "endpoint: mark test as an endpoint test"
-    )
+    config.addinivalue_line("markers", "endpoint: mark test as an endpoint test")
     config.addinivalue_line(
         "markers", "player_stats: mark test as player statistics endpoint test"
     )
@@ -229,15 +229,9 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "defensive_stats: mark test as defensive statistics endpoint test"
     )
-    config.addinivalue_line(
-        "markers", "schedules: mark test as schedule endpoint test"
-    )
+    config.addinivalue_line("markers", "schedules: mark test as schedule endpoint test")
     config.addinivalue_line(
         "markers", "game_data: mark test as game data endpoint test"
     )
-    config.addinivalue_line(
-        "markers", "content: mark test as content endpoint test"
-    )
-    config.addinivalue_line(
-        "markers", "async_: mark test as asynchronous test"
-    )
+    config.addinivalue_line("markers", "content: mark test as content endpoint test")
+    config.addinivalue_line("markers", "async_: mark test as asynchronous test")

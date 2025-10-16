@@ -23,27 +23,35 @@ class TestDefensiveStatistics:
         """Test DefensiveStatistics initialization with SDK configuration."""
         assert defensive_statistics.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request')
-    def test_get_defensive_stats_success(self, mock_do_request, defensive_statistics, mock_http_response):
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request")
+    def test_get_defensive_stats_success(
+        self, mock_do_request, defensive_statistics, mock_http_response
+    ):
         """Test successful retrieval of defensive statistics."""
         pass
 
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request')
-    def test_get_defensive_stats_by_season(self, mock_do_request, defensive_statistics, mock_http_response):
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request")
+    def test_get_defensive_stats_by_season(
+        self, mock_do_request, defensive_statistics, mock_http_response
+    ):
         """Test retrieval of defensive stats by season."""
         pass
 
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request')
-    def test_invalid_parameters(self, mock_do_request, defensive_statistics, mock_error_response):
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request")
+    def test_invalid_parameters(
+        self, mock_do_request, defensive_statistics, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request')
-    def test_empty_response(self, mock_do_request, defensive_statistics, mock_http_response):
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request")
+    def test_empty_response(
+        self, mock_do_request, defensive_statistics, mock_http_response
+    ):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request')
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request")
     def test_network_error(self, mock_do_request, defensive_statistics):
         """Test handling of network errors."""
         pass
@@ -52,8 +60,10 @@ class TestDefensiveStatistics:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request')
-    def test_response_schema_validation(self, mock_do_request, defensive_statistics, mock_http_response):
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, defensive_statistics, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -69,7 +79,9 @@ class TestDefensiveStatisticsAsync:
         return DefensiveStatistics(mock_sdk_configuration)
 
     @pytest.mark.async_
-    @patch('griddy.nfl.defensive_statistics.DefensiveStatistics.do_request_async')
-    async def test_get_defensive_stats_async(self, mock_do_request_async, defensive_statistics, mock_http_response):
+    @patch("griddy.nfl.defensive_statistics.DefensiveStatistics.do_request_async")
+    async def test_get_defensive_stats_async(
+        self, mock_do_request_async, defensive_statistics, mock_http_response
+    ):
         """Test async retrieval of defensive statistics."""
         pass

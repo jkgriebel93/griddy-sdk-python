@@ -33,7 +33,9 @@ class BaseSDK:
         self.auth_token_response = None
 
     def _token_due_for_refresh(self):
-        return (time.time() - self.auth_token_response.expires_in) < settings.BASE["token_refresh_threshold"]
+        return (time.time() - self.auth_token_response.expires_in) < settings.BASE[
+            "token_refresh_threshold"
+        ]
 
     def pre_request_security_update(self):
         # TODO: Refactor these auth calls so we're not duplicating all the arguments
@@ -44,14 +46,17 @@ class BaseSDK:
 
         elif self._token_due_for_refresh():
 
-            self.auth_token_response = self.authentication.refresh_token(client_key=settings.NFL["client_key"],
-                                                                         client_secret=settings.NFL["client_secret"],
-                                                                         device_id=settings.NFL["device_id"],
-                                                                         device_info=settings.NFL["device_info"],
-                                                                         network_type=settings.NFL.get("network_type",
-                                                                                                       "other"))
+            self.auth_token_response = self.authentication.refresh_token(
+                client_key=settings.NFL["client_key"],
+                client_secret=settings.NFL["client_secret"],
+                device_id=settings.NFL["device_id"],
+                device_info=settings.NFL["device_info"],
+                network_type=settings.NFL.get("network_type", "other"),
+            )
 
-        self.sdk_configuration.security = models.Security(nfl_auth=self.auth_token_response.access_token)
+        self.sdk_configuration.security = models.Security(
+            nfl_auth=self.auth_token_response.access_token
+        )
         return self.sdk_configuration.security
 
     def _get_url(self, base_url, url_variables):

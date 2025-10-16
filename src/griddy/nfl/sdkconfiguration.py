@@ -45,5 +45,3 @@ class SDKConfiguration:
             self.server_idx = 0
 
         return SERVERS[self.server_idx], {}
-
-
