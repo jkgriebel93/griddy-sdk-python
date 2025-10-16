@@ -27,6 +27,7 @@ dependencies = [
     "black>=25.9.0",
     "pytest>=8.4.2",
     "requests-mock>=1.12.1",
+    "pytest-cov>=7.0.0",
 ]
 
 [project.optional-dependencies]
