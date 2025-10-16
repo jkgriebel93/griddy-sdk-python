@@ -65,23 +65,6 @@ def sample_player_data():
         "college": "Texas Tech",
     }
 
-
-@pytest.fixture(autouse=True)
-def mock_nfl_cookies():
-    """Mock cookie extraction for all NFLClient tests."""
-    # Get API key from settings, or use a mock value if not set
-    api_key = settings.NFL.get("api_key") or "mock_api_key"
-
-    mock_cookies = {
-        f"glt_{api_key}": "mock_login_token_12345",
-        "session_id": "mock_session_abc",
-    }
-
-    # Patch where the function is imported and used, not where it's defined
-    with patch("griddy.nfl.client.extract_cookies_as_dict", return_value=mock_cookies):
-        yield mock_cookies
-
-
 @pytest.fixture(autouse=True)
 def mock_nfl_auth_requests(requests_mock):
     """Mock authentication-related HTTP requests for NFLClient."""
