@@ -5,10 +5,12 @@ This is an example test file demonstrating the testing pattern for NFL SDK endpo
 Related to issue #26.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.player_statistics import PlayerStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.player_statistics import PlayerStatistics
 
 
 @pytest.mark.endpoint

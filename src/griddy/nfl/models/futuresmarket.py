@@ -1,16 +1,19 @@
 from __future__ import annotations
-from .oddsselection import OddsSelection, OddsSelectionTypedDict
+
+from typing import List, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
 from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
     BaseModel,
     Nullable,
     OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
 )
-import pydantic
-from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from .oddsselection import OddsSelection, OddsSelectionTypedDict
 
 
 class FixtureTypedDict(TypedDict):

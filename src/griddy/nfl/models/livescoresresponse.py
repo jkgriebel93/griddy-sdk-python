@@ -1,10 +1,13 @@
 from __future__ import annotations
+
+from typing import List
+
+import pydantic
+from typing_extensions import Annotated, TypedDict
+
+from ..types import BaseModel
 from .livegame import LiveGame, LiveGameTypedDict
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-import pydantic
-from typing import List
-from typing_extensions import Annotated, TypedDict
 
 
 class LiveScoresResponseTypedDict(TypedDict):

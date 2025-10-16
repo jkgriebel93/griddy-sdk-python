@@ -1,16 +1,17 @@
+from dataclasses import dataclass
+from typing import Callable, Dict, Optional, Tuple, Union
+
+from pydantic import Field
+
+from ..nfl import models
 from ._version import (
     __openapi_doc_version__,
     __user_agent__,
     __version__,
 )
 from .httpclient import AsyncHttpClient, HttpClient
+from .types import UNSET, OptionalNullable
 from .utils import Logger, RetryConfig, remove_suffix
-from dataclasses import dataclass
-from ..nfl import models
-from .types import OptionalNullable, UNSET
-from pydantic import Field
-from typing import Callable, Dict, Optional, Tuple, Union
-
 
 SERVERS = [
     "https://api.nfl.com",

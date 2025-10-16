@@ -1,7 +1,6 @@
 import base64
 import json
-import requests
-
+import os
 from typing import (
     Any,
     Dict,
@@ -9,23 +8,22 @@ from typing import (
     Optional,
     Tuple,
 )
+
+import requests
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
+
+from griddy.nfl import models
+from griddy.nfl.errors.griddynfldefaulterror import GriddyNFLDefaultError
+from griddy.settings import NFL
 
 from .metadata import (
     SecurityMetadata,
     find_field_metadata,
 )
 from .serializers import stream_to_text
-from .values import match_response
 from .unmarshal_json_response import unmarshal_json_response
-
-from griddy.settings import NFL
-from griddy.nfl.errors.griddynfldefaulterror import GriddyNFLDefaultError
-from griddy.nfl import models
-
-
-import os
+from .values import match_response
 
 
 def make_manual_token_request():

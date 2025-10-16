@@ -1,4 +1,10 @@
 from __future__ import annotations
+
+from typing import List, Optional, Union
+
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
+
+from ..types import BaseModel
 from .playerprojection import PlayerProjection, PlayerProjectionTypedDict
 from .playerweekprojectedpoints import (
     PlayerWeekProjectedPoints,
@@ -8,10 +14,6 @@ from .playerweekprojectedstats import (
     PlayerWeekProjectedStats,
     PlayerWeekProjectedStatsTypedDict,
 )
-from ..types import BaseModel
-from typing import List, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
-
 
 IncludedTypedDict = TypeAliasType(
     "IncludedTypedDict",

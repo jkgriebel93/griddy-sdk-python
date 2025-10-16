@@ -3,10 +3,12 @@ Tests for Betting endpoint module.
 Related to issue #52.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.betting import Betting
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.betting import Betting
 
 
 @pytest.mark.endpoint

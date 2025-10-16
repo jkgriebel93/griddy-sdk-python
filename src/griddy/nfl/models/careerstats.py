@@ -1,9 +1,12 @@
 from __future__ import annotations
-from .seasonstats import SeasonStats, SeasonStatsTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import List, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
+from .seasonstats import SeasonStats, SeasonStatsTypedDict
 
 
 class CareerStatsTypedDict(TypedDict):

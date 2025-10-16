@@ -3,10 +3,12 @@ Tests for Experience endpoint module.
 Related to issue #53.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.experience import Experience
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.experience import Experience
 
 
 @pytest.mark.endpoint

@@ -1,14 +1,16 @@
 from __future__ import annotations
+
+from typing import List, Literal, Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
 from .binaryflagenum import BinaryFlagEnum
 from .playtypeenum import PlayTypeEnum
 from .seasontypeenum import SeasonTypeEnum
 from .weekslugenum import WeekSlugEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
-import pydantic
-from typing import List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
 
 YardsToGoType = Literal[
     "SHORT",

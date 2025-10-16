@@ -3,10 +3,12 @@ Tests for ContentSDK endpoint module.
 Related to issue #47.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.content_sdk import ContentSDK
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.content_sdk import ContentSDK
 
 
 @pytest.mark.endpoint

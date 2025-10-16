@@ -3,10 +3,12 @@ Tests for SecuredVideos endpoint module.
 Related to issue #50.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.secured_videos import SecuredVideos
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.secured_videos import SecuredVideos
 
 
 @pytest.mark.endpoint

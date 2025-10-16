@@ -3,10 +3,12 @@ Tests for Filmroom endpoint module.
 Related to issue #49.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.filmroom import Filmroom
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.filmroom import Filmroom
 
 
 @pytest.mark.endpoint

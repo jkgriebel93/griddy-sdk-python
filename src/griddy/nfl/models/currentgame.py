@@ -1,4 +1,19 @@
 from __future__ import annotations
+
+from datetime import date, datetime
+from typing import List, Literal, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+)
 from .broadcastinfo import BroadcastInfo, BroadcastInfoTypedDict
 from .externalid import ExternalID, ExternalIDTypedDict
 from .gamestatusenum import GameStatusEnum
@@ -7,19 +22,6 @@ from .meridiemenum import MeridiemEnum
 from .seasontypeenum import SeasonTypeEnum
 from .ticketvendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
-from datetime import date, datetime
-from ..types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-import pydantic
-from pydantic import model_serializer
-from typing import List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
 
 CurrentGameCategory = Literal[
     "MNF",

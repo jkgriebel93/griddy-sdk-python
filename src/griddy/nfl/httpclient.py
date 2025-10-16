@@ -1,8 +1,9 @@
 # pyright: reportReturnType = false
 import asyncio
-from typing_extensions import Protocol, runtime_checkable
-import httpx
 from typing import Any, Optional, Union
+
+import httpx
+from typing_extensions import Protocol, runtime_checkable
 
 
 @runtime_checkable

@@ -3,10 +3,12 @@ Tests for StatsSDK endpoint module.
 Related to issue #55.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.stats_sdk import StatsSDK
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.stats_sdk import StatsSDK
 
 
 @pytest.mark.endpoint

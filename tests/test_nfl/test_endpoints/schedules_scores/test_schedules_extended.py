@@ -3,10 +3,12 @@ Tests for SchedulesExtended endpoint module.
 Related to issue #41.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.schedules_extended import SchedulesExtended
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.schedules_extended import SchedulesExtended
 
 
 @pytest.mark.endpoint

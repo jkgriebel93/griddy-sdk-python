@@ -3,10 +3,12 @@ Tests for FantasyStatistics endpoint module.
 Related to issue #54.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.fantasy_statistics import FantasyStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.fantasy_statistics import FantasyStatistics
 
 
 @pytest.mark.endpoint

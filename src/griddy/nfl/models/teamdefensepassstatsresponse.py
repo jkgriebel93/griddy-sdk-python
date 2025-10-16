@@ -1,11 +1,14 @@
 from __future__ import annotations
+
+from typing import List
+
+import pydantic
+from typing_extensions import Annotated, TypedDict
+
+from ..types import BaseModel
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 from .teamdefensepassstats import TeamDefensePassStats, TeamDefensePassStatsTypedDict
-from ..types import BaseModel
-import pydantic
-from typing import List
-from typing_extensions import Annotated, TypedDict
 
 
 class TeamDefensePassStatsResponseTypedDict(TypedDict):

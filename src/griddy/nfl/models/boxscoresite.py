@@ -1,16 +1,18 @@
 from __future__ import annotations
+
+from typing import Literal, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
 from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
     BaseModel,
     Nullable,
     OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
 )
-import pydantic
-from pydantic import model_serializer
-from typing import Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
 
 BoxscoreSiteRoofType = Literal[
     "OUTDOOR",

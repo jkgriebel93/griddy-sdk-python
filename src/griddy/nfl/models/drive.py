@@ -1,11 +1,13 @@
 from __future__ import annotations
-from .play import Play, PlayTypedDict
-from .team import Team, TeamTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import List, Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .play import Play, PlayTypedDict
+from .team import Team, TeamTypedDict
 
 Result = Literal[
     "TOUCHDOWN",

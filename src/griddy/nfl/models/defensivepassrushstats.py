@@ -1,10 +1,12 @@
 from __future__ import annotations
-from .defensivepositiongroupenum import DefensivePositionGroupEnum
-from ..types import BaseModel
-import pydantic
+
 from typing import Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .defensivepositiongroupenum import DefensivePositionGroupEnum
 
 DefensivePassRushStatsNgsPosition = Literal[
     "ED",

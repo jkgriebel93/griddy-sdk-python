@@ -1,11 +1,12 @@
 """Request comparison utility for debugging SDK vs direct requests."""
 
-import httpx
 import sys
-from urllib.parse import urlparse, parse_qs
-from typing import Dict, Any, Optional, TextIO
 from collections import defaultdict
 from http.cookies import SimpleCookie
+from typing import Any, Dict, Optional, TextIO
+from urllib.parse import parse_qs, urlparse
+
+import httpx
 
 
 class RequestComparator:

@@ -1,18 +1,20 @@
 from __future__ import annotations
-from .conference import Conference, ConferenceTypedDict
-from .division import Division, DivisionTypedDict
+
+from typing import Literal, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
 from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
     BaseModel,
     Nullable,
     OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
 )
-import pydantic
-from pydantic import model_serializer
-from typing import Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
+from .conference import Conference, ConferenceTypedDict
+from .division import Division, DivisionTypedDict
 
 ProTeamConferenceAbbr = Literal[
     "AFC",

@@ -3,10 +3,12 @@ Tests for Teams endpoint module.
 Related to issue #36.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.teams import Teams
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.teams import Teams
 
 
 @pytest.mark.endpoint

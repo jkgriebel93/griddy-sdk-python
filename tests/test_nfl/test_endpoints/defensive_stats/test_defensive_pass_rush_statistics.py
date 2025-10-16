@@ -3,10 +3,12 @@ Tests for DefensivePassRushStatistics endpoint module.
 Related to issue #39.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.defensive_pass_rush_statistics import DefensivePassRushStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.defensive_pass_rush_statistics import DefensivePassRushStatistics
 
 
 @pytest.mark.endpoint

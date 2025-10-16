@@ -1,15 +1,17 @@
 import os
-import requests
-from datetime import datetime
 import sys
-from griddy.nfl import GriddyNFL
-from griddy.nfl.errors.griddynfldefaulterror import GriddyNFLDefaultError
-from griddy.core.utils import parse_cookies_txt
+from datetime import datetime
+
+import requests
 from request_comparator import (
     RequestComparator,
     compare_requests,
     print_direct_request_details,
 )
+
+from griddy.core.utils import parse_cookies_txt
+from griddy.nfl import GriddyNFL
+from griddy.nfl.errors.griddynfldefaulterror import GriddyNFLDefaultError
 
 # Enable SDK debug logging
 # os.environ['GRIDDY_NFL_DEBUG'] = '1'

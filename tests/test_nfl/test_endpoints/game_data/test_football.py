@@ -3,10 +3,12 @@ Tests for Football endpoint module.
 Related to issue #44.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.football import Football
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.football import Football
 
 
 @pytest.mark.endpoint

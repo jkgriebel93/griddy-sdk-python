@@ -3,10 +3,12 @@ Tests for WinProbability endpoint module.
 Related to issue #46.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.win_probability import WinProbability
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.win_probability import WinProbability
 
 
 @pytest.mark.endpoint

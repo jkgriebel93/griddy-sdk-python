@@ -1,8 +1,9 @@
-from .griddynflerror import GriddyNFLError
-from typing import TYPE_CHECKING
-from importlib import import_module
 import builtins
 import sys
+from importlib import import_module
+from typing import TYPE_CHECKING
+
+from .griddynflerror import GriddyNFLError
 
 if TYPE_CHECKING:
     from .griddynfldefaulterror import GriddyNFLDefaultError

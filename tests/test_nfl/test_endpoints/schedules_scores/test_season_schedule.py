@@ -3,10 +3,12 @@ Tests for SeasonSchedule endpoint module.
 Related to issue #42.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.season_schedule import SeasonSchedule
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.season_schedule import SeasonSchedule
 
 
 @pytest.mark.endpoint

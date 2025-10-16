@@ -3,10 +3,12 @@ Tests for Players endpoint module.
 Related to issue #30.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.players import Players
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.players import Players
 
 
 @pytest.mark.endpoint

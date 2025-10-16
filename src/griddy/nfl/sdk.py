@@ -1,27 +1,26 @@
 import base64
-import httpx
 import importlib
 import json
-import requests
 import sys
 import time
 import urllib
 import weakref
+from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Union, cast
 
-from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
+import httpx
+import requests
+
+from griddy import settings
 
 from ..core.utils import extract_cookies_as_dict
-
+from ..nfl import models, utils
+from ._hooks import SDKHooks
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration
+from .types import UNSET, OptionalNullable
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
-from ..nfl import models, utils
-from ._hooks import SDKHooks
-from .types import OptionalNullable, UNSET
-
-from griddy import settings
 
 if TYPE_CHECKING:
     from .authentication import Authentication

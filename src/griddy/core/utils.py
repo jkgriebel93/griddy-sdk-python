@@ -3,17 +3,16 @@
 import difflib
 import json
 import os
+import re
 import time
+from collections import defaultdict
+from datetime import datetime, timezone
+from functools import wraps
+from pathlib import Path
+from typing import Callable, Dict, List, TypeVar
+from urllib.parse import urlparse
 
 import yaml
-
-from collections import defaultdict
-from functools import wraps
-from datetime import datetime, timezone
-from typing import TypeVar, Callable, Dict, List
-from urllib.parse import urlparse
-from pathlib import Path
-import re
 
 T = TypeVar("T")
 

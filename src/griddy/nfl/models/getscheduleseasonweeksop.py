@@ -1,7 +1,9 @@
 from __future__ import annotations
+
+from typing_extensions import Annotated, TypedDict
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-from typing_extensions import Annotated, TypedDict
 
 
 class GetScheduleSeasonWeeksRequestTypedDict(TypedDict):

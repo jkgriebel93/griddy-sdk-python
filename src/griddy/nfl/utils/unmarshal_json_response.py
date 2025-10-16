@@ -2,8 +2,8 @@ from typing import Any, Optional
 
 import httpx
 
-from .serializers import unmarshal_json
 from .. import errors
+from .serializers import unmarshal_json
 
 
 def unmarshal_json_response(

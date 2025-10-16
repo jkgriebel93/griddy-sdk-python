@@ -3,10 +3,12 @@ Tests for Schedules endpoint module.
 Related to issue #40.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.schedules import Schedules
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.schedules import Schedules
 
 
 @pytest.mark.endpoint

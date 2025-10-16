@@ -3,10 +3,12 @@ Tests for DefensivePlayerOverview endpoint module.
 Related to issue #38.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.defensive_player_overview import DefensivePlayerOverview
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.defensive_player_overview import DefensivePlayerOverview
 
 
 @pytest.mark.endpoint

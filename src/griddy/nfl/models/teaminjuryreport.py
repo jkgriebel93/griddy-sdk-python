@@ -1,11 +1,14 @@
 from __future__ import annotations
+
+from datetime import datetime
+from typing import List, Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .injuryentry import InjuryEntry, InjuryEntryTypedDict
 from .team import Team, TeamTypedDict
-from datetime import datetime
-from ..types import BaseModel
-import pydantic
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TeamInjuryReportTypedDict(TypedDict):

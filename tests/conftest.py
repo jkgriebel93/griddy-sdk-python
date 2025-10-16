@@ -1,7 +1,9 @@
 """Pytest configuration and shared fixtures."""
 
-import pytest
 from unittest.mock import Mock, patch
+
+import pytest
+
 from griddy import settings
 
 

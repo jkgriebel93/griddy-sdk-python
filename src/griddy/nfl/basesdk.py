@@ -1,18 +1,20 @@
 import time
+from typing import Callable, List, Mapping, Optional, Tuple
+from urllib.parse import parse_qs, urlparse
+
+import httpx
 
 from griddy import settings
-from .sdkconfiguration import SDKConfiguration
+
 from . import errors, models, utils
 from ._hooks import (
     AfterErrorContext,
     AfterSuccessContext,
     BeforeRequestContext,
 )
+from .sdkconfiguration import SDKConfiguration
 from .utils import RetryConfig, SerializedRequestBody, get_body_content
 from .utils.security import make_manual_token_request
-import httpx
-from typing import Callable, List, Mapping, Optional, Tuple
-from urllib.parse import parse_qs, urlparse
 
 
 class BaseSDK:

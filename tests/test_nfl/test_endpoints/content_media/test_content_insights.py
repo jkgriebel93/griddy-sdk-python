@@ -3,10 +3,12 @@ Tests for ContentInsights endpoint module.
 Related to issue #48.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.content_insights import ContentInsights
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.content_insights import ContentInsights
 
 
 @pytest.mark.endpoint

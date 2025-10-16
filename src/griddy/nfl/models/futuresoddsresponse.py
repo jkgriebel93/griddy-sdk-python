@@ -1,9 +1,12 @@
 from __future__ import annotations
-from .futuresmarket import FuturesMarket, FuturesMarketTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import List, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
+from .futuresmarket import FuturesMarket, FuturesMarketTypedDict
 
 
 class FuturesOddsResponseDataTypedDict(TypedDict):

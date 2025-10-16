@@ -3,10 +3,12 @@ Tests for PlayerRushingStatistics endpoint module.
 Related to issue #29.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.player_rushing_statistics import PlayerRushingStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.player_rushing_statistics import PlayerRushingStatistics
 
 
 @pytest.mark.endpoint

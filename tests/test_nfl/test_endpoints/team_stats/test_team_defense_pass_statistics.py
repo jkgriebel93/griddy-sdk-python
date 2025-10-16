@@ -3,10 +3,12 @@ Tests for TeamDefensePassStatistics endpoint module.
 Related to issue #32.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.team_defense_pass_statistics import TeamDefensePassStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.team_defense_pass_statistics import TeamDefensePassStatistics
 
 
 @pytest.mark.endpoint

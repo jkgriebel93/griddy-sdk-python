@@ -1,12 +1,11 @@
 from ._version import (
-    __title__,
-    __version__,
     __openapi_doc_version__,
+    __title__,
     __user_agent__,
+    __version__,
 )
 from .sdk import *
 from .sdkconfiguration import *
-
 
 VERSION: str = __version__
 OPENAPI_DOC_VERSION = __openapi_doc_version__

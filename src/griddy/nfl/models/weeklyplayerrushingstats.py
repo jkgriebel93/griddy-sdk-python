@@ -1,10 +1,13 @@
 from __future__ import annotations
+
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .gameresultenum import GameResultEnum
 from .offensiveplayerpositionenum import OffensivePlayerPositionEnum
-from ..types import BaseModel
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class WeeklyPlayerRushingStatsTypedDict(TypedDict):

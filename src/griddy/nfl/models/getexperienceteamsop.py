@@ -1,8 +1,11 @@
 from __future__ import annotations
+
+from typing import Optional
+
+from typing_extensions import Annotated, NotRequired, TypedDict
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetExperienceTeamsRequestTypedDict(TypedDict):

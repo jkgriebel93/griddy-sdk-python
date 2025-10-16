@@ -1,9 +1,10 @@
 """Pytest configuration for NFL SDK endpoint tests."""
 
-import pytest
+from typing import Any, Dict, Optional
 from unittest.mock import Mock, patch
+
 import httpx
-from typing import Dict, Any, Optional
+import pytest
 
 
 @pytest.fixture

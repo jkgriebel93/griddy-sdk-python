@@ -3,10 +3,12 @@ Tests for PlayerPassingStatistics endpoint module.
 Related to issue #27.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.player_passing_statistics import PlayerPassingStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.player_passing_statistics import PlayerPassingStatistics
 
 
 @pytest.mark.endpoint

@@ -1,6 +1,7 @@
-import httpx
-from typing import Optional
 from dataclasses import dataclass
+from typing import Optional
+
+import httpx
 
 from ..errors import GriddyNFLError
 

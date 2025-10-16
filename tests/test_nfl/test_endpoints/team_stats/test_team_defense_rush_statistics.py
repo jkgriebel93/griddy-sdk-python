@@ -3,10 +3,12 @@ Tests for TeamDefenseRushStatistics endpoint module.
 Related to issue #33.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.team_defense_rush_statistics import TeamDefenseRushStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.team_defense_rush_statistics import TeamDefenseRushStatistics
 
 
 @pytest.mark.endpoint

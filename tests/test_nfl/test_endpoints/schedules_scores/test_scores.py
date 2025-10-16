@@ -3,10 +3,12 @@ Tests for Scores endpoint module.
 Related to issue #43.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.scores import Scores
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.scores import Scores
 
 
 @pytest.mark.endpoint

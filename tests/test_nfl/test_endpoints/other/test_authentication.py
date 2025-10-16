@@ -3,10 +3,12 @@ Tests for Authentication endpoint module.
 Related to issue #51.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.authentication import Authentication
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.authentication import Authentication
 
 
 @pytest.mark.endpoint

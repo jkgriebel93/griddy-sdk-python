@@ -1,8 +1,11 @@
 from __future__ import annotations
-from .draftpick import DraftPick, DraftPickTypedDict
-from ..types import BaseModel
+
 from typing import List, Optional
+
 from typing_extensions import NotRequired, TypedDict
+
+from ..types import BaseModel
+from .draftpick import DraftPick, DraftPickTypedDict
 
 
 class RoundTypedDict(TypedDict):
