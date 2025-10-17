@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Self
 
-from griddy.nfl.models.game_result_enum import GameResultEnum
+from griddy.nfl.models.streak_type_enum import StreakTypeEnum
 
 
 class OverallRecordAllOfStreak(BaseModel):
@@ -34,7 +34,7 @@ class OverallRecordAllOfStreak(BaseModel):
     length: Optional[StrictInt] = Field(
         default=None, description="Length of current streak"
     )
-    type: Optional[GameResultEnum] = None
+    type: Optional[StreakTypeEnum] = None
     __properties: ClassVar[List[str]] = ["length", "type"]
 
     model_config = ConfigDict(

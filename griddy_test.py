@@ -1,22 +1,24 @@
 import sys
 
-from griddy.nfl import GriddyNFL
+from griddy import nfl
+from griddy.nfl import NFLAPIClient, NFLConfiguration
 
 _, bearer_token = sys.argv
 
-nfl = GriddyNFL(nfl_auth=f"Bearer {bearer_token}")
+config = NFLConfiguration(access_token=bearer_token)
 
-response = nfl.football.get_weekly_game_details(
-    season=2025,
-    type_="REG",
-    week=5,
-    include_drive_chart=True,
-    include_replays=True,
-    include_standings=True,
-    include_tagged_videos=False,
-)
-game = response[0]
-replay = game.replays[0]
-from pprint import pprint
+with NFLAPIClient(configuration=config) as api_client:
+    api_instance = nfl.FootballController(api_client=api_client)
+    season = 2025
+    type_ = nfl.SeasonTypeEnum.REG
+    week = 7
 
-pprint(replay.model_dump(), indent=4)
+    try:
+        response = api_instance.get_weekly_game_details(season=season,
+                                                        type=type_,
+                                                        week=week)
+        print("API Response:\n\n\n")
+        from pprint import pprint
+        pprint(response, indent=4)
+    except Exception as e:
+        raise e

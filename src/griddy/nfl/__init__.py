@@ -6,7 +6,8 @@ from .exceptions import (NFLAPITypeError,
                          NFLAPIAttributeError,
                          NFLAPIKeyError,
                          NFLAPIException)
-
+from .controllers import *
+from .models import *
 
 __all__ = [
     "NFLAPIClient",

@@ -27,7 +27,7 @@ from urllib.parse import quote
 from dateutil.parser import parse
 from pydantic import SecretStr
 
-import src.griddy.nfl.models
+import griddy.nfl.models
 from griddy.nfl import rest
 from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.api_response import T as ApiResponseT
@@ -449,7 +449,7 @@ class NFLAPIClient:
             if klass in self.NATIVE_TYPES_MAPPING:
                 klass = self.NATIVE_TYPES_MAPPING[klass]
             else:
-                klass = getattr(src.griddy.nfl.models, klass)
+                klass = getattr(griddy.nfl.models, klass)
 
         if klass in self.PRIMITIVE_TYPES:
             return self.__deserialize_primitive(data, klass)
