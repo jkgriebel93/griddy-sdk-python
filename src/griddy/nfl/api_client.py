@@ -206,6 +206,7 @@ class NFLAPIClient:
                 post_params.extend(self.files_parameters(files))
 
         # auth setting
+        self.configuration.token_refresh_hook()
         self.update_params_for_auth(
             header_params,
             query_params,
