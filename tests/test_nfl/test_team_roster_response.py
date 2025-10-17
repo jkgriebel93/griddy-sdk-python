@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.team_roster_response import TeamRosterResponse
+from griddy.nfl.models.team_roster_response import TeamRosterResponse
 
 
 class TestTeamRosterResponse(unittest.TestCase):

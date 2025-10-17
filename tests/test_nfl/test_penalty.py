@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.penalty import Penalty
+from griddy.nfl.models.penalty import Penalty
 
 
 class TestPenalty(unittest.TestCase):

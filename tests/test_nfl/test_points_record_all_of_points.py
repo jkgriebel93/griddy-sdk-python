@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.points_record_all_of_points import PointsRecordAllOfPoints
+from griddy.nfl.models.points_record_all_of_points import PointsRecordAllOfPoints
 
 
 class TestPointsRecordAllOfPoints(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.projected_stats_response import ProjectedStatsResponse
+from griddy.nfl.models.projected_stats_response import ProjectedStatsResponse
 
 
 class TestProjectedStatsResponse(unittest.TestCase):

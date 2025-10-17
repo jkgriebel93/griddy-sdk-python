@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defense_field_position_enum import DefenseFieldPositionEnum
+from griddy.nfl.models.defense_field_position_enum import DefenseFieldPositionEnum
 
 
 class TestDefenseFieldPositionEnum(unittest.TestCase):

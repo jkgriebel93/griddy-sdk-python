@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.replay_tags_inner import ReplayTagsInner
+from griddy.nfl.models.replay_tags_inner import ReplayTagsInner
 
 
 class TestReplayTagsInner(unittest.TestCase):

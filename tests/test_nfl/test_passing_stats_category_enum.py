@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.passing_stats_category_enum import PassingStatsCategoryEnum
+from griddy.nfl.models.passing_stats_category_enum import PassingStatsCategoryEnum
 
 
 class TestPassingStatsCategoryEnum(unittest.TestCase):

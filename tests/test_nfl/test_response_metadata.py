@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.response_metadata import ResponseMetadata
+from griddy.nfl.models.response_metadata import ResponseMetadata
 
 
 class TestResponseMetadata(unittest.TestCase):

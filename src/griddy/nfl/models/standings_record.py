@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.standings_record_all_of_points import (
+from griddy.nfl.models.standings_record_all_of_points import (
     StandingsRecordAllOfPoints,
 )
 

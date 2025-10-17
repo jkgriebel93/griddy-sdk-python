@@ -24,9 +24,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.player import Player
-from src.griddy.nfl.models.team import Team
-from src.griddy.nfl.models.transaction_type_enum import TransactionTypeEnum
+from griddy.nfl.models.player import Player
+from griddy.nfl.models.team import Team
+from griddy.nfl.models.transaction_type_enum import TransactionTypeEnum
 
 
 class Transaction(BaseModel):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.offensive_metrics_explanation_epa import (
+from griddy.nfl.models.offensive_metrics_explanation_epa import (
     OffensiveMetricsExplanationEpa,
 )
 

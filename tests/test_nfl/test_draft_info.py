@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.draft_info import DraftInfo
+from griddy.nfl.models.draft_info import DraftInfo
 
 
 class TestDraftInfo(unittest.TestCase):

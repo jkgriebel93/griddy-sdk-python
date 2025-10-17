@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.week_slug_enum import WeekSlugEnum
 
 
 class TestWeekSlugEnum(unittest.TestCase):

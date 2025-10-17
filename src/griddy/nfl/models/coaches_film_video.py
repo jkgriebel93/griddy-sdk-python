@@ -32,14 +32,14 @@ from pydantic import (
 )
 from typing_extensions import Self
 
-from src.griddy.nfl.models.camera_source_enum import CameraSourceEnum
-from src.griddy.nfl.models.coaches_file_video_sub_type_enum import (
+from griddy.nfl.models.camera_source_enum import CameraSourceEnum
+from griddy.nfl.models.coaches_file_video_sub_type_enum import (
     CoachesFileVideoSubTypeEnum,
 )
-from src.griddy.nfl.models.video_authorizations import VideoAuthorizations
-from src.griddy.nfl.models.video_game_play_ids import VideoGamePlayIds
-from src.griddy.nfl.models.video_tag import VideoTag
-from src.griddy.nfl.models.video_thumbnail import VideoThumbnail
+from griddy.nfl.models.video_authorizations import VideoAuthorizations
+from griddy.nfl.models.video_game_play_ids import VideoGamePlayIds
+from griddy.nfl.models.video_tag import VideoTag
+from griddy.nfl.models.video_thumbnail import VideoThumbnail
 
 
 class CoachesFilmVideo(BaseModel):

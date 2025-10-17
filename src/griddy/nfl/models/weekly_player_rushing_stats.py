@@ -31,8 +31,8 @@ from pydantic import (
 )
 from typing_extensions import Self
 
-from src.griddy.nfl.models.game_result_enum import GameResultEnum
-from src.griddy.nfl.models.offensive_player_position_enum import (
+from griddy.nfl.models.game_result_enum import GameResultEnum
+from griddy.nfl.models.offensive_player_position_enum import (
     OffensivePlayerPositionEnum,
 )
 

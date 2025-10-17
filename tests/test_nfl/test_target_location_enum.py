@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.target_location_enum import TargetLocationEnum
+from griddy.nfl.models.target_location_enum import TargetLocationEnum
 
 
 class TestTargetLocationEnum(unittest.TestCase):

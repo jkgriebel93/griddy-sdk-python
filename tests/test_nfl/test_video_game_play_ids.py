@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.video_game_play_ids import VideoGamePlayIds
+from griddy.nfl.models.video_game_play_ids import VideoGamePlayIds
 
 
 class TestVideoGamePlayIds(unittest.TestCase):

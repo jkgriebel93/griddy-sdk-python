@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.calculation_method_enum import CalculationMethodEnum
+from griddy.nfl.models.calculation_method_enum import CalculationMethodEnum
 
 
 class TestCalculationMethodEnum(unittest.TestCase):

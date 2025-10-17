@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.social_media import SocialMedia
+from griddy.nfl.models.social_media import SocialMedia
 
 
 class TestSocialMedia(unittest.TestCase):

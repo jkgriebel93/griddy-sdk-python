@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.betting_odds_format_american_odds import (
+from griddy.nfl.models.betting_odds_format_american_odds import (
     BettingOddsFormatAmericanOdds,
 )
-from src.griddy.nfl.models.betting_odds_format_decimal_odds import (
+from griddy.nfl.models.betting_odds_format_decimal_odds import (
     BettingOddsFormatDecimalOdds,
 )
-from src.griddy.nfl.models.betting_odds_format_fractional_odds import (
+from griddy.nfl.models.betting_odds_format_fractional_odds import (
     BettingOddsFormatFractionalOdds,
 )
 

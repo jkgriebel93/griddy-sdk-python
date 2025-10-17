@@ -18,12 +18,12 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.refresh_token_request import RefreshTokenRequest
-from src.griddy.nfl.models.token_request import TokenRequest
-from src.griddy.nfl.models.token_response import TokenResponse
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.refresh_token_request import RefreshTokenRequest
+from griddy.nfl.models.token_request import TokenRequest
+from griddy.nfl.models.token_response import TokenResponse
+from griddy.nfl.rest import RESTResponseType
 
 
 class AuthenticationController:

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.live_game import LiveGame
+from griddy.nfl.models.live_game import LiveGame
 
 
 class TestLiveGame(unittest.TestCase):

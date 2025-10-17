@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.filmroom_plays_response import FilmroomPlaysResponse
+from griddy.nfl.models.filmroom_plays_response import FilmroomPlaysResponse
 
 
 class TestFilmroomPlaysResponse(unittest.TestCase):

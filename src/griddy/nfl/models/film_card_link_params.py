@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.week_slug_enum import WeekSlugEnum
 
 
 class FilmCardLinkParams(BaseModel):

@@ -23,37 +23,37 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.box_score_player_extra_points_statistic import (
+from griddy.nfl.models.box_score_player_extra_points_statistic import (
     BoxScorePlayerExtraPointsStatistic,
 )
-from src.griddy.nfl.models.box_score_player_field_goals_statistic import (
+from griddy.nfl.models.box_score_player_field_goals_statistic import (
     BoxScorePlayerFieldGoalsStatistic,
 )
-from src.griddy.nfl.models.box_score_player_fumbles_statistic import (
+from griddy.nfl.models.box_score_player_fumbles_statistic import (
     BoxScorePlayerFumblesStatistic,
 )
-from src.griddy.nfl.models.box_score_player_kick_return_statistic import (
+from griddy.nfl.models.box_score_player_kick_return_statistic import (
     BoxScorePlayerKickReturnStatistic,
 )
-from src.griddy.nfl.models.box_score_player_kicking_statistic import (
+from griddy.nfl.models.box_score_player_kicking_statistic import (
     BoxScorePlayerKickingStatistic,
 )
-from src.griddy.nfl.models.box_score_player_passing_statistic import (
+from griddy.nfl.models.box_score_player_passing_statistic import (
     BoxScorePlayerPassingStatistic,
 )
-from src.griddy.nfl.models.box_score_player_punt_return_statistic import (
+from griddy.nfl.models.box_score_player_punt_return_statistic import (
     BoxScorePlayerPuntReturnStatistic,
 )
-from src.griddy.nfl.models.box_score_player_punting_statistic import (
+from griddy.nfl.models.box_score_player_punting_statistic import (
     BoxScorePlayerPuntingStatistic,
 )
-from src.griddy.nfl.models.box_score_player_receiving_statistic import (
+from griddy.nfl.models.box_score_player_receiving_statistic import (
     BoxScorePlayerReceivingStatistic,
 )
-from src.griddy.nfl.models.box_score_player_rushing_statistic import (
+from griddy.nfl.models.box_score_player_rushing_statistic import (
     BoxScorePlayerRushingStatistic,
 )
-from src.griddy.nfl.models.box_score_player_tackles_statistic import (
+from griddy.nfl.models.box_score_player_tackles_statistic import (
     BoxScorePlayerTacklesStatistic,
 )
 

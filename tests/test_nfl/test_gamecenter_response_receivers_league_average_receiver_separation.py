@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.gamecenter_response_receivers_league_average_receiver_separation import (
+from griddy.nfl.models.gamecenter_response_receivers_league_average_receiver_separation import (
     GamecenterResponseReceiversLeagueAverageReceiverSeparation,
 )
 

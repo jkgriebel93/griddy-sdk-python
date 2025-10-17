@@ -24,8 +24,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.injury_entry import InjuryEntry
-from src.griddy.nfl.models.team import Team
+from griddy.nfl.models.injury_entry import InjuryEntry
+from griddy.nfl.models.team import Team
 
 
 class TeamInjuryReport(BaseModel):

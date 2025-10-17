@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.ticket_vendor import TicketVendor
+from griddy.nfl.models.ticket_vendor import TicketVendor
 
 
 class TestTicketVendor(unittest.TestCase):

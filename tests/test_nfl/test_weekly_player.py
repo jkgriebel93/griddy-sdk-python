@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.weekly_player import WeeklyPlayer
+from griddy.nfl.models.weekly_player import WeeklyPlayer
 
 
 class TestWeeklyPlayer(unittest.TestCase):

@@ -18,10 +18,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.coaches_film_response import CoachesFilmResponse
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.coaches_film_response import CoachesFilmResponse
+from griddy.nfl.rest import RESTResponseType
 
 
 class SecuredVideosController:

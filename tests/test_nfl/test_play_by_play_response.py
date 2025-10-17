@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.play_by_play_response import PlayByPlayResponse
+from griddy.nfl.models.play_by_play_response import PlayByPlayResponse
 
 
 class TestPlayByPlayResponse(unittest.TestCase):

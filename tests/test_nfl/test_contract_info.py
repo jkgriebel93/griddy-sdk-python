@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.contract_info import ContractInfo
+from griddy.nfl.models.contract_info import ContractInfo
 
 
 class TestContractInfo(unittest.TestCase):

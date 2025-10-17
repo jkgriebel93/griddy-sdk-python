@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.standings_record import StandingsRecord
+from griddy.nfl.models.standings_record import StandingsRecord
 
 
 class TestStandingsRecord(unittest.TestCase):

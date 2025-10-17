@@ -23,12 +23,12 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.defensive_stats import DefensiveStats
-from src.griddy.nfl.models.kicking_stats import KickingStats
-from src.griddy.nfl.models.passing_stats import PassingStats
-from src.griddy.nfl.models.receiving_stats import ReceivingStats
-from src.griddy.nfl.models.rushing_stats import RushingStats
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.defensive_stats import DefensiveStats
+from griddy.nfl.models.kicking_stats import KickingStats
+from griddy.nfl.models.passing_stats import PassingStats
+from griddy.nfl.models.receiving_stats import ReceivingStats
+from griddy.nfl.models.rushing_stats import RushingStats
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 
 
 class SeasonStats(BaseModel):

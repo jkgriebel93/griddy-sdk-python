@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.filmroom_play import FilmroomPlay
+from griddy.nfl.models.filmroom_play import FilmroomPlay
 
 
 class TestFilmroomPlay(unittest.TestCase):

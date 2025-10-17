@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.binary_flag_enum import BinaryFlagEnum
+from griddy.nfl.models.binary_flag_enum import BinaryFlagEnum
 
 
 class TestBinaryFlagEnum(unittest.TestCase):

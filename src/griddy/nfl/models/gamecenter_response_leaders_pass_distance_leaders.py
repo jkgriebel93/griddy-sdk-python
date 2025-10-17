@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Self
 
-from src.griddy.nfl.models.pass_distance_leader_entry import PassDistanceLeaderEntry
+from griddy.nfl.models.pass_distance_leader_entry import PassDistanceLeaderEntry
 
 
 class GamecenterResponseLeadersPassDistanceLeaders(BaseModel):

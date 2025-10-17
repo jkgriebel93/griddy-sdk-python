@@ -24,10 +24,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.team import Team
-from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
-from src.griddy.nfl.models.week_type_enum import WeekTypeEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.team import Team
+from griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.week_type_enum import WeekTypeEnum
 
 
 class Week(BaseModel):

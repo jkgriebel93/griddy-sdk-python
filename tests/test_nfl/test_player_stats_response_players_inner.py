@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_stats_response_players_inner import (
+from griddy.nfl.models.player_stats_response_players_inner import (
     PlayerStatsResponsePlayersInner,
 )
 

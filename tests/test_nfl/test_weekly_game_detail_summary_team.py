@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.weekly_game_detail_summary_team import (
+from griddy.nfl.models.weekly_game_detail_summary_team import (
     WeeklyGameDetailSummaryTeam,
 )
 

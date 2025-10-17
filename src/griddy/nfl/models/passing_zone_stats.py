@@ -23,11 +23,11 @@ from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.line_of_scrimmage_distance_enum import (
+from griddy.nfl.models.line_of_scrimmage_distance_enum import (
     LineOfScrimmageDistanceEnum,
 )
-from src.griddy.nfl.models.passing_section_enum import PassingSectionEnum
-from src.griddy.nfl.models.success_level_enum import SuccessLevelEnum
+from griddy.nfl.models.passing_section_enum import PassingSectionEnum
+from griddy.nfl.models.success_level_enum import SuccessLevelEnum
 
 
 class PassingZoneStats(BaseModel):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.offensive_formation_enum import OffensiveFormationEnum
+from griddy.nfl.models.offensive_formation_enum import OffensiveFormationEnum
 
 
 class TestOffensiveFormationEnum(unittest.TestCase):

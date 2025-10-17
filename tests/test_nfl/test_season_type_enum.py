@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 
 
 class TestSeasonTypeEnum(unittest.TestCase):

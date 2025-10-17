@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.totals import Totals
+from griddy.nfl.models.totals import Totals
 
 
 class TestTotals(unittest.TestCase):

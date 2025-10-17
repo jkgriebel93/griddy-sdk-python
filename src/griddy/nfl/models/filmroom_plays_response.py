@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.filmroom_play import FilmroomPlay
+from griddy.nfl.models.filmroom_play import FilmroomPlay
 
 
 class FilmroomPlaysResponse(BaseModel):

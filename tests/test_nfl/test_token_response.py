@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.token_response import TokenResponse
+from griddy.nfl.models.token_response import TokenResponse
 
 
 class TestTokenResponse(unittest.TestCase):

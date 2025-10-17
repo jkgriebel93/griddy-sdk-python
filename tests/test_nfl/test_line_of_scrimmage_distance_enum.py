@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.line_of_scrimmage_distance_enum import (
+from griddy.nfl.models.line_of_scrimmage_distance_enum import (
     LineOfScrimmageDistanceEnum,
 )
 

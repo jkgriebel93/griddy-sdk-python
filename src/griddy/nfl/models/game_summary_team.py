@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.game_summary_team_score import GameSummaryTeamScore
-from src.griddy.nfl.models.game_summary_team_timeouts import GameSummaryTeamTimeouts
+from griddy.nfl.models.game_summary_team_score import GameSummaryTeamScore
+from griddy.nfl.models.game_summary_team_timeouts import GameSummaryTeamTimeouts
 
 
 class GameSummaryTeam(BaseModel):

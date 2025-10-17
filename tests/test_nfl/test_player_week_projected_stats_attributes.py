@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_week_projected_stats_attributes import (
+from griddy.nfl.models.player_week_projected_stats_attributes import (
     PlayerWeekProjectedStatsAttributes,
 )
 

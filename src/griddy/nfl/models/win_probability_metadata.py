@@ -24,7 +24,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Annotated, Self
 
-from src.griddy.nfl.models.calculation_method_enum import CalculationMethodEnum
+from griddy.nfl.models.calculation_method_enum import CalculationMethodEnum
 
 
 class WinProbabilityMetadata(BaseModel):

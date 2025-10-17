@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.week_type_enum import WeekTypeEnum
+from griddy.nfl.models.week_type_enum import WeekTypeEnum
 
 
 class TestWeekTypeEnum(unittest.TestCase):

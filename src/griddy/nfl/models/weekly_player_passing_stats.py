@@ -31,7 +31,7 @@ from pydantic import (
 )
 from typing_extensions import Self
 
-from src.griddy.nfl.models.game_result_enum import GameResultEnum
+from griddy.nfl.models.game_result_enum import GameResultEnum
 
 
 class WeeklyPlayerPassingStats(BaseModel):

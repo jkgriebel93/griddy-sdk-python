@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.personnel_package_enum import PersonnelPackageEnum
+from griddy.nfl.models.personnel_package_enum import PersonnelPackageEnum
 
 
 class TestPersonnelPackageEnum(unittest.TestCase):

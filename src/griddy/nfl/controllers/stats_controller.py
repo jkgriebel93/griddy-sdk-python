@@ -25,14 +25,14 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.gamecenter_response import GamecenterResponse
-from src.griddy.nfl.models.multiple_rankings_category import MultipleRankingsCategory
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.team_box_score import TeamBoxScore
-from src.griddy.nfl.models.team_rankings_response import TeamRankingsResponse
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.gamecenter_response import GamecenterResponse
+from griddy.nfl.models.multiple_rankings_category import MultipleRankingsCategory
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.team_box_score import TeamBoxScore
+from griddy.nfl.models.team_rankings_response import TeamRankingsResponse
+from griddy.nfl.rest import RESTResponseType
 
 
 class StatsController:

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.play_summary_response import PlaySummaryResponse
+from griddy.nfl.models.play_summary_response import PlaySummaryResponse
 
 
 class TestPlaySummaryResponse(unittest.TestCase):

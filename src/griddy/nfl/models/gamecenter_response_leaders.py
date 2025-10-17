@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.gamecenter_response_leaders_pass_distance_leaders import (
+from griddy.nfl.models.gamecenter_response_leaders_pass_distance_leaders import (
     GamecenterResponseLeadersPassDistanceLeaders,
 )
-from src.griddy.nfl.models.gamecenter_response_leaders_speed_leaders import (
+from griddy.nfl.models.gamecenter_response_leaders_speed_leaders import (
     GamecenterResponseLeadersSpeedLeaders,
 )
-from src.griddy.nfl.models.gamecenter_response_leaders_time_to_sack_leaders import (
+from griddy.nfl.models.gamecenter_response_leaders_time_to_sack_leaders import (
     GamecenterResponseLeadersTimeToSackLeaders,
 )
 

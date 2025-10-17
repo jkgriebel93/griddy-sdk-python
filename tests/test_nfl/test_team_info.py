@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.team_info import TeamInfo
+from griddy.nfl.models.team_info import TeamInfo
 
 
 class TestTeamInfo(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.team_offense_pass_stats_response import (
+from griddy.nfl.models.team_offense_pass_stats_response import (
     TeamOffensePassStatsResponse,
 )
 

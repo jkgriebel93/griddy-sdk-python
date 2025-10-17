@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.broadcast_info import BroadcastInfo
+from griddy.nfl.models.broadcast_info import BroadcastInfo
 
 
 class TestBroadcastInfo(unittest.TestCase):

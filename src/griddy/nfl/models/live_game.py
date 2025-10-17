@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.game_status_enum import GameStatusEnum
-from src.griddy.nfl.models.live_game_away_team import LiveGameAwayTeam
+from griddy.nfl.models.game_status_enum import GameStatusEnum
+from griddy.nfl.models.live_game_away_team import LiveGameAwayTeam
 
 
 class LiveGame(BaseModel):

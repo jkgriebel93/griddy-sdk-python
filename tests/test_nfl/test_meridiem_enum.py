@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.meridiem_enum import MeridiemEnum
+from griddy.nfl.models.meridiem_enum import MeridiemEnum
 
 
 class TestMeridiemEnum(unittest.TestCase):

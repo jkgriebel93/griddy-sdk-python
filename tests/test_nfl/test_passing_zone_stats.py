@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.passing_zone_stats import PassingZoneStats
+from griddy.nfl.models.passing_zone_stats import PassingZoneStats
 
 
 class TestPassingZoneStats(unittest.TestCase):

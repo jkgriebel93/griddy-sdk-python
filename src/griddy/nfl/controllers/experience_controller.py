@@ -18,12 +18,12 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.experience_games_response import ExperienceGamesResponse
-from src.griddy.nfl.models.experience_teams_response import ExperienceTeamsResponse
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.experience_games_response import ExperienceGamesResponse
+from griddy.nfl.models.experience_teams_response import ExperienceTeamsResponse
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.rest import RESTResponseType
 
 
 class ExperienceController:

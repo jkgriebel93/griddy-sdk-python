@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.video_authorizations import VideoAuthorizations
+from griddy.nfl.models.video_authorizations import VideoAuthorizations
 
 
 class TestVideoAuthorizations(unittest.TestCase):

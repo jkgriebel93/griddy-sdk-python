@@ -24,9 +24,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.money_line import MoneyLine
-from src.griddy.nfl.models.point_spread import PointSpread
-from src.griddy.nfl.models.totals import Totals
+from griddy.nfl.models.money_line import MoneyLine
+from griddy.nfl.models.point_spread import PointSpread
+from griddy.nfl.models.totals import Totals
 
 
 class GameOdds(BaseModel):

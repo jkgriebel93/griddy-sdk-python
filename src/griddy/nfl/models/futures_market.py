@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.odds_selection import OddsSelection
+from griddy.nfl.models.odds_selection import OddsSelection
 
 
 class FuturesMarket(BaseModel):

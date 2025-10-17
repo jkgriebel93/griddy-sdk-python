@@ -25,14 +25,14 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.sort_order_enum import SortOrderEnum
-from src.griddy.nfl.models.team_defense_rush_stats_response import (
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.team_defense_rush_stats_response import (
     TeamDefenseRushStatsResponse,
 )
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.rest import RESTResponseType
 
 
 class TeamDefenseRushStatisticsController:

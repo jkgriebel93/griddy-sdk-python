@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.formation_enum import FormationEnum
+from griddy.nfl.models.formation_enum import FormationEnum
 
 
 class TestFormationEnum(unittest.TestCase):

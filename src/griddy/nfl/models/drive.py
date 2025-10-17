@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.drive_result_enum import DriveResultEnum
-from src.griddy.nfl.models.play import Play
-from src.griddy.nfl.models.team import Team
+from griddy.nfl.models.drive_result_enum import DriveResultEnum
+from griddy.nfl.models.play import Play
+from griddy.nfl.models.team import Team
 
 
 class Drive(BaseModel):

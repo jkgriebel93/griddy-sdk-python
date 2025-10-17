@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.team_info import TeamInfo
-from src.griddy.nfl.models.weekly_player import WeeklyPlayer
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.team_info import TeamInfo
+from griddy.nfl.models.weekly_player import WeeklyPlayer
 
 
 class WeeklyRosterResponse(BaseModel):

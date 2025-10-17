@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.point_spread import PointSpread
+from griddy.nfl.models.point_spread import PointSpread
 
 
 class TestPointSpread(unittest.TestCase):

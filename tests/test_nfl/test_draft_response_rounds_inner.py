@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.draft_response_rounds_inner import DraftResponseRoundsInner
+from griddy.nfl.models.draft_response_rounds_inner import DraftResponseRoundsInner
 
 
 class TestDraftResponseRoundsInner(unittest.TestCase):

@@ -18,16 +18,16 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.passing_stats_category_enum import PassingStatsCategoryEnum
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.sort_order_enum import SortOrderEnum
-from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
-from src.griddy.nfl.models.weekly_passing_stats_response import (
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.passing_stats_category_enum import PassingStatsCategoryEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.weekly_passing_stats_response import (
     WeeklyPassingStatsResponse,
 )
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.rest import RESTResponseType
 
 
 class PlayerPassingStatisticsController:

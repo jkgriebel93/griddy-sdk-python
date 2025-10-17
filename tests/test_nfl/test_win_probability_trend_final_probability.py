@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.win_probability_trend_final_probability import (
+from griddy.nfl.models.win_probability_trend_final_probability import (
     WinProbabilityTrendFinalProbability,
 )
 

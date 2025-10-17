@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.device_info import DeviceInfo
+from griddy.nfl.models.device_info import DeviceInfo
 
 
 class TestDeviceInfo(unittest.TestCase):

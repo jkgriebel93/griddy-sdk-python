@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
+from griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
 
 
 class TestNextGenStatsPositionEnum(unittest.TestCase):

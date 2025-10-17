@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.video_thumbnail import VideoThumbnail
+from griddy.nfl.models.video_thumbnail import VideoThumbnail
 
 
 class TestVideoThumbnail(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.standings_record_all_of_points import (
+from griddy.nfl.models.standings_record_all_of_points import (
     StandingsRecordAllOfPoints,
 )
 

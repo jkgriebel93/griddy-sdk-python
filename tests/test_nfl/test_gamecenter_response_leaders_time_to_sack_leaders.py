@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.gamecenter_response_leaders_time_to_sack_leaders import (
+from griddy.nfl.models.gamecenter_response_leaders_time_to_sack_leaders import (
     GamecenterResponseLeadersTimeToSackLeaders,
 )
 

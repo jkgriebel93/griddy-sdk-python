@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.standings import Standings
+from griddy.nfl.models.standings import Standings
 
 
 class StandingsResponseWeeksInner(BaseModel):

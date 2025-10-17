@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.team_matchup_rankings import TeamMatchupRankings
+from griddy.nfl.models.team_matchup_rankings import TeamMatchupRankings
 
 
 class TestTeamMatchupRankings(unittest.TestCase):

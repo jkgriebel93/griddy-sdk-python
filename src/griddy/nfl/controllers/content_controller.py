@@ -18,13 +18,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.game_insight import GameInsight
-from src.griddy.nfl.models.game_preview_response import GamePreviewResponse
-from src.griddy.nfl.models.home_film_cards_response import HomeFilmCardsResponse
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.game_insight import GameInsight
+from griddy.nfl.models.game_preview_response import GamePreviewResponse
+from griddy.nfl.models.home_film_cards_response import HomeFilmCardsResponse
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.rest import RESTResponseType
 
 
 class ContentController:

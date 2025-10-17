@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.drive_result_enum import DriveResultEnum
+from griddy.nfl.models.drive_result_enum import DriveResultEnum
 
 
 class TestDriveResultEnum(unittest.TestCase):

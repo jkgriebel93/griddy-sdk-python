@@ -24,15 +24,15 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.broadcast_info import BroadcastInfo
-from src.griddy.nfl.models.external_id import ExternalId
-from src.griddy.nfl.models.game_status_enum import GameStatusEnum
-from src.griddy.nfl.models.game_team import GameTeam
-from src.griddy.nfl.models.meridiem_enum import MeridiemEnum
-from src.griddy.nfl.models.primetime_game_category_enum import PrimetimeGameCategoryEnum
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.ticket_vendor import TicketVendor
-from src.griddy.nfl.models.venue import Venue
+from griddy.nfl.models.broadcast_info import BroadcastInfo
+from griddy.nfl.models.external_id import ExternalId
+from griddy.nfl.models.game_status_enum import GameStatusEnum
+from griddy.nfl.models.game_team import GameTeam
+from griddy.nfl.models.meridiem_enum import MeridiemEnum
+from griddy.nfl.models.primetime_game_category_enum import PrimetimeGameCategoryEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.ticket_vendor import TicketVendor
+from griddy.nfl.models.venue import Venue
 
 
 class CurrentGame(BaseModel):

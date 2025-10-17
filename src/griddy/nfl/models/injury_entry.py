@@ -23,11 +23,11 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.injured_player_game_status_enum import (
+from griddy.nfl.models.injured_player_game_status_enum import (
     InjuredPlayerGameStatusEnum,
 )
-from src.griddy.nfl.models.injury_entry_practice_status import InjuryEntryPracticeStatus
-from src.griddy.nfl.models.player import Player
+from griddy.nfl.models.injury_entry_practice_status import InjuryEntryPracticeStatus
+from griddy.nfl.models.player import Player
 
 
 class InjuryEntry(BaseModel):

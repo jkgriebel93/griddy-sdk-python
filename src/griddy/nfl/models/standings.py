@@ -23,12 +23,12 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.clinched import Clinched
-from src.griddy.nfl.models.overall_record import OverallRecord
-from src.griddy.nfl.models.points_record import PointsRecord
-from src.griddy.nfl.models.record import Record
-from src.griddy.nfl.models.standings_record import StandingsRecord
-from src.griddy.nfl.models.standings_team import StandingsTeam
+from griddy.nfl.models.clinched import Clinched
+from griddy.nfl.models.overall_record import OverallRecord
+from griddy.nfl.models.points_record import PointsRecord
+from griddy.nfl.models.record import Record
+from griddy.nfl.models.standings_record import StandingsRecord
+from griddy.nfl.models.standings_team import StandingsTeam
 
 
 class Standings(BaseModel):

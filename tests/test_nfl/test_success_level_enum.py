@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.success_level_enum import SuccessLevelEnum
+from griddy.nfl.models.success_level_enum import SuccessLevelEnum
 
 
 class TestSuccessLevelEnum(unittest.TestCase):

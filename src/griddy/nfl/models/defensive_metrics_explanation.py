@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.defensive_metrics_explanation_epa import (
+from griddy.nfl.models.defensive_metrics_explanation_epa import (
     DefensiveMetricsExplanationEpa,
 )
-from src.griddy.nfl.models.defensive_metrics_explanation_qbp_pct import (
+from griddy.nfl.models.defensive_metrics_explanation_qbp_pct import (
     DefensiveMetricsExplanationQbpPct,
 )
-from src.griddy.nfl.models.defensive_metrics_explanation_ryoe import (
+from griddy.nfl.models.defensive_metrics_explanation_ryoe import (
     DefensiveMetricsExplanationRyoe,
 )
 

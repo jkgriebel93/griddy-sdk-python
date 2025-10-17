@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.broadcast_info_streaming_networks_inner import (
+from griddy.nfl.models.broadcast_info_streaming_networks_inner import (
     BroadcastInfoStreamingNetworksInner,
 )
 

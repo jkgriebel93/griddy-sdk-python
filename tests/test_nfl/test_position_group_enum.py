@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.position_group_enum import PositionGroupEnum
+from griddy.nfl.models.position_group_enum import PositionGroupEnum
 
 
 class TestPositionGroupEnum(unittest.TestCase):

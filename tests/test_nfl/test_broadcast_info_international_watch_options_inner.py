@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.broadcast_info_international_watch_options_inner import (
+from griddy.nfl.models.broadcast_info_international_watch_options_inner import (
     BroadcastInfoInternationalWatchOptionsInner,
 )
 

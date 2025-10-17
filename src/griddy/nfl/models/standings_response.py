@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.pagination import Pagination
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.standings_response_weeks_inner import (
+from griddy.nfl.models.pagination import Pagination
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.standings_response_weeks_inner import (
     StandingsResponseWeeksInner,
 )
 

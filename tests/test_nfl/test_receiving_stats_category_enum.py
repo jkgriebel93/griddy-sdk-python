@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.receiving_stats_category_enum import (
+from griddy.nfl.models.receiving_stats_category_enum import (
     ReceivingStatsCategoryEnum,
 )
 

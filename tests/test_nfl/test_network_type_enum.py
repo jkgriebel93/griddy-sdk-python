@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.network_type_enum import NetworkTypeEnum
+from griddy.nfl.models.network_type_enum import NetworkTypeEnum
 
 
 class TestNetworkTypeEnum(unittest.TestCase):

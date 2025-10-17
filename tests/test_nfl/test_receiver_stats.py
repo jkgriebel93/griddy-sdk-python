@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.receiver_stats import ReceiverStats
+from griddy.nfl.models.receiver_stats import ReceiverStats
 
 
 class TestReceiverStats(unittest.TestCase):

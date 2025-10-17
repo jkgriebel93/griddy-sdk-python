@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.statistical_category import StatisticalCategory
+from griddy.nfl.models.statistical_category import StatisticalCategory
 
 
 class TestStatisticalCategory(unittest.TestCase):

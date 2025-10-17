@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.qb_alignment_enum import QBAlignmentEnum
+from griddy.nfl.models.qb_alignment_enum import QBAlignmentEnum
 
 
 class TestQBAlignmentEnum(unittest.TestCase):

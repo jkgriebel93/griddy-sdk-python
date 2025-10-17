@@ -23,16 +23,16 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.gamecenter_response_leaders import GamecenterResponseLeaders
-from src.griddy.nfl.models.gamecenter_response_pass_rushers import (
+from griddy.nfl.models.gamecenter_response_leaders import GamecenterResponseLeaders
+from griddy.nfl.models.gamecenter_response_pass_rushers import (
     GamecenterResponsePassRushers,
 )
-from src.griddy.nfl.models.gamecenter_response_passers import GamecenterResponsePassers
-from src.griddy.nfl.models.gamecenter_response_receivers import (
+from griddy.nfl.models.gamecenter_response_passers import GamecenterResponsePassers
+from griddy.nfl.models.gamecenter_response_receivers import (
     GamecenterResponseReceivers,
 )
-from src.griddy.nfl.models.gamecenter_response_rushers import GamecenterResponseRushers
-from src.griddy.nfl.models.gamecenter_schedule import GamecenterSchedule
+from griddy.nfl.models.gamecenter_response_rushers import GamecenterResponseRushers
+from griddy.nfl.models.gamecenter_schedule import GamecenterSchedule
 
 
 class GamecenterResponse(BaseModel):

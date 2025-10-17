@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Self
 
-from src.griddy.nfl.models.game import Game
-from src.griddy.nfl.models.pagination import Pagination
+from griddy.nfl.models.game import Game
+from griddy.nfl.models.pagination import Pagination
 
 
 class FootballGamesResponse(BaseModel):

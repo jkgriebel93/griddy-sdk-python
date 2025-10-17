@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.live_scores_response import LiveScoresResponse
+from griddy.nfl.models.live_scores_response import LiveScoresResponse
 
 
 class TestLiveScoresResponse(unittest.TestCase):

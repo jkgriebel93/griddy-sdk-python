@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.betting_odds_format_american_odds_examples_inner import (
+from griddy.nfl.models.betting_odds_format_american_odds_examples_inner import (
     BettingOddsFormatAmericanOddsExamplesInner,
 )
 

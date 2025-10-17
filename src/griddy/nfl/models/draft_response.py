@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.draft_response_rounds_inner import DraftResponseRoundsInner
+from griddy.nfl.models.draft_response_rounds_inner import DraftResponseRoundsInner
 
 
 class DraftResponse(BaseModel):

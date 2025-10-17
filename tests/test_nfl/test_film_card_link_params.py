@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.film_card_link_params import FilmCardLinkParams
+from griddy.nfl.models.film_card_link_params import FilmCardLinkParams
 
 
 class TestFilmCardLinkParams(unittest.TestCase):

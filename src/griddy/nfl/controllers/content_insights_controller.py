@@ -25,10 +25,10 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.insight import Insight
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.insight import Insight
+from griddy.nfl.rest import RESTResponseType
 
 
 class ContentInsightsController:

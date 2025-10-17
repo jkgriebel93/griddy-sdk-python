@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Self
 
-from src.griddy.nfl.models.pagination import Pagination
-from src.griddy.nfl.models.transaction import Transaction
+from griddy.nfl.models.pagination import Pagination
+from griddy.nfl.models.transaction import Transaction
 
 
 class TransactionsResponse(BaseModel):

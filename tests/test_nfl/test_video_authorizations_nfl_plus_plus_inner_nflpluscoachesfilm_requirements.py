@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.video_authorizations_nfl_plus_plus_inner_nflpluscoachesfilm_requirements import (
+from griddy.nfl.models.video_authorizations_nfl_plus_plus_inner_nflpluscoachesfilm_requirements import (
     VideoAuthorizationsNflPlusPlusInnerNFLPLUSCOACHESFILMRequirements,
 )
 

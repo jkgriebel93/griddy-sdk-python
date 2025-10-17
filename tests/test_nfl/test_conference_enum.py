@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.conference_enum import ConferenceEnum
+from griddy.nfl.models.conference_enum import ConferenceEnum
 
 
 class TestConferenceEnum(unittest.TestCase):

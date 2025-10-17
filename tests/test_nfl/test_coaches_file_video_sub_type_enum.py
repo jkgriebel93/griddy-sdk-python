@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.coaches_file_video_sub_type_enum import (
+from griddy.nfl.models.coaches_file_video_sub_type_enum import (
     CoachesFileVideoSubTypeEnum,
 )
 

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.game_schedule import GameSchedule
+from griddy.nfl.models.game_schedule import GameSchedule
 
 
 class TestGameSchedule(unittest.TestCase):

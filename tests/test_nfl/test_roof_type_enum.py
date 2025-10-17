@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.roof_type_enum import RoofTypeEnum
+from griddy.nfl.models.roof_type_enum import RoofTypeEnum
 
 
 class TestRoofTypeEnum(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.standings_response import StandingsResponse
+from griddy.nfl.models.standings_response import StandingsResponse
 
 
 class TestStandingsResponse(unittest.TestCase):

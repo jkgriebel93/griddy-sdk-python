@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.summary import Summary
+from griddy.nfl.models.summary import Summary
 
 
 class TestSummary(unittest.TestCase):

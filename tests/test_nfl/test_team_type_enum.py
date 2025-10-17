@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.team_type_enum import TeamTypeEnum
+from griddy.nfl.models.team_type_enum import TeamTypeEnum
 
 
 class TestTeamTypeEnum(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.boxscore_score import BoxscoreScore
+from griddy.nfl.models.boxscore_score import BoxscoreScore
 
 
 class TestBoxscoreScore(unittest.TestCase):

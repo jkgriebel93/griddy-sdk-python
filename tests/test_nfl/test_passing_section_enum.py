@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.passing_section_enum import PassingSectionEnum
+from griddy.nfl.models.passing_section_enum import PassingSectionEnum
 
 
 class TestPassingSectionEnum(unittest.TestCase):

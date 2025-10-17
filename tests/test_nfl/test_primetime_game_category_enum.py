@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.primetime_game_category_enum import PrimetimeGameCategoryEnum
+from griddy.nfl.models.primetime_game_category_enum import PrimetimeGameCategoryEnum
 
 
 class TestPrimetimeGameCategoryEnum(unittest.TestCase):

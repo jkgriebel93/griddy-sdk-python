@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.game_schedule import GameSchedule
-from src.griddy.nfl.models.participant_player_info import ParticipantPlayerInfo
-from src.griddy.nfl.models.play_detail import PlayDetail
+from griddy.nfl.models.game_schedule import GameSchedule
+from griddy.nfl.models.participant_player_info import ParticipantPlayerInfo
+from griddy.nfl.models.play_detail import PlayDetail
 
 
 class PlaySummaryResponse(BaseModel):

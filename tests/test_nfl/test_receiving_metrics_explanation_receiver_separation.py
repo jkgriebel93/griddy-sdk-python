@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.receiving_metrics_explanation_receiver_separation import (
+from griddy.nfl.models.receiving_metrics_explanation_receiver_separation import (
     ReceivingMetricsExplanationReceiverSeparation,
 )
 

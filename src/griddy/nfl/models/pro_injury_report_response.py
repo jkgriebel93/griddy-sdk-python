@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.pro_injury_report_response_pagination import (
+from griddy.nfl.models.pro_injury_report_response_pagination import (
     ProInjuryReportResponsePagination,
 )
 

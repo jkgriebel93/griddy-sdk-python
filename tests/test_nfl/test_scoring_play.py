@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.scoring_play import ScoringPlay
+from griddy.nfl.models.scoring_play import ScoringPlay
 
 
 class TestScoringPlay(unittest.TestCase):

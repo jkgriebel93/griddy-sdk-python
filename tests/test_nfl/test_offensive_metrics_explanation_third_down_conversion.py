@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.offensive_metrics_explanation_third_down_conversion import (
+from griddy.nfl.models.offensive_metrics_explanation_third_down_conversion import (
     OffensiveMetricsExplanationThirdDownConversion,
 )
 

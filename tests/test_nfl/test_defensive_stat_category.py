@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_stat_category import DefensiveStatCategory
+from griddy.nfl.models.defensive_stat_category import DefensiveStatCategory
 
 
 class TestDefensiveStatCategory(unittest.TestCase):

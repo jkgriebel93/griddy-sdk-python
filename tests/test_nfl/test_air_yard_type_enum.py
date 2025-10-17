@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.air_yard_type_enum import AirYardTypeEnum
+from griddy.nfl.models.air_yard_type_enum import AirYardTypeEnum
 
 
 class TestAirYardTypeEnum(unittest.TestCase):

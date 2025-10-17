@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_statistic_base_schema import PlayerStatisticBaseSchema
+from griddy.nfl.models.player_statistic_base_schema import PlayerStatisticBaseSchema
 
 
 class TestPlayerStatisticBaseSchema(unittest.TestCase):

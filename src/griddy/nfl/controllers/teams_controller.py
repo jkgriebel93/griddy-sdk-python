@@ -18,14 +18,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.pro_team import ProTeam
-from src.griddy.nfl.models.scheduled_game import ScheduledGame
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.team_roster_response import TeamRosterResponse
-from src.griddy.nfl.models.weekly_roster_response import WeeklyRosterResponse
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.pro_team import ProTeam
+from griddy.nfl.models.scheduled_game import ScheduledGame
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.team_roster_response import TeamRosterResponse
+from griddy.nfl.models.weekly_roster_response import WeeklyRosterResponse
+from griddy.nfl.rest import RESTResponseType
 
 
 class TeamsController:

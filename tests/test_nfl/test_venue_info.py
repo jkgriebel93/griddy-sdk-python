@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.venue_info import VenueInfo
+from griddy.nfl.models.venue_info import VenueInfo
 
 
 class TestVenueInfo(unittest.TestCase):

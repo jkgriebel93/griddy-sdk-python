@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Self
 
-from src.griddy.nfl.models.rusher_stats import RusherStats
+from griddy.nfl.models.rusher_stats import RusherStats
 
 
 class GamecenterResponseRushers(BaseModel):

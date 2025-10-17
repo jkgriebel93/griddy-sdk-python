@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.futures_odds_response_data import FuturesOddsResponseData
+from griddy.nfl.models.futures_odds_response_data import FuturesOddsResponseData
 
 
 class TestFuturesOddsResponseData(unittest.TestCase):

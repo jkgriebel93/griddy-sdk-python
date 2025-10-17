@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.practice_status_enum import PracticeStatusEnum
+from griddy.nfl.models.practice_status_enum import PracticeStatusEnum
 
 
 class TestPracticeStatusEnum(unittest.TestCase):

@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Annotated, Self
 
-from src.griddy.nfl.models.game_score import GameScore
+from griddy.nfl.models.game_score import GameScore
 
 
 class GameSituation(BaseModel):

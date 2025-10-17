@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_rush_metrics_explanation_yards_before_contact import (
+from griddy.nfl.models.defensive_rush_metrics_explanation_yards_before_contact import (
     DefensiveRushMetricsExplanationYardsBeforeContact,
 )
 

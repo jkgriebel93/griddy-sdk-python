@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 
 
 class QualifiedPasserCriteria(BaseModel):

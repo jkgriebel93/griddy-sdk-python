@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.defensive_overview_metrics_explanation_pressure_rate import (
+from griddy.nfl.models.defensive_overview_metrics_explanation_pressure_rate import (
     DefensiveOverviewMetricsExplanationPressureRate,
 )
-from src.griddy.nfl.models.pass_rush_metrics_explanation_pass_rush_rating import (
+from griddy.nfl.models.pass_rush_metrics_explanation_pass_rush_rating import (
     PassRushMetricsExplanationPassRushRating,
 )
-from src.griddy.nfl.models.pass_rush_metrics_explanation_time_to_sack import (
+from griddy.nfl.models.pass_rush_metrics_explanation_time_to_sack import (
     PassRushMetricsExplanationTimeToSack,
 )
 

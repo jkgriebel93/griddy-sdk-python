@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.score_type_enum import ScoreTypeEnum
-from src.griddy.nfl.models.team import Team
+from griddy.nfl.models.score_type_enum import ScoreTypeEnum
+from griddy.nfl.models.team import Team
 
 
 class ScoringPlay(BaseModel):

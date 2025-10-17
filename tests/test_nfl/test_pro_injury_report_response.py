@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.pro_injury_report_response import ProInjuryReportResponse
+from griddy.nfl.models.pro_injury_report_response import ProInjuryReportResponse
 
 
 class TestProInjuryReportResponse(unittest.TestCase):

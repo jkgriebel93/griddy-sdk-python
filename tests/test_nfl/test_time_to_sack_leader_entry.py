@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.time_to_sack_leader_entry import TimeToSackLeaderEntry
+from griddy.nfl.models.time_to_sack_leader_entry import TimeToSackLeaderEntry
 
 
 class TestTimeToSackLeaderEntry(unittest.TestCase):

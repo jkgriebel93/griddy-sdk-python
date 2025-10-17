@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.speed_leader_entry import SpeedLeaderEntry
+from griddy.nfl.models.speed_leader_entry import SpeedLeaderEntry
 
 
 class TestSpeedLeaderEntry(unittest.TestCase):

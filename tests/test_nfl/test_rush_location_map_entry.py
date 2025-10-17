@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.rush_location_map_entry import RushLocationMapEntry
+from griddy.nfl.models.rush_location_map_entry import RushLocationMapEntry
 
 
 class TestRushLocationMapEntry(unittest.TestCase):

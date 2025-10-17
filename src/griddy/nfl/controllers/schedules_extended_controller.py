@@ -18,13 +18,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.current_games_response import CurrentGamesResponse
-from src.griddy.nfl.models.futures_odds_response import FuturesOddsResponse
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.standings_response import StandingsResponse
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.current_games_response import CurrentGamesResponse
+from griddy.nfl.models.futures_odds_response import FuturesOddsResponse
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.standings_response import StandingsResponse
+from griddy.nfl.rest import RESTResponseType
 
 
 class SchedulesExtendedController:

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.box_score_response_player_stats_away import (
+from griddy.nfl.models.box_score_response_player_stats_away import (
     BoxScoreResponsePlayerStatsAway,
 )
 

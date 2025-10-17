@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.stats_query_metadata import StatsQueryMetadata
+from griddy.nfl.models.stats_query_metadata import StatsQueryMetadata
 
 
 class TestStatsQueryMetadata(unittest.TestCase):

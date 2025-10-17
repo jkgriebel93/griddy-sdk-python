@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.coverage_metrics_completion_rate_over_expected import (
+from griddy.nfl.models.coverage_metrics_completion_rate_over_expected import (
     CoverageMetricsCompletionRateOverExpected,
 )
 

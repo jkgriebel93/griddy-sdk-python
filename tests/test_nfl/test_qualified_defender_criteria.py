@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.qualified_defender_criteria import QualifiedDefenderCriteria
+from griddy.nfl.models.qualified_defender_criteria import QualifiedDefenderCriteria
 
 
 class TestQualifiedDefenderCriteria(unittest.TestCase):

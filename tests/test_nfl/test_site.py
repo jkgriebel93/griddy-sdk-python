@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.site import Site
+from griddy.nfl.models.site import Site
 
 
 class TestSite(unittest.TestCase):

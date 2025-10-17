@@ -23,10 +23,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.drive import Drive
-from src.griddy.nfl.models.game import Game
-from src.griddy.nfl.models.play import Play
-from src.griddy.nfl.models.scoring_play import ScoringPlay
+from griddy.nfl.models.drive import Drive
+from griddy.nfl.models.game import Game
+from griddy.nfl.models.play import Play
+from griddy.nfl.models.scoring_play import ScoringPlay
 
 
 class PlayByPlayResponse(BaseModel):

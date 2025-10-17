@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.betting_odds_format_american_odds_examples_inner import (
+from griddy.nfl.models.betting_odds_format_american_odds_examples_inner import (
     BettingOddsFormatAmericanOddsExamplesInner,
 )
 

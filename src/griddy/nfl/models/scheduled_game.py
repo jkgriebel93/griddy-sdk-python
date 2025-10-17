@@ -24,10 +24,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.boxscore_team import BoxscoreTeam
-from src.griddy.nfl.models.game_score import GameScore
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.site import Site
+from griddy.nfl.models.boxscore_team import BoxscoreTeam
+from griddy.nfl.models.game_score import GameScore
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.site import Site
 
 
 class ScheduledGame(BaseModel):

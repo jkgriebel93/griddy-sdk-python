@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.data_type_enum import DataTypeEnum
+from griddy.nfl.models.data_type_enum import DataTypeEnum
 
 
 class TestDataTypeEnum(unittest.TestCase):

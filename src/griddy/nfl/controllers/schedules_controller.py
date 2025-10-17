@@ -25,14 +25,14 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.game_detail import GameDetail
-from src.griddy.nfl.models.games_response import GamesResponse
-from src.griddy.nfl.models.injury_report_response import InjuryReportResponse
-from src.griddy.nfl.models.matchup_rankings_response import MatchupRankingsResponse
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.game_detail import GameDetail
+from griddy.nfl.models.games_response import GamesResponse
+from griddy.nfl.models.injury_report_response import InjuryReportResponse
+from griddy.nfl.models.matchup_rankings_response import MatchupRankingsResponse
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.rest import RESTResponseType
 
 
 class SchedulesController:

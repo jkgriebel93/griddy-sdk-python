@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.pro_team import ProTeam
+from griddy.nfl.models.pro_team import ProTeam
 
 
 class TestProTeam(unittest.TestCase):

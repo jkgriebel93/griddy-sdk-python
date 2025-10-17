@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.boxscore_schedule import BoxscoreSchedule
-from src.griddy.nfl.models.team_boxscore import TeamBoxscore
+from griddy.nfl.models.boxscore_schedule import BoxscoreSchedule
+from griddy.nfl.models.team_boxscore import TeamBoxscore
 
 
 class TeamBoxScore(BaseModel):

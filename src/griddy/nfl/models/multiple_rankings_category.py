@@ -23,10 +23,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.multiple_rankings_category_pagination import (
+from griddy.nfl.models.multiple_rankings_category_pagination import (
     MultipleRankingsCategoryPagination,
 )
-from src.griddy.nfl.models.team_ranking_entry import TeamRankingEntry
+from griddy.nfl.models.team_ranking_entry import TeamRankingEntry
 
 
 class MultipleRankingsCategory(BaseModel):

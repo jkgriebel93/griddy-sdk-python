@@ -31,11 +31,11 @@ from pydantic import (
 )
 from typing_extensions import Self
 
-from src.griddy.nfl.models.defensive_position_enum import DefensivePositionEnum
-from src.griddy.nfl.models.defensive_position_group_enum import (
+from griddy.nfl.models.defensive_position_enum import DefensivePositionEnum
+from griddy.nfl.models.defensive_position_group_enum import (
     DefensivePositionGroupEnum,
 )
-from src.griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
+from griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
 
 
 class DefensivePassRushStats(BaseModel):

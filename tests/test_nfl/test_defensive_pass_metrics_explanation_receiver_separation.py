@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_pass_metrics_explanation_receiver_separation import (
+from griddy.nfl.models.defensive_pass_metrics_explanation_receiver_separation import (
     DefensivePassMetricsExplanationReceiverSeparation,
 )
 

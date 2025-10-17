@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.overall_record_all_of_streak import OverallRecordAllOfStreak
+from griddy.nfl.models.overall_record_all_of_streak import OverallRecordAllOfStreak
 
 
 class TestOverallRecordAllOfStreak(unittest.TestCase):

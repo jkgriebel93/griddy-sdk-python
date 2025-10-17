@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.injured_player_game_status_enum import (
+from griddy.nfl.models.injured_player_game_status_enum import (
     InjuredPlayerGameStatusEnum,
 )
 

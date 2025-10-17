@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.transaction_type_enum import TransactionTypeEnum
+from griddy.nfl.models.transaction_type_enum import TransactionTypeEnum
 
 
 class TestTransactionTypeEnum(unittest.TestCase):

@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
-from src.griddy.nfl.models.receiver_stats_all_of_reception_info import (
+from griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
+from griddy.nfl.models.receiver_stats_all_of_reception_info import (
     ReceiverStatsAllOfReceptionInfo,
 )
 

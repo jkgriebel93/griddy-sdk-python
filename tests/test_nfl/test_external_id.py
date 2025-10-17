@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.external_id import ExternalId
+from griddy.nfl.models.external_id import ExternalId
 
 
 class TestExternalId(unittest.TestCase):

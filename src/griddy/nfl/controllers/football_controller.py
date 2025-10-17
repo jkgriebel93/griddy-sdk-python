@@ -27,24 +27,24 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from src.griddy.nfl.api_client import ApiClient, RequestSerialized
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.models.box_score_response import BoxScoreResponse
-from src.griddy.nfl.models.draft_response import DraftResponse
-from src.griddy.nfl.models.football_games_response import FootballGamesResponse
-from src.griddy.nfl.models.game_stats_response import GameStatsResponse
-from src.griddy.nfl.models.injury_report_response import InjuryReportResponse
-from src.griddy.nfl.models.play_by_play_response import PlayByPlayResponse
-from src.griddy.nfl.models.player_detail import PlayerDetail
-from src.griddy.nfl.models.player_stats_response import PlayerStatsResponse
-from src.griddy.nfl.models.roster_response import RosterResponse
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.standings_response import StandingsResponse
-from src.griddy.nfl.models.transactions_response import TransactionsResponse
-from src.griddy.nfl.models.venues_response import VenuesResponse
-from src.griddy.nfl.models.weekly_game_detail import WeeklyGameDetail
-from src.griddy.nfl.models.weeks_response import WeeksResponse
-from src.griddy.nfl.rest import RESTResponseType
+from griddy.nfl.api_client import ApiClient, RequestSerialized
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.models.box_score_response import BoxScoreResponse
+from griddy.nfl.models.draft_response import DraftResponse
+from griddy.nfl.models.football_games_response import FootballGamesResponse
+from griddy.nfl.models.game_stats_response import GameStatsResponse
+from griddy.nfl.models.injury_report_response import InjuryReportResponse
+from griddy.nfl.models.play_by_play_response import PlayByPlayResponse
+from griddy.nfl.models.player_detail import PlayerDetail
+from griddy.nfl.models.player_stats_response import PlayerStatsResponse
+from griddy.nfl.models.roster_response import RosterResponse
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.standings_response import StandingsResponse
+from griddy.nfl.models.transactions_response import TransactionsResponse
+from griddy.nfl.models.venues_response import VenuesResponse
+from griddy.nfl.models.weekly_game_detail import WeeklyGameDetail
+from griddy.nfl.models.weeks_response import WeeksResponse
+from griddy.nfl.rest import RESTResponseType
 
 
 class FootballController:

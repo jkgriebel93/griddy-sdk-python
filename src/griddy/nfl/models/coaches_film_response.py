@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Self
 
-from src.griddy.nfl.models.coaches_film_video import CoachesFilmVideo
-from src.griddy.nfl.models.pagination import Pagination
-from src.griddy.nfl.models.response_metadata import ResponseMetadata
+from griddy.nfl.models.coaches_film_video import CoachesFilmVideo
+from griddy.nfl.models.pagination import Pagination
+from griddy.nfl.models.response_metadata import ResponseMetadata
 
 
 class CoachesFilmResponse(BaseModel):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.receiver_stats_all_of_reception_info import (
+from griddy.nfl.models.receiver_stats_all_of_reception_info import (
     ReceiverStatsAllOfReceptionInfo,
 )
 

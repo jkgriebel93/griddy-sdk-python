@@ -24,9 +24,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing_extensions import Annotated, Self
 
-from src.griddy.nfl.models.game_phase_enum import GamePhaseEnum
-from src.griddy.nfl.models.game_quarter_enum import GameQuarterEnum
-from src.griddy.nfl.models.game_summary_team import GameSummaryTeam
+from griddy.nfl.models.game_phase_enum import GamePhaseEnum
+from griddy.nfl.models.game_quarter_enum import GameQuarterEnum
+from griddy.nfl.models.game_summary_team import GameSummaryTeam
 
 
 class LiveGameSummaryData(BaseModel):

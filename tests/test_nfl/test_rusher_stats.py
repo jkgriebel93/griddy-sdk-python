@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.rusher_stats import RusherStats
+from griddy.nfl.models.rusher_stats import RusherStats
 
 
 class TestRusherStats(unittest.TestCase):

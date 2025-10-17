@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.play_state_enum import PlayStateEnum
+from griddy.nfl.models.play_state_enum import PlayStateEnum
 
 
 class TestPlayStateEnum(unittest.TestCase):

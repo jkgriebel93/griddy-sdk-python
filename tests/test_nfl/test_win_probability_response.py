@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.win_probability_response import WinProbabilityResponse
+from griddy.nfl.models.win_probability_response import WinProbabilityResponse
 
 
 class TestWinProbabilityResponse(unittest.TestCase):

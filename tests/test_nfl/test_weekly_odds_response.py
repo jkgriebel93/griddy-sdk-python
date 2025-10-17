@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.weekly_odds_response import WeeklyOddsResponse
+from griddy.nfl.models.weekly_odds_response import WeeklyOddsResponse
 
 
 class TestWeeklyOddsResponse(unittest.TestCase):

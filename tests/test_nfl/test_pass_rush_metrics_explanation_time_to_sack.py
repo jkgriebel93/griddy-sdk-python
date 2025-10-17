@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.pass_rush_metrics_explanation_time_to_sack import (
+from griddy.nfl.models.pass_rush_metrics_explanation_time_to_sack import (
     PassRushMetricsExplanationTimeToSack,
 )
 

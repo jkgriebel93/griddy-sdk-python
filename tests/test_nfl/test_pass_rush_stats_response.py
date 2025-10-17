@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.pass_rush_stats_response import PassRushStatsResponse
+from griddy.nfl.models.pass_rush_stats_response import PassRushStatsResponse
 
 
 class TestPassRushStatsResponse(unittest.TestCase):

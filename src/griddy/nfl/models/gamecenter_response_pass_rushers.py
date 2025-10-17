@@ -23,10 +23,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.gamecenter_response_pass_rushers_league_average_separation_to_qb import (
+from griddy.nfl.models.gamecenter_response_pass_rushers_league_average_separation_to_qb import (
     GamecenterResponsePassRushersLeagueAverageSeparationToQb,
 )
-from src.griddy.nfl.models.pass_rusher_stats import PassRusherStats
+from griddy.nfl.models.pass_rusher_stats import PassRusherStats
 
 
 class GamecenterResponsePassRushers(BaseModel):

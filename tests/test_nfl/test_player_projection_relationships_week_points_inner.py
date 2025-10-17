@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_projection_relationships_week_points_inner import (
+from griddy.nfl.models.player_projection_relationships_week_points_inner import (
     PlayerProjectionRelationshipsWeekPointsInner,
 )
 

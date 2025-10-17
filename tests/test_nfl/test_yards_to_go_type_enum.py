@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.yards_to_go_type_enum import YardsToGoTypeEnum
+from griddy.nfl.models.yards_to_go_type_enum import YardsToGoTypeEnum
 
 
 class TestYardsToGoTypeEnum(unittest.TestCase):

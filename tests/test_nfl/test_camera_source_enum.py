@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.camera_source_enum import CameraSourceEnum
+from griddy.nfl.models.camera_source_enum import CameraSourceEnum
 
 
 class TestCameraSourceEnum(unittest.TestCase):

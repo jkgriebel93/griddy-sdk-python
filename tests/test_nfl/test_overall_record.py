@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.overall_record import OverallRecord
+from griddy.nfl.models.overall_record import OverallRecord
 
 
 class TestOverallRecord(unittest.TestCase):

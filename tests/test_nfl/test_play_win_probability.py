@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.play_win_probability import PlayWinProbability
+from griddy.nfl.models.play_win_probability import PlayWinProbability
 
 
 class TestPlayWinProbability(unittest.TestCase):

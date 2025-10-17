@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_search_response import PlayerSearchResponse
+from griddy.nfl.models.player_search_response import PlayerSearchResponse
 
 
 class TestPlayerSearchResponse(unittest.TestCase):

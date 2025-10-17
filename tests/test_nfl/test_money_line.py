@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.money_line import MoneyLine
+from griddy.nfl.models.money_line import MoneyLine
 
 
 class TestMoneyLine(unittest.TestCase):

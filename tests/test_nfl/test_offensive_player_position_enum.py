@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.offensive_player_position_enum import (
+from griddy.nfl.models.offensive_player_position_enum import (
     OffensivePlayerPositionEnum,
 )
 

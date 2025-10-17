@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.rushing_info import RushingInfo
+from griddy.nfl.models.rushing_info import RushingInfo
 
 
 class TestRushingInfo(unittest.TestCase):

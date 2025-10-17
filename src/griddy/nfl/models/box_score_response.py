@@ -23,14 +23,14 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.box_score_response_player_stats import (
+from griddy.nfl.models.box_score_response_player_stats import (
     BoxScoreResponsePlayerStats,
 )
-from src.griddy.nfl.models.box_score_response_team_stats import (
+from griddy.nfl.models.box_score_response_team_stats import (
     BoxScoreResponseTeamStats,
 )
-from src.griddy.nfl.models.game import Game
-from src.griddy.nfl.models.scoring_play import ScoringPlay
+from griddy.nfl.models.game import Game
+from griddy.nfl.models.scoring_play import ScoringPlay
 
 
 class BoxScoreResponse(BaseModel):

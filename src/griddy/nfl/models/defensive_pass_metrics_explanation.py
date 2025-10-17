@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.defensive_pass_metrics_explanation_epa_pass import (
+from griddy.nfl.models.defensive_pass_metrics_explanation_epa_pass import (
     DefensivePassMetricsExplanationEpaPass,
 )
-from src.griddy.nfl.models.defensive_pass_metrics_explanation_receiver_separation import (
+from griddy.nfl.models.defensive_pass_metrics_explanation_receiver_separation import (
     DefensivePassMetricsExplanationReceiverSeparation,
 )
-from src.griddy.nfl.models.defensive_pass_metrics_explanation_yacoe import (
+from griddy.nfl.models.defensive_pass_metrics_explanation_yacoe import (
     DefensivePassMetricsExplanationYacoe,
 )
 

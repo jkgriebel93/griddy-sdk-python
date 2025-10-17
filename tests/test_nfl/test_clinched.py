@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.clinched import Clinched
+from griddy.nfl.models.clinched import Clinched
 
 
 class TestClinched(unittest.TestCase):

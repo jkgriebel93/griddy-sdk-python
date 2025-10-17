@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.award import Award
+from griddy.nfl.models.award import Award
 
 
 class TestAward(unittest.TestCase):

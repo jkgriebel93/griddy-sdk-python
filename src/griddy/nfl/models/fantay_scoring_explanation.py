@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.fantay_scoring_explanation_half_ppr_scoring import (
+from griddy.nfl.models.fantay_scoring_explanation_half_ppr_scoring import (
     FantayScoringExplanationHalfPprScoring,
 )
-from src.griddy.nfl.models.fantay_scoring_explanation_ppr_scoring import (
+from griddy.nfl.models.fantay_scoring_explanation_ppr_scoring import (
     FantayScoringExplanationPprScoring,
 )
-from src.griddy.nfl.models.fantay_scoring_explanation_standard_scoring import (
+from griddy.nfl.models.fantay_scoring_explanation_standard_scoring import (
     FantayScoringExplanationStandardScoring,
 )
 

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_situation_type_enum import (
+from griddy.nfl.models.defensive_situation_type_enum import (
     DefensiveSituationTypeEnum,
 )
 

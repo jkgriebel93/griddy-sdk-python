@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.futures_market import FuturesMarket
+from griddy.nfl.models.futures_market import FuturesMarket
 
 
 class TestFuturesMarket(unittest.TestCase):

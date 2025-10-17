@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.drive import Drive
+from griddy.nfl.models.drive import Drive
 
 
 class TestDrive(unittest.TestCase):

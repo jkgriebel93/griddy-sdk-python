@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_pass_metrics_explanation_epa_pass import (
+from griddy.nfl.models.defensive_pass_metrics_explanation_epa_pass import (
     DefensivePassMetricsExplanationEpaPass,
 )
 

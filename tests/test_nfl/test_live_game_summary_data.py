@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.live_game_summary_data import LiveGameSummaryData
+from griddy.nfl.models.live_game_summary_data import LiveGameSummaryData
 
 
 class TestLiveGameSummaryData(unittest.TestCase):

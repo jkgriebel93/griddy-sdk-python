@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_projection import PlayerProjection
+from griddy.nfl.models.player_projection import PlayerProjection
 
 
 class TestPlayerProjection(unittest.TestCase):

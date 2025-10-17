@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.division import Division
+from griddy.nfl.models.division import Division
 
 
 class TestDivision(unittest.TestCase):

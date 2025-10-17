@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.gamecenter_response_pass_rushers_league_average_separation_to_qb import (
+from griddy.nfl.models.gamecenter_response_pass_rushers_league_average_separation_to_qb import (
     GamecenterResponsePassRushersLeagueAverageSeparationToQb,
 )
 

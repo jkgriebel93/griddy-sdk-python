@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.conference_enum import ConferenceEnum
-from src.griddy.nfl.models.team_type_enum import TeamTypeEnum
+from griddy.nfl.models.conference_enum import ConferenceEnum
+from griddy.nfl.models.team_type_enum import TeamTypeEnum
 
 
 class BoxscoreTeam(BaseModel):

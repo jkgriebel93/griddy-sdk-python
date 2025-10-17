@@ -23,16 +23,16 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.insight_content_explanation_evergreen_content import (
+from griddy.nfl.models.insight_content_explanation_evergreen_content import (
     InsightContentExplanationEvergreenContent,
 )
-from src.griddy.nfl.models.insight_content_explanation_fantasy_insights import (
+from griddy.nfl.models.insight_content_explanation_fantasy_insights import (
     InsightContentExplanationFantasyInsights,
 )
-from src.griddy.nfl.models.insight_content_explanation_postgame_insights import (
+from griddy.nfl.models.insight_content_explanation_postgame_insights import (
     InsightContentExplanationPostgameInsights,
 )
-from src.griddy.nfl.models.insight_content_explanation_pregame_insights import (
+from griddy.nfl.models.insight_content_explanation_pregame_insights import (
     InsightContentExplanationPregameInsights,
 )
 

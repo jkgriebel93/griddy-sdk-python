@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.draft_pick import DraftPick
+from griddy.nfl.models.draft_pick import DraftPick
 
 
 class TestDraftPick(unittest.TestCase):

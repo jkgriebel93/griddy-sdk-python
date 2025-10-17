@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.play_direction_enum import PlayDirectionEnum
+from griddy.nfl.models.play_direction_enum import PlayDirectionEnum
 
 
 class TestPlayDirectionEnum(unittest.TestCase):

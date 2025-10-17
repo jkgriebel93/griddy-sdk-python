@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Self
 
-from src.griddy.nfl.models.box_score_response_player_stats_away import (
+from griddy.nfl.models.box_score_response_player_stats_away import (
     BoxScoreResponsePlayerStatsAway,
 )
 

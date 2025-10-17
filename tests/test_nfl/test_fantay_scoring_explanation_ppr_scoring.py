@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.fantay_scoring_explanation_ppr_scoring import (
+from griddy.nfl.models.fantay_scoring_explanation_ppr_scoring import (
     FantayScoringExplanationPprScoring,
 )
 

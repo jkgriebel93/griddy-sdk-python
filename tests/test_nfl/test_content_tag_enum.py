@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.content_tag_enum import ContentTagEnum
+from griddy.nfl.models.content_tag_enum import ContentTagEnum
 
 
 class TestContentTagEnum(unittest.TestCase):

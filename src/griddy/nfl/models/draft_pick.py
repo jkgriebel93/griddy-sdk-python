@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.player import Player
-from src.griddy.nfl.models.team import Team
+from griddy.nfl.models.player import Player
+from griddy.nfl.models.team import Team
 
 
 class DraftPick(BaseModel):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.experience_teams_response import ExperienceTeamsResponse
+from griddy.nfl.models.experience_teams_response import ExperienceTeamsResponse
 
 
 class TestExperienceTeamsResponse(unittest.TestCase):

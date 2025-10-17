@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.insight import Insight
+from griddy.nfl.models.insight import Insight
 
 
 class TestInsight(unittest.TestCase):

@@ -23,11 +23,11 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.fantasy_player_stats import FantasyPlayerStats
-from src.griddy.nfl.models.fantasy_position_group_enum import FantasyPositionGroupEnum
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.sort_order_enum import SortOrderEnum
-from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.fantasy_player_stats import FantasyPlayerStats
+from griddy.nfl.models.fantasy_position_group_enum import FantasyPositionGroupEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.week_slug_enum import WeekSlugEnum
 
 
 class FantasyStatsResponse(BaseModel):

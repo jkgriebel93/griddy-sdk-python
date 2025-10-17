@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.replay_thumbnail import ReplayThumbnail
+from griddy.nfl.models.replay_thumbnail import ReplayThumbnail
 
 
 class TestReplayThumbnail(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.conference import Conference
+from griddy.nfl.models.conference import Conference
 
 
 class TestConference(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.record import Record
+from griddy.nfl.models.record import Record
 
 
 class TestRecord(unittest.TestCase):

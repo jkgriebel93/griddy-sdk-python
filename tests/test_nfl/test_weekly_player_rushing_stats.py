@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.weekly_player_rushing_stats import WeeklyPlayerRushingStats
+from griddy.nfl.models.weekly_player_rushing_stats import WeeklyPlayerRushingStats
 
 
 class TestWeeklyPlayerRushingStats(unittest.TestCase):

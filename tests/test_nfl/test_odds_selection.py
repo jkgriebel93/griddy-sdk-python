@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.odds_selection import OddsSelection
+from griddy.nfl.models.odds_selection import OddsSelection
 
 
 class TestOddsSelection(unittest.TestCase):

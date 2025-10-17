@@ -32,10 +32,10 @@ from pydantic import (
 )
 from typing_extensions import Self
 
-from src.griddy.nfl.models.play_direction_enum import PlayDirectionEnum
-from src.griddy.nfl.models.play_stat import PlayStat
-from src.griddy.nfl.models.play_state_enum import PlayStateEnum
-from src.griddy.nfl.models.play_type_enum import PlayTypeEnum
+from griddy.nfl.models.play_direction_enum import PlayDirectionEnum
+from griddy.nfl.models.play_stat import PlayStat
+from griddy.nfl.models.play_state_enum import PlayStateEnum
+from griddy.nfl.models.play_type_enum import PlayTypeEnum
 
 
 class PlayDetail(BaseModel):

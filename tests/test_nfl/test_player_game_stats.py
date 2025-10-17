@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.player_game_stats import PlayerGameStats
+from griddy.nfl.models.player_game_stats import PlayerGameStats
 
 
 class TestPlayerGameStats(unittest.TestCase):

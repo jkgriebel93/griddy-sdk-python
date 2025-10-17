@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.futures_market import FuturesMarket
+from griddy.nfl.models.futures_market import FuturesMarket
 
 
 class FuturesOddsResponseData(BaseModel):

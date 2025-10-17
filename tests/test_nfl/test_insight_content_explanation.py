@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.insight_content_explanation import InsightContentExplanation
+from griddy.nfl.models.insight_content_explanation import InsightContentExplanation
 
 
 class TestInsightContentExplanation(unittest.TestCase):

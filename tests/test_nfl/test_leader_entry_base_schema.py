@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.leader_entry_base_schema import LeaderEntryBaseSchema
+from griddy.nfl.models.leader_entry_base_schema import LeaderEntryBaseSchema
 
 
 class TestLeaderEntryBaseSchema(unittest.TestCase):

@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Annotated, Self
 
-from src.griddy.nfl.models.play_type_enum import PlayTypeEnum
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.play_type_enum import PlayTypeEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.week_slug_enum import WeekSlugEnum
 
 
 class FilmroomPlay(BaseModel):

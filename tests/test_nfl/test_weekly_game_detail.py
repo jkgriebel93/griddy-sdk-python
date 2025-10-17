@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.weekly_game_detail import WeeklyGameDetail
+from griddy.nfl.models.weekly_game_detail import WeeklyGameDetail
 
 
 class TestWeeklyGameDetail(unittest.TestCase):

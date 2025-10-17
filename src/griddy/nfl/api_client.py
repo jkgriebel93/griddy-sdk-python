@@ -28,11 +28,11 @@ from dateutil.parser import parse
 from pydantic import SecretStr
 
 import src.griddy.nfl.models
-from src.griddy.nfl import rest
-from src.griddy.nfl.api_response import ApiResponse
-from src.griddy.nfl.api_response import T as ApiResponseT
-from src.griddy.nfl.configuration import Configuration
-from src.griddy.nfl.exceptions import (
+from griddy.nfl import rest
+from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_response import T as ApiResponseT
+from griddy.nfl.configuration import Configuration
+from griddy.nfl.exceptions import (
     ApiException,
     ApiValueError,
     BadRequestException,
@@ -159,13 +159,14 @@ class ApiClient:
         :param header_params: Header parameters to be
             placed in the request header.
         :param body: Request body.
-        :param post_params dict: Request post form parameters,
+        :param post_params: Request post form parameters,
             for `application/x-www-form-urlencoded`, `multipart/form-data`.
-        :param auth_settings list: Auth Settings names for the request.
-        :param files dict: key -> filename, value -> filepath,
+        :param auth_settings: Auth Settings names for the request.
+        :param files: key -> filename, value -> filepath,
             for `multipart/form-data`.
         :param collection_formats: dict of collection formats for path, query,
             header, and post parameters.
+        :param _host:
         :param _request_auth: set to override the auth_settings for an a single
                               request; this effectively ignores the authentication
                               in the spec for a single request.

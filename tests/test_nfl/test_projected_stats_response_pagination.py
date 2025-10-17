@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.projected_stats_response_pagination import (
+from griddy.nfl.models.projected_stats_response_pagination import (
     ProjectedStatsResponsePagination,
 )
 

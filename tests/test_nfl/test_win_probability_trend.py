@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.win_probability_trend import WinProbabilityTrend
+from griddy.nfl.models.win_probability_trend import WinProbabilityTrend
 
 
 class TestWinProbabilityTrend(unittest.TestCase):

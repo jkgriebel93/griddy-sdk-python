@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.multiple_rankings_category import MultipleRankingsCategory
+from griddy.nfl.models.multiple_rankings_category import MultipleRankingsCategory
 
 
 class TestMultipleRankingsCategory(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.play_participant_role_enum import PlayParticipantRoleEnum
+from griddy.nfl.models.play_participant_role_enum import PlayParticipantRoleEnum
 
 
 class TestPlayParticipantRoleEnum(unittest.TestCase):

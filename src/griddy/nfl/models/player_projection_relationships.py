@@ -23,10 +23,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.player_projection_relationships_week_points_inner import (
+from griddy.nfl.models.player_projection_relationships_week_points_inner import (
     PlayerProjectionRelationshipsWeekPointsInner,
 )
-from src.griddy.nfl.models.player_projection_relationships_week_stats_inner import (
+from griddy.nfl.models.player_projection_relationships_week_stats_inner import (
     PlayerProjectionRelationshipsWeekStatsInner,
 )
 

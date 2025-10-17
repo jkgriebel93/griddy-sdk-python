@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.insight_content_explanation_postgame_insights import (
+from griddy.nfl.models.insight_content_explanation_postgame_insights import (
     InsightContentExplanationPostgameInsights,
 )
 

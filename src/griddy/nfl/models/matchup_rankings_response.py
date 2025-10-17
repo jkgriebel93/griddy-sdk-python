@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Self
 
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from src.griddy.nfl.models.team_matchup_rankings import TeamMatchupRankings
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.team_matchup_rankings import TeamMatchupRankings
 
 
 class MatchupRankingsResponse(BaseModel):

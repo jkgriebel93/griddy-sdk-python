@@ -23,16 +23,16 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.defensive_rush_metrics_explanation_box_count import (
+from griddy.nfl.models.defensive_rush_metrics_explanation_box_count import (
     DefensiveRushMetricsExplanationBoxCount,
 )
-from src.griddy.nfl.models.defensive_rush_metrics_explanation_ryoe import (
+from griddy.nfl.models.defensive_rush_metrics_explanation_ryoe import (
     DefensiveRushMetricsExplanationRyoe,
 )
-from src.griddy.nfl.models.defensive_rush_metrics_explanation_stuff_rate import (
+from griddy.nfl.models.defensive_rush_metrics_explanation_stuff_rate import (
     DefensiveRushMetricsExplanationStuffRate,
 )
-from src.griddy.nfl.models.defensive_rush_metrics_explanation_yards_before_contact import (
+from griddy.nfl.models.defensive_rush_metrics_explanation_yards_before_contact import (
     DefensiveRushMetricsExplanationYardsBeforeContact,
 )
 

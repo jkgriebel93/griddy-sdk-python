@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.boxscore_schedule import BoxscoreSchedule
+from griddy.nfl.models.boxscore_schedule import BoxscoreSchedule
 
 
 class TestBoxscoreSchedule(unittest.TestCase):

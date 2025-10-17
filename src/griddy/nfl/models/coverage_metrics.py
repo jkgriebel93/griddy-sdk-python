@@ -23,16 +23,16 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.coverage_metrics_completion_rate_over_expected import (
+from griddy.nfl.models.coverage_metrics_completion_rate_over_expected import (
     CoverageMetricsCompletionRateOverExpected,
 )
-from src.griddy.nfl.models.coverage_metrics_coverage_snaps import (
+from griddy.nfl.models.coverage_metrics_coverage_snaps import (
     CoverageMetricsCoverageSnaps,
 )
-from src.griddy.nfl.models.coverage_metrics_receiver_separation import (
+from griddy.nfl.models.coverage_metrics_receiver_separation import (
     CoverageMetricsReceiverSeparation,
 )
-from src.griddy.nfl.models.coverage_metrics_targets_allowed import (
+from griddy.nfl.models.coverage_metrics_targets_allowed import (
     CoverageMetricsTargetsAllowed,
 )
 

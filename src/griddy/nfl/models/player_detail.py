@@ -24,14 +24,14 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.award import Award
-from src.griddy.nfl.models.career_stats import CareerStats
-from src.griddy.nfl.models.contract_info import ContractInfo
-from src.griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
-from src.griddy.nfl.models.next_gen_stats_position_group_enum import (
+from griddy.nfl.models.award import Award
+from griddy.nfl.models.career_stats import CareerStats
+from griddy.nfl.models.contract_info import ContractInfo
+from griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
+from griddy.nfl.models.next_gen_stats_position_group_enum import (
     NextGenStatsPositionGroupEnum,
 )
-from src.griddy.nfl.models.season_stats import SeasonStats
+from griddy.nfl.models.season_stats import SeasonStats
 
 
 class PlayerDetail(BaseModel):

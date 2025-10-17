@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.get_plays_win_probability_game_id_parameter import (
+from griddy.nfl.models.get_plays_win_probability_game_id_parameter import (
     GetPlaysWinProbabilityGameIdParameter,
 )
 

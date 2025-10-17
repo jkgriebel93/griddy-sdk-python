@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.pagination import Pagination
+from griddy.nfl.models.pagination import Pagination
 
 
 class TestPagination(unittest.TestCase):

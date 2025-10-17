@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.transactions_response import TransactionsResponse
+from griddy.nfl.models.transactions_response import TransactionsResponse
 
 
 class TestTransactionsResponse(unittest.TestCase):

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.sort_order_enum import SortOrderEnum
 
 
 class TestSortOrderEnum(unittest.TestCase):

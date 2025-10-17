@@ -32,8 +32,8 @@ from pydantic import (
 )
 from typing_extensions import Self
 
-from src.griddy.nfl.models.position_group_enum import PositionGroupEnum
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.position_group_enum import PositionGroupEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 
 
 class Insight(BaseModel):

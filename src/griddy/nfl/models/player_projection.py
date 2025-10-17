@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing_extensions import Self
 
-from src.griddy.nfl.models.player_projection_relationships import (
+from griddy.nfl.models.player_projection_relationships import (
     PlayerProjectionRelationships,
 )
 

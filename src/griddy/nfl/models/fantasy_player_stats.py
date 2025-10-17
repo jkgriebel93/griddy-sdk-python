@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.fantasy_player_position_enum import FantasyPlayerPositionEnum
-from src.griddy.nfl.models.fantasy_position_group_enum import FantasyPositionGroupEnum
+from griddy.nfl.models.fantasy_player_position_enum import FantasyPlayerPositionEnum
+from griddy.nfl.models.fantasy_position_group_enum import FantasyPositionGroupEnum
 
 
 class FantasyPlayerStats(BaseModel):

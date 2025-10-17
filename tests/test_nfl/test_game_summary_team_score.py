@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.game_summary_team_score import GameSummaryTeamScore
+from griddy.nfl.models.game_summary_team_score import GameSummaryTeamScore
 
 
 class TestGameSummaryTeamScore(unittest.TestCase):

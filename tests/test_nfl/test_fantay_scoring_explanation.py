@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.fantay_scoring_explanation import FantayScoringExplanation
+from griddy.nfl.models.fantay_scoring_explanation import FantayScoringExplanation
 
 
 class TestFantayScoringExplanation(unittest.TestCase):

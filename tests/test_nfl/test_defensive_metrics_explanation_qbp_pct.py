@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_metrics_explanation_qbp_pct import (
+from griddy.nfl.models.defensive_metrics_explanation_qbp_pct import (
     DefensiveMetricsExplanationQbpPct,
 )
 

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.statistic_ranking_statistic import StatisticRankingStatistic
+from griddy.nfl.models.statistic_ranking_statistic import StatisticRankingStatistic
 
 
 class TestStatisticRankingStatistic(unittest.TestCase):

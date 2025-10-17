@@ -23,9 +23,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.penalty import Penalty
-from src.griddy.nfl.models.play_participant import PlayParticipant
-from src.griddy.nfl.models.play_type_enum import PlayTypeEnum
+from griddy.nfl.models.penalty import Penalty
+from griddy.nfl.models.play_participant import PlayParticipant
+from griddy.nfl.models.play_type_enum import PlayTypeEnum
 
 
 class Play(BaseModel):

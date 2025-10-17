@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.home_film_cards_response import HomeFilmCardsResponse
+from griddy.nfl.models.home_film_cards_response import HomeFilmCardsResponse
 
 
 class TestHomeFilmCardsResponse(unittest.TestCase):

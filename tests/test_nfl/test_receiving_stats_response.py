@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.receiving_stats_response import ReceivingStatsResponse
+from griddy.nfl.models.receiving_stats_response import ReceivingStatsResponse
 
 
 class TestReceivingStatsResponse(unittest.TestCase):

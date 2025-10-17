@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.receiving_metrics_explanation_catch_rate_over_expected import (
+from griddy.nfl.models.receiving_metrics_explanation_catch_rate_over_expected import (
     ReceivingMetricsExplanationCatchRateOverExpected,
 )
-from src.griddy.nfl.models.receiving_metrics_explanation_receiver_separation import (
+from griddy.nfl.models.receiving_metrics_explanation_receiver_separation import (
     ReceivingMetricsExplanationReceiverSeparation,
 )
-from src.griddy.nfl.models.receiving_metrics_explanation_yards_after_catch_over_expected import (
+from griddy.nfl.models.receiving_metrics_explanation_yards_after_catch_over_expected import (
     ReceivingMetricsExplanationYardsAfterCatchOverExpected,
 )
 

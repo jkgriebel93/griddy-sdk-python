@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing_extensions import Annotated, Self
 
-from src.griddy.nfl.models.play_win_probability import PlayWinProbability
+from griddy.nfl.models.play_win_probability import PlayWinProbability
 
 
 class WinProbabilityResponse(BaseModel):

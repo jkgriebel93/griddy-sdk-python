@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.win_probability_trend_biggest_swing import (
+from griddy.nfl.models.win_probability_trend_biggest_swing import (
     WinProbabilityTrendBiggestSwing,
 )
 

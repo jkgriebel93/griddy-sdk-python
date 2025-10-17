@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.game_quarter_enum import GameQuarterEnum
+from griddy.nfl.models.game_quarter_enum import GameQuarterEnum
 
 
 class TestGameQuarterEnum(unittest.TestCase):

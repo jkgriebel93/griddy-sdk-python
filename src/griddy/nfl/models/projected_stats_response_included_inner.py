@@ -29,8 +29,8 @@ from pydantic import (
 )
 from typing_extensions import Literal, Self
 
-from src.griddy.nfl.models.player_week_projected_points import PlayerWeekProjectedPoints
-from src.griddy.nfl.models.player_week_projected_stats import PlayerWeekProjectedStats
+from griddy.nfl.models.player_week_projected_points import PlayerWeekProjectedPoints
+from griddy.nfl.models.player_week_projected_stats import PlayerWeekProjectedStats
 
 PROJECTEDSTATSRESPONSEINCLUDEDINNER_ONE_OF_SCHEMAS = [
     "PlayerWeekProjectedPoints",

@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.rushing_map import RushingMap
+from griddy.nfl.models.rushing_map import RushingMap
 
 
 class TestRushingMap(unittest.TestCase):

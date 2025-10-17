@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_split_category import DefensiveSplitCategory
+from griddy.nfl.models.defensive_split_category import DefensiveSplitCategory
 
 
 class TestDefensiveSplitCategory(unittest.TestCase):

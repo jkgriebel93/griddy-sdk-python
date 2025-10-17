@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.defensive_player_overview_stats import (
+from griddy.nfl.models.defensive_player_overview_stats import (
     DefensivePlayerOverviewStats,
 )
 

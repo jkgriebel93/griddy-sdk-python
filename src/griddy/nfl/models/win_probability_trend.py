@@ -23,11 +23,11 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.play_win_probability import PlayWinProbability
-from src.griddy.nfl.models.win_probability_trend_biggest_swing import (
+from griddy.nfl.models.play_win_probability import PlayWinProbability
+from griddy.nfl.models.win_probability_trend_biggest_swing import (
     WinProbabilityTrendBiggestSwing,
 )
-from src.griddy.nfl.models.win_probability_trend_final_probability import (
+from griddy.nfl.models.win_probability_trend_final_probability import (
     WinProbabilityTrendFinalProbability,
 )
 

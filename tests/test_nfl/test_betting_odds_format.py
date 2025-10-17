@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.betting_odds_format import BettingOddsFormat
+from griddy.nfl.models.betting_odds_format import BettingOddsFormat
 
 
 class TestBettingOddsFormat(unittest.TestCase):

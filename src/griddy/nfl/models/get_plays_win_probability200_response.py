@@ -29,7 +29,7 @@ from pydantic import (
 )
 from typing_extensions import Literal, Self
 
-from src.griddy.nfl.models.win_probability_response import WinProbabilityResponse
+from griddy.nfl.models.win_probability_response import WinProbabilityResponse
 
 GETPLAYSWINPROBABILITY200RESPONSE_ONE_OF_SCHEMAS = [
     "List[WinProbabilityResponse]",

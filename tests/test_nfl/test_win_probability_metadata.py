@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.win_probability_metadata import WinProbabilityMetadata
+from griddy.nfl.models.win_probability_metadata import WinProbabilityMetadata
 
 
 class TestWinProbabilityMetadata(unittest.TestCase):

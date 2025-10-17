@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.injury_entry import InjuryEntry
+from griddy.nfl.models.injury_entry import InjuryEntry
 
 
 class TestInjuryEntry(unittest.TestCase):

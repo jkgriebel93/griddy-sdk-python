@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.coverage_metrics_targets_allowed import (
+from griddy.nfl.models.coverage_metrics_targets_allowed import (
     CoverageMetricsTargetsAllowed,
 )
 

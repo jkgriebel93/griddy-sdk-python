@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.football_games_response import FootballGamesResponse
+from griddy.nfl.models.football_games_response import FootballGamesResponse
 
 
 class TestFootballGamesResponse(unittest.TestCase):

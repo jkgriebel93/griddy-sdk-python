@@ -24,8 +24,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 
 
 class GameInsight(BaseModel):

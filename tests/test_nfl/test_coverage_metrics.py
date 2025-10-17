@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.coverage_metrics import CoverageMetrics
+from griddy.nfl.models.coverage_metrics import CoverageMetrics
 
 
 class TestCoverageMetrics(unittest.TestCase):

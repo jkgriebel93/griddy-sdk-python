@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.replay import Replay
+from griddy.nfl.models.replay import Replay
 
 
 class TestReplay(unittest.TestCase):

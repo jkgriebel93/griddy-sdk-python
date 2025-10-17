@@ -23,13 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
-from src.griddy.nfl.models.player_stats_response_pagination import (
+from griddy.nfl.models.player_stats_response_pagination import (
     PlayerStatsResponsePagination,
 )
-from src.griddy.nfl.models.player_stats_response_players_inner import (
+from griddy.nfl.models.player_stats_response_players_inner import (
     PlayerStatsResponsePlayersInner,
 )
-from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 
 
 class PlayerStatsResponse(BaseModel):

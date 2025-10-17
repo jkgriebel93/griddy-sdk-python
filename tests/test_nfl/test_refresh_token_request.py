@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from src.griddy.nfl.models.refresh_token_request import RefreshTokenRequest
+from griddy.nfl.models.refresh_token_request import RefreshTokenRequest
 
 
 class TestRefreshTokenRequest(unittest.TestCase):

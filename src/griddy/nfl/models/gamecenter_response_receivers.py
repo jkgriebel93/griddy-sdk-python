@@ -23,10 +23,10 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Self
 
-from src.griddy.nfl.models.gamecenter_response_receivers_league_average_receiver_separation import (
+from griddy.nfl.models.gamecenter_response_receivers_league_average_receiver_separation import (
     GamecenterResponseReceiversLeagueAverageReceiverSeparation,
 )
-from src.griddy.nfl.models.receiver_stats import ReceiverStats
+from griddy.nfl.models.receiver_stats import ReceiverStats
 
 
 class GamecenterResponseReceivers(BaseModel):
