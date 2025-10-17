@@ -1,4 +1,5 @@
 import sys
+
 from griddy.nfl import GriddyNFL
 
 _, bearer_token = sys.argv
@@ -17,4 +18,5 @@ response = nfl.football.get_weekly_game_details(
 game = response[0]
 replay = game.replays[0]
 from pprint import pprint
+
 pprint(replay.model_dump(), indent=4)

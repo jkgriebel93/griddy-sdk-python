@@ -1,7 +1,8 @@
 """Pro Football Focus specific data models with advanced analytics."""
 
 from datetime import datetime
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
+
 from pydantic import Field
 
 from ..core.models import BaseModel, Player

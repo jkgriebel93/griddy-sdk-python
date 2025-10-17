@@ -1,7 +1,7 @@
 """ESPN data source module."""
 
 from .client import ESPNClient
-from .models import ESPNGame, ESPNTeam, ESPNPlayer, ESPNPlayerStats, ESPNScoreboard
+from .models import ESPNGame, ESPNPlayer, ESPNPlayerStats, ESPNScoreboard, ESPNTeam
 
 __all__ = [
     "ESPNClient",

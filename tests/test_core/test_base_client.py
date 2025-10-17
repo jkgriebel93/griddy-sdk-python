@@ -1,15 +1,16 @@
 """Tests for BaseClient functionality."""
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 import requests_mock
-from unittest.mock import patch, MagicMock
 
 from griddy.core.base_client import BaseClient
 from griddy.core.exceptions import (
     APIError,
-    RateLimitError,
-    NotFoundError,
     AuthenticationError,
+    NotFoundError,
+    RateLimitError,
 )
 
 

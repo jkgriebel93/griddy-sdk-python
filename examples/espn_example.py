@@ -5,9 +5,10 @@ This script demonstrates how to use the ESPN client to retrieve
 live scores, team information, and news.
 """
 
+from datetime import datetime
+
 from griddy import espn
 from griddy.core.exceptions import GriddyError
-from datetime import datetime
 
 
 def main():

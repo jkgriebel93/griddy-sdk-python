@@ -1,19 +1,20 @@
 """Tests for cookie extraction utilities."""
 
-import pytest
+import os
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
-import tempfile
-import os
+
+import pytest
 
 from griddy.core.utils import (
     Cookie,
-    parse_cookies_txt,
-    extract_cookies_for_url,
     cookies_to_dict,
     cookies_to_header,
     extract_cookies_as_dict,
     extract_cookies_as_header,
+    extract_cookies_for_url,
+    parse_cookies_txt,
 )
 
 

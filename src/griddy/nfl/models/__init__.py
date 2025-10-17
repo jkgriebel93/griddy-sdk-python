@@ -1,2194 +1,593 @@
-from typing import TYPE_CHECKING
-from importlib import import_module
-import builtins
-import sys
+# coding: utf-8
 
-if TYPE_CHECKING:
-    from .award import Award, AwardType, AwardTypedDict
-    from .binaryflagenum import BinaryFlagEnum
-    from .boxscoreresponse_1 import BoxscoreResponse1, BoxscoreResponse1TypedDict
-    from .boxscoreresponse_2 import (
-        Away,
-        AwayTypedDict,
-        BoxScoreResponse2,
-        BoxScoreResponse2TypedDict,
-        Home,
-        HomeTypedDict,
-        PlayerStats,
-        PlayerStatsTypedDict,
-        TeamStats,
-        TeamStatsTypedDict,
-    )
-    from .boxscoreschedule import BoxscoreSchedule, BoxscoreScheduleTypedDict
-    from .boxscorescore import BoxscoreScore, BoxscoreScoreTypedDict
-    from .boxscoresite import BoxscoreSite, BoxscoreSiteRoofType, BoxscoreSiteTypedDict
-    from .boxscoreteam import BoxscoreTeam, BoxscoreTeamTypedDict
-    from .broadcastinfo import (
-        BroadcastInfo,
-        BroadcastInfoTypedDict,
-        InternationalWatchOption,
-        InternationalWatchOptionTypedDict,
-        StreamingNetwork,
-        StreamingNetworkTypedDict,
-        Territory,
-    )
-    from .careerstats import CareerStats, CareerStatsTypedDict
-    from .clinched import Clinched, ClinchedTypedDict
-    from .coachesfilmresponse import CoachesFilmResponse, CoachesFilmResponseTypedDict
-    from .coachesfilmvideo import (
-        Background,
-        BackgroundTypedDict,
-        CameraSource,
-        CoachesFilmVideo,
-        CoachesFilmVideoType,
-        CoachesFilmVideoTypedDict,
-        Cta,
-        CtaTypedDict,
-        Image,
-        ImageTypedDict,
-        PromoAsset,
-        PromoAssetTypedDict,
-        SubType,
-        Video,
-        VideoTypedDict,
-    )
-    from .conference import Conference, ConferenceTypedDict
-    from .conferenceenum import ConferenceEnum
-    from .contractinfo import ContractInfo, ContractInfoTypedDict
-    from .currentgame import (
-        CurrentGame,
-        CurrentGameCategory,
-        CurrentGameExtension,
-        CurrentGameExtensionTypedDict,
-        CurrentGameTypedDict,
-    )
-    from .currentgamesresponse import (
-        CurrentGamesResponse,
-        CurrentGamesResponseTypedDict,
-    )
-    from .defensiveoverviewstatsresponse import (
-        DefensiveOverviewStatsResponse,
-        DefensiveOverviewStatsResponseTypedDict,
-    )
-    from .defensivepassrushstats import (
-        DefensivePassRushStats,
-        DefensivePassRushStatsNgsPosition,
-        DefensivePassRushStatsPosition,
-        DefensivePassRushStatsTypedDict,
-    )
-    from .defensiveplayeroverviewstats import (
-        DefensivePlayerOverviewStats,
-        DefensivePlayerOverviewStatsNgsPosition,
-        DefensivePlayerOverviewStatsPosition,
-        DefensivePlayerOverviewStatsTypedDict,
-    )
-    from .defensiveplayerstats import (
-        DefensivePlayerStats,
-        DefensivePlayerStatsNgsPosition,
-        DefensivePlayerStatsPosition,
-        DefensivePlayerStatsTypedDict,
-    )
-    from .defensivepositiongroupenum import DefensivePositionGroupEnum
-    from .defensivestats import DefensiveStats, DefensiveStatsTypedDict
-    from .defensivestatsresponse import (
-        DefensiveStatsResponse,
-        DefensiveStatsResponseTypedDict,
-    )
-    from .division import Division, DivisionTypedDict
-    from .draftpick import DraftPick, DraftPickTypedDict
-    from .draftresponse import (
-        DraftResponse,
-        DraftResponseTypedDict,
-        Round,
-        RoundTypedDict,
-    )
-    from .drive import Drive, DriveTypedDict, Result
-    from .experiencegamesresponse import (
-        ExperienceGamesResponse,
-        ExperienceGamesResponseTypedDict,
-    )
-    from .experienceteamsresponse import (
-        ExperienceTeamsResponse,
-        ExperienceTeamsResponseTypedDict,
-    )
-    from .externalid import ExternalID, ExternalIDTypedDict
-    from .fantasyplayerstats import (
-        FantasyPlayerStats,
-        FantasyPlayerStatsPosition,
-        FantasyPlayerStatsTypedDict,
-        PositionGroup,
-    )
-    from .fantasystatsresponse import (
-        FantasyStatsResponse,
-        FantasyStatsResponseTypedDict,
-    )
-    from .filmcard import FilmCard, FilmCardTypedDict, LinkParams, LinkParamsTypedDict
-    from .filmroomplay import FilmroomPlay, FilmroomPlayTypedDict
-    from .filmroomplaysresponse import (
-        FilmroomPlaysResponse,
-        FilmroomPlaysResponseTypedDict,
-    )
-    from .footballgamesresponse import (
-        FootballGamesResponse,
-        FootballGamesResponseTypedDict,
-    )
-    from .futuresmarket import (
-        Fixture,
-        FixtureTypedDict,
-        FuturesMarket,
-        FuturesMarketTypedDict,
-    )
-    from .futuresoddsresponse import (
-        FuturesOddsResponse,
-        FuturesOddsResponseData,
-        FuturesOddsResponseDataTypedDict,
-        FuturesOddsResponseTypedDict,
-    )
-    from .game import (
-        Game,
-        GameCategory,
-        GameExtension,
-        GameExtensionTypedDict,
-        GameStatus,
-        GameTypedDict,
-    )
-    from .gamecenterresponse import (
-        GamecenterResponse,
-        GamecenterResponseTypedDict,
-        Leaders,
-        LeadersTypedDict,
-        LeagueAverageReceiverSeparation,
-        LeagueAverageReceiverSeparationTypedDict,
-        LeagueAverageSeparationToQb,
-        LeagueAverageSeparationToQbTypedDict,
-        PassDistanceLeaders,
-        PassDistanceLeadersTypedDict,
-        PassRushers,
-        PassRushersTypedDict,
-        Passers,
-        PassersTypedDict,
-        Receivers,
-        ReceiversTypedDict,
-        Rushers,
-        RushersTypedDict,
-        SpeedLeaders,
-        SpeedLeadersTypedDict,
-        TimeToSackLeaders,
-        TimeToSackLeadersTypedDict,
-    )
-    from .gamecenterschedule import GamecenterSchedule, GamecenterScheduleTypedDict
-    from .gamedetail import GameDetail, GameDetailTypedDict
-    from .gameinsight import (
-        Content,
-        ContentTypedDict,
-        GameInsight,
-        GameInsightTypedDict,
-    )
-    from .gameodds import GameOdds, GameOddsTypedDict
-    from .gamepreviewresponse import (
-        GamePreviewResponse,
-        GamePreviewResponseTypedDict,
-        Preview,
-        PreviewTypedDict,
-    )
-    from .gameresultenum import GameResultEnum
-    from .gameschedule import GameSchedule, GameScheduleTypedDict
-    from .gamescore import GameScore, GameScoreTypedDict, Phase
-    from .gamesite import GameSite, GameSiteRoofType, GameSiteTypedDict
-    from .gamesresponse import GamesResponse, GamesResponseTypedDict
-    from .gamestatsresponse import (
-        GameStatsResponse,
-        GameStatsResponseData,
-        GameStatsResponseDataTypedDict,
-        GameStatsResponseTypedDict,
-    )
-    from .gamestatusenum import GameStatusEnum
-    from .gameteam import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
-    from .getcoachesfilmvideosop import (
-        GetCoachesFilmVideosRequest,
-        GetCoachesFilmVideosRequestTypedDict,
-    )
-    from .getdefensiveoverviewstatsbyseasonop import (
-        GetDefensiveOverviewStatsBySeasonRequest,
-        GetDefensiveOverviewStatsBySeasonRequestTypedDict,
-        GetDefensiveOverviewStatsBySeasonSortKey,
-    )
-    from .getdefensivepassrushstatsbyseasonop import (
-        GetDefensivePassRushStatsBySeasonRequest,
-        GetDefensivePassRushStatsBySeasonRequestTypedDict,
-        GetDefensivePassRushStatsBySeasonSortKey,
-    )
-    from .getdefensivestatsbyseasonop import (
-        GetDefensiveStatsBySeasonRequest,
-        GetDefensiveStatsBySeasonRequestTypedDict,
-        GetDefensiveStatsBySeasonSortKey,
-    )
-    from .getdraftinfoop import GetDraftInfoRequest, GetDraftInfoRequestTypedDict
-    from .getexperiencegamesop import (
-        GetExperienceGamesRequest,
-        GetExperienceGamesRequestTypedDict,
-    )
-    from .getexperienceteamsop import (
-        GetExperienceTeamsRequest,
-        GetExperienceTeamsRequestTypedDict,
-    )
-    from .getfantasystatsbyseasonop import (
-        GetFantasyStatsBySeasonPositionGroup,
-        GetFantasyStatsBySeasonRequest,
-        GetFantasyStatsBySeasonRequestTypedDict,
-        GetFantasyStatsBySeasonSortKey,
-    )
-    from .getfilmroomplaysop import (
-        AirYardType,
-        DefCoverageType,
-        DefendersInTheBoxType,
-        DropbackTimeType,
-        GetFilmroomPlaysRequest,
-        GetFilmroomPlaysRequestTypedDict,
-        Personnel,
-        QbAlignment,
-        ReceiverAlignment,
-        RushDirection,
-        SeparationType,
-        TargetLocation,
-        YardsToGoType,
-    )
-    from .getfootballboxscoreop import (
-        GetFootballBoxScoreRequest,
-        GetFootballBoxScoreRequestTypedDict,
-    )
-    from .getfootballgamesop import (
-        GetFootballGamesRequest,
-        GetFootballGamesRequestTypedDict,
-    )
-    from .getgamecenterop import GetGamecenterRequest, GetGamecenterRequestTypedDict
-    from .getgameinsightsop import (
-        GetGameInsightsRequest,
-        GetGameInsightsRequestTypedDict,
-    )
-    from .getgamematchuprankingsop import (
-        GetGameMatchupRankingsRequest,
-        GetGameMatchupRankingsRequestTypedDict,
-    )
-    from .getgamepreviewop import GetGamePreviewRequest, GetGamePreviewRequestTypedDict
-    from .getgameteamrankingsop import (
-        GetGameTeamRankingsRequest,
-        GetGameTeamRankingsRequestTypedDict,
-    )
-    from .getinjuryreportsop import (
-        GetInjuryReportsRequest,
-        GetInjuryReportsRequestTypedDict,
-    )
-    from .getlivegamescoresop import (
-        GetLiveGameScoresRequest,
-        GetLiveGameScoresRequestTypedDict,
-    )
-    from .getlivegamestatsop import (
-        GetLiveGameStatsRequest,
-        GetLiveGameStatsRequestTypedDict,
-    )
-    from .getmultiplerankingsallteamsop import (
-        GetMultipleRankingsAllTeamsRequest,
-        GetMultipleRankingsAllTeamsRequestTypedDict,
-    )
-    from .getplaybyplayop import GetPlayByPlayRequest, GetPlayByPlayRequestTypedDict
-    from .getplayerdetailsop import (
-        GetPlayerDetailsRequest,
-        GetPlayerDetailsRequestTypedDict,
-    )
-    from .getplayerop import GetPlayerRequest, GetPlayerRequestTypedDict
-    from .getplayerpassingstatsbyseasonop import (
-        GetPlayerPassingStatsBySeasonRequest,
-        GetPlayerPassingStatsBySeasonRequestTypedDict,
-    )
-    from .getplayerpassingstatsbyweekop import (
-        GetPlayerPassingStatsByWeekRequest,
-        GetPlayerPassingStatsByWeekRequestTypedDict,
-    )
-    from .getplayerreceivingstatsbyseasonop import (
-        GetPlayerReceivingStatsBySeasonRequest,
-        GetPlayerReceivingStatsBySeasonRequestTypedDict,
-    )
-    from .getplayerreceivingstatsbyweekop import (
-        GetPlayerReceivingStatsByWeekRequest,
-        GetPlayerReceivingStatsByWeekRequestTypedDict,
-    )
-    from .getplayerrushingstatsbyseasonop import (
-        GetPlayerRushingStatsBySeasonRequest,
-        GetPlayerRushingStatsBySeasonRequestTypedDict,
-        GetPlayerRushingStatsBySeasonSortKey,
-    )
-    from .getplayerrushingstatsbyweekop import (
-        GetPlayerRushingStatsByWeekRequest,
-        GetPlayerRushingStatsByWeekRequestTypedDict,
-        GetPlayerRushingStatsByWeekSortKey,
-    )
-    from .getplayersteamrosterop import (
-        GetPlayersTeamRosterRequest,
-        GetPlayersTeamRosterRequestTypedDict,
-    )
-    from .getplayswinprobabilityop import (
-        GameID,
-        GameIDTypedDict,
-        GetPlaysWinProbabilityRequest,
-        GetPlaysWinProbabilityRequestTypedDict,
-        GetPlaysWinProbabilityResponse,
-        GetPlaysWinProbabilityResponseTypedDict,
-    )
-    from .getprojectedstatsop import (
-        GetProjectedStatsRequest,
-        GetProjectedStatsRequestTypedDict,
-    )
-    from .getscheduledgameop import (
-        GetScheduledGameRequest,
-        GetScheduledGameRequestTypedDict,
-    )
-    from .getscheduledgamesop import (
-        GetScheduledGamesRequest,
-        GetScheduledGamesRequestTypedDict,
-    )
-    from .getscheduleseasonweeksop import (
-        GetScheduleSeasonWeeksRequest,
-        GetScheduleSeasonWeeksRequestTypedDict,
-    )
-    from .getseasoncontentinsightsop import (
-        GetSeasonContentInsightsRequest,
-        GetSeasonContentInsightsRequestTypedDict,
-        Tag,
-    )
-    from .getseasonplayerstatsop import (
-        GetSeasonPlayerStatsPosition,
-        GetSeasonPlayerStatsRequest,
-        GetSeasonPlayerStatsRequestTypedDict,
-        StatCategory,
-    )
-    from .getseasonweeksop import GetSeasonWeeksRequest, GetSeasonWeeksRequestTypedDict
-    from .getstandingsop import GetStandingsRequest, GetStandingsRequestTypedDict
-    from .getstatsboxscoreop import (
-        GetStatsBoxscoreRequest,
-        GetStatsBoxscoreRequestTypedDict,
-    )
-    from .getsummaryplayop import GetSummaryPlayRequest, GetSummaryPlayRequestTypedDict
-    from .getteamdefensepassstatsbyseasonop import (
-        GetTeamDefensePassStatsBySeasonRequest,
-        GetTeamDefensePassStatsBySeasonRequestTypedDict,
-        GetTeamDefensePassStatsBySeasonSortKey,
-    )
-    from .getteamdefenserushstatsbyseasonop import (
-        GetTeamDefenseRushStatsBySeasonRequest,
-        GetTeamDefenseRushStatsBySeasonRequestTypedDict,
-        GetTeamDefenseRushStatsBySeasonSortKey,
-    )
-    from .getteamdefensestatsbyseasonop import (
-        GetTeamDefenseStatsBySeasonRequest,
-        GetTeamDefenseStatsBySeasonRequestTypedDict,
-        GetTeamDefenseStatsBySeasonSortKey,
-        GetTeamDefenseStatsBySeasonSplit,
-    )
-    from .getteaminjuriesop import (
-        GetTeamInjuriesRequest,
-        GetTeamInjuriesRequestTypedDict,
-    )
-    from .getteamoffenseoverviewstatsbyseasonop import (
-        GetTeamOffenseOverviewStatsBySeasonRequest,
-        GetTeamOffenseOverviewStatsBySeasonRequestTypedDict,
-        GetTeamOffenseOverviewStatsBySeasonSortKey,
-        GetTeamOffenseOverviewStatsBySeasonSplit,
-    )
-    from .getteamoffensepassstatsbyseasonop import (
-        GetTeamOffensePassStatsBySeasonRequest,
-        GetTeamOffensePassStatsBySeasonRequestTypedDict,
-        GetTeamOffensePassStatsBySeasonSortKey,
-    )
-    from .getteamrosterop import GetTeamRosterRequest, GetTeamRosterRequestTypedDict
-    from .getteamscheduleop import (
-        GetTeamScheduleRequest,
-        GetTeamScheduleRequestTypedDict,
-    )
-    from .getteamstandingsop import (
-        GetTeamStandingsRequest,
-        GetTeamStandingsRequestTypedDict,
-    )
-    from .gettransactionsop import (
-        GetTransactionsRequest,
-        GetTransactionsRequestTypedDict,
-        GetTransactionsTransactionType,
-    )
-    from .getvenuesop import GetVenuesRequest, GetVenuesRequestTypedDict
-    from .getweeklybettingoddsop import (
-        GetWeeklyBettingOddsRequest,
-        GetWeeklyBettingOddsRequestTypedDict,
-    )
-    from .getweeklygamedetailsop import (
-        GetWeeklyGameDetailsRequest,
-        GetWeeklyGameDetailsRequestTypedDict,
-    )
-    from .getweeklyteamrosterop import (
-        GetWeeklyTeamRosterRequest,
-        GetWeeklyTeamRosterRequestTypedDict,
-    )
-    from .getwinprobabilityminop import (
-        GetWinProbabilityMinRequest,
-        GetWinProbabilityMinRequestTypedDict,
-    )
-    from .homefilmcardsresponse import (
-        HomeFilmCardsResponse,
-        HomeFilmCardsResponseTypedDict,
-    )
-    from .injuryentry import (
-        InjuryEntry,
-        InjuryEntryGameStatus,
-        InjuryEntryTypedDict,
-        PracticeStatus,
-        PracticeStatusTypedDict,
-    )
-    from .injuryreportresponse import (
-        InjuryReportResponse,
-        InjuryReportResponseTypedDict,
-    )
-    from .insight import Insight, InsightPosition, InsightTypedDict, SecondTeamType
-    from .kickingstats import KickingStats, KickingStatsTypedDict
-    from .livegame import (
-        AwayTeam,
-        AwayTeamTypedDict,
-        HomeTeam,
-        HomeTeamTypedDict,
-        LiveGame,
-        LiveGameStatus,
-        LiveGameTypedDict,
-    )
-    from .livescoresresponse import LiveScoresResponse, LiveScoresResponseTypedDict
-    from .matchuprankingsresponse import (
-        MatchupRankingsResponse,
-        MatchupRankingsResponseTypedDict,
-    )
-    from .meridiemenum import MeridiemEnum
-    from .moneyline import MoneyLine, MoneyLineTypedDict
-    from .multiplerankingscategory import (
-        MultipleRankingsCategory,
-        MultipleRankingsCategoryPagination,
-        MultipleRankingsCategoryPaginationTypedDict,
-        MultipleRankingsCategoryTypedDict,
-    )
-    from .oddsselection import OddsSelection, OddsSelectionTypedDict
-    from .offensiveplayerpositionenum import OffensivePlayerPositionEnum
-    from .offensiveskillpositionenum import OffensiveSkillPositionEnum
-    from .overallrecord import (
-        OverallRecord,
-        OverallRecordPoints,
-        OverallRecordPointsTypedDict,
-        OverallRecordType,
-        OverallRecordTypedDict,
-        Streak,
-        StreakTypedDict,
-    )
-    from .pagination import Pagination, PaginationTypedDict
-    from .passerstats import PasserStats, PasserStatsTypedDict, Zone, ZoneTypedDict
-    from .passingstats import PassingStats, PassingStatsTypedDict
-    from .passingstatscategoryenum import PassingStatsCategoryEnum
-    from .passingstatsresponse import (
-        PassingStatsResponse,
-        PassingStatsResponseTypedDict,
-    )
-    from .passrushstatsresponse import (
-        PassRushStatsResponse,
-        PassRushStatsResponseTypedDict,
-    )
-    from .penalty import Penalty, PenaltyTypedDict
-    from .play import Play, PlayType, PlayTypedDict
-    from .playbyplayresponse import PlayByPlayResponse, PlayByPlayResponseTypedDict
-    from .playdetail import PlayDetail, PlayDetailTypedDict, PlayDirection, PlayState
-    from .player import Player, PlayerTypedDict
-    from .playerdetail import PlayerDetail, PlayerDetailTypedDict
-    from .playergamestats import PlayerGameStats, PlayerGameStatsTypedDict
-    from .playerpassingstats import PlayerPassingStats, PlayerPassingStatsTypedDict
-    from .playerprojection import (
-        PlayerProjection,
-        PlayerProjectionTypedDict,
-        Relationships,
-        RelationshipsTypePlayerWeekProjectedPoints,
-        RelationshipsTypePlayerWeekProjectedStats,
-        RelationshipsTypedDict,
-        TypePlayer,
-        WeekPoint,
-        WeekPointTypedDict,
-        WeekStat,
-        WeekStatTypedDict,
-    )
-    from .playerreceivingstats import (
-        PlayerReceivingStats,
-        PlayerReceivingStatsTypedDict,
-    )
-    from .playerrushingstats import PlayerRushingStats, PlayerRushingStatsTypedDict
-    from .playersearchresponse import (
-        PlayerSearchResponse,
-        PlayerSearchResponseTypedDict,
-    )
-    from .playersearchresult import PlayerSearchResult, PlayerSearchResultTypedDict
-    from .playerstatsresponse import (
-        PlayerStatsResponse,
-        PlayerStatsResponsePagination,
-        PlayerStatsResponsePaginationTypedDict,
-        PlayerStatsResponsePlayer,
-        PlayerStatsResponsePlayerTypedDict,
-        PlayerStatsResponseStats,
-        PlayerStatsResponseStatsTypedDict,
-        PlayerStatsResponseTypedDict,
-    )
-    from .playerweekprojectedpoints import (
-        PlayerWeekProjectedPoints,
-        PlayerWeekProjectedPointsAttributes,
-        PlayerWeekProjectedPointsAttributesTypedDict,
-        PlayerWeekProjectedPointsType,
-        PlayerWeekProjectedPointsTypedDict,
-    )
-    from .playerweekprojectedstats import (
-        PlayerWeekProjectedStats,
-        PlayerWeekProjectedStatsAttributes,
-        PlayerWeekProjectedStatsAttributesTypedDict,
-        PlayerWeekProjectedStatsType,
-        PlayerWeekProjectedStatsTypedDict,
-    )
-    from .playparticipant import (
-        PlayParticipant,
-        PlayParticipantStats,
-        PlayParticipantStatsTypedDict,
-        PlayParticipantTypedDict,
-        Role,
-    )
-    from .playplayer import PlayPlayer, PlayPlayerTypedDict
-    from .playstat import PlayStat, PlayStatTypedDict
-    from .playsummaryresponse import PlaySummaryResponse, PlaySummaryResponseTypedDict
-    from .playtypeenum import PlayTypeEnum
-    from .playwinprobability import PlayWinProbability, PlayWinProbabilityTypedDict
-    from .pointspread import PointSpread, PointSpreadTypedDict
-    from .pointsrecord import (
-        PointsRecord,
-        PointsRecordPoints,
-        PointsRecordPointsTypedDict,
-        PointsRecordTypedDict,
-    )
-    from .practicestatusenum import PracticeStatusEnum
-    from .progame import (
-        ProGame,
-        ProGameCategory,
-        ProGameExtension,
-        ProGameExtensionTypedDict,
-        ProGameStatus,
-        ProGameTypedDict,
-    )
-    from .projectedstatsresponse import (
-        Included,
-        IncludedTypedDict,
-        Meta,
-        MetaTypedDict,
-        Page,
-        PageTypedDict,
-        ProjectedStatsResponse,
-        ProjectedStatsResponsePagination,
-        ProjectedStatsResponsePaginationTypedDict,
-        ProjectedStatsResponseTypedDict,
-    )
-    from .proteam import (
-        ProTeam,
-        ProTeamConferenceAbbr,
-        ProTeamTeamType,
-        ProTeamTypedDict,
-    )
-    from .proweek import ProWeek, ProWeekTypedDict, ProWeekWeekType
-    from .receivingstats import ReceivingStats, ReceivingStatsTypedDict
-    from .receivingstatscategoryenum import ReceivingStatsCategoryEnum
-    from .receivingstatsresponse import (
-        ReceivingStatsResponse,
-        ReceivingStatsResponseTypedDict,
-    )
-    from .record import Record, RecordTypedDict
-    from .refreshtokenrequest import (
-        RefreshTokenRequest,
-        RefreshTokenRequestNetworkType,
-        RefreshTokenRequestTypedDict,
-    )
-    from .responsemetadata import ResponseMetadata, ResponseMetadataTypedDict
-    from .rosterresponse import (
-        Roster,
-        RosterResponse,
-        RosterResponseTypedDict,
-        RosterTypedDict,
-    )
-    from .rushingstats import RushingStats, RushingStatsTypedDict
-    from .rushingstatsresponse import (
-        RushingStatsResponse,
-        RushingStatsResponseTypedDict,
-    )
-    from .scheduledgame import ScheduledGame, ScheduledGameTypedDict
-    from .scheduleteam import ScheduleTeam, ScheduleTeamTypedDict
-    from .scoringplay import ScoreType, ScoringPlay, ScoringPlayTypedDict
-    from .searchplayersop import SearchPlayersRequest, SearchPlayersRequestTypedDict
-    from .seasonstats import SeasonStats, SeasonStatsTypedDict
-    from .seasontypeenum import SeasonTypeEnum
-    from .seasonweeksresponse import SeasonWeeksResponse, SeasonWeeksResponseTypedDict
-    from .security import Security, SecurityTypedDict
-    from .site import Site, SiteRoofType, SiteTypedDict
-    from .socialmedia import SocialMedia, SocialMediaTypedDict
-    from .sortorderenum import SortOrderEnum
-    from .standings import (
-        Standings,
-        StandingsTeam,
-        StandingsTeamTypedDict,
-        StandingsTypedDict,
-    )
-    from .standingsrecord import (
-        StandingsRecord,
-        StandingsRecordPoints,
-        StandingsRecordPointsTypedDict,
-        StandingsRecordTypedDict,
-    )
-    from .standingsresponse import (
-        StandingsResponse,
-        StandingsResponseTypedDict,
-        StandingsResponseWeek,
-        StandingsResponseWeekTypedDict,
-    )
-    from .statisticranking import (
-        Statistic,
-        StatisticRanking,
-        StatisticRankingTypedDict,
-        StatisticTypedDict,
-    )
-    from .team import Team, TeamConferenceAbbr, TeamTeamType, TeamTypedDict
-    from .teamboxscore import TeamBoxscore, TeamBoxscoreTypedDict
-    from .teamdefensepassstats import (
-        TeamDefensePassStats,
-        TeamDefensePassStatsTypedDict,
-    )
-    from .teamdefensepassstatsresponse import (
-        TeamDefensePassStatsResponse,
-        TeamDefensePassStatsResponseTypedDict,
-    )
-    from .teamdefenserushstats import (
-        TeamDefenseRushStats,
-        TeamDefenseRushStatsTypedDict,
-    )
-    from .teamdefenserushstatsresponse import (
-        TeamDefenseRushStatsResponse,
-        TeamDefenseRushStatsResponseTypedDict,
-    )
-    from .teamdefensestats import TeamDefenseStats, TeamDefenseStatsTypedDict
-    from .teamdefensestatsresponse import (
-        TeamDefenseStatsResponse,
-        TeamDefenseStatsResponseTypedDict,
-    )
-    from .teamgamestats import TeamGameStats, TeamGameStatsTypedDict
-    from .teaminfo import TeamInfo, TeamInfoTypedDict
-    from .teaminjuryreport import TeamInjuryReport, TeamInjuryReportTypedDict
-    from .teammatchuprankings import TeamMatchupRankings, TeamMatchupRankingsTypedDict
-    from .teamoffenseoverviewstats import (
-        TeamOffenseOverviewStats,
-        TeamOffenseOverviewStatsTypedDict,
-    )
-    from .teamoffenseoverviewstatsresponse import (
-        TeamOffenseOverviewStatsResponse,
-        TeamOffenseOverviewStatsResponseTypedDict,
-    )
-    from .teamoffensepassstats import (
-        TeamOffensePassStats,
-        TeamOffensePassStatsTypedDict,
-    )
-    from .teamoffensepassstatsresponse import (
-        TeamOffensePassStatsResponse,
-        TeamOffensePassStatsResponseTypedDict,
-    )
-    from .teamrankingentry import TeamRankingEntry, TeamRankingEntryTypedDict
-    from .teamrankings import TeamRankings, TeamRankingsTypedDict
-    from .teamrankingsresponse import (
-        TeamRankingsResponse,
-        TeamRankingsResponseTypedDict,
-    )
-    from .teamrosterresponse import TeamRosterResponse, TeamRosterResponseTypedDict
-    from .teamscore import TeamScore, TeamScoreTypedDict
-    from .teamtypeenum import TeamTypeEnum
-    from .teamvenue import TeamVenue, TeamVenueTypedDict
-    from .ticketvendor import TicketVendor, TicketVendorTypedDict
-    from .tokenrequest import (
-        TokenRequest,
-        TokenRequestNetworkType,
-        TokenRequestTypedDict,
-    )
-    from .tokenresponse import TokenResponse, TokenResponseTypedDict
-    from .totals import Totals, TotalsTypedDict
-    from .transaction import Transaction, TransactionType, TransactionTypedDict
-    from .transactionsresponse import (
-        TransactionsResponse,
-        TransactionsResponseTypedDict,
-    )
-    from .venue import Venue, VenueTypedDict
-    from .venueinfo import VenueInfo, VenueInfoRoofType, VenueInfoTypedDict
-    from .venuesresponse import VenuesResponse, VenuesResponseTypedDict
-    from .videoauthorizations import (
-        NFLPLUSPLUSNFLPLUSCOACHESFILM,
-        NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict,
-        NFLPLUSPremiumNFLPLUSCOACHESFILM,
-        NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict,
-        NflPlusPlus,
-        NflPlusPlusRequirements,
-        NflPlusPlusRequirementsTypedDict,
-        NflPlusPlusTypedDict,
-        NflPlusPremium,
-        NflPlusPremiumRequirements,
-        NflPlusPremiumRequirementsTypedDict,
-        NflPlusPremiumTypedDict,
-        ProPremium,
-        ProPremiumNFLPLUSCOACHESFILM,
-        ProPremiumNFLPLUSCOACHESFILMTypedDict,
-        ProPremiumRequirements,
-        ProPremiumRequirementsTypedDict,
-        ProPremiumTypedDict,
-        VideoAuthorizations,
-        VideoAuthorizationsTypedDict,
-    )
-    from .videogameplayids import VideoGamePlayIds, VideoGamePlayIdsTypedDict
-    from .videotag import VideoTag, VideoTagTypedDict
-    from .videothumbnail import VideoThumbnail, VideoThumbnailTypedDict
-    from .week import Week, WeekTypedDict, WeekWeekType
-    from .weeklygamedetail import (
-        DriveChart,
-        DriveChartTypedDict,
-        Replay,
-        ReplayTypedDict,
-        Summary,
-        SummaryTypedDict,
-        TaggedVideos,
-        TaggedVideosTypedDict,
-        WeeklyGameDetail,
-        WeeklyGameDetailCategory,
-        WeeklyGameDetailExtension,
-        WeeklyGameDetailExtensionTypedDict,
-        WeeklyGameDetailStatus,
-        WeeklyGameDetailTypedDict,
-    )
-    from .weeklyoddsresponse import WeeklyOddsResponse, WeeklyOddsResponseTypedDict
-    from .weeklypassingstatsresponse import (
-        WeeklyPassingStatsResponse,
-        WeeklyPassingStatsResponseTypedDict,
-    )
-    from .weeklyplayer import WeeklyPlayer, WeeklyPlayerTypedDict
-    from .weeklyplayerpassingstats import (
-        WeeklyPlayerPassingStats,
-        WeeklyPlayerPassingStatsTypedDict,
-    )
-    from .weeklyplayerrushingstats import (
-        WeeklyPlayerRushingStats,
-        WeeklyPlayerRushingStatsTypedDict,
-    )
-    from .weeklyrosterresponse import (
-        WeeklyRosterResponse,
-        WeeklyRosterResponseTypedDict,
-    )
-    from .weeklyrushingstatsresponse import (
-        WeeklyRushingStatsResponse,
-        WeeklyRushingStatsResponseTypedDict,
-    )
-    from .weekslugenum import WeekSlugEnum
-    from .weeksresponse import WeeksResponse, WeeksResponseTypedDict
-    from .winprobabilityresponse import (
-        WinProbabilityResponse,
-        WinProbabilityResponseTypedDict,
-    )
+# flake8: noqa
+"""
+NFL REST APIs
 
-__all__ = [
-    "AirYardType",
-    "Award",
-    "AwardType",
-    "AwardTypedDict",
-    "Away",
-    "AwayTeam",
-    "AwayTeamTypedDict",
-    "AwayTypedDict",
-    "Background",
-    "BackgroundTypedDict",
-    "BinaryFlagEnum",
-    "BoxScoreResponse2",
-    "BoxScoreResponse2TypedDict",
-    "BoxscoreResponse1",
-    "BoxscoreResponse1TypedDict",
-    "BoxscoreSchedule",
-    "BoxscoreScheduleTypedDict",
-    "BoxscoreScore",
-    "BoxscoreScoreTypedDict",
-    "BoxscoreSite",
-    "BoxscoreSiteRoofType",
-    "BoxscoreSiteTypedDict",
-    "BoxscoreTeam",
-    "BoxscoreTeamTypedDict",
-    "BroadcastInfo",
-    "BroadcastInfoTypedDict",
-    "CameraSource",
-    "CareerStats",
-    "CareerStatsTypedDict",
-    "Clinched",
-    "ClinchedTypedDict",
-    "CoachesFilmResponse",
-    "CoachesFilmResponseTypedDict",
-    "CoachesFilmVideo",
-    "CoachesFilmVideoType",
-    "CoachesFilmVideoTypedDict",
-    "Conference",
-    "ConferenceEnum",
-    "ConferenceTypedDict",
-    "Content",
-    "ContentTypedDict",
-    "ContractInfo",
-    "ContractInfoTypedDict",
-    "Cta",
-    "CtaTypedDict",
-    "CurrentGame",
-    "CurrentGameCategory",
-    "CurrentGameExtension",
-    "CurrentGameExtensionTypedDict",
-    "CurrentGameTypedDict",
-    "CurrentGamesResponse",
-    "CurrentGamesResponseTypedDict",
-    "DefCoverageType",
-    "DefendersInTheBoxType",
-    "DefensiveOverviewStatsResponse",
-    "DefensiveOverviewStatsResponseTypedDict",
-    "DefensivePassRushStats",
-    "DefensivePassRushStatsNgsPosition",
-    "DefensivePassRushStatsPosition",
-    "DefensivePassRushStatsTypedDict",
-    "DefensivePlayerOverviewStats",
-    "DefensivePlayerOverviewStatsNgsPosition",
-    "DefensivePlayerOverviewStatsPosition",
-    "DefensivePlayerOverviewStatsTypedDict",
-    "DefensivePlayerStats",
-    "DefensivePlayerStatsNgsPosition",
-    "DefensivePlayerStatsPosition",
-    "DefensivePlayerStatsTypedDict",
-    "DefensivePositionGroupEnum",
-    "DefensiveStats",
-    "DefensiveStatsResponse",
-    "DefensiveStatsResponseTypedDict",
-    "DefensiveStatsTypedDict",
-    "Division",
-    "DivisionTypedDict",
-    "DraftPick",
-    "DraftPickTypedDict",
-    "DraftResponse",
-    "DraftResponseTypedDict",
-    "Drive",
-    "DriveChart",
-    "DriveChartTypedDict",
-    "DriveTypedDict",
-    "DropbackTimeType",
-    "ExperienceGamesResponse",
-    "ExperienceGamesResponseTypedDict",
-    "ExperienceTeamsResponse",
-    "ExperienceTeamsResponseTypedDict",
-    "ExternalID",
-    "ExternalIDTypedDict",
-    "FantasyPlayerStats",
-    "FantasyPlayerStatsPosition",
-    "FantasyPlayerStatsTypedDict",
-    "FantasyStatsResponse",
-    "FantasyStatsResponseTypedDict",
-    "FilmCard",
-    "FilmCardTypedDict",
-    "FilmroomPlay",
-    "FilmroomPlayTypedDict",
-    "FilmroomPlaysResponse",
-    "FilmroomPlaysResponseTypedDict",
-    "Fixture",
-    "FixtureTypedDict",
-    "FootballGamesResponse",
-    "FootballGamesResponseTypedDict",
-    "FuturesMarket",
-    "FuturesMarketTypedDict",
-    "FuturesOddsResponse",
-    "FuturesOddsResponseData",
-    "FuturesOddsResponseDataTypedDict",
-    "FuturesOddsResponseTypedDict",
-    "Game",
-    "GameCategory",
-    "GameDetail",
-    "GameDetailTypedDict",
-    "GameExtension",
-    "GameExtensionTypedDict",
-    "GameID",
-    "GameIDTypedDict",
-    "GameInsight",
-    "GameInsightTypedDict",
-    "GameOdds",
-    "GameOddsTypedDict",
-    "GamePreviewResponse",
-    "GamePreviewResponseTypedDict",
-    "GameResultEnum",
-    "GameSchedule",
-    "GameScheduleTypedDict",
-    "GameScore",
-    "GameScoreTypedDict",
-    "GameSite",
-    "GameSiteRoofType",
-    "GameSiteTypedDict",
-    "GameStatsResponse",
-    "GameStatsResponseData",
-    "GameStatsResponseDataTypedDict",
-    "GameStatsResponseTypedDict",
-    "GameStatus",
-    "GameStatusEnum",
-    "GameTeam",
-    "GameTeamTypedDict",
-    "GameTypedDict",
-    "GamecenterResponse",
-    "GamecenterResponseTypedDict",
-    "GamecenterSchedule",
-    "GamecenterScheduleTypedDict",
-    "GamesResponse",
-    "GamesResponseTypedDict",
-    "GetCoachesFilmVideosRequest",
-    "GetCoachesFilmVideosRequestTypedDict",
-    "GetDefensiveOverviewStatsBySeasonRequest",
-    "GetDefensiveOverviewStatsBySeasonRequestTypedDict",
-    "GetDefensiveOverviewStatsBySeasonSortKey",
-    "GetDefensivePassRushStatsBySeasonRequest",
-    "GetDefensivePassRushStatsBySeasonRequestTypedDict",
-    "GetDefensivePassRushStatsBySeasonSortKey",
-    "GetDefensiveStatsBySeasonRequest",
-    "GetDefensiveStatsBySeasonRequestTypedDict",
-    "GetDefensiveStatsBySeasonSortKey",
-    "GetDraftInfoRequest",
-    "GetDraftInfoRequestTypedDict",
-    "GetExperienceGamesRequest",
-    "GetExperienceGamesRequestTypedDict",
-    "GetExperienceTeamsRequest",
-    "GetExperienceTeamsRequestTypedDict",
-    "GetFantasyStatsBySeasonPositionGroup",
-    "GetFantasyStatsBySeasonRequest",
-    "GetFantasyStatsBySeasonRequestTypedDict",
-    "GetFantasyStatsBySeasonSortKey",
-    "GetFilmroomPlaysRequest",
-    "GetFilmroomPlaysRequestTypedDict",
-    "GetFootballBoxScoreRequest",
-    "GetFootballBoxScoreRequestTypedDict",
-    "GetFootballGamesRequest",
-    "GetFootballGamesRequestTypedDict",
-    "GetGameInsightsRequest",
-    "GetGameInsightsRequestTypedDict",
-    "GetGameMatchupRankingsRequest",
-    "GetGameMatchupRankingsRequestTypedDict",
-    "GetGamePreviewRequest",
-    "GetGamePreviewRequestTypedDict",
-    "GetGameTeamRankingsRequest",
-    "GetGameTeamRankingsRequestTypedDict",
-    "GetGamecenterRequest",
-    "GetGamecenterRequestTypedDict",
-    "GetInjuryReportsRequest",
-    "GetInjuryReportsRequestTypedDict",
-    "GetLiveGameScoresRequest",
-    "GetLiveGameScoresRequestTypedDict",
-    "GetLiveGameStatsRequest",
-    "GetLiveGameStatsRequestTypedDict",
-    "GetMultipleRankingsAllTeamsRequest",
-    "GetMultipleRankingsAllTeamsRequestTypedDict",
-    "GetPlayByPlayRequest",
-    "GetPlayByPlayRequestTypedDict",
-    "GetPlayerDetailsRequest",
-    "GetPlayerDetailsRequestTypedDict",
-    "GetPlayerPassingStatsBySeasonRequest",
-    "GetPlayerPassingStatsBySeasonRequestTypedDict",
-    "GetPlayerPassingStatsByWeekRequest",
-    "GetPlayerPassingStatsByWeekRequestTypedDict",
-    "GetPlayerReceivingStatsBySeasonRequest",
-    "GetPlayerReceivingStatsBySeasonRequestTypedDict",
-    "GetPlayerReceivingStatsByWeekRequest",
-    "GetPlayerReceivingStatsByWeekRequestTypedDict",
-    "GetPlayerRequest",
-    "GetPlayerRequestTypedDict",
-    "GetPlayerRushingStatsBySeasonRequest",
-    "GetPlayerRushingStatsBySeasonRequestTypedDict",
-    "GetPlayerRushingStatsBySeasonSortKey",
-    "GetPlayerRushingStatsByWeekRequest",
-    "GetPlayerRushingStatsByWeekRequestTypedDict",
-    "GetPlayerRushingStatsByWeekSortKey",
-    "GetPlayersTeamRosterRequest",
-    "GetPlayersTeamRosterRequestTypedDict",
-    "GetPlaysWinProbabilityRequest",
-    "GetPlaysWinProbabilityRequestTypedDict",
-    "GetPlaysWinProbabilityResponse",
-    "GetPlaysWinProbabilityResponseTypedDict",
-    "GetProjectedStatsRequest",
-    "GetProjectedStatsRequestTypedDict",
-    "GetScheduleSeasonWeeksRequest",
-    "GetScheduleSeasonWeeksRequestTypedDict",
-    "GetScheduledGameRequest",
-    "GetScheduledGameRequestTypedDict",
-    "GetScheduledGamesRequest",
-    "GetScheduledGamesRequestTypedDict",
-    "GetSeasonContentInsightsRequest",
-    "GetSeasonContentInsightsRequestTypedDict",
-    "GetSeasonPlayerStatsPosition",
-    "GetSeasonPlayerStatsRequest",
-    "GetSeasonPlayerStatsRequestTypedDict",
-    "GetSeasonWeeksRequest",
-    "GetSeasonWeeksRequestTypedDict",
-    "GetStandingsRequest",
-    "GetStandingsRequestTypedDict",
-    "GetStatsBoxscoreRequest",
-    "GetStatsBoxscoreRequestTypedDict",
-    "GetSummaryPlayRequest",
-    "GetSummaryPlayRequestTypedDict",
-    "GetTeamDefensePassStatsBySeasonRequest",
-    "GetTeamDefensePassStatsBySeasonRequestTypedDict",
-    "GetTeamDefensePassStatsBySeasonSortKey",
-    "GetTeamDefenseRushStatsBySeasonRequest",
-    "GetTeamDefenseRushStatsBySeasonRequestTypedDict",
-    "GetTeamDefenseRushStatsBySeasonSortKey",
-    "GetTeamDefenseStatsBySeasonRequest",
-    "GetTeamDefenseStatsBySeasonRequestTypedDict",
-    "GetTeamDefenseStatsBySeasonSortKey",
-    "GetTeamDefenseStatsBySeasonSplit",
-    "GetTeamInjuriesRequest",
-    "GetTeamInjuriesRequestTypedDict",
-    "GetTeamOffenseOverviewStatsBySeasonRequest",
-    "GetTeamOffenseOverviewStatsBySeasonRequestTypedDict",
-    "GetTeamOffenseOverviewStatsBySeasonSortKey",
-    "GetTeamOffenseOverviewStatsBySeasonSplit",
-    "GetTeamOffensePassStatsBySeasonRequest",
-    "GetTeamOffensePassStatsBySeasonRequestTypedDict",
-    "GetTeamOffensePassStatsBySeasonSortKey",
-    "GetTeamRosterRequest",
-    "GetTeamRosterRequestTypedDict",
-    "GetTeamScheduleRequest",
-    "GetTeamScheduleRequestTypedDict",
-    "GetTeamStandingsRequest",
-    "GetTeamStandingsRequestTypedDict",
-    "GetTransactionsRequest",
-    "GetTransactionsRequestTypedDict",
-    "GetTransactionsTransactionType",
-    "GetVenuesRequest",
-    "GetVenuesRequestTypedDict",
-    "GetWeeklyBettingOddsRequest",
-    "GetWeeklyBettingOddsRequestTypedDict",
-    "GetWeeklyGameDetailsRequest",
-    "GetWeeklyGameDetailsRequestTypedDict",
-    "GetWeeklyTeamRosterRequest",
-    "GetWeeklyTeamRosterRequestTypedDict",
-    "GetWinProbabilityMinRequest",
-    "GetWinProbabilityMinRequestTypedDict",
-    "Home",
-    "HomeFilmCardsResponse",
-    "HomeFilmCardsResponseTypedDict",
-    "HomeTeam",
-    "HomeTeamTypedDict",
-    "HomeTypedDict",
-    "Image",
-    "ImageTypedDict",
-    "Included",
-    "IncludedTypedDict",
-    "InjuryEntry",
-    "InjuryEntryGameStatus",
-    "InjuryEntryTypedDict",
-    "InjuryReportResponse",
-    "InjuryReportResponseTypedDict",
-    "Insight",
-    "InsightPosition",
-    "InsightTypedDict",
-    "InternationalWatchOption",
-    "InternationalWatchOptionTypedDict",
-    "KickingStats",
-    "KickingStatsTypedDict",
-    "Leaders",
-    "LeadersTypedDict",
-    "LeagueAverageReceiverSeparation",
-    "LeagueAverageReceiverSeparationTypedDict",
-    "LeagueAverageSeparationToQb",
-    "LeagueAverageSeparationToQbTypedDict",
-    "LinkParams",
-    "LinkParamsTypedDict",
-    "LiveGame",
-    "LiveGameStatus",
-    "LiveGameTypedDict",
-    "LiveScoresResponse",
-    "LiveScoresResponseTypedDict",
-    "MatchupRankingsResponse",
-    "MatchupRankingsResponseTypedDict",
-    "MeridiemEnum",
-    "Meta",
-    "MetaTypedDict",
-    "MoneyLine",
-    "MoneyLineTypedDict",
-    "MultipleRankingsCategory",
-    "MultipleRankingsCategoryPagination",
-    "MultipleRankingsCategoryPaginationTypedDict",
-    "MultipleRankingsCategoryTypedDict",
-    "NFLPLUSPLUSNFLPLUSCOACHESFILM",
-    "NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict",
-    "NFLPLUSPremiumNFLPLUSCOACHESFILM",
-    "NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict",
-    "NflPlusPlus",
-    "NflPlusPlusRequirements",
-    "NflPlusPlusRequirementsTypedDict",
-    "NflPlusPlusTypedDict",
-    "NflPlusPremium",
-    "NflPlusPremiumRequirements",
-    "NflPlusPremiumRequirementsTypedDict",
-    "NflPlusPremiumTypedDict",
-    "OddsSelection",
-    "OddsSelectionTypedDict",
-    "OffensivePlayerPositionEnum",
-    "OffensiveSkillPositionEnum",
-    "OverallRecord",
-    "OverallRecordPoints",
-    "OverallRecordPointsTypedDict",
-    "OverallRecordType",
-    "OverallRecordTypedDict",
-    "Page",
-    "PageTypedDict",
-    "Pagination",
-    "PaginationTypedDict",
-    "PassDistanceLeaders",
-    "PassDistanceLeadersTypedDict",
-    "PassRushStatsResponse",
-    "PassRushStatsResponseTypedDict",
-    "PassRushers",
-    "PassRushersTypedDict",
-    "PasserStats",
-    "PasserStatsTypedDict",
-    "Passers",
-    "PassersTypedDict",
-    "PassingStats",
-    "PassingStatsCategoryEnum",
-    "PassingStatsResponse",
-    "PassingStatsResponseTypedDict",
-    "PassingStatsTypedDict",
-    "Penalty",
-    "PenaltyTypedDict",
-    "Personnel",
-    "Phase",
-    "Play",
-    "PlayByPlayResponse",
-    "PlayByPlayResponseTypedDict",
-    "PlayDetail",
-    "PlayDetailTypedDict",
-    "PlayDirection",
-    "PlayParticipant",
-    "PlayParticipantStats",
-    "PlayParticipantStatsTypedDict",
-    "PlayParticipantTypedDict",
-    "PlayPlayer",
-    "PlayPlayerTypedDict",
-    "PlayStat",
-    "PlayStatTypedDict",
-    "PlayState",
-    "PlaySummaryResponse",
-    "PlaySummaryResponseTypedDict",
-    "PlayType",
-    "PlayTypeEnum",
-    "PlayTypedDict",
-    "PlayWinProbability",
-    "PlayWinProbabilityTypedDict",
-    "Player",
-    "PlayerDetail",
-    "PlayerDetailTypedDict",
-    "PlayerGameStats",
-    "PlayerGameStatsTypedDict",
-    "PlayerPassingStats",
-    "PlayerPassingStatsTypedDict",
-    "PlayerProjection",
-    "PlayerProjectionTypedDict",
-    "PlayerReceivingStats",
-    "PlayerReceivingStatsTypedDict",
-    "PlayerRushingStats",
-    "PlayerRushingStatsTypedDict",
-    "PlayerSearchResponse",
-    "PlayerSearchResponseTypedDict",
-    "PlayerSearchResult",
-    "PlayerSearchResultTypedDict",
-    "PlayerStats",
-    "PlayerStatsResponse",
-    "PlayerStatsResponsePagination",
-    "PlayerStatsResponsePaginationTypedDict",
-    "PlayerStatsResponsePlayer",
-    "PlayerStatsResponsePlayerTypedDict",
-    "PlayerStatsResponseStats",
-    "PlayerStatsResponseStatsTypedDict",
-    "PlayerStatsResponseTypedDict",
-    "PlayerStatsTypedDict",
-    "PlayerTypedDict",
-    "PlayerWeekProjectedPoints",
-    "PlayerWeekProjectedPointsAttributes",
-    "PlayerWeekProjectedPointsAttributesTypedDict",
-    "PlayerWeekProjectedPointsType",
-    "PlayerWeekProjectedPointsTypedDict",
-    "PlayerWeekProjectedStats",
-    "PlayerWeekProjectedStatsAttributes",
-    "PlayerWeekProjectedStatsAttributesTypedDict",
-    "PlayerWeekProjectedStatsType",
-    "PlayerWeekProjectedStatsTypedDict",
-    "PointSpread",
-    "PointSpreadTypedDict",
-    "PointsRecord",
-    "PointsRecordPoints",
-    "PointsRecordPointsTypedDict",
-    "PointsRecordTypedDict",
-    "PositionGroup",
-    "PracticeStatus",
-    "PracticeStatusEnum",
-    "PracticeStatusTypedDict",
-    "Preview",
-    "PreviewTypedDict",
-    "ProGame",
-    "ProGameCategory",
-    "ProGameExtension",
-    "ProGameExtensionTypedDict",
-    "ProGameStatus",
-    "ProGameTypedDict",
-    "ProPremium",
-    "ProPremiumNFLPLUSCOACHESFILM",
-    "ProPremiumNFLPLUSCOACHESFILMTypedDict",
-    "ProPremiumRequirements",
-    "ProPremiumRequirementsTypedDict",
-    "ProPremiumTypedDict",
-    "ProTeam",
-    "ProTeamConferenceAbbr",
-    "ProTeamTeamType",
-    "ProTeamTypedDict",
-    "ProWeek",
-    "ProWeekTypedDict",
-    "ProWeekWeekType",
-    "ProjectedStatsResponse",
-    "ProjectedStatsResponsePagination",
-    "ProjectedStatsResponsePaginationTypedDict",
-    "ProjectedStatsResponseTypedDict",
-    "PromoAsset",
-    "PromoAssetTypedDict",
-    "QbAlignment",
-    "ReceiverAlignment",
-    "Receivers",
-    "ReceiversTypedDict",
-    "ReceivingStats",
-    "ReceivingStatsCategoryEnum",
-    "ReceivingStatsResponse",
-    "ReceivingStatsResponseTypedDict",
-    "ReceivingStatsTypedDict",
-    "Record",
-    "RecordTypedDict",
-    "RefreshTokenRequest",
-    "RefreshTokenRequestNetworkType",
-    "RefreshTokenRequestTypedDict",
-    "Relationships",
-    "RelationshipsTypePlayerWeekProjectedPoints",
-    "RelationshipsTypePlayerWeekProjectedStats",
-    "RelationshipsTypedDict",
-    "Replay",
-    "ReplayTypedDict",
-    "ResponseMetadata",
-    "ResponseMetadataTypedDict",
-    "Result",
-    "Role",
-    "Roster",
-    "RosterResponse",
-    "RosterResponseTypedDict",
-    "RosterTypedDict",
-    "Round",
-    "RoundTypedDict",
-    "RushDirection",
-    "Rushers",
-    "RushersTypedDict",
-    "RushingStats",
-    "RushingStatsResponse",
-    "RushingStatsResponseTypedDict",
-    "RushingStatsTypedDict",
-    "ScheduleTeam",
-    "ScheduleTeamTypedDict",
-    "ScheduledGame",
-    "ScheduledGameTypedDict",
-    "Score",
-    "ScoreType",
-    "ScoreTypedDict",
-    "ScoringPlay",
-    "ScoringPlayTypedDict",
-    "SearchPlayersRequest",
-    "SearchPlayersRequestTypedDict",
-    "SeasonStats",
-    "SeasonStatsTypedDict",
-    "SeasonTypeEnum",
-    "SeasonWeeksResponse",
-    "SeasonWeeksResponseTypedDict",
-    "SecondTeamType",
-    "Security",
-    "SecurityTypedDict",
-    "SeparationType",
-    "Site",
-    "SiteRoofType",
-    "SiteTypedDict",
-    "SocialMedia",
-    "SocialMediaTypedDict",
-    "SortOrderEnum",
-    "SpeedLeaders",
-    "SpeedLeadersTypedDict",
-    "Standings",
-    "StandingsRecord",
-    "StandingsRecordPoints",
-    "StandingsRecordPointsTypedDict",
-    "StandingsRecordTypedDict",
-    "StandingsResponse",
-    "StandingsResponseTypedDict",
-    "StandingsResponseWeek",
-    "StandingsResponseWeekTypedDict",
-    "StandingsTeam",
-    "StandingsTeamTypedDict",
-    "StandingsTypedDict",
-    "StatCategory",
-    "Statistic",
-    "StatisticRanking",
-    "StatisticRankingTypedDict",
-    "StatisticTypedDict",
-    "Streak",
-    "StreakTypedDict",
-    "StreamingNetwork",
-    "StreamingNetworkTypedDict",
-    "SubType",
-    "Summary",
-    "SummaryTypedDict",
-    "Tag",
-    "TaggedVideos",
-    "TaggedVideosTypedDict",
-    "TargetLocation",
-    "Team",
-    "TeamBoxscore",
-    "TeamBoxscoreTypedDict",
-    "TeamConferenceAbbr",
-    "TeamDefensePassStats",
-    "TeamDefensePassStatsResponse",
-    "TeamDefensePassStatsResponseTypedDict",
-    "TeamDefensePassStatsTypedDict",
-    "TeamDefenseRushStats",
-    "TeamDefenseRushStatsResponse",
-    "TeamDefenseRushStatsResponseTypedDict",
-    "TeamDefenseRushStatsTypedDict",
-    "TeamDefenseStats",
-    "TeamDefenseStatsResponse",
-    "TeamDefenseStatsResponseTypedDict",
-    "TeamDefenseStatsTypedDict",
-    "TeamGameStats",
-    "TeamGameStatsTypedDict",
-    "TeamInfo",
-    "TeamInfoTypedDict",
-    "TeamInjuryReport",
-    "TeamInjuryReportTypedDict",
-    "TeamMatchupRankings",
-    "TeamMatchupRankingsTypedDict",
-    "TeamOffenseOverviewStats",
-    "TeamOffenseOverviewStatsResponse",
-    "TeamOffenseOverviewStatsResponseTypedDict",
-    "TeamOffenseOverviewStatsTypedDict",
-    "TeamOffensePassStats",
-    "TeamOffensePassStatsResponse",
-    "TeamOffensePassStatsResponseTypedDict",
-    "TeamOffensePassStatsTypedDict",
-    "TeamRankingEntry",
-    "TeamRankingEntryTypedDict",
-    "TeamRankings",
-    "TeamRankingsResponse",
-    "TeamRankingsResponseTypedDict",
-    "TeamRankingsTypedDict",
-    "TeamRosterResponse",
-    "TeamRosterResponseTypedDict",
-    "TeamScore",
-    "TeamScoreTypedDict",
-    "TeamStats",
-    "TeamStatsTypedDict",
-    "TeamTeamType",
-    "TeamTypeEnum",
-    "TeamTypedDict",
-    "TeamVenue",
-    "TeamVenueTypedDict",
-    "Territory",
-    "TicketVendor",
-    "TicketVendorTypedDict",
-    "TimeToSackLeaders",
-    "TimeToSackLeadersTypedDict",
-    "TokenRequest",
-    "TokenRequestNetworkType",
-    "TokenRequestTypedDict",
-    "TokenResponse",
-    "TokenResponseTypedDict",
-    "Totals",
-    "TotalsTypedDict",
-    "Transaction",
-    "TransactionType",
-    "TransactionTypedDict",
-    "TransactionsResponse",
-    "TransactionsResponseTypedDict",
-    "TypePlayer",
-    "Venue",
-    "VenueInfo",
-    "VenueInfoRoofType",
-    "VenueInfoTypedDict",
-    "VenueTypedDict",
-    "VenuesResponse",
-    "VenuesResponseTypedDict",
-    "Video",
-    "VideoAuthorizations",
-    "VideoAuthorizationsTypedDict",
-    "VideoGamePlayIds",
-    "VideoGamePlayIdsTypedDict",
-    "VideoTag",
-    "VideoTagTypedDict",
-    "VideoThumbnail",
-    "VideoThumbnailTypedDict",
-    "VideoTypedDict",
-    "Week",
-    "WeekPoint",
-    "WeekPointTypedDict",
-    "WeekSlugEnum",
-    "WeekStat",
-    "WeekStatTypedDict",
-    "WeekTypedDict",
-    "WeekWeekType",
-    "WeeklyGameDetail",
-    "WeeklyGameDetailCategory",
-    "WeeklyGameDetailExtension",
-    "WeeklyGameDetailExtensionTypedDict",
-    "WeeklyGameDetailStatus",
-    "WeeklyGameDetailTypedDict",
-    "WeeklyOddsResponse",
-    "WeeklyOddsResponseTypedDict",
-    "WeeklyPassingStatsResponse",
-    "WeeklyPassingStatsResponseTypedDict",
-    "WeeklyPlayer",
-    "WeeklyPlayerPassingStats",
-    "WeeklyPlayerPassingStatsTypedDict",
-    "WeeklyPlayerRushingStats",
-    "WeeklyPlayerRushingStatsTypedDict",
-    "WeeklyPlayerTypedDict",
-    "WeeklyRosterResponse",
-    "WeeklyRosterResponseTypedDict",
-    "WeeklyRushingStatsResponse",
-    "WeeklyRushingStatsResponseTypedDict",
-    "WeeksResponse",
-    "WeeksResponseTypedDict",
-    "WinProbabilityResponse",
-    "WinProbabilityResponseTypedDict",
-    "YardsToGoType",
-    "Zone",
-    "ZoneTypedDict",
-]
+Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights.
 
-_dynamic_imports: dict[str, str] = {
-    "Award": ".award",
-    "AwardType": ".award",
-    "AwardTypedDict": ".award",
-    "BinaryFlagEnum": ".binaryflagenum",
-    "BoxscoreResponse1": ".boxscoreresponse_1",
-    "BoxscoreResponse1TypedDict": ".boxscoreresponse_1",
-    "Away": ".boxscoreresponse_2",
-    "AwayTypedDict": ".boxscoreresponse_2",
-    "BoxScoreResponse2": ".boxscoreresponse_2",
-    "BoxScoreResponse2TypedDict": ".boxscoreresponse_2",
-    "Home": ".boxscoreresponse_2",
-    "HomeTypedDict": ".boxscoreresponse_2",
-    "PlayerStats": ".boxscoreresponse_2",
-    "PlayerStatsTypedDict": ".boxscoreresponse_2",
-    "TeamStats": ".boxscoreresponse_2",
-    "TeamStatsTypedDict": ".boxscoreresponse_2",
-    "BoxscoreSchedule": ".boxscoreschedule",
-    "BoxscoreScheduleTypedDict": ".boxscoreschedule",
-    "BoxscoreScore": ".boxscorescore",
-    "BoxscoreScoreTypedDict": ".boxscorescore",
-    "BoxscoreSite": ".boxscoresite",
-    "BoxscoreSiteRoofType": ".boxscoresite",
-    "BoxscoreSiteTypedDict": ".boxscoresite",
-    "BoxscoreTeam": ".boxscoreteam",
-    "BoxscoreTeamTypedDict": ".boxscoreteam",
-    "BroadcastInfo": ".broadcastinfo",
-    "BroadcastInfoTypedDict": ".broadcastinfo",
-    "InternationalWatchOption": ".broadcastinfo",
-    "InternationalWatchOptionTypedDict": ".broadcastinfo",
-    "StreamingNetwork": ".broadcastinfo",
-    "StreamingNetworkTypedDict": ".broadcastinfo",
-    "Territory": ".broadcastinfo",
-    "CareerStats": ".careerstats",
-    "CareerStatsTypedDict": ".careerstats",
-    "Clinched": ".clinched",
-    "ClinchedTypedDict": ".clinched",
-    "CoachesFilmResponse": ".coachesfilmresponse",
-    "CoachesFilmResponseTypedDict": ".coachesfilmresponse",
-    "Background": ".coachesfilmvideo",
-    "BackgroundTypedDict": ".coachesfilmvideo",
-    "CameraSource": ".coachesfilmvideo",
-    "CoachesFilmVideo": ".coachesfilmvideo",
-    "CoachesFilmVideoType": ".coachesfilmvideo",
-    "CoachesFilmVideoTypedDict": ".coachesfilmvideo",
-    "Cta": ".coachesfilmvideo",
-    "CtaTypedDict": ".coachesfilmvideo",
-    "Image": ".coachesfilmvideo",
-    "ImageTypedDict": ".coachesfilmvideo",
-    "PromoAsset": ".coachesfilmvideo",
-    "PromoAssetTypedDict": ".coachesfilmvideo",
-    "SubType": ".coachesfilmvideo",
-    "Video": ".coachesfilmvideo",
-    "VideoTypedDict": ".coachesfilmvideo",
-    "Conference": ".conference",
-    "ConferenceTypedDict": ".conference",
-    "ConferenceEnum": ".conferenceenum",
-    "ContractInfo": ".contractinfo",
-    "ContractInfoTypedDict": ".contractinfo",
-    "CurrentGame": ".currentgame",
-    "CurrentGameCategory": ".currentgame",
-    "CurrentGameExtension": ".currentgame",
-    "CurrentGameExtensionTypedDict": ".currentgame",
-    "CurrentGameTypedDict": ".currentgame",
-    "CurrentGamesResponse": ".currentgamesresponse",
-    "CurrentGamesResponseTypedDict": ".currentgamesresponse",
-    "DefensiveOverviewStatsResponse": ".defensiveoverviewstatsresponse",
-    "DefensiveOverviewStatsResponseTypedDict": ".defensiveoverviewstatsresponse",
-    "DefensivePassRushStats": ".defensivepassrushstats",
-    "DefensivePassRushStatsNgsPosition": ".defensivepassrushstats",
-    "DefensivePassRushStatsPosition": ".defensivepassrushstats",
-    "DefensivePassRushStatsTypedDict": ".defensivepassrushstats",
-    "DefensivePlayerOverviewStats": ".defensiveplayeroverviewstats",
-    "DefensivePlayerOverviewStatsNgsPosition": ".defensiveplayeroverviewstats",
-    "DefensivePlayerOverviewStatsPosition": ".defensiveplayeroverviewstats",
-    "DefensivePlayerOverviewStatsTypedDict": ".defensiveplayeroverviewstats",
-    "DefensivePlayerStats": ".defensiveplayerstats",
-    "DefensivePlayerStatsNgsPosition": ".defensiveplayerstats",
-    "DefensivePlayerStatsPosition": ".defensiveplayerstats",
-    "DefensivePlayerStatsTypedDict": ".defensiveplayerstats",
-    "DefensivePositionGroupEnum": ".defensivepositiongroupenum",
-    "DefensiveStats": ".defensivestats",
-    "DefensiveStatsTypedDict": ".defensivestats",
-    "DefensiveStatsResponse": ".defensivestatsresponse",
-    "DefensiveStatsResponseTypedDict": ".defensivestatsresponse",
-    "Division": ".division",
-    "DivisionTypedDict": ".division",
-    "DraftPick": ".draftpick",
-    "DraftPickTypedDict": ".draftpick",
-    "DraftResponse": ".draftresponse",
-    "DraftResponseTypedDict": ".draftresponse",
-    "Round": ".draftresponse",
-    "RoundTypedDict": ".draftresponse",
-    "Drive": ".drive",
-    "DriveTypedDict": ".drive",
-    "Result": ".drive",
-    "ExperienceGamesResponse": ".experiencegamesresponse",
-    "ExperienceGamesResponseTypedDict": ".experiencegamesresponse",
-    "ExperienceTeamsResponse": ".experienceteamsresponse",
-    "ExperienceTeamsResponseTypedDict": ".experienceteamsresponse",
-    "ExternalID": ".externalid",
-    "ExternalIDTypedDict": ".externalid",
-    "FantasyPlayerStats": ".fantasyplayerstats",
-    "FantasyPlayerStatsPosition": ".fantasyplayerstats",
-    "FantasyPlayerStatsTypedDict": ".fantasyplayerstats",
-    "PositionGroup": ".fantasyplayerstats",
-    "FantasyStatsResponse": ".fantasystatsresponse",
-    "FantasyStatsResponseTypedDict": ".fantasystatsresponse",
-    "FilmCard": ".filmcard",
-    "FilmCardTypedDict": ".filmcard",
-    "LinkParams": ".filmcard",
-    "LinkParamsTypedDict": ".filmcard",
-    "FilmroomPlay": ".filmroomplay",
-    "FilmroomPlayTypedDict": ".filmroomplay",
-    "FilmroomPlaysResponse": ".filmroomplaysresponse",
-    "FilmroomPlaysResponseTypedDict": ".filmroomplaysresponse",
-    "FootballGamesResponse": ".footballgamesresponse",
-    "FootballGamesResponseTypedDict": ".footballgamesresponse",
-    "Fixture": ".futuresmarket",
-    "FixtureTypedDict": ".futuresmarket",
-    "FuturesMarket": ".futuresmarket",
-    "FuturesMarketTypedDict": ".futuresmarket",
-    "FuturesOddsResponse": ".futuresoddsresponse",
-    "FuturesOddsResponseData": ".futuresoddsresponse",
-    "FuturesOddsResponseDataTypedDict": ".futuresoddsresponse",
-    "FuturesOddsResponseTypedDict": ".futuresoddsresponse",
-    "Game": ".game",
-    "GameCategory": ".game",
-    "GameExtension": ".game",
-    "GameExtensionTypedDict": ".game",
-    "GameStatus": ".game",
-    "GameTypedDict": ".game",
-    "GamecenterResponse": ".gamecenterresponse",
-    "GamecenterResponseTypedDict": ".gamecenterresponse",
-    "Leaders": ".gamecenterresponse",
-    "LeadersTypedDict": ".gamecenterresponse",
-    "LeagueAverageReceiverSeparation": ".gamecenterresponse",
-    "LeagueAverageReceiverSeparationTypedDict": ".gamecenterresponse",
-    "LeagueAverageSeparationToQb": ".gamecenterresponse",
-    "LeagueAverageSeparationToQbTypedDict": ".gamecenterresponse",
-    "PassDistanceLeaders": ".gamecenterresponse",
-    "PassDistanceLeadersTypedDict": ".gamecenterresponse",
-    "PassRushers": ".gamecenterresponse",
-    "PassRushersTypedDict": ".gamecenterresponse",
-    "Passers": ".gamecenterresponse",
-    "PassersTypedDict": ".gamecenterresponse",
-    "Receivers": ".gamecenterresponse",
-    "ReceiversTypedDict": ".gamecenterresponse",
-    "Rushers": ".gamecenterresponse",
-    "RushersTypedDict": ".gamecenterresponse",
-    "SpeedLeaders": ".gamecenterresponse",
-    "SpeedLeadersTypedDict": ".gamecenterresponse",
-    "TimeToSackLeaders": ".gamecenterresponse",
-    "TimeToSackLeadersTypedDict": ".gamecenterresponse",
-    "GamecenterSchedule": ".gamecenterschedule",
-    "GamecenterScheduleTypedDict": ".gamecenterschedule",
-    "GameDetail": ".gamedetail",
-    "GameDetailTypedDict": ".gamedetail",
-    "Content": ".gameinsight",
-    "ContentTypedDict": ".gameinsight",
-    "GameInsight": ".gameinsight",
-    "GameInsightTypedDict": ".gameinsight",
-    "GameOdds": ".gameodds",
-    "GameOddsTypedDict": ".gameodds",
-    "GamePreviewResponse": ".gamepreviewresponse",
-    "GamePreviewResponseTypedDict": ".gamepreviewresponse",
-    "Preview": ".gamepreviewresponse",
-    "PreviewTypedDict": ".gamepreviewresponse",
-    "GameResultEnum": ".gameresultenum",
-    "GameSchedule": ".gameschedule",
-    "GameScheduleTypedDict": ".gameschedule",
-    "GameScore": ".gamescore",
-    "GameScoreTypedDict": ".gamescore",
-    "Phase": ".gamescore",
-    "GameSite": ".gamesite",
-    "GameSiteRoofType": ".gamesite",
-    "GameSiteTypedDict": ".gamesite",
-    "GamesResponse": ".gamesresponse",
-    "GamesResponseTypedDict": ".gamesresponse",
-    "GameStatsResponse": ".gamestatsresponse",
-    "GameStatsResponseData": ".gamestatsresponse",
-    "GameStatsResponseDataTypedDict": ".gamestatsresponse",
-    "GameStatsResponseTypedDict": ".gamestatsresponse",
-    "GameStatusEnum": ".gamestatusenum",
-    "GameTeam": ".gameteam",
-    "GameTeamTypedDict": ".gameteam",
-    "Score": ".gameteam",
-    "ScoreTypedDict": ".gameteam",
-    "GetCoachesFilmVideosRequest": ".getcoachesfilmvideosop",
-    "GetCoachesFilmVideosRequestTypedDict": ".getcoachesfilmvideosop",
-    "GetDefensiveOverviewStatsBySeasonRequest": ".getdefensiveoverviewstatsbyseasonop",
-    "GetDefensiveOverviewStatsBySeasonRequestTypedDict": ".getdefensiveoverviewstatsbyseasonop",
-    "GetDefensiveOverviewStatsBySeasonSortKey": ".getdefensiveoverviewstatsbyseasonop",
-    "GetDefensivePassRushStatsBySeasonRequest": ".getdefensivepassrushstatsbyseasonop",
-    "GetDefensivePassRushStatsBySeasonRequestTypedDict": ".getdefensivepassrushstatsbyseasonop",
-    "GetDefensivePassRushStatsBySeasonSortKey": ".getdefensivepassrushstatsbyseasonop",
-    "GetDefensiveStatsBySeasonRequest": ".getdefensivestatsbyseasonop",
-    "GetDefensiveStatsBySeasonRequestTypedDict": ".getdefensivestatsbyseasonop",
-    "GetDefensiveStatsBySeasonSortKey": ".getdefensivestatsbyseasonop",
-    "GetDraftInfoRequest": ".getdraftinfoop",
-    "GetDraftInfoRequestTypedDict": ".getdraftinfoop",
-    "GetExperienceGamesRequest": ".getexperiencegamesop",
-    "GetExperienceGamesRequestTypedDict": ".getexperiencegamesop",
-    "GetExperienceTeamsRequest": ".getexperienceteamsop",
-    "GetExperienceTeamsRequestTypedDict": ".getexperienceteamsop",
-    "GetFantasyStatsBySeasonPositionGroup": ".getfantasystatsbyseasonop",
-    "GetFantasyStatsBySeasonRequest": ".getfantasystatsbyseasonop",
-    "GetFantasyStatsBySeasonRequestTypedDict": ".getfantasystatsbyseasonop",
-    "GetFantasyStatsBySeasonSortKey": ".getfantasystatsbyseasonop",
-    "AirYardType": ".getfilmroomplaysop",
-    "DefCoverageType": ".getfilmroomplaysop",
-    "DefendersInTheBoxType": ".getfilmroomplaysop",
-    "DropbackTimeType": ".getfilmroomplaysop",
-    "GetFilmroomPlaysRequest": ".getfilmroomplaysop",
-    "GetFilmroomPlaysRequestTypedDict": ".getfilmroomplaysop",
-    "Personnel": ".getfilmroomplaysop",
-    "QbAlignment": ".getfilmroomplaysop",
-    "ReceiverAlignment": ".getfilmroomplaysop",
-    "RushDirection": ".getfilmroomplaysop",
-    "SeparationType": ".getfilmroomplaysop",
-    "TargetLocation": ".getfilmroomplaysop",
-    "YardsToGoType": ".getfilmroomplaysop",
-    "GetFootballBoxScoreRequest": ".getfootballboxscoreop",
-    "GetFootballBoxScoreRequestTypedDict": ".getfootballboxscoreop",
-    "GetFootballGamesRequest": ".getfootballgamesop",
-    "GetFootballGamesRequestTypedDict": ".getfootballgamesop",
-    "GetGamecenterRequest": ".getgamecenterop",
-    "GetGamecenterRequestTypedDict": ".getgamecenterop",
-    "GetGameInsightsRequest": ".getgameinsightsop",
-    "GetGameInsightsRequestTypedDict": ".getgameinsightsop",
-    "GetGameMatchupRankingsRequest": ".getgamematchuprankingsop",
-    "GetGameMatchupRankingsRequestTypedDict": ".getgamematchuprankingsop",
-    "GetGamePreviewRequest": ".getgamepreviewop",
-    "GetGamePreviewRequestTypedDict": ".getgamepreviewop",
-    "GetGameTeamRankingsRequest": ".getgameteamrankingsop",
-    "GetGameTeamRankingsRequestTypedDict": ".getgameteamrankingsop",
-    "GetInjuryReportsRequest": ".getinjuryreportsop",
-    "GetInjuryReportsRequestTypedDict": ".getinjuryreportsop",
-    "GetLiveGameScoresRequest": ".getlivegamescoresop",
-    "GetLiveGameScoresRequestTypedDict": ".getlivegamescoresop",
-    "GetLiveGameStatsRequest": ".getlivegamestatsop",
-    "GetLiveGameStatsRequestTypedDict": ".getlivegamestatsop",
-    "GetMultipleRankingsAllTeamsRequest": ".getmultiplerankingsallteamsop",
-    "GetMultipleRankingsAllTeamsRequestTypedDict": ".getmultiplerankingsallteamsop",
-    "GetPlayByPlayRequest": ".getplaybyplayop",
-    "GetPlayByPlayRequestTypedDict": ".getplaybyplayop",
-    "GetPlayerDetailsRequest": ".getplayerdetailsop",
-    "GetPlayerDetailsRequestTypedDict": ".getplayerdetailsop",
-    "GetPlayerRequest": ".getplayerop",
-    "GetPlayerRequestTypedDict": ".getplayerop",
-    "GetPlayerPassingStatsBySeasonRequest": ".getplayerpassingstatsbyseasonop",
-    "GetPlayerPassingStatsBySeasonRequestTypedDict": ".getplayerpassingstatsbyseasonop",
-    "GetPlayerPassingStatsByWeekRequest": ".getplayerpassingstatsbyweekop",
-    "GetPlayerPassingStatsByWeekRequestTypedDict": ".getplayerpassingstatsbyweekop",
-    "GetPlayerReceivingStatsBySeasonRequest": ".getplayerreceivingstatsbyseasonop",
-    "GetPlayerReceivingStatsBySeasonRequestTypedDict": ".getplayerreceivingstatsbyseasonop",
-    "GetPlayerReceivingStatsByWeekRequest": ".getplayerreceivingstatsbyweekop",
-    "GetPlayerReceivingStatsByWeekRequestTypedDict": ".getplayerreceivingstatsbyweekop",
-    "GetPlayerRushingStatsBySeasonRequest": ".getplayerrushingstatsbyseasonop",
-    "GetPlayerRushingStatsBySeasonRequestTypedDict": ".getplayerrushingstatsbyseasonop",
-    "GetPlayerRushingStatsBySeasonSortKey": ".getplayerrushingstatsbyseasonop",
-    "GetPlayerRushingStatsByWeekRequest": ".getplayerrushingstatsbyweekop",
-    "GetPlayerRushingStatsByWeekRequestTypedDict": ".getplayerrushingstatsbyweekop",
-    "GetPlayerRushingStatsByWeekSortKey": ".getplayerrushingstatsbyweekop",
-    "GetPlayersTeamRosterRequest": ".getplayersteamrosterop",
-    "GetPlayersTeamRosterRequestTypedDict": ".getplayersteamrosterop",
-    "GameID": ".getplayswinprobabilityop",
-    "GameIDTypedDict": ".getplayswinprobabilityop",
-    "GetPlaysWinProbabilityRequest": ".getplayswinprobabilityop",
-    "GetPlaysWinProbabilityRequestTypedDict": ".getplayswinprobabilityop",
-    "GetPlaysWinProbabilityResponse": ".getplayswinprobabilityop",
-    "GetPlaysWinProbabilityResponseTypedDict": ".getplayswinprobabilityop",
-    "GetProjectedStatsRequest": ".getprojectedstatsop",
-    "GetProjectedStatsRequestTypedDict": ".getprojectedstatsop",
-    "GetScheduledGameRequest": ".getscheduledgameop",
-    "GetScheduledGameRequestTypedDict": ".getscheduledgameop",
-    "GetScheduledGamesRequest": ".getscheduledgamesop",
-    "GetScheduledGamesRequestTypedDict": ".getscheduledgamesop",
-    "GetScheduleSeasonWeeksRequest": ".getscheduleseasonweeksop",
-    "GetScheduleSeasonWeeksRequestTypedDict": ".getscheduleseasonweeksop",
-    "GetSeasonContentInsightsRequest": ".getseasoncontentinsightsop",
-    "GetSeasonContentInsightsRequestTypedDict": ".getseasoncontentinsightsop",
-    "Tag": ".getseasoncontentinsightsop",
-    "GetSeasonPlayerStatsPosition": ".getseasonplayerstatsop",
-    "GetSeasonPlayerStatsRequest": ".getseasonplayerstatsop",
-    "GetSeasonPlayerStatsRequestTypedDict": ".getseasonplayerstatsop",
-    "StatCategory": ".getseasonplayerstatsop",
-    "GetSeasonWeeksRequest": ".getseasonweeksop",
-    "GetSeasonWeeksRequestTypedDict": ".getseasonweeksop",
-    "GetStandingsRequest": ".getstandingsop",
-    "GetStandingsRequestTypedDict": ".getstandingsop",
-    "GetStatsBoxscoreRequest": ".getstatsboxscoreop",
-    "GetStatsBoxscoreRequestTypedDict": ".getstatsboxscoreop",
-    "GetSummaryPlayRequest": ".getsummaryplayop",
-    "GetSummaryPlayRequestTypedDict": ".getsummaryplayop",
-    "GetTeamDefensePassStatsBySeasonRequest": ".getteamdefensepassstatsbyseasonop",
-    "GetTeamDefensePassStatsBySeasonRequestTypedDict": ".getteamdefensepassstatsbyseasonop",
-    "GetTeamDefensePassStatsBySeasonSortKey": ".getteamdefensepassstatsbyseasonop",
-    "GetTeamDefenseRushStatsBySeasonRequest": ".getteamdefenserushstatsbyseasonop",
-    "GetTeamDefenseRushStatsBySeasonRequestTypedDict": ".getteamdefenserushstatsbyseasonop",
-    "GetTeamDefenseRushStatsBySeasonSortKey": ".getteamdefenserushstatsbyseasonop",
-    "GetTeamDefenseStatsBySeasonRequest": ".getteamdefensestatsbyseasonop",
-    "GetTeamDefenseStatsBySeasonRequestTypedDict": ".getteamdefensestatsbyseasonop",
-    "GetTeamDefenseStatsBySeasonSortKey": ".getteamdefensestatsbyseasonop",
-    "GetTeamDefenseStatsBySeasonSplit": ".getteamdefensestatsbyseasonop",
-    "GetTeamInjuriesRequest": ".getteaminjuriesop",
-    "GetTeamInjuriesRequestTypedDict": ".getteaminjuriesop",
-    "GetTeamOffenseOverviewStatsBySeasonRequest": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffenseOverviewStatsBySeasonRequestTypedDict": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffenseOverviewStatsBySeasonSortKey": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffenseOverviewStatsBySeasonSplit": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffensePassStatsBySeasonRequest": ".getteamoffensepassstatsbyseasonop",
-    "GetTeamOffensePassStatsBySeasonRequestTypedDict": ".getteamoffensepassstatsbyseasonop",
-    "GetTeamOffensePassStatsBySeasonSortKey": ".getteamoffensepassstatsbyseasonop",
-    "GetTeamRosterRequest": ".getteamrosterop",
-    "GetTeamRosterRequestTypedDict": ".getteamrosterop",
-    "GetTeamScheduleRequest": ".getteamscheduleop",
-    "GetTeamScheduleRequestTypedDict": ".getteamscheduleop",
-    "GetTeamStandingsRequest": ".getteamstandingsop",
-    "GetTeamStandingsRequestTypedDict": ".getteamstandingsop",
-    "GetTransactionsRequest": ".gettransactionsop",
-    "GetTransactionsRequestTypedDict": ".gettransactionsop",
-    "GetTransactionsTransactionType": ".gettransactionsop",
-    "GetVenuesRequest": ".getvenuesop",
-    "GetVenuesRequestTypedDict": ".getvenuesop",
-    "GetWeeklyBettingOddsRequest": ".getweeklybettingoddsop",
-    "GetWeeklyBettingOddsRequestTypedDict": ".getweeklybettingoddsop",
-    "GetWeeklyGameDetailsRequest": ".getweeklygamedetailsop",
-    "GetWeeklyGameDetailsRequestTypedDict": ".getweeklygamedetailsop",
-    "GetWeeklyTeamRosterRequest": ".getweeklyteamrosterop",
-    "GetWeeklyTeamRosterRequestTypedDict": ".getweeklyteamrosterop",
-    "GetWinProbabilityMinRequest": ".getwinprobabilityminop",
-    "GetWinProbabilityMinRequestTypedDict": ".getwinprobabilityminop",
-    "HomeFilmCardsResponse": ".homefilmcardsresponse",
-    "HomeFilmCardsResponseTypedDict": ".homefilmcardsresponse",
-    "InjuryEntry": ".injuryentry",
-    "InjuryEntryGameStatus": ".injuryentry",
-    "InjuryEntryTypedDict": ".injuryentry",
-    "PracticeStatus": ".injuryentry",
-    "PracticeStatusTypedDict": ".injuryentry",
-    "InjuryReportResponse": ".injuryreportresponse",
-    "InjuryReportResponseTypedDict": ".injuryreportresponse",
-    "Insight": ".insight",
-    "InsightPosition": ".insight",
-    "InsightTypedDict": ".insight",
-    "SecondTeamType": ".insight",
-    "KickingStats": ".kickingstats",
-    "KickingStatsTypedDict": ".kickingstats",
-    "AwayTeam": ".livegame",
-    "AwayTeamTypedDict": ".livegame",
-    "HomeTeam": ".livegame",
-    "HomeTeamTypedDict": ".livegame",
-    "LiveGame": ".livegame",
-    "LiveGameStatus": ".livegame",
-    "LiveGameTypedDict": ".livegame",
-    "LiveScoresResponse": ".livescoresresponse",
-    "LiveScoresResponseTypedDict": ".livescoresresponse",
-    "MatchupRankingsResponse": ".matchuprankingsresponse",
-    "MatchupRankingsResponseTypedDict": ".matchuprankingsresponse",
-    "MeridiemEnum": ".meridiemenum",
-    "MoneyLine": ".moneyline",
-    "MoneyLineTypedDict": ".moneyline",
-    "MultipleRankingsCategory": ".multiplerankingscategory",
-    "MultipleRankingsCategoryPagination": ".multiplerankingscategory",
-    "MultipleRankingsCategoryPaginationTypedDict": ".multiplerankingscategory",
-    "MultipleRankingsCategoryTypedDict": ".multiplerankingscategory",
-    "OddsSelection": ".oddsselection",
-    "OddsSelectionTypedDict": ".oddsselection",
-    "OffensivePlayerPositionEnum": ".offensiveplayerpositionenum",
-    "OffensiveSkillPositionEnum": ".offensiveskillpositionenum",
-    "OverallRecord": ".overallrecord",
-    "OverallRecordPoints": ".overallrecord",
-    "OverallRecordPointsTypedDict": ".overallrecord",
-    "OverallRecordType": ".overallrecord",
-    "OverallRecordTypedDict": ".overallrecord",
-    "Streak": ".overallrecord",
-    "StreakTypedDict": ".overallrecord",
-    "Pagination": ".pagination",
-    "PaginationTypedDict": ".pagination",
-    "PasserStats": ".passerstats",
-    "PasserStatsTypedDict": ".passerstats",
-    "Zone": ".passerstats",
-    "ZoneTypedDict": ".passerstats",
-    "PassingStats": ".passingstats",
-    "PassingStatsTypedDict": ".passingstats",
-    "PassingStatsCategoryEnum": ".passingstatscategoryenum",
-    "PassingStatsResponse": ".passingstatsresponse",
-    "PassingStatsResponseTypedDict": ".passingstatsresponse",
-    "PassRushStatsResponse": ".passrushstatsresponse",
-    "PassRushStatsResponseTypedDict": ".passrushstatsresponse",
-    "Penalty": ".penalty",
-    "PenaltyTypedDict": ".penalty",
-    "Play": ".play",
-    "PlayType": ".play",
-    "PlayTypedDict": ".play",
-    "PlayByPlayResponse": ".playbyplayresponse",
-    "PlayByPlayResponseTypedDict": ".playbyplayresponse",
-    "PlayDetail": ".playdetail",
-    "PlayDetailTypedDict": ".playdetail",
-    "PlayDirection": ".playdetail",
-    "PlayState": ".playdetail",
-    "Player": ".player",
-    "PlayerTypedDict": ".player",
-    "PlayerDetail": ".playerdetail",
-    "PlayerDetailTypedDict": ".playerdetail",
-    "PlayerGameStats": ".playergamestats",
-    "PlayerGameStatsTypedDict": ".playergamestats",
-    "PlayerPassingStats": ".playerpassingstats",
-    "PlayerPassingStatsTypedDict": ".playerpassingstats",
-    "PlayerProjection": ".playerprojection",
-    "PlayerProjectionTypedDict": ".playerprojection",
-    "Relationships": ".playerprojection",
-    "RelationshipsTypePlayerWeekProjectedPoints": ".playerprojection",
-    "RelationshipsTypePlayerWeekProjectedStats": ".playerprojection",
-    "RelationshipsTypedDict": ".playerprojection",
-    "TypePlayer": ".playerprojection",
-    "WeekPoint": ".playerprojection",
-    "WeekPointTypedDict": ".playerprojection",
-    "WeekStat": ".playerprojection",
-    "WeekStatTypedDict": ".playerprojection",
-    "PlayerReceivingStats": ".playerreceivingstats",
-    "PlayerReceivingStatsTypedDict": ".playerreceivingstats",
-    "PlayerRushingStats": ".playerrushingstats",
-    "PlayerRushingStatsTypedDict": ".playerrushingstats",
-    "PlayerSearchResponse": ".playersearchresponse",
-    "PlayerSearchResponseTypedDict": ".playersearchresponse",
-    "PlayerSearchResult": ".playersearchresult",
-    "PlayerSearchResultTypedDict": ".playersearchresult",
-    "PlayerStatsResponse": ".playerstatsresponse",
-    "PlayerStatsResponsePagination": ".playerstatsresponse",
-    "PlayerStatsResponsePaginationTypedDict": ".playerstatsresponse",
-    "PlayerStatsResponsePlayer": ".playerstatsresponse",
-    "PlayerStatsResponsePlayerTypedDict": ".playerstatsresponse",
-    "PlayerStatsResponseStats": ".playerstatsresponse",
-    "PlayerStatsResponseStatsTypedDict": ".playerstatsresponse",
-    "PlayerStatsResponseTypedDict": ".playerstatsresponse",
-    "PlayerWeekProjectedPoints": ".playerweekprojectedpoints",
-    "PlayerWeekProjectedPointsAttributes": ".playerweekprojectedpoints",
-    "PlayerWeekProjectedPointsAttributesTypedDict": ".playerweekprojectedpoints",
-    "PlayerWeekProjectedPointsType": ".playerweekprojectedpoints",
-    "PlayerWeekProjectedPointsTypedDict": ".playerweekprojectedpoints",
-    "PlayerWeekProjectedStats": ".playerweekprojectedstats",
-    "PlayerWeekProjectedStatsAttributes": ".playerweekprojectedstats",
-    "PlayerWeekProjectedStatsAttributesTypedDict": ".playerweekprojectedstats",
-    "PlayerWeekProjectedStatsType": ".playerweekprojectedstats",
-    "PlayerWeekProjectedStatsTypedDict": ".playerweekprojectedstats",
-    "PlayParticipant": ".playparticipant",
-    "PlayParticipantStats": ".playparticipant",
-    "PlayParticipantStatsTypedDict": ".playparticipant",
-    "PlayParticipantTypedDict": ".playparticipant",
-    "Role": ".playparticipant",
-    "PlayPlayer": ".playplayer",
-    "PlayPlayerTypedDict": ".playplayer",
-    "PlayStat": ".playstat",
-    "PlayStatTypedDict": ".playstat",
-    "PlaySummaryResponse": ".playsummaryresponse",
-    "PlaySummaryResponseTypedDict": ".playsummaryresponse",
-    "PlayTypeEnum": ".playtypeenum",
-    "PlayWinProbability": ".playwinprobability",
-    "PlayWinProbabilityTypedDict": ".playwinprobability",
-    "PointSpread": ".pointspread",
-    "PointSpreadTypedDict": ".pointspread",
-    "PointsRecord": ".pointsrecord",
-    "PointsRecordPoints": ".pointsrecord",
-    "PointsRecordPointsTypedDict": ".pointsrecord",
-    "PointsRecordTypedDict": ".pointsrecord",
-    "PracticeStatusEnum": ".practicestatusenum",
-    "ProGame": ".progame",
-    "ProGameCategory": ".progame",
-    "ProGameExtension": ".progame",
-    "ProGameExtensionTypedDict": ".progame",
-    "ProGameStatus": ".progame",
-    "ProGameTypedDict": ".progame",
-    "Included": ".projectedstatsresponse",
-    "IncludedTypedDict": ".projectedstatsresponse",
-    "Meta": ".projectedstatsresponse",
-    "MetaTypedDict": ".projectedstatsresponse",
-    "Page": ".projectedstatsresponse",
-    "PageTypedDict": ".projectedstatsresponse",
-    "ProjectedStatsResponse": ".projectedstatsresponse",
-    "ProjectedStatsResponsePagination": ".projectedstatsresponse",
-    "ProjectedStatsResponsePaginationTypedDict": ".projectedstatsresponse",
-    "ProjectedStatsResponseTypedDict": ".projectedstatsresponse",
-    "ProTeam": ".proteam",
-    "ProTeamConferenceAbbr": ".proteam",
-    "ProTeamTeamType": ".proteam",
-    "ProTeamTypedDict": ".proteam",
-    "ProWeek": ".proweek",
-    "ProWeekTypedDict": ".proweek",
-    "ProWeekWeekType": ".proweek",
-    "ReceivingStats": ".receivingstats",
-    "ReceivingStatsTypedDict": ".receivingstats",
-    "ReceivingStatsCategoryEnum": ".receivingstatscategoryenum",
-    "ReceivingStatsResponse": ".receivingstatsresponse",
-    "ReceivingStatsResponseTypedDict": ".receivingstatsresponse",
-    "Record": ".record",
-    "RecordTypedDict": ".record",
-    "RefreshTokenRequest": ".refreshtokenrequest",
-    "RefreshTokenRequestNetworkType": ".refreshtokenrequest",
-    "RefreshTokenRequestTypedDict": ".refreshtokenrequest",
-    "ResponseMetadata": ".responsemetadata",
-    "ResponseMetadataTypedDict": ".responsemetadata",
-    "Roster": ".rosterresponse",
-    "RosterResponse": ".rosterresponse",
-    "RosterResponseTypedDict": ".rosterresponse",
-    "RosterTypedDict": ".rosterresponse",
-    "RushingStats": ".rushingstats",
-    "RushingStatsTypedDict": ".rushingstats",
-    "RushingStatsResponse": ".rushingstatsresponse",
-    "RushingStatsResponseTypedDict": ".rushingstatsresponse",
-    "ScheduledGame": ".scheduledgame",
-    "ScheduledGameTypedDict": ".scheduledgame",
-    "ScheduleTeam": ".scheduleteam",
-    "ScheduleTeamTypedDict": ".scheduleteam",
-    "ScoreType": ".scoringplay",
-    "ScoringPlay": ".scoringplay",
-    "ScoringPlayTypedDict": ".scoringplay",
-    "SearchPlayersRequest": ".searchplayersop",
-    "SearchPlayersRequestTypedDict": ".searchplayersop",
-    "SeasonStats": ".seasonstats",
-    "SeasonStatsTypedDict": ".seasonstats",
-    "SeasonTypeEnum": ".seasontypeenum",
-    "SeasonWeeksResponse": ".seasonweeksresponse",
-    "SeasonWeeksResponseTypedDict": ".seasonweeksresponse",
-    "Security": ".security",
-    "SecurityTypedDict": ".security",
-    "Site": ".site",
-    "SiteRoofType": ".site",
-    "SiteTypedDict": ".site",
-    "SocialMedia": ".socialmedia",
-    "SocialMediaTypedDict": ".socialmedia",
-    "SortOrderEnum": ".sortorderenum",
-    "Standings": ".standings",
-    "StandingsTeam": ".standings",
-    "StandingsTeamTypedDict": ".standings",
-    "StandingsTypedDict": ".standings",
-    "StandingsRecord": ".standingsrecord",
-    "StandingsRecordPoints": ".standingsrecord",
-    "StandingsRecordPointsTypedDict": ".standingsrecord",
-    "StandingsRecordTypedDict": ".standingsrecord",
-    "StandingsResponse": ".standingsresponse",
-    "StandingsResponseTypedDict": ".standingsresponse",
-    "StandingsResponseWeek": ".standingsresponse",
-    "StandingsResponseWeekTypedDict": ".standingsresponse",
-    "Statistic": ".statisticranking",
-    "StatisticRanking": ".statisticranking",
-    "StatisticRankingTypedDict": ".statisticranking",
-    "StatisticTypedDict": ".statisticranking",
-    "Team": ".team",
-    "TeamConferenceAbbr": ".team",
-    "TeamTeamType": ".team",
-    "TeamTypedDict": ".team",
-    "TeamBoxscore": ".teamboxscore",
-    "TeamBoxscoreTypedDict": ".teamboxscore",
-    "TeamDefensePassStats": ".teamdefensepassstats",
-    "TeamDefensePassStatsTypedDict": ".teamdefensepassstats",
-    "TeamDefensePassStatsResponse": ".teamdefensepassstatsresponse",
-    "TeamDefensePassStatsResponseTypedDict": ".teamdefensepassstatsresponse",
-    "TeamDefenseRushStats": ".teamdefenserushstats",
-    "TeamDefenseRushStatsTypedDict": ".teamdefenserushstats",
-    "TeamDefenseRushStatsResponse": ".teamdefenserushstatsresponse",
-    "TeamDefenseRushStatsResponseTypedDict": ".teamdefenserushstatsresponse",
-    "TeamDefenseStats": ".teamdefensestats",
-    "TeamDefenseStatsTypedDict": ".teamdefensestats",
-    "TeamDefenseStatsResponse": ".teamdefensestatsresponse",
-    "TeamDefenseStatsResponseTypedDict": ".teamdefensestatsresponse",
-    "TeamGameStats": ".teamgamestats",
-    "TeamGameStatsTypedDict": ".teamgamestats",
-    "TeamInfo": ".teaminfo",
-    "TeamInfoTypedDict": ".teaminfo",
-    "TeamInjuryReport": ".teaminjuryreport",
-    "TeamInjuryReportTypedDict": ".teaminjuryreport",
-    "TeamMatchupRankings": ".teammatchuprankings",
-    "TeamMatchupRankingsTypedDict": ".teammatchuprankings",
-    "TeamOffenseOverviewStats": ".teamoffenseoverviewstats",
-    "TeamOffenseOverviewStatsTypedDict": ".teamoffenseoverviewstats",
-    "TeamOffenseOverviewStatsResponse": ".teamoffenseoverviewstatsresponse",
-    "TeamOffenseOverviewStatsResponseTypedDict": ".teamoffenseoverviewstatsresponse",
-    "TeamOffensePassStats": ".teamoffensepassstats",
-    "TeamOffensePassStatsTypedDict": ".teamoffensepassstats",
-    "TeamOffensePassStatsResponse": ".teamoffensepassstatsresponse",
-    "TeamOffensePassStatsResponseTypedDict": ".teamoffensepassstatsresponse",
-    "TeamRankingEntry": ".teamrankingentry",
-    "TeamRankingEntryTypedDict": ".teamrankingentry",
-    "TeamRankings": ".teamrankings",
-    "TeamRankingsTypedDict": ".teamrankings",
-    "TeamRankingsResponse": ".teamrankingsresponse",
-    "TeamRankingsResponseTypedDict": ".teamrankingsresponse",
-    "TeamRosterResponse": ".teamrosterresponse",
-    "TeamRosterResponseTypedDict": ".teamrosterresponse",
-    "TeamScore": ".teamscore",
-    "TeamScoreTypedDict": ".teamscore",
-    "TeamTypeEnum": ".teamtypeenum",
-    "TeamVenue": ".teamvenue",
-    "TeamVenueTypedDict": ".teamvenue",
-    "TicketVendor": ".ticketvendor",
-    "TicketVendorTypedDict": ".ticketvendor",
-    "TokenRequest": ".tokenrequest",
-    "TokenRequestNetworkType": ".tokenrequest",
-    "TokenRequestTypedDict": ".tokenrequest",
-    "TokenResponse": ".tokenresponse",
-    "TokenResponseTypedDict": ".tokenresponse",
-    "Totals": ".totals",
-    "TotalsTypedDict": ".totals",
-    "Transaction": ".transaction",
-    "TransactionType": ".transaction",
-    "TransactionTypedDict": ".transaction",
-    "TransactionsResponse": ".transactionsresponse",
-    "TransactionsResponseTypedDict": ".transactionsresponse",
-    "Venue": ".venue",
-    "VenueTypedDict": ".venue",
-    "VenueInfo": ".venueinfo",
-    "VenueInfoRoofType": ".venueinfo",
-    "VenueInfoTypedDict": ".venueinfo",
-    "VenuesResponse": ".venuesresponse",
-    "VenuesResponseTypedDict": ".venuesresponse",
-    "NFLPLUSPLUSNFLPLUSCOACHESFILM": ".videoauthorizations",
-    "NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict": ".videoauthorizations",
-    "NFLPLUSPremiumNFLPLUSCOACHESFILM": ".videoauthorizations",
-    "NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict": ".videoauthorizations",
-    "NflPlusPlus": ".videoauthorizations",
-    "NflPlusPlusRequirements": ".videoauthorizations",
-    "NflPlusPlusRequirementsTypedDict": ".videoauthorizations",
-    "NflPlusPlusTypedDict": ".videoauthorizations",
-    "NflPlusPremium": ".videoauthorizations",
-    "NflPlusPremiumRequirements": ".videoauthorizations",
-    "NflPlusPremiumRequirementsTypedDict": ".videoauthorizations",
-    "NflPlusPremiumTypedDict": ".videoauthorizations",
-    "ProPremium": ".videoauthorizations",
-    "ProPremiumNFLPLUSCOACHESFILM": ".videoauthorizations",
-    "ProPremiumNFLPLUSCOACHESFILMTypedDict": ".videoauthorizations",
-    "ProPremiumRequirements": ".videoauthorizations",
-    "ProPremiumRequirementsTypedDict": ".videoauthorizations",
-    "ProPremiumTypedDict": ".videoauthorizations",
-    "VideoAuthorizations": ".videoauthorizations",
-    "VideoAuthorizationsTypedDict": ".videoauthorizations",
-    "VideoGamePlayIds": ".videogameplayids",
-    "VideoGamePlayIdsTypedDict": ".videogameplayids",
-    "VideoTag": ".videotag",
-    "VideoTagTypedDict": ".videotag",
-    "VideoThumbnail": ".videothumbnail",
-    "VideoThumbnailTypedDict": ".videothumbnail",
-    "Week": ".week",
-    "WeekTypedDict": ".week",
-    "WeekWeekType": ".week",
-    "DriveChart": ".weeklygamedetail",
-    "DriveChartTypedDict": ".weeklygamedetail",
-    "Replay": ".weeklygamedetail",
-    "ReplayTypedDict": ".weeklygamedetail",
-    "Summary": ".weeklygamedetail",
-    "SummaryTypedDict": ".weeklygamedetail",
-    "TaggedVideos": ".weeklygamedetail",
-    "TaggedVideosTypedDict": ".weeklygamedetail",
-    "WeeklyGameDetail": ".weeklygamedetail",
-    "WeeklyGameDetailCategory": ".weeklygamedetail",
-    "WeeklyGameDetailExtension": ".weeklygamedetail",
-    "WeeklyGameDetailExtensionTypedDict": ".weeklygamedetail",
-    "WeeklyGameDetailStatus": ".weeklygamedetail",
-    "WeeklyGameDetailTypedDict": ".weeklygamedetail",
-    "WeeklyOddsResponse": ".weeklyoddsresponse",
-    "WeeklyOddsResponseTypedDict": ".weeklyoddsresponse",
-    "WeeklyPassingStatsResponse": ".weeklypassingstatsresponse",
-    "WeeklyPassingStatsResponseTypedDict": ".weeklypassingstatsresponse",
-    "WeeklyPlayer": ".weeklyplayer",
-    "WeeklyPlayerTypedDict": ".weeklyplayer",
-    "WeeklyPlayerPassingStats": ".weeklyplayerpassingstats",
-    "WeeklyPlayerPassingStatsTypedDict": ".weeklyplayerpassingstats",
-    "WeeklyPlayerRushingStats": ".weeklyplayerrushingstats",
-    "WeeklyPlayerRushingStatsTypedDict": ".weeklyplayerrushingstats",
-    "WeeklyRosterResponse": ".weeklyrosterresponse",
-    "WeeklyRosterResponseTypedDict": ".weeklyrosterresponse",
-    "WeeklyRushingStatsResponse": ".weeklyrushingstatsresponse",
-    "WeeklyRushingStatsResponseTypedDict": ".weeklyrushingstatsresponse",
-    "WeekSlugEnum": ".weekslugenum",
-    "WeeksResponse": ".weeksresponse",
-    "WeeksResponseTypedDict": ".weeksresponse",
-    "WinProbabilityResponse": ".winprobabilityresponse",
-    "WinProbabilityResponseTypedDict": ".winprobabilityresponse",
-}
+The version of the OpenAPI document: 1.0.0
+Contact: john@thistlegrow.software
+Generated by OpenAPI Generator (https://openapi-generator.tech)
+
+Do not edit the class manually.
+"""  # noqa: E501
 
 
-def dynamic_import(modname, retries=3):
-    for attempt in range(retries):
-        try:
-            return import_module(modname, __package__)
-        except KeyError:
-            # Clear any half-initialized module and retry
-            sys.modules.pop(modname, None)
-            if attempt == retries - 1:
-                break
-    raise KeyError(f"Failed to import module '{modname}' after {retries} attempts")
-
-
-def __getattr__(attr_name: str) -> object:
-    module_name = _dynamic_imports.get(attr_name)
-    if module_name is None:
-        raise AttributeError(
-            f"No {attr_name} found in _dynamic_imports for module name -> {__name__} "
-        )
-
-    try:
-        module = dynamic_import(module_name)
-        result = getattr(module, attr_name)
-        return result
-    except ImportError as e:
-        raise ImportError(
-            f"Failed to import {attr_name} from {module_name}: {e}"
-        ) from e
-    except AttributeError as e:
-        raise AttributeError(
-            f"Failed to get {attr_name} from {module_name}: {e}"
-        ) from e
-
-
-def __dir__():
-    lazy_attrs = builtins.list(_dynamic_imports.keys())
-    return builtins.sorted(lazy_attrs)
+# import models into model package
+from src.griddy.nfl.models.air_yard_type_enum import AirYardTypeEnum
+from src.griddy.nfl.models.award import Award
+from src.griddy.nfl.models.betting_odds_format import BettingOddsFormat
+from src.griddy.nfl.models.betting_odds_format_american_odds import (
+    BettingOddsFormatAmericanOdds,
+)
+from src.griddy.nfl.models.betting_odds_format_american_odds_examples_inner import (
+    BettingOddsFormatAmericanOddsExamplesInner,
+)
+from src.griddy.nfl.models.betting_odds_format_decimal_odds import (
+    BettingOddsFormatDecimalOdds,
+)
+from src.griddy.nfl.models.betting_odds_format_fractional_odds import (
+    BettingOddsFormatFractionalOdds,
+)
+from src.griddy.nfl.models.binary_flag_enum import BinaryFlagEnum
+from src.griddy.nfl.models.box_score_player_extra_points_statistic import (
+    BoxScorePlayerExtraPointsStatistic,
+)
+from src.griddy.nfl.models.box_score_player_field_goals_statistic import (
+    BoxScorePlayerFieldGoalsStatistic,
+)
+from src.griddy.nfl.models.box_score_player_fumbles_statistic import (
+    BoxScorePlayerFumblesStatistic,
+)
+from src.griddy.nfl.models.box_score_player_kick_return_statistic import (
+    BoxScorePlayerKickReturnStatistic,
+)
+from src.griddy.nfl.models.box_score_player_kicking_statistic import (
+    BoxScorePlayerKickingStatistic,
+)
+from src.griddy.nfl.models.box_score_player_passing_statistic import (
+    BoxScorePlayerPassingStatistic,
+)
+from src.griddy.nfl.models.box_score_player_punt_return_statistic import (
+    BoxScorePlayerPuntReturnStatistic,
+)
+from src.griddy.nfl.models.box_score_player_punting_statistic import (
+    BoxScorePlayerPuntingStatistic,
+)
+from src.griddy.nfl.models.box_score_player_receiving_statistic import (
+    BoxScorePlayerReceivingStatistic,
+)
+from src.griddy.nfl.models.box_score_player_rushing_statistic import (
+    BoxScorePlayerRushingStatistic,
+)
+from src.griddy.nfl.models.box_score_player_tackles_statistic import (
+    BoxScorePlayerTacklesStatistic,
+)
+from src.griddy.nfl.models.box_score_response import BoxScoreResponse
+from src.griddy.nfl.models.box_score_response_player_stats import (
+    BoxScoreResponsePlayerStats,
+)
+from src.griddy.nfl.models.box_score_response_player_stats_away import (
+    BoxScoreResponsePlayerStatsAway,
+)
+from src.griddy.nfl.models.box_score_response_team_stats import (
+    BoxScoreResponseTeamStats,
+)
+from src.griddy.nfl.models.boxscore_schedule import BoxscoreSchedule
+from src.griddy.nfl.models.boxscore_score import BoxscoreScore
+from src.griddy.nfl.models.boxscore_team import BoxscoreTeam
+from src.griddy.nfl.models.broadcast_info import BroadcastInfo
+from src.griddy.nfl.models.broadcast_info_international_watch_options_inner import (
+    BroadcastInfoInternationalWatchOptionsInner,
+)
+from src.griddy.nfl.models.broadcast_info_streaming_networks_inner import (
+    BroadcastInfoStreamingNetworksInner,
+)
+from src.griddy.nfl.models.calculation_method_enum import CalculationMethodEnum
+from src.griddy.nfl.models.camera_source_enum import CameraSourceEnum
+from src.griddy.nfl.models.career_stats import CareerStats
+from src.griddy.nfl.models.clinched import Clinched
+from src.griddy.nfl.models.coaches_file_video_sub_type_enum import (
+    CoachesFileVideoSubTypeEnum,
+)
+from src.griddy.nfl.models.coaches_film_response import CoachesFilmResponse
+from src.griddy.nfl.models.coaches_film_video import CoachesFilmVideo
+from src.griddy.nfl.models.conference import Conference
+from src.griddy.nfl.models.conference_enum import ConferenceEnum
+from src.griddy.nfl.models.content_tag_enum import ContentTagEnum
+from src.griddy.nfl.models.contract_info import ContractInfo
+from src.griddy.nfl.models.coverage_metrics import CoverageMetrics
+from src.griddy.nfl.models.coverage_metrics_completion_rate_over_expected import (
+    CoverageMetricsCompletionRateOverExpected,
+)
+from src.griddy.nfl.models.coverage_metrics_coverage_snaps import (
+    CoverageMetricsCoverageSnaps,
+)
+from src.griddy.nfl.models.coverage_metrics_receiver_separation import (
+    CoverageMetricsReceiverSeparation,
+)
+from src.griddy.nfl.models.coverage_metrics_targets_allowed import (
+    CoverageMetricsTargetsAllowed,
+)
+from src.griddy.nfl.models.current_game import CurrentGame
+from src.griddy.nfl.models.current_games_response import CurrentGamesResponse
+from src.griddy.nfl.models.data_type_enum import DataTypeEnum
+from src.griddy.nfl.models.defense_field_position_enum import DefenseFieldPositionEnum
+from src.griddy.nfl.models.defense_game_situation_enum import DefenseGameSituationEnum
+from src.griddy.nfl.models.defensive_metrics_explanation import (
+    DefensiveMetricsExplanation,
+)
+from src.griddy.nfl.models.defensive_metrics_explanation_epa import (
+    DefensiveMetricsExplanationEpa,
+)
+from src.griddy.nfl.models.defensive_metrics_explanation_qbp_pct import (
+    DefensiveMetricsExplanationQbpPct,
+)
+from src.griddy.nfl.models.defensive_metrics_explanation_ryoe import (
+    DefensiveMetricsExplanationRyoe,
+)
+from src.griddy.nfl.models.defensive_overview_metrics_explanation import (
+    DefensiveOverviewMetricsExplanation,
+)
+from src.griddy.nfl.models.defensive_overview_metrics_explanation_hard_stops import (
+    DefensiveOverviewMetricsExplanationHardStops,
+)
+from src.griddy.nfl.models.defensive_overview_metrics_explanation_pressure_rate import (
+    DefensiveOverviewMetricsExplanationPressureRate,
+)
+from src.griddy.nfl.models.defensive_overview_metrics_explanation_tackle_stops import (
+    DefensiveOverviewMetricsExplanationTackleStops,
+)
+from src.griddy.nfl.models.defensive_overview_stats_response import (
+    DefensiveOverviewStatsResponse,
+)
+from src.griddy.nfl.models.defensive_pass_metrics_explanation import (
+    DefensivePassMetricsExplanation,
+)
+from src.griddy.nfl.models.defensive_pass_metrics_explanation_epa_pass import (
+    DefensivePassMetricsExplanationEpaPass,
+)
+from src.griddy.nfl.models.defensive_pass_metrics_explanation_receiver_separation import (
+    DefensivePassMetricsExplanationReceiverSeparation,
+)
+from src.griddy.nfl.models.defensive_pass_metrics_explanation_yacoe import (
+    DefensivePassMetricsExplanationYacoe,
+)
+from src.griddy.nfl.models.defensive_pass_rush_stats import DefensivePassRushStats
+from src.griddy.nfl.models.defensive_player_overview_stats import (
+    DefensivePlayerOverviewStats,
+)
+from src.griddy.nfl.models.defensive_player_stats import DefensivePlayerStats
+from src.griddy.nfl.models.defensive_position_enum import DefensivePositionEnum
+from src.griddy.nfl.models.defensive_position_group_enum import (
+    DefensivePositionGroupEnum,
+)
+from src.griddy.nfl.models.defensive_rush_metrics_explanation import (
+    DefensiveRushMetricsExplanation,
+)
+from src.griddy.nfl.models.defensive_rush_metrics_explanation_box_count import (
+    DefensiveRushMetricsExplanationBoxCount,
+)
+from src.griddy.nfl.models.defensive_rush_metrics_explanation_ryoe import (
+    DefensiveRushMetricsExplanationRyoe,
+)
+from src.griddy.nfl.models.defensive_rush_metrics_explanation_stuff_rate import (
+    DefensiveRushMetricsExplanationStuffRate,
+)
+from src.griddy.nfl.models.defensive_rush_metrics_explanation_yards_before_contact import (
+    DefensiveRushMetricsExplanationYardsBeforeContact,
+)
+from src.griddy.nfl.models.defensive_situation_type_enum import (
+    DefensiveSituationTypeEnum,
+)
+from src.griddy.nfl.models.defensive_split_category import DefensiveSplitCategory
+from src.griddy.nfl.models.defensive_stat_category import DefensiveStatCategory
+from src.griddy.nfl.models.defensive_stats import DefensiveStats
+from src.griddy.nfl.models.defensive_stats_response import DefensiveStatsResponse
+from src.griddy.nfl.models.device_info import DeviceInfo
+from src.griddy.nfl.models.division import Division
+from src.griddy.nfl.models.draft_info import DraftInfo
+from src.griddy.nfl.models.draft_pick import DraftPick
+from src.griddy.nfl.models.draft_response import DraftResponse
+from src.griddy.nfl.models.draft_response_rounds_inner import DraftResponseRoundsInner
+from src.griddy.nfl.models.drive import Drive
+from src.griddy.nfl.models.drive_result_enum import DriveResultEnum
+from src.griddy.nfl.models.experience_games_response import ExperienceGamesResponse
+from src.griddy.nfl.models.experience_teams_response import ExperienceTeamsResponse
+from src.griddy.nfl.models.external_id import ExternalId
+from src.griddy.nfl.models.fantasy_player_position_enum import FantasyPlayerPositionEnum
+from src.griddy.nfl.models.fantasy_player_stats import FantasyPlayerStats
+from src.griddy.nfl.models.fantasy_position_group_enum import FantasyPositionGroupEnum
+from src.griddy.nfl.models.fantasy_stats_response import FantasyStatsResponse
+from src.griddy.nfl.models.fantay_scoring_explanation import FantayScoringExplanation
+from src.griddy.nfl.models.fantay_scoring_explanation_half_ppr_scoring import (
+    FantayScoringExplanationHalfPprScoring,
+)
+from src.griddy.nfl.models.fantay_scoring_explanation_ppr_scoring import (
+    FantayScoringExplanationPprScoring,
+)
+from src.griddy.nfl.models.fantay_scoring_explanation_standard_scoring import (
+    FantayScoringExplanationStandardScoring,
+)
+from src.griddy.nfl.models.film_card import FilmCard
+from src.griddy.nfl.models.film_card_link_params import FilmCardLinkParams
+from src.griddy.nfl.models.filmroom_play import FilmroomPlay
+from src.griddy.nfl.models.filmroom_plays_response import FilmroomPlaysResponse
+from src.griddy.nfl.models.football_games_response import FootballGamesResponse
+from src.griddy.nfl.models.formation_enum import FormationEnum
+from src.griddy.nfl.models.futures_market import FuturesMarket
+from src.griddy.nfl.models.futures_odds_response import FuturesOddsResponse
+from src.griddy.nfl.models.futures_odds_response_data import FuturesOddsResponseData
+from src.griddy.nfl.models.game import Game
+from src.griddy.nfl.models.game_detail import GameDetail
+from src.griddy.nfl.models.game_insight import GameInsight
+from src.griddy.nfl.models.game_odds import GameOdds
+from src.griddy.nfl.models.game_phase_enum import GamePhaseEnum
+from src.griddy.nfl.models.game_preview_response import GamePreviewResponse
+from src.griddy.nfl.models.game_quarter_enum import GameQuarterEnum
+from src.griddy.nfl.models.game_result_enum import GameResultEnum
+from src.griddy.nfl.models.game_schedule import GameSchedule
+from src.griddy.nfl.models.game_score import GameScore
+from src.griddy.nfl.models.game_situation import GameSituation
+from src.griddy.nfl.models.game_stats_response import GameStatsResponse
+from src.griddy.nfl.models.game_status_enum import GameStatusEnum
+from src.griddy.nfl.models.game_summary_team import GameSummaryTeam
+from src.griddy.nfl.models.game_summary_team_score import GameSummaryTeamScore
+from src.griddy.nfl.models.game_summary_team_timeouts import GameSummaryTeamTimeouts
+from src.griddy.nfl.models.game_team import GameTeam
+from src.griddy.nfl.models.game_team_score import GameTeamScore
+from src.griddy.nfl.models.gamecenter_response import GamecenterResponse
+from src.griddy.nfl.models.gamecenter_response_leaders import GamecenterResponseLeaders
+from src.griddy.nfl.models.gamecenter_response_leaders_pass_distance_leaders import (
+    GamecenterResponseLeadersPassDistanceLeaders,
+)
+from src.griddy.nfl.models.gamecenter_response_leaders_speed_leaders import (
+    GamecenterResponseLeadersSpeedLeaders,
+)
+from src.griddy.nfl.models.gamecenter_response_leaders_time_to_sack_leaders import (
+    GamecenterResponseLeadersTimeToSackLeaders,
+)
+from src.griddy.nfl.models.gamecenter_response_pass_rushers import (
+    GamecenterResponsePassRushers,
+)
+from src.griddy.nfl.models.gamecenter_response_pass_rushers_league_average_separation_to_qb import (
+    GamecenterResponsePassRushersLeagueAverageSeparationToQb,
+)
+from src.griddy.nfl.models.gamecenter_response_passers import GamecenterResponsePassers
+from src.griddy.nfl.models.gamecenter_response_receivers import (
+    GamecenterResponseReceivers,
+)
+from src.griddy.nfl.models.gamecenter_response_receivers_league_average_receiver_separation import (
+    GamecenterResponseReceiversLeagueAverageReceiverSeparation,
+)
+from src.griddy.nfl.models.gamecenter_response_rushers import GamecenterResponseRushers
+from src.griddy.nfl.models.gamecenter_schedule import GamecenterSchedule
+from src.griddy.nfl.models.games_response import GamesResponse
+from src.griddy.nfl.models.get_plays_win_probability200_response import (
+    GetPlaysWinProbability200Response,
+)
+from src.griddy.nfl.models.get_plays_win_probability_game_id_parameter import (
+    GetPlaysWinProbabilityGameIdParameter,
+)
+from src.griddy.nfl.models.home_film_cards_response import HomeFilmCardsResponse
+from src.griddy.nfl.models.injured_player_game_status_enum import (
+    InjuredPlayerGameStatusEnum,
+)
+from src.griddy.nfl.models.injury_entry import InjuryEntry
+from src.griddy.nfl.models.injury_entry_practice_status import InjuryEntryPracticeStatus
+from src.griddy.nfl.models.injury_report_response import InjuryReportResponse
+from src.griddy.nfl.models.insight import Insight
+from src.griddy.nfl.models.insight_content_explanation import InsightContentExplanation
+from src.griddy.nfl.models.insight_content_explanation_evergreen_content import (
+    InsightContentExplanationEvergreenContent,
+)
+from src.griddy.nfl.models.insight_content_explanation_fantasy_insights import (
+    InsightContentExplanationFantasyInsights,
+)
+from src.griddy.nfl.models.insight_content_explanation_postgame_insights import (
+    InsightContentExplanationPostgameInsights,
+)
+from src.griddy.nfl.models.insight_content_explanation_pregame_insights import (
+    InsightContentExplanationPregameInsights,
+)
+from src.griddy.nfl.models.kicking_stats import KickingStats
+from src.griddy.nfl.models.leader_entry_base_schema import LeaderEntryBaseSchema
+from src.griddy.nfl.models.line_of_scrimmage_distance_enum import (
+    LineOfScrimmageDistanceEnum,
+)
+from src.griddy.nfl.models.live_game import LiveGame
+from src.griddy.nfl.models.live_game_away_team import LiveGameAwayTeam
+from src.griddy.nfl.models.live_game_summary_data import LiveGameSummaryData
+from src.griddy.nfl.models.live_scores_response import LiveScoresResponse
+from src.griddy.nfl.models.matchup_rankings_response import MatchupRankingsResponse
+from src.griddy.nfl.models.meridiem_enum import MeridiemEnum
+from src.griddy.nfl.models.money_line import MoneyLine
+from src.griddy.nfl.models.multiple_rankings_category import MultipleRankingsCategory
+from src.griddy.nfl.models.multiple_rankings_category_pagination import (
+    MultipleRankingsCategoryPagination,
+)
+from src.griddy.nfl.models.network_type_enum import NetworkTypeEnum
+from src.griddy.nfl.models.next_gen_stats_position_enum import NextGenStatsPositionEnum
+from src.griddy.nfl.models.next_gen_stats_position_group_enum import (
+    NextGenStatsPositionGroupEnum,
+)
+from src.griddy.nfl.models.odds_selection import OddsSelection
+from src.griddy.nfl.models.offense_field_position_enum import OffenseFieldPositionEnum
+from src.griddy.nfl.models.offense_game_situation_enum import OffenseGameSituationEnum
+from src.griddy.nfl.models.offensive_formation_enum import OffensiveFormationEnum
+from src.griddy.nfl.models.offensive_metrics_explanation import (
+    OffensiveMetricsExplanation,
+)
+from src.griddy.nfl.models.offensive_metrics_explanation_epa import (
+    OffensiveMetricsExplanationEpa,
+)
+from src.griddy.nfl.models.offensive_metrics_explanation_red_zone_efficiency import (
+    OffensiveMetricsExplanationRedZoneEfficiency,
+)
+from src.griddy.nfl.models.offensive_metrics_explanation_third_down_conversion import (
+    OffensiveMetricsExplanationThirdDownConversion,
+)
+from src.griddy.nfl.models.offensive_player_position_enum import (
+    OffensivePlayerPositionEnum,
+)
+from src.griddy.nfl.models.offensive_situation_type_enum import (
+    OffensiveSituationTypeEnum,
+)
+from src.griddy.nfl.models.offensive_skill_position_enum import (
+    OffensiveSkillPositionEnum,
+)
+from src.griddy.nfl.models.offensive_split_category import OffensiveSplitCategory
+from src.griddy.nfl.models.overall_record import OverallRecord
+from src.griddy.nfl.models.overall_record_all_of_streak import OverallRecordAllOfStreak
+from src.griddy.nfl.models.pagination import Pagination
+from src.griddy.nfl.models.participant_player_info import ParticipantPlayerInfo
+from src.griddy.nfl.models.pass_distance_leader_entry import PassDistanceLeaderEntry
+from src.griddy.nfl.models.pass_rush_metrics_explanation import (
+    PassRushMetricsExplanation,
+)
+from src.griddy.nfl.models.pass_rush_metrics_explanation_pass_rush_rating import (
+    PassRushMetricsExplanationPassRushRating,
+)
+from src.griddy.nfl.models.pass_rush_metrics_explanation_time_to_sack import (
+    PassRushMetricsExplanationTimeToSack,
+)
+from src.griddy.nfl.models.pass_rush_stats_response import PassRushStatsResponse
+from src.griddy.nfl.models.pass_rusher_stats import PassRusherStats
+from src.griddy.nfl.models.passer_stats import PasserStats
+from src.griddy.nfl.models.passing_section_enum import PassingSectionEnum
+from src.griddy.nfl.models.passing_stats import PassingStats
+from src.griddy.nfl.models.passing_stats_category_enum import PassingStatsCategoryEnum
+from src.griddy.nfl.models.passing_stats_response import PassingStatsResponse
+from src.griddy.nfl.models.passing_zone import PassingZone
+from src.griddy.nfl.models.passing_zone_stats import PassingZoneStats
+from src.griddy.nfl.models.penalty import Penalty
+from src.griddy.nfl.models.personnel_enum import PersonnelEnum
+from src.griddy.nfl.models.personnel_package_enum import PersonnelPackageEnum
+from src.griddy.nfl.models.play import Play
+from src.griddy.nfl.models.play_by_play_response import PlayByPlayResponse
+from src.griddy.nfl.models.play_detail import PlayDetail
+from src.griddy.nfl.models.play_direction_enum import PlayDirectionEnum
+from src.griddy.nfl.models.play_participant import PlayParticipant
+from src.griddy.nfl.models.play_participant_role_enum import PlayParticipantRoleEnum
+from src.griddy.nfl.models.play_stat import PlayStat
+from src.griddy.nfl.models.play_state_enum import PlayStateEnum
+from src.griddy.nfl.models.play_summary_response import PlaySummaryResponse
+from src.griddy.nfl.models.play_type_enum import PlayTypeEnum
+from src.griddy.nfl.models.play_win_probability import PlayWinProbability
+from src.griddy.nfl.models.player import Player
+from src.griddy.nfl.models.player_detail import PlayerDetail
+from src.griddy.nfl.models.player_game_stats import PlayerGameStats
+from src.griddy.nfl.models.player_passing_stats import PlayerPassingStats
+from src.griddy.nfl.models.player_projection import PlayerProjection
+from src.griddy.nfl.models.player_projection_relationships import (
+    PlayerProjectionRelationships,
+)
+from src.griddy.nfl.models.player_projection_relationships_week_points_inner import (
+    PlayerProjectionRelationshipsWeekPointsInner,
+)
+from src.griddy.nfl.models.player_projection_relationships_week_stats_inner import (
+    PlayerProjectionRelationshipsWeekStatsInner,
+)
+from src.griddy.nfl.models.player_receiving_stats import PlayerReceivingStats
+from src.griddy.nfl.models.player_rushing_stats import PlayerRushingStats
+from src.griddy.nfl.models.player_search_response import PlayerSearchResponse
+from src.griddy.nfl.models.player_search_result import PlayerSearchResult
+from src.griddy.nfl.models.player_statistic_base_schema import PlayerStatisticBaseSchema
+from src.griddy.nfl.models.player_stats_response import PlayerStatsResponse
+from src.griddy.nfl.models.player_stats_response_pagination import (
+    PlayerStatsResponsePagination,
+)
+from src.griddy.nfl.models.player_stats_response_players_inner import (
+    PlayerStatsResponsePlayersInner,
+)
+from src.griddy.nfl.models.player_week_projected_points import PlayerWeekProjectedPoints
+from src.griddy.nfl.models.player_week_projected_points_attributes import (
+    PlayerWeekProjectedPointsAttributes,
+)
+from src.griddy.nfl.models.player_week_projected_stats import PlayerWeekProjectedStats
+from src.griddy.nfl.models.player_week_projected_stats_attributes import (
+    PlayerWeekProjectedStatsAttributes,
+)
+from src.griddy.nfl.models.point_spread import PointSpread
+from src.griddy.nfl.models.points_record import PointsRecord
+from src.griddy.nfl.models.points_record_all_of_points import PointsRecordAllOfPoints
+from src.griddy.nfl.models.position_group_enum import PositionGroupEnum
+from src.griddy.nfl.models.practice_status_enum import PracticeStatusEnum
+from src.griddy.nfl.models.primetime_game_category_enum import PrimetimeGameCategoryEnum
+from src.griddy.nfl.models.pro_injury_report_response import ProInjuryReportResponse
+from src.griddy.nfl.models.pro_injury_report_response_pagination import (
+    ProInjuryReportResponsePagination,
+)
+from src.griddy.nfl.models.pro_team import ProTeam
+from src.griddy.nfl.models.projected_stats_response import ProjectedStatsResponse
+from src.griddy.nfl.models.projected_stats_response_included_inner import (
+    ProjectedStatsResponseIncludedInner,
+)
+from src.griddy.nfl.models.projected_stats_response_meta import (
+    ProjectedStatsResponseMeta,
+)
+from src.griddy.nfl.models.projected_stats_response_meta_page import (
+    ProjectedStatsResponseMetaPage,
+)
+from src.griddy.nfl.models.projected_stats_response_pagination import (
+    ProjectedStatsResponsePagination,
+)
+from src.griddy.nfl.models.qb_alignment_enum import QBAlignmentEnum
+from src.griddy.nfl.models.qualified_defender_criteria import QualifiedDefenderCriteria
+from src.griddy.nfl.models.qualified_passer_criteria import QualifiedPasserCriteria
+from src.griddy.nfl.models.receiver_stats import ReceiverStats
+from src.griddy.nfl.models.receiver_stats_all_of_reception_info import (
+    ReceiverStatsAllOfReceptionInfo,
+)
+from src.griddy.nfl.models.receiving_metrics_explanation import (
+    ReceivingMetricsExplanation,
+)
+from src.griddy.nfl.models.receiving_metrics_explanation_catch_rate_over_expected import (
+    ReceivingMetricsExplanationCatchRateOverExpected,
+)
+from src.griddy.nfl.models.receiving_metrics_explanation_receiver_separation import (
+    ReceivingMetricsExplanationReceiverSeparation,
+)
+from src.griddy.nfl.models.receiving_metrics_explanation_yards_after_catch_over_expected import (
+    ReceivingMetricsExplanationYardsAfterCatchOverExpected,
+)
+from src.griddy.nfl.models.receiving_stats import ReceivingStats
+from src.griddy.nfl.models.receiving_stats_category_enum import (
+    ReceivingStatsCategoryEnum,
+)
+from src.griddy.nfl.models.receiving_stats_response import ReceivingStatsResponse
+from src.griddy.nfl.models.record import Record
+from src.griddy.nfl.models.refresh_token_request import RefreshTokenRequest
+from src.griddy.nfl.models.replay import Replay
+from src.griddy.nfl.models.replay_ids import ReplayIds
+from src.griddy.nfl.models.replay_tags_inner import ReplayTagsInner
+from src.griddy.nfl.models.replay_thumbnail import ReplayThumbnail
+from src.griddy.nfl.models.response_metadata import ResponseMetadata
+from src.griddy.nfl.models.roof_type_enum import RoofTypeEnum
+from src.griddy.nfl.models.roster_response import RosterResponse
+from src.griddy.nfl.models.roster_response_roster import RosterResponseRoster
+from src.griddy.nfl.models.rush_location_map_entry import RushLocationMapEntry
+from src.griddy.nfl.models.rusher_stats import RusherStats
+from src.griddy.nfl.models.rushing_info import RushingInfo
+from src.griddy.nfl.models.rushing_map import RushingMap
+from src.griddy.nfl.models.rushing_stats import RushingStats
+from src.griddy.nfl.models.rushing_stats_response import RushingStatsResponse
+from src.griddy.nfl.models.scheduled_game import ScheduledGame
+from src.griddy.nfl.models.score_type_enum import ScoreTypeEnum
+from src.griddy.nfl.models.scoring_play import ScoringPlay
+from src.griddy.nfl.models.season_stats import SeasonStats
+from src.griddy.nfl.models.season_type_enum import SeasonTypeEnum
+from src.griddy.nfl.models.season_weeks_response import SeasonWeeksResponse
+from src.griddy.nfl.models.site import Site
+from src.griddy.nfl.models.social_media import SocialMedia
+from src.griddy.nfl.models.sort_order_enum import SortOrderEnum
+from src.griddy.nfl.models.speed_leader_entry import SpeedLeaderEntry
+from src.griddy.nfl.models.standings import Standings
+from src.griddy.nfl.models.standings_record import StandingsRecord
+from src.griddy.nfl.models.standings_record_all_of_points import (
+    StandingsRecordAllOfPoints,
+)
+from src.griddy.nfl.models.standings_response import StandingsResponse
+from src.griddy.nfl.models.standings_response_weeks_inner import (
+    StandingsResponseWeeksInner,
+)
+from src.griddy.nfl.models.standings_team import StandingsTeam
+from src.griddy.nfl.models.statistic_ranking import StatisticRanking
+from src.griddy.nfl.models.statistic_ranking_statistic import StatisticRankingStatistic
+from src.griddy.nfl.models.statistical_category import StatisticalCategory
+from src.griddy.nfl.models.stats_query_metadata import StatsQueryMetadata
+from src.griddy.nfl.models.success_level_enum import SuccessLevelEnum
+from src.griddy.nfl.models.summary import Summary
+from src.griddy.nfl.models.target_location_enum import TargetLocationEnum
+from src.griddy.nfl.models.team import Team
+from src.griddy.nfl.models.team_box_score import TeamBoxScore
+from src.griddy.nfl.models.team_boxscore import TeamBoxscore
+from src.griddy.nfl.models.team_defense_pass_stats import TeamDefensePassStats
+from src.griddy.nfl.models.team_defense_pass_stats_response import (
+    TeamDefensePassStatsResponse,
+)
+from src.griddy.nfl.models.team_defense_rush_stats import TeamDefenseRushStats
+from src.griddy.nfl.models.team_defense_rush_stats_response import (
+    TeamDefenseRushStatsResponse,
+)
+from src.griddy.nfl.models.team_defense_stats import TeamDefenseStats
+from src.griddy.nfl.models.team_defense_stats_response import TeamDefenseStatsResponse
+from src.griddy.nfl.models.team_game_stats import TeamGameStats
+from src.griddy.nfl.models.team_info import TeamInfo
+from src.griddy.nfl.models.team_injury_report import TeamInjuryReport
+from src.griddy.nfl.models.team_matchup_rankings import TeamMatchupRankings
+from src.griddy.nfl.models.team_offense_overview_stats import TeamOffenseOverviewStats
+from src.griddy.nfl.models.team_offense_overview_stats_response import (
+    TeamOffenseOverviewStatsResponse,
+)
+from src.griddy.nfl.models.team_offense_pass_stats import TeamOffensePassStats
+from src.griddy.nfl.models.team_offense_pass_stats_response import (
+    TeamOffensePassStatsResponse,
+)
+from src.griddy.nfl.models.team_ranking_entry import TeamRankingEntry
+from src.griddy.nfl.models.team_rankings import TeamRankings
+from src.griddy.nfl.models.team_rankings_response import TeamRankingsResponse
+from src.griddy.nfl.models.team_roster_response import TeamRosterResponse
+from src.griddy.nfl.models.team_score import TeamScore
+from src.griddy.nfl.models.team_type_enum import TeamTypeEnum
+from src.griddy.nfl.models.ticket_vendor import TicketVendor
+from src.griddy.nfl.models.time_to_sack_leader_entry import TimeToSackLeaderEntry
+from src.griddy.nfl.models.token_request import TokenRequest
+from src.griddy.nfl.models.token_response import TokenResponse
+from src.griddy.nfl.models.totals import Totals
+from src.griddy.nfl.models.transaction import Transaction
+from src.griddy.nfl.models.transaction_type_enum import TransactionTypeEnum
+from src.griddy.nfl.models.transactions_response import TransactionsResponse
+from src.griddy.nfl.models.venue import Venue
+from src.griddy.nfl.models.venue_info import VenueInfo
+from src.griddy.nfl.models.venues_response import VenuesResponse
+from src.griddy.nfl.models.video_authorizations import VideoAuthorizations
+from src.griddy.nfl.models.video_authorizations_nfl_plus_plus_inner import (
+    VideoAuthorizationsNflPlusPlusInner,
+)
+from src.griddy.nfl.models.video_authorizations_nfl_plus_plus_inner_nflpluscoachesfilm import (
+    VideoAuthorizationsNflPlusPlusInnerNFLPLUSCOACHESFILM,
+)
+from src.griddy.nfl.models.video_authorizations_nfl_plus_plus_inner_nflpluscoachesfilm_requirements import (
+    VideoAuthorizationsNflPlusPlusInnerNFLPLUSCOACHESFILMRequirements,
+)
+from src.griddy.nfl.models.video_game_play_ids import VideoGamePlayIds
+from src.griddy.nfl.models.video_tag import VideoTag
+from src.griddy.nfl.models.video_thumbnail import VideoThumbnail
+from src.griddy.nfl.models.week import Week
+from src.griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from src.griddy.nfl.models.week_type_enum import WeekTypeEnum
+from src.griddy.nfl.models.weekly_game_detail import WeeklyGameDetail
+from src.griddy.nfl.models.weekly_game_detail_summary_score import (
+    WeeklyGameDetailSummaryScore,
+)
+from src.griddy.nfl.models.weekly_game_detail_summary_team import (
+    WeeklyGameDetailSummaryTeam,
+)
+from src.griddy.nfl.models.weekly_game_detail_summary_timeouts import (
+    WeeklyGameDetailSummaryTimeouts,
+)
+from src.griddy.nfl.models.weekly_odds_response import WeeklyOddsResponse
+from src.griddy.nfl.models.weekly_passing_stats_response import (
+    WeeklyPassingStatsResponse,
+)
+from src.griddy.nfl.models.weekly_player import WeeklyPlayer
+from src.griddy.nfl.models.weekly_player_passing_stats import WeeklyPlayerPassingStats
+from src.griddy.nfl.models.weekly_player_rushing_stats import WeeklyPlayerRushingStats
+from src.griddy.nfl.models.weekly_roster_response import WeeklyRosterResponse
+from src.griddy.nfl.models.weekly_rushing_stats_response import (
+    WeeklyRushingStatsResponse,
+)
+from src.griddy.nfl.models.weeks_response import WeeksResponse
+from src.griddy.nfl.models.win_probability_metadata import WinProbabilityMetadata
+from src.griddy.nfl.models.win_probability_metrics import WinProbabilityMetrics
+from src.griddy.nfl.models.win_probability_response import WinProbabilityResponse
+from src.griddy.nfl.models.win_probability_trend import WinProbabilityTrend
+from src.griddy.nfl.models.win_probability_trend_biggest_swing import (
+    WinProbabilityTrendBiggestSwing,
+)
+from src.griddy.nfl.models.win_probability_trend_final_probability import (
+    WinProbabilityTrendFinalProbability,
+)
+from src.griddy.nfl.models.yards_to_go_type_enum import YardsToGoTypeEnum

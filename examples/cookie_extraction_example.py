@@ -5,16 +5,17 @@ This script demonstrates how to extract cookies from a cookies.txt file
 for specific URLs and use them in HTTP requests.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
 import requests
 
 from griddy.core.utils import (
-    extract_cookies_for_url,
+    Cookie,
     extract_cookies_as_dict,
     extract_cookies_as_header,
+    extract_cookies_for_url,
     parse_cookies_txt,
-    Cookie,
 )
 
 

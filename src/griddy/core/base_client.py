@@ -1,14 +1,14 @@
 """Base HTTP client for all Griddy SDK modules."""
 
 import time
+from typing import Any, Dict, List
 from urllib.parse import urljoin
 
 import requests
 from requests.adapters import HTTPAdapter
-from typing import Dict, Any, List
 from urllib3.util.retry import Retry
 
-from .exceptions import APIError, RateLimitError, NotFoundError, AuthenticationError
+from .exceptions import APIError, AuthenticationError, NotFoundError, RateLimitError
 from .utils import retry_on_rate_limit
 
 
