@@ -1,0 +1,44 @@
+# NFLBoxScorePlayerKickingStatistic
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**nfl_id** | **int** |  | [optional] 
+**gsis_id** | **str** |  | [optional] 
+**esb_id** | **str** |  | [optional] 
+**jersey_number** | **int** |  | [optional] 
+**player_name** | **str** |  | [optional] 
+**short_name** | **str** |  | [optional] 
+**team_id** | **str** |  | [optional] 
+**headshot** | **str** | URL to player headshot image (contains formatInstructions placeholder) | [optional] 
+**position** | [**NFLNFLNextGenStatsPositionEnum**](NFLNextGenStatsPositionEnum.md) |  | [optional] 
+**count** | **int** |  | [optional] 
+**yards** | **int** |  | [optional] 
+**touchback_cnt** | **int** |  | [optional] 
+**inside20_cnt** | **int** |  | [optional] 
+**out_of_bounds_cnt** | **int** |  | [optional] 
+**to_endzone_cnt** | **int** |  | [optional] 
+**return_yards** | **int** |  | [optional] 
+
+## Example
+
+```python
+from nfl.models.nfl_box_score_player_kicking_statistic import NFLBoxScorePlayerKickingStatistic
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of NFLBoxScorePlayerKickingStatistic from a JSON string
+nfl_box_score_player_kicking_statistic_instance = NFLBoxScorePlayerKickingStatistic.from_json(json)
+# print the JSON string representation of the object
+print(NFLBoxScorePlayerKickingStatistic.to_json())
+
+# convert the object into a dict
+nfl_box_score_player_kicking_statistic_dict = nfl_box_score_player_kicking_statistic_instance.to_dict()
+# create an instance of NFLBoxScorePlayerKickingStatistic from a dict
+nfl_box_score_player_kicking_statistic_from_dict = NFLBoxScorePlayerKickingStatistic.from_dict(nfl_box_score_player_kicking_statistic_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
