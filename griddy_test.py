@@ -3,9 +3,10 @@ import sys
 from griddy import nfl
 from griddy.nfl import NFLAPIClient, NFLConfiguration
 
-_, bearer_token = sys.argv
+_, bearer_token, creds_file = sys.argv
 
-config = NFLConfiguration(access_token=bearer_token)
+config = NFLConfiguration(access_token=bearer_token,
+                          creds_file=creds_file)
 
 with NFLAPIClient(configuration=config) as api_client:
     api_instance = nfl.FootballController(api_client=api_client)

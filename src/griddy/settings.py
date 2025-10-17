@@ -4,6 +4,7 @@ from uuid import uuid4
 
 class Base:
     user_agent = os.getenv("USER_AGENT", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0")
+    token_refresh_threshold = os.getenv("TOKEN_REFRESH_THRESHOLD", 30)
 
 
 class NFL(Base):
