@@ -1,6 +1,7 @@
 import base64
 import importlib
 import json
+import jwt
 import sys
 import time
 import urllib
@@ -228,6 +229,14 @@ class GriddyNFL(BaseSDK):
         :param retry_config: The retry configuration to use for all supported methods
         :param timeout_ms: Optional request timeout applied to each operation in milliseconds
         """
+
+        decoded = jwt.decode(jwt=nfl_auth.replace("Bearer ", ""),
+                             key=settings.NFL["deviceId"],
+                             algorithms=["HS256"],
+                             options={"verify_signature": False})
+        from pprint import pprint
+        pprint(decoded, indent=4)
+
         client_supplied = True
         if client is None:
             client = httpx.Client(follow_redirects=True)
@@ -249,17 +258,11 @@ class GriddyNFL(BaseSDK):
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
-        security: Any = None
-        if callable(nfl_auth):
-            # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(nfl_auth=nfl_auth())
-        else:
-            security = models.Security(nfl_auth=nfl_auth)
 
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
-
+        security = self.pre_request_security_update()
         BaseSDK.__init__(
             self,
             SDKConfiguration(

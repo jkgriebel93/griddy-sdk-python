@@ -20,7 +20,7 @@ def get_body_content(req: httpx.Request) -> str:
 
 
 def get_default_logger() -> Logger:
-    if os.getenv("GRIDDY_NFL_DEBUG"):
+    if os.getenv("GRIDDY_NFL_DEBUG") == "DEBUG":
         logging.basicConfig(level=logging.DEBUG)
         return logging.getLogger("griddy_nfl")
     return NoOpLogger()

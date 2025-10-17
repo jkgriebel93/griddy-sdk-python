@@ -97,6 +97,8 @@ class PlayerStatistics(BaseSDK):
         if isinstance(retries, utils.RetryConfig):
             retry_config = (retries, ["429", "500", "502", "503", "504"])
 
+        print("CHEETAH", base_url)
+        print("ELEPHANT", self.sdk_configuration.security)
         http_res = self.do_request(
             hook_ctx=HookContext(
                 config=self.sdk_configuration,

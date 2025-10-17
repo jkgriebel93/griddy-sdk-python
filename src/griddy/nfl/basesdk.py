@@ -41,7 +41,7 @@ class BaseSDK:
 
     def pre_request_security_update(self):
         # TODO: Refactor these auth calls so we're not duplicating all the arguments
-        if self.auth_token_response is None:
+        if getattr(self, "auth_token_response", None) is None:
             # TODO: Implement parsing the token used during
             # instantiation, and refreshing it.
             self.auth_token_response = make_manual_token_request()
@@ -56,10 +56,16 @@ class BaseSDK:
                 network_type=settings.NFL.get("network_type", "other"),
             )
 
-        self.sdk_configuration.security = models.Security(
+        security =  models.Security(
             nfl_auth=self.auth_token_response.access_token
         )
-        return self.sdk_configuration.security
+        print("\n\n\nCHEETAH\n\n\n")
+        print(security)
+
+        if hasattr(self, "sdk_configuration"):
+            self.sdk_configuration.security = security
+
+        return security
 
     def _get_url(self, base_url, url_variables):
         sdk_url, sdk_variables = self.sdk_configuration.get_server_details()
