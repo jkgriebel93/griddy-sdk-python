@@ -1,7 +1,7 @@
 """Pro Football Reference data source module."""
 
 from .client import PFRClient
-from .models import PFRPlayer, PFRPlayerStats, PFRTeamStats, PFRGame
+from .models import PFRGame, PFRPlayer, PFRPlayerStats, PFRTeamStats
 
 __all__ = [
     "PFRClient",

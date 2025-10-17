@@ -1,10 +1,13 @@
 from __future__ import annotations
+
+from typing import Any, Dict, Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .playtypeenum import PlayTypeEnum
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-import pydantic
-from typing import Any, Dict, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FilmroomPlayTypedDict(TypedDict):

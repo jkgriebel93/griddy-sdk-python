@@ -1,9 +1,12 @@
 from __future__ import annotations
+
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetDraftInfoRequestTypedDict(TypedDict):

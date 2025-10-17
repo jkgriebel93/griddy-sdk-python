@@ -1,8 +1,11 @@
 from __future__ import annotations
-from .filmcard import FilmCard, FilmCardTypedDict
-from ..types import BaseModel
+
 from typing import List
+
 from typing_extensions import TypedDict
+
+from ..types import BaseModel
+from .filmcard import FilmCard, FilmCardTypedDict
 
 
 class HomeFilmCardsResponseTypedDict(TypedDict):

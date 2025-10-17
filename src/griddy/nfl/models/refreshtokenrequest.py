@@ -1,9 +1,11 @@
 from __future__ import annotations
-from ..types import BaseModel
-import pydantic
+
 from typing import Literal
+
+import pydantic
 from typing_extensions import Annotated, TypedDict
 
+from ..types import BaseModel
 
 RefreshTokenRequestNetworkType = Literal[
     "other",

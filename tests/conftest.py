@@ -1,7 +1,10 @@
 """Pytest configuration and shared fixtures."""
 
+from unittest.mock import Mock, patch
+
 import pytest
-from unittest.mock import Mock
+
+from griddy import settings
 
 
 @pytest.fixture
@@ -61,3 +64,30 @@ def sample_player_data():
         "age": 28,
         "college": "Texas Tech",
     }
+
+@pytest.fixture(autouse=True)
+def mock_nfl_auth_requests(requests_mock):
+    """Mock authentication-related HTTP requests for NFLClient."""
+    import time
+
+    mock_account_response = {
+        "signatureTimestamp": "1234567890",
+        "UID": "mock_uid_12345",
+        "UIDSignature": "mock_signature_abc",
+    }
+
+    mock_token_response = {
+        "accessToken": "mock_access_token",
+        "refreshToken": "mock_refresh_token",
+        "expiresIn": int(time.time()) + 3600,  # 1 hour from now
+    }
+
+    # Mock the account info endpoint
+    requests_mock.post(settings.NFL["account_url"], json=mock_account_response)
+
+    # Mock the token endpoint (both initial and refresh)
+    requests_mock.post(settings.NFL["token_url"], json=mock_token_response)
+
+    requests_mock.post(f"{settings.NFL['token_url']}/refresh", json=mock_token_response)
+
+    yield requests_mock

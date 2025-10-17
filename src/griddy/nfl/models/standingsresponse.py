@@ -1,11 +1,14 @@
 from __future__ import annotations
+
+from typing import List, Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .pagination import Pagination, PaginationTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .standings import Standings, StandingsTypedDict
-from ..types import BaseModel
-import pydantic
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class StandingsResponseWeekTypedDict(TypedDict):

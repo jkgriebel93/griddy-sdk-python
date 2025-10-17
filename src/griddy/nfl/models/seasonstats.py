@@ -1,14 +1,17 @@
 from __future__ import annotations
+
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .defensivestats import DefensiveStats, DefensiveStatsTypedDict
 from .kickingstats import KickingStats, KickingStatsTypedDict
 from .passingstats import PassingStats, PassingStatsTypedDict
 from .receivingstats import ReceivingStats, ReceivingStatsTypedDict
 from .rushingstats import RushingStats, RushingStatsTypedDict
 from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class SeasonStatsTypedDict(TypedDict):

@@ -1,20 +1,23 @@
 from __future__ import annotations
+
+from datetime import date, datetime
+from typing import Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+)
 from .gamescore import GameScore, GameScoreTypedDict
 from .gamesite import GameSite, GameSiteTypedDict
 from .scheduleteam import ScheduleTeam, ScheduleTeamTypedDict
 from .seasontypeenum import SeasonTypeEnum
-from datetime import date, datetime
-from ..types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-import pydantic
-from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ScheduledGameTypedDict(TypedDict):

@@ -1,10 +1,11 @@
-from .basesdk import BaseSDK
+from typing import Mapping, Optional
+
 from . import errors, models, utils
 from ._hooks import HookContext
-from .types import OptionalNullable, UNSET
+from .basesdk import BaseSDK
+from .types import UNSET, OptionalNullable
 from .utils import get_security_from_env
 from .utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional
 
 
 class Betting(BaseSDK):

@@ -1,5 +1,6 @@
 import base64
-
+import json
+import os
 from typing import (
     Any,
     Dict,
@@ -7,14 +8,56 @@ from typing import (
     Optional,
     Tuple,
 )
+
+import requests
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
+
+from griddy.nfl import models
+from griddy.nfl.errors.griddynfldefaulterror import GriddyNFLDefaultError
+from griddy.settings import NFL
 
 from .metadata import (
     SecurityMetadata,
     find_field_metadata,
 )
-import os
+from .serializers import stream_to_text
+from .unmarshal_json_response import unmarshal_json_response
+from .values import match_response
+
+
+def make_manual_token_request():
+    url = NFL["token_url"]
+
+    headers = {
+        "host": "api.nfl.com",
+        "accept-encoding": "gzip, deflate",
+        "connection": "keep-alive",
+        "accept": "application/json",
+        "user-agent": NFL["user_agent"],
+        "content-type": "application/json",
+    }
+
+    data = {
+        "clientKey": NFL["clientKey"],
+        "clientSecret": NFL["clientSecret"],
+        "deviceId": NFL["deviceId"],
+        "deviceInfo": NFL["deviceInfo"],
+        "networkType": "ethernet",
+    }
+
+    payload = json.dumps(data)
+    http_res = requests.post(url=url, headers=headers, data=payload)
+
+    if match_response(http_res, "200", "application/json"):
+        return unmarshal_json_response(models.TokenResponse, http_res)
+    if match_response(http_res, ["400", "401", "4XX"], "*"):
+        http_res_text = stream_to_text(http_res)
+        raise GriddyNFLDefaultError("API error occurred", http_res, http_res_text)
+    if match_response(http_res, ["500", "5XX"], "*"):
+        http_res_text = stream_to_text(http_res)
+        raise GriddyNFLDefaultError("API error occurred", http_res, http_res_text)
+    raise GriddyNFLDefaultError("Unexpected response received", http_res)
 
 
 def get_security(security: Any) -> Tuple[Dict[str, str], Dict[str, List[str]]]:

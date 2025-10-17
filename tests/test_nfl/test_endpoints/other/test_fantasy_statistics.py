@@ -3,10 +3,12 @@ Tests for FantasyStatistics endpoint module.
 Related to issue #54.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.fantasy_statistics import FantasyStatistics
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.fantasy_statistics import FantasyStatistics
 
 
 @pytest.mark.endpoint
@@ -22,22 +24,28 @@ class TestFantasyStatistics:
         """Test FantasyStatistics initialization with SDK configuration."""
         assert fantasy_statistics.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.fantasy_statistics.FantasyStatistics.do_request')
-    def test_get_data_success(self, mock_do_request, fantasy_statistics, mock_http_response):
+    @patch("griddy.nfl.fantasy_statistics.FantasyStatistics.do_request")
+    def test_get_data_success(
+        self, mock_do_request, fantasy_statistics, mock_http_response
+    ):
         """Test successful retrieval of data."""
         pass
 
-    @patch('griddy.nfl.fantasy_statistics.FantasyStatistics.do_request')
-    def test_invalid_parameters(self, mock_do_request, fantasy_statistics, mock_error_response):
+    @patch("griddy.nfl.fantasy_statistics.FantasyStatistics.do_request")
+    def test_invalid_parameters(
+        self, mock_do_request, fantasy_statistics, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.fantasy_statistics.FantasyStatistics.do_request')
-    def test_empty_response(self, mock_do_request, fantasy_statistics, mock_http_response):
+    @patch("griddy.nfl.fantasy_statistics.FantasyStatistics.do_request")
+    def test_empty_response(
+        self, mock_do_request, fantasy_statistics, mock_http_response
+    ):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.fantasy_statistics.FantasyStatistics.do_request')
+    @patch("griddy.nfl.fantasy_statistics.FantasyStatistics.do_request")
     def test_network_error(self, mock_do_request, fantasy_statistics):
         """Test handling of network errors."""
         pass
@@ -46,8 +54,10 @@ class TestFantasyStatistics:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.fantasy_statistics.FantasyStatistics.do_request')
-    def test_response_schema_validation(self, mock_do_request, fantasy_statistics, mock_http_response):
+    @patch("griddy.nfl.fantasy_statistics.FantasyStatistics.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, fantasy_statistics, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -61,8 +71,10 @@ class TestFantasyStatisticsAsync:
         """Create a FantasyStatistics instance with mock configuration."""
         return FantasyStatistics(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
-    @patch('griddy.nfl.fantasy_statistics.FantasyStatistics.do_request_async')
-    async def test_get_data_async(self, mock_do_request_async, fantasy_statistics, mock_http_response):
+    @pytest.mark.async_
+    @patch("griddy.nfl.fantasy_statistics.FantasyStatistics.do_request_async")
+    async def test_get_data_async(
+        self, mock_do_request_async, fantasy_statistics, mock_http_response
+    ):
         """Test async retrieval of data."""
         pass

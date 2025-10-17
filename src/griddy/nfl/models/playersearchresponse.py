@@ -1,8 +1,11 @@
 from __future__ import annotations
-from .playersearchresult import PlayerSearchResult, PlayerSearchResultTypedDict
-from ..types import BaseModel
+
 from typing import List
+
 from typing_extensions import TypedDict
+
+from ..types import BaseModel
+from .playersearchresult import PlayerSearchResult, PlayerSearchResultTypedDict
 
 
 class PlayerSearchResponseTypedDict(TypedDict):

@@ -1,14 +1,15 @@
-import re
 import json
+import re
 from typing import (
-    Callable,
-    Generic,
-    TypeVar,
-    Optional,
-    Generator,
     AsyncGenerator,
+    Callable,
+    Generator,
+    Generic,
+    Optional,
     Tuple,
+    TypeVar,
 )
+
 import httpx
 
 T = TypeVar("T")

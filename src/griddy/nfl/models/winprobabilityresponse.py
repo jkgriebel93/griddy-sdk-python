@@ -1,9 +1,12 @@
 from __future__ import annotations
-from .playwinprobability import PlayWinProbability, PlayWinProbabilityTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import List
+
+import pydantic
 from typing_extensions import Annotated, TypedDict
+
+from ..types import BaseModel
+from .playwinprobability import PlayWinProbability, PlayWinProbabilityTypedDict
 
 
 class WinProbabilityResponseTypedDict(TypedDict):

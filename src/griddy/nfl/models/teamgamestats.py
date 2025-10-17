@@ -1,9 +1,12 @@
 from __future__ import annotations
-from .team import Team, TeamTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
+from .team import Team, TeamTypedDict
 
 
 class TeamGameStatsTypedDict(TypedDict):

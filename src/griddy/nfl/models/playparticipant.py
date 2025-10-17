@@ -1,9 +1,11 @@
 from __future__ import annotations
-from .player import Player, PlayerTypedDict
-from ..types import BaseModel
+
 from typing import Literal, Optional
+
 from typing_extensions import NotRequired, TypedDict
 
+from ..types import BaseModel
+from .player import Player, PlayerTypedDict
 
 Role = Literal[
     "PASSER",

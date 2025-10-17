@@ -1,10 +1,12 @@
 from __future__ import annotations
-from .teamscore import TeamScore, TeamScoreTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .teamscore import TeamScore, TeamScoreTypedDict
 
 Phase = Literal[
     "PREGAME",

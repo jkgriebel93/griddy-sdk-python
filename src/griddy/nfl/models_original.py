@@ -1,11 +1,11 @@
 """NFL-specific data models."""
 
-from typing import Optional, List
-
 from datetime import datetime
+from typing import List, Optional
+
 from pydantic import Field
 
-from ..core.models import BaseModel, Game, Team, Player, PlayerStats
+from ..core.models import BaseModel, Game, Player, PlayerStats, Team
 
 
 class NFLGame(Game):

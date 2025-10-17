@@ -3,10 +3,12 @@ Tests for ContentSDK endpoint module.
 Related to issue #47.
 """
 
-import pytest
 from unittest.mock import Mock, patch
-from griddy.nfl.content_sdk import ContentSDK
+
+import pytest
+
 from griddy.nfl import models
+from griddy.nfl.content_sdk import ContentSDK
 
 
 @pytest.mark.endpoint
@@ -23,27 +25,31 @@ class TestContentSDK:
         """Test ContentSDK initialization with SDK configuration."""
         assert content_sdk.sdk_configuration == mock_sdk_configuration
 
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request')
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request")
     def test_get_data_success(self, mock_do_request, content_sdk, mock_http_response):
         """Test successful retrieval of data."""
         pass
 
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request')
-    def test_get_content_by_type(self, mock_do_request, content_sdk, mock_http_response):
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request")
+    def test_get_content_by_type(
+        self, mock_do_request, content_sdk, mock_http_response
+    ):
         """Test retrieval of content by type."""
         pass
 
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request')
-    def test_invalid_parameters(self, mock_do_request, content_sdk, mock_error_response):
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request")
+    def test_invalid_parameters(
+        self, mock_do_request, content_sdk, mock_error_response
+    ):
         """Test error handling for invalid parameters."""
         pass
 
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request')
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request")
     def test_empty_response(self, mock_do_request, content_sdk, mock_http_response):
         """Test handling of empty response."""
         pass
 
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request')
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request")
     def test_network_error(self, mock_do_request, content_sdk):
         """Test handling of network errors."""
         pass
@@ -52,8 +58,10 @@ class TestContentSDK:
         """Test parameter validation."""
         pass
 
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request')
-    def test_response_schema_validation(self, mock_do_request, content_sdk, mock_http_response):
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request")
+    def test_response_schema_validation(
+        self, mock_do_request, content_sdk, mock_http_response
+    ):
         """Test response schema validation."""
         pass
 
@@ -68,8 +76,10 @@ class TestContentSDKAsync:
         """Create a ContentSDK instance with mock configuration."""
         return ContentSDK(mock_sdk_configuration)
 
-    @pytest.mark.asyncio
-    @patch('griddy.nfl.content_sdk.ContentSDK.do_request_async')
-    async def test_get_data_async(self, mock_do_request_async, content_sdk, mock_http_response):
+    @pytest.mark.async_
+    @patch("griddy.nfl.content_sdk.ContentSDK.do_request_async")
+    async def test_get_data_async(
+        self, mock_do_request_async, content_sdk, mock_http_response
+    ):
         """Test async retrieval of data."""
         pass

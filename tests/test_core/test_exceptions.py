@@ -3,11 +3,11 @@
 import pytest
 
 from griddy.core.exceptions import (
-    GriddyError,
     APIError,
-    RateLimitError,
-    NotFoundError,
     AuthenticationError,
+    GriddyError,
+    NotFoundError,
+    RateLimitError,
     ValidationError,
 )
 

@@ -1,28 +1,27 @@
 import base64
-import httpx
 import importlib
 import json
-import requests
+import jwt
 import sys
 import time
 import urllib
 import weakref
+from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Union, cast
 
-from uuid import uuid4
-from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
+import httpx
+import requests
+
+from griddy import settings
 
 from ..core.utils import extract_cookies_as_dict
-
+from ..nfl import models, utils
+from ._hooks import SDKHooks
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration
+from .types import UNSET, OptionalNullable
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
-from ..nfl import models, utils
-from ._hooks import SDKHooks
-from .types import OptionalNullable, UNSET
-
-from griddy import settings
 
 if TYPE_CHECKING:
     from .authentication import Authentication
@@ -221,7 +220,7 @@ class GriddyNFL(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param nfl_auth: The file path of a Netscape formatted cookies file used to set up NFL auth.
+        :param nfl_auth: Bearer token
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -230,6 +229,14 @@ class GriddyNFL(BaseSDK):
         :param retry_config: The retry configuration to use for all supported methods
         :param timeout_ms: Optional request timeout applied to each operation in milliseconds
         """
+
+        decoded = jwt.decode(jwt=nfl_auth.replace("Bearer ", ""),
+                             key=settings.NFL["deviceId"],
+                             algorithms=["HS256"],
+                             options={"verify_signature": False})
+        from pprint import pprint
+        pprint(decoded, indent=4)
+
         client_supplied = True
         if client is None:
             client = httpx.Client(follow_redirects=True)
@@ -251,17 +258,11 @@ class GriddyNFL(BaseSDK):
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
-        security: Any = None
-        if callable(nfl_auth):
-            # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(nfl_auth=nfl_auth())
-        else:
-            security = models.Security(nfl_auth=nfl_auth)
 
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
-
+        security = self.pre_request_security_update()
         BaseSDK.__init__(
             self,
             SDKConfiguration(

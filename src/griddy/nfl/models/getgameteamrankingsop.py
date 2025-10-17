@@ -1,9 +1,11 @@
 from __future__ import annotations
-from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
+
 import pydantic
 from typing_extensions import Annotated, TypedDict
+
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
+from .seasontypeenum import SeasonTypeEnum
 
 
 class GetGameTeamRankingsRequestTypedDict(TypedDict):

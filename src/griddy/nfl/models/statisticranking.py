@@ -1,7 +1,10 @@
 from __future__ import annotations
-from ..types import BaseModel
+
 from typing import Optional
+
 from typing_extensions import NotRequired, TypedDict
+
+from ..types import BaseModel
 
 
 class StatisticTypedDict(TypedDict):

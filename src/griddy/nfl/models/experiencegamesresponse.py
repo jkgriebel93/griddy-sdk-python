@@ -1,9 +1,12 @@
 from __future__ import annotations
+
+from typing import List, Optional
+
+from typing_extensions import NotRequired, TypedDict
+
+from ..types import BaseModel
 from .pagination import Pagination, PaginationTypedDict
 from .progame import ProGame, ProGameTypedDict
-from ..types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
 
 
 class ExperienceGamesResponseTypedDict(TypedDict):

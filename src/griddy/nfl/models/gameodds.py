@@ -1,12 +1,15 @@
 from __future__ import annotations
+
+from datetime import datetime
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .moneyline import MoneyLine, MoneyLineTypedDict
 from .pointspread import PointSpread, PointSpreadTypedDict
 from .totals import Totals, TotalsTypedDict
-from datetime import datetime
-from ..types import BaseModel
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GameOddsTypedDict(TypedDict):

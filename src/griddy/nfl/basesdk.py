@@ -1,14 +1,20 @@
-from .sdkconfiguration import SDKConfiguration
+import time
+from typing import Callable, List, Mapping, Optional, Tuple
+from urllib.parse import parse_qs, urlparse
+
+import httpx
+
+from griddy import settings
+
 from . import errors, models, utils
 from ._hooks import (
     AfterErrorContext,
     AfterSuccessContext,
     BeforeRequestContext,
 )
+from .sdkconfiguration import SDKConfiguration
 from .utils import RetryConfig, SerializedRequestBody, get_body_content
-import httpx
-from typing import Callable, List, Mapping, Optional, Tuple
-from urllib.parse import parse_qs, urlparse
+from .utils.security import make_manual_token_request
 
 
 class BaseSDK:
@@ -26,6 +32,40 @@ class BaseSDK:
     ) -> None:
         self.sdk_configuration = sdk_config
         self.parent_ref = parent_ref
+        self.auth_token_response = None
+
+    def _token_due_for_refresh(self):
+        return (time.time() - self.auth_token_response.expires_in) < settings.BASE[
+            "token_refresh_threshold"
+        ]
+
+    def pre_request_security_update(self):
+        # TODO: Refactor these auth calls so we're not duplicating all the arguments
+        if getattr(self, "auth_token_response", None) is None:
+            # TODO: Implement parsing the token used during
+            # instantiation, and refreshing it.
+            self.auth_token_response = make_manual_token_request()
+
+        elif self._token_due_for_refresh():
+
+            self.auth_token_response = self.authentication.refresh_token(
+                client_key=settings.NFL["client_key"],
+                client_secret=settings.NFL["client_secret"],
+                device_id=settings.NFL["device_id"],
+                device_info=settings.NFL["device_info"],
+                network_type=settings.NFL.get("network_type", "other"),
+            )
+
+        security =  models.Security(
+            nfl_auth=self.auth_token_response.access_token
+        )
+        print("\n\n\nCHEETAH\n\n\n")
+        print(security)
+
+        if hasattr(self, "sdk_configuration"):
+            self.sdk_configuration.security = security
+
+        return security
 
     def _get_url(self, base_url, url_variables):
         sdk_url, sdk_variables = self.sdk_configuration.get_server_details()
@@ -170,10 +210,8 @@ class BaseSDK:
         headers["Accept"] = accept_header_value
         headers[user_agent_header] = self.sdk_configuration.user_agent
 
-        if security is not None:
-            if callable(security):
-                security = security()
-        security = utils.get_security_from_env(security, models.Security)
+        security = self.pre_request_security_update()
+
         if security is not None:
             security_headers, security_query_params = utils.get_security(security)
             headers = {**headers, **security_headers}

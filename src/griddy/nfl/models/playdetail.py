@@ -1,11 +1,13 @@
 from __future__ import annotations
-from .playstat import PlayStat, PlayStatTypedDict
+
 from datetime import datetime
-from ..types import BaseModel
-import pydantic
 from typing import List, Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .playstat import PlayStat, PlayStatTypedDict
 
 PlayDirection = Literal[
     "left",

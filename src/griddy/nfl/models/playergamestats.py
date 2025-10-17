@@ -1,13 +1,16 @@
 from __future__ import annotations
+
+from typing import Optional
+
+from typing_extensions import NotRequired, TypedDict
+
+from ..types import BaseModel
 from .defensivestats import DefensiveStats, DefensiveStatsTypedDict
 from .kickingstats import KickingStats, KickingStatsTypedDict
 from .passingstats import PassingStats, PassingStatsTypedDict
 from .player import Player, PlayerTypedDict
 from .receivingstats import ReceivingStats, ReceivingStatsTypedDict
 from .rushingstats import RushingStats, RushingStatsTypedDict
-from ..types import BaseModel
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
 
 
 class PlayerGameStatsTypedDict(TypedDict):
