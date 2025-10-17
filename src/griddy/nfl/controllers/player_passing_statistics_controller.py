@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.passing_stats_category_enum import PassingStatsCategoryEnum
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.sort_order_enum import SortOrderEnum
@@ -39,7 +39,7 @@ class PlayerPassingStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -212,7 +212,7 @@ class PlayerPassingStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[WeeklyPassingStatsResponse]:
+    ) -> NFLAPIResponse[WeeklyPassingStatsResponse]:
         """Get Player Passing Statistics by Week
 
         Retrieves comprehensive passing statistics for NFL players during a specified week and season. Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats data. Supports filtering by teams, qualified passers, and various sorting options. Data includes completion percentage, yards per attempt, passer rating, EPA (Expected Points Added), CPOE (Completion Percentage Over Expected), time to throw metrics, and game-specific context.

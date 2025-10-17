@@ -26,8 +26,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.pass_rush_stats_response import PassRushStatsResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.sort_order_enum import SortOrderEnum
@@ -43,7 +43,7 @@ class DefensivePassRushStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -200,7 +200,7 @@ class DefensivePassRushStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PassRushStatsResponse]:
+    ) -> NFLAPIResponse[PassRushStatsResponse]:
         """Get Defensive Pass Rush Statistics by Season
 
         Retrieves comprehensive pass rush statistics for NFL defensive players during a specified season. Returns detailed metrics including pressures, sacks, quarterback hits, time to throw allowed, pass rush productivity, and Next Gen Stats data. Supports filtering by qualified defenders, teams, and various sorting options. Data includes traditional pass rush stats and advanced analytics like pass rush grade, pressure rate, and time to sack metrics.

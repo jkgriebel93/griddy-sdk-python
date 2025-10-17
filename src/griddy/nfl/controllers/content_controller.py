@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.game_insight import GameInsight
 from griddy.nfl.models.game_preview_response import GamePreviewResponse
 from griddy.nfl.models.home_film_cards_response import HomeFilmCardsResponse
@@ -36,7 +36,7 @@ class ContentController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -172,7 +172,7 @@ class ContentController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[List[GameInsight]]:
+    ) -> NFLAPIResponse[List[GameInsight]]:
         """Get Game-Specific Insights
 
         Retrieves analytical insights and advanced statistics for a specific game. Can filter by tags and exclude specific content types.
@@ -534,7 +534,7 @@ class ContentController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[GamePreviewResponse]:
+    ) -> NFLAPIResponse[GamePreviewResponse]:
         """Get Game Preview Content
 
         Retrieves preview content and insights for a specific game based on teams and week. Returns preview information, matchup analysis, and key storylines.
@@ -832,7 +832,7 @@ class ContentController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[HomeFilmCardsResponse]:
+    ) -> NFLAPIResponse[HomeFilmCardsResponse]:
         """Get Home Film Cards
 
         Retrieves featured film room content cards for the home page. Returns weekly playlists and featured player film breakdowns.

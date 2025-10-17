@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.game_detail import GameDetail
 from griddy.nfl.models.games_response import GamesResponse
 from griddy.nfl.models.injury_report_response import InjuryReportResponse
@@ -44,7 +44,7 @@ class SchedulesController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -140,7 +140,7 @@ class SchedulesController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[MatchupRankingsResponse]:
+    ) -> NFLAPIResponse[MatchupRankingsResponse]:
         """Get Game Matchup Rankings
 
         Retrieves comprehensive matchup rankings and statistical comparisons for both teams in a specific game. Returns offensive, defensive, and special teams rankings with Z-scores and advantage ratings for various statistical categories.
@@ -406,7 +406,7 @@ class SchedulesController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[GameDetail]:
+    ) -> NFLAPIResponse[GameDetail]:
         """Get Single Game Details
 
         Retrieves detailed information for a specific game by its ID. Returns comprehensive game data including teams, score, venue, broadcast information, and current game status.
@@ -684,7 +684,7 @@ class SchedulesController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[GamesResponse]:
+    ) -> NFLAPIResponse[GamesResponse]:
         """Get Games by Week
 
         Retrieves all games for a specific season, season type, and week. Returns comprehensive game data including teams, venues, broadcast information, and ticket details for all games in the specified week.
@@ -997,7 +997,7 @@ class SchedulesController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[InjuryReportResponse]:
+    ) -> NFLAPIResponse[InjuryReportResponse]:
         """Get Team Injuries for Game Week
 
         Retrieves injury report information for a specific team in a given week. Returns player injury status and details for the specified team and week.

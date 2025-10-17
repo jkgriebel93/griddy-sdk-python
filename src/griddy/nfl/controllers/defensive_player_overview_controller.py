@@ -26,8 +26,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.defensive_overview_stats_response import (
     DefensiveOverviewStatsResponse,
 )
@@ -45,7 +45,7 @@ class DefensivePlayerOverviewController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -213,7 +213,7 @@ class DefensivePlayerOverviewController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[DefensiveOverviewStatsResponse]:
+    ) -> NFLAPIResponse[DefensiveOverviewStatsResponse]:
         """Get Defensive Player Overview Statistics by Season
 
         Retrieves comprehensive defensive overview statistics for NFL players during a specified season. Returns detailed metrics including traditional defensive stats (tackles, stops, sacks), coverage metrics (targets, completions allowed, pass rating allowed), pass rush data, and advanced analytics. Supports filtering by qualified defenders, teams, and various sorting options. Data includes snap counts, tackle efficiency, coverage effectiveness, and situational performance.

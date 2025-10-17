@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.play_summary_response import PlaySummaryResponse
 from griddy.nfl.rest import RESTResponseType
 
@@ -33,7 +33,7 @@ class PlaysController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -132,7 +132,7 @@ class PlaysController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PlaySummaryResponse]:
+    ) -> NFLAPIResponse[PlaySummaryResponse]:
         """Get Play Summary
 
         Retrieves detailed information about a specific play in a game including play description, statistics, involved players, win probability, and expected points.

@@ -29,12 +29,12 @@ from pydantic import SecretStr
 
 import src.griddy.nfl.models
 from griddy.nfl import rest
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.api_response import T as ApiResponseT
-from griddy.nfl.configuration import Configuration
+from griddy.nfl.configuration import NFLConfiguration
 from griddy.nfl.exceptions import (
-    ApiException,
-    ApiValueError,
+    NFLAPIException,
+    NFLAPIValueError,
     BadRequestException,
     ForbiddenException,
     NotFoundException,
@@ -45,7 +45,7 @@ from griddy.nfl.exceptions import (
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
 
-class ApiClient:
+class NFLAPIClient:
     """Generic API client for OpenAPI client library builds.
 
     OpenAPI generic API client. This client handles the client-
@@ -80,7 +80,7 @@ class ApiClient:
     ) -> None:
         # use default configuration if none is provided
         if configuration is None:
-            configuration = Configuration.get_default()
+            configuration = NFLConfiguration.get_default()
         self.configuration = configuration
 
         self.rest_client = rest.RESTClientObject(configuration)
@@ -123,7 +123,7 @@ class ApiClient:
         :return: The ApiClient object.
         """
         if cls._default is None:
-            cls._default = ApiClient()
+            cls._default = NFLAPIClient()
         return cls._default
 
     @classmethod
@@ -267,7 +267,7 @@ class ApiClient:
                 _request_timeout=_request_timeout,
             )
 
-        except ApiException as e:
+        except NFLAPIException as e:
             raise e
 
         return response_data
@@ -276,7 +276,7 @@ class ApiClient:
         self,
         response_data: rest.RESTResponse,
         response_types_map: Optional[Dict[str, ApiResponseT]] = None,
-    ) -> ApiResponse[ApiResponseT]:
+    ) -> NFLAPIResponse[ApiResponseT]:
         """Deserializes response into an object.
         :param response_data: RESTResponse object to be deserialized.
         :param response_types_map: dict of response types.
@@ -317,13 +317,13 @@ class ApiClient:
                 )
         finally:
             if not 200 <= response_data.status <= 299:
-                raise ApiException.from_response(
+                raise NFLAPIException.from_response(
                     http_resp=response_data,
                     body=response_text,
                     data=return_data,
                 )
 
-        return ApiResponse(
+        return NFLAPIResponse(
             status_code=response_data.status,
             data=return_data,
             headers=response_data.getheaders(),
@@ -415,7 +415,7 @@ class ApiClient:
         elif re.match(r"^text\/[a-z.+-]+\s*(;|$)", content_type, re.IGNORECASE):
             data = response_text
         else:
-            raise ApiException(
+            raise NFLAPIException(
                 status=0, reason="Unsupported content type: {0}".format(content_type)
             )
 
@@ -652,7 +652,7 @@ class ApiClient:
         elif auth_setting["in"] == "query":
             queries.append((auth_setting["key"], auth_setting["value"]))
         else:
-            raise ApiValueError("Authentication token must be in `query` or `header`")
+            raise NFLAPIValueError("Authentication token must be in `query` or `header`")
 
     def __deserialize_file(self, response):
         """Deserializes body to file
@@ -715,7 +715,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError:
-            raise rest.ApiException(
+            raise rest.NFLAPIException(
                 status=0, reason="Failed to parse `{0}` as date object".format(string)
             )
 
@@ -732,7 +732,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError:
-            raise rest.ApiException(
+            raise rest.NFLAPIException(
                 status=0,
                 reason=("Failed to parse `{0}` as datetime object".format(string)),
             )
@@ -747,7 +747,7 @@ class ApiClient:
         try:
             return klass(data)
         except ValueError:
-            raise rest.ApiException(
+            raise rest.NFLAPIException(
                 status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass))
             )
 

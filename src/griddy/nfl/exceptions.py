@@ -21,7 +21,7 @@ class OpenApiException(Exception):
     """The base exception class for all OpenAPIExceptions"""
 
 
-class ApiTypeError(OpenApiException, TypeError):
+class NFLAPITypeError(OpenApiException, TypeError):
     def __init__(
         self, msg, path_to_item=None, valid_classes=None, key_type=None
     ) -> None:
@@ -48,10 +48,10 @@ class ApiTypeError(OpenApiException, TypeError):
         full_msg = msg
         if path_to_item:
             full_msg = "{0} at {1}".format(msg, render_path(path_to_item))
-        super(ApiTypeError, self).__init__(full_msg)
+        super(NFLAPITypeError, self).__init__(full_msg)
 
 
-class ApiValueError(OpenApiException, ValueError):
+class NFLAPIValueError(OpenApiException, ValueError):
     def __init__(self, msg, path_to_item=None) -> None:
         """
         Args:
@@ -66,10 +66,10 @@ class ApiValueError(OpenApiException, ValueError):
         full_msg = msg
         if path_to_item:
             full_msg = "{0} at {1}".format(msg, render_path(path_to_item))
-        super(ApiValueError, self).__init__(full_msg)
+        super(NFLAPIValueError, self).__init__(full_msg)
 
 
-class ApiAttributeError(OpenApiException, AttributeError):
+class NFLAPIAttributeError(OpenApiException, AttributeError):
     def __init__(self, msg, path_to_item=None) -> None:
         """
         Raised when an attribute reference or assignment fails.
@@ -85,10 +85,10 @@ class ApiAttributeError(OpenApiException, AttributeError):
         full_msg = msg
         if path_to_item:
             full_msg = "{0} at {1}".format(msg, render_path(path_to_item))
-        super(ApiAttributeError, self).__init__(full_msg)
+        super(NFLAPIAttributeError, self).__init__(full_msg)
 
 
-class ApiKeyError(OpenApiException, KeyError):
+class NFLAPIKeyError(OpenApiException, KeyError):
     def __init__(self, msg, path_to_item=None) -> None:
         """
         Args:
@@ -102,10 +102,10 @@ class ApiKeyError(OpenApiException, KeyError):
         full_msg = msg
         if path_to_item:
             full_msg = "{0} at {1}".format(msg, render_path(path_to_item))
-        super(ApiKeyError, self).__init__(full_msg)
+        super(NFLAPIKeyError, self).__init__(full_msg)
 
 
-class ApiException(OpenApiException):
+class NFLAPIException(OpenApiException):
 
     def __init__(
         self,
@@ -165,7 +165,7 @@ class ApiException(OpenApiException):
 
         if 500 <= http_resp.status <= 599:
             raise ServiceException(http_resp=http_resp, body=body, data=data)
-        raise ApiException(http_resp=http_resp, body=body, data=data)
+        raise NFLAPIException(http_resp=http_resp, body=body, data=data)
 
     def __str__(self):
         """Custom error messages for exception"""
@@ -179,33 +179,33 @@ class ApiException(OpenApiException):
         return error_message
 
 
-class BadRequestException(ApiException):
+class BadRequestException(NFLAPIException):
     pass
 
 
-class NotFoundException(ApiException):
+class NotFoundException(NFLAPIException):
     pass
 
 
-class UnauthorizedException(ApiException):
+class UnauthorizedException(NFLAPIException):
     pass
 
 
-class ForbiddenException(ApiException):
+class ForbiddenException(NFLAPIException):
     pass
 
 
-class ServiceException(ApiException):
+class ServiceException(NFLAPIException):
     pass
 
 
-class ConflictException(ApiException):
+class ConflictException(NFLAPIException):
     """Exception for HTTP 409 Conflict."""
 
     pass
 
 
-class UnprocessableEntityException(ApiException):
+class UnprocessableEntityException(NFLAPIException):
     """Exception for HTTP 422 Unprocessable Entity."""
 
     pass

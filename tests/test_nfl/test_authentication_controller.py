@@ -15,7 +15,7 @@ Do not edit the class manually.
 
 import unittest
 
-from controllers.authentication_controller import AuthenticationController
+from griddy.nfl.controllers.authentication_controller import AuthenticationController
 
 
 class TestAuthenticationController(unittest.TestCase):

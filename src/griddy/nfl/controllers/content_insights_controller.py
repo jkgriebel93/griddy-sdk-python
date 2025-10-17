@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.insight import Insight
 from griddy.nfl.rest import RESTResponseType
 
@@ -40,7 +40,7 @@ class ContentInsightsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -171,7 +171,7 @@ class ContentInsightsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[List[Insight]]:
+    ) -> NFLAPIResponse[List[Insight]]:
         """Get Season Content Insights
 
         Retrieves curated editorial insights and analytics content for NFL players during a specified season. Returns expert commentary combining Next Gen Stats data with editorial analysis, including pregame previews, postgame breakdowns, fantasy insights, and evergreen content. Supports filtering by player, team, content tags, and publication limits for targeted content discovery.

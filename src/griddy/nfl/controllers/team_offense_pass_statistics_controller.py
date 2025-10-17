@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.sort_order_enum import SortOrderEnum
 from griddy.nfl.models.team_offense_pass_stats_response import (
@@ -44,7 +44,7 @@ class TeamOffensePassStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -195,7 +195,7 @@ class TeamOffensePassStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[TeamOffensePassStatsResponse]:
+    ) -> NFLAPIResponse[TeamOffensePassStatsResponse]:
         """Get Team Offense Pass Statistics by Season
 
         Retrieves comprehensive pass offense statistics for NFL teams during a specified season. Returns detailed metrics including traditional offensive stats, advanced analytics like EPA and YACOE (Yards After Catch Over Expected), Next Gen Stats data, and situational performance breakdowns. Supports various sorting options and includes pressure rates, quarterback metrics, completion rates, and receiver separation data.

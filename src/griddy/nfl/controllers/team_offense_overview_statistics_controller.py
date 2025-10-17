@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.sort_order_enum import SortOrderEnum
 from griddy.nfl.models.team_offense_overview_stats_response import (
@@ -44,7 +44,7 @@ class TeamOffenseOverviewStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -210,7 +210,7 @@ class TeamOffenseOverviewStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[TeamOffenseOverviewStatsResponse]:
+    ) -> NFLAPIResponse[TeamOffenseOverviewStatsResponse]:
         """Get Team Offense Overview Statistics by Season
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season. Returns detailed metrics including traditional offensive stats, advanced analytics like EPA and efficiency ratings, Next Gen Stats data, and situational performance breakdowns. Supports filtering by various offensive situations including formations (shotgun, under center, pistol), game situations (leading, trailing, tied), and field positions (red zone, goal-to-go). Includes total offense, passing offense, rushing offense, and scoring metrics.

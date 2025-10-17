@@ -20,7 +20,7 @@ import ssl
 
 import urllib3
 
-from griddy.nfl.exceptions import ApiException, ApiValueError
+from griddy.nfl.exceptions import NFLAPIException, NFLAPIValueError
 
 SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}
 RESTResponseType = urllib3.HTTPResponse
@@ -138,7 +138,7 @@ class RESTClientObject:
         assert method in ["GET", "HEAD", "DELETE", "POST", "PUT", "PATCH", "OPTIONS"]
 
         if post_params and body:
-            raise ApiValueError(
+            raise NFLAPIValueError(
                 "body parameter cannot be used with post_params parameter."
             )
 
@@ -230,7 +230,7 @@ class RESTClientObject:
                     msg = """Cannot prepare a request message for provided
                              arguments. Please check that your arguments match
                              declared content type."""
-                    raise ApiException(status=0, reason=msg)
+                    raise NFLAPIException(status=0, reason=msg)
             # For `GET`, `HEAD`
             else:
                 r = self.pool_manager.request(
@@ -243,6 +243,6 @@ class RESTClientObject:
                 )
         except urllib3.exceptions.SSLError as e:
             msg = "\n".join([type(e).__name__, str(e)])
-            raise ApiException(status=0, reason=msg)
+            raise NFLAPIException(status=0, reason=msg)
 
         return RESTResponse(r)

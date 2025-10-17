@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.gamecenter_response import GamecenterResponse
 from griddy.nfl.models.multiple_rankings_category import MultipleRankingsCategory
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
@@ -44,7 +44,7 @@ class StatsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -153,7 +153,7 @@ class StatsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[TeamRankingsResponse]:
+    ) -> NFLAPIResponse[TeamRankingsResponse]:
         """Get Team Rankings for Game
 
         Retrieves comprehensive statistical rankings for both teams in a specific game. Returns 300+ statistical categories with rankings for offensive, defensive, and special teams performance.
@@ -458,7 +458,7 @@ class StatsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[GamecenterResponse]:
+    ) -> NFLAPIResponse[GamecenterResponse]:
         """Get Gamecenter Statistics
 
         Retrieves advanced game statistics including passer zones, receiver separation, pass rush metrics, and performance leaders for a specific game.
@@ -760,7 +760,7 @@ class StatsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[List[MultipleRankingsCategory]]:
+    ) -> NFLAPIResponse[List[MultipleRankingsCategory]]:
         """Get Multiple Rankings for All Teams
 
         Retrieves rankings for all 32 NFL teams across multiple specified statistical categories. Allows comparison of teams across up to 5 different statistics simultaneously.
@@ -1105,7 +1105,7 @@ class StatsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[TeamBoxScore]:
+    ) -> NFLAPIResponse[TeamBoxScore]:
         """Get Game Boxscore (Stats API)
 
         Retrieves comprehensive boxscore data for a specific game including team statistics, individual player statistics, and scoring summary. Returns empty arrays for future games.

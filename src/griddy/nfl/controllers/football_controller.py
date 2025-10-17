@@ -27,8 +27,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.box_score_response import BoxScoreResponse
 from griddy.nfl.models.draft_response import DraftResponse
 from griddy.nfl.models.football_games_response import FootballGamesResponse
@@ -56,7 +56,7 @@ class FootballController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -162,7 +162,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[DraftResponse]:
+    ) -> NFLAPIResponse[DraftResponse]:
         """Get Draft Information
 
         Retrieves draft information for a specific year including all rounds, picks, traded picks, and compensatory selections.
@@ -446,7 +446,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[BoxScoreResponse]:
+    ) -> NFLAPIResponse[BoxScoreResponse]:
         """Get Game Box Score (Football API)
 
         Retrieves comprehensive box score data for a specific game including team statistics, individual player statistics, and scoring summary.
@@ -719,7 +719,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[FootballGamesResponse]:
+    ) -> NFLAPIResponse[FootballGamesResponse]:
         """Get Games by Season, Type, and Week
 
         Retrieves game information for a specific season, season type, and week from the Football API. This endpoint provides core game data with external IDs.
@@ -1019,7 +1019,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[InjuryReportResponse]:
+    ) -> NFLAPIResponse[InjuryReportResponse]:
         """Get Injury Reports
 
         Retrieves current injury reports for all teams or specific teams with injury status, designation, and practice participation.
@@ -1309,7 +1309,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[GameStatsResponse]:
+    ) -> NFLAPIResponse[GameStatsResponse]:
         """Get Live Game Statistics
 
         Retrieves live game statistics and summaries for games in progress or completed games. Provides real-time statistical data for specified season, type, and week.
@@ -1608,7 +1608,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PlayByPlayResponse]:
+    ) -> NFLAPIResponse[PlayByPlayResponse]:
         """Get Play-by-Play Data
 
         Retrieves detailed play-by-play data for a specific game including all plays, drives, scoring events, and key statistics.
@@ -1903,7 +1903,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PlayerDetail]:
+    ) -> NFLAPIResponse[PlayerDetail]:
         """Get Player Details
 
         Retrieves detailed information about a specific player including biography, career statistics, and current season performance.
@@ -2187,7 +2187,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[RosterResponse]:
+    ) -> NFLAPIResponse[RosterResponse]:
         """Get Team Roster
 
         Retrieves the complete roster for a specific team including active, practice squad, and injured reserve players with detailed player information.
@@ -2530,7 +2530,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PlayerStatsResponse]:
+    ) -> NFLAPIResponse[PlayerStatsResponse]:
         """Get Season Player Statistics
 
         Retrieves aggregated player statistics for a specific season with filtering options by position, team, and statistical categories.
@@ -2893,7 +2893,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[WeeksResponse]:
+    ) -> NFLAPIResponse[WeeksResponse]:
         """Get Season Weeks
 
         Retrieves all weeks for a specific season including preseason, regular season, and postseason. Includes bye team information for each week.
@@ -3181,7 +3181,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[StandingsResponse]:
+    ) -> NFLAPIResponse[StandingsResponse]:
         """Get Standings
 
         Retrieves team standings for a specific season, season type, and week. Includes division, conference, and overall standings with detailed statistics.
@@ -3516,7 +3516,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[TransactionsResponse]:
+    ) -> NFLAPIResponse[TransactionsResponse]:
         """Get Transactions
 
         Retrieves recent transactions including trades, signings, releases, practice squad moves, and injured reserve designations.
@@ -3854,7 +3854,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[VenuesResponse]:
+    ) -> NFLAPIResponse[VenuesResponse]:
         """Get NFL Venues
 
         Retrieves information about all NFL stadiums and venues, including international venues. Provides venue details such as addresses, locations, and territories.
@@ -4169,7 +4169,7 @@ class FootballController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[List[WeeklyGameDetail]]:
+    ) -> NFLAPIResponse[List[WeeklyGameDetail]]:
         """Get Weekly Game Details with Standings
 
         Retrieves detailed game information for a specific week including team standings, drive charts, replays, and tagged videos.

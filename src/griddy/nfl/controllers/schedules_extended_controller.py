@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.current_games_response import CurrentGamesResponse
 from griddy.nfl.models.futures_odds_response import FuturesOddsResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
@@ -36,7 +36,7 @@ class SchedulesExtendedController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -115,7 +115,7 @@ class SchedulesExtendedController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[CurrentGamesResponse]:
+    ) -> NFLAPIResponse[CurrentGamesResponse]:
         """Get Current Week Games
 
         Retrieves all games for the current week of the NFL season. Returns comprehensive game data including teams, venues, broadcast information, scores (for completed games), and ticket details. The endpoint automatically determines the current week based on the current date.
@@ -349,7 +349,7 @@ class SchedulesExtendedController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[FuturesOddsResponse]:
+    ) -> NFLAPIResponse[FuturesOddsResponse]:
         """Get Future Betting Odds
 
         Retrieves comprehensive betting futures data including Super Bowl odds, conference championship odds, and division winner odds for all teams. Returns decimal odds for each selection along with availability status. This endpoint provides futures market data across multiple betting hierarchies.
@@ -609,7 +609,7 @@ class SchedulesExtendedController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[StandingsResponse]:
+    ) -> NFLAPIResponse[StandingsResponse]:
         """Get Team Standings
 
         Retrieves comprehensive team standings for a specific season, season type, and week. Returns detailed standings information including division, conference, home/away records, win percentages, points for/against, current streaks, and clinching scenarios. Standings are calculated through the specified week.

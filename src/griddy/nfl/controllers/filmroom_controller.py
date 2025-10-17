@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.binary_flag_enum import BinaryFlagEnum
 from griddy.nfl.models.filmroom_plays_response import FilmroomPlaysResponse
 from griddy.nfl.models.play_type_enum import PlayTypeEnum
@@ -44,7 +44,7 @@ class FilmroomController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -514,7 +514,7 @@ class FilmroomController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[FilmroomPlaysResponse]:
+    ) -> NFLAPIResponse[FilmroomPlaysResponse]:
         """Get Filmroom Plays with Advanced Filtering
 
         Retrieves detailed play-by-play data with extensive filtering capabilities for film study. Returns comprehensive play information including formations, personnel packages, game situations, and detailed play descriptions. This endpoint supports advanced filtering by game situation, player involvement, formation types, and tactical elements.

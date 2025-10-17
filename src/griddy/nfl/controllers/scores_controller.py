@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.live_scores_response import LiveScoresResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.rest import RESTResponseType
@@ -34,7 +34,7 @@ class ScoresController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -133,7 +133,7 @@ class ScoresController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[LiveScoresResponse]:
+    ) -> NFLAPIResponse[LiveScoresResponse]:
         """Get Live Game Scores
 
         Retrieves real-time scores and game status for all games in a specified week. This endpoint updates frequently (15-second cache) to provide live scoring updates during active games. Returns an empty array when no games are currently being played.

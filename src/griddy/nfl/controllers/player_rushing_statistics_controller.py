@@ -26,8 +26,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.rushing_stats_response import RushingStatsResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.sort_order_enum import SortOrderEnum
@@ -47,7 +47,7 @@ class PlayerRushingStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -215,7 +215,7 @@ class PlayerRushingStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[RushingStatsResponse]:
+    ) -> NFLAPIResponse[RushingStatsResponse]:
         """Get Player Rushing Statistics by Season
 
         Retrieves comprehensive rushing statistics for NFL players during a specified season. Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats data. Supports filtering by teams, qualified rushers, and various sorting options. Data includes yards per carry, EPA (Expected Points Added), RYOE (Rush Yards Over Expected), efficiency metrics, yards before/after contact, and situational breakdowns.
@@ -678,7 +678,7 @@ class PlayerRushingStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[WeeklyRushingStatsResponse]:
+    ) -> NFLAPIResponse[WeeklyRushingStatsResponse]:
         """Get Player Rushing Statistics by Week
 
         Retrieves comprehensive rushing statistics for NFL players during a specified week and season. Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats data. Supports filtering by teams, qualified rushers, and various sorting options. Data includes yards per carry, EPA (Expected Points Added), RYOE (Rush Yards Over Expected), efficiency metrics, yards before/after contact, and game-specific context.

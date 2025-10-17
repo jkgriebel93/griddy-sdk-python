@@ -25,8 +25,8 @@ from pydantic import (
 )
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.fantasy_stats_response import FantasyStatsResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.sort_order_enum import SortOrderEnum
@@ -42,7 +42,7 @@ class FantasyStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -247,7 +247,7 @@ class FantasyStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[FantasyStatsResponse]:
+    ) -> NFLAPIResponse[FantasyStatsResponse]:
         """Get Fantasy Football Statistics by Season
 
         Retrieves comprehensive fantasy football statistics for NFL players during a specified season. Returns fantasy-relevant metrics including standard scoring, PPR scoring, snap counts, and target share data. Supports filtering by position groups (QB, RB, WR, TE, SPEC), teams, minimum offensive snap thresholds, and rolling N-week windows for recent performance analysis. Data includes traditional fantasy categories and advanced metrics for lineup optimization.

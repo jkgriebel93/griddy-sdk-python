@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.experience_games_response import ExperienceGamesResponse
 from griddy.nfl.models.experience_teams_response import ExperienceTeamsResponse
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
@@ -35,7 +35,7 @@ class ExperienceController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -140,7 +140,7 @@ class ExperienceController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[ExperienceGamesResponse]:
+    ) -> NFLAPIResponse[ExperienceGamesResponse]:
         """Get Games by Season and Week
 
         Retrieves game information for a specific season, season type, and week. Returns comprehensive game data including teams, venues, broadcast information, and ticket details.
@@ -434,7 +434,7 @@ class ExperienceController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[ExperienceTeamsResponse]:
+    ) -> NFLAPIResponse[ExperienceTeamsResponse]:
         """Get All Teams
 
         Retrieves information for all NFL teams including Pro Bowl teams. Returns comprehensive team data including logos, colors, venues, and social media links.

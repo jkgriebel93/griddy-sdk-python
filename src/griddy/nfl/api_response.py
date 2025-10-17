@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field, StrictBytes, StrictInt
 T = TypeVar("T")
 
 
-class ApiResponse(BaseModel, Generic[T]):
+class NFLAPIResponse(BaseModel, Generic[T]):
     """
     API response object
     """

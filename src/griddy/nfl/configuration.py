@@ -138,7 +138,7 @@ class HostSetting(TypedDict):
     variables: NotRequired[Dict[str, HostSettingVariable]]
 
 
-class Configuration:
+class NFLConfiguration:
     """This class contains various settings of the API client.
 
     :param host: Base url.
@@ -380,8 +380,6 @@ class Configuration:
         If the logger_file is None, then add stream handler and remove file
         handler. Otherwise, add file handler and remove stream handler.
 
-        :param value: The logger_file path.
-        :type: str
         """
         return self.__logger_file
 

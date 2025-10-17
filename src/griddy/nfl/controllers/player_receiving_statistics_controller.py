@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.receiving_stats_category_enum import (
     ReceivingStatsCategoryEnum,
 )
@@ -39,7 +39,7 @@ class PlayerReceivingStatisticsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -207,7 +207,7 @@ class PlayerReceivingStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[ReceivingStatsResponse]:
+    ) -> NFLAPIResponse[ReceivingStatsResponse]:
         """Get Player Receiving Statistics by Season
 
         Retrieves comprehensive receiving statistics for NFL players during a specified season. Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats data. Supports filtering by teams, qualified receivers, and various sorting options. Data includes catch percentage, yards per reception, EPA (Expected Points Added), CROE (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
@@ -670,7 +670,7 @@ class PlayerReceivingStatisticsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[ReceivingStatsResponse]:
+    ) -> NFLAPIResponse[ReceivingStatsResponse]:
         """Get Player Receiving Statistics by Week
 
         Retrieves comprehensive receiving statistics for NFL players during a specified week and season. Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats data. Supports filtering by teams, qualified receivers, and various sorting options. Data includes catch percentage, yards per reception, EPA (Expected Points Added), CROE (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.

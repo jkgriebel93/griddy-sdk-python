@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.pro_team import ProTeam
 from griddy.nfl.models.scheduled_game import ScheduledGame
 from griddy.nfl.models.season_type_enum import SeasonTypeEnum
@@ -37,7 +37,7 @@ class TeamsController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -116,7 +116,7 @@ class TeamsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[List[ProTeam]]:
+    ) -> NFLAPIResponse[List[ProTeam]]:
         """Get All Teams
 
         Retrieves information for all NFL teams including regular teams and Pro Bowl teams. Returns comprehensive team data including colors, logos, stadiums, and contact information.
@@ -366,7 +366,7 @@ class TeamsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[TeamRosterResponse]:
+    ) -> NFLAPIResponse[TeamRosterResponse]:
         """Get Team Roster
 
         Retrieves the complete roster for a specific team and season. Returns detailed player information including physical attributes, college info, and experience.
@@ -646,7 +646,7 @@ class TeamsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[List[ScheduledGame]]:
+    ) -> NFLAPIResponse[List[ScheduledGame]]:
         """Get Team Schedule
 
         Retrieves the complete schedule for a specific team and season. Returns all games including preseason, regular season, and postseason with scores for completed games.
@@ -946,7 +946,7 @@ class TeamsController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[WeeklyRosterResponse]:
+    ) -> NFLAPIResponse[WeeklyRosterResponse]:
         """Get Weekly Team Roster
 
         Retrieves the roster for a specific team, season, season type, and week. Returns player information with weekly status and availability.

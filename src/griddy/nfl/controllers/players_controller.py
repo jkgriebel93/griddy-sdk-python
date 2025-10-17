@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from griddy.nfl.api_client import ApiClient, RequestSerialized
-from griddy.nfl.api_response import ApiResponse
+from griddy.nfl.api_client import NFLAPIClient, RequestSerialized
+from griddy.nfl.api_response import NFLAPIResponse
 from griddy.nfl.models.player_detail import PlayerDetail
 from griddy.nfl.models.player_search_response import PlayerSearchResponse
 from griddy.nfl.models.projected_stats_response import ProjectedStatsResponse
@@ -35,7 +35,7 @@ class PlayersController:
 
     def __init__(self, api_client=None) -> None:
         if api_client is None:
-            api_client = ApiClient.get_default()
+            api_client = NFLAPIClient.get_default()
         self.api_client = api_client
 
     @validate_call
@@ -121,7 +121,7 @@ class PlayersController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PlayerDetail]:
+    ) -> NFLAPIResponse[PlayerDetail]:
         """Get Player Details
 
         Retrieves detailed information about a specific NFL player including physical attributes, team information, draft details, and current status.
@@ -414,7 +414,7 @@ class PlayersController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[ProjectedStatsResponse]:
+    ) -> NFLAPIResponse[ProjectedStatsResponse]:
         """Get Projected Player Statistics
 
         Retrieves projected fantasy statistics for players based on team, season, and week. Returns data in JSON:API format with relationships between players and their projected stats.
@@ -721,7 +721,7 @@ class PlayersController:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
-    ) -> ApiResponse[PlayerSearchResponse]:
+    ) -> NFLAPIResponse[PlayerSearchResponse]:
         """Search Players
 
         Searches for NFL players by name or term. Returns a list of players matching the search criteria including both active and retired players.
