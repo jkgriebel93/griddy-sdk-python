@@ -8,7 +8,6 @@ on:
 
 jobs:
   publish-codeartifacts:
-    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: write
