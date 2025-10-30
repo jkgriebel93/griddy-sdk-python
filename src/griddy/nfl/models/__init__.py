@@ -291,6 +291,7 @@ if TYPE_CHECKING:
         GetMultipleRankingsAllTeamsRequest,
         GetMultipleRankingsAllTeamsRequestTypedDict,
     )
+    from griddy.nfl.models.getplaylist import GetPlayListRequest, GetPlayListRequestTypedDict
     from .getplaybyplayop import GetPlayByPlayRequest, GetPlayByPlayRequestTypedDict
     from .getplayerdetailsop import (
         GetPlayerDetailsRequest,
@@ -991,6 +992,8 @@ __all__ = [
     "GetMultipleRankingsAllTeamsRequestTypedDict",
     "GetPlayByPlayRequest",
     "GetPlayByPlayRequestTypedDict",
+    "GetPlayListRequest",
+    "GetPlayListRequestTypedDict",
     "GetPlayerDetailsRequest",
     "GetPlayerDetailsRequestTypedDict",
     "GetPlayerPassingStatsBySeasonRequest",
@@ -1720,6 +1723,8 @@ _dynamic_imports: dict[str, str] = {
     "GetMultipleRankingsAllTeamsRequest": ".getmultiplerankingsallteamsop",
     "GetMultipleRankingsAllTeamsRequestTypedDict": ".getmultiplerankingsallteamsop",
     "GetPlayByPlayRequest": ".getplaybyplayop",
+    "GetPlayListRequest": ".getplaylist",
+    "GetPlayListRequestTypedDict": ".getplaylist",
     "GetPlayByPlayRequestTypedDict": ".getplaybyplayop",
     "GetPlayerDetailsRequest": ".getplayerdetailsop",
     "GetPlayerDetailsRequestTypedDict": ".getplayerdetailsop",
