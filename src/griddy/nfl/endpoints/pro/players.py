@@ -1,6 +1,7 @@
 from typing import Optional, Mapping, List
 
 from griddy.nfl import errors, models, utils
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 from griddy.nfl._hooks import HookContext
 from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.endpoints.pro import ProSDK
@@ -83,7 +84,7 @@ class Players(ProSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             # TODO: Something is being lost in the unmarshaling process. Fix it.
-            # return utils.unmarshal_json_response(models.PlayerDetail, http_res)
+            # return unmarshal_json_response(models.PlayerDetail, http_res)
             return http_res.json()
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -173,7 +174,7 @@ class Players(ProSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PlayerDetail, http_res)
+            return unmarshal_json_response(models.PlayerDetail, http_res)
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -271,7 +272,7 @@ class Players(ProSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.ProjectedStatsResponse, http_res)
+            return unmarshal_json_response(models.ProjectedStatsResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -369,7 +370,7 @@ class Players(ProSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.ProjectedStatsResponse, http_res)
+            return unmarshal_json_response(models.ProjectedStatsResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -458,7 +459,7 @@ class Players(ProSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PlayerSearchResponse, http_res)
+            return unmarshal_json_response(models.PlayerSearchResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -547,7 +548,7 @@ class Players(ProSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PlayerSearchResponse, http_res)
+            return unmarshal_json_response(models.PlayerSearchResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GriddyNFLDefaultError(
