@@ -14,13 +14,10 @@ from pydantic import Field
 from typing import Callable, Dict, Optional, Tuple, Union
 
 
-SERVERS = [
-    "https://api.nfl.com",
-    # Production Regular NFL API
-    "https://pro.nfl.com",
-    # Production NFL Pro API
-]
-"""Contains the list of servers available to the SDK"""
+SERVERS = {
+    "regular": "https://api.nfl.com",
+    "pro": "https://pro.nfl.com"
+}
 
 
 @dataclass
@@ -40,6 +37,7 @@ class SDKConfiguration:
     user_agent: str = __user_agent__
     retry_config: OptionalNullable[RetryConfig] = Field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
+    is_pro: bool = False
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
         if self.server_url is not None and self.server_url:
@@ -47,4 +45,4 @@ class SDKConfiguration:
         if self.server_idx is None:
             self.server_idx = 0
 
-        return SERVERS[self.server_idx], {}
+        return SERVERS["regular" if not self.is_pro else "pro"], {}

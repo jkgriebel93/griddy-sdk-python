@@ -1,5 +1,3 @@
-
-from __future__ import annotations
 from .award import Award, AwardTypedDict
 from .careerstats import CareerStats, CareerStatsTypedDict
 from .contractinfo import ContractInfo, ContractInfoTypedDict

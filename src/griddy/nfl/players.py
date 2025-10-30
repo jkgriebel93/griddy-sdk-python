@@ -1,10 +1,9 @@
-
-from .basesdk import BaseSDK
-from . import errors, models, utils
-from .._hooks import HookContext
-from ..types import OptionalNullable, UNSET
-from ..utils import get_security_from_env
-from ..utils.unmarshal_json_response import unmarshal_json_response
+from griddy.nfl.basesdk import BaseSDK
+from griddy.nfl import errors, models, utils
+from griddy.nfl._hooks import HookContext
+from griddy.nfl.types import OptionalNullable, UNSET
+from griddy.nfl.utils import get_security_from_env
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 from typing import List, Mapping, Optional
 
 
@@ -45,7 +44,8 @@ class Players(BaseSDK):
         request = models.GetPlayerRequest(
             nfl_id=nfl_id,
         )
-
+        # TODO: change base URL to pro
+        base_url = "https://pro.nfl.com"
         req = self._build_request(
             method="GET",
             path="/api/players/player",
@@ -61,6 +61,14 @@ class Players(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
+        from pprint import pprint
+        print("=" * 80)
+        print(f"REQUEST URL: {req.url}")
+        print("=" * 80)
+        pprint(dict(req.headers), indent=4)
+        req.headers.update({
+            "referer": "https://pro.nfl.com/players/player/46101"
+        })
 
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
