@@ -40,7 +40,8 @@ if TYPE_CHECKING:
     from .player_receiving_statistics import PlayerReceivingStatistics
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
-    from .players import Players
+    # from .players import Players
+    from griddy.nfl.endpoints.pro.players import Players
     from .plays import Plays
     from .schedules import Schedules
     from .schedules_extended import SchedulesExtended
@@ -125,7 +126,7 @@ class GriddyNFL(BaseSDK):
     _sub_sdk_map = {
         "content": ("griddy.nfl.content_sdk", "ContentSDK"),
         "content_insights": ("griddy.nfl.content_insights", "ContentInsights"),
-        "players": ("griddy.nfl.players", "Players"),
+        "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "plays": ("griddy.nfl.plays", "Plays"),
         "schedules_extended": ("griddy.nfl.schedules_extended", "SchedulesExtended"),
         "schedules": ("griddy.nfl.schedules", "Schedules"),

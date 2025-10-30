@@ -44,8 +44,7 @@ class Players(BaseSDK):
         request = models.GetPlayerRequest(
             nfl_id=nfl_id,
         )
-        # TODO: change base URL to pro
-        base_url = "https://pro.nfl.com"
+
         req = self._build_request(
             method="GET",
             path="/api/players/player",
@@ -61,14 +60,6 @@ class Players(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        from pprint import pprint
-        print("=" * 80)
-        print(f"REQUEST URL: {req.url}")
-        print("=" * 80)
-        pprint(dict(req.headers), indent=4)
-        req.headers.update({
-            "referer": "https://pro.nfl.com/players/player/46101"
-        })
 
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
