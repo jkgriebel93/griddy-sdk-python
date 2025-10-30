@@ -43,7 +43,7 @@ if TYPE_CHECKING:
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
     from .plays import Plays
-    from .schedules import Schedules
+    from griddy.nfl.endpoints.pro.schedules import Schedules
     from .schedules_extended import SchedulesExtended
     from .scores import Scores
     from .season_schedule import SeasonSchedule
@@ -128,7 +128,7 @@ class GriddyNFL(BaseSDK):
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "plays": ("griddy.nfl.plays", "Plays"),
         "schedules_extended": ("griddy.nfl.schedules_extended", "SchedulesExtended"),
-        "schedules": ("griddy.nfl.schedules", "Schedules"),
+        "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.betting", "Betting"),
         "season_schedule": ("griddy.nfl.season_schedule", "SeasonSchedule"),
         "scores": ("griddy.nfl.scores", "Scores"),
