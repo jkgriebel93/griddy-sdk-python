@@ -24,6 +24,7 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 
 if TYPE_CHECKING:
+    from griddy.nfl.endpoints.pro.games import Games
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
     from griddy.nfl.endpoints.pro.teams import Teams
@@ -66,6 +67,8 @@ class GriddyNFL(BaseSDK):
     r"""Editorial insights and analytics content about NFL players and games"""
     players: "Players"
     r"""Player information, statistics, and projections"""
+    games: "Games"
+    r"""Game information and statistics"""
     plays: "Plays"
     r"""Play-by-play data and film room analysis"""
     schedules: "Schedules"
@@ -120,6 +123,7 @@ class GriddyNFL(BaseSDK):
         "content": ("griddy.nfl.content_sdk", "ContentSDK"),
         "content_insights": ("griddy.nfl.content_insights", "ContentInsights"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
+        "games": ("griddy.nfl.endpoints.pro.games", "Games"),
         "plays": ("griddy.nfl.plays", "Plays"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.betting", "Betting"),
