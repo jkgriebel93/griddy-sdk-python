@@ -1,5 +1,3 @@
-"""NFL.com API client."""
-
 import base64
 import json
 import requests

@@ -16,15 +16,10 @@ jobs:
       - name: Checkout source repository
         uses: actions/checkout@v4
 
-      - name: Setup Python and uv
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-
-      - name: Install uv
-        run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+          python-version: '3.14'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -54,7 +49,7 @@ jobs:
 
       - name: Build Python package
         run: |
-          uv build
+          hatch build
 
       - name: Publish to CodeArtifact
         env:
