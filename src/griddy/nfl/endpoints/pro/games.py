@@ -104,14 +104,15 @@ class Games(ProSDK, GameScheduleMixin, GameContentMixin):
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
-    def get_playlist(self,
-                         *,
-                         game_id: str,
-                         retries: OptionalNullable[utils.RetryConfig] = UNSET,
-                         server_url: Optional[str] = None,
-                         timeout_ms: Optional[int] = None,
-                         http_headers: Optional[Mapping[str, str]] = None,
-                         ):
+    def get_playlist(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
         r"""
         :param game_id: Game identifier(s) in 10-digit format (YYYYMMDDNN).  Can be a single game ID or multiple game IDs for batch retrieval.
         :param retries: Override the default retry configuration for this method
@@ -159,9 +160,15 @@ class Games(ProSDK, GameScheduleMixin, GameContentMixin):
 
         print("\nREQUEST DEBUG INFO:\n")
         from pprint import pprint
+
         pprint(vars(req), indent=4)
         print("\nSECURITY TOKEN INFO:")
-        print(f"Token: {self.sdk_configuration.security.nfl_auth[:50]}..." if self.sdk_configuration.security and self.sdk_configuration.security.nfl_auth else "No token")
+        print(
+            f"Token: {self.sdk_configuration.security.nfl_auth[:50]}..."
+            if self.sdk_configuration.security
+            and self.sdk_configuration.security.nfl_auth
+            else "No token"
+        )
 
         http_res = self.do_request(
             hook_ctx=HookContext(

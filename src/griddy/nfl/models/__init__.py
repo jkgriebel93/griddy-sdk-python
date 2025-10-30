@@ -4,6 +4,11 @@ from importlib import import_module
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from griddy.nfl.models.getplaylist import (
+        GetPlayListRequest,
+        GetPlayListRequestTypedDict,
+    )
+
     from .award import Award, AwardType, AwardTypedDict
     from .binaryflagenum import BinaryFlagEnum
     from .boxscoreresponse import BoxscoreResponse, BoxscoreResponseTypedDict
@@ -291,7 +296,6 @@ if TYPE_CHECKING:
         GetMultipleRankingsAllTeamsRequest,
         GetMultipleRankingsAllTeamsRequestTypedDict,
     )
-    from griddy.nfl.models.getplaylist import GetPlayListRequest, GetPlayListRequestTypedDict
     from .getplaybyplayop import GetPlayByPlayRequest, GetPlayByPlayRequestTypedDict
     from .getplayerdetailsop import (
         GetPlayerDetailsRequest,

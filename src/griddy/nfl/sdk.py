@@ -206,7 +206,7 @@ class GriddyNFL(BaseSDK):
     def __init__(
         self,
         cookies_file: str,
-        nfl_auth: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
+        nfl_auth: Dict,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -271,6 +271,7 @@ class GriddyNFL(BaseSDK):
                 retry_config=retry_config,
                 timeout_ms=timeout_ms,
                 debug_logger=debug_logger,
+                custom_auth_info=nfl_auth,
             ),
             parent_ref=self,
         )

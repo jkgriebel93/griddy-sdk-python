@@ -1,5 +1,6 @@
+from typing import List, Union
+
 import pydantic
-from typing import Union, List
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
 from griddy.nfl.types import BaseModel
@@ -17,6 +18,7 @@ r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).
 Can be a single game ID or multiple game IDs for batch retrieval.
 
 """
+
 
 class GetPlayListRequestTypedDict(TypedDict):
     game_id: GameIDTypedDict
