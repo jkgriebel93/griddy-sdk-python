@@ -24,8 +24,8 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 
 if TYPE_CHECKING:
-    # from .players import Players
     from griddy.nfl.endpoints.pro.players import Players
+    from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
     from .betting import Betting
@@ -56,7 +56,6 @@ if TYPE_CHECKING:
         TeamOffenseOverviewStatistics,
     )
     from .team_offense_pass_statistics import TeamOffensePassStatistics
-    from .teams import Teams
     from .win_probability import WinProbability
 
 
@@ -183,7 +182,7 @@ class GriddyNFL(BaseSDK):
         "secured_videos": ("griddy.nfl.secured_videos", "SecuredVideos"),
         "filmroom": ("griddy.nfl.filmroom", "Filmroom"),
         "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
-        "teams": ("griddy.nfl.teams", "Teams"),
+        "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "experience": ("griddy.nfl.experience", "Experience"),
         "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
