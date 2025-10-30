@@ -1,9 +1,11 @@
-
 from __future__ import annotations
-from .pagination import Pagination, PaginationTypedDict
-from ..types import BaseModel
+
 from typing import List, Optional
+
 from typing_extensions import NotRequired, TypedDict
+
+from ..types import BaseModel
+from .pagination import Pagination, PaginationTypedDict
 
 
 class GameStatsResponseDataTypedDict(TypedDict):

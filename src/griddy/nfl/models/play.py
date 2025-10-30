@@ -1,12 +1,13 @@
-
 from __future__ import annotations
-from .penalty import Penalty, PenaltyTypedDict
-from .playparticipant import PlayParticipant, PlayParticipantTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import List, Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .penalty import Penalty, PenaltyTypedDict
+from .playparticipant import PlayParticipant, PlayParticipantTypedDict
 
 PlayType = Literal[
     "PASS",

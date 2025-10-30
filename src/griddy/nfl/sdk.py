@@ -1,30 +1,32 @@
 import base64
-import httpx
 import importlib
 import json
-import requests
 import sys
 import time
 import urllib
 import weakref
-
+from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Union, cast
 from uuid import uuid4
-from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 
-from ..core.utils import extract_cookies_as_dict
-
-from .basesdk import BaseSDK
-from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
-from .sdkconfiguration import SDKConfiguration
-from .utils.logger import Logger, get_default_logger
-from .utils.retries import RetryConfig
-from ..nfl import models, utils
-from ._hooks import SDKHooks
-from .types import OptionalNullable, UNSET
+import httpx
+import requests
 
 from griddy import settings
 
+from ..core.utils import extract_cookies_as_dict
+from ..nfl import models, utils
+from ._hooks import SDKHooks
+from .basesdk import BaseSDK
+from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
+from .sdkconfiguration import SDKConfiguration
+from .types import UNSET, OptionalNullable
+from .utils.logger import Logger, get_default_logger
+from .utils.retries import RetryConfig
+
 if TYPE_CHECKING:
+    # from .players import Players
+    from griddy.nfl.endpoints.pro.players import Players
+
     from .authentication import Authentication
     from .betting import Betting
     from .content_insights import ContentInsights
@@ -40,7 +42,6 @@ if TYPE_CHECKING:
     from .player_receiving_statistics import PlayerReceivingStatistics
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
-    from .players import Players
     from .plays import Plays
     from .schedules import Schedules
     from .schedules_extended import SchedulesExtended
@@ -125,7 +126,7 @@ class GriddyNFL(BaseSDK):
     _sub_sdk_map = {
         "content": ("griddy.nfl.content_sdk", "ContentSDK"),
         "content_insights": ("griddy.nfl.content_insights", "ContentInsights"),
-        "players": ("griddy.nfl.players", "Players"),
+        "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "plays": ("griddy.nfl.plays", "Plays"),
         "schedules_extended": ("griddy.nfl.schedules_extended", "SchedulesExtended"),
         "schedules": ("griddy.nfl.schedules", "Schedules"),

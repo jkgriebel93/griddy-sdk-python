@@ -1,7 +1,6 @@
-
 from __future__ import annotations
-from typing import Literal
 
+from typing import Literal
 
 SortOrderEnum = Literal[
     "ASC",

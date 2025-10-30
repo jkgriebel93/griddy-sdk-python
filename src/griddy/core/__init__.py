@@ -1,7 +1,7 @@
 """Core module for Griddy SDK."""
 
 from .base_client import BaseClient
-from .exceptions import GriddyError, APIError, RateLimitError, NotFoundError
+from .exceptions import APIError, GriddyError, NotFoundError, RateLimitError
 from .models import BaseModel
 
 __all__ = [

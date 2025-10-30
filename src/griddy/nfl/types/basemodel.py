@@ -1,8 +1,8 @@
-
-from pydantic import ConfigDict, model_serializer
-from pydantic import BaseModel as PydanticBaseModel
 from typing import TYPE_CHECKING, Literal, Optional, TypeVar, Union
-from typing_extensions import TypeAliasType, TypeAlias
+
+from pydantic import BaseModel as PydanticBaseModel
+from pydantic import ConfigDict, model_serializer
+from typing_extensions import TypeAlias, TypeAliasType
 
 
 class BaseModel(PydanticBaseModel):

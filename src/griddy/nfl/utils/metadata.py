@@ -1,8 +1,7 @@
-
-from typing import Optional, Type, TypeVar, Union
 from dataclasses import dataclass
-from pydantic.fields import FieldInfo
+from typing import Optional, Type, TypeVar, Union
 
+from pydantic.fields import FieldInfo
 
 T = TypeVar("T")
 

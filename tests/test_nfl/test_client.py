@@ -1,11 +1,12 @@
 """Tests for NFL client."""
 
-import pytest
-import requests_mock
 from datetime import datetime
 
+import pytest
+import requests_mock
+
 from griddy.nfl.client import NFLClient
-from griddy.nfl.models import NFLGame, NFLTeam, NFLPlayer
+from griddy.nfl.models import NFLGame, NFLPlayer, NFLTeam
 
 
 class TestNFLClient:

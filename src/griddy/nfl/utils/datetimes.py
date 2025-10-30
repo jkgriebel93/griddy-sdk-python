@@ -1,6 +1,5 @@
-
-from datetime import datetime
 import sys
+from datetime import datetime
 
 
 def parse_datetime(datetime_string: str) -> datetime:

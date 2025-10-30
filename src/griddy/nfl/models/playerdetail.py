@@ -1,21 +1,21 @@
+from datetime import date
+from typing import List, Optional
 
-from __future__ import annotations
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+)
 from .award import Award, AwardTypedDict
 from .careerstats import CareerStats, CareerStatsTypedDict
 from .contractinfo import ContractInfo, ContractInfoTypedDict
 from .seasonstats import SeasonStats, SeasonStatsTypedDict
-from datetime import date
-from ..types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-import pydantic
-from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class PlayerDetailTypedDict(TypedDict):

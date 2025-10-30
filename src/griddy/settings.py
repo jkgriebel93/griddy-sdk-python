@@ -9,4 +9,5 @@ NFL = {
     "account_url": "https://auth-id.nfl.com/accounts.getAccountInfo",
     "token_url": "https://api.nfl.com/identity/v3/token",
     "base_api_url": "https://api.nfl.com/football/v2/",
+    "pro_api_base_url": "https://pro.nfl.com/api/",
 }

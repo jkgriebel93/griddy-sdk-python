@@ -1,15 +1,17 @@
-
 from __future__ import annotations
+
+from typing import List, Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 from .teamoffenseoverviewstats import (
     TeamOffenseOverviewStats,
     TeamOffenseOverviewStatsTypedDict,
 )
-from ..types import BaseModel
-import pydantic
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TeamOffenseOverviewStatsResponseTypedDict(TypedDict):

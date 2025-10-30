@@ -1,20 +1,22 @@
-
 from __future__ import annotations
+
+from typing import Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+)
 from .conference import Conference, ConferenceTypedDict
 from .conferenceenum import ConferenceEnum
 from .division import Division, DivisionTypedDict
 from .teamtypeenum import TeamTypeEnum
-from ..types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-import pydantic
-from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TeamInfoTypedDict(TypedDict):

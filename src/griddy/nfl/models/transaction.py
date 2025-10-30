@@ -1,13 +1,14 @@
-
 from __future__ import annotations
-from .player import Player, PlayerTypedDict
-from .team import Team, TeamTypedDict
+
 from datetime import datetime
-from ..types import BaseModel
-import pydantic
 from typing import Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .player import Player, PlayerTypedDict
+from .team import Team, TeamTypedDict
 
 TransactionType = Literal[
     "TRADE",

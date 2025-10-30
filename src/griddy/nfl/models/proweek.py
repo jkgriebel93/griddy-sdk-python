@@ -1,13 +1,14 @@
-
 from __future__ import annotations
-from .seasontypeenum import SeasonTypeEnum
-from .team import Team, TeamTypedDict
+
 from datetime import date
-from ..types import BaseModel
-import pydantic
 from typing import List, Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from .seasontypeenum import SeasonTypeEnum
+from .team import Team, TeamTypedDict
 
 ProWeekWeekType = Literal[
     "HOF",

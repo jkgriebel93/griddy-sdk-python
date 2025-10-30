@@ -1,24 +1,24 @@
 import base64
 import json
-import requests
 import time
 import urllib
-
+from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
-from typing import Optional, List, Dict, Any
+import requests
 
 from griddy import settings
+
 from ..core.base_client import BaseClient
-from ..core.utils import parse_date, safe_int, clean_text, extract_cookies_as_dict
+from ..core.utils import clean_text, extract_cookies_as_dict, parse_date, safe_int
 from .models_original import (
     NFLGame,
-    NFLTeam,
+    NFLNews,
     NFLPlayer,
     NFLPlayerStats,
     NFLSchedule,
     NFLStandings,
-    NFLNews,
+    NFLTeam,
 )
 
 

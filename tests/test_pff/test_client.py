@@ -1,11 +1,12 @@
 """Tests for PFF client."""
 
-import pytest
-import requests_mock
 from datetime import datetime
 
+import pytest
+import requests_mock
+
 from griddy.pff.client import PFFClient
-from griddy.pff.models import PFFPlayerGrades, PFFTeamGrades, PFFSeasonSummary
+from griddy.pff.models import PFFPlayerGrades, PFFSeasonSummary, PFFTeamGrades
 
 
 class TestPFFClient:

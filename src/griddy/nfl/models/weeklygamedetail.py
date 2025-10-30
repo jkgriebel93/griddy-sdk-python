@@ -1,5 +1,19 @@
-
 from __future__ import annotations
+
+from datetime import date, datetime
+from typing import List, Literal, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+)
 from .broadcastinfo import BroadcastInfo, BroadcastInfoTypedDict
 from .externalid import ExternalID, ExternalIDTypedDict
 from .meridiemenum import MeridiemEnum
@@ -8,19 +22,6 @@ from .standings import Standings, StandingsTypedDict
 from .team import Team, TeamTypedDict
 from .ticketvendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
-from datetime import date, datetime
-from ..types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-import pydantic
-from pydantic import model_serializer
-from typing import List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
 
 WeeklyGameDetailCategory = Literal[
     "MNF",
@@ -68,7 +69,9 @@ class Replay(BaseModel):
     external_id: Annotated[Optional[str], pydantic.Field(alias="externalId")] = None
     ids: Optional[dict] = None
     images: Optional[list] = None
-    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = None
+    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = (
+        None
+    )
     play_ids: Annotated[Optional[list], pydantic.Field(alias="playIds")] = None
     publish_date: Annotated[Optional[str], pydantic.Field(alias="publishDate")] = None
     sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None

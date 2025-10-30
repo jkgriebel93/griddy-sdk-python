@@ -1,11 +1,13 @@
-
 from __future__ import annotations
+
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .player import Player, PlayerTypedDict
 from .team import Team, TeamTypedDict
-from ..types import BaseModel
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class DraftPickTypedDict(TypedDict):

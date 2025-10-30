@@ -1,9 +1,10 @@
 """Base models and common data structures for Griddy SDK."""
 
+from datetime import datetime
 from typing import Any
 
-from datetime import datetime
-from pydantic import BaseModel as PydanticBaseModel, Field
+from pydantic import BaseModel as PydanticBaseModel
+from pydantic import Field
 
 
 class BaseModel(PydanticBaseModel):

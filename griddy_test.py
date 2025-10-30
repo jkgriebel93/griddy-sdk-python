@@ -1,17 +1,11 @@
+from pprint import pprint
+
 from griddy.nfl import GriddyNFL
 
-nfl = GriddyNFL("cookies.txt")
+# Lamar Jackson = 46101
 
-response = nfl.football.get_weekly_game_details(
-    season=2025,
-    type_="REG",
-    week=5,
-    include_drive_chart=True,
-    include_replays=True,
-    include_standings=True,
-    include_tagged_videos=False,
-)
-game = response[0]
-replay = game.replays[0]
-from pprint import pprint
-pprint(replay.model_dump(), indent=4)
+nfl = GriddyNFL("cookies.txt")
+player_response = nfl.players.get_player(nfl_id=46101)
+# pprint(player_response, indent=4)
+search_resp = nfl.players.search_players(term="Rodgers")
+pprint(search_resp.players[0].model_dump(), indent=4)
