@@ -8,6 +8,7 @@ from . import errors, models, utils
 from .basesdk import BaseSDK
 
 
+# TODO: Not sure where to put this module
 class Betting(BaseSDK):
     r"""Game betting odds and lines"""
 

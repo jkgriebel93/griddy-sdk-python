@@ -25,6 +25,7 @@ from .utils.retries import RetryConfig
 
 if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.players import Players
+    from griddy.nfl.endpoints.pro.schedules import Schedules
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
@@ -43,7 +44,6 @@ if TYPE_CHECKING:
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
     from .plays import Plays
-    from griddy.nfl.endpoints.pro.schedules import Schedules
     from .scores import Scores
     from .secured_videos import SecuredVideos
     from .stats_sdk import StatsSDK
