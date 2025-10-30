@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .award import Award, AwardType, AwardTypedDict
     from .binaryflagenum import BinaryFlagEnum
-    from .boxscoreresponse_1 import BoxscoreResponse1, BoxscoreResponse1TypedDict
+    from .boxscoreresponse import BoxscoreResponse, BoxscoreResponseTypedDict
     from .boxscoreresponse_2 import (
         Away,
         AwayTypedDict,
@@ -809,8 +809,8 @@ __all__ = [
     "BinaryFlagEnum",
     "BoxScoreResponse2",
     "BoxScoreResponse2TypedDict",
-    "BoxscoreResponse1",
-    "BoxscoreResponse1TypedDict",
+    "BoxscoreResponse",
+    "BoxscoreResponseTypedDict",
     "BoxscoreSchedule",
     "BoxscoreScheduleTypedDict",
     "BoxscoreScore",
@@ -1480,8 +1480,8 @@ _dynamic_imports: dict[str, str] = {
     "AwardType": ".award",
     "AwardTypedDict": ".award",
     "BinaryFlagEnum": ".binaryflagenum",
-    "BoxscoreResponse1": ".boxscoreresponse_1",
-    "BoxscoreResponse1TypedDict": ".boxscoreresponse_1",
+    "BoxscoreResponse": ".boxscoreresponse",
+    "BoxscoreResponseTypedDict": ".boxscoreresponse",
     "Away": ".boxscoreresponse_2",
     "AwayTypedDict": ".boxscoreresponse_2",
     "BoxScoreResponse2": ".boxscoreresponse_2",
