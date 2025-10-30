@@ -5,6 +5,6 @@ from griddy.nfl import GriddyNFL
 # Lamar Jackson = 46101
 
 nfl = GriddyNFL("cookies.txt")
-all_teams_response = nfl.teams.get_all_teams()
-example_team = all_teams_response[0]
-pprint(example_team.model_dump(), indent=4)
+response = nfl.schedules.get_schedule_season_weeks(season=2025)
+print("\n\n\n=====get_scheduled_games()=====\n\n\n")
+pprint(response.model_dump(), indent=4)

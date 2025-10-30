@@ -25,6 +25,7 @@ from .utils.retries import RetryConfig
 
 if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.players import Players
+    from griddy.nfl.endpoints.pro.schedules import Schedules
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
@@ -43,10 +44,7 @@ if TYPE_CHECKING:
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
     from .plays import Plays
-    from .schedules import Schedules
-    from .schedules_extended import SchedulesExtended
     from .scores import Scores
-    from .season_schedule import SeasonSchedule
     from .secured_videos import SecuredVideos
     from .stats_sdk import StatsSDK
     from .team_defense_pass_statistics import TeamDefensePassStatistics
@@ -70,14 +68,10 @@ class GriddyNFL(BaseSDK):
     r"""Player information, statistics, and projections"""
     plays: "Plays"
     r"""Play-by-play data and film room analysis"""
-    schedules_extended: "SchedulesExtended"
-    r"""Current games, standings, and betting futures"""
     schedules: "Schedules"
     r"""Game schedules, matchup rankings, and injury reports"""
     betting: "Betting"
     r"""Game betting odds and lines"""
-    season_schedule: "SeasonSchedule"
-    r"""Season weeks and bye information"""
     scores: "Scores"
     r"""Real-time scoring and game status endpoints"""
     win_probability: "WinProbability"
@@ -127,10 +121,8 @@ class GriddyNFL(BaseSDK):
         "content_insights": ("griddy.nfl.content_insights", "ContentInsights"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "plays": ("griddy.nfl.plays", "Plays"),
-        "schedules_extended": ("griddy.nfl.schedules_extended", "SchedulesExtended"),
-        "schedules": ("griddy.nfl.schedules", "Schedules"),
+        "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.betting", "Betting"),
-        "season_schedule": ("griddy.nfl.season_schedule", "SeasonSchedule"),
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "defensive_statistics": (
