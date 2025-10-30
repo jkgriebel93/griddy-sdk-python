@@ -1,14 +1,16 @@
-
 from __future__ import annotations
+
+from datetime import datetime
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 from .gamescore import GameScore, GameScoreTypedDict
 from .seasontypeenum import SeasonTypeEnum
 from .site import Site, SiteTypedDict
 from .teaminfo import TeamInfo, TeamInfoTypedDict
-from datetime import datetime
-from ..types import BaseModel
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GameDetailTypedDict(TypedDict):

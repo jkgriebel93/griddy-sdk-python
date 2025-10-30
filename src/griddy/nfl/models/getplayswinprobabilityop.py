@@ -1,15 +1,16 @@
-
 from __future__ import annotations
+
+from typing import List, Union
+
+import pydantic
+from typing_extensions import Annotated, TypeAliasType, TypedDict
+
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
 from .winprobabilityresponse import (
     WinProbabilityResponse,
     WinProbabilityResponseTypedDict,
 )
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
-import pydantic
-from typing import List, Union
-from typing_extensions import Annotated, TypeAliasType, TypedDict
-
 
 GameIDTypedDict = TypeAliasType("GameIDTypedDict", Union[str, List[str]])
 r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).

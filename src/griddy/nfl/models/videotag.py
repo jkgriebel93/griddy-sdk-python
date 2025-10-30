@@ -1,10 +1,12 @@
-
 from __future__ import annotations
-from .seasontypeenum import SeasonTypeEnum
-from ..types import BaseModel
-import pydantic
+
 from typing import Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
+from .seasontypeenum import SeasonTypeEnum
 
 
 class VideoTagTypedDict(TypedDict):

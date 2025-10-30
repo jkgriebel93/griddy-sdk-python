@@ -1,9 +1,11 @@
-
 from __future__ import annotations
-from ..types import BaseModel
-import pydantic
+
 from typing import Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 
 
 class TotalsTypedDict(TypedDict):

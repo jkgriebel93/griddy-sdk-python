@@ -1,20 +1,21 @@
-from typing import Optional, Mapping, List
+from typing import List, Mapping, Optional
 
 from griddy.nfl import errors, models, utils
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 from griddy.nfl._hooks import HookContext
-from griddy.nfl.types import OptionalNullable, UNSET
 from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.types import UNSET, OptionalNullable
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
+
 
 class Players(ProSDK):
     def get_player(
-            self,
-            *,
-            nfl_id: int,
-            retries: OptionalNullable[utils.RetryConfig] = UNSET,
-            server_url: Optional[str] = None,
-            timeout_ms: Optional[int] = None,
-            http_headers: Optional[Mapping[str, str]] = None,
+        self,
+        *,
+        nfl_id: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PlayerDetail:
         r"""Get Player Details
 

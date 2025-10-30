@@ -1,12 +1,13 @@
-
 from __future__ import annotations
+
 from datetime import date
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
-import pydantic
 from typing import Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
 
 GetTransactionsTransactionType = Literal[
     "TRADE",

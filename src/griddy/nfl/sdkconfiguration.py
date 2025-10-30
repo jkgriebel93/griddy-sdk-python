@@ -1,4 +1,9 @@
+from dataclasses import dataclass
+from typing import Callable, Dict, Optional, Tuple, Union
 
+from pydantic import Field
+
+from ..nfl import models
 from ._version import (
     __gen_version__,
     __openapi_doc_version__,
@@ -6,18 +11,10 @@ from ._version import (
     __version__,
 )
 from .httpclient import AsyncHttpClient, HttpClient
+from .types import UNSET, OptionalNullable
 from .utils import Logger, RetryConfig, remove_suffix
-from dataclasses import dataclass
-from ..nfl import models
-from .types import OptionalNullable, UNSET
-from pydantic import Field
-from typing import Callable, Dict, Optional, Tuple, Union
 
-
-SERVERS = {
-    "regular": "https://api.nfl.com",
-    "pro": "https://pro.nfl.com"
-}
+SERVERS = {"regular": "https://api.nfl.com", "pro": "https://pro.nfl.com"}
 
 
 @dataclass

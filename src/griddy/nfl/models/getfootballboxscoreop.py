@@ -1,9 +1,10 @@
-
 from __future__ import annotations
-from ..types import BaseModel
-from ..utils import FieldMetadata, PathParamMetadata
+
 import pydantic
 from typing_extensions import Annotated, TypedDict
+
+from ..types import BaseModel
+from ..utils import FieldMetadata, PathParamMetadata
 
 
 class GetFootballBoxScoreRequestTypedDict(TypedDict):

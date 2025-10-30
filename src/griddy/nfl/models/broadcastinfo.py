@@ -1,9 +1,11 @@
-
 from __future__ import annotations
-from ..types import BaseModel
-import pydantic
+
 from typing import List, Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
 
 
 class InternationalWatchOptionTypedDict(TypedDict):

@@ -1,11 +1,13 @@
-
 from __future__ import annotations
-from .seasontypeenum import SeasonTypeEnum
+
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from .seasontypeenum import SeasonTypeEnum
 
 
 class GetStandingsRequestTypedDict(TypedDict):

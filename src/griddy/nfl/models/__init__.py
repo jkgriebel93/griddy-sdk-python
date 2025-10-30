@@ -1,8 +1,7 @@
-
-from typing import TYPE_CHECKING
-from importlib import import_module
 import builtins
 import sys
+from importlib import import_module
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .award import Award, AwardType, AwardTypedDict
@@ -164,10 +163,10 @@ if TYPE_CHECKING:
         LeagueAverageSeparationToQbTypedDict,
         PassDistanceLeaders,
         PassDistanceLeadersTypedDict,
-        PassRushers,
-        PassRushersTypedDict,
         Passers,
         PassersTypedDict,
+        PassRushers,
+        PassRushersTypedDict,
         Receivers,
         ReceiversTypedDict,
         Rushers,
@@ -507,9 +506,9 @@ if TYPE_CHECKING:
         PlayerProjection,
         PlayerProjectionTypedDict,
         Relationships,
+        RelationshipsTypedDict,
         RelationshipsTypePlayerWeekProjectedPoints,
         RelationshipsTypePlayerWeekProjectedStats,
-        RelationshipsTypedDict,
         TypePlayer,
         WeekPoint,
         WeekPointTypedDict,
@@ -727,14 +726,14 @@ if TYPE_CHECKING:
     from .venuesresponse import VenuesResponse, VenuesResponseTypedDict
     from .videoauthorizations import (
         NFLPLUSPLUSNFLPLUSCOACHESFILM,
-        NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict,
-        NFLPLUSPremiumNFLPLUSCOACHESFILM,
-        NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict,
         NflPlusPlus,
+        NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict,
         NflPlusPlusRequirements,
         NflPlusPlusRequirementsTypedDict,
         NflPlusPlusTypedDict,
         NflPlusPremium,
+        NFLPLUSPremiumNFLPLUSCOACHESFILM,
+        NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict,
         NflPlusPremiumRequirements,
         NflPlusPremiumRequirementsTypedDict,
         NflPlusPremiumTypedDict,

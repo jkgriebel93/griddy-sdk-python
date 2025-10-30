@@ -1,11 +1,12 @@
-
 from __future__ import annotations
-from ..types import BaseModel
-from ..utils import FieldMetadata, QueryParamMetadata
-import pydantic
+
 from typing import List, Literal, Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from ..types import BaseModel
+from ..utils import FieldMetadata, QueryParamMetadata
 
 Tag = Literal[
     "nfl-pro",

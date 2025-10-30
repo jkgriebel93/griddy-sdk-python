@@ -1,14 +1,15 @@
-
 from __future__ import annotations
+
+from pydantic import model_serializer
+from typing_extensions import NotRequired, TypedDict
+
 from ..types import (
+    UNSET,
+    UNSET_SENTINEL,
     BaseModel,
     Nullable,
     OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
 )
-from pydantic import model_serializer
-from typing_extensions import NotRequired, TypedDict
 
 
 class PreviewTypedDict(TypedDict):

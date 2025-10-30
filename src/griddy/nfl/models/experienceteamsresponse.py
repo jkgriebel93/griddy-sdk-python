@@ -1,9 +1,11 @@
-
 from __future__ import annotations
-from .team import Team, TeamTypedDict
-from ..types import BaseModel
+
 from typing import List, Optional
+
 from typing_extensions import NotRequired, TypedDict
+
+from ..types import BaseModel
+from .team import Team, TeamTypedDict
 
 
 class ExperienceTeamsResponseTypedDict(TypedDict):

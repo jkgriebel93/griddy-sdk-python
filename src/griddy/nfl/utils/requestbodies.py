@@ -1,14 +1,12 @@
-
 import io
-from dataclasses import dataclass
 import re
+from dataclasses import dataclass
 from typing import (
     Any,
     Optional,
 )
 
 from .forms import serialize_form_data, serialize_multipart_form
-
 from .serializers import marshal_json
 
 SERIALIZATION_METHOD_TO_CONTENT_TYPE = {

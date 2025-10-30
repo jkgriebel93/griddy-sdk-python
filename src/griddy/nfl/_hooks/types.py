@@ -1,8 +1,9 @@
-
 from abc import ABC, abstractmethod
-from ..sdkconfiguration import SDKConfiguration
-import httpx
 from typing import Any, Callable, List, Optional, Tuple, Union
+
+import httpx
+
+from ..sdkconfiguration import SDKConfiguration
 
 
 class HookContext:

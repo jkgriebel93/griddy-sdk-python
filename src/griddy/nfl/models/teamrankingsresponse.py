@@ -1,10 +1,12 @@
-
 from __future__ import annotations
-from .teamrankings import TeamRankings, TeamRankingsTypedDict
-from ..types import BaseModel
-import pydantic
+
 from typing import Optional
+
+import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ..types import BaseModel
+from .teamrankings import TeamRankings, TeamRankingsTypedDict
 
 
 class TeamRankingsResponseTypedDict(TypedDict):

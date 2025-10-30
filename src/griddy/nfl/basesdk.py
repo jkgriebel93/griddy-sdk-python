@@ -1,15 +1,16 @@
+from typing import Callable, List, Mapping, Optional, Tuple
+from urllib.parse import parse_qs, urlparse
 
-from .sdkconfiguration import SDKConfiguration
-from . import errors, models, utils
+import httpx
+
 from ..nfl._hooks import (
     AfterErrorContext,
     AfterSuccessContext,
     BeforeRequestContext,
 )
 from ..nfl.utils import RetryConfig, SerializedRequestBody, get_body_content
-import httpx
-from typing import Callable, List, Mapping, Optional, Tuple
-from urllib.parse import parse_qs, urlparse
+from . import errors, models, utils
+from .sdkconfiguration import SDKConfiguration
 
 
 class BaseSDK:

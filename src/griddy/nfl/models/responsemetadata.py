@@ -1,9 +1,11 @@
-
 from __future__ import annotations
+
 from datetime import datetime
-from ..types import BaseModel
+
 import pydantic
 from typing_extensions import Annotated, TypedDict
+
+from ..types import BaseModel
 
 
 class ResponseMetadataTypedDict(TypedDict):

@@ -1,4 +1,5 @@
 from pprint import pprint
+
 from griddy.nfl import GriddyNFL
 
 # Lamar Jackson = 46101

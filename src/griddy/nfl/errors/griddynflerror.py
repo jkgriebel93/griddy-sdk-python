@@ -1,7 +1,7 @@
+from dataclasses import dataclass, field
+from typing import Optional
 
 import httpx
-from typing import Optional
-from dataclasses import dataclass, field
 
 
 @dataclass(frozen=True)
