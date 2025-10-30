@@ -44,7 +44,6 @@ if TYPE_CHECKING:
     from .player_statistics import PlayerStatistics
     from .plays import Plays
     from griddy.nfl.endpoints.pro.schedules import Schedules
-    from .schedules_extended import SchedulesExtended
     from .scores import Scores
     from .season_schedule import SeasonSchedule
     from .secured_videos import SecuredVideos
@@ -70,8 +69,6 @@ class GriddyNFL(BaseSDK):
     r"""Player information, statistics, and projections"""
     plays: "Plays"
     r"""Play-by-play data and film room analysis"""
-    schedules_extended: "SchedulesExtended"
-    r"""Current games, standings, and betting futures"""
     schedules: "Schedules"
     r"""Game schedules, matchup rankings, and injury reports"""
     betting: "Betting"
@@ -127,7 +124,6 @@ class GriddyNFL(BaseSDK):
         "content_insights": ("griddy.nfl.content_insights", "ContentInsights"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "plays": ("griddy.nfl.plays", "Plays"),
-        "schedules_extended": ("griddy.nfl.schedules_extended", "SchedulesExtended"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.betting", "Betting"),
         "season_schedule": ("griddy.nfl.season_schedule", "SeasonSchedule"),
