@@ -24,6 +24,7 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 
 if TYPE_CHECKING:
+    from griddy.nfl.endpoints.pro.content import Content
     from griddy.nfl.endpoints.pro.games import Games
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
@@ -31,8 +32,6 @@ if TYPE_CHECKING:
 
     from .authentication import Authentication
     from .betting import Betting
-    from .content_insights import ContentInsights
-    from .content_sdk import ContentSDK
     from .defensive_pass_rush_statistics import DefensivePassRushStatistics
     from .defensive_player_overview import DefensivePlayerOverview
     from .defensive_statistics import DefensiveStatistics
@@ -51,9 +50,7 @@ if TYPE_CHECKING:
     from .team_defense_pass_statistics import TeamDefensePassStatistics
     from .team_defense_rush_statistics import TeamDefenseRushStatistics
     from .team_defense_statistics import TeamDefenseStatistics
-    from .team_offense_overview_statistics import (
-        TeamOffenseOverviewStatistics,
-    )
+    from .team_offense_overview_statistics import TeamOffenseOverviewStatistics
     from .team_offense_pass_statistics import TeamOffensePassStatistics
     from .win_probability import WinProbability
 
@@ -61,10 +58,8 @@ if TYPE_CHECKING:
 class GriddyNFL(BaseSDK):
     r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
 
-    content: "ContentSDK"
+    content: "Content"
     r"""Game previews, film cards, and insights"""
-    content_insights: "ContentInsights"
-    r"""Editorial insights and analytics content about NFL players and games"""
     players: "Players"
     r"""Player information, statistics, and projections"""
     games: "Games"
@@ -120,8 +115,7 @@ class GriddyNFL(BaseSDK):
     authentication: "Authentication"
     r"""Token generation and refresh operations for NFL API access"""
     _sub_sdk_map = {
-        "content": ("griddy.nfl.content_sdk", "ContentSDK"),
-        "content_insights": ("griddy.nfl.content_insights", "ContentInsights"),
+        "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "games": ("griddy.nfl.endpoints.pro.games", "Games"),
         "plays": ("griddy.nfl.plays", "Plays"),
