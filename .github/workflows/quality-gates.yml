@@ -26,4 +26,5 @@ jobs:
       - name: Ensure that SDK version was updated
         run: |
           cd scripts
+          ls -lah
           ./check-version-bump.sh
