@@ -1,4 +1,4 @@
-name: Generate and Publish SDKs with Speakeasy
+name: Build SDK and publish to AWS CodeArtifact
 
 on:
   push:
