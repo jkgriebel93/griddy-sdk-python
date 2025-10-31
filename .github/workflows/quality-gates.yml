@@ -1,0 +1,23 @@
+name: quality-gates.yml
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Install dependencies
+        run: |
+          pip install black isort
+      - name: Run isort
+        run: isort --check-only --diff
+      - name: Run black formatter
+        run: black --check --diff .
