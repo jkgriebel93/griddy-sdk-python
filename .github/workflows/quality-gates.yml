@@ -25,5 +25,6 @@ jobs:
         run: black --check --diff .
       - name: Ensure that SDK version was updated
         run: |
-          cd scripts
-          ./check-version-bump.sh
+          echo $SHELL
+          echo 'ARMADILLO'
+          bash scripts/check-version-bump.sh
