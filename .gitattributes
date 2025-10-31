@@ -1,0 +1,5 @@
+# .gitattributes
+* text=auto
+
+# Force LF for shell scripts
+*.sh text eol=lf

@@ -17,7 +17,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install black isort
+
       - name: Run isort
         run: isort --check-only --diff .
+
       - name: Run black formatter
         run: black --check --diff .
+      - name: Ensure that SDK version was updated
+        run: |
+          echo $SHELL
+          echo 'ARMADILLO'
+          bash scripts/validate-version-bump.sh
