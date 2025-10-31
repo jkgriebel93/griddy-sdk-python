@@ -37,7 +37,6 @@ if TYPE_CHECKING:
     from .defensive_statistics import DefensiveStatistics
     from .experience import Experience
     from .fantasy_statistics import FantasyStatistics
-    from .filmroom import Filmroom
     from .football import Football
     from .player_passing_statistics import PlayerPassingStatistics
     from .player_receiving_statistics import PlayerReceivingStatistics
@@ -45,7 +44,6 @@ if TYPE_CHECKING:
     from .player_statistics import PlayerStatistics
     from .plays import Plays
     from .scores import Scores
-    from .secured_videos import SecuredVideos
     from .stats_sdk import StatsSDK
     from .team_defense_pass_statistics import TeamDefensePassStatistics
     from .team_defense_rush_statistics import TeamDefenseRushStatistics
@@ -100,10 +98,6 @@ class GriddyNFL(BaseSDK):
     r"""Comprehensive team offensive overview statistics and situational analytics"""
     team_offense_pass_statistics: "TeamOffensePassStatistics"
     r"""Comprehensive team offensive pass statistics and situational analytics"""
-    secured_videos: "SecuredVideos"
-    r"""Premium coaches film video content with multiple camera angles"""
-    filmroom: "Filmroom"
-    r"""Advanced play analysis and film study data"""
     stats: "StatsSDK"
     r"""Comprehensive game and team statistics endpoints"""
     teams: "Teams"
@@ -169,8 +163,6 @@ class GriddyNFL(BaseSDK):
             "griddy.nfl.team_offense_pass_statistics",
             "TeamOffensePassStatistics",
         ),
-        "secured_videos": ("griddy.nfl.secured_videos", "SecuredVideos"),
-        "filmroom": ("griddy.nfl.filmroom", "Filmroom"),
         "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "experience": ("griddy.nfl.experience", "Experience"),
