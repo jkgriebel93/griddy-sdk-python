@@ -1,18 +1,14 @@
+import json
 import sys
-import time
-from datetime import datetime
 from pprint import pprint
 
 from griddy.nfl import GriddyNFL
 
-_, access_token, refresh_token, expires_in = sys.argv
+_, creds_file = sys.argv
 
 # Lamar Jackson = 46101
-custom_auth_info = {
-    "expiresIn": float(expires_in),
-    "refreshToken": refresh_token,
-    "accessToken": access_token,
-}
+with open(creds_file, "r") as infile:
+    custom_auth_info = json.load(infile)
 
 
 nfl = GriddyNFL(nfl_auth=custom_auth_info)
@@ -20,6 +16,6 @@ nfl = GriddyNFL(nfl_auth=custom_auth_info)
 # This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
-
-resp = nfl.games.get_playlist(game_id=game_id)
-pprint(resp, indent=4)
+response = nfl.content.get_season_insights(season=2025)
+print(f"Season insights returned: {len(response)}")
+pprint(response[0], indent=4)
