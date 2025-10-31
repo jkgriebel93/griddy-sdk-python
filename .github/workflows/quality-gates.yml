@@ -25,6 +25,5 @@ jobs:
         run: black --check --diff .
       - name: Ensure that SDK version was updated
         run: |
-          pwd
-          ls -lah
-          ./scripts/check-version-bump.sh
+          cd scripts
+          ./check-version-bump.sh
