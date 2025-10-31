@@ -1,0 +1,14 @@
+name: check-version-bump.yml
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  check-version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check if version was updated
+        run: bash scripts/validate-version-bump.sh
