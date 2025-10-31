@@ -24,4 +24,7 @@ jobs:
       - name: Run black formatter
         run: black --check --diff .
       - name: Ensure that SDK version was updated
-        run: ./scripts/check-version-bump.sh
+        run: |
+          pwd
+          ls -lah
+          ./scripts/check-version-bump.sh
