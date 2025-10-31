@@ -27,4 +27,4 @@ jobs:
         run: |
           echo $SHELL
           echo 'ARMADILLO'
-          bash scripts/check-version-bump.sh
+          bash scripts/validate-version-bump.sh
