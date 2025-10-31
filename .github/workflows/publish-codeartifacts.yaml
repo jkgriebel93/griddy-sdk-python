@@ -8,7 +8,6 @@ on:
 
 jobs:
   publish-codeartifacts:
-    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,36 +27,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Get CodeArtifact authorization token
-        id: codeartifact-token
-        run: |
-          TOKEN=$(aws codeartifact get-authorization-token \
-            --domain ${{ secrets.CODEARTIFACT_DOMAIN }} \
-            --domain-owner ${{ secrets.AWS_ACCOUNT_ID }} \
-            --query authorizationToken \
-            --output text)
-          echo "token=$TOKEN" >> $GITHUB_OUTPUT
-
-          REPO_URL=$(aws codeartifact get-repository-endpoint \
-            --domain ${{ secrets.CODEARTIFACT_DOMAIN }} \
-            --domain-owner ${{ secrets.AWS_ACCOUNT_ID }} \
-            --repository ${{ secrets.CODEARTIFACT_REPO }} \
-            --format pypi \
-            --query repositoryEndpoint \
-            --output text)
-          echo "repo_url=$REPO_URL" >> $GITHUB_OUTPUT
+      - name: Install Dependencies
+        run: pip install .
 
       - name: Build Python package
         run: |
           hatch build
 
-      - name: Publish to CodeArtifact
-        env:
-          CODEARTIFACT_TOKEN: ${{ steps.codeartifact-token.outputs.token }}
-          REPO_URL: ${{ steps.codeartifact-token.outputs.repo_url }}
+      - name: Login to CodeArtifact
         run: |
-          # Configure uv to use CodeArtifact
-          uv publish \
-            --publish-url "${REPO_URL}" \
-            --password "${CODEARTIFACT_TOKEN}" \
-            --username aws
+          aws --version
+          aws codeartifact login \
+          --tool twine \
+          --repository ${{ secrets.AWS_CODEARTIFACT_REPO }} \
+          --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} \
+          --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} \
+          --region ${{ secrets.AWS_REGION }}
+
+      - name: Publish to CodeArtifact
+        run: |
+          twine upload --repository codeartifact dist/*
