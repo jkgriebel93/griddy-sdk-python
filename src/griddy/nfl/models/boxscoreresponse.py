@@ -10,7 +10,7 @@ from .boxscoreschedule import BoxscoreSchedule, BoxscoreScheduleTypedDict
 from .teamboxscore import TeamBoxscore, TeamBoxscoreTypedDict
 
 
-class BoxscoreResponse1TypedDict(TypedDict):
+class BoxscoreResponseTypedDict(TypedDict):
     away: NotRequired[TeamBoxscoreTypedDict]
     game_id: NotRequired[str]
     r"""Game identifier"""
@@ -18,7 +18,7 @@ class BoxscoreResponse1TypedDict(TypedDict):
     schedule: NotRequired[BoxscoreScheduleTypedDict]
 
 
-class BoxscoreResponse1(BaseModel):
+class BoxscoreResponse(BaseModel):
     away: Optional[TeamBoxscore] = None
 
     game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
