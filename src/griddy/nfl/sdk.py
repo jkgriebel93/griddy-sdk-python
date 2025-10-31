@@ -205,7 +205,6 @@ class GriddyNFL(BaseSDK):
 
     def __init__(
         self,
-        cookies_file: str,
         nfl_auth: Dict,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
@@ -248,11 +247,7 @@ class GriddyNFL(BaseSDK):
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
-        self.cookies_file = cookies_file
-        self._account_info = self.load_account_info()
-        self._token = {}
-        self.get_auth_token()
-        security = models.Security(nfl_auth=self._token["accessToken"])
+        security = models.Security(nfl_auth=nfl_auth["accessToken"])
 
         if server_url is not None:
             if url_params is not None:
@@ -292,74 +287,6 @@ class GriddyNFL(BaseSDK):
             self.sdk_configuration.async_client,
             self.sdk_configuration.async_client_supplied,
         )
-
-    def _token_is_fresh(self) -> bool:
-        """
-        Determine if it's time to refresh our access token
-
-        Returns:
-            A bool which is True if the token is fresh; False otherwise
-        """
-        return (self._token.get("accessToken") is not None) and self._token.get(
-            "expiresIn"
-        ) > time.time() + 30
-
-    def get_auth_token(self):
-        """
-        Get and store an authentication token if necessary.
-        """
-        if self._token_is_fresh():
-            return
-
-        token_url = settings.NFL["token_url"]
-        if self._token.get("refreshToken"):
-            token_url += "/refresh"
-
-        token_request_data = json.dumps(
-            {**self._client_data, **self._account_info}, separators=(",", ":")
-        ).encode()
-        response = requests.post(
-            token_url,
-            data=token_request_data,
-            headers={"Content-Type": "application/json"},
-        )
-        response.raise_for_status()
-
-        self._token = response.json()
-        # self.session.headers.update(
-        #     {"Authorization": f"Bearer {self._token['accessToken']}"}
-        # )
-
-    def load_account_info(self):
-        """
-        Load account information to be used in token requests.
-        """
-        nfl_auth_cookies = extract_cookies_as_dict(
-            self.cookies_file, settings.NFL["auth_url"]
-        )
-        login_token = nfl_auth_cookies.get(f"glt_{settings.NFL['api_key']}")
-        account_post_data = {
-            "include": "profile,data",
-            "lang": "en",
-            "APIKey": settings.NFL["api_key"],
-            "sdk": "js_latest",
-            "login_token": login_token,
-            "authMode": "cookie",
-            "pageURL": "https://www.nfl.com/",
-            "sdkBuild": settings.NFL["sdk_build"],
-            "format": "json",
-        }
-        response = requests.post(
-            settings.NFL["account_url"],
-            data=urllib.parse.urlencode(account_post_data).encode("ascii"),
-            headers={"Content-Type": "application/x-www-form-urlencoded"},
-        ).json()
-        info = {}
-        for key in ["signatureTimestamp", "UID", "UIDSignature"]:
-            if key in response:
-                info[key] = response[key]
-
-        return info
 
     def dynamic_import(self, modname, retries=3):
         for attempt in range(retries):

@@ -42,22 +42,11 @@ class HackAuthHook(BeforeRequestHook):
     def before_request(
         self, hook_ctx: BeforeRequestContext, request: httpx.Request
     ) -> Union[httpx.Request, Exception]:
-        print("ARMADILLO")
-        print(
-            f"Seconds left: {hook_ctx.config.custom_auth_info['expiresIn'] - time.time()}"
-        )
-        from pprint import pprint
-
-        pprint(vars(request), indent=4)
 
         auth_info = hook_ctx.config.custom_auth_info
         if (auth_info["expiresIn"] - time.time()) < 30:
-            print("BADGER")
             resp_data = self._do_refresh_token(refresh_token=auth_info["refreshToken"])
             hook_ctx.config.custom_auth_info = resp_data
             hook_ctx.config.security = Security(nfl_auth=resp_data["accessToken"])
-
-        print("CHEETAH")
-        pprint(vars(request))
 
         return request

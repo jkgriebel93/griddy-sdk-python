@@ -158,18 +158,6 @@ class Games(ProSDK, GameScheduleMixin, GameContentMixin):
         if isinstance(retries, utils.RetryConfig):
             retry_config = (retries, ["429", "500", "502", "503", "504"])
 
-        print("\nREQUEST DEBUG INFO:\n")
-        from pprint import pprint
-
-        pprint(vars(req), indent=4)
-        print("\nSECURITY TOKEN INFO:")
-        print(
-            f"Token: {self.sdk_configuration.security.nfl_auth[:50]}..."
-            if self.sdk_configuration.security
-            and self.sdk_configuration.security.nfl_auth
-            else "No token"
-        )
-
         http_res = self.do_request(
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
