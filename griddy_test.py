@@ -1,10 +1,25 @@
+import time
+from datetime import datetime
+import sys
 from pprint import pprint
 
 from griddy.nfl import GriddyNFL
 
-# Lamar Jackson = 46101
+_, access_token, refresh_token, expires_in = sys.argv
 
-nfl = GriddyNFL("cookies.txt")
-response = nfl.schedules.get_schedule_season_weeks(season=2025)
-print("\n\n\n=====get_scheduled_games()=====\n\n\n")
-pprint(response.model_dump(), indent=4)
+# Lamar Jackson = 46101
+custom_auth_info = {
+    "expiresIn": float(expires_in),
+    "refreshToken": refresh_token,
+    "accessToken": access_token,
+}
+
+
+nfl = GriddyNFL(nfl_auth=custom_auth_info)
+
+# This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
+fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
+game_id = "2025102610"
+
+resp = nfl.games.get_playlist(game_id=game_id)
+pprint(resp, indent=4)
