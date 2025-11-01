@@ -9,6 +9,11 @@ if TYPE_CHECKING:
         GetDefensiveOverviewStatsByWeekRequestTypedDict,
         GetDefensiveOverviewStatsByWeekSortKey,
     )
+    from griddy.nfl.models.getdefensivepassrushstatsbyweekop import (
+        GetDefensivePassRushStatsByWeekRequest,
+        GetDefensivePassRushStatsByWeekRequestTypedDict,
+        GetDefensivePassRushStatsByWeekSortKey,
+    )
     from griddy.nfl.models.getplaylist import (
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
@@ -962,6 +967,9 @@ __all__ = [
     "GetDefensiveOverviewStatsByWeekRequest",
     "GetDefensiveOverviewStatsByWeekRequestTypedDict",
     "GetDefensiveOverviewStatsByWeekSortKey",
+    "GetDefensivePassRushStatsByWeekRequest",
+    "GetDefensivePassRushStatsByWeekRequestTypedDict",
+    "GetDefensivePassRushStatsByWeekSortKey",
     "GetDefensivePassRushStatsBySeasonRequest",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict",
     "GetDefensivePassRushStatsBySeasonSortKey",
@@ -1686,6 +1694,9 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensiveOverviewStatsByWeekRequest": ".getdefensiveoverviewstatsbyweekop",
     "GetDefensiveOverviewStatsByWeekRequestTypedDict": ".getdefensiveoverviewstatsbyweekop",
     "GetDefensiveOverviewStatsByWeekSortKey": ".getdefensiveoverviewstatsbyweekop",
+    "GetDefensivePassRushStatsByWeekRequest": ".getdefensivepassrushstatsbyweekop",
+    "GetDefensivePassRushStatsByWeekRequestTypedDict": ".getdefensivepassrushstatsbyweekop",
+    "GetDefensivePassRushStatsByWeekSortKey": ".getdefensivepassrushstatsbyweekop",
     "GetDefensivePassRushStatsBySeasonRequest": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonSortKey": ".getdefensivepassrushstatsbyseasonop",

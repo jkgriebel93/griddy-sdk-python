@@ -31,7 +31,6 @@ if TYPE_CHECKING:
 
     from .authentication import Authentication
     from .betting import Betting
-    from .defensive_pass_rush_statistics import DefensivePassRushStatistics
     from .experience import Experience
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
