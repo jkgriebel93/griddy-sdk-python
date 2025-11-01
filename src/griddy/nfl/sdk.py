@@ -2,18 +2,14 @@ import base64
 import importlib
 import json
 import sys
-import time
-import urllib
 import weakref
-from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Union, cast
+from typing import TYPE_CHECKING, Dict, Optional, cast
 from uuid import uuid4
 
 import httpx
-import requests
 
 from griddy import settings
 
-from ..core.utils import extract_cookies_as_dict
 from ..nfl import models, utils
 from ._hooks import SDKHooks
 from .basesdk import BaseSDK
@@ -29,6 +25,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
     from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
+    from griddy.nfl.endpoints.pro.stats.rushing import PlayerRushingStats
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
@@ -40,7 +37,6 @@ if TYPE_CHECKING:
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
     from .player_receiving_statistics import PlayerReceivingStatistics
-    from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
     from .scores import Scores
     from .stats_sdk import StatsSDK
@@ -83,7 +79,7 @@ class GriddyNFL(BaseSDK):
     r"""Individual player passing statistics"""
     player_receiving_statistics: "PlayerReceivingStatistics"
     r"""Individual player receiving statistics and analytics"""
-    player_rushing_statistics: "PlayerRushingStatistics"
+    player_rushing_stats: "PlayerRushingStats"
     r"""Individual player rushing statistics and analytics"""
     team_defense_statistics: "TeamDefenseStatistics"
     r"""Comprehensive team defensive statistics and situational analytics"""
@@ -135,9 +131,9 @@ class GriddyNFL(BaseSDK):
             "griddy.nfl.player_receiving_statistics",
             "PlayerReceivingStatistics",
         ),
-        "player_rushing_statistics": (
-            "griddy.nfl.player_rushing_statistics",
-            "PlayerRushingStatistics",
+        "player_rushing_stats": (
+            "griddy.nfl.endpoints.pro.stats.rushing",
+            "PlayerRushingStats",
         ),
         "team_defense_statistics": (
             "griddy.nfl.team_defense_statistics",
