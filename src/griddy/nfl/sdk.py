@@ -28,6 +28,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.games import Games
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
+    from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
@@ -38,7 +39,6 @@ if TYPE_CHECKING:
     from .experience import Experience
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
-    from .player_passing_statistics import PlayerPassingStatistics
     from .player_receiving_statistics import PlayerReceivingStatistics
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
@@ -79,8 +79,8 @@ class GriddyNFL(BaseSDK):
     r"""Fantasy football player statistics and scoring metrics"""
     player_statistics: "PlayerStatistics"
     r"""Individual player passing statistics and analytics"""
-    player_passing_statistics: "PlayerPassingStatistics"
-    r"""Individual player passing statistics and analytics by week"""
+    player_passing_stats: "PlayerPassingStats"
+    r"""Individual player passing statistics"""
     player_receiving_statistics: "PlayerReceivingStatistics"
     r"""Individual player receiving statistics and analytics"""
     player_rushing_statistics: "PlayerRushingStatistics"
@@ -127,9 +127,9 @@ class GriddyNFL(BaseSDK):
         ),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
         "player_statistics": ("griddy.nfl.player_statistics", "PlayerStatistics"),
-        "player_passing_statistics": (
-            "griddy.nfl.player_passing_statistics",
-            "PlayerPassingStatistics",
+        "player_passing_stats": (
+            "griddy.nfl.endpoints.pro.stats.passing",
+            "PlayerPassingStats",
         ),
         "player_receiving_statistics": (
             "griddy.nfl.player_receiving_statistics",
