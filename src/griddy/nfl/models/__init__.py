@@ -4,6 +4,11 @@ from importlib import import_module
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from griddy.nfl.models.getdefensiveoverviewstatsbyweekop import (
+        GetDefensiveOverviewStatsByWeekRequest,
+        GetDefensiveOverviewStatsByWeekRequestTypedDict,
+        GetDefensiveOverviewStatsByWeekSortKey,
+    )
     from griddy.nfl.models.getplaylist import (
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
@@ -954,6 +959,9 @@ __all__ = [
     "GetDefensiveOverviewStatsBySeasonRequest",
     "GetDefensiveOverviewStatsBySeasonRequestTypedDict",
     "GetDefensiveOverviewStatsBySeasonSortKey",
+    "GetDefensiveOverviewStatsByWeekRequest",
+    "GetDefensiveOverviewStatsByWeekRequestTypedDict",
+    "GetDefensiveOverviewStatsByWeekSortKey",
     "GetDefensivePassRushStatsBySeasonRequest",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict",
     "GetDefensivePassRushStatsBySeasonSortKey",
@@ -1675,6 +1683,9 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensiveOverviewStatsBySeasonRequest": ".getdefensiveoverviewstatsbyseasonop",
     "GetDefensiveOverviewStatsBySeasonRequestTypedDict": ".getdefensiveoverviewstatsbyseasonop",
     "GetDefensiveOverviewStatsBySeasonSortKey": ".getdefensiveoverviewstatsbyseasonop",
+    "GetDefensiveOverviewStatsByWeekRequest": ".getdefensiveoverviewstatsbyweekop",
+    "GetDefensiveOverviewStatsByWeekRequestTypedDict": ".getdefensiveoverviewstatsbyweekop",
+    "GetDefensiveOverviewStatsByWeekSortKey": ".getdefensiveoverviewstatsbyweekop",
     "GetDefensivePassRushStatsBySeasonRequest": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonSortKey": ".getdefensivepassrushstatsbyseasonop",
