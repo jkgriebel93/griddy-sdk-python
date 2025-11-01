@@ -42,7 +42,6 @@ if TYPE_CHECKING:
     from .player_receiving_statistics import PlayerReceivingStatistics
     from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
-    from .plays import Plays
     from .scores import Scores
     from .stats_sdk import StatsSDK
     from .team_defense_pass_statistics import TeamDefensePassStatistics
@@ -62,8 +61,6 @@ class GriddyNFL(BaseSDK):
     r"""Player information, statistics, and projections"""
     games: "Games"
     r"""Game information and statistics"""
-    plays: "Plays"
-    r"""Play-by-play data and film room analysis"""
     schedules: "Schedules"
     r"""Game schedules, matchup rankings, and injury reports"""
     betting: "Betting"
@@ -112,7 +109,6 @@ class GriddyNFL(BaseSDK):
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "games": ("griddy.nfl.endpoints.pro.games", "Games"),
-        "plays": ("griddy.nfl.plays", "Plays"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.betting", "Betting"),
         "scores": ("griddy.nfl.scores", "Scores"),
