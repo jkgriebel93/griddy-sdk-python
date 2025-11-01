@@ -36,7 +36,6 @@ if TYPE_CHECKING:
     from .experience import Experience
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
-    from .player_receiving_statistics import PlayerReceivingStatistics
     from .player_statistics import PlayerStatistics
     from .scores import Scores
     from .stats_sdk import StatsSDK
@@ -77,7 +76,7 @@ class GriddyNFL(BaseSDK):
     r"""Individual player passing statistics and analytics"""
     player_passing_stats: "PlayerPassingStats"
     r"""Individual player passing statistics"""
-    player_receiving_statistics: "PlayerReceivingStatistics"
+    player_receiving_stats: "PlayerReceivingStats"
     r"""Individual player receiving statistics and analytics"""
     player_rushing_stats: "PlayerRushingStats"
     r"""Individual player rushing statistics and analytics"""
@@ -128,8 +127,8 @@ class GriddyNFL(BaseSDK):
             "PlayerPassingStats",
         ),
         "player_receiving_statistics": (
-            "griddy.nfl.player_receiving_statistics",
-            "PlayerReceivingStatistics",
+            "griddy.nfl.endpoints.pro.stats.receiving",
+            "PlayerReceivingStats",
         ),
         "player_rushing_stats": (
             "griddy.nfl.endpoints.pro.stats.rushing",
