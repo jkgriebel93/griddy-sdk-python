@@ -23,8 +23,8 @@ game_id = "2025102610"
 #   1. Create a player SDK class that contains the passing/receiving/rushing stats methods
 #   2. Create a stats SDK class that has a player property
 #   3. Add the stats mapping to GriddyNFL
-passing_stats = nfl.player_passing_stats.get_player_passing_stats_week(
-    season=2025, season_type="REG", week="WEEK_8"
+passing_stats = nfl.player_passing_stats.get_season_summary(
+    season=2025, season_type="REG"
 )
 import json
 
