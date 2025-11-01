@@ -19,6 +19,10 @@ game_id = "2025102610"
 
 # TODO: I don't like the way you have to call this method.
 # I'd like it to be something like nfl.player_stats.passing.get_week
+#   I'll need to:
+#   1. Create a player SDK class that contains the passing/receiving/rushing stats methods
+#   2. Create a stats SDK class that has a player property
+#   3. Add the stats mapping to GriddyNFL
 passing_stats = nfl.player_passing_stats.get_player_passing_stats_week(
     season=2025, season_type="REG", week="WEEK_8"
 )
