@@ -425,6 +425,12 @@ if TYPE_CHECKING:
         GetTeamOffenseOverviewStatsBySeasonSortKey,
         GetTeamOffenseOverviewStatsBySeasonSplit,
     )
+    from .getteamoffenseoverviewstatsbyweekop import (
+        GetTeamOffenseOverviewStatsByWeekRequest,
+        GetTeamOffenseOverviewStatsByWeekRequestTypedDict,
+        GetTeamOffenseOverviewStatsByWeekSortKey,
+        GetTeamOffenseOverviewStatsByWeekSplit,
+    )
     from .getteamoffensepassstatsbyseasonop import (
         GetTeamOffensePassStatsBySeasonRequest,
         GetTeamOffensePassStatsBySeasonRequestTypedDict,
@@ -1103,6 +1109,10 @@ __all__ = [
     "GetTeamOffenseOverviewStatsBySeasonRequestTypedDict",
     "GetTeamOffenseOverviewStatsBySeasonSortKey",
     "GetTeamOffenseOverviewStatsBySeasonSplit",
+    "GetTeamOffenseOverviewStatsByWeekRequest",
+    "GetTeamOffenseOverviewStatsByWeekRequestTypedDict",
+    "GetTeamOffenseOverviewStatsByWeekSortKey",
+    "GetTeamOffenseOverviewStatsByWeekSplit",
     "GetTeamOffensePassStatsBySeasonRequest",
     "GetTeamOffensePassStatsBySeasonRequestTypedDict",
     "GetTeamOffensePassStatsBySeasonSortKey",
@@ -1861,6 +1871,10 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamOffenseOverviewStatsBySeasonRequestTypedDict": ".getteamoffenseoverviewstatsbyseasonop",
     "GetTeamOffenseOverviewStatsBySeasonSortKey": ".getteamoffenseoverviewstatsbyseasonop",
     "GetTeamOffenseOverviewStatsBySeasonSplit": ".getteamoffenseoverviewstatsbyseasonop",
+    "GetTeamOffenseOverviewStatsByWeekRequest": ".getteamoffenseoverviewstatsbyweekop",
+    "GetTeamOffenseOverviewStatsByWeekRequestTypedDict": ".getteamoffenseoverviewstatsbyweekop",
+    "GetTeamOffenseOverviewStatsByWeekSortKey": ".getteamoffenseoverviewstatsbyweekop",
+    "GetTeamOffenseOverviewStatsByWeekSplit": ".getteamoffenseoverviewstatsbyweekop",
     "GetTeamOffensePassStatsBySeasonRequest": ".getteamoffensepassstatsbyseasonop",
     "GetTeamOffensePassStatsBySeasonRequestTypedDict": ".getteamoffensepassstatsbyseasonop",
     "GetTeamOffensePassStatsBySeasonSortKey": ".getteamoffensepassstatsbyseasonop",

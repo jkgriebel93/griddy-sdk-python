@@ -17,9 +17,8 @@ nfl = GriddyNFL(nfl_auth=custom_auth_info)
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
 
-defense_stats = nfl.team_offense_stats.get_season_overview(
-    season=2025,
-    season_type="REG",
+defense_stats = nfl.team_offense_stats.get_weekly_overview(
+    season=2025, season_type="REG", week="WEEK_8"
 )
 import json
 
