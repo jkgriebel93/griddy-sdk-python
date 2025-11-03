@@ -9,6 +9,11 @@ if TYPE_CHECKING:
         GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict,
         GetDefensiveNearestDefenderStatsBySeasonSortKey,
     )
+    from griddy.nfl.models.getdefensivenearestdefenderstatsbyweekop import (
+        GetDefensiveNearestDefenderStatsByWeekRequest,
+        GetDefensiveNearestDefenderStatsByWeekRequestTypedDict,
+        GetDefensiveNearestDefenderStatsByWeekSortKey,
+    )
     from griddy.nfl.models.getdefensiveoverviewstatsbyweekop import (
         GetDefensiveOverviewStatsByWeekRequest,
         GetDefensiveOverviewStatsByWeekRequestTypedDict,
@@ -994,6 +999,9 @@ __all__ = [
     "GetDefensiveNearestDefenderStatsBySeasonRequest",
     "GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict",
     "GetDefensiveNearestDefenderStatsBySeasonSortKey",
+    "GetDefensiveNearestDefenderStatsByWeekRequest",
+    "GetDefensiveNearestDefenderStatsByWeekRequestTypedDict",
+    "GetDefensiveNearestDefenderStatsByWeekSortKey",
     "GetDefensiveStatsBySeasonRequestTypedDict",
     "GetDefensiveStatsBySeasonSortKey",
     "GetDraftInfoRequest",
@@ -1733,6 +1741,9 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensiveNearestDefenderStatsBySeasonRequest": ".getdefensivenearestdefenderstatsbyseasonop",
     "GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict": ".getdefensivenearestdefenderstatsbyseasonop",
     "GetDefensiveNearestDefenderStatsBySeasonSortKey": ".getdefensivenearestdefenderstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsByWeekRequest": ".getdefensivenearestdefenderstatsbyweekop",
+    "GetDefensiveNearestDefenderStatsByWeekRequestTypedDict": ".getdefensivenearestdefenderstatsbyweekop",
+    "GetDefensiveNearestDefenderStatsByWeekSortKey": ".getdefensivenearestdefenderstatsbyweekop",
     "GetDefensiveStatsBySeasonRequest": ".getdefensivestatsbyseasonop",
     "GetDefensiveStatsBySeasonRequestTypedDict": ".getdefensivestatsbyseasonop",
     "GetDefensiveStatsBySeasonSortKey": ".getdefensivestatsbyseasonop",
