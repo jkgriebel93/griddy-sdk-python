@@ -1,40 +1,21 @@
 from __future__ import annotations
 
-from typing import Literal, Optional
+from typing import Optional
 
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.positionenums import (
+    DefenseNGSPositionEnum,
+    DefenseNGSPositionGroupEnum,
+    DefensePositionEnum,
+    DefensePositionGroupEnum,
+)
+
 from ..types import BaseModel
-from .defensivepositiongroupenum import DefensivePositionGroupEnum
-
-DefensivePlayerStatsNgsPosition = Literal[
-    "S",
-    "CB",
-    "SCB",
-    "LB",
-    "DE",
-    "DT",
-]
-r"""Next Gen Stats position"""
 
 
-DefensivePlayerStatsPosition = Literal[
-    "FS",
-    "SS",
-    "CB",
-    "SCB",
-    "ILB",
-    "OLB",
-    "MLB",
-    "DE",
-    "DT",
-    "NT",
-]
-r"""Player position"""
-
-
-class DefensivePlayerStatsTypedDict(TypedDict):
+class DefensiveNearestDefenderStatsTypedDict(TypedDict):
     cov: int
     r"""Total coverage snaps"""
     cov_nd: int
@@ -47,7 +28,7 @@ class DefensivePlayerStatsTypedDict(TypedDict):
     r"""Games started"""
     nfl_id: str
     r"""NFL player identifier"""
-    position: DefensivePlayerStatsPosition
+    position: DefensePositionEnum
     r"""Player position"""
     team_id: str
     r"""Team identifier"""
@@ -65,13 +46,13 @@ class DefensivePlayerStatsTypedDict(TypedDict):
     r"""Interceptions"""
     jersey_number: NotRequired[int]
     r"""Player's jersey number"""
-    ngs_position: NotRequired[DefensivePlayerStatsNgsPosition]
+    ngs_position: NotRequired[DefenseNGSPositionEnum]
     r"""Next Gen Stats position"""
-    ngs_position_group: NotRequired[DefensivePositionGroupEnum]
+    ngs_position_group: NotRequired[DefenseNGSPositionGroupEnum]
     r"""Defensive position group"""
     pass_rating_nd: NotRequired[float]
     r"""Passer rating allowed when targeted"""
-    position_group: NotRequired[DefensivePositionGroupEnum]
+    position_group: NotRequired[DefensePositionGroupEnum]
     r"""Defensive position group"""
     qd: NotRequired[bool]
     r"""Qualified defender status"""
@@ -103,7 +84,7 @@ class DefensivePlayerStatsTypedDict(TypedDict):
     r"""Yards After Catch allowed per reception"""
 
 
-class DefensivePlayerStats(BaseModel):
+class DefensiveNearestDefenderStats(BaseModel):
     cov: int
     r"""Total coverage snaps"""
 
@@ -122,7 +103,7 @@ class DefensivePlayerStats(BaseModel):
     nfl_id: Annotated[str, pydantic.Field(alias="nflId")]
     r"""NFL player identifier"""
 
-    position: DefensivePlayerStatsPosition
+    position: DefensePositionEnum
     r"""Player position"""
 
     team_id: Annotated[str, pydantic.Field(alias="teamId")]
@@ -150,12 +131,12 @@ class DefensivePlayerStats(BaseModel):
     r"""Player's jersey number"""
 
     ngs_position: Annotated[
-        Optional[DefensivePlayerStatsNgsPosition], pydantic.Field(alias="ngsPosition")
+        Optional[DefenseNGSPositionEnum], pydantic.Field(alias="ngsPosition")
     ] = None
     r"""Next Gen Stats position"""
 
     ngs_position_group: Annotated[
-        Optional[DefensivePositionGroupEnum], pydantic.Field(alias="ngsPositionGroup")
+        Optional[DefensePositionGroupEnum], pydantic.Field(alias="ngsPositionGroup")
     ] = None
     r"""Defensive position group"""
 
@@ -165,7 +146,7 @@ class DefensivePlayerStats(BaseModel):
     r"""Passer rating allowed when targeted"""
 
     position_group: Annotated[
-        Optional[DefensivePositionGroupEnum], pydantic.Field(alias="positionGroup")
+        Optional[DefensePositionGroupEnum], pydantic.Field(alias="positionGroup")
     ] = None
     r"""Defensive position group"""
 

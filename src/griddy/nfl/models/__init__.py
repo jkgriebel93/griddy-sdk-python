@@ -4,6 +4,11 @@ from importlib import import_module
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from griddy.nfl.models.getdefensivenearestdefenderstatsbyseasonop import (
+        GetDefensiveNearestDefenderStatsBySeasonRequest,
+        GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict,
+        GetDefensiveNearestDefenderStatsBySeasonSortKey,
+    )
     from griddy.nfl.models.getdefensiveoverviewstatsbyweekop import (
         GetDefensiveOverviewStatsByWeekRequest,
         GetDefensiveOverviewStatsByWeekRequestTypedDict,
@@ -81,6 +86,10 @@ if TYPE_CHECKING:
         CurrentGamesResponse,
         CurrentGamesResponseTypedDict,
     )
+    from .defensivenearestdefenderstats import (
+        DefensiveNearestDefenderStats,
+        DefensiveNearestDefenderStatsTypedDict,
+    )
     from .defensiveoverviewstatsresponse import (
         DefensiveOverviewStatsResponse,
         DefensiveOverviewStatsResponseTypedDict,
@@ -97,18 +106,8 @@ if TYPE_CHECKING:
         DefensivePlayerOverviewStatsPosition,
         DefensivePlayerOverviewStatsTypedDict,
     )
-    from .defensiveplayerstats import (
-        DefensivePlayerStats,
-        DefensivePlayerStatsNgsPosition,
-        DefensivePlayerStatsPosition,
-        DefensivePlayerStatsTypedDict,
-    )
     from .defensivepositiongroupenum import DefensivePositionGroupEnum
     from .defensivestats import DefensiveStats, DefensiveStatsTypedDict
-    from .defensivestatsresponse import (
-        DefensiveStatsResponse,
-        DefensiveStatsResponseTypedDict,
-    )
     from .division import Division, DivisionTypedDict
     from .draftpick import DraftPick, DraftPickTypedDict
     from .draftresponse import (
@@ -118,6 +117,17 @@ if TYPE_CHECKING:
         RoundTypedDict,
     )
     from .drive import Drive, DriveTypedDict, Result
+    from .enums.defensive_splits_enum import DefenseNGSSplitEnum
+    from .enums.downenum import DownEnum
+    from .enums.gamelocationenum import GameLocationEnum
+    from .enums.positionenums import (
+        DefenseNGSPositionEnum,
+        DefenseNGSPositionGroupEnum,
+        DefensePositionEnum,
+        DefensePositionGroupEnum,
+    )
+    from .enums.quarterenum import QuarterEnum
+    from .enums.yardstogoenum import YardsToGoEnum
     from .experiencegamesresponse import (
         ExperienceGamesResponse,
         ExperienceGamesResponseTypedDict,
@@ -484,6 +494,10 @@ if TYPE_CHECKING:
         MultipleRankingsCategoryPagination,
         MultipleRankingsCategoryPaginationTypedDict,
         MultipleRankingsCategoryTypedDict,
+    )
+    from .nearestdefenderstatsresponse import (
+        NearestDefenderStatsResponse,
+        NearestDefenderStatsResponseTypedDict,
     )
     from .oddsselection import OddsSelection, OddsSelectionTypedDict
     from .offensiveplayerpositionenum import OffensivePlayerPositionEnum
@@ -875,14 +889,16 @@ __all__ = [
     "DefensivePlayerOverviewStatsNgsPosition",
     "DefensivePlayerOverviewStatsPosition",
     "DefensivePlayerOverviewStatsTypedDict",
-    "DefensivePlayerStats",
-    "DefensivePlayerStatsNgsPosition",
-    "DefensivePlayerStatsPosition",
-    "DefensivePlayerStatsTypedDict",
-    "DefensivePositionGroupEnum",
+    "DefensiveNearestDefenderStats",
+    "DefenseNGSSplitEnum",
+    "DefensePositionEnum",
+    "DefensePositionGroupEnum",
+    "DefenseNGSPositionEnum",
+    "DefenseNGSPositionGroupEnum",
+    "DefensiveNearestDefenderStatsTypedDict",
     "DefensiveStats",
-    "DefensiveStatsResponse",
-    "DefensiveStatsResponseTypedDict",
+    "NearestDefenderStatsResponse",
+    "NearestDefenderStatsResponseTypedDict",
     "DefensiveStatsTypedDict",
     "Division",
     "DivisionTypedDict",
@@ -895,6 +911,7 @@ __all__ = [
     "DriveChartTypedDict",
     "DriveTypedDict",
     "DropbackTimeType",
+    "DownEnum",
     "ExperienceGamesResponse",
     "ExperienceGamesResponseTypedDict",
     "ExperienceTeamsResponse",
@@ -932,6 +949,7 @@ __all__ = [
     "GameIDTypedDict",
     "GameInsight",
     "GameInsightTypedDict",
+    "GameLocationEnum",
     "GameOdds",
     "GameOddsTypedDict",
     "GamePreviewResponse",
@@ -973,7 +991,9 @@ __all__ = [
     "GetDefensivePassRushStatsBySeasonRequest",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict",
     "GetDefensivePassRushStatsBySeasonSortKey",
-    "GetDefensiveStatsBySeasonRequest",
+    "GetDefensiveNearestDefenderStatsBySeasonRequest",
+    "GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict",
+    "GetDefensiveNearestDefenderStatsBySeasonSortKey",
     "GetDefensiveStatsBySeasonRequestTypedDict",
     "GetDefensiveStatsBySeasonSortKey",
     "GetDraftInfoRequest",
@@ -1259,6 +1279,7 @@ __all__ = [
     "PracticeStatusTypedDict",
     "Preview",
     "PreviewTypedDict",
+    "QuarterEnum",
     "ProGame",
     "ProGameCategory",
     "ProGameExtension",
@@ -1493,6 +1514,7 @@ __all__ = [
     "WeeksResponseTypedDict",
     "WinProbabilityResponse",
     "WinProbabilityResponseTypedDict",
+    "YardsToGoEnum",
     "YardsToGoType",
     "Zone",
     "ZoneTypedDict",
@@ -1579,12 +1601,19 @@ _dynamic_imports: dict[str, str] = {
     "DefensivePlayerStatsPosition": ".defensiveplayerstats",
     "DefensivePlayerStatsTypedDict": ".defensiveplayerstats",
     "DefensivePositionGroupEnum": ".defensivepositiongroupenum",
+    "DefensiveNearestDefenderStats": ".defensivenearestdefenderstats",
+    "DefenseNGSSplitEnum": ".enums.defensive_splits_enum",
+    "DefensePositionEnum": ".enums.positionenums",
+    "DefensePositionGroupEnum": ".enums.positionenums",
+    "DefenseNGSPositionEnum": ".enums.positionenums",
+    "DefenseNGSPositionGroupEnum": ".enums.positionenums",
     "DefensiveStats": ".defensivestats",
     "DefensiveStatsTypedDict": ".defensivestats",
     "DefensiveStatsResponse": ".defensivestatsresponse",
     "DefensiveStatsResponseTypedDict": ".defensivestatsresponse",
     "Division": ".division",
     "DivisionTypedDict": ".division",
+    "DownEnum": ".enums.downenum",
     "DraftPick": ".draftpick",
     "DraftPickTypedDict": ".draftpick",
     "DraftResponse": ".draftresponse",
@@ -1660,6 +1689,7 @@ _dynamic_imports: dict[str, str] = {
     "ContentTypedDict": ".gameinsight",
     "GameInsight": ".gameinsight",
     "GameInsightTypedDict": ".gameinsight",
+    "GameLocationEnum": ".enums.gamelocationenum",
     "GameOdds": ".gameodds",
     "GameOddsTypedDict": ".gameodds",
     "GamePreviewResponse": ".gamepreviewresponse",
@@ -1700,6 +1730,9 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensivePassRushStatsBySeasonRequest": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonSortKey": ".getdefensivepassrushstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsBySeasonRequest": ".getdefensivenearestdefenderstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict": ".getdefensivenearestdefenderstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsBySeasonSortKey": ".getdefensivenearestdefenderstatsbyseasonop",
     "GetDefensiveStatsBySeasonRequest": ".getdefensivestatsbyseasonop",
     "GetDefensiveStatsBySeasonRequestTypedDict": ".getdefensivestatsbyseasonop",
     "GetDefensiveStatsBySeasonSortKey": ".getdefensivestatsbyseasonop",
@@ -1896,6 +1929,8 @@ _dynamic_imports: dict[str, str] = {
     "PassingStatsResponseTypedDict": ".passingstatsresponse",
     "PassRushStatsResponse": ".passrushstatsresponse",
     "PassRushStatsResponseTypedDict": ".passrushstatsresponse",
+    "NearestDefenderStatsResponse": ".nearestdefenderstatsresponse",
+    "NearestDefenderStatsResponseTypedDict": ".nearestdefenderstatsresponse",
     "Penalty": ".penalty",
     "PenaltyTypedDict": ".penalty",
     "Play": ".play",
@@ -1973,6 +2008,7 @@ _dynamic_imports: dict[str, str] = {
     "PointsRecordPointsTypedDict": ".pointsrecord",
     "PointsRecordTypedDict": ".pointsrecord",
     "PracticeStatusEnum": ".practicestatusenum",
+    "QuarterEnum": ".enums.quarterenum",
     "ProGame": ".progame",
     "ProGameCategory": ".progame",
     "ProGameExtension": ".progame",
@@ -2184,6 +2220,7 @@ _dynamic_imports: dict[str, str] = {
     "WeeksResponseTypedDict": ".weeksresponse",
     "WinProbabilityResponse": ".winprobabilityresponse",
     "WinProbabilityResponseTypedDict": ".winprobabilityresponse",
+    "YardsToGoEnum": ".enums.yardstogoenum",
 }
 
 
