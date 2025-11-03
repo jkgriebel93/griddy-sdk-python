@@ -17,14 +17,9 @@ nfl = GriddyNFL(nfl_auth=custom_auth_info)
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
 
-# TODO: I don't like the way you have to call this method.
-# I'd like it to be something like nfl.player_stats.passing.get_week
-#   I'll need to:
-#   1. Create a player SDK class that contains the passing/receiving/rushing stats methods
-#   2. Create a stats SDK class that has a player property
-#   3. Add the stats mapping to GriddyNFL
-defense_stats = nfl.player_defense_stats.get_weekly_nearest_defender_summary(
-    season=2025, season_type="REG", week="WEEK_8"
+defense_stats = nfl.team_offense_stats.get_season_overview(
+    season=2025,
+    season_type="REG",
 )
 import json
 

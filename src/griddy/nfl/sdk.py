@@ -26,7 +26,9 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.schedules import Schedules
     from griddy.nfl.endpoints.pro.stats.defense import PlayerDefenseStats
     from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
+    from griddy.nfl.endpoints.pro.stats.receiving import PlayerReceivingStats
     from griddy.nfl.endpoints.pro.stats.rushing import PlayerRushingStats
+    from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseOverviewStats
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
@@ -76,14 +78,16 @@ class GriddyNFL(BaseSDK):
     r"""Individual player rushing statistics and analytics"""
     player_defense_stats: "PlayerDefenseStats"
     r"""Comprehensive individual defensive player statistics and analytics"""
+    team_offense_stats: "TeamOffenseOverviewStats"
+    r"""Overview Offensive Next Gen Stats"""
     team_defense_statistics: "TeamDefenseStatistics"
     r"""Comprehensive team defensive statistics and situational analytics"""
     team_defense_pass_statistics: "TeamDefensePassStatistics"
     r"""Comprehensive team defensive pass statistics and situational analytics"""
     team_defense_rush_statistics: "TeamDefenseRushStatistics"
     r"""Comprehensive team defensive rush statistics and situational analytics"""
-    team_offense_overview_statistics: "TeamOffenseOverviewStatistics"
-    r"""Comprehensive team offensive overview statistics and situational analytics"""
+    # team_offense_overview_statistics: "TeamOffenseOverviewStatistics"
+    # r"""Comprehensive team offensive overview statistics and situational analytics"""
     team_offense_pass_statistics: "TeamOffensePassStatistics"
     r"""Comprehensive team offensive pass statistics and situational analytics"""
     stats: "StatsSDK"
@@ -126,6 +130,10 @@ class GriddyNFL(BaseSDK):
             "griddy.nfl.endpoints.pro.stats.defense",
             "PlayerDefenseStats",
         ),
+        "team_offense_stats": (
+            "griddy.nfl.endpoints.pro.stats.team_offense",
+            "TeamOffenseOverviewStats",
+        ),
         "team_defense_statistics": (
             "griddy.nfl.team_defense_statistics",
             "TeamDefenseStatistics",
@@ -137,10 +145,6 @@ class GriddyNFL(BaseSDK):
         "team_defense_rush_statistics": (
             "griddy.nfl.team_defense_rush_statistics",
             "TeamDefenseRushStatistics",
-        ),
-        "team_offense_overview_statistics": (
-            "griddy.nfl.team_offense_overview_statistics",
-            "TeamOffenseOverviewStatistics",
         ),
         "team_offense_pass_statistics": (
             "griddy.nfl.team_offense_pass_statistics",
