@@ -422,16 +422,32 @@ if TYPE_CHECKING:
         GetTeamDefensePassStatsBySeasonRequestTypedDict,
         GetTeamDefensePassStatsBySeasonSortKey,
     )
+    from .getteamdefensepassstatsbyweekop import (
+        GetTeamDefensePassStatsByWeekRequest,
+        GetTeamDefensePassStatsByWeekRequestTypedDict,
+        GetTeamDefensePassStatsByWeekSortKey,
+    )
     from .getteamdefenserushstatsbyseasonop import (
         GetTeamDefenseRushStatsBySeasonRequest,
         GetTeamDefenseRushStatsBySeasonRequestTypedDict,
         GetTeamDefenseRushStatsBySeasonSortKey,
+    )
+    from .getteamdefenserushstatsbyweekop import (
+        GetTeamDefenseRushStatsByWeekRequest,
+        GetTeamDefenseRushStatsByWeekRequestTypedDict,
+        GetTeamDefenseRushStatsByWeekSortKey,
     )
     from .getteamdefensestatsbyseasonop import (
         GetTeamDefenseStatsBySeasonRequest,
         GetTeamDefenseStatsBySeasonRequestTypedDict,
         GetTeamDefenseStatsBySeasonSortKey,
         GetTeamDefenseStatsBySeasonSplit,
+    )
+    from .getteamdefensestatsbyweekop import (
+        GetTeamDefenseStatsByWeekRequest,
+        GetTeamDefenseStatsByWeekRequestTypedDict,
+        GetTeamDefenseStatsByWeekSortKey,
+        GetTeamDefenseStatsByWeekSplit,
     )
     from .getteaminjuriesop import (
         GetTeamInjuriesRequest,
@@ -1123,6 +1139,16 @@ __all__ = [
     "GetTeamDefenseStatsBySeasonRequestTypedDict",
     "GetTeamDefenseStatsBySeasonSortKey",
     "GetTeamDefenseStatsBySeasonSplit",
+    "GetTeamDefensePassStatsByWeekRequest",
+    "GetTeamDefensePassStatsByWeekRequestTypedDict",
+    "GetTeamDefensePassStatsByWeekSortKey",
+    "GetTeamDefenseRushStatsByWeekRequest",
+    "GetTeamDefenseRushStatsByWeekRequestTypedDict",
+    "GetTeamDefenseRushStatsByWeekSortKey",
+    "GetTeamDefenseStatsByWeekRequest",
+    "GetTeamDefenseStatsByWeekRequestTypedDict",
+    "GetTeamDefenseStatsByWeekSortKey",
+    "GetTeamDefenseStatsByWeekSplit",
     "GetTeamInjuriesRequest",
     "GetTeamInjuriesRequestTypedDict",
     "GetTeamOffenseStatsBySeasonRequest",
@@ -1898,6 +1924,16 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamDefenseStatsBySeasonRequestTypedDict": ".getteamdefensestatsbyseasonop",
     "GetTeamDefenseStatsBySeasonSortKey": ".getteamdefensestatsbyseasonop",
     "GetTeamDefenseStatsBySeasonSplit": ".getteamdefensestatsbyseasonop",
+    "GetTeamDefensePassStatsByWeekRequest": ".getteamdefensepassstatsbyweekop",
+    "GetTeamDefensePassStatsByWeekRequestTypedDict": ".getteamdefensepassstatsbyweekop",
+    "GetTeamDefensePassStatsByWeekSortKey": ".getteamdefensepassstatsbyweekop",
+    "GetTeamDefenseRushStatsByWeekRequest": ".getteamdefenserushstatsbyweekop",
+    "GetTeamDefenseRushStatsByWeekRequestTypedDict": ".getteamdefenserushstatsbyweekop",
+    "GetTeamDefenseRushStatsByWeekSortKey": ".getteamdefenserushstatsbyweekop",
+    "GetTeamDefenseStatsByWeekRequest": ".getteamdefensestatsbyweekop",
+    "GetTeamDefenseStatsByWeekRequestTypedDict": ".getteamdefensestatsbyweekop",
+    "GetTeamDefenseStatsByWeekSortKey": ".getteamdefensestatsbyweekop",
+    "GetTeamDefenseStatsByWeekSplit": ".getteamdefensestatsbyweekop",
     "GetTeamInjuriesRequest": ".getteaminjuriesop",
     "GetTeamInjuriesRequestTypedDict": ".getteaminjuriesop",
     "GetTeamOffenseStatsBySeasonRequest": ".getteamoffenseoverviewstatsbyseasonop",

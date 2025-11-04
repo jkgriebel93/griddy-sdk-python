@@ -19,8 +19,8 @@ game_id = "2025102610"
 
 import json
 
-season = nfl.team_defense_stats.get_season_rush_defense_stats(
-    season=2025, season_type="REG"
+season = nfl.team_defense_stats.get_weekly_rush_defense_stats(
+    season=2025, season_type="REG", week="WEEK_9"
 )
 
 print(json.dumps(season, indent=4))
