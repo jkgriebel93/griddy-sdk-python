@@ -63,8 +63,6 @@ class GriddyNFL(BaseSDK):
     r"""Real-time scoring and game status endpoints"""
     win_probability: "WinProbability"
     r"""Game and play-level win probability analytics"""
-    defensive_pass_rush_statistics: "DefensivePassRushStatistics"
-    r"""Individual defensive player pass rush statistics and analytics"""
     fantasy_statistics: "FantasyStatistics"
     r"""Fantasy football player statistics and scoring metrics"""
     player_statistics: "PlayerStatistics"
