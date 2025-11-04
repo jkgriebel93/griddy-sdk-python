@@ -10,7 +10,7 @@ from ..utils import FieldMetadata, QueryParamMetadata
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 
-GetTeamOffenseOverviewStatsBySeasonSortKey = Literal[
+GetTeamOffenseStatsBySeasonSortKey = Literal[
     "total",
     "pass",
     "run",
@@ -41,7 +41,7 @@ GetTeamOffenseOverviewStatsBySeasonSortKey = Literal[
 r"""Field to sort by"""
 
 
-GetTeamOffenseOverviewStatsBySeasonSplit = Literal[
+GetTeamOffenseStatsBySeasonSplit = Literal[
     "TEAM_SHOTGUN",
     "TEAM_UNDER_CENTER",
     "TEAM_PISTOL",
@@ -53,7 +53,7 @@ GetTeamOffenseOverviewStatsBySeasonSplit = Literal[
 ]
 
 
-class GetTeamOffenseOverviewStatsBySeasonRequestTypedDict(TypedDict):
+class GetTeamOffenseStatsBySeasonRequestTypedDict(TypedDict):
     season: int
     r"""Season year"""
     season_type: SeasonTypeEnum
@@ -64,17 +64,17 @@ class GetTeamOffenseOverviewStatsBySeasonRequestTypedDict(TypedDict):
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamOffenseOverviewStatsBySeasonSortKey]
+    sort_key: NotRequired[GetTeamOffenseStatsBySeasonSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
     team_defense: NotRequired[str]
     r"""Filter by specific team identifier"""
-    split: NotRequired[List[GetTeamOffenseOverviewStatsBySeasonSplit]]
+    split: NotRequired[List[GetTeamOffenseStatsBySeasonSplit]]
     r"""Offensive situation splits to filter by (supports multiple values)"""
 
 
-class GetTeamOffenseOverviewStatsBySeasonRequest(BaseModel):
+class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
@@ -106,7 +106,7 @@ class GetTeamOffenseOverviewStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamOffenseOverviewStatsBySeasonSortKey],
+        Optional[GetTeamOffenseStatsBySeasonSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = "ypg"
@@ -127,7 +127,7 @@ class GetTeamOffenseOverviewStatsBySeasonRequest(BaseModel):
     r"""Filter by specific team identifier"""
 
     split: Annotated[
-        Optional[List[GetTeamOffenseOverviewStatsBySeasonSplit]],
+        Optional[List[GetTeamOffenseStatsBySeasonSplit]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Offensive situation splits to filter by (supports multiple values)"""

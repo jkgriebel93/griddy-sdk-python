@@ -8,7 +8,7 @@ from griddy.nfl.utils import get_security_from_env
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
-class TeamOffenseOverviewStats(ProSDK):
+class TeamOffenseStats(ProSDK):
     r"""Comprehensive team offensive overview statistics and situational analytics"""
 
     def get_season_overview(
@@ -19,15 +19,15 @@ class TeamOffenseOverviewStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseOverviewStatsBySeasonSortKey] = "ypg",
+        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
         sort_value: Optional[models.SortOrderEnum] = None,
         team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseOverviewStatsBySeasonSplit]] = None,
+        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseOverviewStatsResponse:
+    ) -> models.TeamOffenseStatsResponse:
         r"""Get Team Offense Overview Statistics by Season
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season.
@@ -62,7 +62,7 @@ class TeamOffenseOverviewStats(ProSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetTeamOffenseOverviewStatsBySeasonRequest(
+        request = models.GetTeamOffenseStatsBySeasonRequest(
             season=season,
             season_type=season_type,
             limit=limit,
@@ -102,7 +102,7 @@ class TeamOffenseOverviewStats(ProSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="getTeamOffenseOverviewStatsBySeason",
+                operation_id="getTeamOffenseStatsBySeason",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -115,7 +115,7 @@ class TeamOffenseOverviewStats(ProSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             # return unmarshal_json_response(
-            #     models.TeamOffenseOverviewStatsResponse, http_res
+            #     models.TeamOffenseStatsResponse, http_res
             # )
             return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
@@ -139,15 +139,15 @@ class TeamOffenseOverviewStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseOverviewStatsBySeasonSortKey] = "ypg",
+        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
         sort_value: Optional[models.SortOrderEnum] = None,
         team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseOverviewStatsBySeasonSplit]] = None,
+        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseOverviewStatsResponse:
+    ) -> models.TeamOffenseStatsResponse:
         r"""Get Team Offense Overview Statistics by Season
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season.
@@ -182,7 +182,7 @@ class TeamOffenseOverviewStats(ProSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetTeamOffenseOverviewStatsBySeasonRequest(
+        request = models.GetTeamOffenseStatsBySeasonRequest(
             season=season,
             season_type=season_type,
             limit=limit,
@@ -222,7 +222,7 @@ class TeamOffenseOverviewStats(ProSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="getTeamOffenseOverviewStatsBySeason",
+                operation_id="getTeamOffenseStatsBySeason",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -257,15 +257,15 @@ class TeamOffenseOverviewStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseOverviewStatsBySeasonSortKey] = "ypg",
+        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
         sort_value: Optional[models.SortOrderEnum] = None,
         team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseOverviewStatsBySeasonSplit]] = None,
+        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseOverviewStatsResponse:
+    ) -> models.TeamOffenseStatsResponse:
         r"""Get Team Offense Overview Statistics by Season
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season.
@@ -300,7 +300,7 @@ class TeamOffenseOverviewStats(ProSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetTeamOffenseOverviewStatsByWeekRequest(
+        request = models.GetTeamOffenseStatsByWeekRequest(
             season=season,
             season_type=season_type,
             week=week,
@@ -341,7 +341,7 @@ class TeamOffenseOverviewStats(ProSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="getTeamOffenseOverviewStatsByWeek",
+                operation_id="getTeamOffenseStatsByWeek",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -354,7 +354,7 @@ class TeamOffenseOverviewStats(ProSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             # return unmarshal_json_response(
-            #     models.TeamOffenseOverviewStatsResponse, http_res
+            #     models.TeamOffenseStatsResponse, http_res
             # )
             return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
@@ -379,15 +379,15 @@ class TeamOffenseOverviewStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseOverviewStatsBySeasonSortKey] = "ypg",
+        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
         sort_value: Optional[models.SortOrderEnum] = None,
         team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseOverviewStatsBySeasonSplit]] = None,
+        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseOverviewStatsResponse:
+    ) -> models.TeamOffenseStatsResponse:
         r"""Get Team Offense Overview Statistics by Season
 
         Retrieves comprehensive offensive overview statistics for NFL teams during a specified season.
@@ -422,7 +422,7 @@ class TeamOffenseOverviewStats(ProSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetTeamOffenseOverviewStatsByWeekRequest(
+        request = models.GetTeamOffenseStatsByWeekRequest(
             season=season,
             season_type=season_type,
             week=week,
@@ -463,7 +463,7 @@ class TeamOffenseOverviewStats(ProSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="getTeamOffenseOverviewStatsBySeason",
+                operation_id="getTeamOffenseStatsBySeason",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security

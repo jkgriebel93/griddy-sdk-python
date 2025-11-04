@@ -28,7 +28,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
     from griddy.nfl.endpoints.pro.stats.receiving import PlayerReceivingStats
     from griddy.nfl.endpoints.pro.stats.rushing import PlayerRushingStats
-    from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseOverviewStats
+    from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
@@ -75,7 +75,7 @@ class GriddyNFL(BaseSDK):
     r"""Individual player rushing statistics and analytics"""
     player_defense_stats: "PlayerDefenseStats"
     r"""Comprehensive individual defensive player statistics and analytics"""
-    team_offense_stats: "TeamOffenseOverviewStats"
+    team_offense_stats: "TeamOffenseStats"
     r"""Overview Offensive Next Gen Stats"""
     team_defense_statistics: "TeamDefenseStatistics"
     r"""Comprehensive team defensive statistics and situational analytics"""
@@ -129,7 +129,7 @@ class GriddyNFL(BaseSDK):
         ),
         "team_offense_stats": (
             "griddy.nfl.endpoints.pro.stats.team_offense",
-            "TeamOffenseOverviewStats",
+            "TeamOffenseStats",
         ),
         "team_defense_statistics": (
             "griddy.nfl.team_defense_statistics",
