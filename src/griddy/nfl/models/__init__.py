@@ -28,6 +28,24 @@ if TYPE_CHECKING:
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
     )
+    from griddy.nfl.models.getteamoffenserushstatsbyseasonop import (
+        GetTeamOffenseRushStatsBySeasonRequest,
+        GetTeamOffenseRushStatsBySeasonRequestTypedDict,
+        GetTeamOffenseRushStatsBySeasonSortKey,
+    )
+    from griddy.nfl.models.getteamoffenserushstatsbyweekop import (
+        GetTeamOffenseRushStatsByWeekRequest,
+        GetTeamOffenseRushStatsByWeekRequestTypedDict,
+        GetTeamOffenseRushStatsByWeekSortKey,
+    )
+    from griddy.nfl.models.teamoffenserushstats import (
+        TeamOffenseRushStats,
+        TeamOffenseRushStatsTypedDict,
+    )
+    from griddy.nfl.models.teamoffenserushstatsresponse import (
+        TeamOffenseRushStatsResponse,
+        TeamOffenseRushStatsResponseTypedDict,
+    )
 
     from .award import Award, AwardType, AwardTypedDict
     from .binaryflagenum import BinaryFlagEnum
@@ -435,6 +453,11 @@ if TYPE_CHECKING:
         GetTeamOffensePassStatsBySeasonRequest,
         GetTeamOffensePassStatsBySeasonRequestTypedDict,
         GetTeamOffensePassStatsBySeasonSortKey,
+    )
+    from .getteamoffensepassstatsbyweekop import (
+        GetTeamOffensePassStatsByWeekRequest,
+        GetTeamOffensePassStatsByWeekRequestTypedDict,
+        GetTeamOffensePassStatsByWeekSortKey,
     )
     from .getteamrosterop import GetTeamRosterRequest, GetTeamRosterRequestTypedDict
     from .getteamscheduleop import (
@@ -1116,6 +1139,19 @@ __all__ = [
     "GetTeamOffensePassStatsBySeasonRequest",
     "GetTeamOffensePassStatsBySeasonRequestTypedDict",
     "GetTeamOffensePassStatsBySeasonSortKey",
+    "GetTeamOffensePassStatsByWeekRequest",
+    "GetTeamOffensePassStatsByWeekRequestTypedDict",
+    "GetTeamOffensePassStatsByWeekSortKey",
+    "GetTeamOffenseRushStatsByWeekRequestTypedDict",
+    "GetTeamOffenseRushStatsByWeekRequest",
+    "GetTeamOffenseRushStatsBySeasonRequestTypedDict",
+    "GetTeamOffenseRushStatsByWeekSortKey",
+    "GetTeamOffenseRushStatsBySeasonRequest",
+    "GetTeamOffenseRushStatsBySeasonSortKey",
+    "TeamOffenseRushStats",
+    "TeamOffenseRushStatsTypedDict",
+    "TeamOffenseRushStatsResponse",
+    "TeamOffenseRushStatsResponseTypedDict",
     "GetTeamRosterRequest",
     "GetTeamRosterRequestTypedDict",
     "GetTeamScheduleRequest",
@@ -1878,6 +1914,15 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamOffensePassStatsBySeasonRequest": ".getteamoffensepassstatsbyseasonop",
     "GetTeamOffensePassStatsBySeasonRequestTypedDict": ".getteamoffensepassstatsbyseasonop",
     "GetTeamOffensePassStatsBySeasonSortKey": ".getteamoffensepassstatsbyseasonop",
+    "GetTeamOffensePassStatsByWeekRequest": ".getteamoffensepassstatsbyweekop",
+    "GetTeamOffensePassStatsByWeekRequestTypedDict": ".getteamoffensepassstatsbyweekop",
+    "GetTeamOffensePassStatsByWeekSortKey": ".getteamoffensepassstatsbyweekop",
+    "GetTeamOffenseRushStatsBySeasonRequest": ".getteamoffenserushstatsbyseasonop",
+    "GetTeamOffenseRushStatsBySeasonRequestTypedDict": ".getteamoffenserushstatsbyseasonop",
+    "GetTeamOffenseRushStatsBySeasonSortKey": ".getteamoffenserushstatsbyseasonop",
+    "GetTeamOffenseRushStatsByWeekRequest": ".getteamoffenserushstatsbyweekop",
+    "GetTeamOffenseRushStatsByWeekRequestTypedDict": ".getteamoffenserushstatsbyweekop",
+    "GetTeamOffenseRushStatsByWeekSortKey": ".getteamoffenserushstatsbyweekop",
     "GetTeamRosterRequest": ".getteamrosterop",
     "GetTeamRosterRequestTypedDict": ".getteamrosterop",
     "GetTeamScheduleRequest": ".getteamscheduleop",
@@ -2149,6 +2194,10 @@ _dynamic_imports: dict[str, str] = {
     "TeamOffensePassStatsTypedDict": ".teamoffensepassstats",
     "TeamOffensePassStatsResponse": ".teamoffensepassstatsresponse",
     "TeamOffensePassStatsResponseTypedDict": ".teamoffensepassstatsresponse",
+    "TeamOffenseRushStats": ".teamoffenserushstats",
+    "TeamOffenseRushStatsTypedDict": ".teamoffenserushstats",
+    "TeamOffenseRushStatsResponse": ".teamoffenserushstatsresponse",
+    "TeamOffenseRushStatsResponseTypedDict": ".teamoffenserushstatsresponse",
     "TeamRankingEntry": ".teamrankingentry",
     "TeamRankingEntryTypedDict": ".teamrankingentry",
     "TeamRankings": ".teamrankings",

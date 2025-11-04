@@ -17,9 +17,13 @@ nfl = GriddyNFL(nfl_auth=custom_auth_info)
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
 
-defense_stats = nfl.team_offense_stats.get_weekly_overview(
+weekly_stats = nfl.team_offense_stats.get_weekly_rush_stats(
     season=2025, season_type="REG", week="WEEK_8"
 )
 import json
 
-print(json.dumps(defense_stats, indent=4))
+print(json.dumps(weekly_stats, indent=4))
+
+season = nfl.team_offense_stats.get_season_rush_stats(season=2025, season_type="REG")
+
+print(json.dumps(season, indent=4))

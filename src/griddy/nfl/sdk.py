@@ -42,7 +42,6 @@ if TYPE_CHECKING:
     from .team_defense_pass_statistics import TeamDefensePassStatistics
     from .team_defense_rush_statistics import TeamDefenseRushStatistics
     from .team_defense_statistics import TeamDefenseStatistics
-    from .team_offense_overview_statistics import TeamOffenseOverviewStatistics
     from .team_offense_pass_statistics import TeamOffensePassStatistics
     from .win_probability import WinProbability
 

@@ -8,6 +8,7 @@ from . import errors, models, utils
 from .basesdk import BaseSDK
 
 
+# TODO: DELETE
 class TeamOffensePassStatistics(BaseSDK):
     r"""Comprehensive team offensive pass statistics and situational analytics"""
 
