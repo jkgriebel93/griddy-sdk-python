@@ -6,13 +6,16 @@ import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import BaseModel
-from .defensiveplayerstats import DefensivePlayerStats, DefensivePlayerStatsTypedDict
+from .defensivenearestdefenderstats import (
+    DefensiveNearestDefenderStats,
+    DefensiveNearestDefenderStatsTypedDict,
+)
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 
 
-class DefensiveStatsResponseTypedDict(TypedDict):
-    defenders: List[DefensivePlayerStatsTypedDict]
+class NearestDefenderStatsResponseTypedDict(TypedDict):
+    defenders: List[DefensiveNearestDefenderStatsTypedDict]
     limit: int
     r"""Maximum number of results returned"""
     offset: int
@@ -31,8 +34,8 @@ class DefensiveStatsResponseTypedDict(TypedDict):
     r"""Whether results are filtered to qualified defenders only"""
 
 
-class DefensiveStatsResponse(BaseModel):
-    defenders: List[DefensivePlayerStats]
+class NearestDefenderStatsResponse(BaseModel):
+    defenders: List[DefensiveNearestDefenderStats]
 
     limit: int
     r"""Maximum number of results returned"""

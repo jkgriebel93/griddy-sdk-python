@@ -9,8 +9,10 @@ from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
+from .weekslugenum import WeekSlugEnum
 
-GetTeamOffenseStatsBySeasonSortKey = Literal[
+# TODO: Move this to an enum module
+GetTeamDefenseStatsByWeekSortKey = Literal[
     "total",
     "pass",
     "run",
@@ -30,51 +32,63 @@ GetTeamOffenseStatsBySeasonSortKey = Literal[
     "rushYpp",
     "epaRush",
     "epaRushPP",
-    "to",
+    "ttt",
+    "qbp",
+    "qbpPct",
+    "sackedYds",
+    "ryoe",
+    "interception",
+    "forcedFumble",
+    "fumbleRecovered",
+    "defensiveTouchdown",
+    "totalTakeaways",
     "ppg",
     "ypg",
     "passYpg",
     "rushYpg",
-    "redZonePct",
-    "thirdDownPct",
+    "sackedYpg",
 ]
 r"""Field to sort by"""
 
-
-GetTeamOffenseStatsBySeasonSplit = Literal[
-    "TEAM_SHOTGUN",
-    "TEAM_UNDER_CENTER",
-    "TEAM_PISTOL",
-    "TEAM_WHEN_LEADING",
-    "TEAM_WHEN_TRAILING",
-    "TEAM_WHEN_TIED",
-    "TEAM_RED_ZONE",
-    "TEAM_GOAL_TO_GO",
+# TODO: Move this to an enum module
+GetTeamDefenseStatsByWeekSplit = Literal[
+    "TEAM_DEFENSE_BASE",
+    "TEAM_DEFENSE_NICKEL",
+    "TEAM_DEFENSE_DIME",
+    "TEAM_DEFENSE_WHEN_LEADING",
+    "TEAM_DEFENSE_WHEN_TRAILING",
+    "TEAM_DEFENSE_WHEN_TIED",
+    "TEAM_DEFENSE_RED_ZONE",
+    "TEAM_DEFENSE_GOAL_TO_GO",
+    "TEAM_DEFENSE_SHOTGUN",
+    "TEAM_DEFENSE_UNDER_CENTER",
+    "TEAM_DEFENSE_PISTOL",
+    "TEAM_DEFENSE_MOTION",
 ]
 
 
-class GetTeamOffenseStatsBySeasonRequestTypedDict(TypedDict):
+class GetTeamDefenseStatsByWeekRequestTypedDict(TypedDict):
     season: int
     r"""Season year"""
     season_type: SeasonTypeEnum
     r"""Type of season"""
+    week: WeekSlugEnum
+    r"""Week number"""
     limit: NotRequired[int]
     r"""Maximum number of teams to return"""
     offset: NotRequired[int]
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamOffenseStatsBySeasonSortKey]
+    sort_key: NotRequired[GetTeamDefenseStatsByWeekSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
-    team_defense: NotRequired[str]
-    r"""Filter by specific team identifier"""
-    split: NotRequired[List[GetTeamOffenseStatsBySeasonSplit]]
-    r"""Offensive situation splits to filter by (supports multiple values)"""
+    split: NotRequired[List[GetTeamDefenseStatsByWeekSplit]]
+    r"""Defensive situation splits to filter by (supports multiple values)"""
 
 
-class GetTeamOffenseStatsBySeasonRequest(BaseModel):
+class GetTeamDefenseStatsByWeekRequest(BaseModel):
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
@@ -86,6 +100,10 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""Type of season"""
+    week: Annotated[
+        int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
+    ]
+    r"""Week number"""
 
     limit: Annotated[
         Optional[int],
@@ -106,7 +124,7 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamOffenseStatsBySeasonSortKey],
+        Optional[GetTeamDefenseStatsByWeekSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = "ypg"
@@ -119,15 +137,8 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     ] = None
     r"""Sort direction"""
 
-    team_defense: Annotated[
-        Optional[str],
-        pydantic.Field(alias="teamDefense"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by specific team identifier"""
-
     split: Annotated[
-        Optional[List[GetTeamOffenseStatsBySeasonSplit]],
+        Optional[List[GetTeamDefenseStatsByWeekSplit]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Offensive situation splits to filter by (supports multiple values)"""
+    r"""Defensive situation splits to filter by (supports multiple values)"""

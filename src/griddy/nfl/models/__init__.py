@@ -4,9 +4,47 @@ from importlib import import_module
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from griddy.nfl.models.getdefensivenearestdefenderstatsbyseasonop import (
+        GetDefensiveNearestDefenderStatsBySeasonRequest,
+        GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict,
+        GetDefensiveNearestDefenderStatsBySeasonSortKey,
+    )
+    from griddy.nfl.models.getdefensivenearestdefenderstatsbyweekop import (
+        GetDefensiveNearestDefenderStatsByWeekRequest,
+        GetDefensiveNearestDefenderStatsByWeekRequestTypedDict,
+        GetDefensiveNearestDefenderStatsByWeekSortKey,
+    )
+    from griddy.nfl.models.getdefensiveoverviewstatsbyweekop import (
+        GetDefensiveOverviewStatsByWeekRequest,
+        GetDefensiveOverviewStatsByWeekRequestTypedDict,
+        GetDefensiveOverviewStatsByWeekSortKey,
+    )
+    from griddy.nfl.models.getdefensivepassrushstatsbyweekop import (
+        GetDefensivePassRushStatsByWeekRequest,
+        GetDefensivePassRushStatsByWeekRequestTypedDict,
+        GetDefensivePassRushStatsByWeekSortKey,
+    )
     from griddy.nfl.models.getplaylist import (
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
+    )
+    from griddy.nfl.models.getteamoffenserushstatsbyseasonop import (
+        GetTeamOffenseRushStatsBySeasonRequest,
+        GetTeamOffenseRushStatsBySeasonRequestTypedDict,
+        GetTeamOffenseRushStatsBySeasonSortKey,
+    )
+    from griddy.nfl.models.getteamoffenserushstatsbyweekop import (
+        GetTeamOffenseRushStatsByWeekRequest,
+        GetTeamOffenseRushStatsByWeekRequestTypedDict,
+        GetTeamOffenseRushStatsByWeekSortKey,
+    )
+    from griddy.nfl.models.teamoffenserushstats import (
+        TeamOffenseRushStats,
+        TeamOffenseRushStatsTypedDict,
+    )
+    from griddy.nfl.models.teamoffenserushstatsresponse import (
+        TeamOffenseRushStatsResponse,
+        TeamOffenseRushStatsResponseTypedDict,
     )
 
     from .award import Award, AwardType, AwardTypedDict
@@ -71,6 +109,10 @@ if TYPE_CHECKING:
         CurrentGamesResponse,
         CurrentGamesResponseTypedDict,
     )
+    from .defensivenearestdefenderstats import (
+        DefensiveNearestDefenderStats,
+        DefensiveNearestDefenderStatsTypedDict,
+    )
     from .defensiveoverviewstatsresponse import (
         DefensiveOverviewStatsResponse,
         DefensiveOverviewStatsResponseTypedDict,
@@ -87,18 +129,8 @@ if TYPE_CHECKING:
         DefensivePlayerOverviewStatsPosition,
         DefensivePlayerOverviewStatsTypedDict,
     )
-    from .defensiveplayerstats import (
-        DefensivePlayerStats,
-        DefensivePlayerStatsNgsPosition,
-        DefensivePlayerStatsPosition,
-        DefensivePlayerStatsTypedDict,
-    )
     from .defensivepositiongroupenum import DefensivePositionGroupEnum
     from .defensivestats import DefensiveStats, DefensiveStatsTypedDict
-    from .defensivestatsresponse import (
-        DefensiveStatsResponse,
-        DefensiveStatsResponseTypedDict,
-    )
     from .division import Division, DivisionTypedDict
     from .draftpick import DraftPick, DraftPickTypedDict
     from .draftresponse import (
@@ -108,6 +140,17 @@ if TYPE_CHECKING:
         RoundTypedDict,
     )
     from .drive import Drive, DriveTypedDict, Result
+    from .enums.defensive_splits_enum import DefenseNGSSplitEnum
+    from .enums.downenum import DownEnum
+    from .enums.gamelocationenum import GameLocationEnum
+    from .enums.positionenums import (
+        DefenseNGSPositionEnum,
+        DefenseNGSPositionGroupEnum,
+        DefensePositionEnum,
+        DefensePositionGroupEnum,
+    )
+    from .enums.quarterenum import QuarterEnum
+    from .enums.yardstogoenum import YardsToGoEnum
     from .experiencegamesresponse import (
         ExperienceGamesResponse,
         ExperienceGamesResponseTypedDict,
@@ -379,10 +422,20 @@ if TYPE_CHECKING:
         GetTeamDefensePassStatsBySeasonRequestTypedDict,
         GetTeamDefensePassStatsBySeasonSortKey,
     )
+    from .getteamdefensepassstatsbyweekop import (
+        GetTeamDefensePassStatsByWeekRequest,
+        GetTeamDefensePassStatsByWeekRequestTypedDict,
+        GetTeamDefensePassStatsByWeekSortKey,
+    )
     from .getteamdefenserushstatsbyseasonop import (
         GetTeamDefenseRushStatsBySeasonRequest,
         GetTeamDefenseRushStatsBySeasonRequestTypedDict,
         GetTeamDefenseRushStatsBySeasonSortKey,
+    )
+    from .getteamdefenserushstatsbyweekop import (
+        GetTeamDefenseRushStatsByWeekRequest,
+        GetTeamDefenseRushStatsByWeekRequestTypedDict,
+        GetTeamDefenseRushStatsByWeekSortKey,
     )
     from .getteamdefensestatsbyseasonop import (
         GetTeamDefenseStatsBySeasonRequest,
@@ -390,20 +443,37 @@ if TYPE_CHECKING:
         GetTeamDefenseStatsBySeasonSortKey,
         GetTeamDefenseStatsBySeasonSplit,
     )
+    from .getteamdefensestatsbyweekop import (
+        GetTeamDefenseStatsByWeekRequest,
+        GetTeamDefenseStatsByWeekRequestTypedDict,
+        GetTeamDefenseStatsByWeekSortKey,
+        GetTeamDefenseStatsByWeekSplit,
+    )
     from .getteaminjuriesop import (
         GetTeamInjuriesRequest,
         GetTeamInjuriesRequestTypedDict,
     )
     from .getteamoffenseoverviewstatsbyseasonop import (
-        GetTeamOffenseOverviewStatsBySeasonRequest,
-        GetTeamOffenseOverviewStatsBySeasonRequestTypedDict,
-        GetTeamOffenseOverviewStatsBySeasonSortKey,
-        GetTeamOffenseOverviewStatsBySeasonSplit,
+        GetTeamOffenseStatsBySeasonRequest,
+        GetTeamOffenseStatsBySeasonRequestTypedDict,
+        GetTeamOffenseStatsBySeasonSortKey,
+        GetTeamOffenseStatsBySeasonSplit,
+    )
+    from .getteamoffenseoverviewstatsbyweekop import (
+        GetTeamOffenseStatsByWeekRequest,
+        GetTeamOffenseStatsByWeekRequestTypedDict,
+        GetTeamOffenseStatsByWeekSortKey,
+        GetTeamOffenseStatsByWeekSplit,
     )
     from .getteamoffensepassstatsbyseasonop import (
         GetTeamOffensePassStatsBySeasonRequest,
         GetTeamOffensePassStatsBySeasonRequestTypedDict,
         GetTeamOffensePassStatsBySeasonSortKey,
+    )
+    from .getteamoffensepassstatsbyweekop import (
+        GetTeamOffensePassStatsByWeekRequest,
+        GetTeamOffensePassStatsByWeekRequestTypedDict,
+        GetTeamOffensePassStatsByWeekSortKey,
     )
     from .getteamrosterop import GetTeamRosterRequest, GetTeamRosterRequestTypedDict
     from .getteamscheduleop import (
@@ -474,6 +544,10 @@ if TYPE_CHECKING:
         MultipleRankingsCategoryPagination,
         MultipleRankingsCategoryPaginationTypedDict,
         MultipleRankingsCategoryTypedDict,
+    )
+    from .nearestdefenderstatsresponse import (
+        NearestDefenderStatsResponse,
+        NearestDefenderStatsResponseTypedDict,
     )
     from .oddsselection import OddsSelection, OddsSelectionTypedDict
     from .offensiveplayerpositionenum import OffensivePlayerPositionEnum
@@ -687,13 +761,10 @@ if TYPE_CHECKING:
     from .teaminfo import TeamInfo, TeamInfoTypedDict
     from .teaminjuryreport import TeamInjuryReport, TeamInjuryReportTypedDict
     from .teammatchuprankings import TeamMatchupRankings, TeamMatchupRankingsTypedDict
-    from .teamoffenseoverviewstats import (
-        TeamOffenseOverviewStats,
-        TeamOffenseOverviewStatsTypedDict,
-    )
+    from .teamoffenseoverviewstats import TeamOffenseStats, TeamOffenseStatsTypedDict
     from .teamoffenseoverviewstatsresponse import (
-        TeamOffenseOverviewStatsResponse,
-        TeamOffenseOverviewStatsResponseTypedDict,
+        TeamOffenseStatsResponse,
+        TeamOffenseStatsResponseTypedDict,
     )
     from .teamoffensepassstats import (
         TeamOffensePassStats,
@@ -865,14 +936,16 @@ __all__ = [
     "DefensivePlayerOverviewStatsNgsPosition",
     "DefensivePlayerOverviewStatsPosition",
     "DefensivePlayerOverviewStatsTypedDict",
-    "DefensivePlayerStats",
-    "DefensivePlayerStatsNgsPosition",
-    "DefensivePlayerStatsPosition",
-    "DefensivePlayerStatsTypedDict",
-    "DefensivePositionGroupEnum",
+    "DefensiveNearestDefenderStats",
+    "DefenseNGSSplitEnum",
+    "DefensePositionEnum",
+    "DefensePositionGroupEnum",
+    "DefenseNGSPositionEnum",
+    "DefenseNGSPositionGroupEnum",
+    "DefensiveNearestDefenderStatsTypedDict",
     "DefensiveStats",
-    "DefensiveStatsResponse",
-    "DefensiveStatsResponseTypedDict",
+    "NearestDefenderStatsResponse",
+    "NearestDefenderStatsResponseTypedDict",
     "DefensiveStatsTypedDict",
     "Division",
     "DivisionTypedDict",
@@ -885,6 +958,7 @@ __all__ = [
     "DriveChartTypedDict",
     "DriveTypedDict",
     "DropbackTimeType",
+    "DownEnum",
     "ExperienceGamesResponse",
     "ExperienceGamesResponseTypedDict",
     "ExperienceTeamsResponse",
@@ -922,6 +996,7 @@ __all__ = [
     "GameIDTypedDict",
     "GameInsight",
     "GameInsightTypedDict",
+    "GameLocationEnum",
     "GameOdds",
     "GameOddsTypedDict",
     "GamePreviewResponse",
@@ -954,10 +1029,21 @@ __all__ = [
     "GetDefensiveOverviewStatsBySeasonRequest",
     "GetDefensiveOverviewStatsBySeasonRequestTypedDict",
     "GetDefensiveOverviewStatsBySeasonSortKey",
+    "GetDefensiveOverviewStatsByWeekRequest",
+    "GetDefensiveOverviewStatsByWeekRequestTypedDict",
+    "GetDefensiveOverviewStatsByWeekSortKey",
+    "GetDefensivePassRushStatsByWeekRequest",
+    "GetDefensivePassRushStatsByWeekRequestTypedDict",
+    "GetDefensivePassRushStatsByWeekSortKey",
     "GetDefensivePassRushStatsBySeasonRequest",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict",
     "GetDefensivePassRushStatsBySeasonSortKey",
-    "GetDefensiveStatsBySeasonRequest",
+    "GetDefensiveNearestDefenderStatsBySeasonRequest",
+    "GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict",
+    "GetDefensiveNearestDefenderStatsBySeasonSortKey",
+    "GetDefensiveNearestDefenderStatsByWeekRequest",
+    "GetDefensiveNearestDefenderStatsByWeekRequestTypedDict",
+    "GetDefensiveNearestDefenderStatsByWeekSortKey",
     "GetDefensiveStatsBySeasonRequestTypedDict",
     "GetDefensiveStatsBySeasonSortKey",
     "GetDraftInfoRequest",
@@ -1053,15 +1139,42 @@ __all__ = [
     "GetTeamDefenseStatsBySeasonRequestTypedDict",
     "GetTeamDefenseStatsBySeasonSortKey",
     "GetTeamDefenseStatsBySeasonSplit",
+    "GetTeamDefensePassStatsByWeekRequest",
+    "GetTeamDefensePassStatsByWeekRequestTypedDict",
+    "GetTeamDefensePassStatsByWeekSortKey",
+    "GetTeamDefenseRushStatsByWeekRequest",
+    "GetTeamDefenseRushStatsByWeekRequestTypedDict",
+    "GetTeamDefenseRushStatsByWeekSortKey",
+    "GetTeamDefenseStatsByWeekRequest",
+    "GetTeamDefenseStatsByWeekRequestTypedDict",
+    "GetTeamDefenseStatsByWeekSortKey",
+    "GetTeamDefenseStatsByWeekSplit",
     "GetTeamInjuriesRequest",
     "GetTeamInjuriesRequestTypedDict",
-    "GetTeamOffenseOverviewStatsBySeasonRequest",
-    "GetTeamOffenseOverviewStatsBySeasonRequestTypedDict",
-    "GetTeamOffenseOverviewStatsBySeasonSortKey",
-    "GetTeamOffenseOverviewStatsBySeasonSplit",
+    "GetTeamOffenseStatsBySeasonRequest",
+    "GetTeamOffenseStatsBySeasonRequestTypedDict",
+    "GetTeamOffenseStatsBySeasonSortKey",
+    "GetTeamOffenseStatsBySeasonSplit",
+    "GetTeamOffenseStatsByWeekRequest",
+    "GetTeamOffenseStatsByWeekRequestTypedDict",
+    "GetTeamOffenseStatsByWeekSortKey",
+    "GetTeamOffenseStatsByWeekSplit",
     "GetTeamOffensePassStatsBySeasonRequest",
     "GetTeamOffensePassStatsBySeasonRequestTypedDict",
     "GetTeamOffensePassStatsBySeasonSortKey",
+    "GetTeamOffensePassStatsByWeekRequest",
+    "GetTeamOffensePassStatsByWeekRequestTypedDict",
+    "GetTeamOffensePassStatsByWeekSortKey",
+    "GetTeamOffenseRushStatsByWeekRequestTypedDict",
+    "GetTeamOffenseRushStatsByWeekRequest",
+    "GetTeamOffenseRushStatsBySeasonRequestTypedDict",
+    "GetTeamOffenseRushStatsByWeekSortKey",
+    "GetTeamOffenseRushStatsBySeasonRequest",
+    "GetTeamOffenseRushStatsBySeasonSortKey",
+    "TeamOffenseRushStats",
+    "TeamOffenseRushStatsTypedDict",
+    "TeamOffenseRushStatsResponse",
+    "TeamOffenseRushStatsResponseTypedDict",
     "GetTeamRosterRequest",
     "GetTeamRosterRequestTypedDict",
     "GetTeamScheduleRequest",
@@ -1243,6 +1356,7 @@ __all__ = [
     "PracticeStatusTypedDict",
     "Preview",
     "PreviewTypedDict",
+    "QuarterEnum",
     "ProGame",
     "ProGameCategory",
     "ProGameExtension",
@@ -1385,10 +1499,10 @@ __all__ = [
     "TeamInjuryReportTypedDict",
     "TeamMatchupRankings",
     "TeamMatchupRankingsTypedDict",
-    "TeamOffenseOverviewStats",
-    "TeamOffenseOverviewStatsResponse",
-    "TeamOffenseOverviewStatsResponseTypedDict",
-    "TeamOffenseOverviewStatsTypedDict",
+    "TeamOffenseStats",
+    "TeamOffenseStatsResponse",
+    "TeamOffenseStatsResponseTypedDict",
+    "TeamOffenseStatsTypedDict",
     "TeamOffensePassStats",
     "TeamOffensePassStatsResponse",
     "TeamOffensePassStatsResponseTypedDict",
@@ -1477,6 +1591,7 @@ __all__ = [
     "WeeksResponseTypedDict",
     "WinProbabilityResponse",
     "WinProbabilityResponseTypedDict",
+    "YardsToGoEnum",
     "YardsToGoType",
     "Zone",
     "ZoneTypedDict",
@@ -1563,12 +1678,19 @@ _dynamic_imports: dict[str, str] = {
     "DefensivePlayerStatsPosition": ".defensiveplayerstats",
     "DefensivePlayerStatsTypedDict": ".defensiveplayerstats",
     "DefensivePositionGroupEnum": ".defensivepositiongroupenum",
+    "DefensiveNearestDefenderStats": ".defensivenearestdefenderstats",
+    "DefenseNGSSplitEnum": ".enums.defensive_splits_enum",
+    "DefensePositionEnum": ".enums.positionenums",
+    "DefensePositionGroupEnum": ".enums.positionenums",
+    "DefenseNGSPositionEnum": ".enums.positionenums",
+    "DefenseNGSPositionGroupEnum": ".enums.positionenums",
     "DefensiveStats": ".defensivestats",
     "DefensiveStatsTypedDict": ".defensivestats",
     "DefensiveStatsResponse": ".defensivestatsresponse",
     "DefensiveStatsResponseTypedDict": ".defensivestatsresponse",
     "Division": ".division",
     "DivisionTypedDict": ".division",
+    "DownEnum": ".enums.downenum",
     "DraftPick": ".draftpick",
     "DraftPickTypedDict": ".draftpick",
     "DraftResponse": ".draftresponse",
@@ -1644,6 +1766,7 @@ _dynamic_imports: dict[str, str] = {
     "ContentTypedDict": ".gameinsight",
     "GameInsight": ".gameinsight",
     "GameInsightTypedDict": ".gameinsight",
+    "GameLocationEnum": ".enums.gamelocationenum",
     "GameOdds": ".gameodds",
     "GameOddsTypedDict": ".gameodds",
     "GamePreviewResponse": ".gamepreviewresponse",
@@ -1675,9 +1798,21 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensiveOverviewStatsBySeasonRequest": ".getdefensiveoverviewstatsbyseasonop",
     "GetDefensiveOverviewStatsBySeasonRequestTypedDict": ".getdefensiveoverviewstatsbyseasonop",
     "GetDefensiveOverviewStatsBySeasonSortKey": ".getdefensiveoverviewstatsbyseasonop",
+    "GetDefensiveOverviewStatsByWeekRequest": ".getdefensiveoverviewstatsbyweekop",
+    "GetDefensiveOverviewStatsByWeekRequestTypedDict": ".getdefensiveoverviewstatsbyweekop",
+    "GetDefensiveOverviewStatsByWeekSortKey": ".getdefensiveoverviewstatsbyweekop",
+    "GetDefensivePassRushStatsByWeekRequest": ".getdefensivepassrushstatsbyweekop",
+    "GetDefensivePassRushStatsByWeekRequestTypedDict": ".getdefensivepassrushstatsbyweekop",
+    "GetDefensivePassRushStatsByWeekSortKey": ".getdefensivepassrushstatsbyweekop",
     "GetDefensivePassRushStatsBySeasonRequest": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonRequestTypedDict": ".getdefensivepassrushstatsbyseasonop",
     "GetDefensivePassRushStatsBySeasonSortKey": ".getdefensivepassrushstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsBySeasonRequest": ".getdefensivenearestdefenderstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict": ".getdefensivenearestdefenderstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsBySeasonSortKey": ".getdefensivenearestdefenderstatsbyseasonop",
+    "GetDefensiveNearestDefenderStatsByWeekRequest": ".getdefensivenearestdefenderstatsbyweekop",
+    "GetDefensiveNearestDefenderStatsByWeekRequestTypedDict": ".getdefensivenearestdefenderstatsbyweekop",
+    "GetDefensiveNearestDefenderStatsByWeekSortKey": ".getdefensivenearestdefenderstatsbyweekop",
     "GetDefensiveStatsBySeasonRequest": ".getdefensivestatsbyseasonop",
     "GetDefensiveStatsBySeasonRequestTypedDict": ".getdefensivestatsbyseasonop",
     "GetDefensiveStatsBySeasonSortKey": ".getdefensivestatsbyseasonop",
@@ -1789,15 +1924,38 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamDefenseStatsBySeasonRequestTypedDict": ".getteamdefensestatsbyseasonop",
     "GetTeamDefenseStatsBySeasonSortKey": ".getteamdefensestatsbyseasonop",
     "GetTeamDefenseStatsBySeasonSplit": ".getteamdefensestatsbyseasonop",
+    "GetTeamDefensePassStatsByWeekRequest": ".getteamdefensepassstatsbyweekop",
+    "GetTeamDefensePassStatsByWeekRequestTypedDict": ".getteamdefensepassstatsbyweekop",
+    "GetTeamDefensePassStatsByWeekSortKey": ".getteamdefensepassstatsbyweekop",
+    "GetTeamDefenseRushStatsByWeekRequest": ".getteamdefenserushstatsbyweekop",
+    "GetTeamDefenseRushStatsByWeekRequestTypedDict": ".getteamdefenserushstatsbyweekop",
+    "GetTeamDefenseRushStatsByWeekSortKey": ".getteamdefenserushstatsbyweekop",
+    "GetTeamDefenseStatsByWeekRequest": ".getteamdefensestatsbyweekop",
+    "GetTeamDefenseStatsByWeekRequestTypedDict": ".getteamdefensestatsbyweekop",
+    "GetTeamDefenseStatsByWeekSortKey": ".getteamdefensestatsbyweekop",
+    "GetTeamDefenseStatsByWeekSplit": ".getteamdefensestatsbyweekop",
     "GetTeamInjuriesRequest": ".getteaminjuriesop",
     "GetTeamInjuriesRequestTypedDict": ".getteaminjuriesop",
-    "GetTeamOffenseOverviewStatsBySeasonRequest": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffenseOverviewStatsBySeasonRequestTypedDict": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffenseOverviewStatsBySeasonSortKey": ".getteamoffenseoverviewstatsbyseasonop",
-    "GetTeamOffenseOverviewStatsBySeasonSplit": ".getteamoffenseoverviewstatsbyseasonop",
+    "GetTeamOffenseStatsBySeasonRequest": ".getteamoffenseoverviewstatsbyseasonop",
+    "GetTeamOffenseStatsBySeasonRequestTypedDict": ".getteamoffenseoverviewstatsbyseasonop",
+    "GetTeamOffenseStatsBySeasonSortKey": ".getteamoffenseoverviewstatsbyseasonop",
+    "GetTeamOffenseStatsBySeasonSplit": ".getteamoffenseoverviewstatsbyseasonop",
+    "GetTeamOffenseStatsByWeekRequest": ".getteamoffenseoverviewstatsbyweekop",
+    "GetTeamOffenseStatsByWeekRequestTypedDict": ".getteamoffenseoverviewstatsbyweekop",
+    "GetTeamOffenseStatsByWeekSortKey": ".getteamoffenseoverviewstatsbyweekop",
+    "GetTeamOffenseStatsByWeekSplit": ".getteamoffenseoverviewstatsbyweekop",
     "GetTeamOffensePassStatsBySeasonRequest": ".getteamoffensepassstatsbyseasonop",
     "GetTeamOffensePassStatsBySeasonRequestTypedDict": ".getteamoffensepassstatsbyseasonop",
     "GetTeamOffensePassStatsBySeasonSortKey": ".getteamoffensepassstatsbyseasonop",
+    "GetTeamOffensePassStatsByWeekRequest": ".getteamoffensepassstatsbyweekop",
+    "GetTeamOffensePassStatsByWeekRequestTypedDict": ".getteamoffensepassstatsbyweekop",
+    "GetTeamOffensePassStatsByWeekSortKey": ".getteamoffensepassstatsbyweekop",
+    "GetTeamOffenseRushStatsBySeasonRequest": ".getteamoffenserushstatsbyseasonop",
+    "GetTeamOffenseRushStatsBySeasonRequestTypedDict": ".getteamoffenserushstatsbyseasonop",
+    "GetTeamOffenseRushStatsBySeasonSortKey": ".getteamoffenserushstatsbyseasonop",
+    "GetTeamOffenseRushStatsByWeekRequest": ".getteamoffenserushstatsbyweekop",
+    "GetTeamOffenseRushStatsByWeekRequestTypedDict": ".getteamoffenserushstatsbyweekop",
+    "GetTeamOffenseRushStatsByWeekSortKey": ".getteamoffenserushstatsbyweekop",
     "GetTeamRosterRequest": ".getteamrosterop",
     "GetTeamRosterRequestTypedDict": ".getteamrosterop",
     "GetTeamScheduleRequest": ".getteamscheduleop",
@@ -1874,6 +2032,8 @@ _dynamic_imports: dict[str, str] = {
     "PassingStatsResponseTypedDict": ".passingstatsresponse",
     "PassRushStatsResponse": ".passrushstatsresponse",
     "PassRushStatsResponseTypedDict": ".passrushstatsresponse",
+    "NearestDefenderStatsResponse": ".nearestdefenderstatsresponse",
+    "NearestDefenderStatsResponseTypedDict": ".nearestdefenderstatsresponse",
     "Penalty": ".penalty",
     "PenaltyTypedDict": ".penalty",
     "Play": ".play",
@@ -1951,6 +2111,7 @@ _dynamic_imports: dict[str, str] = {
     "PointsRecordPointsTypedDict": ".pointsrecord",
     "PointsRecordTypedDict": ".pointsrecord",
     "PracticeStatusEnum": ".practicestatusenum",
+    "QuarterEnum": ".enums.quarterenum",
     "ProGame": ".progame",
     "ProGameCategory": ".progame",
     "ProGameExtension": ".progame",
@@ -2058,14 +2219,18 @@ _dynamic_imports: dict[str, str] = {
     "TeamInjuryReportTypedDict": ".teaminjuryreport",
     "TeamMatchupRankings": ".teammatchuprankings",
     "TeamMatchupRankingsTypedDict": ".teammatchuprankings",
-    "TeamOffenseOverviewStats": ".teamoffenseoverviewstats",
-    "TeamOffenseOverviewStatsTypedDict": ".teamoffenseoverviewstats",
-    "TeamOffenseOverviewStatsResponse": ".teamoffenseoverviewstatsresponse",
-    "TeamOffenseOverviewStatsResponseTypedDict": ".teamoffenseoverviewstatsresponse",
+    "TeamOffenseStats": ".teamoffenseoverviewstats",
+    "TeamOffenseStatsTypedDict": ".teamoffenseoverviewstats",
+    "TeamOffenseStatsResponse": ".teamoffenseoverviewstatsresponse",
+    "TeamOffenseStatsResponseTypedDict": ".teamoffenseoverviewstatsresponse",
     "TeamOffensePassStats": ".teamoffensepassstats",
     "TeamOffensePassStatsTypedDict": ".teamoffensepassstats",
     "TeamOffensePassStatsResponse": ".teamoffensepassstatsresponse",
     "TeamOffensePassStatsResponseTypedDict": ".teamoffensepassstatsresponse",
+    "TeamOffenseRushStats": ".teamoffenserushstats",
+    "TeamOffenseRushStatsTypedDict": ".teamoffenserushstats",
+    "TeamOffenseRushStatsResponse": ".teamoffenserushstatsresponse",
+    "TeamOffenseRushStatsResponseTypedDict": ".teamoffenserushstatsresponse",
     "TeamRankingEntry": ".teamrankingentry",
     "TeamRankingEntryTypedDict": ".teamrankingentry",
     "TeamRankings": ".teamrankings",
@@ -2162,6 +2327,7 @@ _dynamic_imports: dict[str, str] = {
     "WeeksResponseTypedDict": ".weeksresponse",
     "WinProbabilityResponse": ".winprobabilityresponse",
     "WinProbabilityResponseTypedDict": ".winprobabilityresponse",
+    "YardsToGoEnum": ".enums.yardstogoenum",
 }
 
 

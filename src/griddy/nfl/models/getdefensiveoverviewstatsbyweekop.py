@@ -5,76 +5,59 @@ from typing import List, Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.weekslugenum import WeekSlugEnum
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
 
-GetTeamOffenseStatsBySeasonSortKey = Literal[
-    "total",
-    "pass",
-    "run",
-    "yds",
-    "passPct",
-    "ypp",
-    "td",
-    "passTd",
-    "rushTd",
-    "epa",
-    "epaPP",
-    "passYds",
-    "passYpp",
-    "epaPass",
-    "epaPassPP",
-    "rushYds",
-    "rushYpp",
-    "epaRush",
-    "epaRushPP",
-    "to",
-    "ppg",
-    "ypg",
-    "passYpg",
-    "rushYpg",
-    "redZonePct",
-    "thirdDownPct",
+GetDefensiveOverviewStatsByWeekSortKey = Literal[
+    "snap",
+    "rd",
+    "pr",
+    "tck",
+    "tStop",
+    "hStop",
+    "qbp",
+    "qbpR",
+    "sack",
+    "tgtNd",
+    "recNd",
+    "recYdsNd",
+    "recTdNd",
+    "int",
+    "passRatingNd",
+    "gameSnap",
+    "snapPct",
 ]
 r"""Field to sort by"""
 
 
-GetTeamOffenseStatsBySeasonSplit = Literal[
-    "TEAM_SHOTGUN",
-    "TEAM_UNDER_CENTER",
-    "TEAM_PISTOL",
-    "TEAM_WHEN_LEADING",
-    "TEAM_WHEN_TRAILING",
-    "TEAM_WHEN_TIED",
-    "TEAM_RED_ZONE",
-    "TEAM_GOAL_TO_GO",
-]
-
-
-class GetTeamOffenseStatsBySeasonRequestTypedDict(TypedDict):
+class GetDefensiveOverviewStatsByWeekRequestTypedDict(TypedDict):
     season: int
     r"""Season year"""
     season_type: SeasonTypeEnum
     r"""Type of season"""
+    week: WeekSlugEnum
+    r"""Week identifier"""
     limit: NotRequired[int]
-    r"""Maximum number of teams to return"""
+    r"""Maximum number of players to return"""
     offset: NotRequired[int]
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamOffenseStatsBySeasonSortKey]
+    sort_key: NotRequired[GetDefensiveOverviewStatsByWeekSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
-    team_defense: NotRequired[str]
-    r"""Filter by specific team identifier"""
-    split: NotRequired[List[GetTeamOffenseStatsBySeasonSplit]]
-    r"""Offensive situation splits to filter by (supports multiple values)"""
+    qualified_defender: NotRequired[bool]
+    r"""Filter to only qualified defenders (minimum snap threshold)"""
+    team_defense: NotRequired[List[str]]
+    r"""Filter by specific team IDs (supports multiple teams)"""
 
 
-class GetTeamOffenseStatsBySeasonRequest(BaseModel):
+class GetDefensiveOverviewStatsByWeekRequest(BaseModel):
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
@@ -87,11 +70,17 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     ]
     r"""Type of season"""
 
+    week: Annotated[
+        WeekSlugEnum,
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ]
+    r"""Week identifier"""
+
     limit: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 35
-    r"""Maximum number of teams to return"""
+    r"""Maximum number of players to return"""
 
     offset: Annotated[
         Optional[int],
@@ -106,10 +95,10 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamOffenseStatsBySeasonSortKey],
+        Optional[GetDefensiveOverviewStatsByWeekSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "ypg"
+    ] = "snap"
     r"""Field to sort by"""
 
     sort_value: Annotated[
@@ -119,15 +108,16 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     ] = None
     r"""Sort direction"""
 
+    qualified_defender: Annotated[
+        Optional[bool],
+        pydantic.Field(alias="qualifiedDefender"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = False
+    r"""Filter to only qualified defenders (minimum snap threshold)"""
+
     team_defense: Annotated[
-        Optional[str],
+        Optional[List[str]],
         pydantic.Field(alias="teamDefense"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter by specific team identifier"""
-
-    split: Annotated[
-        Optional[List[GetTeamOffenseStatsBySeasonSplit]],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Offensive situation splits to filter by (supports multiple values)"""
+    r"""Filter by specific team IDs (supports multiple teams)"""

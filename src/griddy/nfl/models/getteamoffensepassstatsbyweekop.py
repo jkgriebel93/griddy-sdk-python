@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import Literal, Optional
 
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -9,72 +9,58 @@ from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
+from .weekslugenum import WeekSlugEnum
 
-GetTeamOffenseStatsBySeasonSortKey = Literal[
+GetTeamOffensePassStatsByWeekSortKey = Literal[
     "total",
     "pass",
-    "run",
-    "yds",
     "passPct",
-    "ypp",
-    "td",
     "passTd",
-    "rushTd",
-    "epa",
-    "epaPP",
     "passYds",
     "passYpp",
     "epaPass",
     "epaPassPP",
-    "rushYds",
-    "rushYpp",
-    "epaRush",
-    "epaRushPP",
-    "to",
-    "ppg",
-    "ypg",
+    "ttt",
+    "qbp",
+    "qbpPct",
+    "att",
+    "sackedYds",
+    "sack",
+    "sackPct",
+    "ttp",
+    "blitzPct",
+    "paPct",
+    "yac",
+    "yacoe",
+    "sep",
     "passYpg",
-    "rushYpg",
-    "redZonePct",
-    "thirdDownPct",
+    "sackedYpg",
 ]
 r"""Field to sort by"""
 
 
-GetTeamOffenseStatsBySeasonSplit = Literal[
-    "TEAM_SHOTGUN",
-    "TEAM_UNDER_CENTER",
-    "TEAM_PISTOL",
-    "TEAM_WHEN_LEADING",
-    "TEAM_WHEN_TRAILING",
-    "TEAM_WHEN_TIED",
-    "TEAM_RED_ZONE",
-    "TEAM_GOAL_TO_GO",
-]
-
-
-class GetTeamOffenseStatsBySeasonRequestTypedDict(TypedDict):
+class GetTeamOffensePassStatsByWeekRequestTypedDict(TypedDict):
     season: int
     r"""Season year"""
     season_type: SeasonTypeEnum
     r"""Type of season"""
+    week: WeekSlugEnum
+    r"""Week identifier"""
     limit: NotRequired[int]
     r"""Maximum number of teams to return"""
     offset: NotRequired[int]
     r"""Number of records to skip for pagination"""
     page: NotRequired[int]
     r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamOffenseStatsBySeasonSortKey]
+    sort_key: NotRequired[GetTeamOffensePassStatsByWeekSortKey]
     r"""Field to sort by"""
     sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction"""
     team_defense: NotRequired[str]
-    r"""Filter by specific team identifier"""
-    split: NotRequired[List[GetTeamOffenseStatsBySeasonSplit]]
-    r"""Offensive situation splits to filter by (supports multiple values)"""
+    r"""Filter by specific team ID"""
 
 
-class GetTeamOffenseStatsBySeasonRequest(BaseModel):
+class GetTeamOffensePassStatsByWeekRequest(BaseModel):
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
@@ -86,6 +72,12 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""Type of season"""
+
+    week: Annotated[
+        WeekSlugEnum,
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ]
+    r"""Week identifier"""
 
     limit: Annotated[
         Optional[int],
@@ -106,10 +98,10 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamOffenseStatsBySeasonSortKey],
+        Optional[GetTeamOffensePassStatsByWeekSortKey],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "ypg"
+    ] = "passYpg"
     r"""Field to sort by"""
 
     sort_value: Annotated[
@@ -124,10 +116,4 @@ class GetTeamOffenseStatsBySeasonRequest(BaseModel):
         pydantic.Field(alias="teamDefense"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter by specific team identifier"""
-
-    split: Annotated[
-        Optional[List[GetTeamOffenseStatsBySeasonSplit]],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Offensive situation splits to filter by (supports multiple values)"""
+    r"""Filter by specific team ID"""

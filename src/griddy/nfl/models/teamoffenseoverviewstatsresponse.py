@@ -8,16 +8,13 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 from ..types import BaseModel
 from .seasontypeenum import SeasonTypeEnum
 from .sortorderenum import SortOrderEnum
-from .teamoffenseoverviewstats import (
-    TeamOffenseOverviewStats,
-    TeamOffenseOverviewStatsTypedDict,
-)
+from .teamoffenseoverviewstats import TeamOffenseStats, TeamOffenseStatsTypedDict
 
 
-class TeamOffenseOverviewStatsResponseTypedDict(TypedDict):
+class TeamOffenseStatsResponseTypedDict(TypedDict):
     limit: int
     r"""Maximum number of results returned"""
-    offense: List[TeamOffenseOverviewStatsTypedDict]
+    offense: List[TeamOffenseStatsTypedDict]
     offset: int
     r"""Number of records skipped"""
     season: int
@@ -36,11 +33,11 @@ class TeamOffenseOverviewStatsResponseTypedDict(TypedDict):
     r"""Team filter applied (if any)"""
 
 
-class TeamOffenseOverviewStatsResponse(BaseModel):
+class TeamOffenseStatsResponse(BaseModel):
     limit: int
     r"""Maximum number of results returned"""
 
-    offense: List[TeamOffenseOverviewStats]
+    offense: List[TeamOffenseStats]
 
     offset: int
     r"""Number of records skipped"""

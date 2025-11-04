@@ -8,7 +8,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 from ..types import BaseModel
 
 
-class TeamOffenseOverviewStatsTypedDict(TypedDict):
+class TeamOffenseStatsTypedDict(TypedDict):
     gp: int
     r"""Games played"""
     pass_: int
@@ -67,7 +67,7 @@ class TeamOffenseOverviewStatsTypedDict(TypedDict):
     r"""Yards per play"""
 
 
-class TeamOffenseOverviewStats(BaseModel):
+class TeamOffenseStats(BaseModel):
     gp: int
     r"""Games played"""
 

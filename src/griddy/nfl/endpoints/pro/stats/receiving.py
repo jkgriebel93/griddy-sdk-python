@@ -1,17 +1,17 @@
 from typing import List, Mapping, Optional
 
-from .._hooks import HookContext
-from ..types import UNSET, OptionalNullable
-from ..utils import get_security_from_env
-from ..utils.unmarshal_json_response import unmarshal_json_response
-from . import errors, models, utils
-from .basesdk import BaseSDK
+from griddy.nfl import errors, models, utils
+from griddy.nfl._hooks import HookContext
+from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.types import UNSET, OptionalNullable
+from griddy.nfl.utils import get_security_from_env
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
+
+# TODO: All the requests in this file have broken Pydantic models
 
 
-class PlayerReceivingStatistics(BaseSDK):
-    r"""Individual player receiving statistics and analytics"""
-
-    def get_player_receiving_stats_by_season(
+class PlayerReceivingStats(ProSDK):
+    def get_season_summary(
         self,
         *,
         season: int,
@@ -113,7 +113,8 @@ class PlayerReceivingStatistics(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -127,7 +128,7 @@ class PlayerReceivingStatistics(BaseSDK):
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
-    async def get_player_receiving_stats_by_season_async(
+    async def get_season_summary_async(
         self,
         *,
         season: int,
@@ -229,7 +230,8 @@ class PlayerReceivingStatistics(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -243,7 +245,7 @@ class PlayerReceivingStatistics(BaseSDK):
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
-    def get_player_receiving_stats_by_week(
+    def get_weekly_summary(
         self,
         *,
         season: int,
@@ -348,7 +350,8 @@ class PlayerReceivingStatistics(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -362,7 +365,7 @@ class PlayerReceivingStatistics(BaseSDK):
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
-    async def get_player_receiving_stats_by_week_async(
+    async def get_weekly_summary_async(
         self,
         *,
         season: int,
@@ -467,7 +470,8 @@ class PlayerReceivingStatistics(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
+            return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GriddyNFLDefaultError(

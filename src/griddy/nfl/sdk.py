@@ -2,18 +2,14 @@ import base64
 import importlib
 import json
 import sys
-import time
-import urllib
 import weakref
-from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Union, cast
+from typing import TYPE_CHECKING, Dict, Optional, cast
 from uuid import uuid4
 
 import httpx
-import requests
 
 from griddy import settings
 
-from ..core.utils import extract_cookies_as_dict
 from ..nfl import models, utils
 from ._hooks import SDKHooks
 from .basesdk import BaseSDK
@@ -28,26 +24,22 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.games import Games
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
+    from griddy.nfl.endpoints.pro.stats.defense import PlayerDefenseStats
+    from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
+    from griddy.nfl.endpoints.pro.stats.receiving import PlayerReceivingStats
+    from griddy.nfl.endpoints.pro.stats.rushing import PlayerRushingStats
+    from griddy.nfl.endpoints.pro.stats.team_defense import TeamDefenseStats
+    from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
     from griddy.nfl.endpoints.pro.teams import Teams
 
     from .authentication import Authentication
     from .betting import Betting
-    from .defensive_pass_rush_statistics import DefensivePassRushStatistics
-    from .defensive_player_overview import DefensivePlayerOverview
-    from .defensive_statistics import DefensiveStatistics
     from .experience import Experience
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
-    from .player_passing_statistics import PlayerPassingStatistics
-    from .player_receiving_statistics import PlayerReceivingStatistics
-    from .player_rushing_statistics import PlayerRushingStatistics
     from .player_statistics import PlayerStatistics
     from .scores import Scores
     from .stats_sdk import StatsSDK
-    from .team_defense_pass_statistics import TeamDefensePassStatistics
-    from .team_defense_rush_statistics import TeamDefenseRushStatistics
-    from .team_defense_statistics import TeamDefenseStatistics
-    from .team_offense_overview_statistics import TeamOffenseOverviewStatistics
     from .team_offense_pass_statistics import TeamOffensePassStatistics
     from .win_probability import WinProbability
 
@@ -69,30 +61,24 @@ class GriddyNFL(BaseSDK):
     r"""Real-time scoring and game status endpoints"""
     win_probability: "WinProbability"
     r"""Game and play-level win probability analytics"""
-    defensive_statistics: "DefensiveStatistics"
-    r"""Individual defensive player statistics and coverage analytics"""
-    defensive_player_overview: "DefensivePlayerOverview"
-    r"""Comprehensive individual defensive player statistics and analytics"""
-    defensive_pass_rush_statistics: "DefensivePassRushStatistics"
-    r"""Individual defensive player pass rush statistics and analytics"""
     fantasy_statistics: "FantasyStatistics"
     r"""Fantasy football player statistics and scoring metrics"""
     player_statistics: "PlayerStatistics"
     r"""Individual player passing statistics and analytics"""
-    player_passing_statistics: "PlayerPassingStatistics"
-    r"""Individual player passing statistics and analytics by week"""
-    player_receiving_statistics: "PlayerReceivingStatistics"
+    player_passing_stats: "PlayerPassingStats"
+    r"""Individual player passing statistics"""
+    player_receiving_stats: "PlayerReceivingStats"
     r"""Individual player receiving statistics and analytics"""
-    player_rushing_statistics: "PlayerRushingStatistics"
+    player_rushing_stats: "PlayerRushingStats"
     r"""Individual player rushing statistics and analytics"""
-    team_defense_statistics: "TeamDefenseStatistics"
-    r"""Comprehensive team defensive statistics and situational analytics"""
-    team_defense_pass_statistics: "TeamDefensePassStatistics"
-    r"""Comprehensive team defensive pass statistics and situational analytics"""
-    team_defense_rush_statistics: "TeamDefenseRushStatistics"
+    player_defense_stats: "PlayerDefenseStats"
+    r"""Comprehensive individual defensive player statistics and analytics"""
+    team_offense_stats: "TeamOffenseStats"
+    r"""Overview Offensive Next Gen Stats"""
+    team_defense_stats: "TeamDefenseStats"
     r"""Comprehensive team defensive rush statistics and situational analytics"""
-    team_offense_overview_statistics: "TeamOffenseOverviewStatistics"
-    r"""Comprehensive team offensive overview statistics and situational analytics"""
+    # team_offense_overview_statistics: "TeamOffenseOverviewStatistics"
+    # r"""Comprehensive team offensive overview statistics and situational analytics"""
     team_offense_pass_statistics: "TeamOffensePassStatistics"
     r"""Comprehensive team offensive pass statistics and situational analytics"""
     stats: "StatsSDK"
@@ -113,47 +99,35 @@ class GriddyNFL(BaseSDK):
         "betting": ("griddy.nfl.betting", "Betting"),
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
-        "defensive_statistics": (
-            "griddy.nfl.defensive_statistics",
-            "DefensiveStatistics",
-        ),
-        "defensive_player_overview": (
-            "griddy.nfl.defensive_player_overview",
-            "DefensivePlayerOverview",
-        ),
         "defensive_pass_rush_statistics": (
             "griddy.nfl.defensive_pass_rush_statistics",
             "DefensivePassRushStatistics",
         ),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
         "player_statistics": ("griddy.nfl.player_statistics", "PlayerStatistics"),
-        "player_passing_statistics": (
-            "griddy.nfl.player_passing_statistics",
-            "PlayerPassingStatistics",
+        "player_passing_stats": (
+            "griddy.nfl.endpoints.pro.stats.passing",
+            "PlayerPassingStats",
         ),
         "player_receiving_statistics": (
-            "griddy.nfl.player_receiving_statistics",
-            "PlayerReceivingStatistics",
+            "griddy.nfl.endpoints.pro.stats.receiving",
+            "PlayerReceivingStats",
         ),
-        "player_rushing_statistics": (
-            "griddy.nfl.player_rushing_statistics",
-            "PlayerRushingStatistics",
+        "player_rushing_stats": (
+            "griddy.nfl.endpoints.pro.stats.rushing",
+            "PlayerRushingStats",
         ),
-        "team_defense_statistics": (
-            "griddy.nfl.team_defense_statistics",
-            "TeamDefenseStatistics",
+        "player_defense_stats": (
+            "griddy.nfl.endpoints.pro.stats.defense",
+            "PlayerDefenseStats",
         ),
-        "team_defense_pass_statistics": (
-            "griddy.nfl.team_defense_pass_statistics",
-            "TeamDefensePassStatistics",
+        "team_offense_stats": (
+            "griddy.nfl.endpoints.pro.stats.team_offense",
+            "TeamOffenseStats",
         ),
-        "team_defense_rush_statistics": (
-            "griddy.nfl.team_defense_rush_statistics",
-            "TeamDefenseRushStatistics",
-        ),
-        "team_offense_overview_statistics": (
-            "griddy.nfl.team_offense_overview_statistics",
-            "TeamOffenseOverviewStatistics",
+        "team_defense_stats": (
+            "griddy.nfl.endpoints.pro.stats.team_defense",
+            "TeamDefenseStats",
         ),
         "team_offense_pass_statistics": (
             "griddy.nfl.team_offense_pass_statistics",
