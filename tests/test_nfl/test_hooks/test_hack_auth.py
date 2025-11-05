@@ -492,7 +492,7 @@ class TestHackAuthHook:
         mock_response.raise_for_status.assert_called_once()
 
     @responses.activate
-    def test_before_request_calls_refresh_when_inside_window(self):
+    def test_before_request_calls_refresh_when_inside_window(self, nfl_auth_info):
 
         fake_auth_response = {
             "expiresIn": time.time() + 3600,
@@ -508,13 +508,7 @@ class TestHackAuthHook:
         )
         mock_request = MagicMock()
 
-        original_auth_info = {
-            "expiresIn": time.time(),
-            "refreshToken": str(uuid4()),
-            "accessToken": "ZEBRA",
-        }
-
-        nfl = GriddyNFL(nfl_auth=original_auth_info)
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info)
 
         hook = HackAuthHook()
         hook.before_request(
@@ -539,7 +533,9 @@ class TestHackAuthHook:
         )
 
     @patch("griddy.nfl._hooks.hack_auth.HackAuthHook.before_request")
-    def test_hook_invoked_before_sdk_request(self, mock_before_request, httpx_mock):
+    def test_hook_invoked_before_sdk_request(
+        self, mock_before_request, nfl_auth_info_valid, httpx_mock
+    ):
         """Test that HackAuthHook.before_request is called when SDK makes a request"""
         # Configure mock to pass through the request unchanged
         mock_before_request.side_effect = lambda hook_ctx, request: request
@@ -549,14 +545,7 @@ class TestHackAuthHook:
             json=fake_sched_resp,
         )
 
-        # Create SDK instance with valid auth that won't trigger refresh
-        auth_info = {
-            "expiresIn": time.time() + 3600,  # Valid for 1 hour
-            "refreshToken": str(uuid4()),
-            "accessToken": "TEST_TOKEN",
-        }
-
-        nfl = GriddyNFL(nfl_auth=auth_info)
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
 
         # Verify the hook was registered by checking the hooks list
         hooks = nfl.sdk_configuration.__dict__["_hooks"]
