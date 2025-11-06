@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Callable, Dict, Optional, Tuple, Union
 
 from pydantic import Field
@@ -32,9 +32,9 @@ class SDKConfiguration:
     sdk_version: str = __version__
     gen_version: str = __gen_version__
     user_agent: str = __user_agent__
-    retry_config: OptionalNullable[RetryConfig] = Field(default_factory=lambda: UNSET)
+    retry_config: OptionalNullable[RetryConfig] = field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
-    is_pro: bool = (False,)
+    is_pro: bool = False
     custom_auth_info: Optional[dict] = None
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
@@ -43,4 +43,10 @@ class SDKConfiguration:
         if self.server_idx is None:
             self.server_idx = 0
 
-        return SERVERS["regular" if not self.is_pro else "pro"], {}
+        if self.is_pro:
+            dets = SERVERS["pro"]
+        else:
+            dets = SERVERS["regular"]
+
+        server_details = dets, {}
+        return server_details
