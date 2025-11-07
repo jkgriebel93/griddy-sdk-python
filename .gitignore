@@ -235,3 +235,4 @@ docs/site/
 .python-version
 cookies.txt*
 FiddlerSnapshots/
+.claude/
