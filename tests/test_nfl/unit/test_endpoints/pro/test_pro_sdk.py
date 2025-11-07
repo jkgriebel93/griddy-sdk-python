@@ -1,8 +1,11 @@
+import pytest
+
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.sdkconfiguration import SDKConfiguration
 from griddy.nfl.utils.logger import get_default_logger
 
 
+@pytest.mark.unit
 class TestProSDK:
     def test_pro_endpoints_are_routed_to_pro_server(self):
         sdk = ProSDK(

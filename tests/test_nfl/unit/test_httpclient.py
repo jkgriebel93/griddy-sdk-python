@@ -16,6 +16,7 @@ from griddy.nfl.httpclient import (
 )
 
 
+@pytest.mark.unit
 class TestHttpClientProtocol:
     """Test cases for HttpClient protocol"""
 
@@ -68,6 +69,7 @@ class TestHttpClientProtocol:
         client.close()
 
 
+@pytest.mark.unit
 class TestAsyncHttpClientProtocol:
     """Test cases for AsyncHttpClient protocol"""
 
@@ -114,6 +116,7 @@ class TestAsyncHttpClientProtocol:
         await client.aclose()
 
 
+@pytest.mark.unit
 class TestClientOwnerProtocol:
     """Test cases for ClientOwner protocol"""
 
@@ -153,6 +156,7 @@ class TestClientOwnerProtocol:
         owner = ValidOwner()
 
 
+@pytest.mark.unit
 class TestCloseClients:
     """Test cases for close_clients function"""
 
@@ -310,6 +314,7 @@ class TestCloseClients:
         assert owner.async_client is None
 
 
+@pytest.mark.unit
 class TestProtocolCompatibility:
     """Test protocol compatibility with various implementations"""
 

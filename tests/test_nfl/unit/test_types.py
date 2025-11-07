@@ -18,6 +18,7 @@ from griddy.nfl.types import (
 )
 
 
+@pytest.mark.unit
 class TestUNSET:
     """Test cases for UNSET singleton and utilities"""
 
@@ -63,6 +64,7 @@ class TestUNSET:
         assert UNSET != None
 
 
+@pytest.mark.unit
 class TestBaseModel:
     """Test cases for BaseModel"""
 
@@ -138,6 +140,7 @@ class TestBaseModel:
         assert instance.model_name == "test"
 
 
+@pytest.mark.unit
 class TestNullableTypes:
     """Test cases for Nullable and OptionalNullable type aliases"""
 
@@ -207,6 +210,7 @@ class TestNullableTypes:
         assert instance.list_field == ["a", "b"]
 
 
+@pytest.mark.unit
 class TestUnrecognizedTypes:
     """Test cases for UnrecognizedInt and UnrecognizedStr"""
 
@@ -237,6 +241,7 @@ class TestUnrecognizedTypes:
         assert instance.unknown_str == "unknown_value"
 
 
+@pytest.mark.unit
 class TestTypesModuleImports:
     """Test the types module exports"""
 
@@ -272,6 +277,7 @@ class TestTypesModuleImports:
         }
 
 
+@pytest.mark.unit
 class TestComplexTypeScenarios:
     """Test complex scenarios combining multiple type features"""
 

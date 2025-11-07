@@ -10,8 +10,8 @@
 
 set -e
 
-echo "Running tests with coverage..."
-pytest --cov=src/griddy --cov-report=html --cov-report=term
+echo "Running unit tests with coverage..."
+pytest -m unit --cov=src/griddy --cov-report=html --cov-report=term
 
 echo ""
 echo "✓ Coverage report generated successfully!"

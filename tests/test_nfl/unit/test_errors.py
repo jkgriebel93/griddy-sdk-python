@@ -13,6 +13,7 @@ from griddy.nfl.errors import (
 )
 
 
+@pytest.mark.unit
 class TestGriddyNFLError:
     """Test cases for GriddyNFLError base class"""
 
@@ -89,6 +90,7 @@ class TestGriddyNFLError:
             error.message = "New message"
 
 
+@pytest.mark.unit
 class TestGriddyNFLDefaultError:
     """Test cases for GriddyNFLDefaultError"""
 
@@ -183,6 +185,7 @@ class TestGriddyNFLDefaultError:
         assert isinstance(error, Exception)
 
 
+@pytest.mark.unit
 class TestNoResponseError:
     """Test cases for NoResponseError"""
 
@@ -223,6 +226,7 @@ class TestNoResponseError:
         assert exc_info.value.message == "Test error"
 
 
+@pytest.mark.unit
 class TestResponseValidationError:
     """Test cases for ResponseValidationError"""
 
@@ -291,6 +295,7 @@ class TestResponseValidationError:
         assert isinstance(error, Exception)
 
 
+@pytest.mark.unit
 class TestErrorsModuleLazyLoading:
     """Test the lazy loading mechanism in errors module"""
 

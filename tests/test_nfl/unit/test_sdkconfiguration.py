@@ -15,6 +15,7 @@ from griddy.nfl.utils import RetryConfig
 from griddy.nfl.utils.logger import Logger
 
 
+@pytest.mark.unit
 class TestSDKConfiguration:
     """Test cases for SDKConfiguration dataclass"""
 
@@ -225,6 +226,7 @@ class TestSDKConfiguration:
         assert isinstance(config.user_agent, str)
 
 
+@pytest.mark.unit
 class TestGetServerDetails:
     """Test cases for SDKConfiguration.get_server_details method"""
 
@@ -369,6 +371,7 @@ class TestGetServerDetails:
         assert params == {}
 
 
+@pytest.mark.unit
 class TestSERVERSConstant:
     """Test cases for SERVERS constant"""
 
@@ -387,6 +390,7 @@ class TestSERVERSConstant:
         assert len(SERVERS) == 2
 
 
+@pytest.mark.unit
 class TestSDKConfigurationIntegration:
     """Integration tests for SDKConfiguration"""
 
