@@ -10,4 +10,6 @@ NFL = {
     "token_url": "https://api.nfl.com/identity/v3/token",
     "base_api_url": "https://api.nfl.com/football/v2/",
     "pro_api_base_url": "https://pro.nfl.com/api/",
+    "login_email": os.getenv("NFL_LOGIN_EMAIL"),
+    "login_password": os.getenv("NFL_LOGIN_PASSWORD"),
 }

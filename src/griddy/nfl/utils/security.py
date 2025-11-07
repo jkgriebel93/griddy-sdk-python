@@ -1,20 +1,14 @@
 import base64
 import os
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-)
+import time
+from random import uniform
+from typing import Any, Dict, List, Optional, Tuple
 
+from playwright.sync_api import sync_playwright
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 
-from .metadata import (
-    SecurityMetadata,
-    find_field_metadata,
-)
+from .metadata import SecurityMetadata, find_field_metadata
 
 
 def get_security(security: Any) -> Tuple[Dict[str, str], Dict[str, List[str]]]:
@@ -188,3 +182,31 @@ def _parse_basic_auth_scheme(headers: Dict[str, str], scheme: Any):
 
     data = f"{username}:{password}".encode()
     headers["Authorization"] = f"Basic {base64.b64encode(data).decode()}"
+
+
+def do_browser_auth(email: str, password: str, headless: bool = False) -> Dict:
+    with sync_playwright() as p:
+        browser = p.firefox.launch(headless=headless)
+
+        page = browser.new_page()
+        page.goto("https://id.nfl.com/account/sign-in")
+
+        page.get_by_test_id("email-input").fill(email)
+        time.sleep(uniform(2.5, 3.5))
+
+        page.get_by_role("button", name="Continue").click()
+        time.sleep(uniform(2.5, 3.5))
+
+        page.get_by_role("button", name="Sign in with password").click()
+        time.sleep(uniform(2.5, 3.5))
+
+        page.get_by_test_id("password-input").fill(password)
+        time.sleep(uniform(0.75, 1.25))
+
+        with page.expect_response("**/token") as response_info:
+            page.get_by_role("button", name="Sign in").click()
+
+        response_json = response_info.value.json()
+        browser.close()
+
+        return response_json
