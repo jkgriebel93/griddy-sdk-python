@@ -165,6 +165,7 @@ class GriddyNFL(BaseSDK):
         nfl_auth: Optional[Dict] = None,
         login_email: Optional[str] = None,
         login_password: Optional[str] = None,
+        headless_login: Optional[bool] = False,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -215,7 +216,9 @@ class GriddyNFL(BaseSDK):
             raise ValueError(auth_params_error)
 
         if not nfl_auth:
-            nfl_auth = do_browser_auth(email=login_email, password=login_password)
+            nfl_auth = do_browser_auth(
+                email=login_email, password=login_password, headless=headless_login
+            )
 
         security = models.Security(nfl_auth=nfl_auth["accessToken"])
 
