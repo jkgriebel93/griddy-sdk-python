@@ -1,6 +1,6 @@
 [project]
 name = "griddy"
-version = "0.4.1"
+version = "0.4.2"
 description = "Python SDK for football data sources."
 authors = [
     {name = "John Griebel", email = "johnkgriebel@gmail.com"}
@@ -26,7 +26,8 @@ dependencies = [
     "httpx==0.28.1",
     "black>=25.9.0",
     "hatch==1.15.1",
-    "twine==6.2.0"
+    "twine==6.2.0",
+    "playwright==1.55.0"
 ]
 
 [project.optional-dependencies]

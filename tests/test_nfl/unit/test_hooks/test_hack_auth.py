@@ -2,6 +2,7 @@ import time
 from unittest.mock import MagicMock, Mock, patch
 from uuid import uuid4
 
+import pytest
 import responses
 from pytest_httpx import HTTPXMock
 
@@ -451,6 +452,7 @@ fake_sched_resp = {
 }
 
 
+@pytest.mark.unit
 class TestHackAuthHook:
     @patch("griddy.nfl._hooks.hack_auth.requests.post")
     def test_do_refresh_token_makes_correct_request(self, mock_post):

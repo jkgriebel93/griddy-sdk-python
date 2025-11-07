@@ -18,6 +18,7 @@ from .sdkconfiguration import SDKConfiguration
 from .types import UNSET, OptionalNullable
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
+from .utils.security import do_browser_auth
 
 if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.content import Content
@@ -161,7 +162,10 @@ class GriddyNFL(BaseSDK):
 
     def __init__(
         self,
-        nfl_auth: Dict,
+        nfl_auth: Optional[Dict] = None,
+        login_email: Optional[str] = None,
+        login_password: Optional[str] = None,
+        headless_login: Optional[bool] = False,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -202,6 +206,19 @@ class GriddyNFL(BaseSDK):
         assert issubclass(
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
+
+        auth_params_error = (
+            "You must provide either nfl_auth, OR email/password combination."
+        )
+        if all([nfl_auth, login_email, login_password]):
+            raise ValueError(auth_params_error)
+        elif not any([nfl_auth, login_email, login_password]):
+            raise ValueError(auth_params_error)
+
+        if not nfl_auth:
+            nfl_auth = do_browser_auth(
+                email=login_email, password=login_password, headless=headless_login
+            )
 
         security = models.Security(nfl_auth=nfl_auth["accessToken"])
 
