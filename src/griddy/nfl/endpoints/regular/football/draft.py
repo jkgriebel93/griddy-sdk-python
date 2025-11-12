@@ -196,7 +196,7 @@ class Draft(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DraftResponse:
+    ) -> models.TeamNeedsResponse:
         r"""Get Draft Information
 
         Retrieves draft information for a specific year including all rounds,
@@ -261,9 +261,9 @@ class Draft(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            # return unmarshal_json_response(models.DraftResponse, http_res)
             # TODO: Return a proper pydantic object here
-            return http_res.json()
+            return unmarshal_json_response(models.TeamNeedsResponse, http_res)
+            # return http_res.json()
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -351,7 +351,9 @@ class Draft(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DraftResponse, http_res)
+            # TODO: Return a proper pydantic object here
+            return unmarshal_json_response(models.TeamNeedsResponse, http_res)
+            # return http_res.json()
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GriddyNFLDefaultError(
