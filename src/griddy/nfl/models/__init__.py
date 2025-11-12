@@ -81,6 +81,10 @@ if TYPE_CHECKING:
         GetTeamOffenseRushStatsByWeekRequestTypedDict,
         GetTeamOffenseRushStatsByWeekSortKey,
     )
+    from griddy.nfl.models.requests.get_week_of_date_op import (
+        GetWeekOfDateRequest,
+        GetWeekOfDateRequestTypedDict,
+    )
     from griddy.nfl.models.requests.getcombinerankingsop import (
         GetCombineRankingsRequest,
         GetCombineRankingsRequestTypedDict,
@@ -1259,6 +1263,8 @@ __all__ = [
     "GetTeamOffenseRushStatsBySeasonSortKey",
     "GetTeamNeedsRequest",
     "GetTeamNeedsRequestTypedDict",
+    "GetWeekOfDateRequest",
+    "GetWeekOfDateRequestTypedDict",
     "TeamOffenseRushStats",
     "TeamOffenseRushStatsTypedDict",
     "TeamOffenseRushStatsResponse",
@@ -1714,6 +1720,8 @@ _dynamic_imports: dict[str, str] = {
     "GetCombineProfilesRequestTypedDict": ".getcombineprofilesop",
     "GetCombineRankingsRequest": ".requests.getcombinerankingsop",
     "GetCombineRankingsRequestTypedDict": ".requests.getcombinerankingsop",
+    "GetWeekOfDateRequest": ".requests.get_week_of_date_op",
+    "GetWeekOfDateRequestTypedDict": ".requests.get_week_of_date_op",
     "EventFilterEnum": ".enums.combineenums",
     "CombineRankingsResponse": ".responses.combinerankingsresponse",
     "CombineRankingsResponseTypedDict": ".responses.combinerankingsresponse",

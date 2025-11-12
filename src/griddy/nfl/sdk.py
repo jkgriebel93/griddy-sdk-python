@@ -34,6 +34,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
+    from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
     from .authentication import Authentication
     from .betting import Betting
@@ -55,7 +56,8 @@ class GriddyNFL(BaseSDK):
     r"""Combine information"""
     draft: "Draft"
     r"""Draft information"""
-
+    weeks: "Weeks"
+    r"""Weekly information"""
     ##### Pro SDKs #####
     content: "Content"
     r"""Game previews, film cards, and insights"""
@@ -106,6 +108,7 @@ class GriddyNFL(BaseSDK):
     _sub_sdk_map = {
         "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
+        "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "games": ("griddy.nfl.endpoints.pro.games", "Games"),
