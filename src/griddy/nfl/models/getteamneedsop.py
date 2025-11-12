@@ -6,14 +6,14 @@ from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
-class GetDraftPicksReportRequestTypedDict(TypedDict):
+class GetTeamNeedsRequestTypedDict(TypedDict):
     year: int
     r"""Draft year"""
     limit: NotRequired[int]
     r"""Maximum picks to return"""
 
 
-class GetDraftPicksReportRequest(BaseModel):
+class GetTeamNeedsRequest(BaseModel):
     year: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
@@ -21,4 +21,4 @@ class GetDraftPicksReportRequest(BaseModel):
     limit: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 1000
+    ] = 32

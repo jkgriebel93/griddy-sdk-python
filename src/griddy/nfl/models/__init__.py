@@ -32,6 +32,10 @@ if TYPE_CHECKING:
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
     )
+    from griddy.nfl.models.getteamneedsop import (
+        GetTeamNeedsRequest,
+        GetTeamNeedsRequestTypedDict,
+    )
     from griddy.nfl.models.getteamoffenserushstatsbyseasonop import (
         GetTeamOffenseRushStatsBySeasonRequest,
         GetTeamOffenseRushStatsBySeasonRequestTypedDict,
@@ -1177,6 +1181,8 @@ __all__ = [
     "GetTeamOffenseRushStatsByWeekSortKey",
     "GetTeamOffenseRushStatsBySeasonRequest",
     "GetTeamOffenseRushStatsBySeasonSortKey",
+    "GetTeamNeedsRequest",
+    "GetTeamNeedsRequestTypedDict",
     "TeamOffenseRushStats",
     "TeamOffenseRushStatsTypedDict",
     "TeamOffenseRushStatsResponse",
@@ -1970,6 +1976,8 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamScheduleRequestTypedDict": ".getteamscheduleop",
     "GetTeamStandingsRequest": ".getteamstandingsop",
     "GetTeamStandingsRequestTypedDict": ".getteamstandingsop",
+    "GetTeamNeedsRequest": ".getteamneedsop",
+    "GetTeamNeedsRequestTypedDict": ".getteamneedsop",
     "GetTransactionsRequest": ".gettransactionsop",
     "GetTransactionsRequestTypedDict": ".gettransactionsop",
     "GetTransactionsTransactionType": ".gettransactionsop",
