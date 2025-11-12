@@ -30,7 +30,11 @@ if TYPE_CHECKING:
         CombineProfilesResponse,
         CombineProfilesResponseTypedDict,
     )
-    from griddy.nfl.models.enums.combineenums import CollegeClassEnum, DesignationEnum
+    from griddy.nfl.models.enums.combineenums import (
+        CollegeClassEnum,
+        DesignationEnum,
+        EventFilterEnum,
+    )
     from griddy.nfl.models.getcombineprofilesop import (
         GetCombineProfilesRequest,
         GetCombineProfilesRequestTypedDict,
@@ -76,6 +80,14 @@ if TYPE_CHECKING:
         GetTeamOffenseRushStatsByWeekRequest,
         GetTeamOffenseRushStatsByWeekRequestTypedDict,
         GetTeamOffenseRushStatsByWeekSortKey,
+    )
+    from griddy.nfl.models.requests.getcombinerankingsop import (
+        GetCombineRankingsRequest,
+        GetCombineRankingsRequestTypedDict,
+    )
+    from griddy.nfl.models.responses.combinerankingsresponse import (
+        CombineRankingsResponse,
+        CombineRankingsResponseTypedDict,
     )
     from griddy.nfl.models.teamneedsresponse import (
         TeamNeedsResponse,
@@ -941,6 +953,9 @@ __all__ = [
     "ThreeConeDrillTypedDict",
     "TwentyYardShuffleTypedDict",
     "VerticalJumpTypedDict",
+    "CombineRankingsResponse",
+    "CombineRankingsResponseTypedDict",
+    "EventFilterEnum",
     "CombineProfile",
     "CombineProfileTypedDict",
     "CombinePerson",
@@ -949,6 +964,8 @@ __all__ = [
     "CombineProfilesResponseTypedDict",
     "GetCombineProfilesRequest",
     "GetCombineProfilesRequestTypedDict",
+    "GetCombineRankingsRequest",
+    "GetCombineRankingsRequestTypedDict",
     "BinaryFlagEnum",
     "BoxScoreResponse2",
     "BoxScoreResponse2TypedDict",
@@ -1695,6 +1712,11 @@ _dynamic_imports: dict[str, str] = {
     "CombineProfilesResponseTypedDict": ".combineprofilesresponse",
     "GetCombineProfilesRequest": ".getcombineprofilesop",
     "GetCombineProfilesRequestTypedDict": ".getcombineprofilesop",
+    "GetCombineRankingsRequest": ".requests.getcombinerankingsop",
+    "GetCombineRankingsRequestTypedDict": ".requests.getcombinerankingsop",
+    "EventFilterEnum": ".enums.combineenums",
+    "CombineRankingsResponse": ".responses.combinerankingsresponse",
+    "CombineRankingsResponseTypedDict": ".responses.combinerankingsresponse",
     "Award": ".award",
     "AwardType": ".award",
     "AwardTypedDict": ".award",
