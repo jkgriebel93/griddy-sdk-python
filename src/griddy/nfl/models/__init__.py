@@ -81,6 +81,10 @@ if TYPE_CHECKING:
         GetTeamOffenseRushStatsByWeekRequestTypedDict,
         GetTeamOffenseRushStatsByWeekSortKey,
     )
+    from griddy.nfl.models.requests.get_football_teams_op import (
+        GetFootballTeamsRequest,
+        GetFootballTeamsRequestTypedDict,
+    )
     from griddy.nfl.models.requests.get_week_of_date_op import (
         GetWeekOfDateRequest,
         GetWeekOfDateRequestTypedDict,
@@ -92,6 +96,10 @@ if TYPE_CHECKING:
     from griddy.nfl.models.responses.combinerankingsresponse import (
         CombineRankingsResponse,
         CombineRankingsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_teams_response import (
+        FootballTeamsResponse,
+        FootballTeamsResponseTypedDict,
     )
     from griddy.nfl.models.teamneedsresponse import (
         TeamNeedsResponse,
@@ -1068,6 +1076,10 @@ __all__ = [
     "FixtureTypedDict",
     "FootballGamesResponse",
     "FootballGamesResponseTypedDict",
+    "FootballTeamsResponse",
+    "FootballTeamsResponseTypedDict",
+    "GetFootballTeamsRequest",
+    "GetFootballTeamsRequestTypedDict",
     "FuturesMarket",
     "FuturesMarketTypedDict",
     "FuturesOddsResponse",
@@ -1725,6 +1737,10 @@ _dynamic_imports: dict[str, str] = {
     "EventFilterEnum": ".enums.combineenums",
     "CombineRankingsResponse": ".responses.combinerankingsresponse",
     "CombineRankingsResponseTypedDict": ".responses.combinerankingsresponse",
+    "FootballTeamsResponse": ".responses.football_teams_response",
+    "FootballTeamsResponseTypedDict": ".responses.football_teams_response",
+    "GetFootballTeamsRequest": ".requests.get_football_teams_op",
+    "GetFootballTeamsRequestTypedDict": ".requests.get_football_teams_op",
     "Award": ".award",
     "AwardType": ".award",
     "AwardTypedDict": ".award",
