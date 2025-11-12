@@ -3,7 +3,6 @@ import sys
 from pprint import pprint
 
 from griddy.nfl import GriddyNFL
-from griddy.nfl.models.enums.combineenums import EventFilterEnum
 from griddy.settings import NFL
 
 _, *args = sys.argv
@@ -22,6 +21,7 @@ else:
 # This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
-result = nfl.football_teams.get_teams(season=2025, limit=32)
+result = nfl.rosters.get_rosters(season=2025, limit=32)
 
-pprint(result.model_dump(), indent=4)
+# pprint(result.model_dump(), indent=4)
+print(json.dumps(result, indent=4))

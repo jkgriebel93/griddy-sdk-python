@@ -35,6 +35,10 @@ if TYPE_CHECKING:
         DesignationEnum,
         EventFilterEnum,
     )
+    from griddy.nfl.models.football_roster import (
+        FootballRoster,
+        FootballRosterTypedDict,
+    )
     from griddy.nfl.models.getcombineprofilesop import (
         GetCombineProfilesRequest,
         GetCombineProfilesRequestTypedDict,
@@ -81,6 +85,11 @@ if TYPE_CHECKING:
         GetTeamOffenseRushStatsByWeekRequestTypedDict,
         GetTeamOffenseRushStatsByWeekSortKey,
     )
+    from griddy.nfl.models.person import Person, PersonTypedDict
+    from griddy.nfl.models.requests.get_football_rosters_op import (
+        GetFootballRostersRequest,
+        GetFootballRostersRequestTypedDict,
+    )
     from griddy.nfl.models.requests.get_football_teams_op import (
         GetFootballTeamsRequest,
         GetFootballTeamsRequestTypedDict,
@@ -96,6 +105,10 @@ if TYPE_CHECKING:
     from griddy.nfl.models.responses.combinerankingsresponse import (
         CombineRankingsResponse,
         CombineRankingsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_rosters_response import (
+        FootballRostersResponse,
+        FootballRostersResponseTypedDict,
     )
     from griddy.nfl.models.responses.football_teams_response import (
         FootballTeamsResponse,
@@ -939,6 +952,14 @@ if TYPE_CHECKING:
     )
 
 __all__ = [
+    "PersonTypedDict",
+    "Person",
+    "FootballRosterTypedDict",
+    "FootballRoster",
+    "FootballRostersResponseTypedDict",
+    "FootballRostersResponse",
+    "GetFootballRostersRequestTypedDict",
+    "GetFootballRostersRequest",
     "AirYardType",
     "Award",
     "AwardType",
@@ -1706,6 +1727,14 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "PersonTypedDict": ".person",
+    "Person": ".person",
+    "FootballRosterTypedDict": ".football_roster",
+    "FootballRoster": ".football_roster",
+    "FootballRostersResponseTypedDict": ".responses.football_rosters_response",
+    "FootballRostersResponse": ".responses.football_rosters_response",
+    "GetFootballRostersRequestTypedDict": ".requests.get_football_rosters_op",
+    "GetFootballRostersRequest": ".requests.get_football_rosters_op",
     "DesignationEnum": ".enums.combineenums",
     "CollegeClassEnum": ".enums.combineenums",
     "BenchPress": ".combineevents",
