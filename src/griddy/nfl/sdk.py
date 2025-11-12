@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.experience import Experience
+    from griddy.nfl.endpoints.regular.football.standings import Standings
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
     from .authentication import Authentication
@@ -58,6 +59,8 @@ class GriddyNFL(BaseSDK):
     r"""Draft information"""
     experience: "Experience"
     r"""Unsure what 'experience' entails"""
+    standings: "Standings"
+    r"""Standings information"""
     weeks: "Weeks"
     r"""Weekly information"""
     ##### Pro SDKs #####
@@ -115,6 +118,7 @@ class GriddyNFL(BaseSDK):
             "griddy.nfl.endpoints.regular.football.experience",
             "Experience",
         ),
+        "standings": ("griddy.nfl.endpoints.regular.football.standings", "Standings"),
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
