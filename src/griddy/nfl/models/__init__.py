@@ -24,6 +24,10 @@ if TYPE_CHECKING:
         GetDefensivePassRushStatsByWeekRequestTypedDict,
         GetDefensivePassRushStatsByWeekSortKey,
     )
+    from griddy.nfl.models.getdraftpicksreportop import (
+        GetDraftPicksReportRequest,
+        GetDraftPicksReportRequestTypedDict,
+    )
     from griddy.nfl.models.getplaylist import (
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
@@ -1048,6 +1052,8 @@ __all__ = [
     "GetDefensiveStatsBySeasonSortKey",
     "GetDraftInfoRequest",
     "GetDraftInfoRequestTypedDict",
+    "GetDraftPicksReportRequest",
+    "GetDraftPicksReportRequestTypedDict",
     "GetExperienceGamesRequest",
     "GetExperienceGamesRequestTypedDict",
     "GetExperienceTeamsRequest",
@@ -1818,6 +1824,8 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensiveStatsBySeasonSortKey": ".getdefensivestatsbyseasonop",
     "GetDraftInfoRequest": ".getdraftinfoop",
     "GetDraftInfoRequestTypedDict": ".getdraftinfoop",
+    "GetDraftPicksReportRequest": ".getdraftpicksreportop",
+    "GetDraftPicksReportRequestTypedDict": ".getdraftpicksreportop",
     "GetExperienceGamesRequest": ".getexperiencegamesop",
     "GetExperienceGamesRequestTypedDict": ".getexperiencegamesop",
     "GetExperienceTeamsRequest": ".getexperienceteamsop",

@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.stats.team_defense import TeamDefenseStats
     from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
     from griddy.nfl.endpoints.pro.teams import Teams
+    from griddy.nfl.endpoints.regular.football.draft import Draft
 
     from .authentication import Authentication
     from .betting import Betting
@@ -48,6 +49,11 @@ if TYPE_CHECKING:
 class GriddyNFL(BaseSDK):
     r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
 
+    ##### Regular SDKs #####
+    draft: "Draft"
+    r"""Draft information"""
+
+    ##### Pro SDKs #####
     content: "Content"
     r"""Game previews, film cards, and insights"""
     players: "Players"
@@ -86,13 +92,16 @@ class GriddyNFL(BaseSDK):
     r"""Comprehensive game and team statistics endpoints"""
     teams: "Teams"
     r"""Team information, rosters, and schedules"""
+
     experience: "Experience"
     r"""Experience API endpoints for games and teams"""
     football: "Football"
     r"""Football API endpoints for games, standings, stats, and venues"""
     authentication: "Authentication"
     r"""Token generation and refresh operations for NFL API access"""
+
     _sub_sdk_map = {
+        "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "games": ("griddy.nfl.endpoints.pro.games", "Games"),
@@ -219,6 +228,10 @@ class GriddyNFL(BaseSDK):
             nfl_auth = do_browser_auth(
                 email=login_email, password=login_password, headless=headless_login
             )
+
+            print("Writing auth creds to file")
+            with open("creds.json", "w") as outfile:
+                json.dump(nfl_auth, outfile, indent=4)
 
         security = models.Security(nfl_auth=nfl_auth["accessToken"])
 

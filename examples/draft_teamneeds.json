@@ -1,0 +1,392 @@
+{
+    "teams": [
+        {
+            "teamId": "10400200-f401-4e53-5175-0974e4f16cf7",
+            "year": 2025,
+            "analysis": "No, it’s not their only area of need, but at some point, the Falcons have to find a way to turn things around for their pass rush, and it starts with the players up front on defense. Every other team has at least 198 sacks since 2019 (the Steelers lead all squads with 292!), while the Falcons have 169 in that span and rank last in QB pressure rate over that same stretch. -- by Dan Parr",
+            "positionNeeds": [
+                "Edge",
+                "DL",
+                "CB",
+                "OL",
+                "S"
+            ]
+        },
+        {
+            "teamId": "10400325-48de-3d6a-be29-8f829437f4c8",
+            "year": 2025,
+            "analysis": "There’s a case to be made for each of the Ravens’ five biggest needs to be No. 1 on the priority list. Baltimore re-signed Ronnie Stanley to play left tackle, but shoring up the guard position should be high on GM Eric DeCosta’s agenda. Cornerback and the interior defensive line took hits this offseason, and the team is a year away from potentially losing some very valuable players in free agency. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "CB",
+                "S",
+                "DL",
+                "Edge"
+            ]
+        },
+        {
+            "teamId": "10400610-c40e-a673-1743-2ce2a5d5d731",
+            "year": 2025,
+            "analysis": "Depth at cornerback is still looking shaky with former first-round pick Kaiir Elam being dealt away. There are similar issues on the interior defensive line and at edge rusher with free-agent signings Larry Ogunjobi and Michael Hoecht facing six-game suspensions. Plus, Ogunjobi, DaQuan Jones, A.J. Epenesa and Joey Bosa are playing on deals that expire after the 2025 season. -- by Dan Parr",
+            "positionNeeds": [
+                "CB",
+                "DL",
+                "WR",
+                "Edge",
+                "S"
+            ]
+        },
+        {
+            "teamId": "10400750-259b-33ac-eee3-a3852e83cd1f",
+            "year": 2025,
+            "analysis": "It would undoubtedly be nice to give Bryce Young some shiny new toys on offense, but for Carolina, the first order of business should be fixing a defense that ranked dead last in points and yards allowed. (In fact, the Panthers gave up the most points in a single season in NFL history.) Dan Morgan and Co. can start with beefing up a pass rush that produced the league’s lowest QB pressure rate in 2024 (25.5%, per Next Gen Stats). -- by Dan Parr",
+            "positionNeeds": [
+                "Edge",
+                "S",
+                "CB",
+                "WR",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10400810-db30-43d6-221c-620006f3ca19",
+            "year": 2025,
+            "analysis": "The Bears’ moves in free agency did indeed open the whole board to the team in the draft, as GM Ryan Poles has said. There’s still the matter of identifying a long-term solution at left tackle (Braxton Jones is in a contract year), finding a back to pair with D’Andre Swift and adding another disruptor who can provide big-time production on the defensive line, whether it's off the edge or inside. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "DL",
+                "RB",
+                "S",
+                "TE"
+            ]
+        },
+        {
+            "teamId": "10400920-57c1-7656-e77e-1af3d900483e",
+            "year": 2025,
+            "analysis": "We might be looking at an all-defense draft by the Bengals, who made big investments to keep their star wide receivers in place. Even if the team is able to work things out with Trey Hendrickson, finding him a pass-rushing complement has to be a top priority. That said, the second and third levels of the defense should not be ignored, either. -- by Dan Parr",
+            "positionNeeds": [
+                "Edge",
+                "S",
+                "LB",
+                "OL",
+                "CB"
+            ]
+        },
+        {
+            "teamId": "10401050-5e38-b907-1be1-55b91b19c057",
+            "year": 2025,
+            "analysis": "Cleveland’s quest to find an answer at quarterback starts fresh, with trade acquisition Kenny Pickett fitting best as a backup. The offensive makeover could use reinforcements for the front line and a new RB1, as well. On defense, pairing Myles Garrett with another stud pass rusher could take the group to a whole new level. -- by Dan Parr",
+            "positionNeeds": [
+                "QB",
+                "OL",
+                "Edge",
+                "RB",
+                "WR"
+            ]
+        },
+        {
+            "teamId": "10401200-a308-98ca-ad5f-95df2fefea68",
+            "year": 2025,
+            "analysis": "Outside of CeeDee Lamb, the Cowboys don't have a consistent threat at wide receiver. They can’t afford to stop there on offense, though. Free-agent signees Javonte Williams and Miles Sanders fit as complementary pieces, but Dallas still should be targeting an RB1 in this year’s draft. This squad has its share of needs on defense, too, thanks to a combination of injuries and free-agent departures. -- by Dan Parr",
+            "positionNeeds": [
+                "WR",
+                "RB",
+                "CB",
+                "LB",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10401400-b89b-96e5-55d1-caa7e18de3d8",
+            "year": 2025,
+            "analysis": "The Broncos have put themselves in a position where they can focus on strengthening the supporting cast around Bo Nix after his highly encouraging first season with the team. RB1 is the need that stands out most, but receiver is another spot to target with Courtland Sutton’s contract expiring after the 2025 campaign. Denver could improve the depth on defense, especially at cornerback and on the front line, but the roster looks to be in pretty good shape on that side of the ball. -- by Dan Parr",
+            "positionNeeds": [
+                "RB",
+                "WR",
+                "CB",
+                "TE",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10401540-f97c-2d19-6fcd-fac6490a48b7",
+            "year": 2025,
+            "analysis": "For now, the top option opposite Aidan Hutchinson off the edge is Marcus Davenport, who is heading into Year 8 and has yet to put together a complete season. The Lions should also be shopping for a potential starter at right guard and depth at a few spots, especially in the secondary. -- by Dan Parr",
+            "positionNeeds": [
+                "Edge",
+                "OL",
+                "S",
+                "DL",
+                "WR"
+            ]
+        },
+        {
+            "teamId": "10401800-ab22-323d-721a-cee4713c4c2d",
+            "year": 2025,
+            "analysis": "It doesn’t appear Jaire Alexander is long for the Packers’ roster, which brings cornerback to the forefront of draft priorities. Adding some deep speed at receiver could be critical with Christian Watson’s 2025 season in question as he rehabs from an ACL tear, and Matt LaFleur has made it clear that the pass rush must be better if Green Bay is going to make a deeper playoff run. -- by Dan Parr",
+            "positionNeeds": [
+                "CB",
+                "WR",
+                "Edge",
+                "DL",
+                "OL"
+            ]
+        },
+        {
+            "teamId": "10402100-447f-396e-8149-0a434ffb2f23",
+            "year": 2025,
+            "analysis": "As the Titans’ search for a franchise quarterback continues, the hunt to find a long-term replacement for Harold Landry off the edge is just beginning. Whoever ends up playing QB for Tennessee would benefit from enhanced weaponry at wide receiver. -- by Dan Parr",
+            "positionNeeds": [
+                "QB",
+                "Edge",
+                "WR",
+                "LB",
+                "S"
+            ]
+        },
+        {
+            "teamId": "10402120-b0bc-693d-098a-803014096eb0",
+            "year": 2025,
+            "analysis": "Houston’s moves this offseason, including trading away Laremy Tunsil, put the offensive line front and center on the needs list heading into the draft. They should be eyeing both tackle and interior help to protect franchise QB C.J. Stroud, who also could use more dependability opposite Nico Collins at receiver. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "WR",
+                "DL",
+                "CB",
+                "S"
+            ]
+        },
+        {
+            "teamId": "10402200-2ea3-84c3-e627-6a6b3b39d56d",
+            "year": 2025,
+            "analysis": "Protecting the QB -- whether it’s Anthony Richardson or Daniel Jones -- and giving him a safety valve in the form of a talented young tight end should be top of mind for GM Chris Ballard. The Colts need a new starting right guard and their starters at both offensive tackle spots are a year away from hitting free agency. -- by Dan Parr",
+            "positionNeeds": [
+                "TE",
+                "OL",
+                "LB",
+                "Edge",
+                "RB"
+            ]
+        },
+        {
+            "teamId": "10402250-89fe-7b86-ef98-9062cd354256",
+            "year": 2025,
+            "analysis": "New GM James Gladstone comes from the Rams, where they have a clear understanding of what a disruptive interior defensive lineman can do for a team. The Jaguars have made free-agent investments in their other areas of need, but there’s still room to add on at each spot, with receiver and offensive line depth essential to giving Trevor Lawrence a chance to put together a complete season. -- by Dan Parr",
+            "positionNeeds": [
+                "DL",
+                "CB",
+                "S",
+                "OL",
+                "WR"
+            ]
+        },
+        {
+            "teamId": "10402310-a47e-10ea-7442-16b633633637",
+            "year": 2025,
+            "analysis": "Kansas City was no match for Philadelphia in the trenches when the title was on the line last season, so it should not be a surprise to see the offensive and defensive lines leading the priority list. The Chiefs are going to need more explosiveness and production off the edge, too. Replacing starters at receiver (DeAndre Hopkins) and safety (Justin Reid) rounds out the to-do list. -- by Dan Parr",
+            "positionNeeds": [
+                "DL",
+                "OL",
+                "Edge",
+                "S",
+                "WR"
+            ]
+        },
+        {
+            "teamId": "10402510-8931-0d5f-9815-79bb79649a65",
+            "year": 2025,
+            "analysis": "Most glaring among the Rams’ needs: off-ball linebacker, a spot they traditionally have not made significant investments in. They could use at least one more starter at the position. Three of their top defensive backs and the starting right tackle are a year away from free agency. It’s a similar story at tight end. -- by Dan Parr",
+            "positionNeeds": [
+                "LB",
+                "CB",
+                "OL",
+                "TE",
+                "WR"
+            ]
+        },
+        {
+            "teamId": "10402520-96bf-e9f2-4f68-8521ca896060",
+            "year": 2025,
+            "analysis": "There are plenty of needs to address for the new regime in Las Vegas, even after filling the hole at quarterback with Geno Smith. Giving the Raiders’ QB1 an RB1 and/or WR1 would be a fine place to start. Meanwhile, the secondary and linebacker were hit hard by free-agent departures. -- by Dan Parr",
+            "positionNeeds": [
+                "RB",
+                "WR",
+                "CB",
+                "OL",
+                "LB"
+            ]
+        },
+        {
+            "teamId": "10402700-1662-d8ad-f45c-0b0ea460d045",
+            "year": 2025,
+            "analysis": "Dolphins GM Chris Grier’s main task in the draft is building a tougher unit on both the offensive and defensive lines, with the O-line charging out of the gate as the most pressing need of all given Terron Armstead’s retirement. Cornerback shouldn't be ignored with Jalen Ramsey potentially on the way out of Miami, and replacing Jevon Holland at safety is another item on the to-do list. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "DL",
+                "CB",
+                "S",
+                "TE"
+            ]
+        },
+        {
+            "teamId": "10403000-5851-f9d5-da45-78365a05b6b0",
+            "year": 2025,
+            "analysis": "Minnesota holds just four picks in the 2025 draft, so it won’t have much flexibility to address needs. The good news is the team was able to get a lot of good work done in free agency, leaving the board fairly wide open. The Vikings could still use starting-caliber players at left guard and cornerback, while finding a safety who can eventually take the baton from 36-year-old Harrison Smith should be on the radar. -- by Dan Parr",
+            "positionNeeds": [
+                "CB",
+                "OL",
+                "S",
+                "LB",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10403200-69ab-9ea6-5af5-e240fbc08bea",
+            "year": 2025,
+            "analysis": "Drake Maye impressed in his rookie season despite playing behind what Pro Football Focus categorized as the worst offensive line in the NFL, so it would be fun to see what the young passer could do behind a group closer to league average. New England should be all about building a supporting cast for Maye, who would also benefit from better weaponry at the skill positions. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "DL",
+                "WR",
+                "RB",
+                "TE"
+            ]
+        },
+        {
+            "teamId": "10403300-f235-cf9b-6d3a-2f182be48dd1",
+            "year": 2025,
+            "analysis": "It’s fair to wonder how tempted the Saints will be to bring in some life for the offense if the opportunity to draft a potentially franchise-altering QB presents itself, especially given the uncertainty around Derek Carr's health. Cornerback remains a major need, even after bringing back Isaac Yiadom, who started eight games for them in 2023. Adding a complementary playmaker at receiver and/or tightening up the offensive line, especially at left guard, would be sensible. -- by Dan Parr",
+            "positionNeeds": [
+                "QB",
+                "CB",
+                "OL",
+                "WR",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10403410-997c-9c75-256b-3b012f468bd0",
+            "year": 2025,
+            "analysis": "The Giants still have to find a long-term solution to their quarterback problem after signing Russell Wilson and Jameis Winston. Beyond completing that mission, they can afford upgrades on the offensive and defensive lines. They really need more playmaking ability on both sides of the ball. -- by Dan Parr",
+            "positionNeeds": [
+                "QB",
+                "OL",
+                "DL",
+                "LB",
+                "WR"
+            ]
+        },
+        {
+            "teamId": "10403430-1bc3-42c4-c7d8-39f38aed5f12",
+            "year": 2025,
+            "analysis": "There are areas to tighten up on defense, but, as is often the case for the Jets, the offense is home to the roster’s most pressing needs. It’s not clear who will be starting at right tackle, and it would make plenty of sense to help new QB Justin Fields by adding complementary playmakers at wide receiver and a tight end with some juice. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "WR",
+                "TE",
+                "S",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10403700-b939-3cbd-3d16-24d4d6742fa2",
+            "year": 2025,
+            "analysis": "Screaming needs don’t exist in Philadelphia like they do for lesser squads, but there are some holes to fill on defense after the departures of DB C.J. Gardner-Johnson, DL Milton Williams and edge rusher Josh Sweat. There’s much to be excited about at cornerback after the standout rookie seasons of Quinyon Mitchell and Cooper DeJean, but the Eagles could use another long-term building block at the position. -- by Dan Parr",
+            "positionNeeds": [
+                "S",
+                "DL",
+                "CB",
+                "Edge",
+                "OL"
+            ]
+        },
+        {
+            "teamId": "10403800-517c-7b8c-65a3-c61b95d86123",
+            "year": 2025,
+            "analysis": "Arizona is at least one more quality starter away from having its offensive line go from OK to good, and a burner at receiver could also play a key role in pushing the offense to the next level. The Cardinals made their bigger free-agent moves on defense, but there are still spots to shore up on that side of the ball. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "WR",
+                "Edge",
+                "DL",
+                "CB"
+            ]
+        },
+        {
+            "teamId": "10403900-8251-6892-d81c-4348525c2d47",
+            "year": 2025,
+            "analysis": "Three seasons have passed since Ben Roethlisberger’s retirement, but Pittsburgh is still looking for a legit replacement at quarterback. Elsewhere, the Steelers need a new running back after the departure of Najee Harris and could opt to get younger on the interior defensive line with Cam Heyward heading into his age-36 season. -- by Dan Parr",
+            "positionNeeds": [
+                "QB",
+                "RB",
+                "DL",
+                "WR",
+                "OL"
+            ]
+        },
+        {
+            "teamId": "10404400-3b35-073f-197e-194bb8240723",
+            "year": 2025,
+            "analysis": "Using the draft to inject a jolt -- or a few jolts -- of offensive firepower would make plenty of sense for a Chargers team that was held to 17 points or fewer seven times (including the playoffs) last season. The signings of RB Najee Harris and WR Mike Williams are not nearly enough. On defense, the Bolts should be looking to add competition on the interior and off the edge. It wouldn’t be a surprise to see them bolster the interior offensive line, either. -- by Dan Parr",
+            "positionNeeds": [
+                "TE",
+                "WR",
+                "DL",
+                "RB",
+                "Edge"
+            ]
+        },
+        {
+            "teamId": "10404500-e7cb-7fce-3f10-4eeb269bd179",
+            "year": 2025,
+            "analysis": "The free agency exodus has the 49ers looking thin on both the offensive and defensive lines. Defensive tackle is the leanest of the areas of need, but the matter of finding an heir apparent to Trent Williams, who is heading into his age-37 season, demands attention -- as does the edge-rusher spot opposite Nick Bosa. Running back depth shouldn’t be overlooked, given the way injuries chewed through the position during a disappointing 2024 season for San Francisco. -- by Dan Parr",
+            "positionNeeds": [
+                "DL",
+                "Edge",
+                "OL",
+                "RB",
+                "CB"
+            ]
+        },
+        {
+            "teamId": "10404600-adcd-28ac-5826-b4d95ec2a228",
+            "year": 2025,
+            "analysis": "It’s no secret the Seahawks need to be better along the offensive line, particularly on the interior, and the rebuilding at wide receiver shouldn’t end with the signings of Cooper Kupp and Marquez Valdes-Scantling, who have both already celebrated their 30th birthdays. On defense, Devon Witherspoon is Seattle’s only starting-caliber cornerback signed beyond the 2025 season. -- by Dan Parr",
+            "positionNeeds": [
+                "OL",
+                "WR",
+                "CB",
+                "S",
+                "DL"
+            ]
+        },
+        {
+            "teamId": "10404900-d59e-b449-ef75-961e09ca027e",
+            "year": 2025,
+            "analysis": "Lavonte David has been a foundational piece in Tampa for more than a decade, but it’s time for the Bucs to think of the long-term future at off-ball linebacker. It could be a defense-heavy draft for the franchise, which should be shopping for potential starters at all three levels. -- by Dan Parr",
+            "positionNeeds": [
+                "LB",
+                "CB",
+                "Edge",
+                "S",
+                "OL"
+            ]
+        },
+        {
+            "teamId": "10405110-ec3c-669e-2614-db3dc1736e95",
+            "year": 2025,
+            "analysis": "The largest void to fill is off the edge, as free-agent departure Dante Fowler Jr. led Washington with 10.5 sacks last season. Adding competition and security through depth in the secondary would be wise, too. On offense, Commanders GM Adam Peters has four of his top wide receivers playing on expiring deals, including Terry McLaurin and trade acquisition Deebo Samuel. -- by Dan Parr",
+            "positionNeeds": [
+                "Edge",
+                "CB",
+                "WR",
+                "S",
+                "OL"
+            ]
+        }
+    ],
+    "pagination": {
+        "limit": 32,
+        "token": null
+    }
+}
