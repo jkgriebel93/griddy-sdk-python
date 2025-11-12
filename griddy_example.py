@@ -22,5 +22,13 @@ else:
 # This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
-result = nfl.weeks.get_season_weeks(season=2025, limit=100)
-pprint(result.model_dump(), indent=4)
+result = nfl.experience.get_weekly_game_details(
+    season=2025,
+    type_="REG",
+    week=11,
+    include_drive_chart=True,
+    include_replays=True,
+    include_standings=True,
+    include_tagged_videos=True,
+)
+pprint(result, indent=4)

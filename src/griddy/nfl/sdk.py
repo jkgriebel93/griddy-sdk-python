@@ -34,11 +34,11 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
+    from griddy.nfl.endpoints.regular.football.experience import Experience
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
     from .authentication import Authentication
     from .betting import Betting
-    from .experience import Experience
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
     from .player_statistics import PlayerStatistics
@@ -56,6 +56,8 @@ class GriddyNFL(BaseSDK):
     r"""Combine information"""
     draft: "Draft"
     r"""Draft information"""
+    experience: "Experience"
+    r"""Unsure what 'experience' entails"""
     weeks: "Weeks"
     r"""Weekly information"""
     ##### Pro SDKs #####
@@ -108,6 +110,11 @@ class GriddyNFL(BaseSDK):
     _sub_sdk_map = {
         "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
+        # TODO: There will be a collision when we get to the top-level experience endpoint
+        "experience": (
+            "griddy.nfl.endpoints.regular.football.experience",
+            "Experience",
+        ),
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
@@ -152,7 +159,6 @@ class GriddyNFL(BaseSDK):
         ),
         "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
-        "experience": ("griddy.nfl.experience", "Experience"),
         "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
