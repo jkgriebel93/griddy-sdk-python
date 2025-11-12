@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.stats.team_defense import TeamDefenseStats
     from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
     from griddy.nfl.endpoints.pro.teams import Teams
+    from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
 
     from .authentication import Authentication
@@ -50,6 +51,8 @@ class GriddyNFL(BaseSDK):
     r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
 
     ##### Regular SDKs #####
+    combine: "Combine"
+    r"""Combine information"""
     draft: "Draft"
     r"""Draft information"""
 
@@ -101,6 +104,7 @@ class GriddyNFL(BaseSDK):
     r"""Token generation and refresh operations for NFL API access"""
 
     _sub_sdk_map = {
+        "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),

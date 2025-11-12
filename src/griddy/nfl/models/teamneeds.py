@@ -1,7 +1,7 @@
-from typing import List, Optional
+from typing import List
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from griddy.nfl.models.enums.positionenums import TeamNeedsPositionEnum
 from griddy.nfl.types import BaseModel

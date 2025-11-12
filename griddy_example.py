@@ -21,5 +21,5 @@ else:
 # This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 game_id = "2025102610"
-result = nfl.draft.get_teamneeds(year=2025, limit=32)
+result = nfl.combine.get_profiles(year=2025, limit=10)
 pprint(result, indent=4)
