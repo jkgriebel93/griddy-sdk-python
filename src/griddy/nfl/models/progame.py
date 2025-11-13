@@ -7,13 +7,7 @@ import pydantic
 from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from ..types import (
-    UNSET,
-    UNSET_SENTINEL,
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-)
+from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
 from .broadcastinfo import BroadcastInfo, BroadcastInfoTypedDict
 from .externalid import ExternalID, ExternalIDTypedDict
 from .meridiemenum import MeridiemEnum
@@ -237,8 +231,8 @@ class ProGame(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(n)  # FIX: Use field name, not alias
+            serialized.pop(n, None)
 
             optional_nullable = k in optional_fields and k in nullable_fields
             is_set = (

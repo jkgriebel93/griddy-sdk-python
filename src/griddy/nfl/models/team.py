@@ -6,13 +6,7 @@ import pydantic
 from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from ..types import (
-    UNSET,
-    UNSET_SENTINEL,
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-)
+from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
 from .socialmedia import SocialMedia, SocialMediaTypedDict
 from .teamvenue import TeamVenue, TeamVenueTypedDict
 
@@ -179,8 +173,8 @@ class Team(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(n)  # FIX: Use field name, not alias
+            serialized.pop(n, None)
 
             optional_nullable = k in optional_fields and k in nullable_fields
             is_set = (
