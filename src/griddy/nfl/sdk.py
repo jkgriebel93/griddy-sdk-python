@@ -22,7 +22,7 @@ from .utils.security import do_browser_auth
 
 if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.content import Content
-    from griddy.nfl.endpoints.pro.games import Games
+    from griddy.nfl.endpoints.pro.games import ProGames
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
     from griddy.nfl.endpoints.pro.stats.defense import PlayerDefenseStats
@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.experience import Experience
+    from griddy.nfl.endpoints.regular.football.games import Games
     from griddy.nfl.endpoints.regular.football.rosters import Rosters
     from griddy.nfl.endpoints.regular.football.standings import Standings
     from griddy.nfl.endpoints.regular.football.teams import Teams as FootballTeams
@@ -61,6 +62,8 @@ class GriddyNFL(BaseSDK):
     r"""Draft information"""
     experience: "Experience"
     r"""Unsure what 'experience' entails"""
+    games: "Games"
+    r"""Game information from the regular API"""
     rosters: "Rosters"
     r"""Base team rosters"""
     standings: "Standings"
@@ -75,7 +78,7 @@ class GriddyNFL(BaseSDK):
     r"""Game previews, film cards, and insights"""
     players: "Players"
     r"""Player information, statistics, and projections"""
-    games: "Games"
+    pro_games: "ProGames"
     r"""Game information and statistics"""
     schedules: "Schedules"
     r"""Game schedules, matchup rankings, and injury reports"""
@@ -125,13 +128,15 @@ class GriddyNFL(BaseSDK):
             "griddy.nfl.endpoints.regular.football.experience",
             "Experience",
         ),
+        "games": ("griddy.nfl.endpoints.regular.football.games", "Games"),
         "rosters": ("griddy.nfl.endpoints.regular.football.rosters", "Rosters"),
         "standings": ("griddy.nfl.endpoints.regular.football.standings", "Standings"),
         "football_teams": ("griddy.nfl.endpoints.regular.football.teams", "Teams"),
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
-        "games": ("griddy.nfl.endpoints.pro.games", "Games"),
+        # TODO: Refactor so that this call will be invoked as nfl.pro.games
+        "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.betting", "Betting"),
         "scores": ("griddy.nfl.scores", "Scores"),
