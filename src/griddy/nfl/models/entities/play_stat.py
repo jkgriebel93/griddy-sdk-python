@@ -1,0 +1,39 @@
+from __future__ import annotations
+
+import pydantic
+from typing_extensions import Annotated, TypedDict
+
+from ...types import BaseModel
+
+
+class PlayStatTypedDict(TypedDict):
+    club_code: str
+    r"""Team abbreviation"""
+    gsis_id: str
+    r"""Player GSIS ID"""
+    play_id: int
+    player_name: str
+    r"""Player name"""
+    stat_id: int
+    r"""Type of statistic"""
+    yards: int
+    r"""Yards gained/lost"""
+
+
+class PlayStat(BaseModel):
+    club_code: Annotated[str, pydantic.Field(alias="clubCode")]
+    r"""Team abbreviation"""
+
+    gsis_id: Annotated[str, pydantic.Field(alias="gsisId")]
+    r"""Player GSIS ID"""
+
+    play_id: Annotated[int, pydantic.Field(alias="playId")]
+
+    player_name: Annotated[str, pydantic.Field(alias="playerName")]
+    r"""Player name"""
+
+    stat_id: Annotated[int, pydantic.Field(alias="statId")]
+    r"""Type of statistic"""
+
+    yards: int
+    r"""Yards gained/lost"""
