@@ -20,15 +20,12 @@ else:
 
 # This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
-game_id = "2025102610"
-result = nfl.games.get_games(season=2025, season_type="REG", week=9)
+steelers_team_id = "10403900-8251-6892-d81c-4348525c2d47"
+result = nfl.football_teams.get_roster(team_id=steelers_team_id, season=2025)
 
 is_pydantic = True
 
 if is_pydantic:
     pprint(result.model_dump(), indent=4)
-    with open("week_9_games_pydantic.json", "w") as outfile:
-        outfile.write(result.model_dump_json(indent=4))
 else:
-    with open("week_9_games_raw.json", "w") as outfile:
-        json.dump(result, outfile, indent=4)
+    print(json.dumps(result, indent=4))
