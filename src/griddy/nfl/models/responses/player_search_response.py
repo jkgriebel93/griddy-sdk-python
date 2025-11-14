@@ -4,8 +4,11 @@ from typing import List
 
 from typing_extensions import TypedDict
 
-from ..types import BaseModel
-from .player_search_result import PlayerSearchResult, PlayerSearchResultTypedDict
+from griddy.nfl.models.player_search_result import (
+    PlayerSearchResult,
+    PlayerSearchResultTypedDict,
+)
+from griddy.nfl.types import BaseModel
 
 
 class PlayerSearchResponseTypedDict(TypedDict):

@@ -4,8 +4,8 @@ from typing import List, Optional
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..types import BaseModel
-from .draft_pick import DraftPick, DraftPickTypedDict
+from griddy.nfl.models.draft_pick import DraftPick, DraftPickTypedDict
+from griddy.nfl.types import BaseModel
 
 
 class RoundTypedDict(TypedDict):

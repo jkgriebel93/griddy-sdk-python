@@ -5,9 +5,9 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from ..types import BaseModel
-from .player import Player, PlayerTypedDict
-from .team import Team, TeamTypedDict
+from griddy.nfl.models.player import Player, PlayerTypedDict
+from griddy.nfl.models.team import Team, TeamTypedDict
+from griddy.nfl.types import BaseModel
 
 
 class PlayerStatsResponsePaginationTypedDict(TypedDict):

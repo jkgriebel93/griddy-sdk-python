@@ -4,8 +4,8 @@ from typing import List
 
 from typing_extensions import TypedDict
 
-from ..types import BaseModel
-from .film_card import FilmCard, FilmCardTypedDict
+from griddy.nfl.models.film_card import FilmCard, FilmCardTypedDict
+from griddy.nfl.types import BaseModel
 
 
 class HomeFilmCardsResponseTypedDict(TypedDict):
