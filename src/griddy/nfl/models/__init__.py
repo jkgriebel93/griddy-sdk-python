@@ -26,10 +26,6 @@ if TYPE_CHECKING:
         CombineProfile,
         CombineProfileTypedDict,
     )
-    from griddy.nfl.models.combine_profiles_response import (
-        CombineProfilesResponse,
-        CombineProfilesResponseTypedDict,
-    )
     from griddy.nfl.models.enums.binary_flag_enum import BinaryFlagEnum
     from griddy.nfl.models.enums.combine_enums import (
         CollegeClassEnum,
@@ -127,34 +123,11 @@ if TYPE_CHECKING:
         GetWeekOfDateRequest,
         GetWeekOfDateRequestTypedDict,
     )
-    from griddy.nfl.models.responses.combine_rankings_response import (
-        CombineRankingsResponse,
-        CombineRankingsResponseTypedDict,
+    from griddy.nfl.models.responses.boxscore_response import (
+        BoxscoreResponse,
+        BoxscoreResponseTypedDict,
     )
-    from griddy.nfl.models.responses.football_rosters_response import (
-        FootballRostersResponse,
-        FootballRostersResponseTypedDict,
-    )
-    from griddy.nfl.models.responses.football_teams_response import (
-        FootballTeamsResponse,
-        FootballTeamsResponseTypedDict,
-    )
-    from griddy.nfl.models.team_needs_response import (
-        TeamNeedsResponse,
-        TeamNeedsResponseTypedDict,
-    )
-    from griddy.nfl.models.team_offense_rush_stats import (
-        TeamOffenseRushStats,
-        TeamOffenseRushStatsTypedDict,
-    )
-    from griddy.nfl.models.team_offense_rush_stats_response import (
-        TeamOffenseRushStatsResponse,
-        TeamOffenseRushStatsResponseTypedDict,
-    )
-
-    from .award import Award, AwardType, AwardTypedDict
-    from .boxscore_response import BoxscoreResponse, BoxscoreResponseTypedDict
-    from .boxscore_response_2 import (
+    from griddy.nfl.models.responses.boxscore_response_2 import (
         Away,
         AwayTypedDict,
         BoxScoreResponse2,
@@ -166,6 +139,236 @@ if TYPE_CHECKING:
         TeamStats,
         TeamStatsTypedDict,
     )
+    from griddy.nfl.models.responses.coaches_film_response import (
+        CoachesFilmResponse,
+        CoachesFilmResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.combine_profiles_response import (
+        CombineProfilesResponse,
+        CombineProfilesResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.combine_rankings_response import (
+        CombineRankingsResponse,
+        CombineRankingsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.current_games_response import (
+        CurrentGamesResponse,
+        CurrentGamesResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.defensive_overview_stats_response import (
+        DefensiveOverviewStatsResponse,
+        DefensiveOverviewStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.experience_games_response import (
+        ExperienceGamesResponse,
+        ExperienceGamesResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.experience_teams_response import (
+        ExperienceTeamsResponse,
+        ExperienceTeamsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.film_room_plays_response import (
+        FilmroomPlaysResponse,
+        FilmroomPlaysResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_games_response import (
+        FootballGamesResponse,
+        FootballGamesResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_rosters_response import (
+        FootballRostersResponse,
+        FootballRostersResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_teams_response import (
+        FootballTeamsResponse,
+        FootballTeamsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.futures_odds_response import (
+        FuturesOddsResponse,
+        FuturesOddsResponseData,
+        FuturesOddsResponseDataTypedDict,
+        FuturesOddsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.game_center_response import (
+        GamecenterResponse,
+        GamecenterResponseTypedDict,
+        Leaders,
+        LeadersTypedDict,
+        LeagueAverageReceiverSeparation,
+        LeagueAverageReceiverSeparationTypedDict,
+        LeagueAverageSeparationToQb,
+        LeagueAverageSeparationToQbTypedDict,
+        PassDistanceLeaders,
+        PassDistanceLeadersTypedDict,
+        Passers,
+        PassersTypedDict,
+        PassRushers,
+        PassRushersTypedDict,
+        Receivers,
+        ReceiversTypedDict,
+        Rushers,
+        RushersTypedDict,
+        SpeedLeaders,
+        SpeedLeadersTypedDict,
+        TimeToSackLeaders,
+        TimeToSackLeadersTypedDict,
+    )
+    from griddy.nfl.models.responses.game_preview_response import (
+        GamePreviewResponse,
+        GamePreviewResponseTypedDict,
+        Preview,
+        PreviewTypedDict,
+    )
+    from griddy.nfl.models.responses.game_stats_response import (
+        GameStatsResponse,
+        GameStatsResponseData,
+        GameStatsResponseDataTypedDict,
+        GameStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.games_response import (
+        GamesResponse,
+        GamesResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.injury_report_response import (
+        InjuryReportResponse,
+        InjuryReportResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.lives_cores_response import (
+        LiveScoresResponse,
+        LiveScoresResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.matchup_rankings_response import (
+        MatchupRankingsResponse,
+        MatchupRankingsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.nearest_defender_stats_response import (
+        NearestDefenderStatsResponse,
+        NearestDefenderStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.pass_rush_stats_response import (
+        PassRushStatsResponse,
+        PassRushStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.passing_stats_response import (
+        PassingStatsResponse,
+        PassingStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.play_by_play_response import (
+        PlayByPlayResponse,
+        PlayByPlayResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.play_summary_response import (
+        PlaySummaryResponse,
+        PlaySummaryResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.projected_stats_response import (
+        Included,
+        IncludedTypedDict,
+        Meta,
+        MetaTypedDict,
+        Page,
+        PageTypedDict,
+        ProjectedStatsResponse,
+        ProjectedStatsResponsePagination,
+        ProjectedStatsResponsePaginationTypedDict,
+        ProjectedStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.receiving_stats_response import (
+        ReceivingStatsResponse,
+        ReceivingStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.rushing_stats_response import (
+        RushingStatsResponse,
+        RushingStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.season_weeks_response import (
+        SeasonWeeksResponse,
+        SeasonWeeksResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.standings_response import (
+        StandingsResponse,
+        StandingsResponseTypedDict,
+        StandingsResponseWeek,
+        StandingsResponseWeekTypedDict,
+    )
+    from griddy.nfl.models.responses.team_defense_pass_stats_response import (
+        TeamDefensePassStatsResponse,
+        TeamDefensePassStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_defense_rush_stats_response import (
+        TeamDefenseRushStatsResponse,
+        TeamDefenseRushStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_defense_stats_response import (
+        TeamDefenseStatsResponse,
+        TeamDefenseStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_needs_response import (
+        TeamNeedsResponse,
+        TeamNeedsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_offense_overview_stats_response import (
+        TeamOffenseStatsResponse,
+        TeamOffenseStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_offense_pass_stats_response import (
+        TeamOffensePassStatsResponse,
+        TeamOffensePassStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_offense_rush_stats_response import (
+        TeamOffenseRushStatsResponse,
+        TeamOffenseRushStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_rankings_response import (
+        TeamRankingsResponse,
+        TeamRankingsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.team_roster_response import (
+        TeamRosterResponse,
+        TeamRosterResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.token_response import (
+        TokenResponse,
+        TokenResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.transactions_response import (
+        TransactionsResponse,
+        TransactionsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.venues_response import (
+        VenuesResponse,
+        VenuesResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.weekly_odds_response import (
+        WeeklyOddsResponse,
+        WeeklyOddsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.weekly_passing_stats_response import (
+        WeeklyPassingStatsResponse,
+        WeeklyPassingStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.weekly_roster_response import (
+        WeeklyRosterResponse,
+        WeeklyRosterResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.weekly_rushing_stats_response import (
+        WeeklyRushingStatsResponse,
+        WeeklyRushingStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.weeks_response import (
+        WeeksResponse,
+        WeeksResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.win_probability_response import (
+        WinProbabilityResponse,
+        WinProbabilityResponseTypedDict,
+    )
+    from griddy.nfl.models.team_offense_rush_stats import (
+        TeamOffenseRushStats,
+        TeamOffenseRushStatsTypedDict,
+    )
+
+    from .award import Award, AwardType, AwardTypedDict
     from .boxscore_schedule import BoxscoreSchedule, BoxscoreScheduleTypedDict
     from .boxscore_score import BoxscoreScore, BoxscoreScoreTypedDict
     from .boxscore_site import BoxscoreSite, BoxscoreSiteRoofType, BoxscoreSiteTypedDict
@@ -181,7 +384,6 @@ if TYPE_CHECKING:
     )
     from .career_stats import CareerStats, CareerStatsTypedDict
     from .clinched import Clinched, ClinchedTypedDict
-    from .coaches_film_response import CoachesFilmResponse, CoachesFilmResponseTypedDict
     from .coaches_film_video import (
         Background,
         BackgroundTypedDict,
@@ -208,17 +410,9 @@ if TYPE_CHECKING:
         CurrentGameExtensionTypedDict,
         CurrentGameTypedDict,
     )
-    from .current_games_response import (
-        CurrentGamesResponse,
-        CurrentGamesResponseTypedDict,
-    )
     from .defensive_nearest_defender_stats import (
         DefensiveNearestDefenderStats,
         DefensiveNearestDefenderStatsTypedDict,
-    )
-    from .defensive_overview_stats_response import (
-        DefensiveOverviewStatsResponse,
-        DefensiveOverviewStatsResponseTypedDict,
     )
     from .defensive_pass_rush_stats import (
         DefensivePassRushStats,
@@ -253,14 +447,6 @@ if TYPE_CHECKING:
     )
     from .enums.quarter_enum import QuarterEnum
     from .enums.yards_to_go_enum import YardsToGoEnum
-    from .experience_games_response import (
-        ExperienceGamesResponse,
-        ExperienceGamesResponseTypedDict,
-    )
-    from .experience_teams_response import (
-        ExperienceTeamsResponse,
-        ExperienceTeamsResponseTypedDict,
-    )
     from .external_id import ExternalID, ExternalIDTypedDict
     from .fantasy_player_stats import (
         FantasyPlayerStats,
@@ -274,25 +460,11 @@ if TYPE_CHECKING:
     )
     from .film_card import FilmCard, FilmCardTypedDict, LinkParams, LinkParamsTypedDict
     from .film_room_play import FilmroomPlay, FilmroomPlayTypedDict
-    from .film_room_plays_response import (
-        FilmroomPlaysResponse,
-        FilmroomPlaysResponseTypedDict,
-    )
-    from .football_games_response import (
-        FootballGamesResponse,
-        FootballGamesResponseTypedDict,
-    )
     from .futures_market import (
         Fixture,
         FixtureTypedDict,
         FuturesMarket,
         FuturesMarketTypedDict,
-    )
-    from .futures_odds_response import (
-        FuturesOddsResponse,
-        FuturesOddsResponseData,
-        FuturesOddsResponseDataTypedDict,
-        FuturesOddsResponseTypedDict,
     )
     from .game import (
         Game,
@@ -301,30 +473,6 @@ if TYPE_CHECKING:
         GameExtensionTypedDict,
         GameStatus,
         GameTypedDict,
-    )
-    from .game_center_response import (
-        GamecenterResponse,
-        GamecenterResponseTypedDict,
-        Leaders,
-        LeadersTypedDict,
-        LeagueAverageReceiverSeparation,
-        LeagueAverageReceiverSeparationTypedDict,
-        LeagueAverageSeparationToQb,
-        LeagueAverageSeparationToQbTypedDict,
-        PassDistanceLeaders,
-        PassDistanceLeadersTypedDict,
-        Passers,
-        PassersTypedDict,
-        PassRushers,
-        PassRushersTypedDict,
-        Receivers,
-        ReceiversTypedDict,
-        Rushers,
-        RushersTypedDict,
-        SpeedLeaders,
-        SpeedLeadersTypedDict,
-        TimeToSackLeaders,
-        TimeToSackLeadersTypedDict,
     )
     from .game_center_schedule import GamecenterSchedule, GamecenterScheduleTypedDict
     from .game_detail import GameDetail, GameDetailTypedDict
@@ -335,23 +483,10 @@ if TYPE_CHECKING:
         GameInsightTypedDict,
     )
     from .game_odds import GameOdds, GameOddsTypedDict
-    from .game_preview_response import (
-        GamePreviewResponse,
-        GamePreviewResponseTypedDict,
-        Preview,
-        PreviewTypedDict,
-    )
     from .game_schedule import GameSchedule, GameScheduleTypedDict
     from .game_score import GameScore, GameScoreTypedDict, Phase
     from .game_site import GameSite, GameSiteRoofType, GameSiteTypedDict
-    from .game_stats_response import (
-        GameStatsResponse,
-        GameStatsResponseData,
-        GameStatsResponseDataTypedDict,
-        GameStatsResponseTypedDict,
-    )
     from .game_team import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
-    from .games_response import GamesResponse, GamesResponseTypedDict
     from .get_coaches_film_videos_op import (
         GetCoachesFilmVideosRequest,
         GetCoachesFilmVideosRequestTypedDict,
@@ -626,10 +761,6 @@ if TYPE_CHECKING:
         PracticeStatus,
         PracticeStatusTypedDict,
     )
-    from .injury_report_response import (
-        InjuryReportResponse,
-        InjuryReportResponseTypedDict,
-    )
     from .insight import Insight, InsightPosition, InsightTypedDict, SecondTeamType
     from .kicking_stats import KickingStats, KickingStatsTypedDict
     from .live_game import (
@@ -641,21 +772,12 @@ if TYPE_CHECKING:
         LiveGameStatus,
         LiveGameTypedDict,
     )
-    from .lives_cores_response import LiveScoresResponse, LiveScoresResponseTypedDict
-    from .matchup_rankings_response import (
-        MatchupRankingsResponse,
-        MatchupRankingsResponseTypedDict,
-    )
     from .moneyline import MoneyLine, MoneyLineTypedDict
     from .multiple_rankings_category import (
         MultipleRankingsCategory,
         MultipleRankingsCategoryPagination,
         MultipleRankingsCategoryPaginationTypedDict,
         MultipleRankingsCategoryTypedDict,
-    )
-    from .nearest_defender_stats_response import (
-        NearestDefenderStatsResponse,
-        NearestDefenderStatsResponseTypedDict,
     )
     from .odds_selection import OddsSelection, OddsSelectionTypedDict
     from .overall_record import (
@@ -668,19 +790,10 @@ if TYPE_CHECKING:
         StreakTypedDict,
     )
     from .pagination import Pagination, PaginationTypedDict
-    from .pass_rush_stats_response import (
-        PassRushStatsResponse,
-        PassRushStatsResponseTypedDict,
-    )
     from .passer_stats import PasserStats, PasserStatsTypedDict, Zone, ZoneTypedDict
     from .passing_stats import PassingStats, PassingStatsTypedDict
-    from .passing_stats_response import (
-        PassingStatsResponse,
-        PassingStatsResponseTypedDict,
-    )
     from .penalty import Penalty, PenaltyTypedDict
     from .play import Play, PlayType, PlayTypedDict
-    from .play_by_play_response import PlayByPlayResponse, PlayByPlayResponseTypedDict
     from .play_detail import PlayDetail, PlayDetailTypedDict, PlayDirection, PlayState
     from .play_participant import (
         PlayParticipant,
@@ -691,7 +804,6 @@ if TYPE_CHECKING:
     )
     from .play_player import PlayPlayer, PlayPlayerTypedDict
     from .play_stat import PlayStat, PlayStatTypedDict
-    from .play_summary_response import PlaySummaryResponse, PlaySummaryResponseTypedDict
     from .play_win_probability import PlayWinProbability, PlayWinProbabilityTypedDict
     from .player import Player, PlayerTypedDict
     from .player_detail import PlayerDetail, PlayerDetailTypedDict
@@ -766,23 +878,7 @@ if TYPE_CHECKING:
         ProTeamTypedDict,
     )
     from .pro_week import ProWeek, ProWeekTypedDict, ProWeekWeekType
-    from .projected_stats_response import (
-        Included,
-        IncludedTypedDict,
-        Meta,
-        MetaTypedDict,
-        Page,
-        PageTypedDict,
-        ProjectedStatsResponse,
-        ProjectedStatsResponsePagination,
-        ProjectedStatsResponsePaginationTypedDict,
-        ProjectedStatsResponseTypedDict,
-    )
     from .receiving_stats import ReceivingStats, ReceivingStatsTypedDict
-    from .receiving_stats_response import (
-        ReceivingStatsResponse,
-        ReceivingStatsResponseTypedDict,
-    )
     from .record import Record, RecordTypedDict
     from .refresh_token_request import (
         RefreshTokenRequest,
@@ -797,16 +893,11 @@ if TYPE_CHECKING:
         RosterTypedDict,
     )
     from .rushing_stats import RushingStats, RushingStatsTypedDict
-    from .rushing_stats_response import (
-        RushingStatsResponse,
-        RushingStatsResponseTypedDict,
-    )
     from .schedule_team import ScheduleTeam, ScheduleTeamTypedDict
     from .scheduled_game import ScheduledGame, ScheduledGameTypedDict
     from .scoring_play import ScoreType, ScoringPlay, ScoringPlayTypedDict
     from .search_players_op import SearchPlayersRequest, SearchPlayersRequestTypedDict
     from .season_stats import SeasonStats, SeasonStatsTypedDict
-    from .season_weeks_response import SeasonWeeksResponse, SeasonWeeksResponseTypedDict
     from .security import Security, SecurityTypedDict
     from .site import Site, SiteRoofType, SiteTypedDict
     from .social_media import SocialMedia, SocialMediaTypedDict
@@ -822,12 +913,6 @@ if TYPE_CHECKING:
         StandingsRecordPointsTypedDict,
         StandingsRecordTypedDict,
     )
-    from .standings_response import (
-        StandingsResponse,
-        StandingsResponseTypedDict,
-        StandingsResponseWeek,
-        StandingsResponseWeekTypedDict,
-    )
     from .statistic_ranking import (
         Statistic,
         StatisticRanking,
@@ -840,47 +925,22 @@ if TYPE_CHECKING:
         TeamDefensePassStats,
         TeamDefensePassStatsTypedDict,
     )
-    from .team_defense_pass_stats_response import (
-        TeamDefensePassStatsResponse,
-        TeamDefensePassStatsResponseTypedDict,
-    )
     from .team_defense_rush_stats import (
         TeamDefenseRushStats,
         TeamDefenseRushStatsTypedDict,
     )
-    from .team_defense_rush_stats_response import (
-        TeamDefenseRushStatsResponse,
-        TeamDefenseRushStatsResponseTypedDict,
-    )
     from .team_defense_stats import TeamDefenseStats, TeamDefenseStatsTypedDict
-    from .team_defense_stats_response import (
-        TeamDefenseStatsResponse,
-        TeamDefenseStatsResponseTypedDict,
-    )
     from .team_game_stats import TeamGameStats, TeamGameStatsTypedDict
     from .team_info import TeamInfo, TeamInfoTypedDict
     from .team_injury_report import TeamInjuryReport, TeamInjuryReportTypedDict
     from .team_matchup_rankings import TeamMatchupRankings, TeamMatchupRankingsTypedDict
     from .team_offense_overview_stats import TeamOffenseStats, TeamOffenseStatsTypedDict
-    from .team_offense_overview_stats_response import (
-        TeamOffenseStatsResponse,
-        TeamOffenseStatsResponseTypedDict,
-    )
     from .team_offense_pass_stats import (
         TeamOffensePassStats,
         TeamOffensePassStatsTypedDict,
     )
-    from .team_offense_pass_stats_response import (
-        TeamOffensePassStatsResponse,
-        TeamOffensePassStatsResponseTypedDict,
-    )
     from .team_ranking_entry import TeamRankingEntry, TeamRankingEntryTypedDict
     from .team_rankings import TeamRankings, TeamRankingsTypedDict
-    from .team_rankings_response import (
-        TeamRankingsResponse,
-        TeamRankingsResponseTypedDict,
-    )
-    from .team_roster_response import TeamRosterResponse, TeamRosterResponseTypedDict
     from .team_score import TeamScore, TeamScoreTypedDict
     from .team_type_enum import TeamTypeEnum
     from .team_venue import TeamVenue, TeamVenueTypedDict
@@ -890,16 +950,10 @@ if TYPE_CHECKING:
         TokenRequestNetworkType,
         TokenRequestTypedDict,
     )
-    from .token_response import TokenResponse, TokenResponseTypedDict
     from .totals import Totals, TotalsTypedDict
     from .transaction import Transaction, TransactionType, TransactionTypedDict
-    from .transactions_response import (
-        TransactionsResponse,
-        TransactionsResponseTypedDict,
-    )
     from .venue import Venue, VenueTypedDict
     from .venue_info import VenueInfo, VenueInfoRoofType, VenueInfoTypedDict
-    from .venues_response import VenuesResponse, VenuesResponseTypedDict
     from .video_authorizations import (
         NFLPLUSPLUSNFLPLUSCOACHESFILM,
         NflPlusPlus,
@@ -942,11 +996,6 @@ if TYPE_CHECKING:
         WeeklyGameDetailStatus,
         WeeklyGameDetailTypedDict,
     )
-    from .weekly_odds_response import WeeklyOddsResponse, WeeklyOddsResponseTypedDict
-    from .weekly_passing_stats_response import (
-        WeeklyPassingStatsResponse,
-        WeeklyPassingStatsResponseTypedDict,
-    )
     from .weekly_player import WeeklyPlayer, WeeklyPlayerTypedDict
     from .weekly_player_passing_stats import (
         WeeklyPlayerPassingStats,
@@ -955,19 +1004,6 @@ if TYPE_CHECKING:
     from .weekly_player_rushing_stats import (
         WeeklyPlayerRushingStats,
         WeeklyPlayerRushingStatsTypedDict,
-    )
-    from .weekly_roster_response import (
-        WeeklyRosterResponse,
-        WeeklyRosterResponseTypedDict,
-    )
-    from .weekly_rushing_stats_response import (
-        WeeklyRushingStatsResponse,
-        WeeklyRushingStatsResponseTypedDict,
-    )
-    from .weeks_response import WeeksResponse, WeeksResponseTypedDict
-    from .win_probability_response import (
-        WinProbabilityResponse,
-        WinProbabilityResponseTypedDict,
     )
 
 __all__ = [
@@ -1754,8 +1790,8 @@ _dynamic_imports: dict[str, str] = {
     "FootballRostersResponse": ".responses.football_rosters_response",
     "GetFootballRostersRequestTypedDict": ".requests.get_football_rosters_op",
     "GetFootballRostersRequest": ".requests.get_football_rosters_op",
-    "DesignationEnum": ".enums.combineenums",
-    "CollegeClassEnum": ".enums.combineenums",
+    "DesignationEnum": ".enums.combine_enums",
+    "CollegeClassEnum": ".enums.combine_enums",
     "BenchPress": ".combine_events",
     "BroadJump": ".combine_events",
     "FortyYardDash": ".combine_events",
@@ -1774,15 +1810,15 @@ _dynamic_imports: dict[str, str] = {
     "CombineProfileTypedDict": ".combine_profile",
     "CombinePerson": ".combine_profile",
     "CombinePersonTypedDict": ".combine_profile",
-    "CombineProfilesResponse": ".combine_profiles_response",
-    "CombineProfilesResponseTypedDict": ".combine_profiles_response",
+    "CombineProfilesResponse": ".responses.combine_profiles_response",
+    "CombineProfilesResponseTypedDict": ".responses.combine_profiles_response",
     "GetCombineProfilesRequest": ".get_combine_profiles_op",
     "GetCombineProfilesRequestTypedDict": ".get_combine_profiles_op",
     "GetCombineRankingsRequest": ".requests.getcombinerankingsop",
     "GetCombineRankingsRequestTypedDict": ".requests.getcombinerankingsop",
     "GetWeekOfDateRequest": ".requests.get_week_of_date_op",
     "GetWeekOfDateRequestTypedDict": ".requests.get_week_of_date_op",
-    "EventFilterEnum": ".enums.combineenums",
+    "EventFilterEnum": ".enums.combine_enums",
     "CombineRankingsResponse": ".responses.combinerankingsresponse",
     "CombineRankingsResponseTypedDict": ".responses.combinerankingsresponse",
     "FootballTeamsResponse": ".responses.football_teams_response",
@@ -1792,19 +1828,19 @@ _dynamic_imports: dict[str, str] = {
     "Award": ".award",
     "AwardType": ".award",
     "AwardTypedDict": ".award",
-    "BinaryFlagEnum": ".binary_flag_enum",
-    "BoxscoreResponse": ".boxscore_response",
-    "BoxscoreResponseTypedDict": ".boxscore_response",
-    "Away": ".boxscoreresponse_2",
-    "AwayTypedDict": ".boxscoreresponse_2",
-    "BoxScoreResponse2": ".boxscoreresponse_2",
-    "BoxScoreResponse2TypedDict": ".boxscoreresponse_2",
-    "Home": ".boxscoreresponse_2",
-    "HomeTypedDict": ".boxscoreresponse_2",
-    "PlayerStats": ".boxscoreresponse_2",
-    "PlayerStatsTypedDict": ".boxscoreresponse_2",
-    "TeamStats": ".boxscoreresponse_2",
-    "TeamStatsTypedDict": ".boxscoreresponse_2",
+    "BinaryFlagEnum": ".enums.binary_flag_enum",
+    "BoxscoreResponse": ".responses.boxscore_response",
+    "BoxscoreResponseTypedDict": ".responses.boxscore_response",
+    "Away": ".responses.boxscore_response_2",
+    "AwayTypedDict": ".responses.boxscore_response_2",
+    "BoxScoreResponse2": ".responses.boxscore_response_2",
+    "BoxScoreResponse2TypedDict": ".responses.boxscore_response_2",
+    "Home": ".responses.boxscore_response_2",
+    "HomeTypedDict": ".responses.boxscore_response_2",
+    "PlayerStats": ".responses.boxscore_response_2",
+    "PlayerStatsTypedDict": ".responses.boxscore_response_2",
+    "TeamStats": ".responses.boxscore_response_2",
+    "TeamStatsTypedDict": ".responses.boxscore_response_2",
     "BoxscoreSchedule": ".boxscore_schedule",
     "BoxscoreScheduleTypedDict": ".boxscore_schedule",
     "BoxscoreScore": ".boxscore_score",
@@ -1825,8 +1861,8 @@ _dynamic_imports: dict[str, str] = {
     "CareerStatsTypedDict": ".career_stats",
     "Clinched": ".clinched",
     "ClinchedTypedDict": ".clinched",
-    "CoachesFilmResponse": ".coaches_film_response",
-    "CoachesFilmResponseTypedDict": ".coaches_film_response",
+    "CoachesFilmResponse": ".responses.coaches_film_response",
+    "CoachesFilmResponseTypedDict": ".responses.coaches_film_response",
     "Background": ".coaches_film_video",
     "BackgroundTypedDict": ".coaches_film_video",
     "CameraSource": ".coaches_film_video",
@@ -1844,7 +1880,7 @@ _dynamic_imports: dict[str, str] = {
     "VideoTypedDict": ".coaches_film_video",
     "Conference": ".conference",
     "ConferenceTypedDict": ".conference",
-    "ConferenceEnum": ".conference_enum",
+    "ConferenceEnum": ".enums.conference_enum",
     "ContractInfo": ".contract_info",
     "ContractInfoTypedDict": ".contract_info",
     "CurrentGame": ".current_game",
@@ -1852,10 +1888,10 @@ _dynamic_imports: dict[str, str] = {
     "CurrentGameExtension": ".current_game",
     "CurrentGameExtensionTypedDict": ".current_game",
     "CurrentGameTypedDict": ".current_game",
-    "CurrentGamesResponse": ".current_games_response",
-    "CurrentGamesResponseTypedDict": ".current_games_response",
-    "DefensiveOverviewStatsResponse": ".defensive_overview_stats_response",
-    "DefensiveOverviewStatsResponseTypedDict": ".defensive_overview_stats_response",
+    "CurrentGamesResponse": ".responses.current_games_response",
+    "CurrentGamesResponseTypedDict": ".responses.current_games_response",
+    "DefensiveOverviewStatsResponse": ".responses.defensive_overview_stats_response",
+    "DefensiveOverviewStatsResponseTypedDict": ".responses.defensive_overview_stats_response",
     "DefensivePassRushStats": ".defensive_pass_rush_stats",
     "DefensivePassRushStatsNgsPosition": ".defensive_pass_rush_stats",
     "DefensivePassRushStatsPosition": ".defensive_pass_rush_stats",
@@ -1868,20 +1904,20 @@ _dynamic_imports: dict[str, str] = {
     "DefensivePlayerStatsNgsPosition": ".defensiveplayerstats",
     "DefensivePlayerStatsPosition": ".defensiveplayerstats",
     "DefensivePlayerStatsTypedDict": ".defensiveplayerstats",
-    "DefensivePositionGroupEnum": ".defensive_position_group_enum",
+    "DefensivePositionGroupEnum": ".enums.defensive_position_group_enum",
     "DefensiveNearestDefenderStats": ".defensive_nearest_defender_stats",
     "DefenseNGSSplitEnum": ".enums.defensive_splits_enum",
-    "DefensePositionEnum": ".enums.positionenums",
-    "DefensePositionGroupEnum": ".enums.positionenums",
-    "DefenseNGSPositionEnum": ".enums.positionenums",
-    "DefenseNGSPositionGroupEnum": ".enums.positionenums",
+    "DefensePositionEnum": ".enums.position_enums",
+    "DefensePositionGroupEnum": ".enums.position_enums",
+    "DefenseNGSPositionEnum": ".enums.position_enums",
+    "DefenseNGSPositionGroupEnum": ".enums.position_enums",
     "DefensiveStats": ".defensive_stats",
     "DefensiveStatsTypedDict": ".defensive_stats",
     "DefensiveStatsResponse": ".defensivestatsresponse",
     "DefensiveStatsResponseTypedDict": ".defensivestatsresponse",
     "Division": ".division",
     "DivisionTypedDict": ".division",
-    "DownEnum": ".enums.downenum",
+    "DownEnum": ".enums.down_enum",
     "DraftPick": ".draft_pick",
     "DraftPickTypedDict": ".draft_pick",
     "DraftResponse": ".draft_response",
@@ -1891,10 +1927,10 @@ _dynamic_imports: dict[str, str] = {
     "Drive": ".drive",
     "DriveTypedDict": ".drive",
     "Result": ".drive",
-    "ExperienceGamesResponse": ".experience_games_response",
-    "ExperienceGamesResponseTypedDict": ".experience_games_response",
-    "ExperienceTeamsResponse": ".experience_teams_response",
-    "ExperienceTeamsResponseTypedDict": ".experience_teams_response",
+    "ExperienceGamesResponse": ".responses.experience_games_response",
+    "ExperienceGamesResponseTypedDict": ".responses.experience_games_response",
+    "ExperienceTeamsResponse": ".responses.experience_teams_response",
+    "ExperienceTeamsResponseTypedDict": ".responses.experience_teams_response",
     "ExternalID": ".external_id",
     "ExternalIDTypedDict": ".external_id",
     "FantasyPlayerStats": ".fantasy_player_stats",
@@ -1909,26 +1945,26 @@ _dynamic_imports: dict[str, str] = {
     "LinkParamsTypedDict": ".film_card",
     "FilmroomPlay": ".film_room_play",
     "FilmroomPlayTypedDict": ".film_room_play",
-    "FilmroomPlaysResponse": ".film_room_plays_response",
-    "FilmroomPlaysResponseTypedDict": ".film_room_plays_response",
-    "FootballGamesResponse": ".football_games_response",
-    "FootballGamesResponseTypedDict": ".football_games_response",
+    "FilmroomPlaysResponse": ".responses.film_room_plays_response",
+    "FilmroomPlaysResponseTypedDict": ".responses.film_room_plays_response",
+    "FootballGamesResponse": ".responses.football_games_response",
+    "FootballGamesResponseTypedDict": ".responses.football_games_response",
     "Fixture": ".futures_market",
     "FixtureTypedDict": ".futures_market",
     "FuturesMarket": ".futures_market",
     "FuturesMarketTypedDict": ".futures_market",
-    "FuturesOddsResponse": ".futures_odds_response",
-    "FuturesOddsResponseData": ".futures_odds_response",
-    "FuturesOddsResponseDataTypedDict": ".futures_odds_response",
-    "FuturesOddsResponseTypedDict": ".futures_odds_response",
+    "FuturesOddsResponse": ".responses.futures_odds_response",
+    "FuturesOddsResponseData": ".responses.futures_odds_response",
+    "FuturesOddsResponseDataTypedDict": ".responses.futures_odds_response",
+    "FuturesOddsResponseTypedDict": ".responses.futures_odds_response",
     "Game": ".game",
     "GameCategory": ".game",
     "GameExtension": ".game",
     "GameExtensionTypedDict": ".game",
     "GameStatus": ".game",
     "GameTypedDict": ".game",
-    "GamecenterResponse": ".game_center_response",
-    "GamecenterResponseTypedDict": ".game_center_response",
+    "GamecenterResponse": ".responses.game_center_response",
+    "GamecenterResponseTypedDict": ".responses.game_center_response",
     "Leaders": ".game_center_response",
     "LeadersTypedDict": ".game_center_response",
     "LeagueAverageReceiverSeparation": ".game_center_response",
@@ -1957,14 +1993,14 @@ _dynamic_imports: dict[str, str] = {
     "ContentTypedDict": ".game_insight",
     "GameInsight": ".game_insight",
     "GameInsightTypedDict": ".game_insight",
-    "GameLocationEnum": ".enums.gamelocationenum",
+    "GameLocationEnum": ".enums.game_location_enum",
     "GameOdds": ".game_odds",
     "GameOddsTypedDict": ".game_odds",
-    "GamePreviewResponse": ".game_preview_response",
-    "GamePreviewResponseTypedDict": ".game_preview_response",
+    "GamePreviewResponse": ".responses.game_preview_response",
+    "GamePreviewResponseTypedDict": ".responses.game_preview_response",
     "Preview": ".game_preview_response",
     "PreviewTypedDict": ".game_preview_response",
-    "GameResultEnum": ".game_result_enum",
+    "GameResultEnum": ".enums.game_result_enum",
     "GameSchedule": ".game_schedule",
     "GameScheduleTypedDict": ".game_schedule",
     "GameScore": ".game_score",
@@ -1973,13 +2009,13 @@ _dynamic_imports: dict[str, str] = {
     "GameSite": ".game_site",
     "GameSiteRoofType": ".game_site",
     "GameSiteTypedDict": ".game_site",
-    "GamesResponse": ".games_response",
-    "GamesResponseTypedDict": ".games_response",
-    "GameStatsResponse": ".game_stats_response",
-    "GameStatsResponseData": ".game_stats_response",
-    "GameStatsResponseDataTypedDict": ".game_stats_response",
-    "GameStatsResponseTypedDict": ".game_stats_response",
-    "GameStatusEnum": ".game_status_enum",
+    "GamesResponse": ".responses.games_response",
+    "GamesResponseTypedDict": ".responses.games_response",
+    "GameStatsResponse": ".responses.game_stats_response",
+    "GameStatsResponseData": ".responses.game_stats_response",
+    "GameStatsResponseDataTypedDict": ".responses.game_stats_response",
+    "GameStatsResponseTypedDict": ".responses.game_stats_response",
+    "GameStatusEnum": ".enums.game_status_enum",
     "GameTeam": ".game_team",
     "GameTeamTypedDict": ".game_team",
     "Score": ".game_team",
@@ -2177,8 +2213,8 @@ _dynamic_imports: dict[str, str] = {
     "InjuryEntryTypedDict": ".injury_entry",
     "PracticeStatus": ".injury_entry",
     "PracticeStatusTypedDict": ".injury_entry",
-    "InjuryReportResponse": ".injury_report_response",
-    "InjuryReportResponseTypedDict": ".injury_report_response",
+    "InjuryReportResponse": ".responses.injury_report_response",
+    "InjuryReportResponseTypedDict": ".responses.injury_report_response",
     "Insight": ".insight",
     "InsightPosition": ".insight",
     "InsightTypedDict": ".insight",
@@ -2192,11 +2228,11 @@ _dynamic_imports: dict[str, str] = {
     "LiveGame": ".live_game",
     "LiveGameStatus": ".live_game",
     "LiveGameTypedDict": ".live_game",
-    "LiveScoresResponse": ".lives_cores_response",
-    "LiveScoresResponseTypedDict": ".lives_cores_response",
-    "MatchupRankingsResponse": ".matchup_rankings_response",
-    "MatchupRankingsResponseTypedDict": ".matchup_rankings_response",
-    "MeridiemEnum": ".meridiem_enum",
+    "LiveScoresResponse": ".responses.lives_cores_response",
+    "LiveScoresResponseTypedDict": ".responses.lives_cores_response",
+    "MatchupRankingsResponse": ".responses.matchup_rankings_response",
+    "MatchupRankingsResponseTypedDict": ".responses.matchup_rankings_response",
+    "MeridiemEnum": ".enums.meridiem_enum",
     "MoneyLine": ".moneyline",
     "MoneyLineTypedDict": ".moneyline",
     "MultipleRankingsCategory": ".multiple_rankings_category",
@@ -2205,8 +2241,8 @@ _dynamic_imports: dict[str, str] = {
     "MultipleRankingsCategoryTypedDict": ".multiple_rankings_category",
     "OddsSelection": ".odds_selection",
     "OddsSelectionTypedDict": ".odds_selection",
-    "OffensivePlayerPositionEnum": ".offensive_player_position_enum",
-    "OffensiveSkillPositionEnum": ".offensive_skill_position_enum",
+    "OffensivePlayerPositionEnum": ".enums.offensive_player_position_enum",
+    "OffensiveSkillPositionEnum": ".enums.offensive_skill_position_enum",
     "OverallRecord": ".overall_record",
     "OverallRecordPoints": ".overall_record",
     "OverallRecordPointsTypedDict": ".overall_record",
@@ -2222,20 +2258,20 @@ _dynamic_imports: dict[str, str] = {
     "ZoneTypedDict": ".passer_stats",
     "PassingStats": ".passing_stats",
     "PassingStatsTypedDict": ".passing_stats",
-    "PassingStatsCategoryEnum": ".passing_stats_category_enum",
-    "PassingStatsResponse": ".passing_stats_response",
-    "PassingStatsResponseTypedDict": ".passing_stats_response",
-    "PassRushStatsResponse": ".pass_rush_stats_response",
-    "PassRushStatsResponseTypedDict": ".pass_rush_stats_response",
-    "NearestDefenderStatsResponse": ".nearest_defender_stats_response",
-    "NearestDefenderStatsResponseTypedDict": ".nearest_defender_stats_response",
+    "PassingStatsCategoryEnum": ".enums.passing_stats_category_enum",
+    "PassingStatsResponse": ".responses.passing_stats_response",
+    "PassingStatsResponseTypedDict": ".responses.passing_stats_response",
+    "PassRushStatsResponse": ".responses.pass_rush_stats_response",
+    "PassRushStatsResponseTypedDict": ".responses.pass_rush_stats_response",
+    "NearestDefenderStatsResponse": ".responses.nearest_defender_stats_response",
+    "NearestDefenderStatsResponseTypedDict": ".responses.nearest_defender_stats_response",
     "Penalty": ".penalty",
     "PenaltyTypedDict": ".penalty",
     "Play": ".play",
     "PlayType": ".play",
     "PlayTypedDict": ".play",
-    "PlayByPlayResponse": ".play_by_play_response",
-    "PlayByPlayResponseTypedDict": ".play_by_play_response",
+    "PlayByPlayResponse": ".responses.play_by_play_response",
+    "PlayByPlayResponseTypedDict": ".responses.play_by_play_response",
     "PlayDetail": ".play_detail",
     "PlayDetailTypedDict": ".play_detail",
     "PlayDirection": ".play_detail",
@@ -2294,9 +2330,9 @@ _dynamic_imports: dict[str, str] = {
     "PlayPlayerTypedDict": ".play_player",
     "PlayStat": ".play_stat",
     "PlayStatTypedDict": ".play_stat",
-    "PlaySummaryResponse": ".play_summary_response",
-    "PlaySummaryResponseTypedDict": ".play_summary_response",
-    "PlayTypeEnum": ".play_type_enum",
+    "PlaySummaryResponse": ".responses.play_summary_response",
+    "PlaySummaryResponseTypedDict": ".responses.play_summary_response",
+    "PlayTypeEnum": ".enums.play_type_enum",
     "PlayWinProbability": ".play_win_probability",
     "PlayWinProbabilityTypedDict": ".play_win_probability",
     "PointSpread": ".point_spread",
@@ -2305,8 +2341,8 @@ _dynamic_imports: dict[str, str] = {
     "PointsRecordPoints": ".points_record",
     "PointsRecordPointsTypedDict": ".points_record",
     "PointsRecordTypedDict": ".points_record",
-    "PracticeStatusEnum": ".practice_status_enum",
-    "QuarterEnum": ".enums.quarterenum",
+    "PracticeStatusEnum": ".enums.practice_status_enum",
+    "QuarterEnum": ".enums.quarter_enum",
     "ProGame": ".pro_game",
     "ProGameCategory": ".pro_game",
     "ProGameExtension": ".pro_game",
@@ -2319,10 +2355,10 @@ _dynamic_imports: dict[str, str] = {
     "MetaTypedDict": ".projected_stats_response",
     "Page": ".projected_stats_response",
     "PageTypedDict": ".projected_stats_response",
-    "ProjectedStatsResponse": ".projected_stats_response",
-    "ProjectedStatsResponsePagination": ".projected_stats_response",
-    "ProjectedStatsResponsePaginationTypedDict": ".projected_stats_response",
-    "ProjectedStatsResponseTypedDict": ".projected_stats_response",
+    "ProjectedStatsResponse": ".responses.projected_stats_response",
+    "ProjectedStatsResponsePagination": ".responses.projected_stats_response",
+    "ProjectedStatsResponsePaginationTypedDict": ".responses.projected_stats_response",
+    "ProjectedStatsResponseTypedDict": ".responses.projected_stats_response",
     "ProTeam": ".pro_team",
     "ProTeamConferenceAbbr": ".pro_team",
     "ProTeamTeamType": ".pro_team",
@@ -2332,9 +2368,9 @@ _dynamic_imports: dict[str, str] = {
     "ProWeekWeekType": ".pro_week",
     "ReceivingStats": ".receiving_stats",
     "ReceivingStatsTypedDict": ".receiving_stats",
-    "ReceivingStatsCategoryEnum": ".receiving_stats_category_enum",
-    "ReceivingStatsResponse": ".receiving_stats_response",
-    "ReceivingStatsResponseTypedDict": ".receiving_stats_response",
+    "ReceivingStatsCategoryEnum": ".enums.receiving_stats_category_enum",
+    "ReceivingStatsResponse": ".responses.receiving_stats_response",
+    "ReceivingStatsResponseTypedDict": ".responses.receiving_stats_response",
     "Record": ".record",
     "RecordTypedDict": ".record",
     "RefreshTokenRequest": ".refresh_token_request",
@@ -2348,8 +2384,8 @@ _dynamic_imports: dict[str, str] = {
     "RosterTypedDict": ".roster_response",
     "RushingStats": ".rushing_stats",
     "RushingStatsTypedDict": ".rushing_stats",
-    "RushingStatsResponse": ".rushing_stats_response",
-    "RushingStatsResponseTypedDict": ".rushing_stats_response",
+    "RushingStatsResponse": ".responses.rushing_stats_response",
+    "RushingStatsResponseTypedDict": ".responses.rushing_stats_response",
     "ScheduledGame": ".scheduled_game",
     "ScheduledGameTypedDict": ".scheduled_game",
     "ScheduleTeam": ".schedule_team",
@@ -2361,9 +2397,9 @@ _dynamic_imports: dict[str, str] = {
     "SearchPlayersRequestTypedDict": ".search_players_op",
     "SeasonStats": ".season_stats",
     "SeasonStatsTypedDict": ".season_stats",
-    "SeasonTypeEnum": ".season_type_enum",
-    "SeasonWeeksResponse": ".season_weeks_response",
-    "SeasonWeeksResponseTypedDict": ".season_weeks_response",
+    "SeasonTypeEnum": ".enums.season_type_enum",
+    "SeasonWeeksResponse": ".responses.season_weeks_response",
+    "SeasonWeeksResponseTypedDict": ".responses.season_weeks_response",
     "Security": ".security",
     "SecurityTypedDict": ".security",
     "Site": ".site",
@@ -2371,7 +2407,7 @@ _dynamic_imports: dict[str, str] = {
     "SiteTypedDict": ".site",
     "SocialMedia": ".social_media",
     "SocialMediaTypedDict": ".social_media",
-    "SortOrderEnum": ".sort_order_enum",
+    "SortOrderEnum": ".enums.sort_order_enum",
     "Standings": ".standings",
     "StandingsTeam": ".standings",
     "StandingsTeamTypedDict": ".standings",
@@ -2380,10 +2416,10 @@ _dynamic_imports: dict[str, str] = {
     "StandingsRecordPoints": ".standings_record",
     "StandingsRecordPointsTypedDict": ".standings_record",
     "StandingsRecordTypedDict": ".standings_record",
-    "StandingsResponse": ".standings_response",
-    "StandingsResponseTypedDict": ".standings_response",
-    "StandingsResponseWeek": ".standings_response",
-    "StandingsResponseWeekTypedDict": ".standings_response",
+    "StandingsResponse": ".responses.standings_response",
+    "StandingsResponseTypedDict": ".responses.standings_response",
+    "StandingsResponseWeek": ".responses.standings_response",
+    "StandingsResponseWeekTypedDict": ".responses.standings_response",
     "Statistic": ".statistic_ranking",
     "StatisticRanking": ".statistic_ranking",
     "StatisticRankingTypedDict": ".statistic_ranking",
@@ -2396,16 +2432,16 @@ _dynamic_imports: dict[str, str] = {
     "TeamBoxscoreTypedDict": ".team_boxscore",
     "TeamDefensePassStats": ".team_defense_pass_stats",
     "TeamDefensePassStatsTypedDict": ".team_defense_pass_stats",
-    "TeamDefensePassStatsResponse": ".team_defense_pass_stats_response",
-    "TeamDefensePassStatsResponseTypedDict": ".team_defense_pass_stats_response",
+    "TeamDefensePassStatsResponse": ".responses.team_defense_pass_stats_response",
+    "TeamDefensePassStatsResponseTypedDict": ".responses.team_defense_pass_stats_response",
     "TeamDefenseRushStats": ".team_defense_rush_stats",
     "TeamDefenseRushStatsTypedDict": ".team_defense_rush_stats",
-    "TeamDefenseRushStatsResponse": ".team_defense_rush_stats_response",
-    "TeamDefenseRushStatsResponseTypedDict": ".team_defense_rush_stats_response",
+    "TeamDefenseRushStatsResponse": ".responses.team_defense_rush_stats_response",
+    "TeamDefenseRushStatsResponseTypedDict": ".responses.team_defense_rush_stats_response",
     "TeamDefenseStats": ".team_defense_stats",
     "TeamDefenseStatsTypedDict": ".team_defense_stats",
-    "TeamDefenseStatsResponse": ".team_defense_stats_response",
-    "TeamDefenseStatsResponseTypedDict": ".team_defense_stats_response",
+    "TeamDefenseStatsResponse": ".responses.team_defense_stats_response",
+    "TeamDefenseStatsResponseTypedDict": ".responses.team_defense_stats_response",
     "TeamGameStats": ".team_game_stats",
     "TeamGameStatsTypedDict": ".team_game_stats",
     "TeamInfo": ".team_info",
@@ -2414,28 +2450,28 @@ _dynamic_imports: dict[str, str] = {
     "TeamInjuryReportTypedDict": ".team_injury_report",
     "TeamMatchupRankings": ".team_matchup_rankings",
     "TeamMatchupRankingsTypedDict": ".team_matchup_rankings",
-    "TeamNeedsResponse": ".team_needs_response",
-    "TeamNeedsResponseTypedDict": ".team_needs_response",
+    "TeamNeedsResponse": ".responses.team_needs_response",
+    "TeamNeedsResponseTypedDict": ".responses.team_needs_response",
     "TeamOffenseStats": ".team_offense_overview_stats",
     "TeamOffenseStatsTypedDict": ".team_offense_overview_stats",
-    "TeamOffenseStatsResponse": ".team_offense_overview_stats_response",
-    "TeamOffenseStatsResponseTypedDict": ".team_offense_overview_stats_response",
+    "TeamOffenseStatsResponse": ".responses.team_offense_overview_stats_response",
+    "TeamOffenseStatsResponseTypedDict": ".responses.team_offense_overview_stats_response",
     "TeamOffensePassStats": ".team_offense_pass_stats",
     "TeamOffensePassStatsTypedDict": ".team_offense_pass_stats",
-    "TeamOffensePassStatsResponse": ".team_offense_pass_stats_response",
-    "TeamOffensePassStatsResponseTypedDict": ".team_offense_pass_stats_response",
+    "TeamOffensePassStatsResponse": ".responses.team_offense_pass_stats_response",
+    "TeamOffensePassStatsResponseTypedDict": ".responses.team_offense_pass_stats_response",
     "TeamOffenseRushStats": ".team_offense_rush_stats",
     "TeamOffenseRushStatsTypedDict": ".team_offense_rush_stats",
-    "TeamOffenseRushStatsResponse": ".team_offense_rush_stats_response",
-    "TeamOffenseRushStatsResponseTypedDict": ".team_offense_rush_stats_response",
+    "TeamOffenseRushStatsResponse": ".responses.team_offense_rush_stats_response",
+    "TeamOffenseRushStatsResponseTypedDict": ".responses.team_offense_rush_stats_response",
     "TeamRankingEntry": ".team_ranking_entry",
     "TeamRankingEntryTypedDict": ".team_ranking_entry",
     "TeamRankings": ".team_rankings",
     "TeamRankingsTypedDict": ".team_rankings",
-    "TeamRankingsResponse": ".team_rankings_response",
-    "TeamRankingsResponseTypedDict": ".team_rankings_response",
-    "TeamRosterResponse": ".team_roster_response",
-    "TeamRosterResponseTypedDict": ".team_roster_response",
+    "TeamRankingsResponse": ".responses.team_rankings_response",
+    "TeamRankingsResponseTypedDict": ".responses.team_rankings_response",
+    "TeamRosterResponse": ".responses.team_roster_response",
+    "TeamRosterResponseTypedDict": ".responses.team_roster_response",
     "TeamScore": ".team_score",
     "TeamScoreTypedDict": ".team_score",
     "TeamTypeEnum": ".team_type_enum",
@@ -2446,22 +2482,22 @@ _dynamic_imports: dict[str, str] = {
     "TokenRequest": ".token_request",
     "TokenRequestNetworkType": ".token_request",
     "TokenRequestTypedDict": ".token_request",
-    "TokenResponse": ".token_response",
-    "TokenResponseTypedDict": ".token_response",
+    "TokenResponse": ".responses.token_response",
+    "TokenResponseTypedDict": ".responses.token_response",
     "Totals": ".totals",
     "TotalsTypedDict": ".totals",
     "Transaction": ".transaction",
     "TransactionType": ".transaction",
     "TransactionTypedDict": ".transaction",
-    "TransactionsResponse": ".transactions_response",
-    "TransactionsResponseTypedDict": ".transactions_response",
+    "TransactionsResponse": ".responses.transactions_response",
+    "TransactionsResponseTypedDict": ".responses.transactions_response",
     "Venue": ".venue",
     "VenueTypedDict": ".venue",
     "VenueInfo": ".venue_info",
     "VenueInfoRoofType": ".venue_info",
     "VenueInfoTypedDict": ".venue_info",
-    "VenuesResponse": ".venues_response",
-    "VenuesResponseTypedDict": ".venues_response",
+    "VenuesResponse": ".responses.venues_response",
+    "VenuesResponseTypedDict": ".responses.venues_response",
     "NFLPLUSPLUSNFLPLUSCOACHESFILM": ".video_authorizations",
     "NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict": ".video_authorizations",
     "NFLPLUSPremiumNFLPLUSCOACHESFILM": ".video_authorizations",
@@ -2505,26 +2541,26 @@ _dynamic_imports: dict[str, str] = {
     "WeeklyGameDetailExtensionTypedDict": ".weekly_game_detail",
     "WeeklyGameDetailStatus": ".weekly_game_detail",
     "WeeklyGameDetailTypedDict": ".weekly_game_detail",
-    "WeeklyOddsResponse": ".weekly_odds_response",
-    "WeeklyOddsResponseTypedDict": ".weekly_odds_response",
-    "WeeklyPassingStatsResponse": ".weekly_passing_stats_response",
-    "WeeklyPassingStatsResponseTypedDict": ".weekly_passing_stats_response",
+    "WeeklyOddsResponse": ".responses.weekly_odds_response",
+    "WeeklyOddsResponseTypedDict": ".responses.weekly_odds_response",
+    "WeeklyPassingStatsResponse": ".responses.weekly_passing_stats_response",
+    "WeeklyPassingStatsResponseTypedDict": ".responses.weekly_passing_stats_response",
     "WeeklyPlayer": ".weekly_player",
     "WeeklyPlayerTypedDict": ".weekly_player",
     "WeeklyPlayerPassingStats": ".weekly_player_passing_stats",
     "WeeklyPlayerPassingStatsTypedDict": ".weekly_player_passing_stats",
     "WeeklyPlayerRushingStats": ".weekly_player_rushing_stats",
     "WeeklyPlayerRushingStatsTypedDict": ".weekly_player_rushing_stats",
-    "WeeklyRosterResponse": ".weekly_roster_response",
-    "WeeklyRosterResponseTypedDict": ".weekly_roster_response",
-    "WeeklyRushingStatsResponse": ".weekly_rushing_stats_response",
-    "WeeklyRushingStatsResponseTypedDict": ".weekly_rushing_stats_response",
-    "WeekSlugEnum": ".week_slug_enum",
-    "WeeksResponse": ".weeks_response",
-    "WeeksResponseTypedDict": ".weeks_response",
-    "WinProbabilityResponse": ".win_probability_response",
-    "WinProbabilityResponseTypedDict": ".win_probability_response",
-    "YardsToGoEnum": ".enums.yardstogoenum",
+    "WeeklyRosterResponse": ".responses.weekly_roster_response",
+    "WeeklyRosterResponseTypedDict": ".responses.weekly_roster_response",
+    "WeeklyRushingStatsResponse": ".responses.weekly_rushing_stats_response",
+    "WeeklyRushingStatsResponseTypedDict": ".responses.weekly_rushing_stats_response",
+    "WeekSlugEnum": ".enums.week_slug_enum",
+    "WeeksResponse": ".responses.weeks_response",
+    "WeeksResponseTypedDict": ".responses.weeks_response",
+    "WinProbabilityResponse": ".responses.win_probability_response",
+    "WinProbabilityResponseTypedDict": ".responses.win_probability_response",
+    "YardsToGoEnum": ".enums.yards_to_go_enum",
 }
 
 
