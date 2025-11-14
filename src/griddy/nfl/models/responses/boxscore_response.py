@@ -5,11 +5,11 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.boxscore_schedule import (
+from griddy.nfl.models.entities.boxscore_schedule import (
     BoxscoreSchedule,
     BoxscoreScheduleTypedDict,
 )
-from griddy.nfl.models.team_boxscore import TeamBoxscore, TeamBoxscoreTypedDict
+from griddy.nfl.models.entities.team_boxscore import TeamBoxscore, TeamBoxscoreTypedDict
 from griddy.nfl.types import BaseModel
 
 

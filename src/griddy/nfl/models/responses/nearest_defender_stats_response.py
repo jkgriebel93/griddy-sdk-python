@@ -5,7 +5,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.defensive_nearest_defender_stats import (
+from griddy.nfl.models.entities.defensive_nearest_defender_stats import (
     DefensiveNearestDefenderStats,
     DefensiveNearestDefenderStatsTypedDict,
 )

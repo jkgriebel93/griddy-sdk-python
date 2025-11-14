@@ -5,11 +5,11 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
-from griddy.nfl.models.team_matchup_rankings import (
+from griddy.nfl.models.entities.team_matchup_rankings import (
     TeamMatchupRankings,
     TeamMatchupRankingsTypedDict,
 )
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
 
 

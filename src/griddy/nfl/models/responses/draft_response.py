@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from typing_extensions import NotRequired, TypedDict
 
-from griddy.nfl.models.draft_pick import DraftPick, DraftPickTypedDict
+from griddy.nfl.models.entities.draft_pick import DraftPick, DraftPickTypedDict
 from griddy.nfl.types import BaseModel
 
 

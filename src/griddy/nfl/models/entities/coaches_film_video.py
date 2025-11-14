@@ -1,0 +1,501 @@
+from __future__ import annotations
+
+from datetime import datetime
+from typing import List, Literal, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
+from .video_authorizations import VideoAuthorizations, VideoAuthorizationsTypedDict
+from .video_game_play_ids import VideoGamePlayIds, VideoGamePlayIdsTypedDict
+from .video_tag import VideoTag, VideoTagTypedDict
+from .video_thumbnail import VideoThumbnail, VideoThumbnailTypedDict
+
+
+class BackgroundTypedDict(TypedDict):
+    r"""Background configuration"""
+
+
+class Background(BaseModel):
+    r"""Background configuration"""
+
+
+CameraSource = Literal[
+    "Endzone",
+    "Sideline",
+    "Broadcast",
+]
+r"""Camera angle/source for the video"""
+
+
+class CtaTypedDict(TypedDict):
+    pass
+
+
+class Cta(BaseModel):
+    pass
+
+
+class ImageTypedDict(TypedDict):
+    pass
+
+
+class Image(BaseModel):
+    pass
+
+
+class PromoAssetTypedDict(TypedDict):
+    pass
+
+
+class PromoAsset(BaseModel):
+    pass
+
+
+SubType = Literal[
+    "Coaches Film",
+    "Coaches Film Pro",
+]
+r"""Video subtype classification"""
+
+
+CoachesFilmVideoType = Literal["video",]
+r"""Content type (always \"video\")"""
+
+
+class VideoTypedDict(TypedDict):
+    pass
+
+
+class Video(BaseModel):
+    pass
+
+
+class CoachesFilmVideoTypedDict(TypedDict):
+    camera_source: CameraSource
+    r"""Camera angle/source for the video"""
+    description: str
+    r"""Play description"""
+    duration: str
+    r"""Video duration in seconds"""
+    external_id: str
+    r"""External video identifier"""
+    ids: VideoGamePlayIdsTypedDict
+    title: str
+    r"""Video title"""
+    type: CoachesFilmVideoType
+    r"""Content type (always \"video\")"""
+    advertiser_id: NotRequired[Nullable[str]]
+    r"""Associated advertiser ID"""
+    author: NotRequired[Nullable[str]]
+    r"""Content author"""
+    authorizations: NotRequired[VideoAuthorizationsTypedDict]
+    r"""Authorization requirements for video access"""
+    background: NotRequired[BackgroundTypedDict]
+    r"""Background configuration"""
+    clip_type: NotRequired[Nullable[str]]
+    r"""Type of video clip"""
+    cta_link: NotRequired[Nullable[str]]
+    r"""Call-to-action link"""
+    cta_target: NotRequired[Nullable[str]]
+    r"""Call-to-action target"""
+    cta_text: NotRequired[Nullable[str]]
+    r"""Call-to-action text"""
+    ctas: NotRequired[List[CtaTypedDict]]
+    r"""Call-to-action elements"""
+    display_title: NotRequired[Nullable[str]]
+    r"""Display title override"""
+    end_date: NotRequired[Nullable[datetime]]
+    r"""Content end date"""
+    entitlement: NotRequired[Nullable[str]]
+    r"""Entitlement information"""
+    episode_number: NotRequired[Nullable[int]]
+    r"""Episode number if part of series"""
+    expiration_date: NotRequired[datetime]
+    r"""Content expiration date"""
+    fantasy_link: NotRequired[Nullable[str]]
+    r"""Related fantasy content link"""
+    host_network: NotRequired[Nullable[str]]
+    r"""Broadcasting network"""
+    id: NotRequired[Nullable[str]]
+    r"""Internal content ID"""
+    images: NotRequired[List[ImageTypedDict]]
+    r"""Associated images"""
+    intended_audience: NotRequired[Nullable[str]]
+    r"""Target audience"""
+    intro_end: NotRequired[Nullable[str]]
+    r"""Introduction end timestamp"""
+    language: NotRequired[Nullable[str]]
+    r"""Content language"""
+    last_updated: NotRequired[Nullable[datetime]]
+    r"""Last update timestamp"""
+    mcp_playback_id: NotRequired[str]
+    r"""Media control platform playback ID"""
+    mobile_link: NotRequired[Nullable[str]]
+    r"""Mobile-specific link"""
+    mobile_title: NotRequired[Nullable[str]]
+    r"""Mobile-specific title"""
+    original_air_date: NotRequired[datetime]
+    r"""Original broadcast air date"""
+    outro_start: NotRequired[Nullable[str]]
+    r"""Outro start timestamp"""
+    play_ids: NotRequired[List[str]]
+    r"""Play identifiers associated with this video"""
+    pre_roll_disabled: NotRequired[bool]
+    r"""Whether pre-roll ads are disabled"""
+    promo_assets: NotRequired[List[PromoAssetTypedDict]]
+    r"""Promotional assets"""
+    promo_link: NotRequired[Nullable[str]]
+    r"""Promotional link"""
+    promo_target: NotRequired[str]
+    r"""Promotional link target"""
+    promo_text: NotRequired[Nullable[str]]
+    r"""Promotional text"""
+    publish_date: NotRequired[datetime]
+    r"""Content publish date"""
+    radio_station: NotRequired[Nullable[str]]
+    r"""Associated radio station"""
+    series: NotRequired[Nullable[str]]
+    r"""Series information"""
+    series_season: NotRequired[Nullable[str]]
+    r"""Series season if applicable"""
+    series_title: NotRequired[Nullable[str]]
+    r"""Series title if part of series"""
+    slug: NotRequired[Nullable[str]]
+    r"""URL slug"""
+    start_date: NotRequired[Nullable[datetime]]
+    r"""Content start date"""
+    sub_type: NotRequired[SubType]
+    r"""Video subtype classification"""
+    summary: NotRequired[Nullable[str]]
+    r"""Content summary"""
+    tags: NotRequired[List[VideoTagTypedDict]]
+    r"""Content tags and metadata"""
+    thumbnail: NotRequired[VideoThumbnailTypedDict]
+    videos: NotRequired[List[VideoTypedDict]]
+    r"""Additional video information"""
+    web_link: NotRequired[Nullable[str]]
+    r"""Web-specific link"""
+
+
+class CoachesFilmVideo(BaseModel):
+    camera_source: Annotated[CameraSource, pydantic.Field(alias="cameraSource")]
+    r"""Camera angle/source for the video"""
+
+    description: str
+    r"""Play description"""
+
+    duration: str
+    r"""Video duration in seconds"""
+
+    external_id: Annotated[str, pydantic.Field(alias="externalId")]
+    r"""External video identifier"""
+
+    ids: VideoGamePlayIds
+
+    title: str
+    r"""Video title"""
+
+    type: CoachesFilmVideoType
+    r"""Content type (always \"video\")"""
+
+    advertiser_id: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="advertiserId")
+    ] = UNSET
+    r"""Associated advertiser ID"""
+
+    author: OptionalNullable[str] = UNSET
+    r"""Content author"""
+
+    authorizations: Optional[VideoAuthorizations] = None
+    r"""Authorization requirements for video access"""
+
+    background: Optional[Background] = None
+    r"""Background configuration"""
+
+    clip_type: Annotated[OptionalNullable[str], pydantic.Field(alias="clipType")] = (
+        UNSET
+    )
+    r"""Type of video clip"""
+
+    cta_link: Annotated[OptionalNullable[str], pydantic.Field(alias="ctaLink")] = UNSET
+    r"""Call-to-action link"""
+
+    cta_target: Annotated[OptionalNullable[str], pydantic.Field(alias="ctaTarget")] = (
+        UNSET
+    )
+    r"""Call-to-action target"""
+
+    cta_text: Annotated[OptionalNullable[str], pydantic.Field(alias="ctaText")] = UNSET
+    r"""Call-to-action text"""
+
+    ctas: Optional[List[Cta]] = None
+    r"""Call-to-action elements"""
+
+    display_title: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="displayTitle")
+    ] = UNSET
+    r"""Display title override"""
+
+    end_date: Annotated[OptionalNullable[datetime], pydantic.Field(alias="endDate")] = (
+        UNSET
+    )
+    r"""Content end date"""
+
+    entitlement: OptionalNullable[str] = UNSET
+    r"""Entitlement information"""
+
+    episode_number: Annotated[
+        OptionalNullable[int], pydantic.Field(alias="episodeNumber")
+    ] = UNSET
+    r"""Episode number if part of series"""
+
+    expiration_date: Annotated[
+        Optional[datetime], pydantic.Field(alias="expirationDate")
+    ] = None
+    r"""Content expiration date"""
+
+    fantasy_link: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="fantasyLink")
+    ] = UNSET
+    r"""Related fantasy content link"""
+
+    host_network: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="hostNetwork")
+    ] = UNSET
+    r"""Broadcasting network"""
+
+    id: OptionalNullable[str] = UNSET
+    r"""Internal content ID"""
+
+    images: Optional[List[Image]] = None
+    r"""Associated images"""
+
+    intended_audience: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="intendedAudience")
+    ] = UNSET
+    r"""Target audience"""
+
+    intro_end: Annotated[OptionalNullable[str], pydantic.Field(alias="introEnd")] = (
+        UNSET
+    )
+    r"""Introduction end timestamp"""
+
+    language: OptionalNullable[str] = UNSET
+    r"""Content language"""
+
+    last_updated: Annotated[
+        OptionalNullable[datetime], pydantic.Field(alias="lastUpdated")
+    ] = UNSET
+    r"""Last update timestamp"""
+
+    mcp_playback_id: Annotated[Optional[str], pydantic.Field(alias="mcpPlaybackId")] = (
+        None
+    )
+    r"""Media control platform playback ID"""
+
+    mobile_link: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="mobileLink")
+    ] = UNSET
+    r"""Mobile-specific link"""
+
+    mobile_title: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="mobileTitle")
+    ] = UNSET
+    r"""Mobile-specific title"""
+
+    original_air_date: Annotated[
+        Optional[datetime], pydantic.Field(alias="originalAirDate")
+    ] = None
+    r"""Original broadcast air date"""
+
+    outro_start: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="outroStart")
+    ] = UNSET
+    r"""Outro start timestamp"""
+
+    play_ids: Annotated[Optional[List[str]], pydantic.Field(alias="playIds")] = None
+    r"""Play identifiers associated with this video"""
+
+    pre_roll_disabled: Annotated[
+        Optional[bool], pydantic.Field(alias="preRollDisabled")
+    ] = False
+    r"""Whether pre-roll ads are disabled"""
+
+    promo_assets: Annotated[
+        Optional[List[PromoAsset]], pydantic.Field(alias="promoAssets")
+    ] = None
+    r"""Promotional assets"""
+
+    promo_link: Annotated[OptionalNullable[str], pydantic.Field(alias="promoLink")] = (
+        UNSET
+    )
+    r"""Promotional link"""
+
+    promo_target: Annotated[Optional[str], pydantic.Field(alias="promoTarget")] = (
+        "_self"
+    )
+    r"""Promotional link target"""
+
+    promo_text: Annotated[OptionalNullable[str], pydantic.Field(alias="promoText")] = (
+        UNSET
+    )
+    r"""Promotional text"""
+
+    publish_date: Annotated[Optional[datetime], pydantic.Field(alias="publishDate")] = (
+        None
+    )
+    r"""Content publish date"""
+
+    radio_station: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="radioStation")
+    ] = UNSET
+    r"""Associated radio station"""
+
+    series: OptionalNullable[str] = UNSET
+    r"""Series information"""
+
+    series_season: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="seriesSeason")
+    ] = UNSET
+    r"""Series season if applicable"""
+
+    series_title: Annotated[
+        OptionalNullable[str], pydantic.Field(alias="seriesTitle")
+    ] = UNSET
+    r"""Series title if part of series"""
+
+    slug: OptionalNullable[str] = UNSET
+    r"""URL slug"""
+
+    start_date: Annotated[
+        OptionalNullable[datetime], pydantic.Field(alias="startDate")
+    ] = UNSET
+    r"""Content start date"""
+
+    sub_type: Annotated[Optional[SubType], pydantic.Field(alias="subType")] = None
+    r"""Video subtype classification"""
+
+    summary: OptionalNullable[str] = UNSET
+    r"""Content summary"""
+
+    tags: Optional[List[VideoTag]] = None
+    r"""Content tags and metadata"""
+
+    thumbnail: Optional[VideoThumbnail] = None
+
+    videos: Optional[List[Video]] = None
+    r"""Additional video information"""
+
+    web_link: Annotated[OptionalNullable[str], pydantic.Field(alias="webLink")] = UNSET
+    r"""Web-specific link"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "advertiserId",
+            "author",
+            "authorizations",
+            "background",
+            "clipType",
+            "ctaLink",
+            "ctaTarget",
+            "ctaText",
+            "ctas",
+            "displayTitle",
+            "endDate",
+            "entitlement",
+            "episodeNumber",
+            "expirationDate",
+            "fantasyLink",
+            "hostNetwork",
+            "id",
+            "images",
+            "intendedAudience",
+            "introEnd",
+            "language",
+            "lastUpdated",
+            "mcpPlaybackId",
+            "mobileLink",
+            "mobileTitle",
+            "originalAirDate",
+            "outroStart",
+            "playIds",
+            "preRollDisabled",
+            "promoAssets",
+            "promoLink",
+            "promoTarget",
+            "promoText",
+            "publishDate",
+            "radioStation",
+            "series",
+            "seriesSeason",
+            "seriesTitle",
+            "slug",
+            "startDate",
+            "subType",
+            "summary",
+            "tags",
+            "thumbnail",
+            "videos",
+            "webLink",
+        ]
+        nullable_fields = [
+            "advertiserId",
+            "author",
+            "clipType",
+            "ctaLink",
+            "ctaTarget",
+            "ctaText",
+            "displayTitle",
+            "endDate",
+            "entitlement",
+            "episodeNumber",
+            "fantasyLink",
+            "hostNetwork",
+            "id",
+            "intendedAudience",
+            "introEnd",
+            "language",
+            "lastUpdated",
+            "mobileLink",
+            "mobileTitle",
+            "outroStart",
+            "promoLink",
+            "promoText",
+            "radioStation",
+            "series",
+            "seriesSeason",
+            "seriesTitle",
+            "slug",
+            "startDate",
+            "summary",
+            "webLink",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(n)  # FIX: Use field name, not alias
+            serialized.pop(n, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m

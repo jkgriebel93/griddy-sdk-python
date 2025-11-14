@@ -5,13 +5,16 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.player_game_stats import (
+from griddy.nfl.models.entities.player_game_stats import (
     PlayerGameStats,
     PlayerGameStatsTypedDict,
 )
-from griddy.nfl.models.pro_game import ProGame, ProGameTypedDict
-from griddy.nfl.models.scoring_play import ScoringPlay, ScoringPlayTypedDict
-from griddy.nfl.models.team_game_stats import TeamGameStats, TeamGameStatsTypedDict
+from griddy.nfl.models.entities.pro_game import ProGame, ProGameTypedDict
+from griddy.nfl.models.entities.scoring_play import ScoringPlay, ScoringPlayTypedDict
+from griddy.nfl.models.entities.team_game_stats import (
+    TeamGameStats,
+    TeamGameStatsTypedDict,
+)
 from griddy.nfl.types import BaseModel
 
 

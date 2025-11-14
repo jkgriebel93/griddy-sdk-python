@@ -5,8 +5,8 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.entities.game_odds import GameOdds, GameOddsTypedDict
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
-from griddy.nfl.models.game_odds import GameOdds, GameOddsTypedDict
 from griddy.nfl.types import BaseModel
 
 

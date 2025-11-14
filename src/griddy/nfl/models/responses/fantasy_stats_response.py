@@ -5,12 +5,12 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
-from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
-from griddy.nfl.models.fantasy_player_stats import (
+from griddy.nfl.models.entities.fantasy_player_stats import (
     FantasyPlayerStats,
     FantasyPlayerStatsTypedDict,
 )
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 from griddy.nfl.types import BaseModel
 
 

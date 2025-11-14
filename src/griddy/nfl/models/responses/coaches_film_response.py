@@ -4,11 +4,11 @@ from typing import List, Optional
 
 from typing_extensions import NotRequired, TypedDict
 
-from griddy.nfl.models.coaches_film_video import (
+from griddy.nfl.models.entities.coaches_film_video import (
     CoachesFilmVideo,
     CoachesFilmVideoTypedDict,
 )
-from griddy.nfl.models.pagination import Pagination, PaginationTypedDict
+from griddy.nfl.models.entities.pagination import Pagination, PaginationTypedDict
 from griddy.nfl.types import BaseModel
 
 from ..response_metadata import ResponseMetadata, ResponseMetadataTypedDict

@@ -4,7 +4,7 @@ from typing import List
 
 from typing_extensions import TypedDict
 
-from griddy.nfl.models.player_search_result import (
+from griddy.nfl.models.entities.player_search_result import (
     PlayerSearchResult,
     PlayerSearchResultTypedDict,
 )

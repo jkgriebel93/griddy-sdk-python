@@ -5,7 +5,7 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.team_rankings import TeamRankings, TeamRankingsTypedDict
+from griddy.nfl.models.entities.team_rankings import TeamRankings, TeamRankingsTypedDict
 from griddy.nfl.types import BaseModel
 
 

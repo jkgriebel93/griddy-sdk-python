@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from typing_extensions import NotRequired, TypedDict
 
-from griddy.nfl.models.team import Team, TeamTypedDict
+from griddy.nfl.models.entities.team import Team, TeamTypedDict
 from griddy.nfl.types import BaseModel
 
 

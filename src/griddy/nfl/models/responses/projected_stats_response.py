@@ -4,15 +4,15 @@ from typing import List, Optional, Union
 
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
-from griddy.nfl.models.player_projection import (
+from griddy.nfl.models.entities.player_projection import (
     PlayerProjection,
     PlayerProjectionTypedDict,
 )
-from griddy.nfl.models.player_week_projected_points import (
+from griddy.nfl.models.entities.player_week_projected_points import (
     PlayerWeekProjectedPoints,
     PlayerWeekProjectedPointsTypedDict,
 )
-from griddy.nfl.models.player_week_projected_stats import (
+from griddy.nfl.models.entities.player_week_projected_stats import (
     PlayerWeekProjectedStats,
     PlayerWeekProjectedStatsTypedDict,
 )

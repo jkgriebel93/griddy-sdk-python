@@ -5,11 +5,11 @@ from typing import Any, Dict, List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.game_center_schedule import (
+from griddy.nfl.models.entities.game_center_schedule import (
     GamecenterSchedule,
     GamecenterScheduleTypedDict,
 )
-from griddy.nfl.models.passer_stats import PasserStats, PasserStatsTypedDict
+from griddy.nfl.models.entities.passer_stats import PasserStats, PasserStatsTypedDict
 from griddy.nfl.types import BaseModel
 
 

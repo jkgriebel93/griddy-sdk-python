@@ -4,7 +4,10 @@ from typing import List
 
 from typing_extensions import TypedDict
 
-from griddy.nfl.models.film_room_play import FilmroomPlay, FilmroomPlayTypedDict
+from griddy.nfl.models.entities.film_room_play import (
+    FilmroomPlay,
+    FilmroomPlayTypedDict,
+)
 from griddy.nfl.types import BaseModel
 
 

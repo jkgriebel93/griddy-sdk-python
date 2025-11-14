@@ -5,7 +5,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.defensive_pass_rush_stats import (
+from griddy.nfl.models.entities.defensive_pass_rush_stats import (
     DefensivePassRushStats,
     DefensivePassRushStatsTypedDict,
 )

@@ -5,7 +5,7 @@ from typing import List
 import pydantic
 from typing_extensions import Annotated, TypedDict
 
-from griddy.nfl.models.play_win_probability import (
+from griddy.nfl.models.entities.play_win_probability import (
     PlayWinProbability,
     PlayWinProbabilityTypedDict,
 )

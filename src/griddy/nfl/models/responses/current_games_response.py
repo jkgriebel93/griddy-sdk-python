@@ -5,7 +5,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.current_game import CurrentGame, CurrentGameTypedDict
+from griddy.nfl.models.entities.current_game import CurrentGame, CurrentGameTypedDict
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
 

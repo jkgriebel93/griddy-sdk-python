@@ -5,8 +5,8 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.player import Player, PlayerTypedDict
-from griddy.nfl.models.team import Team, TeamTypedDict
+from griddy.nfl.models.entities.player import Player, PlayerTypedDict
+from griddy.nfl.models.entities.team import Team, TeamTypedDict
 from griddy.nfl.types import BaseModel
 
 

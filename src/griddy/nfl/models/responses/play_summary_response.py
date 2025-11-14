@@ -5,9 +5,9 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.game_schedule import GameSchedule, GameScheduleTypedDict
-from griddy.nfl.models.play_detail import PlayDetail, PlayDetailTypedDict
-from griddy.nfl.models.play_player import PlayPlayer, PlayPlayerTypedDict
+from griddy.nfl.models.entities.game_schedule import GameSchedule, GameScheduleTypedDict
+from griddy.nfl.models.entities.play_detail import PlayDetail, PlayDetailTypedDict
+from griddy.nfl.models.entities.play_player import PlayPlayer, PlayPlayerTypedDict
 from griddy.nfl.types import BaseModel
 
 

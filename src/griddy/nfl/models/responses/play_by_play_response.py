@@ -5,10 +5,10 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.drive import Drive, DriveTypedDict
-from griddy.nfl.models.play import Play, PlayTypedDict
-from griddy.nfl.models.pro_game import ProGame, ProGameTypedDict
-from griddy.nfl.models.scoring_play import ScoringPlay, ScoringPlayTypedDict
+from griddy.nfl.models.entities.drive import Drive, DriveTypedDict
+from griddy.nfl.models.entities.play import Play, PlayTypedDict
+from griddy.nfl.models.entities.pro_game import ProGame, ProGameTypedDict
+from griddy.nfl.models.entities.scoring_play import ScoringPlay, ScoringPlayTypedDict
 from griddy.nfl.types import BaseModel
 
 

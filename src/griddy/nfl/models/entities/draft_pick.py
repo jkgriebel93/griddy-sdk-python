@@ -1,0 +1,46 @@
+from __future__ import annotations
+
+from typing import Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ...types import BaseModel
+from .player import Player, PlayerTypedDict
+from .team import Team, TeamTypedDict
+
+
+class DraftPickTypedDict(TypedDict):
+    college: NotRequired[str]
+    is_compensatory: NotRequired[bool]
+    original_team: NotRequired[TeamTypedDict]
+    overall_pick: NotRequired[int]
+    pick: NotRequired[int]
+    player: NotRequired[PlayerTypedDict]
+    position: NotRequired[str]
+    round: NotRequired[int]
+    team: NotRequired[TeamTypedDict]
+
+
+class DraftPick(BaseModel):
+    college: Optional[str] = None
+
+    is_compensatory: Annotated[
+        Optional[bool], pydantic.Field(alias="isCompensatory")
+    ] = None
+
+    original_team: Annotated[Optional[Team], pydantic.Field(alias="originalTeam")] = (
+        None
+    )
+
+    overall_pick: Annotated[Optional[int], pydantic.Field(alias="overallPick")] = None
+
+    pick: Optional[int] = None
+
+    player: Optional[Player] = None
+
+    position: Optional[str] = None
+
+    round: Optional[int] = None
+
+    team: Optional[Team] = None

@@ -4,8 +4,8 @@ from typing import List, Optional
 
 from typing_extensions import NotRequired, TypedDict
 
-from griddy.nfl.models.pagination import Pagination, PaginationTypedDict
-from griddy.nfl.models.weekly_game_detail import (
+from griddy.nfl.models.entities.pagination import Pagination, PaginationTypedDict
+from griddy.nfl.models.entities.weekly_game_detail import (
     WeeklyGameDetail,
     WeeklyGameDetailTypedDict,
 )

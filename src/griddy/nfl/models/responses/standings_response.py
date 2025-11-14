@@ -5,9 +5,9 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.entities.pagination import Pagination, PaginationTypedDict
+from griddy.nfl.models.entities.standings import Standings, StandingsTypedDict
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
-from griddy.nfl.models.pagination import Pagination, PaginationTypedDict
-from griddy.nfl.models.standings import Standings, StandingsTypedDict
 from griddy.nfl.types import BaseModel
 
 
