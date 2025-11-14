@@ -5,9 +5,12 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.game_result_enum import GameResultEnum
+from griddy.nfl.models.enums.offensive_player_position_enum import (
+    OffensivePlayerPositionEnum,
+)
+
 from ..types import BaseModel
-from .game_result_enum import GameResultEnum
-from .offensive_player_position_enum import OffensivePlayerPositionEnum
 
 
 class WeeklyPlayerRushingStatsTypedDict(TypedDict):

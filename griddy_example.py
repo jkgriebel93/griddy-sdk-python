@@ -21,7 +21,7 @@ else:
 # This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
 fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 steelers_team_id = "10403900-8251-6892-d81c-4348525c2d47"
-result = nfl.football_teams.get_roster(team_id=steelers_team_id, season=2025)
+result = nfl.football_teams.get_teams(season=2025)
 
 is_pydantic = True
 

@@ -5,9 +5,10 @@ from typing import List
 import pydantic
 from typing_extensions import Annotated, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import BaseModel
 from .live_game import LiveGame, LiveGameTypedDict
-from .season_type_enum import SeasonTypeEnum
 
 
 class LiveScoresResponseTypedDict(TypedDict):

@@ -6,11 +6,12 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import BaseModel
 from .boxscore_score import BoxscoreScore, BoxscoreScoreTypedDict
 from .boxscore_site import BoxscoreSite, BoxscoreSiteTypedDict
 from .boxscore_team import BoxscoreTeam, BoxscoreTeamTypedDict
-from .season_type_enum import SeasonTypeEnum
 
 
 class BoxscoreScheduleTypedDict(TypedDict):

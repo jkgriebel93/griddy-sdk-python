@@ -7,8 +7,9 @@ import pydantic
 from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .season_type_enum import SeasonTypeEnum
 
 
 class WeeklyPlayerTypedDict(TypedDict):

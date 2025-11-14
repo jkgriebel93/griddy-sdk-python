@@ -1,10 +1,10 @@
 from typing import Optional, TypedDict
 
 import pydantic
-from typing_extensions import Annotated, NotRequired
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.combine_enums import EventFilterEnum
-from griddy.nfl.models.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 

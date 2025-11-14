@@ -5,18 +5,11 @@ from typing import Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.enums.down_enum import DownEnum
-from griddy.nfl.models.enums.game_location_enum import GameLocationEnum
-from griddy.nfl.models.enums.position_enums import DefenseNGSPositionGroupEnum
-from griddy.nfl.models.enums.quarter_enum import QuarterEnum
-from griddy.nfl.models.enums.yards_to_go_enum import YardsToGoEnum
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-from .enums.defensive_splits_enum import DefenseNGSSplitEnum
-from .season_type_enum import SeasonTypeEnum
-from .sort_order_enum import SortOrderEnum
-from .week_slug_enum import WeekSlugEnum
 
 GetDefensiveNearestDefenderStatsBySeasonSortKey = Literal[
     "cov"

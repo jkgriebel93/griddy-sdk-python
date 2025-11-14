@@ -5,12 +5,13 @@ from typing import List, Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.binary_flag_enum import BinaryFlagEnum
+from griddy.nfl.models.enums.play_type_enum import PlayTypeEnum
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-from .binary_flag_enum import BinaryFlagEnum
-from .play_type_enum import PlayTypeEnum
-from .season_type_enum import SeasonTypeEnum
-from .week_slug_enum import WeekSlugEnum
 
 YardsToGoType = Literal[
     "SHORT",

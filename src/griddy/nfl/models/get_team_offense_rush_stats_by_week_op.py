@@ -7,9 +7,9 @@ from griddy.nfl.types import BaseModel
 
 GetTeamOffenseRushStatsByWeekSortKey = Literal["rushYpg"]
 
-from griddy.nfl.models.season_type_enum import SeasonTypeEnum
-from griddy.nfl.models.sort_order_enum import SortOrderEnum
-from griddy.nfl.models.week_slug_enum import WeekSlugEnum
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 

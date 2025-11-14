@@ -6,9 +6,10 @@ import pydantic
 from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.conference_enum import ConferenceEnum
+
 from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
 from .conference import Conference, ConferenceTypedDict
-from .conference_enum import ConferenceEnum
 from .division import Division, DivisionTypedDict
 from .team_type_enum import TeamTypeEnum
 

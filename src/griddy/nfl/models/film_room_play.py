@@ -5,9 +5,10 @@ from typing import Any, Dict, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.play_type_enum import PlayTypeEnum
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import BaseModel
-from .play_type_enum import PlayTypeEnum
-from .season_type_enum import SeasonTypeEnum
 
 
 class FilmroomPlayTypedDict(TypedDict):

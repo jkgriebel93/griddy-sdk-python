@@ -3,9 +3,10 @@ from __future__ import annotations
 import pydantic
 from typing_extensions import Annotated, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-from .season_type_enum import SeasonTypeEnum
 
 
 class GetLiveGameScoresRequestTypedDict(TypedDict):

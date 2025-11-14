@@ -5,10 +5,11 @@ from typing import List, Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+
 from ..types import BaseModel
 from ..utils import FieldMetadata, QueryParamMetadata
-from .season_type_enum import SeasonTypeEnum
-from .sort_order_enum import SortOrderEnum
 
 GetPlayerRushingStatsBySeasonSortKey = Literal[
     "att",

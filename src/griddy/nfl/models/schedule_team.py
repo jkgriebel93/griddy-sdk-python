@@ -5,8 +5,9 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.conference_enum import ConferenceEnum
+
 from ..types import BaseModel
-from .conference_enum import ConferenceEnum
 from .team_type_enum import TeamTypeEnum
 
 

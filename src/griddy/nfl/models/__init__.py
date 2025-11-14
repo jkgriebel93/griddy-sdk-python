@@ -30,11 +30,36 @@ if TYPE_CHECKING:
         CombineProfilesResponse,
         CombineProfilesResponseTypedDict,
     )
+    from griddy.nfl.models.enums.binary_flag_enum import BinaryFlagEnum
     from griddy.nfl.models.enums.combine_enums import (
         CollegeClassEnum,
         DesignationEnum,
         EventFilterEnum,
     )
+    from griddy.nfl.models.enums.conference_enum import ConferenceEnum
+    from griddy.nfl.models.enums.defensive_position_group_enum import (
+        DefensivePositionGroupEnum,
+    )
+    from griddy.nfl.models.enums.game_result_enum import GameResultEnum
+    from griddy.nfl.models.enums.game_status_enum import GameStatusEnum
+    from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
+    from griddy.nfl.models.enums.offensive_player_position_enum import (
+        OffensivePlayerPositionEnum,
+    )
+    from griddy.nfl.models.enums.offensive_skill_position_enum import (
+        OffensiveSkillPositionEnum,
+    )
+    from griddy.nfl.models.enums.passing_stats_category_enum import (
+        PassingStatsCategoryEnum,
+    )
+    from griddy.nfl.models.enums.play_type_enum import PlayTypeEnum
+    from griddy.nfl.models.enums.practice_status_enum import PracticeStatusEnum
+    from griddy.nfl.models.enums.receiving_stats_category_enum import (
+        ReceivingStatsCategoryEnum,
+    )
+    from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+    from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+    from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
     from griddy.nfl.models.football_roster import (
         FootballRoster,
         FootballRosterTypedDict,
@@ -128,7 +153,6 @@ if TYPE_CHECKING:
     )
 
     from .award import Award, AwardType, AwardTypedDict
-    from .binary_flag_enum import BinaryFlagEnum
     from .boxscore_response import BoxscoreResponse, BoxscoreResponseTypedDict
     from .boxscore_response_2 import (
         Away,
@@ -176,7 +200,6 @@ if TYPE_CHECKING:
         VideoTypedDict,
     )
     from .conference import Conference, ConferenceTypedDict
-    from .conference_enum import ConferenceEnum
     from .contract_info import ContractInfo, ContractInfoTypedDict
     from .current_game import (
         CurrentGame,
@@ -209,7 +232,6 @@ if TYPE_CHECKING:
         DefensivePlayerOverviewStatsPosition,
         DefensivePlayerOverviewStatsTypedDict,
     )
-    from .defensive_position_group_enum import DefensivePositionGroupEnum
     from .defensive_stats import DefensiveStats, DefensiveStatsTypedDict
     from .division import Division, DivisionTypedDict
     from .draft_pick import DraftPick, DraftPickTypedDict
@@ -319,7 +341,6 @@ if TYPE_CHECKING:
         Preview,
         PreviewTypedDict,
     )
-    from .game_result_enum import GameResultEnum
     from .game_schedule import GameSchedule, GameScheduleTypedDict
     from .game_score import GameScore, GameScoreTypedDict, Phase
     from .game_site import GameSite, GameSiteRoofType, GameSiteTypedDict
@@ -329,7 +350,6 @@ if TYPE_CHECKING:
         GameStatsResponseDataTypedDict,
         GameStatsResponseTypedDict,
     )
-    from .game_status_enum import GameStatusEnum
     from .game_team import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
     from .games_response import GamesResponse, GamesResponseTypedDict
     from .get_coaches_film_videos_op import (
@@ -626,7 +646,6 @@ if TYPE_CHECKING:
         MatchupRankingsResponse,
         MatchupRankingsResponseTypedDict,
     )
-    from .meridiem_enum import MeridiemEnum
     from .moneyline import MoneyLine, MoneyLineTypedDict
     from .multiple_rankings_category import (
         MultipleRankingsCategory,
@@ -639,8 +658,6 @@ if TYPE_CHECKING:
         NearestDefenderStatsResponseTypedDict,
     )
     from .odds_selection import OddsSelection, OddsSelectionTypedDict
-    from .offensive_player_position_enum import OffensivePlayerPositionEnum
-    from .offensive_skill_position_enum import OffensiveSkillPositionEnum
     from .overall_record import (
         OverallRecord,
         OverallRecordPoints,
@@ -657,7 +674,6 @@ if TYPE_CHECKING:
     )
     from .passer_stats import PasserStats, PasserStatsTypedDict, Zone, ZoneTypedDict
     from .passing_stats import PassingStats, PassingStatsTypedDict
-    from .passing_stats_category_enum import PassingStatsCategoryEnum
     from .passing_stats_response import (
         PassingStatsResponse,
         PassingStatsResponseTypedDict,
@@ -676,7 +692,6 @@ if TYPE_CHECKING:
     from .play_player import PlayPlayer, PlayPlayerTypedDict
     from .play_stat import PlayStat, PlayStatTypedDict
     from .play_summary_response import PlaySummaryResponse, PlaySummaryResponseTypedDict
-    from .play_type_enum import PlayTypeEnum
     from .play_win_probability import PlayWinProbability, PlayWinProbabilityTypedDict
     from .player import Player, PlayerTypedDict
     from .player_detail import PlayerDetail, PlayerDetailTypedDict
@@ -736,7 +751,6 @@ if TYPE_CHECKING:
         PointsRecordPointsTypedDict,
         PointsRecordTypedDict,
     )
-    from .practice_status_enum import PracticeStatusEnum
     from .pro_game import (
         ProGame,
         ProGameCategory,
@@ -765,7 +779,6 @@ if TYPE_CHECKING:
         ProjectedStatsResponseTypedDict,
     )
     from .receiving_stats import ReceivingStats, ReceivingStatsTypedDict
-    from .receiving_stats_category_enum import ReceivingStatsCategoryEnum
     from .receiving_stats_response import (
         ReceivingStatsResponse,
         ReceivingStatsResponseTypedDict,
@@ -793,12 +806,10 @@ if TYPE_CHECKING:
     from .scoring_play import ScoreType, ScoringPlay, ScoringPlayTypedDict
     from .search_players_op import SearchPlayersRequest, SearchPlayersRequestTypedDict
     from .season_stats import SeasonStats, SeasonStatsTypedDict
-    from .season_type_enum import SeasonTypeEnum
     from .season_weeks_response import SeasonWeeksResponse, SeasonWeeksResponseTypedDict
     from .security import Security, SecurityTypedDict
     from .site import Site, SiteRoofType, SiteTypedDict
     from .social_media import SocialMedia, SocialMediaTypedDict
-    from .sort_order_enum import SortOrderEnum
     from .standings import (
         Standings,
         StandingsTeam,
@@ -915,7 +926,6 @@ if TYPE_CHECKING:
     from .video_tag import VideoTag, VideoTagTypedDict
     from .video_thumbnail import VideoThumbnail, VideoThumbnailTypedDict
     from .week import Week, WeekTypedDict, WeekWeekType
-    from .week_slug_enum import WeekSlugEnum
     from .weekly_game_detail import (
         DriveChart,
         DriveChartTypedDict,

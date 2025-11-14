@@ -5,13 +5,14 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import BaseModel
 from .defensive_stats import DefensiveStats, DefensiveStatsTypedDict
 from .kicking_stats import KickingStats, KickingStatsTypedDict
 from .passing_stats import PassingStats, PassingStatsTypedDict
 from .receiving_stats import ReceivingStats, ReceivingStatsTypedDict
 from .rushing_stats import RushingStats, RushingStatsTypedDict
-from .season_type_enum import SeasonTypeEnum
 
 
 class SeasonStatsTypedDict(TypedDict):

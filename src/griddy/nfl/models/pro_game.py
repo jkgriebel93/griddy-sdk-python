@@ -7,11 +7,12 @@ import pydantic
 from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
 from .broadcast_info import BroadcastInfo, BroadcastInfoTypedDict
 from .external_id import ExternalID, ExternalIDTypedDict
-from .meridiem_enum import MeridiemEnum
-from .season_type_enum import SeasonTypeEnum
 from .team import Team, TeamTypedDict
 from .ticket_vendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict

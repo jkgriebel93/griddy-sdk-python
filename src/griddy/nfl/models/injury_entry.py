@@ -5,9 +5,10 @@ from typing import Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.practice_status_enum import PracticeStatusEnum
+
 from ..types import BaseModel
 from .player import Player, PlayerTypedDict
-from .practice_status_enum import PracticeStatusEnum
 
 InjuryEntryGameStatus = Literal[
     "QUESTIONABLE",

@@ -5,9 +5,10 @@ from typing import List
 import pydantic
 from typing_extensions import Annotated, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+
 from ..types import BaseModel
-from .season_type_enum import SeasonTypeEnum
-from .sort_order_enum import SortOrderEnum
 from .teamdefenserushstats import TeamDefenseRushStats, TeamDefenseRushStatsTypedDict
 
 

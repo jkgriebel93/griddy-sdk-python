@@ -5,8 +5,11 @@ from typing import Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.defensive_position_group_enum import (
+    DefensivePositionGroupEnum,
+)
+
 from ..types import BaseModel
-from .defensive_position_group_enum import DefensivePositionGroupEnum
 
 DefensivePassRushStatsNgsPosition = Literal[
     "ED",

@@ -5,8 +5,9 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+
 from ..types import BaseModel
-from .season_type_enum import SeasonTypeEnum
 from .team_info import TeamInfo, TeamInfoTypedDict
 from .weekly_player import WeeklyPlayer, WeeklyPlayerTypedDict
 
