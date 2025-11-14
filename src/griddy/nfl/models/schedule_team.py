@@ -6,9 +6,9 @@ import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from griddy.nfl.models.enums.conference_enum import ConferenceEnum
+from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
 
 from ..types import BaseModel
-from .team_type_enum import TeamTypeEnum
 
 
 class ScheduleTeamTypedDict(TypedDict):

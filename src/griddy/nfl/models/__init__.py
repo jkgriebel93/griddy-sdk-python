@@ -55,6 +55,7 @@ if TYPE_CHECKING:
     )
     from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
     from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+    from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
     from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
     from griddy.nfl.models.football_roster import (
         FootballRoster,
@@ -406,6 +407,16 @@ if TYPE_CHECKING:
     from griddy.nfl.models.requests.get_win_probability_min_op import (
         GetWinProbabilityMinRequest,
         GetWinProbabilityMinRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.refresh_token_request import (
+        RefreshTokenRequest,
+        RefreshTokenRequestNetworkType,
+        RefreshTokenRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.token_request import (
+        TokenRequest,
+        TokenRequestNetworkType,
+        TokenRequestTypedDict,
     )
     from griddy.nfl.models.responses.boxscore_response import (
         BoxscoreResponse,
@@ -907,11 +918,6 @@ if TYPE_CHECKING:
     from .pro_week import ProWeek, ProWeekTypedDict, ProWeekWeekType
     from .receiving_stats import ReceivingStats, ReceivingStatsTypedDict
     from .record import Record, RecordTypedDict
-    from .refresh_token_request import (
-        RefreshTokenRequest,
-        RefreshTokenRequestNetworkType,
-        RefreshTokenRequestTypedDict,
-    )
     from .response_metadata import ResponseMetadata, ResponseMetadataTypedDict
     from .rushing_stats import RushingStats, RushingStatsTypedDict
     from .schedule_team import ScheduleTeam, ScheduleTeamTypedDict
@@ -963,14 +969,8 @@ if TYPE_CHECKING:
     from .team_ranking_entry import TeamRankingEntry, TeamRankingEntryTypedDict
     from .team_rankings import TeamRankings, TeamRankingsTypedDict
     from .team_score import TeamScore, TeamScoreTypedDict
-    from .team_type_enum import TeamTypeEnum
     from .team_venue import TeamVenue, TeamVenueTypedDict
     from .ticket_vendor import TicketVendor, TicketVendorTypedDict
-    from .token_request import (
-        TokenRequest,
-        TokenRequestNetworkType,
-        TokenRequestTypedDict,
-    )
     from .totals import Totals, TotalsTypedDict
     from .transaction import Transaction, TransactionType, TransactionTypedDict
     from .venue import Venue, VenueTypedDict
@@ -2394,9 +2394,9 @@ _dynamic_imports: dict[str, str] = {
     "ReceivingStatsResponseTypedDict": ".responses.receiving_stats_response",
     "Record": ".record",
     "RecordTypedDict": ".record",
-    "RefreshTokenRequest": ".refresh_token_request",
-    "RefreshTokenRequestNetworkType": ".refresh_token_request",
-    "RefreshTokenRequestTypedDict": ".refresh_token_request",
+    "RefreshTokenRequest": ".requests.refresh_token_request",
+    "RefreshTokenRequestNetworkType": ".requests.refresh_token_request",
+    "RefreshTokenRequestTypedDict": ".requests.refresh_token_request",
     "ResponseMetadata": ".response_metadata",
     "ResponseMetadataTypedDict": ".response_metadata",
     "Roster": ".roster_response",
@@ -2495,14 +2495,14 @@ _dynamic_imports: dict[str, str] = {
     "TeamRosterResponseTypedDict": ".responses.team_roster_response",
     "TeamScore": ".team_score",
     "TeamScoreTypedDict": ".team_score",
-    "TeamTypeEnum": ".team_type_enum",
+    "TeamTypeEnum": ".enums.team_type_enum",
     "TeamVenue": ".team_venue",
     "TeamVenueTypedDict": ".team_venue",
     "TicketVendor": ".ticket_vendor",
     "TicketVendorTypedDict": ".ticket_vendor",
-    "TokenRequest": ".token_request",
-    "TokenRequestNetworkType": ".token_request",
-    "TokenRequestTypedDict": ".token_request",
+    "TokenRequest": ".requests.token_request",
+    "TokenRequestNetworkType": ".requests.token_request",
+    "TokenRequestTypedDict": ".requests.token_request",
     "TokenResponse": ".responses.token_response",
     "TokenResponseTypedDict": ".responses.token_response",
     "Totals": ".totals",
