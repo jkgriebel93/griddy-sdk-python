@@ -7,8 +7,8 @@ from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .socialmedia import SocialMedia, SocialMediaTypedDict
-from .teamvenue import TeamVenue, TeamVenueTypedDict
+from .social_media import SocialMedia, SocialMediaTypedDict
+from .team_venue import TeamVenue, TeamVenueTypedDict
 
 TeamConferenceAbbr = Literal[
     "AFC",

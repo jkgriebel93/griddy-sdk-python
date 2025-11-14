@@ -7,8 +7,8 @@ import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import BaseModel
-from .proteam import ProTeam, ProTeamTypedDict
-from .seasontypeenum import SeasonTypeEnum
+from .pro_team import ProTeam, ProTeamTypedDict
+from .season_type_enum import SeasonTypeEnum
 
 WeekWeekType = Literal[
     "HOF",

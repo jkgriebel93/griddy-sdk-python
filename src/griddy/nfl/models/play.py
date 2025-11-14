@@ -7,7 +7,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import BaseModel
 from .penalty import Penalty, PenaltyTypedDict
-from .playparticipant import PlayParticipant, PlayParticipantTypedDict
+from .play_participant import PlayParticipant, PlayParticipantTypedDict
 
 PlayType = Literal[
     "PASS",

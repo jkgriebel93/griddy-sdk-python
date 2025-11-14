@@ -6,7 +6,7 @@ import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import BaseModel
-from .conferenceenum import ConferenceEnum
+from .conference_enum import ConferenceEnum
 
 
 class ConferenceTypedDict(TypedDict):

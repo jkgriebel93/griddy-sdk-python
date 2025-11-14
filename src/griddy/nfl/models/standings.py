@@ -7,10 +7,10 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import BaseModel
 from .clinched import Clinched, ClinchedTypedDict
-from .overallrecord import OverallRecord, OverallRecordTypedDict
-from .pointsrecord import PointsRecord, PointsRecordTypedDict
+from .overall_record import OverallRecord, OverallRecordTypedDict
+from .points_record import PointsRecord, PointsRecordTypedDict
 from .record import Record, RecordTypedDict
-from .standingsrecord import StandingsRecord, StandingsRecordTypedDict
+from .standings_record import StandingsRecord, StandingsRecordTypedDict
 
 
 class StandingsTeamTypedDict(TypedDict):

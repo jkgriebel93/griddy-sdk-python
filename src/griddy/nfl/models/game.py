@@ -8,12 +8,12 @@ from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ..types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .broadcastinfo import BroadcastInfo, BroadcastInfoTypedDict
-from .externalid import ExternalID, ExternalIDTypedDict
-from .meridiemenum import MeridiemEnum
-from .proteam import ProTeam, ProTeamTypedDict
-from .seasontypeenum import SeasonTypeEnum
-from .ticketvendor import TicketVendor, TicketVendorTypedDict
+from .broadcast_info import BroadcastInfo, BroadcastInfoTypedDict
+from .external_id import ExternalID, ExternalIDTypedDict
+from .meridiem_enum import MeridiemEnum
+from .pro_team import ProTeam, ProTeamTypedDict
+from .season_type_enum import SeasonTypeEnum
+from .ticket_vendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
 
 GameCategory = Literal[
