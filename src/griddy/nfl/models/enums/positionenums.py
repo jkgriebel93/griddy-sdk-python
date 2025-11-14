@@ -31,3 +31,7 @@ r"""Next Gen Stats position"""
 
 
 DefenseNGSPositionGroupEnum = Literal["DL", "LB", "DB"]
+
+TeamNeedsPositionEnum = Literal[
+    "CB", "DL", "Edge", "LB", "OL", "QB", "RB", "S", "TE", "WR"
+]

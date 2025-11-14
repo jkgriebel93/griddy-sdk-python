@@ -612,6 +612,9 @@ class Football(BaseSDK):
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
+    # TODO: Box score, play by play return 404. Was this always the case?
+    # In fact, all the paths from here on seem to return 404. Not sure if these were
+    # Never valid, or if something changed.
     def get_football_box_score(
         self,
         *,

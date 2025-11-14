@@ -4,6 +4,45 @@ from importlib import import_module
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from griddy.nfl.models.combineevents import (
+        BenchPress,
+        BenchPressTypedDict,
+        BroadJump,
+        BroadJumpTypedDict,
+        FortyYardDash,
+        FortyYardDashTypedDict,
+        TenYardSplit,
+        TenYardSplitTypedDict,
+        ThreeConeDrill,
+        ThreeConeDrillTypedDict,
+        TwentyYardShuffle,
+        TwentyYardShuffleTypedDict,
+        VerticalJump,
+        VerticalJumpTypedDict,
+    )
+    from griddy.nfl.models.combineprofile import (
+        CombinePerson,
+        CombinePersonTypedDict,
+        CombineProfile,
+        CombineProfileTypedDict,
+    )
+    from griddy.nfl.models.combineprofilesresponse import (
+        CombineProfilesResponse,
+        CombineProfilesResponseTypedDict,
+    )
+    from griddy.nfl.models.enums.combineenums import (
+        CollegeClassEnum,
+        DesignationEnum,
+        EventFilterEnum,
+    )
+    from griddy.nfl.models.football_roster import (
+        FootballRoster,
+        FootballRosterTypedDict,
+    )
+    from griddy.nfl.models.getcombineprofilesop import (
+        GetCombineProfilesRequest,
+        GetCombineProfilesRequestTypedDict,
+    )
     from griddy.nfl.models.getdefensivenearestdefenderstatsbyseasonop import (
         GetDefensiveNearestDefenderStatsBySeasonRequest,
         GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict,
@@ -24,9 +63,17 @@ if TYPE_CHECKING:
         GetDefensivePassRushStatsByWeekRequestTypedDict,
         GetDefensivePassRushStatsByWeekSortKey,
     )
+    from griddy.nfl.models.getdraftpicksreportop import (
+        GetDraftPicksReportRequest,
+        GetDraftPicksReportRequestTypedDict,
+    )
     from griddy.nfl.models.getplaylist import (
         GetPlayListRequest,
         GetPlayListRequestTypedDict,
+    )
+    from griddy.nfl.models.getteamneedsop import (
+        GetTeamNeedsRequest,
+        GetTeamNeedsRequestTypedDict,
     )
     from griddy.nfl.models.getteamoffenserushstatsbyseasonop import (
         GetTeamOffenseRushStatsBySeasonRequest,
@@ -37,6 +84,39 @@ if TYPE_CHECKING:
         GetTeamOffenseRushStatsByWeekRequest,
         GetTeamOffenseRushStatsByWeekRequestTypedDict,
         GetTeamOffenseRushStatsByWeekSortKey,
+    )
+    from griddy.nfl.models.person import Person, PersonTypedDict
+    from griddy.nfl.models.requests.get_football_rosters_op import (
+        GetFootballRostersRequest,
+        GetFootballRostersRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_football_teams_op import (
+        GetFootballTeamsRequest,
+        GetFootballTeamsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_week_of_date_op import (
+        GetWeekOfDateRequest,
+        GetWeekOfDateRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.getcombinerankingsop import (
+        GetCombineRankingsRequest,
+        GetCombineRankingsRequestTypedDict,
+    )
+    from griddy.nfl.models.responses.combinerankingsresponse import (
+        CombineRankingsResponse,
+        CombineRankingsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_rosters_response import (
+        FootballRostersResponse,
+        FootballRostersResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.football_teams_response import (
+        FootballTeamsResponse,
+        FootballTeamsResponseTypedDict,
+    )
+    from griddy.nfl.models.teamneedsresponse import (
+        TeamNeedsResponse,
+        TeamNeedsResponseTypedDict,
     )
     from griddy.nfl.models.teamoffenserushstats import (
         TeamOffenseRushStats,
@@ -872,6 +952,14 @@ if TYPE_CHECKING:
     )
 
 __all__ = [
+    "PersonTypedDict",
+    "Person",
+    "FootballRosterTypedDict",
+    "FootballRoster",
+    "FootballRostersResponseTypedDict",
+    "FootballRostersResponse",
+    "GetFootballRostersRequestTypedDict",
+    "GetFootballRostersRequest",
     "AirYardType",
     "Award",
     "AwardType",
@@ -882,6 +970,35 @@ __all__ = [
     "AwayTypedDict",
     "Background",
     "BackgroundTypedDict",
+    "DesignationEnum",
+    "CollegeClassEnum",
+    "BenchPress",
+    "BroadJump",
+    "FortyYardDash",
+    "TenYardSplit",
+    "ThreeConeDrill",
+    "TwentyYardShuffle",
+    "VerticalJump",
+    "BenchPressTypedDict",
+    "BroadJumpTypedDict",
+    "FortyYardDashTypedDict",
+    "TenYardSplitTypedDict",
+    "ThreeConeDrillTypedDict",
+    "TwentyYardShuffleTypedDict",
+    "VerticalJumpTypedDict",
+    "CombineRankingsResponse",
+    "CombineRankingsResponseTypedDict",
+    "EventFilterEnum",
+    "CombineProfile",
+    "CombineProfileTypedDict",
+    "CombinePerson",
+    "CombinePersonTypedDict",
+    "CombineProfilesResponse",
+    "CombineProfilesResponseTypedDict",
+    "GetCombineProfilesRequest",
+    "GetCombineProfilesRequestTypedDict",
+    "GetCombineRankingsRequest",
+    "GetCombineRankingsRequestTypedDict",
     "BinaryFlagEnum",
     "BoxScoreResponse2",
     "BoxScoreResponse2TypedDict",
@@ -980,6 +1097,10 @@ __all__ = [
     "FixtureTypedDict",
     "FootballGamesResponse",
     "FootballGamesResponseTypedDict",
+    "FootballTeamsResponse",
+    "FootballTeamsResponseTypedDict",
+    "GetFootballTeamsRequest",
+    "GetFootballTeamsRequestTypedDict",
     "FuturesMarket",
     "FuturesMarketTypedDict",
     "FuturesOddsResponse",
@@ -1048,6 +1169,8 @@ __all__ = [
     "GetDefensiveStatsBySeasonSortKey",
     "GetDraftInfoRequest",
     "GetDraftInfoRequestTypedDict",
+    "GetDraftPicksReportRequest",
+    "GetDraftPicksReportRequestTypedDict",
     "GetExperienceGamesRequest",
     "GetExperienceGamesRequestTypedDict",
     "GetExperienceTeamsRequest",
@@ -1171,6 +1294,10 @@ __all__ = [
     "GetTeamOffenseRushStatsByWeekSortKey",
     "GetTeamOffenseRushStatsBySeasonRequest",
     "GetTeamOffenseRushStatsBySeasonSortKey",
+    "GetTeamNeedsRequest",
+    "GetTeamNeedsRequestTypedDict",
+    "GetWeekOfDateRequest",
+    "GetWeekOfDateRequestTypedDict",
     "TeamOffenseRushStats",
     "TeamOffenseRushStatsTypedDict",
     "TeamOffenseRushStatsResponse",
@@ -1499,6 +1626,8 @@ __all__ = [
     "TeamInjuryReportTypedDict",
     "TeamMatchupRankings",
     "TeamMatchupRankingsTypedDict",
+    "TeamNeedsResponse",
+    "TeamNeedsResponseTypedDict",
     "TeamOffenseStats",
     "TeamOffenseStatsResponse",
     "TeamOffenseStatsResponseTypedDict",
@@ -1598,6 +1727,49 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "PersonTypedDict": ".person",
+    "Person": ".person",
+    "FootballRosterTypedDict": ".football_roster",
+    "FootballRoster": ".football_roster",
+    "FootballRostersResponseTypedDict": ".responses.football_rosters_response",
+    "FootballRostersResponse": ".responses.football_rosters_response",
+    "GetFootballRostersRequestTypedDict": ".requests.get_football_rosters_op",
+    "GetFootballRostersRequest": ".requests.get_football_rosters_op",
+    "DesignationEnum": ".enums.combineenums",
+    "CollegeClassEnum": ".enums.combineenums",
+    "BenchPress": ".combineevents",
+    "BroadJump": ".combineevents",
+    "FortyYardDash": ".combineevents",
+    "TenYardSplit": ".combineevents",
+    "ThreeConeDrill": ".combineevents",
+    "TwentyYardShuffle": ".combineevents",
+    "VerticalJump": ".combineevents",
+    "BenchPressTypedDict": ".combineevents",
+    "BroadJumpTypedDict": ".combineevents",
+    "FortyYardDashTypedDict": ".combineevents",
+    "TenYardSplitTypedDict": ".combineevents",
+    "ThreeConeDrillTypedDict": ".combineevents",
+    "TwentyYardShuffleTypedDict": ".combineevents",
+    "VerticalJumpTypedDict": ".combineevents",
+    "CombineProfile": ".combineprofile",
+    "CombineProfileTypedDict": ".combineprofile",
+    "CombinePerson": ".combineprofile",
+    "CombinePersonTypedDict": ".combineprofile",
+    "CombineProfilesResponse": ".combineprofilesresponse",
+    "CombineProfilesResponseTypedDict": ".combineprofilesresponse",
+    "GetCombineProfilesRequest": ".getcombineprofilesop",
+    "GetCombineProfilesRequestTypedDict": ".getcombineprofilesop",
+    "GetCombineRankingsRequest": ".requests.getcombinerankingsop",
+    "GetCombineRankingsRequestTypedDict": ".requests.getcombinerankingsop",
+    "GetWeekOfDateRequest": ".requests.get_week_of_date_op",
+    "GetWeekOfDateRequestTypedDict": ".requests.get_week_of_date_op",
+    "EventFilterEnum": ".enums.combineenums",
+    "CombineRankingsResponse": ".responses.combinerankingsresponse",
+    "CombineRankingsResponseTypedDict": ".responses.combinerankingsresponse",
+    "FootballTeamsResponse": ".responses.football_teams_response",
+    "FootballTeamsResponseTypedDict": ".responses.football_teams_response",
+    "GetFootballTeamsRequest": ".requests.get_football_teams_op",
+    "GetFootballTeamsRequestTypedDict": ".requests.get_football_teams_op",
     "Award": ".award",
     "AwardType": ".award",
     "AwardTypedDict": ".award",
@@ -1818,6 +1990,8 @@ _dynamic_imports: dict[str, str] = {
     "GetDefensiveStatsBySeasonSortKey": ".getdefensivestatsbyseasonop",
     "GetDraftInfoRequest": ".getdraftinfoop",
     "GetDraftInfoRequestTypedDict": ".getdraftinfoop",
+    "GetDraftPicksReportRequest": ".getdraftpicksreportop",
+    "GetDraftPicksReportRequestTypedDict": ".getdraftpicksreportop",
     "GetExperienceGamesRequest": ".getexperiencegamesop",
     "GetExperienceGamesRequestTypedDict": ".getexperiencegamesop",
     "GetExperienceTeamsRequest": ".getexperienceteamsop",
@@ -1962,6 +2136,8 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamScheduleRequestTypedDict": ".getteamscheduleop",
     "GetTeamStandingsRequest": ".getteamstandingsop",
     "GetTeamStandingsRequestTypedDict": ".getteamstandingsop",
+    "GetTeamNeedsRequest": ".getteamneedsop",
+    "GetTeamNeedsRequestTypedDict": ".getteamneedsop",
     "GetTransactionsRequest": ".gettransactionsop",
     "GetTransactionsRequestTypedDict": ".gettransactionsop",
     "GetTransactionsTransactionType": ".gettransactionsop",
@@ -2219,6 +2395,8 @@ _dynamic_imports: dict[str, str] = {
     "TeamInjuryReportTypedDict": ".teaminjuryreport",
     "TeamMatchupRankings": ".teammatchuprankings",
     "TeamMatchupRankingsTypedDict": ".teammatchuprankings",
+    "TeamNeedsResponse": ".teamneedsresponse",
+    "TeamNeedsResponseTypedDict": ".teamneedsresponse",
     "TeamOffenseStats": ".teamoffenseoverviewstats",
     "TeamOffenseStatsTypedDict": ".teamoffenseoverviewstats",
     "TeamOffenseStatsResponse": ".teamoffenseoverviewstatsresponse",

@@ -1,6 +1,6 @@
 from typing import Literal
 
-DefenseNGSSplitEnum = [
+DefenseNGSSplitEnum = Literal[
     "TEAM_DEFENSE_WHEN_LEADING",
     "TEAM_DEFENSE_WHEN_TRAILING",
     "TEAM_DEFENSE_WHEN_TIED",

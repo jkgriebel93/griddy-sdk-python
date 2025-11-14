@@ -9,7 +9,7 @@ from griddy.nfl.utils import get_security_from_env
 from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
-class Games(ProSDK, GameScheduleMixin, GameContentMixin):
+class ProGames(ProSDK, GameScheduleMixin, GameContentMixin):
     # NOTE: game_id corresponds to an int here.
     # You must use the UUID that is returned by all (or most?) other
     # API endpoints to query the /schedules/game endpoint (or possibly others?)
