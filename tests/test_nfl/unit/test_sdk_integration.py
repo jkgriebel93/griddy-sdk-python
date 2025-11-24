@@ -597,11 +597,9 @@ class TestDirectChildMethodAccessibility:
 
         assert hasattr(football, "get_players_team_roster")
         assert hasattr(football, "get_player_details")
-        assert hasattr(football, "get_standings")
         assert hasattr(football, "get_live_game_stats")
         assert hasattr(football, "get_season_player_stats")
         assert hasattr(football, "get_transactions")
-        assert hasattr(football, "get_venues")
         assert hasattr(football, "get_season_weeks")
 
     def test_authentication_methods_exist(self, nfl_sdk):
