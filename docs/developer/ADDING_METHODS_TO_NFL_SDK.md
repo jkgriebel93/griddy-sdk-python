@@ -443,7 +443,8 @@ class {SubSDKName}(ProSDK):
 **For Regular API endpoints:**
 
 ```python
-from griddy.nfl.basesdk import BaseSDK
+from griddy.nfl.endpoints.basesdk import BaseSDK
+
 
 class {SubSDKName}(BaseSDK):
     r"""Brief description"""

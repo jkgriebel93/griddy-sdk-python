@@ -1,15 +1,13 @@
 import time
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 from uuid import uuid4
 
 import pytest
 import responses
-from pytest_httpx import HTTPXMock
 
-from griddy.nfl import models
+from griddy.nfl import GriddyNFL, models
 from griddy.nfl._hooks.hack_auth import HackAuthHook
 from griddy.nfl._hooks.types import BeforeRequestContext, HookContext
-from griddy.nfl.sdk import GriddyNFL
 
 fake_sched_resp = {
     "weeks": [

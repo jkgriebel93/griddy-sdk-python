@@ -14226,11 +14226,7 @@ paths:
   /football/v2/players/{playerId}:
     get:
       description: 'Retrieves detailed information about a specific player including
-        biography,
-
-        career statistics, and current season performance.
-
-        '
+        biography, career statistics, and current season performance.'
       operationId: getPlayerDetails
       parameters:
       - description: Player identifier
