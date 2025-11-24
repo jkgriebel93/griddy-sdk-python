@@ -595,13 +595,6 @@ class TestDirectChildMethodAccessibility:
         """Test Football sub-SDK methods."""
         football = nfl_sdk.football
 
-        # Verify all Football API v2 methods exist
-        # assert hasattr(football, "get_draft_info")
-        # assert hasattr(football, "get_weekly_game_details")
-        # assert hasattr(football, "get_football_games")
-        # assert hasattr(football, "get_football_box_score")
-        # assert hasattr(football, "get_play_by_play")
-        assert hasattr(football, "get_injury_reports")
         assert hasattr(football, "get_players_team_roster")
         assert hasattr(football, "get_player_details")
         assert hasattr(football, "get_standings")
@@ -610,9 +603,6 @@ class TestDirectChildMethodAccessibility:
         assert hasattr(football, "get_transactions")
         assert hasattr(football, "get_venues")
         assert hasattr(football, "get_season_weeks")
-
-        # Verify they are callable
-        assert callable(football.get_injury_reports)
 
     def test_authentication_methods_exist(self, nfl_sdk):
         """Test Authentication sub-SDK methods."""

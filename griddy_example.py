@@ -24,14 +24,14 @@ fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 team_id = "10403800-517c-7b8c-65a3-c61b95d86123"
 player_id = "2560726"
 # result = nfl.football_teams.get_teams(season=2025)
-result = nfl.football.get_transactions(
-    start_date=date(year=2025, month=10, day=1),
-    end_date=date(year=2025, month=10, day=31),
-)
+result = nfl.injuries.get_injury_reports(season=2025, week=12)
+print(result)
 
 is_pydantic = True
 
 if is_pydantic:
-    pprint(result.model_dump(), indent=4)
+    if isinstance(result, list):
+        for r in result:
+            pprint(r.model_dump(), indent=4)
 else:
     print(json.dumps(result, indent=4))
