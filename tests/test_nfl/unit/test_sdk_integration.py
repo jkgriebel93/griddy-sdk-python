@@ -467,11 +467,6 @@ class TestDirectChildSubSDKAccess:
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-        "player_statistics": ("griddy.nfl.player_statistics", "PlayerStatistics"),
-        "team_offense_pass_statistics": (
-            "griddy.nfl.team_offense_pass_statistics",
-            "TeamOffensePassStatistics",
-        ),
         "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
         "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
@@ -555,26 +550,6 @@ class TestDirectChildMethodAccessibility:
         assert callable(fantasy.get_fantasy_stats_by_season)
         assert callable(fantasy.get_fantasy_stats_by_season_async)
 
-    def test_player_statistics_methods_exist(self, nfl_sdk):
-        """Test PlayerStatistics sub-SDK methods (deprecated but still accessible)."""
-        player_stats = nfl_sdk.player_statistics
-
-        assert hasattr(player_stats, "get_player_passing_stats_by_season")
-        assert hasattr(player_stats, "get_player_passing_stats_by_season_async")
-
-        assert callable(player_stats.get_player_passing_stats_by_season)
-        assert callable(player_stats.get_player_passing_stats_by_season_async)
-
-    def test_team_offense_pass_statistics_methods_exist(self, nfl_sdk):
-        """Test TeamOffensePassStatistics sub-SDK methods (marked for deletion)."""
-        team_stats = nfl_sdk.team_offense_pass_statistics
-
-        assert hasattr(team_stats, "get_team_offense_pass_stats_by_season")
-        assert hasattr(team_stats, "get_team_offense_pass_stats_by_season_async")
-
-        assert callable(team_stats.get_team_offense_pass_stats_by_season)
-        assert callable(team_stats.get_team_offense_pass_stats_by_season_async)
-
     def test_stats_sdk_methods_exist(self, nfl_sdk):
         """Test StatsSDK sub-SDK methods."""
         stats = nfl_sdk.stats
@@ -600,7 +575,6 @@ class TestDirectChildMethodAccessibility:
         assert hasattr(football, "get_live_game_stats")
         assert hasattr(football, "get_season_player_stats")
         assert hasattr(football, "get_transactions")
-        assert hasattr(football, "get_season_weeks")
 
     def test_authentication_methods_exist(self, nfl_sdk):
         """Test Authentication sub-SDK methods."""

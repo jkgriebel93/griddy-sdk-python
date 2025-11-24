@@ -896,7 +896,7 @@ class TeamOffenseStats(ProSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/api/secured/stats/team-offense/pass/season",
+            path="/api/secured/stats/team-offense/pass/week",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

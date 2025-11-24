@@ -24,9 +24,12 @@ fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
 team_id = "10403800-517c-7b8c-65a3-c61b95d86123"
 player_id = "2560726"
 
-result = nfl.venues.get_venues(season=2025)
+result = nfl.football.get_transactions(
+    start_date=date(year=2025, month=10, day=1),
+    end_date=date(year=2025, month=10, day=31),
+)
 
-is_pydantic = True
+is_pydantic = False
 
 if is_pydantic:
     if isinstance(result, list):

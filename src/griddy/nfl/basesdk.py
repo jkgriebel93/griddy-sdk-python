@@ -3,11 +3,7 @@ from urllib.parse import parse_qs, urlparse
 
 import httpx
 
-from ..nfl._hooks import (
-    AfterErrorContext,
-    AfterSuccessContext,
-    BeforeRequestContext,
-)
+from ..nfl._hooks import AfterErrorContext, AfterSuccessContext, BeforeRequestContext
 from ..nfl.utils import RetryConfig, SerializedRequestBody, get_body_content
 from . import errors, models, utils
 from .sdkconfiguration import SDKConfiguration
@@ -241,6 +237,8 @@ class BaseSDK:
                     req.headers,
                     get_body_content(req),
                 )
+
+                print("ARMADILLO", req.url)
 
                 if client is None:
                     raise ValueError("client is required")
