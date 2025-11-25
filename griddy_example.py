@@ -25,16 +25,14 @@ team_id = "10403800-517c-7b8c-65a3-c61b95d86123"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-result = nfl.pro_games.get_game_team_rankings(
+result = nfl.games.get_live_game_stats(
     season=2025,
     season_type="REG",
-    home_team_id="10403900-8251-6892-d81c-4348525c2d47",
-    away_team_id="10401800-ab22-323d-721a-cee4713c4c2d",
-    week=8,
+    week=12,
 )
 
 
-is_pydantic = False
+is_pydantic = True
 
 if is_pydantic:
     if isinstance(result, list):

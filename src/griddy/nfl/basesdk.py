@@ -238,8 +238,6 @@ class BaseSDK:
                     get_body_content(req),
                 )
 
-                print("ARMADILLO", req.url)
-
                 if client is None:
                     raise ValueError("client is required")
 

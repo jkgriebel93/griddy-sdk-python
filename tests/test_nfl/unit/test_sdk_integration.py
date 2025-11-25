@@ -549,16 +549,6 @@ class TestDirectChildMethodAccessibility:
         assert callable(fantasy.get_fantasy_stats_by_season)
         assert callable(fantasy.get_fantasy_stats_by_season_async)
 
-    def test_football_methods_exist(self, nfl_sdk):
-        """Test Football sub-SDK methods."""
-        football = nfl_sdk.football
-
-        assert hasattr(football, "get_players_team_roster")
-        assert hasattr(football, "get_player_details")
-        assert hasattr(football, "get_live_game_stats")
-        assert hasattr(football, "get_season_player_stats")
-        assert hasattr(football, "get_transactions")
-
     def test_authentication_methods_exist(self, nfl_sdk):
         """Test Authentication sub-SDK methods."""
         auth = nfl_sdk.authentication
