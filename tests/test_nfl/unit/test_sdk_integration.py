@@ -467,7 +467,6 @@ class TestDirectChildSubSDKAccess:
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-        "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
         "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
@@ -549,13 +548,6 @@ class TestDirectChildMethodAccessibility:
 
         assert callable(fantasy.get_fantasy_stats_by_season)
         assert callable(fantasy.get_fantasy_stats_by_season_async)
-
-    def test_stats_sdk_methods_exist(self, nfl_sdk):
-        """Test StatsSDK sub-SDK methods."""
-        stats = nfl_sdk.stats
-
-        assert hasattr(stats, "get_game_team_rankings")
-        assert hasattr(stats, "get_game_team_rankings_async")
 
     def test_football_methods_exist(self, nfl_sdk):
         """Test Football sub-SDK methods."""

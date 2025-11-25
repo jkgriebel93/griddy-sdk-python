@@ -48,7 +48,6 @@ if TYPE_CHECKING:
     from .fantasy_statistics import FantasyStatistics
     from .football import Football
     from .scores import Scores
-    from .stats_sdk import StatsSDK
     from .win_probability import WinProbability
 
 
@@ -108,8 +107,6 @@ class GriddyNFL(BaseSDK):
     team_defense_stats: "TeamDefenseStats"
     r"""Comprehensive team defensive rush statistics and situational analytics"""
     r"""Comprehensive team offensive pass statistics and situational analytics"""
-    stats: "StatsSDK"
-    r"""Comprehensive game and team statistics endpoints"""
     teams: "Teams"
     r"""Team information, rosters, and schedules"""
 
@@ -172,7 +169,6 @@ class GriddyNFL(BaseSDK):
             "griddy.nfl.endpoints.pro.stats.team_defense",
             "TeamDefenseStats",
         ),
-        "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),

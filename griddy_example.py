@@ -25,18 +25,16 @@ team_id = "10403800-517c-7b8c-65a3-c61b95d86123"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-# result = nfl.pro_games.get_gamecenter(game_id=reg_game_id)
-result = nfl.teams.get_multiple_rankings_all_teams(
+result = nfl.pro_games.get_game_team_rankings(
     season=2025,
     season_type="REG",
-    stat0="scoring-averagePointsScored",
-    # stat1="offense-yardsPerGame",
-    # stat2="offense-rushYardsPerGame",
-    # stat3="offense-passYardsPerGame",
-    # tat4="misc-netTurnovers"
+    home_team_id="10403900-8251-6892-d81c-4348525c2d47",
+    away_team_id="10401800-ab22-323d-721a-cee4713c4c2d",
+    week=8,
 )
 
-is_pydantic = True
+
+is_pydantic = False
 
 if is_pydantic:
     if isinstance(result, list):
