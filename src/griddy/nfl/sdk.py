@@ -40,8 +40,6 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.venues import Venues
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
-    from .fantasy_statistics import FantasyStatistics
-
 
 class GriddyNFL(BaseSDK):
     r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
