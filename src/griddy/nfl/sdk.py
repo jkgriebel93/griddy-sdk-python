@@ -113,6 +113,10 @@ class GriddyNFL(BaseSDK):
     r"""Token generation and refresh operations for NFL API access"""
 
     _sub_sdk_map = {
+        "authentication": (
+            "griddy.nfl.endpoints.regular.authentication",
+            "Authentication",
+        ),
         "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
         # TODO: There will be a collision when we get to the top-level experience endpoint
@@ -162,7 +166,6 @@ class GriddyNFL(BaseSDK):
         ),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "transactions": ("griddy.nfl.endpoints.pro.transactions", "Transactions"),
-        "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
 
     _client_data = {

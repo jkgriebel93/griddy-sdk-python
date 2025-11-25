@@ -467,7 +467,6 @@ class TestDirectChildSubSDKAccess:
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-        "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
 
     @pytest.mark.parametrize("attr_name,module_info", DIRECT_CHILD_SUB_SDKS.items())
