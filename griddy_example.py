@@ -25,10 +25,14 @@ team_id = "10403800-517c-7b8c-65a3-c61b95d86123"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-result = nfl.games.get_live_game_stats(
+result = nfl.games.get_weekly_game_details(
     season=2025,
-    season_type="REG",
+    type_="REG",
     week=12,
+    include_drive_chart=True,
+    include_replays=True,
+    include_standings=True,
+    include_tagged_videos=True,
 )
 
 
@@ -37,7 +41,10 @@ is_pydantic = True
 if is_pydantic:
     if isinstance(result, list):
         for r in result:
-            pprint(r.model_dump(), indent=4)
+            if isinstance(r, dict):
+                pprint(r, indent=4)
+            else:
+                pprint(r.model_dump(), indent=4)
     else:
         pprint(result.model_dump(), indent=4)
 else:

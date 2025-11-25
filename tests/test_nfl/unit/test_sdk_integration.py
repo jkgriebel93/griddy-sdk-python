@@ -467,7 +467,6 @@ class TestDirectChildSubSDKAccess:
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-        "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
 

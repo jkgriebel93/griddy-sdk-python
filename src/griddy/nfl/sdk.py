@@ -34,7 +34,6 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
-    from griddy.nfl.endpoints.regular.football.experience import Experience
     from griddy.nfl.endpoints.regular.football.games import Games
     from griddy.nfl.endpoints.regular.football.injuries import Injuries
     from griddy.nfl.endpoints.regular.football.rosters import Rosters
@@ -46,7 +45,6 @@ if TYPE_CHECKING:
     from .authentication import Authentication
     from .betting import Betting
     from .fantasy_statistics import FantasyStatistics
-    from .football import Football
     from .scores import Scores
     from .win_probability import WinProbability
 
@@ -61,8 +59,6 @@ class GriddyNFL(BaseSDK):
     r"""Draft information"""
     injuries: "Injuries"
     r"""Injury reports"""
-    experience: "Experience"
-    r"""Unsure what 'experience' entails"""
     games: "Games"
     r"""Game information from the regular API"""
     rosters: "Rosters"
@@ -110,10 +106,6 @@ class GriddyNFL(BaseSDK):
     teams: "Teams"
     r"""Team information, rosters, and schedules"""
 
-    experience: "Experience"
-    r"""Experience API endpoints for games and teams"""
-    football: "Football"
-    r"""Football API endpoints for games, standings, stats, and venues"""
     authentication: "Authentication"
     r"""Token generation and refresh operations for NFL API access"""
 
@@ -121,10 +113,6 @@ class GriddyNFL(BaseSDK):
         "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
         # TODO: There will be a collision when we get to the top-level experience endpoint
-        "experience": (
-            "griddy.nfl.endpoints.regular.football.experience",
-            "Experience",
-        ),
         "injuries": ("griddy.nfl.endpoints.regular.football.injuries", "Injuries"),
         "games": ("griddy.nfl.endpoints.regular.football.games", "Games"),
         "rosters": ("griddy.nfl.endpoints.regular.football.rosters", "Rosters"),
@@ -170,7 +158,6 @@ class GriddyNFL(BaseSDK):
             "TeamDefenseStats",
         ),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
-        "football": ("griddy.nfl.football", "Football"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
 
