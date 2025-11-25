@@ -46,8 +46,6 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
     from .fantasy_statistics import FantasyStatistics
-    from .scores import Scores
-    from .win_probability import WinProbability
 
 
 class GriddyNFL(BaseSDK):
@@ -85,12 +83,8 @@ class GriddyNFL(BaseSDK):
     r"""Game schedules, matchup rankings, and injury reports"""
     betting: "Betting"
     r"""Game betting odds and lines"""
-    scores: "Scores"
     transactions: "Transactions"
     r"""Endpoint for fetching transactions"""
-    r"""Real-time scoring and game status endpoints"""
-    win_probability: "WinProbability"
-    r"""Game and play-level win probability analytics"""
     fantasy_statistics: "FantasyStatistics"
     r"""Fantasy football player statistics and scoring metrics"""
 
@@ -134,8 +128,6 @@ class GriddyNFL(BaseSDK):
         "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.endpoints.pro.betting", "Betting"),
-        "scores": ("griddy.nfl.scores", "Scores"),
-        "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "defensive_pass_rush_statistics": (
             "griddy.nfl.defensive_pass_rush_statistics",
             "DefensivePassRushStatistics",

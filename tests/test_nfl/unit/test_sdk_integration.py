@@ -463,8 +463,6 @@ class TestDirectChildSubSDKAccess:
 
     # Map of attribute name to expected module and class for direct child modules
     DIRECT_CHILD_SUB_SDKS = {
-        "scores": ("griddy.nfl.scores", "Scores"),
-        "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
     }
 
@@ -513,28 +511,6 @@ class TestDirectChildMethodAccessibility:
 
         assert callable(betting.get_weekly_betting_odds)
         assert callable(betting.get_weekly_betting_odds_async)
-
-    def test_scores_methods_exist(self, nfl_sdk):
-        """Test Scores sub-SDK methods."""
-        scores = nfl_sdk.scores
-
-        assert hasattr(scores, "get_live_game_scores")
-        assert hasattr(scores, "get_live_game_scores_async")
-
-        assert callable(scores.get_live_game_scores)
-        assert callable(scores.get_live_game_scores_async)
-
-    def test_win_probability_methods_exist(self, nfl_sdk):
-        """Test WinProbability sub-SDK methods."""
-        win_prob = nfl_sdk.win_probability
-
-        assert hasattr(win_prob, "get_plays_win_probability")
-        assert hasattr(win_prob, "get_plays_win_probability_async")
-        assert hasattr(win_prob, "get_win_probability_min")
-        assert hasattr(win_prob, "get_win_probability_min_async")
-
-        assert callable(win_prob.get_plays_win_probability)
-        assert callable(win_prob.get_win_probability_min)
 
     def test_fantasy_statistics_methods_exist(self, nfl_sdk):
         """Test FantasyStatistics sub-SDK methods."""

@@ -5,13 +5,12 @@ from typing import List, Union
 import pydantic
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
-from griddy.nfl.types import BaseModel
-from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-from .winprobabilityresponse import (
+from griddy.nfl.models.responses.win_probability_response import (
     WinProbabilityResponse,
     WinProbabilityResponseTypedDict,
 )
+from griddy.nfl.types import BaseModel
+from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 GameIDTypedDict = TypeAliasType("GameIDTypedDict", Union[str, List[str]])
 r"""Game identifier(s) in 10-digit format (YYYYMMDDNN).
