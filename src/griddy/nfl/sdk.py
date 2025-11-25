@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.pro.transactions import Transactions
+    from griddy.nfl.endpoints.regular.authentication import Authentication
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.games import Games
@@ -43,7 +44,6 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.venues import Venues
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
-    from .authentication import Authentication
     from .betting import Betting
     from .fantasy_statistics import FantasyStatistics
     from .scores import Scores
