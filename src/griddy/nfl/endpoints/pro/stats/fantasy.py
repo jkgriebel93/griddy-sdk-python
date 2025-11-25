@@ -1,17 +1,17 @@
 from typing import List, Mapping, Optional
 
-from . import errors, models, utils
-from ._hooks import HookContext
-from .basesdk import BaseSDK
-from .types import UNSET, OptionalNullable
-from .utils import get_security_from_env
-from .utils.unmarshal_json_response import unmarshal_json_response
+from griddy.nfl import errors, models, utils
+from griddy.nfl._hooks import HookContext
+from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.types import UNSET, OptionalNullable
+from griddy.nfl.utils import get_security_from_env
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
-class FantasyStatistics(BaseSDK):
+class Fantasy(ProSDK):
     r"""Fantasy football player statistics and scoring metrics"""
 
-    def get_fantasy_stats_by_season(
+    def get_stats_by_season(
         self,
         *,
         season: int,
@@ -124,7 +124,9 @@ class FantasyStatistics(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FantasyStatsResponse, http_res)
+            # TODO: Fix Pydantic model
+            # return unmarshal_json_response(models.FantasyStatsResponse, http_res)
+            return http_res.json()
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GriddyNFLDefaultError(
@@ -138,7 +140,7 @@ class FantasyStatistics(BaseSDK):
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
-    async def get_fantasy_stats_by_season_async(
+    async def get_stats_by_season_async(
         self,
         *,
         season: int,

@@ -26,12 +26,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.games import ProGames
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
-    from griddy.nfl.endpoints.pro.stats.defense import PlayerDefenseStats
-    from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
-    from griddy.nfl.endpoints.pro.stats.receiving import PlayerReceivingStats
-    from griddy.nfl.endpoints.pro.stats.rushing import PlayerRushingStats
-    from griddy.nfl.endpoints.pro.stats.team_defense import TeamDefenseStats
-    from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
+    from griddy.nfl.endpoints.pro.stats import StatsSDK
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.pro.transactions import Transactions
     from griddy.nfl.endpoints.regular.authentication import Authentication
@@ -71,6 +66,8 @@ class GriddyNFL(BaseSDK):
     weeks: "Weeks"
     r"""Weekly information"""
     ##### Pro SDKs #####
+    stats: "StatsSDK"
+    r"""Aggregated player and team statistics (access via stats.passing, stats.rushing, etc.)"""
     betting: "Betting"
     r"""Betting related resources"""
     content: "Content"
@@ -87,20 +84,6 @@ class GriddyNFL(BaseSDK):
     r"""Endpoint for fetching transactions"""
     fantasy_statistics: "FantasyStatistics"
     r"""Fantasy football player statistics and scoring metrics"""
-
-    player_passing_stats: "PlayerPassingStats"
-    r"""Individual player passing statistics"""
-    player_receiving_stats: "PlayerReceivingStats"
-    r"""Individual player receiving statistics and analytics"""
-    player_rushing_stats: "PlayerRushingStats"
-    r"""Individual player rushing statistics and analytics"""
-    player_defense_stats: "PlayerDefenseStats"
-    r"""Comprehensive individual defensive player statistics and analytics"""
-    team_offense_stats: "TeamOffenseStats"
-    r"""Overview Offensive Next Gen Stats"""
-    team_defense_stats: "TeamDefenseStats"
-    r"""Comprehensive team defensive rush statistics and situational analytics"""
-    r"""Comprehensive team offensive pass statistics and situational analytics"""
     teams: "Teams"
     r"""Team information, rosters, and schedules"""
 
@@ -124,6 +107,7 @@ class GriddyNFL(BaseSDK):
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
+        "stats": ("griddy.nfl.endpoints.pro.stats", "StatsSDK"),
         # TODO: Refactor so that this call will be invoked as nfl.pro.games
         "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
@@ -133,30 +117,6 @@ class GriddyNFL(BaseSDK):
             "DefensivePassRushStatistics",
         ),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-        "player_passing_stats": (
-            "griddy.nfl.endpoints.pro.stats.passing",
-            "PlayerPassingStats",
-        ),
-        "player_receiving_statistics": (
-            "griddy.nfl.endpoints.pro.stats.receiving",
-            "PlayerReceivingStats",
-        ),
-        "player_rushing_stats": (
-            "griddy.nfl.endpoints.pro.stats.rushing",
-            "PlayerRushingStats",
-        ),
-        "player_defense_stats": (
-            "griddy.nfl.endpoints.pro.stats.defense",
-            "PlayerDefenseStats",
-        ),
-        "team_offense_stats": (
-            "griddy.nfl.endpoints.pro.stats.team_offense",
-            "TeamOffenseStats",
-        ),
-        "team_defense_stats": (
-            "griddy.nfl.endpoints.pro.stats.team_defense",
-            "TeamDefenseStats",
-        ),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "transactions": ("griddy.nfl.endpoints.pro.transactions", "Transactions"),
     }
