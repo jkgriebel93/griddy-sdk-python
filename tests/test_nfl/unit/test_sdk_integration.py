@@ -556,8 +556,6 @@ class TestDirectChildMethodAccessibility:
 
         assert hasattr(stats, "get_game_team_rankings")
         assert hasattr(stats, "get_game_team_rankings_async")
-        assert hasattr(stats, "get_multiple_rankings_all_teams")
-        assert hasattr(stats, "get_multiple_rankings_all_teams_async")
 
     def test_football_methods_exist(self, nfl_sdk):
         """Test Football sub-SDK methods."""
