@@ -1,14 +1,16 @@
 from typing import List, Mapping, Optional
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
 class Teams(ProSDK):
+    # Error codes for collection endpoints (no 404)
+    _COLLECTION_ERROR_CODES = ["401", "4XX", "500", "5XX"]
+    # Error codes for resource endpoints (includes 404)
+    _RESOURCE_ERROR_CODES = ["400", "401", "404", "4XX", "500", "5XX"]
+
     def get_all_teams(
         self,
         *,
@@ -28,20 +30,14 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/api/teams/all",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=None,
             request_body_required=False,
             request_has_path_params=False,
@@ -53,43 +49,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getAllTeams",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getAllTeams", base_url),
             request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ProTeam], http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, List[models.ProTeam], self._COLLECTION_ERROR_CODES
+        )
 
     async def get_all_teams_async(
         self,
@@ -110,20 +81,14 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/api/teams/all",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=None,
             request_body_required=False,
             request_has_path_params=False,
@@ -135,43 +100,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getAllTeams",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getAllTeams", base_url),
             request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ProTeam], http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, List[models.ProTeam], self._COLLECTION_ERROR_CODES
+        )
 
     def get_team_roster(
         self,
@@ -196,26 +136,16 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetTeamRosterRequest(
-            team_id=team_id,
-            season=season,
-        )
+        request = models.GetTeamRosterRequest(team_id=team_id, season=season)
 
         req = self._build_request(
             method="GET",
             path="/api/teams/roster",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -227,43 +157,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamRoster",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamRoster", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TeamRosterResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.TeamRosterResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_team_roster_async(
         self,
@@ -288,26 +193,16 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetTeamRosterRequest(
-            team_id=team_id,
-            season=season,
-        )
+        request = models.GetTeamRosterRequest(team_id=team_id, season=season)
 
         req = self._build_request_async(
             method="GET",
             path="/api/teams/roster",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -319,43 +214,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamRoster",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamRoster", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TeamRosterResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.TeamRosterResponse, self._RESOURCE_ERROR_CODES
+        )
 
     def get_weekly_team_roster(
         self,
@@ -384,15 +254,8 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetWeeklyTeamRosterRequest(
             team_id=team_id,
@@ -405,7 +268,7 @@ class Teams(ProSDK):
             method="GET",
             path="/api/teams/rosterWeek",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -417,43 +280,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getWeeklyTeamRoster",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getWeeklyTeamRoster", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WeeklyRosterResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.WeeklyRosterResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_weekly_team_roster_async(
         self,
@@ -482,15 +320,8 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetWeeklyTeamRosterRequest(
             team_id=team_id,
@@ -503,7 +334,7 @@ class Teams(ProSDK):
             method="GET",
             path="/api/teams/rosterWeek",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -515,43 +346,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getWeeklyTeamRoster",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getWeeklyTeamRoster", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WeeklyRosterResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.WeeklyRosterResponse, self._RESOURCE_ERROR_CODES
+        )
 
     def get_team_schedule(
         self,
@@ -576,26 +382,16 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetTeamScheduleRequest(
-            team_id=team_id,
-            season=season,
-        )
+        request = models.GetTeamScheduleRequest(team_id=team_id, season=season)
 
         req = self._build_request(
             method="GET",
             path="/api/teams/schedule",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -607,43 +403,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamSchedule",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamSchedule", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ScheduledGame], http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, List[models.ScheduledGame], self._RESOURCE_ERROR_CODES
+        )
 
     async def get_team_schedule_async(
         self,
@@ -668,26 +439,16 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetTeamScheduleRequest(
-            team_id=team_id,
-            season=season,
-        )
+        request = models.GetTeamScheduleRequest(team_id=team_id, season=season)
 
         req = self._build_request_async(
             method="GET",
             path="/api/teams/schedule",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -699,43 +460,18 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamSchedule",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamSchedule", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ScheduledGame], http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, List[models.ScheduledGame], self._RESOURCE_ERROR_CODES
+        )
 
     # TODO: These ranking methods may fit better in the stats APIs somewhere
     def get_multiple_rankings_all_teams(
@@ -771,15 +507,8 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetMultipleRankingsAllTeamsRequest(
             season=season,
@@ -795,7 +524,7 @@ class Teams(ProSDK):
             method="GET",
             path="/api/stats/multiple-rankings/all-teams",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -807,45 +536,19 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
+        error_codes = ["400", "401", "4XX", "500", "5XX"]
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getMultipleRankingsAllTeams",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getMultipleRankingsAllTeams", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=error_codes,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.MultipleRankingsCategory], http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, List[models.MultipleRankingsCategory], error_codes
+        )
 
     async def get_multiple_rankings_all_teams_async(
         self,
@@ -880,15 +583,8 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetMultipleRankingsAllTeamsRequest(
             season=season,
@@ -904,7 +600,7 @@ class Teams(ProSDK):
             method="GET",
             path="/api/stats/multiple-rankings/all-teams",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -916,42 +612,16 @@ class Teams(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
+        error_codes = ["400", "401", "4XX", "500", "5XX"]
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getMultipleRankingsAllTeams",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getMultipleRankingsAllTeams", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=error_codes,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.MultipleRankingsCategory], http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, List[models.MultipleRankingsCategory], error_codes
+        )

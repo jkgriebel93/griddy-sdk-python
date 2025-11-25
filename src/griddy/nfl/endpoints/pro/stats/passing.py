@@ -1,14 +1,13 @@
 from typing import List, Mapping, Optional
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
 class PlayerPassingStats(ProSDK):
+    _ERROR_CODES = ["400", "401", "403", "4XX", "500", "5XX"]
+
     def get_weekly_summary(
         self,
         *,
@@ -34,8 +33,6 @@ class PlayerPassingStats(ProSDK):
         Retrieves comprehensive passing statistics for NFL players during a specified week and season.
         Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
         data. Supports filtering by teams, qualified passers, and various sorting options.
-        Data includes completion percentage, yards per attempt, passer rating, EPA (Expected Points Added),
-        CPOE (Completion Percentage Over Expected), time to throw metrics, and game-specific context.
 
 
         :param season: Season year
@@ -53,15 +50,8 @@ class PlayerPassingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerPassingStatsByWeekRequest(
             season=season,
@@ -80,7 +70,7 @@ class PlayerPassingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/passing/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -92,45 +82,21 @@ class PlayerPassingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerPassingStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getPlayerPassingStatsByWeek", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model - schema is broken
         if utils.match_response(http_res, "200", "application/json"):
-            # TODO: Another borked schema
-            # return unmarshal_json_response(models.WeeklyPassingStatsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.WeeklyPassingStatsResponse, self._ERROR_CODES
+        )
 
     async def get_weekly_summary_async(
         self,
@@ -153,10 +119,6 @@ class PlayerPassingStats(ProSDK):
         r"""Get Player Passing Statistics by Week
 
         Retrieves comprehensive passing statistics for NFL players during a specified week and season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified passers, and various sorting options.
-        Data includes completion percentage, yards per attempt, passer rating, EPA (Expected Points Added),
-        CPOE (Completion Percentage Over Expected), time to throw metrics, and game-specific context.
 
 
         :param season: Season year
@@ -174,15 +136,8 @@ class PlayerPassingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerPassingStatsByWeekRequest(
             season=season,
@@ -201,7 +156,7 @@ class PlayerPassingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/passing/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -213,43 +168,18 @@ class PlayerPassingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerPassingStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getPlayerPassingStatsByWeek", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WeeklyPassingStatsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.WeeklyPassingStatsResponse, self._ERROR_CODES
+        )
 
     def get_season_summary(
         self,
@@ -271,10 +201,6 @@ class PlayerPassingStats(ProSDK):
         r"""Get Player Passing Statistics by Season
 
         Retrieves comprehensive passing statistics for NFL players during a specified season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified passers only, and various sorting options.
-        Data includes completion percentage, yards per attempt, passer rating, EPA (Expected Points Added),
-        CPOE (Completion Percentage Over Expected), time to throw metrics, and situational statistics.
 
 
         :param season: Season year
@@ -291,15 +217,8 @@ class PlayerPassingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerPassingStatsBySeasonRequest(
             season=season,
@@ -317,7 +236,7 @@ class PlayerPassingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/passing/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -329,45 +248,23 @@ class PlayerPassingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerPassingStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getPlayerPassingStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model - schema is broken
         if utils.match_response(http_res, "200", "application/json"):
-            # TODO: Another bad model schema
-            # return unmarshal_json_response(models.PassingStatsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.PassingStatsResponse, self._ERROR_CODES
+        )
 
     async def get_season_summary_async(
         self,
@@ -389,10 +286,6 @@ class PlayerPassingStats(ProSDK):
         r"""Get Player Passing Statistics by Season
 
         Retrieves comprehensive passing statistics for NFL players during a specified season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified passers only, and various sorting options.
-        Data includes completion percentage, yards per attempt, passer rating, EPA (Expected Points Added),
-        CPOE (Completion Percentage Over Expected), time to throw metrics, and situational statistics.
 
 
         :param season: Season year
@@ -409,15 +302,8 @@ class PlayerPassingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerPassingStatsBySeasonRequest(
             season=season,
@@ -435,7 +321,7 @@ class PlayerPassingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/passing/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -447,40 +333,17 @@ class PlayerPassingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerPassingStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getPlayerPassingStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PassingStatsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.PassingStatsResponse, self._ERROR_CODES
+        )

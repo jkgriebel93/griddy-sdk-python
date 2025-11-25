@@ -1,16 +1,15 @@
 from typing import Mapping, Optional
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.endpoints.pro.mixins import GameScheduleMixin
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
 class Schedules(ProSDK, GameScheduleMixin):
     r"""Game schedules, matchup rankings, and injury reports"""
+
+    _COLLECTION_ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_scheduled_games(
         self,
@@ -38,15 +37,8 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetScheduledGamesRequest(
             season=season,
@@ -58,7 +50,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             method="GET",
             path="/api/schedules/games",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -70,43 +62,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getScheduledGames",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getScheduledGames", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GamesResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.GamesResponse, self._COLLECTION_ERROR_CODES
+        )
 
     async def get_scheduled_games_async(
         self,
@@ -134,15 +101,8 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetScheduledGamesRequest(
             season=season,
@@ -154,7 +114,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             method="GET",
             path="/api/schedules/games",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -166,43 +126,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getScheduledGames",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getScheduledGames", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GamesResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.GamesResponse, self._COLLECTION_ERROR_CODES
+        )
 
     def get_current_week_games(
         self,
@@ -225,20 +160,14 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/api/schedules/current",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=None,
             request_body_required=False,
             request_has_path_params=False,
@@ -250,43 +179,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getCurrentWeekGames",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getCurrentWeekGames", base_url),
             request=req,
             error_status_codes=["401", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CurrentGamesResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.CurrentGamesResponse, ["401", "4XX", "500", "5XX"]
+        )
 
     async def get_current_week_games_async(
         self,
@@ -309,20 +213,14 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/api/schedules/current",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=None,
             request_body_required=False,
             request_has_path_params=False,
@@ -334,43 +232,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getCurrentWeekGames",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getCurrentWeekGames", base_url),
             request=req,
             error_status_codes=["401", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CurrentGamesResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.CurrentGamesResponse, ["401", "4XX", "500", "5XX"]
+        )
 
     def get_future_betting_odds(
         self,
@@ -393,20 +266,14 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/api/schedules/genius/future/odds",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=None,
             request_body_required=False,
             request_has_path_params=False,
@@ -418,43 +285,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getFutureBettingOdds",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getFutureBettingOdds", base_url),
             request=req,
             error_status_codes=["401", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FuturesOddsResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.FuturesOddsResponse, ["401", "4XX", "500", "5XX"]
+        )
 
     async def get_future_betting_odds_async(
         self,
@@ -477,20 +319,14 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/api/schedules/genius/future/odds",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=None,
             request_body_required=False,
             request_has_path_params=False,
@@ -502,43 +338,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getFutureBettingOdds",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getFutureBettingOdds", base_url),
             request=req,
             error_status_codes=["401", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FuturesOddsResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.FuturesOddsResponse, ["401", "4XX", "500", "5XX"]
+        )
 
     def get_team_standings(
         self,
@@ -567,15 +378,8 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamStandingsRequest(
             season=season,
@@ -587,7 +391,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             method="GET",
             path="/api/schedules/standings",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -599,43 +403,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamStandings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamStandings", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.StandingsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.StandingsResponse, self._COLLECTION_ERROR_CODES
+        )
 
     async def get_team_standings_async(
         self,
@@ -664,15 +443,8 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamStandingsRequest(
             season=season,
@@ -684,7 +456,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             method="GET",
             path="/api/schedules/standings",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -696,43 +468,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamStandings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamStandings", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.StandingsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.StandingsResponse, self._COLLECTION_ERROR_CODES
+        )
 
     def get_schedule_season_weeks(
         self,
@@ -756,15 +503,8 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetScheduleSeasonWeeksRequest(
             season=season,
@@ -774,7 +514,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             method="GET",
             path="/api/schedules/weeks",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -786,43 +526,18 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getScheduleSeasonWeeks",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getScheduleSeasonWeeks", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.SeasonWeeksResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.SeasonWeeksResponse, self._COLLECTION_ERROR_CODES
+        )
 
     async def get_schedule_season_weeks_async(
         self,
@@ -846,15 +561,8 @@ class Schedules(ProSDK, GameScheduleMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetScheduleSeasonWeeksRequest(
             season=season,
@@ -864,7 +572,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             method="GET",
             path="/api/schedules/weeks",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -876,40 +584,15 @@ class Schedules(ProSDK, GameScheduleMixin):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getScheduleSeasonWeeks",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getScheduleSeasonWeeks", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.SeasonWeeksResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.SeasonWeeksResponse, self._COLLECTION_ERROR_CODES
+        )

@@ -1,13 +1,19 @@
 from typing import List, Mapping, Optional, Union
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
 class GameScheduleMixin:
+    """Mixin for game schedule-related endpoints.
+
+    These methods are designed to be mixed into classes that inherit from ProSDK/BaseSDK,
+    which provides the helper methods (_resolve_base_url, _resolve_timeout, etc.).
+    """
+
+    _RESOURCE_ERROR_CODES = ["400", "401", "404", "4XX", "500", "5XX"]
+    _COLLECTION_ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
+
     def get_scheduled_game(
         self,
         *,
@@ -30,25 +36,16 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetScheduledGameRequest(
-            game_id=game_id,
-        )
+        request = models.GetScheduledGameRequest(game_id=game_id)
 
         req = self._build_request(
             method="GET",
             path="/api/schedules/game",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -60,43 +57,18 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getScheduledGame",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getScheduledGame", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GameDetail, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.GameDetail, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_scheduled_game_async(
         self,
@@ -120,25 +92,16 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetScheduledGameRequest(
-            game_id=game_id,
-        )
+        request = models.GetScheduledGameRequest(game_id=game_id)
 
         req = self._build_request_async(
             method="GET",
             path="/api/schedules/game",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -150,43 +113,18 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getScheduledGame",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getScheduledGame", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GameDetail, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.GameDetail, self._RESOURCE_ERROR_CODES
+        )
 
     def get_game_matchup_rankings(
         self,
@@ -210,25 +148,16 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetGameMatchupRankingsRequest(
-            game_id=game_id,
-        )
+        request = models.GetGameMatchupRankingsRequest(game_id=game_id)
 
         req = self._build_request(
             method="GET",
             path="/api/schedules/game/matchup/rankings",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -240,43 +169,18 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGameMatchupRankings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGameMatchupRankings", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.MatchupRankingsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.MatchupRankingsResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_game_matchup_rankings_async(
         self,
@@ -300,25 +204,16 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetGameMatchupRankingsRequest(
-            game_id=game_id,
-        )
+        request = models.GetGameMatchupRankingsRequest(game_id=game_id)
 
         req = self._build_request_async(
             method="GET",
             path="/api/schedules/game/matchup/rankings",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -330,43 +225,18 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGameMatchupRankings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGameMatchupRankings", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.MatchupRankingsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.MatchupRankingsResponse, self._RESOURCE_ERROR_CODES
+        )
 
     def get_game_team_rankings(
         self,
@@ -397,15 +267,8 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetGameTeamRankingsRequest(
             season=season,
@@ -419,7 +282,7 @@ class GameScheduleMixin:
             method="GET",
             path="/api/stats/game/team-rankings",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -431,45 +294,22 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGameTeamRankings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGameTeamRankings", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model
+        # Once fixed, use: return self._handle_json_response(http_res, models.TeamRankingsResponse, self._COLLECTION_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
-            # TODO: Fix Pydantic model
-            # return unmarshal_json_response(models.TeamRankingsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.TeamRankingsResponse, self._COLLECTION_ERROR_CODES
+        )
 
     async def get_game_team_rankings_async(
         self,
@@ -500,15 +340,8 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetGameTeamRankingsRequest(
             season=season,
@@ -522,7 +355,7 @@ class GameScheduleMixin:
             method="GET",
             path="/api/stats/game/team-rankings",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -534,43 +367,18 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGameTeamRankings",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGameTeamRankings", base_url),
             request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TeamRankingsResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.TeamRankingsResponse, self._COLLECTION_ERROR_CODES
+        )
 
     def get_team_injuries(
         self,
@@ -599,15 +407,8 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamInjuriesRequest(
             season=season,
@@ -620,7 +421,7 @@ class GameScheduleMixin:
             method="GET",
             path="/api/schedules/game/team/injuries",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -632,43 +433,18 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamInjuries",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamInjuries", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InjuryReportResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.InjuryReportResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_team_injuries_async(
         self,
@@ -697,15 +473,8 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamInjuriesRequest(
             season=season,
@@ -718,7 +487,7 @@ class GameScheduleMixin:
             method="GET",
             path="/api/schedules/game/team/injuries",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -730,46 +499,25 @@ class GameScheduleMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamInjuries",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamInjuries", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InjuryReportResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.InjuryReportResponse, self._RESOURCE_ERROR_CODES
+        )
 
 
 class GameContentMixin:
+    """Mixin for game content-related endpoints."""
+
+    _COLLECTION_ERROR_CODES = ["401", "4XX", "500", "5XX"]
+
     def get_game_preview(
         self,
         *,
@@ -797,15 +545,8 @@ class GameContentMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetGamePreviewRequest(
             season=season,
@@ -819,7 +560,7 @@ class GameContentMixin:
             method="GET",
             path="/api/content/game/preview",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -831,44 +572,19 @@ class GameContentMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGamePreview",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGamePreview", base_url),
             request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            # TODO: The model is busted, so unmarshaling returns an empty dict
-            return unmarshal_json_response(models.GamePreviewResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        # TODO: The model is busted, so unmarshaling returns an empty dict
+        return self._handle_json_response(
+            http_res, models.GamePreviewResponse, self._COLLECTION_ERROR_CODES
+        )
 
     async def get_game_preview_async(
         self,
@@ -897,15 +613,8 @@ class GameContentMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetGamePreviewRequest(
             season=season,
@@ -919,7 +628,7 @@ class GameContentMixin:
             method="GET",
             path="/api/content/game/preview",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -931,43 +640,18 @@ class GameContentMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGamePreview",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGamePreview", base_url),
             request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GamePreviewResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.GamePreviewResponse, self._COLLECTION_ERROR_CODES
+        )
 
     def get_game_insights(
         self,
@@ -1002,15 +686,8 @@ class GameContentMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetGameInsightsRequest(
             season=season,
@@ -1026,7 +703,7 @@ class GameContentMixin:
             method="GET",
             path="/api/content/insights/game",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1038,43 +715,18 @@ class GameContentMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGameInsights",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGameInsights", base_url),
             request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.GameInsight], http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, List[models.GameInsight], self._COLLECTION_ERROR_CODES
+        )
 
     async def get_game_insights_async(
         self,
@@ -1109,15 +761,8 @@ class GameContentMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetGameInsightsRequest(
             season=season,
@@ -1133,7 +778,7 @@ class GameContentMixin:
             method="GET",
             path="/api/content/insights/game",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1145,46 +790,25 @@ class GameContentMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getGameInsights",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getGameInsights", base_url),
             request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=self._COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.GameInsight], http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, List[models.GameInsight], self._COLLECTION_ERROR_CODES
+        )
 
 
 class GameResultsDataMixin:
+    """Mixin for game results and play data endpoints."""
+
+    _RESOURCE_ERROR_CODES = ["400", "401", "403", "404", "4XX", "500", "5XX"]
+
     def get_stats_boxscore(
         self,
         *,
@@ -1206,25 +830,16 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetStatsBoxscoreRequest(
-            game_id=game_id,
-        )
+        request = models.GetStatsBoxscoreRequest(game_id=game_id)
 
         req = self._build_request(
             method="GET",
             path="/api/stats/boxscore",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1236,44 +851,22 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getStatsBoxscore",
-                oauth2_scopes=[],
-                security_source=utils.get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getStatsBoxscore", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model
+        # Once fixed, use: return self._handle_json_response(http_res, models.BoxscoreResponse, self._RESOURCE_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-            # return unmarshal_json_response(models.BoxscoreResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.BoxscoreResponse, self._RESOURCE_ERROR_CODES
+        )
 
     def get_playlist(
         self,
@@ -1291,25 +884,16 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetPlayListRequest(
-            game_id=game_id,
-        )
+        request = models.GetPlayListRequest(game_id=game_id)
 
         req = self._build_request(
             method="GET",
             path="/api/secured/plays/playlist/game",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1321,44 +905,19 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlaysWinProbability",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Implement the pydantic models for PlayList & related response
         if utils.match_response(http_res, "200", "application/json"):
-            # TODO: Implement the pydantic models for PlayList & related response
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(http_res, dict, self._RESOURCE_ERROR_CODES)
 
     def get_summary_play(
         self,
@@ -1383,15 +942,8 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetSummaryPlayRequest(
             game_id=game_id,
@@ -1402,7 +954,7 @@ class GameResultsDataMixin:
             method="GET",
             path="/api/plays/summaryPlay",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1414,43 +966,18 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getSummaryPlay",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getSummaryPlay", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlaySummaryResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.PlaySummaryResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_summary_play_async(
         self,
@@ -1475,15 +1002,8 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetSummaryPlayRequest(
             game_id=game_id,
@@ -1494,7 +1014,7 @@ class GameResultsDataMixin:
             method="GET",
             path="/api/plays/summaryPlay",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1506,43 +1026,18 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getSummaryPlay",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getSummaryPlay", base_url),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlaySummaryResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.PlaySummaryResponse, self._RESOURCE_ERROR_CODES
+        )
 
     def get_plays_win_probability(
         self,
@@ -1568,25 +1063,16 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetPlaysWinProbabilityRequest(
-            game_id=game_id,
-        )
+        request = models.GetPlaysWinProbabilityRequest(game_id=game_id)
 
         req = self._build_request(
             method="GET",
             path="/api/secured/plays/winProbability",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1598,47 +1084,22 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlaysWinProbability",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model
+        # Once fixed, use: return self._handle_json_response(http_res, models.GetPlaysWinProbabilityResponse, self._RESOURCE_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
-            # TODO: Fix Pydantic model
-            # return unmarshal_json_response(
-            #     models.GetPlaysWinProbabilityResponse, http_res
-            # )
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.GetPlaysWinProbabilityResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_plays_win_probability_async(
         self,
@@ -1664,25 +1125,16 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetPlaysWinProbabilityRequest(
-            game_id=game_id,
-        )
+        request = models.GetPlaysWinProbabilityRequest(game_id=game_id)
 
         req = self._build_request_async(
             method="GET",
             path="/api/secured/plays/winProbability",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1694,45 +1146,18 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlaysWinProbability",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetPlaysWinProbabilityResponse, http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.GetPlaysWinProbabilityResponse, self._RESOURCE_ERROR_CODES
+        )
 
     def get_win_probability_min(
         self,
@@ -1757,25 +1182,16 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetWinProbabilityMinRequest(
-            fapi_game_id=fapi_game_id,
-        )
+        request = models.GetWinProbabilityMinRequest(fapi_game_id=fapi_game_id)
 
         req = self._build_request(
             method="GET",
             path="/api/secured/plays/winProbabilityMin",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1787,43 +1203,18 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getWinProbabilityMin",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getWinProbabilityMin", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WinProbabilityResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.WinProbabilityResponse, self._RESOURCE_ERROR_CODES
+        )
 
     async def get_win_probability_min_async(
         self,
@@ -1848,25 +1239,16 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetWinProbabilityMinRequest(
-            fapi_game_id=fapi_game_id,
-        )
+        request = models.GetWinProbabilityMinRequest(fapi_game_id=fapi_game_id)
 
         req = self._build_request_async(
             method="GET",
             path="/api/secured/plays/winProbabilityMin",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1878,40 +1260,15 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getWinProbabilityMin",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getWinProbabilityMin", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
+            error_status_codes=self._RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.WinProbabilityResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.WinProbabilityResponse, self._RESOURCE_ERROR_CODES
+        )

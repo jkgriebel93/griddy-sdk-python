@@ -1,16 +1,15 @@
 from typing import List, Mapping, Optional
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 # TODO: All the requests in this file have broken Pydantic models
 
 
 class PlayerReceivingStats(ProSDK):
+    _ERROR_CODES = ["400", "401", "403", "4XX", "500", "5XX"]
+
     def get_season_summary(
         self,
         *,
@@ -31,10 +30,6 @@ class PlayerReceivingStats(ProSDK):
         r"""Get Player Receiving Statistics by Season
 
         Retrieves comprehensive receiving statistics for NFL players during a specified season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified receivers, and various sorting options.
-        Data includes catch percentage, yards per reception, EPA (Expected Points Added), CROE
-        (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
 
 
         :param season: Season year
@@ -44,22 +39,15 @@ class PlayerReceivingStats(ProSDK):
         :param page: Page number for pagination
         :param sort_key: Field to sort by
         :param sort_value: Sort direction
-        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
-        :param team_offense: Filter by specific team IDs (supports multiple teams)
+        :param qualified_receiver: Filter to only qualified receivers
+        :param team_offense: Filter by specific team IDs
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerReceivingStatsBySeasonRequest(
             season=season,
@@ -77,7 +65,7 @@ class PlayerReceivingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/receiving/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -89,44 +77,23 @@ class PlayerReceivingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerReceivingStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getPlayerReceivingStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model - schema is broken
         if utils.match_response(http_res, "200", "application/json"):
-            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.ReceivingStatsResponse, self._ERROR_CODES
+        )
 
     async def get_season_summary_async(
         self,
@@ -148,10 +115,6 @@ class PlayerReceivingStats(ProSDK):
         r"""Get Player Receiving Statistics by Season
 
         Retrieves comprehensive receiving statistics for NFL players during a specified season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified receivers, and various sorting options.
-        Data includes catch percentage, yards per reception, EPA (Expected Points Added), CROE
-        (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
 
 
         :param season: Season year
@@ -161,22 +124,15 @@ class PlayerReceivingStats(ProSDK):
         :param page: Page number for pagination
         :param sort_key: Field to sort by
         :param sort_value: Sort direction
-        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
-        :param team_offense: Filter by specific team IDs (supports multiple teams)
+        :param qualified_receiver: Filter to only qualified receivers
+        :param team_offense: Filter by specific team IDs
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerReceivingStatsBySeasonRequest(
             season=season,
@@ -194,7 +150,7 @@ class PlayerReceivingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/receiving/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -206,44 +162,23 @@ class PlayerReceivingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerReceivingStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getPlayerReceivingStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model - schema is broken
         if utils.match_response(http_res, "200", "application/json"):
-            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.ReceivingStatsResponse, self._ERROR_CODES
+        )
 
     def get_weekly_summary(
         self,
@@ -265,11 +200,7 @@ class PlayerReceivingStats(ProSDK):
     ) -> models.ReceivingStatsResponse:
         r"""Get Player Receiving Statistics by Week
 
-        Retrieves comprehensive receiving statistics for NFL players during a specified week and season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified receivers, and various sorting options.
-        Data includes catch percentage, yards per reception, EPA (Expected Points Added), CROE
-        (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
+        Retrieves comprehensive receiving statistics for NFL players during a specified week.
 
 
         :param season: Season year
@@ -280,22 +211,15 @@ class PlayerReceivingStats(ProSDK):
         :param page: Page number for pagination
         :param sort_key: Field to sort by
         :param sort_value: Sort direction
-        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
-        :param team_offense: Filter by specific team IDs (supports multiple teams)
+        :param qualified_receiver: Filter to only qualified receivers
+        :param team_offense: Filter by specific team IDs
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerReceivingStatsByWeekRequest(
             season=season,
@@ -314,7 +238,7 @@ class PlayerReceivingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/receiving/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -326,44 +250,23 @@ class PlayerReceivingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerReceivingStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getPlayerReceivingStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model - schema is broken
         if utils.match_response(http_res, "200", "application/json"):
-            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.ReceivingStatsResponse, self._ERROR_CODES
+        )
 
     async def get_weekly_summary_async(
         self,
@@ -385,11 +288,7 @@ class PlayerReceivingStats(ProSDK):
     ) -> models.ReceivingStatsResponse:
         r"""Get Player Receiving Statistics by Week
 
-        Retrieves comprehensive receiving statistics for NFL players during a specified week and season.
-        Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
-        data. Supports filtering by teams, qualified receivers, and various sorting options.
-        Data includes catch percentage, yards per reception, EPA (Expected Points Added), CROE
-        (Catch Rate Over Expected), target share, route depth, separation metrics, and YAC analytics.
+        Retrieves comprehensive receiving statistics for NFL players during a specified week.
 
 
         :param season: Season year
@@ -400,22 +299,15 @@ class PlayerReceivingStats(ProSDK):
         :param page: Page number for pagination
         :param sort_key: Field to sort by
         :param sort_value: Sort direction
-        :param qualified_receiver: Filter to only qualified receivers (minimum target threshold)
-        :param team_offense: Filter by specific team IDs (supports multiple teams)
+        :param qualified_receiver: Filter to only qualified receivers
+        :param team_offense: Filter by specific team IDs
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetPlayerReceivingStatsByWeekRequest(
             season=season,
@@ -434,7 +326,7 @@ class PlayerReceivingStats(ProSDK):
             method="GET",
             path="/api/secured/stats/players-offense/receiving/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -446,41 +338,20 @@ class PlayerReceivingStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getPlayerReceivingStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getPlayerReceivingStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
+        # TODO: Fix Pydantic model - schema is broken
         if utils.match_response(http_res, "200", "application/json"):
-            # return unmarshal_json_response(models.ReceivingStatsResponse, http_res)
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.ReceivingStatsResponse, self._ERROR_CODES
+        )

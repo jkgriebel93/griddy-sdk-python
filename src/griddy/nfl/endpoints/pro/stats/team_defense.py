@@ -1,14 +1,15 @@
 from typing import List, Mapping, Optional
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
+
+# TODO: All the requests in this file have broken Pydantic models
 
 
 class TeamDefenseStats(ProSDK):
+    _ERROR_CODES = ["400", "401", "403", "4XX", "500", "5XX"]
+
     def get_season_overview(
         self,
         *,
@@ -25,38 +26,9 @@ class TeamDefenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseStatsResponse:
-        r"""Get Team Defense Statistics by Season
-
-        Retrieves comprehensive defensive statistics for NFL teams during a specified season.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and RYOE, Next Gen Stats data, and situational performance breakdowns. Supports filtering
-        by various defensive situations including personnel packages (Base, Nickel, Dime),
-        game situations (leading, trailing, tied), field positions (red zone, goal-to-go),
-        and offensive formations faced (shotgun, under center, pistol, motion).
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param split: Defensive situation splits to filter by (supports multiple values)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Statistics by Season"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseStatsBySeasonRequest(
             season=season,
@@ -73,7 +45,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/overview/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -85,43 +57,20 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamDefenseStatsBySeason", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.TeamDefenseStatsResponse, self._ERROR_CODES
+        )
 
     async def get_season_overview_async(
         self,
@@ -139,38 +88,9 @@ class TeamDefenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseStatsResponse:
-        r"""Get Team Defense Statistics by Season
-
-        Retrieves comprehensive defensive statistics for NFL teams during a specified season.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and RYOE, Next Gen Stats data, and situational performance breakdowns. Supports filtering
-        by various defensive situations including personnel packages (Base, Nickel, Dime),
-        game situations (leading, trailing, tied), field positions (red zone, goal-to-go),
-        and offensive formations faced (shotgun, under center, pistol, motion).
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param split: Defensive situation splits to filter by (supports multiple values)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Statistics by Season"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseStatsBySeasonRequest(
             season=season,
@@ -187,7 +107,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/overview/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -199,43 +119,20 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamDefenseStatsBySeason", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.TeamDefenseStatsResponse, self._ERROR_CODES
+        )
 
     def get_weekly_overview(
         self,
@@ -246,47 +143,17 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefenseStatsByWeekSortKey] = "ypg",
+        sort_key: Optional[models.GetTeamDefenseStatsBySeasonSortKey] = "ypg",
         sort_value: Optional[models.SortOrderEnum] = None,
-        split: Optional[List[models.GetTeamDefenseStatsByWeekSplit]] = None,
+        split: Optional[List[models.GetTeamDefenseStatsBySeasonSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseStatsResponse:
-        r"""Get Team Defense Statistics by Week
-
-        Retrieves comprehensive defensive statistics for NFL teams during a specified week.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and RYOE, Next Gen Stats data, and situational performance breakdowns. Supports filtering
-        by various defensive situations including personnel packages (Base, Nickel, Dime),
-        game situations (leading, trailing, tied), field positions (red zone, goal-to-go),
-        and offensive formations faced (shotgun, under center, pistol, motion).
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param split: Defensive situation splits to filter by (supports multiple values)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Statistics by Week"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseStatsByWeekRequest(
             season=season,
@@ -304,7 +171,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/overview/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -316,43 +183,20 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamDefenseStatsByWeek", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._handle_json_response(
+            http_res, models.TeamDefenseStatsResponse, self._ERROR_CODES
+        )
 
     async def get_weekly_overview_async(
         self,
@@ -363,47 +207,17 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefenseStatsByWeekSortKey] = "ypg",
+        sort_key: Optional[models.GetTeamDefenseStatsBySeasonSortKey] = "ypg",
         sort_value: Optional[models.SortOrderEnum] = None,
-        split: Optional[List[models.GetTeamDefenseStatsByWeekSplit]] = None,
+        split: Optional[List[models.GetTeamDefenseStatsBySeasonSplit]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseStatsResponse:
-        r"""Get Team Defense Statistics by Week
-
-        Retrieves comprehensive defensive statistics for NFL teams during a specified week.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and RYOE, Next Gen Stats data, and situational performance breakdowns. Supports filtering
-        by various defensive situations including personnel packages (Base, Nickel, Dime),
-        game situations (leading, trailing, tied), field positions (red zone, goal-to-go),
-        and offensive formations faced (shotgun, under center, pistol, motion).
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param split: Defensive situation splits to filter by (supports multiple values)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Statistics by Week"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseStatsByWeekRequest(
             season=season,
@@ -421,7 +235,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/overview/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -433,45 +247,22 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
+            hook_ctx=self._create_hook_context("getTeamDefenseStatsByWeek", base_url),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return await self._handle_json_response_async(
+            http_res, models.TeamDefenseStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    def get_season_pass_defense_stats(
+    def get_season_pass_stats(
         self,
         *,
         season: int,
@@ -486,36 +277,9 @@ class TeamDefenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefensePassStatsResponse:
-        r"""Get Team Defense Pass Statistics by Season
-
-        Retrieves comprehensive pass defense statistics for NFL teams during a specified season.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and YACOE (Yards After Catch Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes pressure rates, coverage metrics,
-        quarterback disruption stats, and receiver separation allowed.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Pass Statistics by Season"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefensePassStatsBySeasonRequest(
             season=season,
@@ -531,7 +295,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/pass/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -543,45 +307,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefensePassStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefensePassStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return self._handle_json_response(
+            http_res, models.TeamDefensePassStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    async def get_season_pass_defense_stats_async(
+    async def get_season_pass_stats_async(
         self,
         *,
         season: int,
@@ -596,36 +339,9 @@ class TeamDefenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefensePassStatsResponse:
-        r"""Get Team Defense Pass Statistics by Season
-
-        Retrieves comprehensive pass defense statistics for NFL teams during a specified season.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and YACOE (Yards After Catch Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes pressure rates, coverage metrics,
-        quarterback disruption stats, and receiver separation allowed.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Pass Statistics by Season"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefensePassStatsBySeasonRequest(
             season=season,
@@ -641,7 +357,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/pass/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -653,45 +369,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefensePassStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefensePassStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return await self._handle_json_response_async(
+            http_res, models.TeamDefensePassStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    def get_weekly_pass_defense_stats(
+    def get_weekly_pass_stats(
         self,
         *,
         season: int,
@@ -700,44 +395,16 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefensePassStatsByWeekSortKey] = "passYpg",
+        sort_key: Optional[models.GetTeamDefensePassStatsBySeasonSortKey] = "passYpg",
         sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefensePassStatsResponse:
-        r"""Get Team Defense Pass Statistics by Week
-
-        Retrieves comprehensive pass defense statistics for NFL teams during a specified week.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and YACOE (Yards After Catch Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes pressure rates, coverage metrics,
-        quarterback disruption stats, and receiver separation allowed.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Pass Statistics by Week"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefensePassStatsByWeekRequest(
             season=season,
@@ -754,7 +421,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/pass/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -766,45 +433,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefensePassStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefensePassStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return self._handle_json_response(
+            http_res, models.TeamDefensePassStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    async def get_weekly_pass_defense_stats_async(
+    async def get_weekly_pass_stats_async(
         self,
         *,
         season: int,
@@ -813,44 +459,16 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefensePassStatsByWeekSortKey] = "passYpg",
+        sort_key: Optional[models.GetTeamDefensePassStatsBySeasonSortKey] = "passYpg",
         sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefensePassStatsResponse:
-        r"""Get Team Defense Pass Statistics by Week
-
-        Retrieves comprehensive pass defense statistics for NFL teams during a specified week.
-        Returns detailed metrics including traditional defensive stats, advanced analytics like EPA
-        and YACOE (Yards After Catch Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes pressure rates, coverage metrics,
-        quarterback disruption stats, and receiver separation allowed.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Pass Statistics by Week"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefensePassStatsByWeekRequest(
             season=season,
@@ -867,7 +485,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/pass/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -879,45 +497,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefensePassStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefensePassStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return await self._handle_json_response_async(
+            http_res, models.TeamDefensePassStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    def get_season_rush_defense_stats(
+    def get_season_rush_stats(
         self,
         *,
         season: int,
@@ -925,43 +522,16 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefenseRushStatsBySeasonSortKey] = "rushYpg",
+        sort_key: Optional[str] = "rushYpg",
         sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseRushStatsResponse:
-        r"""Get Team Defense Rush Statistics by Season
-
-        Retrieves comprehensive rush defense statistics for NFL teams during a specified season.
-        Returns detailed metrics including traditional run defense stats, advanced analytics like EPA
-        and RYOE (Rush Yards Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes stuff rates, gap analysis,
-        box count distributions, and directional rush defense metrics.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Rush Statistics by Season"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseRushStatsBySeasonRequest(
             season=season,
@@ -977,7 +547,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/rush/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -989,45 +559,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseRushStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefenseRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return self._handle_json_response(
+            http_res, models.TeamDefenseRushStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    async def get_season_rush_defense_stats_async(
+    async def get_season_rush_stats_async(
         self,
         *,
         season: int,
@@ -1035,43 +584,16 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefenseRushStatsBySeasonSortKey] = "rushYpg",
+        sort_key: Optional[str] = "rushYpg",
         sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseRushStatsResponse:
-        r"""Get Team Defense Rush Statistics by Season
-
-        Retrieves comprehensive rush defense statistics for NFL teams during a specified season.
-        Returns detailed metrics including traditional run defense stats, advanced analytics like EPA
-        and RYOE (Rush Yards Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes stuff rates, gap analysis,
-        box count distributions, and directional rush defense metrics.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Rush Statistics by Season"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseRushStatsBySeasonRequest(
             season=season,
@@ -1087,7 +609,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/rush/season",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1099,45 +621,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseRushStatsBySeason",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefenseRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return await self._handle_json_response_async(
+            http_res, models.TeamDefenseRushStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    def get_weekly_rush_defense_stats(
+    def get_weekly_rush_stats(
         self,
         *,
         season: int,
@@ -1146,44 +647,16 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefenseRushStatsByWeekSortKey] = "rushYpg",
+        sort_key: Optional[str] = "rushYpg",
         sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseRushStatsResponse:
-        r"""Get Team Defense Rush Statistics by Week
-
-        Retrieves comprehensive rush defense statistics for NFL teams during a specified week.
-        Returns detailed metrics including traditional run defense stats, advanced analytics like EPA
-        and RYOE (Rush Yards Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes stuff rates, gap analysis,
-        box count distributions, and directional rush defense metrics.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Rush Statistics by Week"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseRushStatsByWeekRequest(
             season=season,
@@ -1200,7 +673,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/rush/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1212,45 +685,24 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseRushStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefenseRushStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
+        return self._handle_json_response(
+            http_res, models.TeamDefenseRushStatsResponse, self._ERROR_CODES
+        )
 
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
-
-    async def get_weekly_rush_defense_stats_async(
+    async def get_weekly_rush_stats_async(
         self,
         *,
         season: int,
@@ -1259,44 +711,16 @@ class TeamDefenseStats(ProSDK):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamDefenseRushStatsByWeekSortKey] = "rushYpg",
+        sort_key: Optional[str] = "rushYpg",
         sort_value: Optional[models.SortOrderEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.TeamDefenseRushStatsResponse:
-        r"""Get Team Defense Rush Statistics by Week
-
-        Retrieves comprehensive rush defense statistics for NFL teams during a specified week.
-        Returns detailed metrics including traditional run defense stats, advanced analytics like EPA
-        and RYOE (Rush Yards Over Expected), Next Gen Stats data, and situational performance
-        breakdowns. Supports various sorting options and includes stuff rates, gap analysis,
-        box count distributions, and directional rush defense metrics.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of teams to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
+        r"""Get Team Defense Rush Statistics by Week"""
+        base_url = self._resolve_base_url(server_url)
+        timeout_ms = self._resolve_timeout(timeout_ms)
 
         request = models.GetTeamDefenseRushStatsByWeekRequest(
             season=season,
@@ -1313,7 +737,7 @@ class TeamDefenseStats(ProSDK):
             method="GET",
             path="/api/secured/stats/team-defense/rush/week",
             base_url=base_url,
-            url_variables=url_variables,
+            url_variables=None,
             request=request,
             request_body_required=False,
             request_has_path_params=False,
@@ -1325,40 +749,19 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
         )
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
+        retry_config = self._resolve_retry_config(retries)
 
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getTeamDefenseRushStatsByWeek",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+            hook_ctx=self._create_hook_context(
+                "getTeamDefenseRushStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=self._ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._handle_json_response_async(
+            http_res, models.TeamDefenseRushStatsResponse, self._ERROR_CODES
+        )
