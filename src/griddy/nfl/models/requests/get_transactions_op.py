@@ -22,47 +22,33 @@ r"""Type of transaction"""
 
 
 class GetTransactionsRequestTypedDict(TypedDict):
-    start_date: NotRequired[date]
-    r"""Start date for transactions (ISO 8601)"""
-    end_date: NotRequired[date]
-    r"""End date for transactions (ISO 8601)"""
-    team_id: NotRequired[str]
-    r"""Filter by team"""
-    transaction_type: NotRequired[GetTransactionsTransactionType]
-    r"""Type of transaction"""
+    month: int
+    r"""Month (number) to fetch transactions for"""
+    year: int
+    r"""Year (all four digits, as int) to fetch transactions for"""
+    team_id: str
+    r"""Team UUID string"""
     limit: NotRequired[int]
     r"""Maximum number of results"""
 
 
 class GetTransactionsRequest(BaseModel):
-    start_date: Annotated[
-        Optional[date],
-        pydantic.Field(alias="startDate"),
+    month: Annotated[
+        int,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Start date for transactions (ISO 8601)"""
-
-    end_date: Annotated[
-        Optional[date],
-        pydantic.Field(alias="endDate"),
+    ]
+    r"""Month (number) to fetch transactions for"""
+    year: Annotated[
+        int,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""End date for transactions (ISO 8601)"""
-
+    ]
+    r"""Year (all four digits, as int) to fetch transactions for"""
     team_id: Annotated[
-        Optional[str],
+        str,
         pydantic.Field(alias="teamId"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by team"""
-
-    transaction_type: Annotated[
-        Optional[GetTransactionsTransactionType],
-        pydantic.Field(alias="transactionType"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Type of transaction"""
-
+    ]
+    r"""Team UUID string"""
     limit: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),

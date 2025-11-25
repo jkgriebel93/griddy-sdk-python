@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.stats.team_defense import TeamDefenseStats
     from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
     from griddy.nfl.endpoints.pro.teams import Teams
+    from griddy.nfl.endpoints.pro.transactions import Transactions
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.games import Games
@@ -84,6 +85,8 @@ class GriddyNFL(BaseSDK):
     betting: "Betting"
     r"""Game betting odds and lines"""
     scores: "Scores"
+    transactions: "Transactions"
+    r"""Endpoint for fetching transactions"""
     r"""Real-time scoring and game status endpoints"""
     win_probability: "WinProbability"
     r"""Game and play-level win probability analytics"""
@@ -158,6 +161,7 @@ class GriddyNFL(BaseSDK):
             "TeamDefenseStats",
         ),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
+        "transactions": ("griddy.nfl.endpoints.pro.transactions", "Transactions"),
         "authentication": ("griddy.nfl.authentication", "Authentication"),
     }
 
