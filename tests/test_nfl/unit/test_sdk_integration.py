@@ -463,7 +463,6 @@ class TestDirectChildSubSDKAccess:
 
     # Map of attribute name to expected module and class for direct child modules
     DIRECT_CHILD_SUB_SDKS = {
-        "betting": ("griddy.nfl.betting", "Betting"),
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),

@@ -1,15 +1,15 @@
 from typing import Mapping, Optional
 
-from . import errors, models, utils
-from ._hooks import HookContext
-from .basesdk import BaseSDK
-from .types import UNSET, OptionalNullable
-from .utils import get_security_from_env
-from .utils.unmarshal_json_response import unmarshal_json_response
+from griddy.nfl import errors, models, utils
+from griddy.nfl._hooks import HookContext
+from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.types import UNSET, OptionalNullable
+from griddy.nfl.utils import get_security_from_env
+from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
 # TODO: Not sure where to put this module
-class Betting(BaseSDK):
+class Betting(ProSDK):
     r"""Game betting odds and lines"""
 
     def get_weekly_betting_odds(

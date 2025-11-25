@@ -21,6 +21,7 @@ from .utils.retries import RetryConfig
 from .utils.security import do_browser_auth
 
 if TYPE_CHECKING:
+    from griddy.nfl.endpoints.pro.betting import Betting
     from griddy.nfl.endpoints.pro.content import Content
     from griddy.nfl.endpoints.pro.games import ProGames
     from griddy.nfl.endpoints.pro.players import Players
@@ -44,7 +45,6 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.venues import Venues
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
-    from .betting import Betting
     from .fantasy_statistics import FantasyStatistics
     from .scores import Scores
     from .win_probability import WinProbability
@@ -53,7 +53,6 @@ if TYPE_CHECKING:
 class GriddyNFL(BaseSDK):
     r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
 
-    ##### Regular SDKs #####
     combine: "Combine"
     r"""Combine information"""
     draft: "Draft"
@@ -74,6 +73,8 @@ class GriddyNFL(BaseSDK):
     weeks: "Weeks"
     r"""Weekly information"""
     ##### Pro SDKs #####
+    betting: "Betting"
+    r"""Betting related resources"""
     content: "Content"
     r"""Game previews, film cards, and insights"""
     players: "Players"
@@ -132,7 +133,7 @@ class GriddyNFL(BaseSDK):
         # TODO: Refactor so that this call will be invoked as nfl.pro.games
         "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
-        "betting": ("griddy.nfl.betting", "Betting"),
+        "betting": ("griddy.nfl.endpoints.pro.betting", "Betting"),
         "scores": ("griddy.nfl.scores", "Scores"),
         "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
         "defensive_pass_rush_statistics": (
