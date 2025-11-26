@@ -108,15 +108,10 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 
 ### Regular API - Football
 
-#### injuries.py
-| Fixed | Method | Async Method | Response Model |
-|:-----:|--------|--------------|----------------|
-| [ ] | `get_injury_reports` | `get_injury_reports_async` | `InjuryReportResponse` |
-
 #### rosters.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_rosters` | `get_rosters_async` | `FootballRostersResponse` |
+|  [x]  | `get_rosters` | `get_rosters_async` | `FootballRostersResponse` |
 
 #### combine.py
 | Fixed | Method | Async Method | Response Model |

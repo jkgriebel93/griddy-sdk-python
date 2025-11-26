@@ -5,6 +5,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 from griddy.nfl import models
 from griddy.nfl.types import BaseModel
+from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 
 class PersonTypedDict(TypedDict):
@@ -14,7 +15,7 @@ class PersonTypedDict(TypedDict):
     r"""Colleges the person attended"""
     display_name: str
     r"""First and last name"""
-    birth_date: str
+    birth_date: NotRequired[str]
     r"""Person's date of birth as YYYY-MM-DD"""
     first_name: str
     r"""Person's formal first name"""
@@ -22,15 +23,15 @@ class PersonTypedDict(TypedDict):
     r"""e.g. Mike instead of Michael"""
     esb_id: str
     r"""Another form of ID tracked by the NFL"""
-    gsis_id: str
+    gsis_id: NotRequired[str]
     r"""Yet another ID"""
-    headshot: str
+    headshot: NotRequired[str]
     r"""A URL for the person's headshot used in Media"""
     height: int
     r"""Person's height rounded to nearest whole inch"""
     internation_exempt: bool
     r"""Not sure what this is"""
-    jersey_number: str
+    jersey_number: NotRequired[str]
     r"""Number the player wears on the field."""
     last_name: str
     r"""Person's surname"""
@@ -50,13 +51,13 @@ class PersonTypedDict(TypedDict):
 
 
 class Person(BaseModel):
-    id_: str
+    id_: Annotated[str, pydantic.Field(alias="id")]
     r"""UUUID assigned by the NFL"""
     college_names: Annotated[Optional[List[str]], pydantic.Field(alias="collegeNames")]
     r"""Colleges the person attended"""
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
     r"""First and last name"""
-    birth_date: Annotated[str, pydantic.Field(alias="birthDate")]
+    birth_date: Annotated[Optional[str], pydantic.Field(alias="birthDate")] = None
     r"""Person's date of birth as YYYY-MM-DD"""
     first_name: Annotated[str, pydantic.Field(alias="firstName")]
     r"""Person's formal first name"""
@@ -64,15 +65,19 @@ class Person(BaseModel):
     r"""e.g. Mike instead of Michael"""
     esb_id: Annotated[str, pydantic.Field(alias="esbId")]
     r"""Another form of ID tracked by the NFL"""
-    gsis_id: Annotated[str, pydantic.Field(alias="gsisId")]
+    gsis_id: Annotated[Optional[str], pydantic.Field(alias="gsisId")] = None
     r"""Yet another ID"""
-    headshot: str
+    headshot: Optional[str] = None
     r"""A URL for the person's headshot used in Media"""
     height: int
     r"""Person's height rounded to nearest whole inch"""
     internation_exempt: Annotated[bool, pydantic.Field(alias="internationalExempt")]
     r"""Not sure what this is"""
-    jersey_number: Annotated[str, pydantic.Field(alias="jerseyNumber")]
+    jersey_number: Annotated[
+        Optional[str],
+        pydantic.Field(alias="jerseyNumber"),
+        pydantic.BeforeValidator(int_to_str),
+    ] = None
     r"""Number the player wears on the field."""
     last_name: Annotated[str, pydantic.Field(alias="lastName")]
     r"""Person's surname"""
