@@ -2,11 +2,36 @@ from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Players(ProSDK):
+
+    def _get_player_config(
+        self,
+        *,
+        nfl_id: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_player."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/players/player",
+            operation_id="getPlayer",
+            request=models.GetPlayerRequest(nfl_id=nfl_id),
+            response_type=models.PlayerDetail,
+            error_status_codes=RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix unmarshaling issue
+        )
 
     def get_player(
         self,
@@ -29,43 +54,14 @@ class Players(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlayerRequest(nfl_id=nfl_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/players/player",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_player_config(
+            nfl_id=nfl_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getPlayer", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Something is being lost in the unmarshaling process. Fix it.
-        # Once fixed, use: return self._handle_json_response(http_res, models.PlayerDetail, RESOURCE_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, models.PlayerDetail, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_player_async(
         self,
@@ -88,38 +84,44 @@ class Players(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlayerRequest(nfl_id=nfl_id)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/players/player",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_player_config(
+            nfl_id=nfl_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getPlayer", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.PlayerDetail, RESOURCE_ERROR_CODES
+    def _get_projected_stats_config(
+        self,
+        *,
+        season: int,
+        week: int,
+        filter_nfl_team_id: Optional[str] = None,
+        page_size: Optional[int] = 20,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_projected_stats."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/players/projectedStats",
+            operation_id="getProjectedStats",
+            request=models.GetProjectedStatsRequest(
+                filter_nfl_team_id=filter_nfl_team_id,
+                season=season,
+                week=week,
+                page_size=page_size,
+            ),
+            response_type=models.ProjectedStatsResponse,
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_projected_stats(
@@ -149,44 +151,17 @@ class Players(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetProjectedStatsRequest(
-            filter_nfl_team_id=filter_nfl_team_id,
+        config = self._get_projected_stats_config(
             season=season,
             week=week,
+            filter_nfl_team_id=filter_nfl_team_id,
             page_size=page_size,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/players/projectedStats",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getProjectedStats", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.ProjectedStatsResponse, COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_projected_stats_async(
         self,
@@ -215,43 +190,39 @@ class Players(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetProjectedStatsRequest(
-            filter_nfl_team_id=filter_nfl_team_id,
+        config = self._get_projected_stats_config(
             season=season,
             week=week,
+            filter_nfl_team_id=filter_nfl_team_id,
             page_size=page_size,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/players/projectedStats",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getProjectedStats", base_url),
-            request=req,
+    def _search_players_config(
+        self,
+        *,
+        term: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for search_players."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/players/search",
+            operation_id="searchPlayers",
+            request=models.SearchPlayersRequest(term=term),
+            response_type=models.PlayerSearchResponse,
             error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.ProjectedStatsResponse, COLLECTION_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def search_players(
@@ -275,39 +246,14 @@ class Players(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.SearchPlayersRequest(term=term)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/players/search",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._search_players_config(
+            term=term,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("searchPlayers", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.PlayerSearchResponse, COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def search_players_async(
         self,
@@ -330,36 +276,11 @@ class Players(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.SearchPlayersRequest(term=term)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/players/search",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._search_players_config(
+            term=term,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("searchPlayers", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.PlayerSearchResponse, COLLECTION_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)

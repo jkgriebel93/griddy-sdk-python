@@ -2,11 +2,38 @@ from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES
-from griddy.nfl.basesdk import BaseSDK
+from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Weeks(BaseSDK):
+
+    def _get_week_of_date_config(
+        self,
+        *,
+        date: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetWeekOfDateRequest(date=date)
+
+        return EndpointConfig(
+            method="GET",
+            path="/football/v2/weeks/date/{date}",
+            operation_id="getWeekOfDate",
+            request=request,
+            response_type=models.Week,
+            error_status_codes=COLLECTION_ERROR_CODES,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=False,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
 
     def get_week_of_date(
         self,
@@ -25,37 +52,14 @@ class Weeks(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWeekOfDateRequest(date=date)
-
-        req = self._build_request(
-            method="GET",
-            path="/football/v2/weeks/date/{date}",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=False,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_week_of_date_config(
+            date=date,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getWeekOfDate", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(http_res, models.Week, COLLECTION_ERROR_CODES)
+        return self._execute_endpoint(config)
 
     async def get_week_of_date_async(
         self,
@@ -67,38 +71,41 @@ class Weeks(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.WeeksResponse:
         r"""Get Week for Date"""
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
+        config = self._get_week_of_date_config(
+            date=date,
+            retries=retries,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+        )
+        return await self._execute_endpoint_async(config)
 
-        request = models.GetWeekOfDateRequest(date=date)
+    def _get_season_weeks_config(
+        self,
+        *,
+        season: int,
+        limit: Optional[int] = 20,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetSeasonWeeksRequest(season=season, limit=limit)
 
-        req = self._build_request_async(
+        return EndpointConfig(
             method="GET",
-            path="/football/v2/weeks/date/{date}",
-            base_url=base_url,
-            url_variables=None,
+            path="/football/v2/weeks/season/{season}",
+            operation_id="getSeasonWeeks",
             request=request,
+            response_type=models.WeeksResponse,
+            error_status_codes=COLLECTION_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=True,
-            request_has_query_params=False,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            request_has_query_params=True,
+            server_url=server_url,
             timeout_ms=timeout_ms,
-        )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getWeekOfDate", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.Week, COLLECTION_ERROR_CODES
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_season_weeks(
@@ -122,39 +129,15 @@ class Weeks(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetSeasonWeeksRequest(season=season, limit=limit)
-
-        req = self._build_request(
-            method="GET",
-            path="/football/v2/weeks/season/{season}",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_season_weeks_config(
+            season=season,
+            limit=limit,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getSeasonWeeks", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.WeeksResponse, COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_season_weeks_async(
         self,
@@ -167,36 +150,12 @@ class Weeks(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.WeeksResponse:
         r"""Get Season Weeks"""
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetSeasonWeeksRequest(season=season, limit=limit)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/football/v2/weeks/season/{season}",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_season_weeks_config(
+            season=season,
+            limit=limit,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getSeasonWeeks", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.WeeksResponse, COLLECTION_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)

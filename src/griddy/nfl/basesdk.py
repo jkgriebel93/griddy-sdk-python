@@ -1,4 +1,16 @@
-from typing import Callable, Dict, List, Mapping, Optional, Tuple, Type, TypeVar
+from dataclasses import dataclass, field
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    Mapping,
+    Optional,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 from urllib.parse import parse_qs, urlparse
 
 import httpx
@@ -12,6 +24,48 @@ from .types import UNSET, OptionalNullable
 from .utils.unmarshal_json_response import unmarshal_json_response
 
 T = TypeVar("T")
+
+
+@dataclass
+class EndpointConfig:
+    """Configuration for an API endpoint, enabling sync/async factory pattern.
+
+    This dataclass captures all the configuration needed to execute an endpoint,
+    allowing a single definition to generate both sync and async implementations.
+    """
+
+    # HTTP method and path
+    method: str
+    path: str
+    operation_id: str
+
+    # Request model instance (already constructed with parameters)
+    request: Any
+
+    # Response configuration
+    response_type: Type[T]
+    error_status_codes: List[str]
+
+    # Request configuration flags
+    request_body_required: bool = False
+    request_has_path_params: bool = False
+    request_has_query_params: bool = True
+
+    # Optional overrides
+    server_url: Optional[str] = None
+    timeout_ms: Optional[int] = None
+    http_headers: Optional[Mapping[str, str]] = None
+    retries: Any = field(default_factory=lambda: UNSET)  # OptionalNullable[RetryConfig]
+
+    # For endpoints that need raw JSON (due to Pydantic model issues)
+    return_raw_json: bool = False
+
+    # Optional body serializer
+    get_serialized_body: Optional[Callable[[], Optional[SerializedRequestBody]]] = None
+
+    # Standard headers (rarely need to change)
+    user_agent_header: str = "user-agent"
+    accept_header_value: str = "application/json"
 
 
 class BaseSDK:
@@ -211,6 +265,114 @@ class BaseSDK:
             )
 
         raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+
+    def _execute_endpoint(self, config: EndpointConfig) -> T:
+        """Execute an endpoint synchronously using the provided configuration.
+
+        This factory method handles all the boilerplate for sync endpoint execution:
+        - Resolves base URL and timeout
+        - Builds the HTTP request
+        - Resolves retry configuration
+        - Executes the request with hooks
+        - Handles the JSON response
+
+        Args:
+            config: The endpoint configuration containing all request details
+
+        Returns:
+            The unmarshaled response object of type T
+        """
+        base_url = self._resolve_base_url(config.server_url)
+        timeout_ms = self._resolve_timeout(config.timeout_ms)
+
+        req = self._build_request(
+            method=config.method,
+            path=config.path,
+            base_url=base_url,
+            url_variables=None,
+            request=config.request,
+            request_body_required=config.request_body_required,
+            request_has_path_params=config.request_has_path_params,
+            request_has_query_params=config.request_has_query_params,
+            user_agent_header=config.user_agent_header,
+            accept_header_value=config.accept_header_value,
+            http_headers=config.http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+            get_serialized_body=config.get_serialized_body,
+        )
+
+        retry_config = self._resolve_retry_config(config.retries)
+
+        http_res = self.do_request(
+            hook_ctx=self._create_hook_context(config.operation_id, base_url),
+            request=req,
+            error_status_codes=config.error_status_codes,
+            retry_config=retry_config,
+        )
+
+        # Some endpoints need raw JSON due to Pydantic model issues
+        if config.return_raw_json:
+            if utils.match_response(http_res, "200", "application/json"):
+                return http_res.json()
+
+        return self._handle_json_response(
+            http_res, config.response_type, config.error_status_codes
+        )
+
+    async def _execute_endpoint_async(self, config: EndpointConfig) -> T:
+        """Execute an endpoint asynchronously using the provided configuration.
+
+        This factory method handles all the boilerplate for async endpoint execution:
+        - Resolves base URL and timeout
+        - Builds the HTTP request
+        - Resolves retry configuration
+        - Executes the request with hooks
+        - Handles the JSON response
+
+        Args:
+            config: The endpoint configuration containing all request details
+
+        Returns:
+            The unmarshaled response object of type T
+        """
+        base_url = self._resolve_base_url(config.server_url)
+        timeout_ms = self._resolve_timeout(config.timeout_ms)
+
+        req = self._build_request_async(
+            method=config.method,
+            path=config.path,
+            base_url=base_url,
+            url_variables=None,
+            request=config.request,
+            request_body_required=config.request_body_required,
+            request_has_path_params=config.request_has_path_params,
+            request_has_query_params=config.request_has_query_params,
+            user_agent_header=config.user_agent_header,
+            accept_header_value=config.accept_header_value,
+            http_headers=config.http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+            get_serialized_body=config.get_serialized_body,
+        )
+
+        retry_config = self._resolve_retry_config(config.retries)
+
+        http_res = await self.do_request_async(
+            hook_ctx=self._create_hook_context(config.operation_id, base_url),
+            request=req,
+            error_status_codes=config.error_status_codes,
+            retry_config=retry_config,
+        )
+
+        # Some endpoints need raw JSON due to Pydantic model issues
+        if config.return_raw_json:
+            if utils.match_response(http_res, "200", "application/json"):
+                return http_res.json()
+
+        return await self._handle_json_response_async(
+            http_res, config.response_type, config.error_status_codes
+        )
 
     # -------------------------------------------------------------------------
     # End of helper methods

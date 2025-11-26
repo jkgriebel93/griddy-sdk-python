@@ -2,12 +2,35 @@ from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES, SECURED_RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.endpoints.pro.mixins import GameContentMixin
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Content(ProSDK, GameContentMixin):
+
+    def _get_home_film_cards_config(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_home_film_cards."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/content/home-film-cards",
+            operation_id="getHomeFilmCards",
+            request=None,
+            response_type=models.HomeFilmCardsResponse,
+            error_status_codes=["401", "4XX", "500", "5XX"],
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
 
     def get_home_film_cards(
         self,
@@ -28,37 +51,13 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/content/home-film-cards",
-            base_url=base_url,
-            url_variables=None,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_home_film_cards_config(
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getHomeFilmCards", base_url),
-            request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.HomeFilmCardsResponse, ["401", "4XX", "500", "5XX"]
-        )
+        return self._execute_endpoint(config)
 
     async def get_home_film_cards_async(
         self,
@@ -79,36 +78,46 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/content/home-film-cards",
-            base_url=base_url,
-            url_variables=None,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_home_film_cards_config(
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getHomeFilmCards", base_url),
-            request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.HomeFilmCardsResponse, ["401", "4XX", "500", "5XX"]
+    def _get_season_insights_config(
+        self,
+        *,
+        season: int,
+        limit: Optional[int] = 20,
+        tags: Optional[List[models.Tag]] = None,
+        team_id: Optional[str] = None,
+        nfl_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_season_insights."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/content/insights/season",
+            operation_id="getSeasonContentInsights",
+            request=models.GetSeasonContentInsightsRequest(
+                season=season,
+                limit=limit,
+                tags=tags,
+                team_id=team_id,
+                nfl_id=nfl_id,
+            ),
+            response_type=List[models.Insight],
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic model - unmarshal is broken
         )
 
     def get_season_insights(
@@ -143,49 +152,18 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetSeasonContentInsightsRequest(
+        config = self._get_season_insights_config(
             season=season,
             limit=limit,
             tags=tags,
             team_id=team_id,
             nfl_id=nfl_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/content/insights/season",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getSeasonContentInsights", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic model - unmarshal is broken
-        # Once fixed, use: return self._handle_json_response(http_res, List[models.Insight], COLLECTION_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, List[models.Insight], COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_season_insights_async(
         self,
@@ -219,47 +197,117 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetSeasonContentInsightsRequest(
+        config = self._get_season_insights_config(
             season=season,
             limit=limit,
             tags=tags,
             team_id=team_id,
             nfl_id=nfl_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/content/insights/season",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getSeasonContentInsights", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, List[models.Insight], COLLECTION_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)
 
     # TODO: Consider how this method signature might be cleaned up
+    def _get_filmroom_plays_config(
+        self,
+        *,
+        game_id: Optional[List[str]] = None,
+        week_slug: Optional[List[models.WeekSlugEnum]] = None,
+        season: Optional[List[int]] = None,
+        season_type: Optional[List[models.SeasonTypeEnum]] = None,
+        nfl_id: Optional[List[str]] = None,
+        quarter: Optional[List[int]] = None,
+        down: Optional[List[int]] = None,
+        yards_to_go_type: Optional[List[models.YardsToGoType]] = None,
+        touchdown: Optional[List[models.BinaryFlagEnum]] = None,
+        rush10_plus_yards: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble_lost: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble: Optional[List[models.BinaryFlagEnum]] = None,
+        qb_alignment: Optional[List[models.QbAlignment]] = None,
+        redzone: Optional[List[models.BinaryFlagEnum]] = None,
+        goal_to_go: Optional[List[models.BinaryFlagEnum]] = None,
+        pass_play: Optional[List[models.BinaryFlagEnum]] = None,
+        run_play: Optional[List[models.BinaryFlagEnum]] = None,
+        play_type: Optional[List[models.PlayTypeEnum]] = None,
+        attempt: Optional[List[models.BinaryFlagEnum]] = None,
+        completion: Optional[List[models.BinaryFlagEnum]] = None,
+        interception: Optional[List[models.BinaryFlagEnum]] = None,
+        reception: Optional[List[models.BinaryFlagEnum]] = None,
+        sack: Optional[List[models.BinaryFlagEnum]] = None,
+        rec_motion: Optional[List[models.BinaryFlagEnum]] = None,
+        target_location: Optional[List[models.TargetLocation]] = None,
+        air_yard_type: Optional[List[models.AirYardType]] = None,
+        dropback_time_type: Optional[List[models.DropbackTimeType]] = None,
+        pressure: Optional[List[models.BinaryFlagEnum]] = None,
+        blitz: Optional[List[models.BinaryFlagEnum]] = None,
+        play_action: Optional[List[models.BinaryFlagEnum]] = None,
+        rush_direction: Optional[List[models.RushDirection]] = None,
+        run_stuff: Optional[List[models.BinaryFlagEnum]] = None,
+        receiver_alignment: Optional[List[models.ReceiverAlignment]] = None,
+        separation_type: Optional[List[models.SeparationType]] = None,
+        personnel: Optional[List[models.Personnel]] = None,
+        defenders_in_the_box_type: Optional[List[models.DefendersInTheBoxType]] = None,
+        def_coverage_type: Optional[List[models.DefCoverageType]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_filmroom_plays."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/videos/filmroom/plays",
+            operation_id="getFilmroomPlays",
+            request=models.GetFilmroomPlaysRequest(
+                game_id=game_id,
+                week_slug=week_slug,
+                season=season,
+                season_type=season_type,
+                nfl_id=nfl_id,
+                quarter=quarter,
+                down=down,
+                yards_to_go_type=yards_to_go_type,
+                touchdown=touchdown,
+                rush10_plus_yards=rush10_plus_yards,
+                fumble_lost=fumble_lost,
+                fumble=fumble,
+                qb_alignment=qb_alignment,
+                redzone=redzone,
+                goal_to_go=goal_to_go,
+                pass_play=pass_play,
+                run_play=run_play,
+                play_type=play_type,
+                attempt=attempt,
+                completion=completion,
+                interception=interception,
+                reception=reception,
+                sack=sack,
+                rec_motion=rec_motion,
+                target_location=target_location,
+                air_yard_type=air_yard_type,
+                dropback_time_type=dropback_time_type,
+                pressure=pressure,
+                blitz=blitz,
+                play_action=play_action,
+                rush_direction=rush_direction,
+                run_stuff=run_stuff,
+                receiver_alignment=receiver_alignment,
+                separation_type=separation_type,
+                personnel=personnel,
+                defenders_in_the_box_type=defenders_in_the_box_type,
+                def_coverage_type=def_coverage_type,
+            ),
+            response_type=models.FilmroomPlaysResponse,
+            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
+
     def get_filmroom_plays(
         self,
         *,
@@ -361,10 +409,7 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetFilmroomPlaysRequest(
+        config = self._get_filmroom_plays_config(
             game_id=game_id,
             week_slug=week_slug,
             season=season,
@@ -402,38 +447,12 @@ class Content(ProSDK, GameContentMixin):
             personnel=personnel,
             defenders_in_the_box_type=defenders_in_the_box_type,
             def_coverage_type=def_coverage_type,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/videos/filmroom/plays",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getFilmroomPlays", base_url),
-            request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res,
-            models.FilmroomPlaysResponse,
-            ["400", "401", "403", "4XX", "500", "5XX"],
-        )
+        return self._execute_endpoint(config)
 
     async def get_filmroom_plays_async(
         self,
@@ -530,10 +549,7 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetFilmroomPlaysRequest(
+        config = self._get_filmroom_plays_config(
             game_id=game_id,
             week_slug=week_slug,
             season=season,
@@ -571,37 +587,38 @@ class Content(ProSDK, GameContentMixin):
             personnel=personnel,
             defenders_in_the_box_type=defenders_in_the_box_type,
             def_coverage_type=def_coverage_type,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/secured/videos/filmroom/plays",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getFilmroomPlays", base_url),
-            request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res,
-            models.FilmroomPlaysResponse,
-            ["400", "401", "403", "4XX", "500", "5XX"],
+    def _get_coaches_film_videos_config(
+        self,
+        *,
+        game_id: List[str],
+        play_id: List[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_coaches_film_videos."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/videos/coaches",
+            operation_id="getCoachesFilmVideos",
+            request=models.GetCoachesFilmVideosRequest(
+                game_id=game_id,
+                play_id=play_id,
+            ),
+            response_type=models.CoachesFilmResponse,
+            error_status_codes=SECURED_RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_coaches_film_videos(
@@ -632,42 +649,15 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetCoachesFilmVideosRequest(
+        config = self._get_coaches_film_videos_config(
             game_id=game_id,
             play_id=play_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/videos/coaches",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getCoachesFilmVideos", base_url),
-            request=req,
-            error_status_codes=SECURED_RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.CoachesFilmResponse, SECURED_RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_coaches_film_videos_async(
         self,
@@ -694,39 +684,12 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetCoachesFilmVideosRequest(
+        config = self._get_coaches_film_videos_config(
             game_id=game_id,
             play_id=play_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/secured/videos/coaches",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getCoachesFilmVideos", base_url),
-            request=req,
-            error_status_codes=SECURED_RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.CoachesFilmResponse, SECURED_RESOURCE_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)

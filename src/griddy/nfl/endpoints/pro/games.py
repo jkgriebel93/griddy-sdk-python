@@ -2,6 +2,7 @@ from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.endpoints.pro.mixins import (
     GameContentMixin,
@@ -12,6 +13,30 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin):
+
+    def _get_gamecenter_config(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_gamecenter."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/stats/gamecenter",
+            operation_id="getGamecenter",
+            request=models.GetGamecenterRequest(game_id=game_id),
+            response_type=models.GamecenterResponse,
+            error_status_codes=RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic model
+        )
 
     # NOTE: game_id corresponds to an int here.
     # You must use the UUID that is returned by all (or most?) other
@@ -38,43 +63,14 @@ class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetGamecenterRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/stats/gamecenter",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_gamecenter_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getGamecenter", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.GamecenterResponse, RESOURCE_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, models.GamecenterResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_gamecenter_async(
         self,
@@ -97,38 +93,43 @@ class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetGamecenterRequest(game_id=game_id)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/stats/gamecenter",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_gamecenter_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getGamecenter", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.GamecenterResponse, RESOURCE_ERROR_CODES
+    def _get_live_game_scores_config(
+        self,
+        *,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_live_game_scores."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/scores/live/games",
+            operation_id="getLiveGameScores",
+            request=models.GetLiveGameScoresRequest(
+                season=season,
+                season_type=season_type,
+                week=week,
+            ),
+            response_type=models.LiveScoresResponse,
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic model
         )
 
     def get_live_game_scores(
@@ -157,47 +158,16 @@ class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetLiveGameScoresRequest(
+        config = self._get_live_game_scores_config(
             season=season,
             season_type=season_type,
             week=week,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/scores/live/games",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getLiveGameScores", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.LiveScoresResponse, COLLECTION_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, models.LiveScoresResponse, COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_live_game_scores_async(
         self,
@@ -225,40 +195,13 @@ class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetLiveGameScoresRequest(
+        config = self._get_live_game_scores_config(
             season=season,
             season_type=season_type,
             week=week,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/scores/live/games",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getLiveGameScores", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.LiveScoresResponse, COLLECTION_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)

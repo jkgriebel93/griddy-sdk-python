@@ -2,11 +2,46 @@ from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
-from griddy.nfl.basesdk import BaseSDK
+from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Games(BaseSDK):
+
+    def _get_games_config(
+        self,
+        *,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: int,
+        with_external_ids: Optional[bool] = False,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetFootballGamesRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
+            with_external_ids=with_external_ids,
+        )
+
+        return EndpointConfig(
+            method="GET",
+            path="/football/v2/games/season/{season}/seasonType/{seasonType}/week/{week}",
+            operation_id="getFootballGames",
+            request=request,
+            response_type=models.FootballGamesResponse,
+            error_status_codes=COLLECTION_ERROR_CODES,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
 
     def get_games(
         self,
@@ -35,44 +70,17 @@ class Games(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetFootballGamesRequest(
+        config = self._get_games_config(
             season=season,
             season_type=season_type,
             week=week,
             with_external_ids=with_external_ids,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/football/v2/games/season/{season}/seasonType/{seasonType}/week/{week}",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getFootballGames", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.FootballGamesResponse, COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_games_async(
         self,
@@ -87,43 +95,43 @@ class Games(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.FootballGamesResponse:
         r"""Get Games by Season, Type, and Week"""
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetFootballGamesRequest(
+        config = self._get_games_config(
             season=season,
             season_type=season_type,
             week=week,
             with_external_ids=with_external_ids,
+            retries=retries,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        req = self._build_request_async(
+    def _get_box_score_config(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetFootballBoxScoreRequest(game_id=game_id)
+
+        return EndpointConfig(
             method="GET",
-            path="/football/v2/games/season/{season}/seasonType/{seasonType}/week/{week}",
-            base_url=base_url,
-            url_variables=None,
+            path="/football/v2/games/{gameId}/boxscore",
+            operation_id="getFootballBoxScore",
             request=request,
+            response_type=models.BoxScoreResponse2,
+            error_status_codes=RESOURCE_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            server_url=server_url,
             timeout_ms=timeout_ms,
-        )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getFootballGames", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.FootballGamesResponse, COLLECTION_ERROR_CODES
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_box_score(
@@ -147,39 +155,14 @@ class Games(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetFootballBoxScoreRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/football/v2/games/{gameId}/boxscore",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_box_score_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getFootballBoxScore", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.BoxScoreResponse2, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_box_score_async(
         self,
@@ -191,38 +174,46 @@ class Games(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.BoxScoreResponse2:
         r"""Get Game Box Score (Football API)"""
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
+        config = self._get_box_score_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+        )
+        return await self._execute_endpoint_async(config)
 
-        request = models.GetFootballBoxScoreRequest(game_id=game_id)
+    def _get_play_by_play_config(
+        self,
+        *,
+        game_id: str,
+        include_penalties: Optional[bool] = True,
+        include_formations: Optional[bool] = False,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetPlayByPlayRequest(
+            game_id=game_id,
+            include_penalties=include_penalties,
+            include_formations=include_formations,
+        )
 
-        req = self._build_request_async(
+        return EndpointConfig(
             method="GET",
-            path="/football/v2/games/{gameId}/boxscore",
-            base_url=base_url,
-            url_variables=None,
+            path="/football/v2/games/{gameId}/playbyplay",
+            operation_id="getPlayByPlay",
             request=request,
+            response_type=models.PlayByPlayResponse,
+            error_status_codes=RESOURCE_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            server_url=server_url,
             timeout_ms=timeout_ms,
-        )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getFootballBoxScore", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.BoxScoreResponse2, RESOURCE_ERROR_CODES
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_play_by_play(
@@ -250,43 +241,16 @@ class Games(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlayByPlayRequest(
+        config = self._get_play_by_play_config(
             game_id=game_id,
             include_penalties=include_penalties,
             include_formations=include_formations,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/football/v2/games/{gameId}/playbyplay",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getPlayByPlay", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.PlayByPlayResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_play_by_play_async(
         self,
@@ -300,42 +264,48 @@ class Games(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PlayByPlayResponse:
         r"""Get Play-by-Play Data"""
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlayByPlayRequest(
+        config = self._get_play_by_play_config(
             game_id=game_id,
             include_penalties=include_penalties,
             include_formations=include_formations,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/football/v2/games/{gameId}/playbyplay",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
+        )
+        return await self._execute_endpoint_async(config)
+
+    def _get_live_game_stats_config(
+        self,
+        *,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetLiveGameStatsRequest(
+            season=season,
+            season_type=season_type,
+            week=week,
         )
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getPlayByPlay", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.PlayByPlayResponse, RESOURCE_ERROR_CODES
+        return EndpointConfig(
+            method="GET",
+            path="/football/v2/stats/live/game-summaries",
+            operation_id="getLiveGameStats",
+            request=request,
+            response_type=models.GameStatsResponse,
+            error_status_codes=COLLECTION_ERROR_CODES,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_live_game_stats(
@@ -363,42 +333,57 @@ class Games(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetLiveGameStatsRequest(
+        config = self._get_live_game_stats_config(
             season=season,
             season_type=season_type,
             week=week,
+            retries=retries,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+        )
+        return self._execute_endpoint(config)
+
+    def _get_weekly_game_details_config(
+        self,
+        *,
+        season: int,
+        type_: models.SeasonTypeEnum,
+        week: int,
+        include_drive_chart: Optional[bool] = False,
+        include_replays: Optional[bool] = False,
+        include_standings: Optional[bool] = False,
+        include_tagged_videos: Optional[bool] = False,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        request = models.GetWeeklyGameDetailsRequest(
+            season=season,
+            type=type_,
+            week=week,
+            include_drive_chart=include_drive_chart,
+            include_replays=include_replays,
+            include_standings=include_standings,
+            include_tagged_videos=include_tagged_videos,
         )
 
-        req = self._build_request(
+        return EndpointConfig(
             method="GET",
-            path="/football/v2/stats/live/game-summaries",
-            base_url=base_url,
-            url_variables=None,
+            path="/football/v2/experience/weekly-game-details",
+            operation_id="getWeeklyGameDetails",
             request=request,
+            response_type=List[models.WeeklyGameDetail],
+            error_status_codes=COLLECTION_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            server_url=server_url,
             timeout_ms=timeout_ms,
-        )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getLiveGameStats", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.GameStatsResponse, COLLECTION_ERROR_CODES
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic models
         )
 
     def get_weekly_game_details(
@@ -434,50 +419,20 @@ class Games(BaseSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWeeklyGameDetailsRequest(
+        config = self._get_weekly_game_details_config(
             season=season,
-            type=type_,
+            type_=type_,
             week=week,
             include_drive_chart=include_drive_chart,
             include_replays=include_replays,
             include_standings=include_standings,
             include_tagged_videos=include_tagged_videos,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/football/v2/experience/weekly-game-details",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getWeeklyGameDetails", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic models
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, List[models.WeeklyGameDetail], COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_weekly_game_details_async(
         self,
@@ -495,44 +450,17 @@ class Games(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> List[models.WeeklyGameDetail]:
         r"""Get Weekly Game Details"""
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWeeklyGameDetailsRequest(
+        config = self._get_weekly_game_details_config(
             season=season,
-            type=type_,
+            type_=type_,
             week=week,
             include_drive_chart=include_drive_chart,
             include_replays=include_replays,
             include_standings=include_standings,
             include_tagged_videos=include_tagged_videos,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/football/v2/experience/weekly-game-details",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getWeeklyGameDetails", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, List[models.WeeklyGameDetail], COLLECTION_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)

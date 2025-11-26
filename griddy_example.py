@@ -25,7 +25,7 @@ team_id = "10403900-8251-6892-d81c-4348525c2d47"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-result = nfl.betting.get_weekly_betting_odds(season=2025, season_type="REG", week=13)
+result = nfl.games.get_weekly_game_details(season=2025, type_="REG", week=12)
 
 is_pydantic = True
 

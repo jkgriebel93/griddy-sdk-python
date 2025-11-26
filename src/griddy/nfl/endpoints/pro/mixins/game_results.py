@@ -2,11 +2,36 @@ from typing import List, Mapping, Optional, Union
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class GameResultsDataMixin:
     """Mixin for game results and play data endpoints."""
+
+    def _get_stats_boxscore_config(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_stats_boxscore."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/stats/boxscore",
+            operation_id="getStatsBoxscore",
+            request=models.GetStatsBoxscoreRequest(game_id=game_id),
+            response_type=models.BoxscoreResponse,
+            error_status_codes=RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic model
+        )
 
     def get_stats_boxscore(
         self,
@@ -29,42 +54,37 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetStatsBoxscoreRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/stats/boxscore",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_stats_boxscore_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return self._execute_endpoint(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getStatsBoxscore", base_url),
-            request=req,
+    def _get_playlist_config(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_playlist."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/plays/playlist/game",
+            operation_id="getPlaysWinProbability",
+            request=models.GetPlayListRequest(game_id=game_id),
+            response_type=dict,
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.BoxscoreResponse, RESOURCE_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, models.BoxscoreResponse, RESOURCE_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Implement the pydantic models for PlayList
         )
 
     def get_playlist(
@@ -83,40 +103,41 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlayListRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/plays/playlist/game",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_playlist_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return self._execute_endpoint(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
-            request=req,
+    def _get_summary_play_config(
+        self,
+        *,
+        game_id: str,
+        play_id: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_summary_play."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/plays/summaryPlay",
+            operation_id="getSummaryPlay",
+            request=models.GetSummaryPlayRequest(
+                game_id=game_id,
+                play_id=play_id,
+            ),
+            response_type=models.PlaySummaryResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
-
-        # TODO: Implement the pydantic models for PlayList & related response
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(http_res, dict, RESOURCE_ERROR_CODES)
 
     def get_summary_play(
         self,
@@ -141,42 +162,15 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetSummaryPlayRequest(
+        config = self._get_summary_play_config(
             game_id=game_id,
             play_id=play_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/plays/summaryPlay",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getSummaryPlay", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.PlaySummaryResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_summary_play_async(
         self,
@@ -201,41 +195,38 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetSummaryPlayRequest(
+        config = self._get_summary_play_config(
             game_id=game_id,
             play_id=play_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/plays/summaryPlay",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getSummaryPlay", base_url),
-            request=req,
+    def _get_plays_win_probability_config(
+        self,
+        *,
+        game_id: Union[models.GameID, models.GameIDTypedDict],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_plays_win_probability."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/plays/winProbability",
+            operation_id="getPlaysWinProbability",
+            request=models.GetPlaysWinProbabilityRequest(game_id=game_id),
+            response_type=models.GetPlaysWinProbabilityResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.PlaySummaryResponse, RESOURCE_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic model
         )
 
     def get_plays_win_probability(
@@ -262,43 +253,14 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlaysWinProbabilityRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/plays/winProbability",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_plays_win_probability_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.GetPlaysWinProbabilityResponse, RESOURCE_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, models.GetPlaysWinProbabilityResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_plays_win_probability_async(
         self,
@@ -324,38 +286,36 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetPlaysWinProbabilityRequest(game_id=game_id)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/secured/plays/winProbability",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_plays_win_probability_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
-            request=req,
+    def _get_win_probability_min_config(
+        self,
+        *,
+        fapi_game_id: List[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_win_probability_min."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/plays/winProbabilityMin",
+            operation_id="getWinProbabilityMin",
+            request=models.GetWinProbabilityMinRequest(fapi_game_id=fapi_game_id),
+            response_type=models.WinProbabilityResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.GetPlaysWinProbabilityResponse, RESOURCE_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_win_probability_min(
@@ -381,39 +341,14 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWinProbabilityMinRequest(fapi_game_id=fapi_game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/plays/winProbabilityMin",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_win_probability_min_config(
+            fapi_game_id=fapi_game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getWinProbabilityMin", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.WinProbabilityResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_win_probability_min_async(
         self,
@@ -438,36 +373,11 @@ class GameResultsDataMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWinProbabilityMinRequest(fapi_game_id=fapi_game_id)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/secured/plays/winProbabilityMin",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_win_probability_min_config(
+            fapi_game_id=fapi_game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getWinProbabilityMin", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.WinProbabilityResponse, RESOURCE_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)

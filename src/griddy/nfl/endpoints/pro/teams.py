@@ -2,11 +2,34 @@ from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Teams(ProSDK):
+
+    def _get_all_teams_config(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_all_teams."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/teams/all",
+            operation_id="getAllTeams",
+            request=None,
+            response_type=List[models.ProTeam],
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
 
     def get_all_teams(
         self,
@@ -27,37 +50,13 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/teams/all",
-            base_url=base_url,
-            url_variables=None,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_all_teams_config(
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getAllTeams", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, List[models.ProTeam], COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_all_teams_async(
         self,
@@ -78,36 +77,36 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/teams/all",
-            base_url=base_url,
-            url_variables=None,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_all_teams_config(
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getAllTeams", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, List[models.ProTeam], COLLECTION_ERROR_CODES
+    def _get_team_roster_config(
+        self,
+        *,
+        team_id: str,
+        season: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_team_roster."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/teams/roster",
+            operation_id="getTeamRoster",
+            request=models.GetTeamRosterRequest(team_id=team_id, season=season),
+            response_type=models.TeamRosterResponse,
+            error_status_codes=RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_team_roster(
@@ -133,39 +132,15 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetTeamRosterRequest(team_id=team_id, season=season)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/teams/roster",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_team_roster_config(
+            team_id=team_id,
+            season=season,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getTeamRoster", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.TeamRosterResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_team_roster_async(
         self,
@@ -190,38 +165,45 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetTeamRosterRequest(team_id=team_id, season=season)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/teams/roster",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_team_roster_config(
+            team_id=team_id,
+            season=season,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getTeamRoster", base_url),
-            request=req,
+    def _get_weekly_team_roster_config(
+        self,
+        *,
+        team_id: str,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        week: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_weekly_team_roster."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/teams/rosterWeek",
+            operation_id="getWeeklyTeamRoster",
+            request=models.GetWeeklyTeamRosterRequest(
+                team_id=team_id,
+                season=season,
+                season_type=season_type,
+                week=week,
+            ),
+            response_type=models.WeeklyRosterResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.TeamRosterResponse, RESOURCE_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_weekly_team_roster(
@@ -251,44 +233,17 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWeeklyTeamRosterRequest(
+        config = self._get_weekly_team_roster_config(
             team_id=team_id,
             season=season,
             season_type=season_type,
             week=week,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/teams/rosterWeek",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getWeeklyTeamRoster", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.WeeklyRosterResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_weekly_team_roster_async(
         self,
@@ -317,43 +272,40 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetWeeklyTeamRosterRequest(
+        config = self._get_weekly_team_roster_config(
             team_id=team_id,
             season=season,
             season_type=season_type,
             week=week,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/teams/rosterWeek",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getWeeklyTeamRoster", base_url),
-            request=req,
+    def _get_team_schedule_config(
+        self,
+        *,
+        team_id: str,
+        season: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_team_schedule."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/teams/schedule",
+            operation_id="getTeamSchedule",
+            request=models.GetTeamScheduleRequest(team_id=team_id, season=season),
+            response_type=List[models.ScheduledGame],
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.WeeklyRosterResponse, RESOURCE_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_team_schedule(
@@ -379,39 +331,15 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetTeamScheduleRequest(team_id=team_id, season=season)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/teams/schedule",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_team_schedule_config(
+            team_id=team_id,
+            season=season,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getTeamSchedule", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, List[models.ScheduledGame], RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_team_schedule_async(
         self,
@@ -436,41 +364,54 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetTeamScheduleRequest(team_id=team_id, season=season)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/teams/schedule",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_team_schedule_config(
+            team_id=team_id,
+            season=season,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getTeamSchedule", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, List[models.ScheduledGame], RESOURCE_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)
 
     # TODO: These ranking methods may fit better in the stats APIs somewhere
+    def _get_multiple_rankings_all_teams_config(
+        self,
+        *,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        stat0: str,
+        stat1: Optional[str] = None,
+        stat2: Optional[str] = None,
+        stat3: Optional[str] = None,
+        stat4: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_multiple_rankings_all_teams."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/stats/multiple-rankings/all-teams",
+            operation_id="getMultipleRankingsAllTeams",
+            request=models.GetMultipleRankingsAllTeamsRequest(
+                season=season,
+                season_type=season_type,
+                stat0=stat0,
+                stat1=stat1,
+                stat2=stat2,
+                stat3=stat3,
+                stat4=stat4,
+            ),
+            response_type=List[models.MultipleRankingsCategory],
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
+
     def get_multiple_rankings_all_teams(
         self,
         *,
@@ -504,10 +445,7 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetMultipleRankingsAllTeamsRequest(
+        config = self._get_multiple_rankings_all_teams_config(
             season=season,
             season_type=season_type,
             stat0=stat0,
@@ -515,37 +453,12 @@ class Teams(ProSDK):
             stat2=stat2,
             stat3=stat3,
             stat4=stat4,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/stats/multiple-rankings/all-teams",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-        error_codes = ["400", "401", "4XX", "500", "5XX"]
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getMultipleRankingsAllTeams", base_url),
-            request=req,
-            error_status_codes=error_codes,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, List[models.MultipleRankingsCategory], error_codes
-        )
+        return self._execute_endpoint(config)
 
     async def get_multiple_rankings_all_teams_async(
         self,
@@ -580,10 +493,7 @@ class Teams(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetMultipleRankingsAllTeamsRequest(
+        config = self._get_multiple_rankings_all_teams_config(
             season=season,
             season_type=season_type,
             stat0=stat0,
@@ -591,34 +501,9 @@ class Teams(ProSDK):
             stat2=stat2,
             stat3=stat3,
             stat4=stat4,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/stats/multiple-rankings/all-teams",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-        error_codes = ["400", "401", "4XX", "500", "5XX"]
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getMultipleRankingsAllTeams", base_url),
-            request=req,
-            error_status_codes=error_codes,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, List[models.MultipleRankingsCategory], error_codes
-        )
+        return await self._execute_endpoint_async(config)

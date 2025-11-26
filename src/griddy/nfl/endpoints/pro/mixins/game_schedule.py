@@ -2,6 +2,7 @@ from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
 from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
@@ -11,6 +12,29 @@ class GameScheduleMixin:
     These methods are designed to be mixed into classes that inherit from ProSDK/BaseSDK,
     which provides the helper methods (_resolve_base_url, _resolve_timeout, etc.).
     """
+
+    def _get_scheduled_game_config(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_scheduled_game."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/schedules/game",
+            operation_id="getScheduledGame",
+            request=models.GetScheduledGameRequest(game_id=game_id),
+            response_type=models.GameDetail,
+            error_status_codes=RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
 
     def get_scheduled_game(
         self,
@@ -34,39 +58,14 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetScheduledGameRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/schedules/game",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_scheduled_game_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getScheduledGame", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.GameDetail, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_scheduled_game_async(
         self,
@@ -90,38 +89,36 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetScheduledGameRequest(game_id=game_id)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/schedules/game",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_scheduled_game_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getScheduledGame", base_url),
-            request=req,
+    def _get_game_matchup_rankings_config(
+        self,
+        *,
+        game_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_game_matchup_rankings."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/schedules/game/matchup/rankings",
+            operation_id="getGameMatchupRankings",
+            request=models.GetGameMatchupRankingsRequest(game_id=game_id),
+            response_type=models.MatchupRankingsResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.GameDetail, RESOURCE_ERROR_CODES
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_game_matchup_rankings(
@@ -146,39 +143,14 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetGameMatchupRankingsRequest(game_id=game_id)
-
-        req = self._build_request(
-            method="GET",
-            path="/api/schedules/game/matchup/rankings",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_game_matchup_rankings_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getGameMatchupRankings", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.MatchupRankingsResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_game_matchup_rankings_async(
         self,
@@ -202,38 +174,47 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetGameMatchupRankingsRequest(game_id=game_id)
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/schedules/game/matchup/rankings",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_game_matchup_rankings_config(
+            game_id=game_id,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getGameMatchupRankings", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.MatchupRankingsResponse, RESOURCE_ERROR_CODES
+    def _get_game_team_rankings_config(
+        self,
+        *,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        away_team_id: str,
+        home_team_id: str,
+        week: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_game_team_rankings."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/stats/game/team-rankings",
+            operation_id="getGameTeamRankings",
+            request=models.GetGameTeamRankingsRequest(
+                season=season,
+                season_type=season_type,
+                away_team_id=away_team_id,
+                home_team_id=home_team_id,
+                week=week,
+            ),
+            response_type=models.TeamRankingsResponse,
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=True,  # TODO: Fix Pydantic model
         )
 
     def get_game_team_rankings(
@@ -265,49 +246,18 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetGameTeamRankingsRequest(
+        config = self._get_game_team_rankings_config(
             season=season,
             season_type=season_type,
             away_team_id=away_team_id,
             home_team_id=home_team_id,
             week=week,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/stats/game/team-rankings",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getGameTeamRankings", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.TeamRankingsResponse, COLLECTION_ERROR_CODES)
-        if utils.match_response(http_res, "200", "application/json"):
-            return http_res.json()
-        return self._handle_json_response(
-            http_res, models.TeamRankingsResponse, COLLECTION_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_game_team_rankings_async(
         self,
@@ -338,44 +288,48 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetGameTeamRankingsRequest(
+        config = self._get_game_team_rankings_config(
             season=season,
             season_type=season_type,
             away_team_id=away_team_id,
             home_team_id=home_team_id,
             week=week,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/stats/game/team-rankings",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getGameTeamRankings", base_url),
-            request=req,
-            error_status_codes=COLLECTION_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.TeamRankingsResponse, COLLECTION_ERROR_CODES
+    def _get_team_injuries_config(
+        self,
+        *,
+        season: int,
+        season_type: models.SeasonTypeEnum,
+        team_id: str,
+        week: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_team_injuries."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/schedules/game/team/injuries",
+            operation_id="getTeamInjuries",
+            request=models.GetTeamInjuriesRequest(
+                season=season,
+                season_type=season_type,
+                team_id=team_id,
+                week=week,
+            ),
+            response_type=models.InjuryReportResponse,
+            error_status_codes=RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
 
     def get_team_injuries(
@@ -405,44 +359,17 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetTeamInjuriesRequest(
+        config = self._get_team_injuries_config(
             season=season,
             season_type=season_type,
             team_id=team_id,
             week=week,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/schedules/game/team/injuries",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = self.do_request(
-            hook_ctx=self._create_hook_context("getTeamInjuries", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return self._handle_json_response(
-            http_res, models.InjuryReportResponse, RESOURCE_ERROR_CODES
-        )
+        return self._execute_endpoint(config)
 
     async def get_team_injuries_async(
         self,
@@ -471,41 +398,14 @@ class GameScheduleMixin:
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = self._resolve_base_url(server_url)
-        timeout_ms = self._resolve_timeout(timeout_ms)
-
-        request = models.GetTeamInjuriesRequest(
+        config = self._get_team_injuries_config(
             season=season,
             season_type=season_type,
             team_id=team_id,
             week=week,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/schedules/game/team/injuries",
-            base_url=base_url,
-            url_variables=None,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        retry_config = self._resolve_retry_config(retries)
-
-        http_res = await self.do_request_async(
-            hook_ctx=self._create_hook_context("getTeamInjuries", base_url),
-            request=req,
-            error_status_codes=RESOURCE_ERROR_CODES,
-            retry_config=retry_config,
-        )
-
-        return await self._handle_json_response_async(
-            http_res, models.InjuryReportResponse, RESOURCE_ERROR_CODES
-        )
+        return await self._execute_endpoint_async(config)
