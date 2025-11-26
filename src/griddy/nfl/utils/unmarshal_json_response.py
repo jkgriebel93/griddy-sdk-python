@@ -21,13 +21,15 @@ def unmarshal_json_response(
     try:
         return unmarshal_json(body, typ)
     except Exception as e:
-        entries = http_res.json()
-        busted = []
-        for e in entries.get("plays", []):
-            for key in ["homeTimeoutsLeft", "visitorTimeoutsLeft"]:
-                if not e.get(key):
-                    busted.append(e)
-                    break
+        from collections import defaultdict
+
+        busted = set()
+        for err in e.errors():
+            field = err["loc"][-1]
+            busted.add(field)
+
+        busted = ", ".join(list(busted))
+
         import json
 
         with open("busted.json", "w") as outfile:

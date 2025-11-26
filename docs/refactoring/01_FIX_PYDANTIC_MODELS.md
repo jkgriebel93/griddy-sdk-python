@@ -116,8 +116,8 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 #### combine.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_profiles` | `get_profiles_async` | `CombineProfilesResponse` |
-| [ ] | `get_rankings` | `get_rankings_async` | `CombineRankingsResponse` |
+|  [x]  | `get_profiles` | `get_profiles_async` | `CombineProfilesResponse` |
+|  [x]  | `get_rankings` | `get_rankings_async` | `CombineRankingsResponse` |
 
 #### draft.py
 | Fixed | Method | Async Method | Response Model |
