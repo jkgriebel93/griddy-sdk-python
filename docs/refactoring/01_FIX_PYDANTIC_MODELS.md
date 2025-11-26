@@ -45,10 +45,10 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 ### Pro API - Mixins
 
 #### game_results.py
-| Method | Async Method | Response Model |
-|--------|--------------|----------------|
-| `get_stats_boxscore` | *(sync only)* | `BoxscoreResponse` |
-| `get_playlist` | *(sync only)* | `dict` (no model) |
+| Method                      | Async Method                      | Response Model                   |
+|-----------------------------|-----------------------------------|----------------------------------|
+| ~~`get_stats_boxscore`~~    | ~~*(sync only)*~~                 | ~~`BoxscoreResponse`~~           |
+| ~~`get_playlist`~~          | ~~*(sync only)*~~                 | ~~PlaylistResponse~~             |
 | `get_plays_win_probability` | `get_plays_win_probability_async` | `GetPlaysWinProbabilityResponse` |
 
 ### Pro API - Stats (Factory Pattern)

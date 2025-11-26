@@ -12,5 +12,14 @@ PlayTypeEnum = Literal[
     "play_type_pass",
     "play_type_punt",
     "play_type_unknown",
+    "PASS",
+    "RUSH",
+    "PUNT",
+    "KICKOFF",
+    "FIELD_GOAL",
+    "EXTRA_POINT",
+    "PENALTY",
+    "TIMEOUT",
+    "TWO_MINUTE_WARNING",
 ]
 r"""Enumeration of all possible play types"""

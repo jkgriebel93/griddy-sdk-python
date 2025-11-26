@@ -78,13 +78,13 @@ class GameResultsDataMixin:
             path="/api/secured/plays/playlist/game",
             operation_id="getPlaysWinProbability",
             request=models.GetPlayListRequest(game_id=game_id),
-            response_type=dict,
+            response_type=models.PlaylistResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Implement the pydantic models for PlayList
+            return_raw_json=False,  # TODO: Implement the pydantic models for PlayList
         )
 
     def get_playlist(
@@ -95,7 +95,7 @@ class GameResultsDataMixin:
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> models.PlaylistResponse:
         r"""
         :param game_id: Game identifier(s) in 10-digit format (YYYYMMDDNN).  Can be a single game ID or multiple game IDs for batch retrieval.
         :param retries: Override the default retry configuration for this method

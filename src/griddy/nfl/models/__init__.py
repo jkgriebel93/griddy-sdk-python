@@ -572,6 +572,10 @@ if TYPE_CHECKING:
         PlayerStatsResponseStatsTypedDict,
         PlayerStatsResponseTypedDict,
     )
+    from griddy.nfl.models.responses.playlist_response import (
+        PlaylistResponse,
+        PlaylistResponseTypedDict,
+    )
     from griddy.nfl.models.responses.projected_stats_response import (
         Included,
         IncludedTypedDict,
@@ -1310,6 +1314,8 @@ __all__ = [
     "GetPlayByPlayRequestTypedDict",
     "GetPlayListRequest",
     "GetPlayListRequestTypedDict",
+    "PlaylistResponse",
+    "PlaylistResponseTypedDict",
     "GetPlayerDetailsRequest",
     "GetPlayerDetailsRequestTypedDict",
     "GetPlayerPassingStatsBySeasonRequest",
@@ -2133,6 +2139,8 @@ _dynamic_imports: dict[str, str] = {
     "GetPlayByPlayRequest": ".requests.get_play_by_play_op",
     "GetPlayListRequest": ".requests.get_play_list",
     "GetPlayListRequestTypedDict": ".requests.get_play_list",
+    "PlaylistResponseTypedDict": ".responses.playlist_response",
+    "PlaylistResponse": ".responses.playlist_response",
     "GetPlayByPlayRequestTypedDict": ".requests.get_play_by_play_op",
     "GetPlayerDetailsRequest": ".requests.get_player_details_op",
     "GetPlayerDetailsRequestTypedDict": ".requests.get_player_details_op",

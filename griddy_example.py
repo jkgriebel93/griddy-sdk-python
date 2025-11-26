@@ -27,7 +27,5 @@ packers_uuid = "10401540-f97c-2d19-6fcd-fac6490a48b7"
 lions_at_packers_uuid = "f83858b1-311e-11f0-b670-ae1250fadad1"
 lions_at_packers_ten_dig_id = "2025101600"
 
-result = nfl.pro_games.get_stats_boxscore(game_id=lions_at_packers_ten_dig_id)
-from pprint import pprint
-
+result = nfl.pro_games.get_playlist(game_id=reg_game_id)
 print(result.model_dump_json(indent=4))

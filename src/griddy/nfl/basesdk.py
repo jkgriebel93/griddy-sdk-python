@@ -204,7 +204,9 @@ class BaseSDK:
         Raises:
             GriddyNFLDefaultError: If the response indicates an error
         """
+        print("CHEETAH")
         if utils.match_response(http_res, "200", "application/json"):
+            print("DINGO")
             return unmarshal_json_response(response_type, http_res)
 
         # Handle client errors (4XX)
@@ -310,7 +312,7 @@ class BaseSDK:
             error_status_codes=config.error_status_codes,
             retry_config=retry_config,
         )
-
+        print("BADGER", config.return_raw_json)
         # Some endpoints need raw JSON due to Pydantic model issues
         if config.return_raw_json:
             if utils.match_response(http_res, "200", "application/json"):
