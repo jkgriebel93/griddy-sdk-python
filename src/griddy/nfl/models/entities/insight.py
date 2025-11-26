@@ -105,13 +105,13 @@ class Insight(BaseModel):
     id: str
     r"""Unique content identifier"""
 
-    nfl_id: Annotated[int, pydantic.Field(alias="nflId")]
+    nfl_id: Annotated[Optional[int], pydantic.Field(alias="nflId")] = None
     r"""NFL player identifier"""
 
-    player_name: Annotated[str, pydantic.Field(alias="playerName")]
+    player_name: Annotated[Optional[str], pydantic.Field(alias="playerName")] = None
     r"""Player's full name"""
 
-    position: InsightPosition
+    position: Optional[InsightPosition] = None
     r"""Player position"""
 
     season: int

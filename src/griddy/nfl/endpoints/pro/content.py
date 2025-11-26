@@ -117,7 +117,7 @@ class Content(ProSDK, GameContentMixin):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model - unmarshal is broken
+            return_raw_json=False,  # TODO: Fix Pydantic model - unmarshal is broken
         )
 
     def get_season_insights(
