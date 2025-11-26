@@ -1,6 +1,11 @@
 from typing import List, Mapping, Optional, Union
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import (
+    COLLECTION_ERROR_CODES,
+    RESOURCE_ERROR_CODES,
+    SECURED_RESOURCE_ERROR_CODES,
+)
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
@@ -10,9 +15,6 @@ class GameScheduleMixin:
     These methods are designed to be mixed into classes that inherit from ProSDK/BaseSDK,
     which provides the helper methods (_resolve_base_url, _resolve_timeout, etc.).
     """
-
-    _RESOURCE_ERROR_CODES = ["400", "401", "404", "4XX", "500", "5XX"]
-    _COLLECTION_ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_scheduled_game(
         self,
@@ -62,12 +64,12 @@ class GameScheduleMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getScheduledGame", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.GameDetail, self._RESOURCE_ERROR_CODES
+            http_res, models.GameDetail, RESOURCE_ERROR_CODES
         )
 
     async def get_scheduled_game_async(
@@ -118,12 +120,12 @@ class GameScheduleMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getScheduledGame", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.GameDetail, self._RESOURCE_ERROR_CODES
+            http_res, models.GameDetail, RESOURCE_ERROR_CODES
         )
 
     def get_game_matchup_rankings(
@@ -174,12 +176,12 @@ class GameScheduleMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getGameMatchupRankings", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.MatchupRankingsResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.MatchupRankingsResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_game_matchup_rankings_async(
@@ -230,12 +232,12 @@ class GameScheduleMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getGameMatchupRankings", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.MatchupRankingsResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.MatchupRankingsResponse, RESOURCE_ERROR_CODES
         )
 
     def get_game_team_rankings(
@@ -299,16 +301,16 @@ class GameScheduleMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getGameTeamRankings", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.TeamRankingsResponse, self._COLLECTION_ERROR_CODES)
+        # Once fixed, use: return self._handle_json_response(http_res, models.TeamRankingsResponse, COLLECTION_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamRankingsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.TeamRankingsResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_game_team_rankings_async(
@@ -372,12 +374,12 @@ class GameScheduleMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getGameTeamRankings", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.TeamRankingsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.TeamRankingsResponse, COLLECTION_ERROR_CODES
         )
 
     def get_team_injuries(
@@ -438,12 +440,12 @@ class GameScheduleMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTeamInjuries", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.InjuryReportResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.InjuryReportResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_team_injuries_async(
@@ -504,19 +506,17 @@ class GameScheduleMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getTeamInjuries", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.InjuryReportResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.InjuryReportResponse, RESOURCE_ERROR_CODES
         )
 
 
 class GameContentMixin:
     """Mixin for game content-related endpoints."""
-
-    _COLLECTION_ERROR_CODES = ["401", "4XX", "500", "5XX"]
 
     def get_game_preview(
         self,
@@ -577,13 +577,13 @@ class GameContentMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getGamePreview", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: The model is busted, so unmarshaling returns an empty dict
         return self._handle_json_response(
-            http_res, models.GamePreviewResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.GamePreviewResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_game_preview_async(
@@ -645,12 +645,12 @@ class GameContentMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getGamePreview", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.GamePreviewResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.GamePreviewResponse, COLLECTION_ERROR_CODES
         )
 
     def get_game_insights(
@@ -720,12 +720,12 @@ class GameContentMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getGameInsights", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, List[models.GameInsight], self._COLLECTION_ERROR_CODES
+            http_res, List[models.GameInsight], COLLECTION_ERROR_CODES
         )
 
     async def get_game_insights_async(
@@ -795,19 +795,17 @@ class GameContentMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getGameInsights", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, List[models.GameInsight], self._COLLECTION_ERROR_CODES
+            http_res, List[models.GameInsight], COLLECTION_ERROR_CODES
         )
 
 
 class GameResultsDataMixin:
     """Mixin for game results and play data endpoints."""
-
-    _RESOURCE_ERROR_CODES = ["400", "401", "403", "404", "4XX", "500", "5XX"]
 
     def get_stats_boxscore(
         self,
@@ -856,16 +854,16 @@ class GameResultsDataMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getStatsBoxscore", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.BoxscoreResponse, self._RESOURCE_ERROR_CODES)
+        # Once fixed, use: return self._handle_json_response(http_res, models.BoxscoreResponse, RESOURCE_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.BoxscoreResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.BoxscoreResponse, RESOURCE_ERROR_CODES
         )
 
     def get_playlist(
@@ -910,14 +908,14 @@ class GameResultsDataMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: Implement the pydantic models for PlayList & related response
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        return self._handle_json_response(http_res, dict, self._RESOURCE_ERROR_CODES)
+        return self._handle_json_response(http_res, dict, RESOURCE_ERROR_CODES)
 
     def get_summary_play(
         self,
@@ -971,12 +969,12 @@ class GameResultsDataMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getSummaryPlay", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.PlaySummaryResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.PlaySummaryResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_summary_play_async(
@@ -1031,12 +1029,12 @@ class GameResultsDataMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getSummaryPlay", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.PlaySummaryResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.PlaySummaryResponse, RESOURCE_ERROR_CODES
         )
 
     def get_plays_win_probability(
@@ -1089,16 +1087,16 @@ class GameResultsDataMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: Fix Pydantic model
-        # Once fixed, use: return self._handle_json_response(http_res, models.GetPlaysWinProbabilityResponse, self._RESOURCE_ERROR_CODES)
+        # Once fixed, use: return self._handle_json_response(http_res, models.GetPlaysWinProbabilityResponse, RESOURCE_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.GetPlaysWinProbabilityResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.GetPlaysWinProbabilityResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_plays_win_probability_async(
@@ -1151,12 +1149,12 @@ class GameResultsDataMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getPlaysWinProbability", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.GetPlaysWinProbabilityResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.GetPlaysWinProbabilityResponse, RESOURCE_ERROR_CODES
         )
 
     def get_win_probability_min(
@@ -1208,12 +1206,12 @@ class GameResultsDataMixin:
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getWinProbabilityMin", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.WinProbabilityResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.WinProbabilityResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_win_probability_min_async(
@@ -1265,10 +1263,10 @@ class GameResultsDataMixin:
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getWinProbabilityMin", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.WinProbabilityResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.WinProbabilityResponse, RESOURCE_ERROR_CODES
         )

@@ -1,13 +1,12 @@
 from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
 from griddy.nfl.basesdk import BaseSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Games(BaseSDK):
-    _COLLECTION_ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
-    _RESOURCE_ERROR_CODES = ["400", "401", "404", "4XX", "500", "5XX"]
 
     def get_games(
         self,
@@ -67,12 +66,12 @@ class Games(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getFootballGames", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.FootballGamesResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.FootballGamesResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_games_async(
@@ -119,12 +118,12 @@ class Games(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getFootballGames", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.FootballGamesResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.FootballGamesResponse, COLLECTION_ERROR_CODES
         )
 
     def get_box_score(
@@ -174,12 +173,12 @@ class Games(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getFootballBoxScore", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.BoxScoreResponse2, self._RESOURCE_ERROR_CODES
+            http_res, models.BoxScoreResponse2, RESOURCE_ERROR_CODES
         )
 
     async def get_box_score_async(
@@ -218,12 +217,12 @@ class Games(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getFootballBoxScore", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.BoxScoreResponse2, self._RESOURCE_ERROR_CODES
+            http_res, models.BoxScoreResponse2, RESOURCE_ERROR_CODES
         )
 
     def get_play_by_play(
@@ -281,12 +280,12 @@ class Games(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getPlayByPlay", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.PlayByPlayResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.PlayByPlayResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_play_by_play_async(
@@ -331,12 +330,12 @@ class Games(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getPlayByPlay", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.PlayByPlayResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.PlayByPlayResponse, RESOURCE_ERROR_CODES
         )
 
     def get_live_game_stats(
@@ -394,12 +393,12 @@ class Games(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getLiveGameStats", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.GameStatsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.GameStatsResponse, COLLECTION_ERROR_CODES
         )
 
     def get_weekly_game_details(
@@ -469,7 +468,7 @@ class Games(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getWeeklyGameDetails", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
@@ -477,7 +476,7 @@ class Games(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, List[models.WeeklyGameDetail], self._COLLECTION_ERROR_CODES
+            http_res, List[models.WeeklyGameDetail], COLLECTION_ERROR_CODES
         )
 
     async def get_weekly_game_details_async(
@@ -530,10 +529,10 @@ class Games(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getWeeklyGameDetails", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, List[models.WeeklyGameDetail], self._COLLECTION_ERROR_CODES
+            http_res, List[models.WeeklyGameDetail], COLLECTION_ERROR_CODES
         )

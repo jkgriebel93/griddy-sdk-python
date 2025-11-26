@@ -1,12 +1,12 @@
 from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES
 from griddy.nfl.basesdk import BaseSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Weeks(BaseSDK):
-    _ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_week_of_date(
         self,
@@ -51,11 +51,11 @@ class Weeks(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getWeekOfDate", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
-        return self._handle_json_response(http_res, models.Week, self._ERROR_CODES)
+        return self._handle_json_response(http_res, models.Week, COLLECTION_ERROR_CODES)
 
     async def get_week_of_date_async(
         self,
@@ -93,12 +93,12 @@ class Weeks(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getWeekOfDate", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.Week, self._ERROR_CODES
+            http_res, models.Week, COLLECTION_ERROR_CODES
         )
 
     def get_season_weeks(
@@ -148,12 +148,12 @@ class Weeks(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getSeasonWeeks", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.WeeksResponse, self._ERROR_CODES
+            http_res, models.WeeksResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_season_weeks_async(
@@ -193,10 +193,10 @@ class Weeks(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getSeasonWeeks", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.WeeksResponse, self._ERROR_CODES
+            http_res, models.WeeksResponse, COLLECTION_ERROR_CODES
         )

@@ -1,15 +1,12 @@
 from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Teams(ProSDK):
-    # Error codes for collection endpoints (no 404)
-    _COLLECTION_ERROR_CODES = ["401", "4XX", "500", "5XX"]
-    # Error codes for resource endpoints (includes 404)
-    _RESOURCE_ERROR_CODES = ["400", "401", "404", "4XX", "500", "5XX"]
 
     def get_all_teams(
         self,
@@ -54,12 +51,12 @@ class Teams(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getAllTeams", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, List[models.ProTeam], self._COLLECTION_ERROR_CODES
+            http_res, List[models.ProTeam], COLLECTION_ERROR_CODES
         )
 
     async def get_all_teams_async(
@@ -105,12 +102,12 @@ class Teams(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getAllTeams", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, List[models.ProTeam], self._COLLECTION_ERROR_CODES
+            http_res, List[models.ProTeam], COLLECTION_ERROR_CODES
         )
 
     def get_team_roster(
@@ -162,12 +159,12 @@ class Teams(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTeamRoster", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.TeamRosterResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.TeamRosterResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_team_roster_async(
@@ -219,12 +216,12 @@ class Teams(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getTeamRoster", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.TeamRosterResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.TeamRosterResponse, RESOURCE_ERROR_CODES
         )
 
     def get_weekly_team_roster(
@@ -285,12 +282,12 @@ class Teams(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getWeeklyTeamRoster", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.WeeklyRosterResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.WeeklyRosterResponse, RESOURCE_ERROR_CODES
         )
 
     async def get_weekly_team_roster_async(
@@ -351,12 +348,12 @@ class Teams(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getWeeklyTeamRoster", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.WeeklyRosterResponse, self._RESOURCE_ERROR_CODES
+            http_res, models.WeeklyRosterResponse, RESOURCE_ERROR_CODES
         )
 
     def get_team_schedule(
@@ -408,12 +405,12 @@ class Teams(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTeamSchedule", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, List[models.ScheduledGame], self._RESOURCE_ERROR_CODES
+            http_res, List[models.ScheduledGame], RESOURCE_ERROR_CODES
         )
 
     async def get_team_schedule_async(
@@ -465,12 +462,12 @@ class Teams(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getTeamSchedule", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, List[models.ScheduledGame], self._RESOURCE_ERROR_CODES
+            http_res, List[models.ScheduledGame], RESOURCE_ERROR_CODES
         )
 
     # TODO: These ranking methods may fit better in the stats APIs somewhere

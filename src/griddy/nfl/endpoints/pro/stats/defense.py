@@ -1,6 +1,7 @@
 from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import STATS_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -8,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class PlayerDefenseStats(ProSDK):
-    _ERROR_CODES = ["400", "401", "403", "4XX", "500", "5XX"]
 
     def get_season_summary(
         self,
@@ -84,14 +84,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveOverviewStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.DefensiveOverviewStatsResponse, self._ERROR_CODES
+            http_res, models.DefensiveOverviewStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_season_summary_async(
@@ -150,14 +150,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveOverviewStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.DefensiveOverviewStatsResponse, self._ERROR_CODES
+            http_res, models.DefensiveOverviewStatsResponse, STATS_ERROR_CODES
         )
 
     def get_weekly_summary(
@@ -218,14 +218,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveOverviewStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.DefensiveOverviewStatsResponse, self._ERROR_CODES
+            http_res, models.DefensiveOverviewStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_weekly_summary_async(
@@ -286,14 +286,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveOverviewStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.DefensiveOverviewStatsResponse, self._ERROR_CODES
+            http_res, models.DefensiveOverviewStatsResponse, STATS_ERROR_CODES
         )
 
     def get_season_pass_rush_summary(
@@ -350,14 +350,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensivePassRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.PassRushStatsResponse, self._ERROR_CODES
+            http_res, models.PassRushStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_season_pass_rush_summary_async(
@@ -414,14 +414,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensivePassRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.PassRushStatsResponse, self._ERROR_CODES
+            http_res, models.PassRushStatsResponse, STATS_ERROR_CODES
         )
 
     def get_weekly_pass_rush_summary(
@@ -480,14 +480,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensivePassRushStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.PassRushStatsResponse, self._ERROR_CODES
+            http_res, models.PassRushStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_weekly_pass_rush_summary_async(
@@ -546,14 +546,14 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensivePassRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.PassRushStatsResponse, self._ERROR_CODES
+            http_res, models.PassRushStatsResponse, STATS_ERROR_CODES
         )
 
     def get_season_nearest_defender_summary(
@@ -610,13 +610,13 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveNearestDefenderStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        return self._handle_json_response(http_res, dict, self._ERROR_CODES)
+        return self._handle_json_response(http_res, dict, STATS_ERROR_CODES)
 
     async def get_season_nearest_defender_summary_async(
         self,
@@ -672,13 +672,13 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveNearestDefenderStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        return await self._handle_json_response_async(http_res, dict, self._ERROR_CODES)
+        return await self._handle_json_response_async(http_res, dict, STATS_ERROR_CODES)
 
     def get_weekly_nearest_defender_summary(
         self,
@@ -736,13 +736,13 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveNearestDefenderStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        return self._handle_json_response(http_res, dict, self._ERROR_CODES)
+        return self._handle_json_response(http_res, dict, STATS_ERROR_CODES)
 
     async def get_weekly_nearest_defender_summary_async(
         self,
@@ -800,10 +800,10 @@ class PlayerDefenseStats(ProSDK):
                 "getDefensiveNearestDefenderStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
-        return await self._handle_json_response_async(http_res, dict, self._ERROR_CODES)
+        return await self._handle_json_response_async(http_res, dict, STATS_ERROR_CODES)

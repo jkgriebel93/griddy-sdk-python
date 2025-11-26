@@ -1,6 +1,7 @@
 from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import STATS_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -8,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class PlayerRushingStats(ProSDK):
-    _ERROR_CODES = ["400", "401", "403", "4XX", "500", "5XX"]
 
     def get_weekly_summary(
         self,
@@ -85,7 +85,7 @@ class PlayerRushingStats(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getPlayerRushingStatsByWeek", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
@@ -93,7 +93,7 @@ class PlayerRushingStats(ProSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.WeeklyRushingStatsResponse, self._ERROR_CODES
+            http_res, models.WeeklyRushingStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_weekly_summary_async(
@@ -171,7 +171,7 @@ class PlayerRushingStats(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getPlayerRushingStatsByWeek", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
@@ -179,7 +179,7 @@ class PlayerRushingStats(ProSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.WeeklyRushingStatsResponse, self._ERROR_CODES
+            http_res, models.WeeklyRushingStatsResponse, STATS_ERROR_CODES
         )
 
     def get_season_summary(
@@ -256,7 +256,7 @@ class PlayerRushingStats(ProSDK):
                 "getPlayerRushingStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
@@ -264,7 +264,7 @@ class PlayerRushingStats(ProSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.RushingStatsResponse, self._ERROR_CODES
+            http_res, models.RushingStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_season_summary_async(
@@ -341,7 +341,7 @@ class PlayerRushingStats(ProSDK):
                 "getPlayerRushingStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
@@ -349,5 +349,5 @@ class PlayerRushingStats(ProSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.RushingStatsResponse, self._ERROR_CODES
+            http_res, models.RushingStatsResponse, STATS_ERROR_CODES
         )

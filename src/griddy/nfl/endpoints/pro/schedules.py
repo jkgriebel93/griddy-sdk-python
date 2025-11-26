@@ -1,6 +1,7 @@
 from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.endpoints.pro.mixins import GameScheduleMixin
 from griddy.nfl.types import UNSET, OptionalNullable
@@ -8,8 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 class Schedules(ProSDK, GameScheduleMixin):
     r"""Game schedules, matchup rankings, and injury reports"""
-
-    _COLLECTION_ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_scheduled_games(
         self,
@@ -67,12 +66,12 @@ class Schedules(ProSDK, GameScheduleMixin):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getScheduledGames", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.GamesResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.GamesResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_scheduled_games_async(
@@ -131,12 +130,12 @@ class Schedules(ProSDK, GameScheduleMixin):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getScheduledGames", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.GamesResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.GamesResponse, COLLECTION_ERROR_CODES
         )
 
     def get_current_week_games(
@@ -408,12 +407,12 @@ class Schedules(ProSDK, GameScheduleMixin):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTeamStandings", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.StandingsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.StandingsResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_team_standings_async(
@@ -473,12 +472,12 @@ class Schedules(ProSDK, GameScheduleMixin):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getTeamStandings", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.StandingsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.StandingsResponse, COLLECTION_ERROR_CODES
         )
 
     def get_schedule_season_weeks(
@@ -531,12 +530,12 @@ class Schedules(ProSDK, GameScheduleMixin):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getScheduleSeasonWeeks", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.SeasonWeeksResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.SeasonWeeksResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_schedule_season_weeks_async(
@@ -589,10 +588,10 @@ class Schedules(ProSDK, GameScheduleMixin):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getScheduleSeasonWeeks", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.SeasonWeeksResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.SeasonWeeksResponse, COLLECTION_ERROR_CODES
         )

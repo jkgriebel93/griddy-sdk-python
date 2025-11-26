@@ -1,6 +1,7 @@
 from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import STATS_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -9,8 +10,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 class TeamOffenseStats(ProSDK):
     r"""Comprehensive team offensive overview statistics and situational analytics"""
-
-    _ERROR_CODES = ["400", "401", "403", "4XX", "500", "5XX"]
 
     def get_season_overview(
         self,
@@ -66,14 +65,14 @@ class TeamOffenseStats(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTeamOffenseStatsBySeason", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamOffenseStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffenseStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_season_overview_async(
@@ -130,14 +129,14 @@ class TeamOffenseStats(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getTeamOffenseStatsBySeason", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.TeamOffenseStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffenseStatsResponse, STATS_ERROR_CODES
         )
 
     def get_weekly_overview(
@@ -196,14 +195,14 @@ class TeamOffenseStats(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTeamOffenseStatsByWeek", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamOffenseStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffenseStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_weekly_overview_async(
@@ -262,14 +261,14 @@ class TeamOffenseStats(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getTeamOffenseStatsByWeek", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.TeamOffenseStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffenseStatsResponse, STATS_ERROR_CODES
         )
 
     def get_season_pass_stats(
@@ -326,14 +325,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffensePassStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_season_pass_stats_async(
@@ -390,14 +389,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffensePassStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     def get_weekly_pass_stats(
@@ -456,14 +455,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffensePassStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_weekly_pass_stats_async(
@@ -522,14 +521,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffensePassStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     def get_season_rush_stats(
@@ -584,14 +583,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffenseRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_season_rush_stats_async(
@@ -646,14 +645,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffenseRushStatsBySeason", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     def get_weekly_rush_stats(
@@ -710,14 +709,14 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffenseRushStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )
 
     async def get_weekly_rush_stats_async(
@@ -774,12 +773,12 @@ class TeamOffenseStats(ProSDK):
                 "getTeamOffenseRushStatsByWeek", base_url
             ),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=STATS_ERROR_CODES,
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return await self._handle_json_response_async(
-            http_res, models.TeamOffensePassStatsResponse, self._ERROR_CODES
+            http_res, models.TeamOffensePassStatsResponse, STATS_ERROR_CODES
         )

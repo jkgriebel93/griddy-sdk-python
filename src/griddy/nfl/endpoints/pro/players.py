@@ -1,15 +1,12 @@
 from typing import List, Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Players(ProSDK):
-    # Error codes for resource endpoints (includes 404)
-    _RESOURCE_ERROR_CODES = ["400", "401", "404", "4XX", "500", "5XX"]
-    # Error codes for collection/search endpoints (no 404)
-    _COLLECTION_ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_player(
         self,
@@ -58,16 +55,16 @@ class Players(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getPlayer", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: Something is being lost in the unmarshaling process. Fix it.
-        # Once fixed, use: return self._handle_json_response(http_res, models.PlayerDetail, self._RESOURCE_ERROR_CODES)
+        # Once fixed, use: return self._handle_json_response(http_res, models.PlayerDetail, RESOURCE_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.PlayerDetail, self._RESOURCE_ERROR_CODES
+            http_res, models.PlayerDetail, RESOURCE_ERROR_CODES
         )
 
     async def get_player_async(
@@ -117,12 +114,12 @@ class Players(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getPlayer", base_url),
             request=req,
-            error_status_codes=self._RESOURCE_ERROR_CODES,
+            error_status_codes=RESOURCE_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.PlayerDetail, self._RESOURCE_ERROR_CODES
+            http_res, models.PlayerDetail, RESOURCE_ERROR_CODES
         )
 
     def get_projected_stats(
@@ -183,12 +180,12 @@ class Players(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getProjectedStats", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.ProjectedStatsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.ProjectedStatsResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_projected_stats_async(
@@ -249,12 +246,12 @@ class Players(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getProjectedStats", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.ProjectedStatsResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.ProjectedStatsResponse, COLLECTION_ERROR_CODES
         )
 
     def search_players(
@@ -304,12 +301,12 @@ class Players(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("searchPlayers", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.PlayerSearchResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.PlayerSearchResponse, COLLECTION_ERROR_CODES
         )
 
     async def search_players_async(
@@ -359,10 +356,10 @@ class Players(ProSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("searchPlayers", base_url),
             request=req,
-            error_status_codes=self._COLLECTION_ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.PlayerSearchResponse, self._COLLECTION_ERROR_CODES
+            http_res, models.PlayerSearchResponse, COLLECTION_ERROR_CODES
         )

@@ -1,12 +1,12 @@
 from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES
 from griddy.nfl.basesdk import BaseSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 class Standings(BaseSDK):
-    _ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_standings(
         self,
@@ -66,12 +66,12 @@ class Standings(BaseSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getStandings", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return self._handle_json_response(
-            http_res, models.StandingsResponse, self._ERROR_CODES
+            http_res, models.StandingsResponse, COLLECTION_ERROR_CODES
         )
 
     async def get_standings_async(
@@ -118,10 +118,10 @@ class Standings(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=self._create_hook_context("getStandings", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         return await self._handle_json_response_async(
-            http_res, models.StandingsResponse, self._ERROR_CODES
+            http_res, models.StandingsResponse, COLLECTION_ERROR_CODES
         )

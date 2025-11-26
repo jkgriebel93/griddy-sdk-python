@@ -1,13 +1,13 @@
 from typing import Mapping, Optional
 
 from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 # TODO: A bunch of these endpoints seem to have disappeared since a few weeks ago?
 class Transactions(ProSDK):
-    _ERROR_CODES = ["400", "401", "4XX", "500", "5XX"]
 
     def get_transactions(
         self,
@@ -67,14 +67,14 @@ class Transactions(ProSDK):
         http_res = self.do_request(
             hook_ctx=self._create_hook_context("getTransactions", base_url),
             request=req,
-            error_status_codes=self._ERROR_CODES,
+            error_status_codes=COLLECTION_ERROR_CODES,
             retry_config=retry_config,
         )
 
         # TODO: Fix Pydantic models
-        # Once fixed, use: return self._handle_json_response(http_res, models.TransactionsResponse, self._ERROR_CODES)
+        # Once fixed, use: return self._handle_json_response(http_res, models.TransactionsResponse, COLLECTION_ERROR_CODES)
         if utils.match_response(http_res, "200", "application/json"):
             return http_res.json()
         return self._handle_json_response(
-            http_res, models.TransactionsResponse, self._ERROR_CODES
+            http_res, models.TransactionsResponse, COLLECTION_ERROR_CODES
         )
