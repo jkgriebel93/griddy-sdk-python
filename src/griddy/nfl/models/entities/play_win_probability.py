@@ -14,7 +14,7 @@ class PlayWinProbabilityTypedDict(TypedDict):
     r"""Down number (0 for kickoffs and special plays, 1-4 for regular plays)"""
     home_score: int
     r"""Home team score after the play"""
-    home_timeouts_left: int
+    home_timeouts_left: NotRequired[int]
     r"""Number of timeouts remaining for home team"""
     play_description: str
     r"""Detailed description of the play or game event"""
@@ -32,7 +32,7 @@ class PlayWinProbabilityTypedDict(TypedDict):
     r"""Play sequence number (can be decimal for special plays)"""
     visitor_score: int
     r"""Visitor team score after the play"""
-    visitor_timeouts_left: int
+    visitor_timeouts_left: NotRequired[int]
     r"""Number of timeouts remaining for visitor team"""
     yards_to_go: int
     r"""Yards needed for first down"""
@@ -63,7 +63,9 @@ class PlayWinProbability(BaseModel):
     home_score: Annotated[int, pydantic.Field(alias="homeScore")]
     r"""Home team score after the play"""
 
-    home_timeouts_left: Annotated[int, pydantic.Field(alias="homeTimeoutsLeft")]
+    home_timeouts_left: Annotated[
+        OptionalNullable[int], pydantic.Field(alias="homeTimeoutsLeft")
+    ] = None
     r"""Number of timeouts remaining for home team"""
 
     play_description: Annotated[str, pydantic.Field(alias="playDescription")]
@@ -90,7 +92,9 @@ class PlayWinProbability(BaseModel):
     visitor_score: Annotated[int, pydantic.Field(alias="visitorScore")]
     r"""Visitor team score after the play"""
 
-    visitor_timeouts_left: Annotated[int, pydantic.Field(alias="visitorTimeoutsLeft")]
+    visitor_timeouts_left: Annotated[
+        OptionalNullable[int], pydantic.Field(alias="visitorTimeoutsLeft")
+    ] = None
     r"""Number of timeouts remaining for visitor team"""
 
     yards_to_go: Annotated[int, pydantic.Field(alias="yardsToGo")]

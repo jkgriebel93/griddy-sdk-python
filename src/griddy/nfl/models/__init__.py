@@ -558,6 +558,10 @@ if TYPE_CHECKING:
         PlaySummaryResponse,
         PlaySummaryResponseTypedDict,
     )
+    from griddy.nfl.models.responses.play_win_probability_response import (
+        PlayWinProbabilityResponse,
+        PlayWinProbabilityResponseTypedDict,
+    )
     from griddy.nfl.models.responses.player_search_response import (
         PlayerSearchResponse,
         PlayerSearchResponseTypedDict,
@@ -1073,6 +1077,8 @@ __all__ = [
     "FootballRoster",
     "FootballRostersResponseTypedDict",
     "FootballRostersResponse",
+    "PlayWinProbabilityResponseTypedDict",
+    "PlayWinProbabilityResponse",
     "GetFootballRostersRequestTypedDict",
     "GetFootballRostersRequest",
     "AirYardType",
@@ -1537,7 +1543,6 @@ __all__ = [
     "PlayState",
     "PlaySummaryResponse",
     "PlaySummaryResponseTypedDict",
-    "PlayType",
     "PlayTypeEnum",
     "PlayTypedDict",
     "PlayWinProbability",
@@ -1836,6 +1841,8 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "PlayWinProbabilityResponseTypedDict": ".responses.play_win_probability_response",
+    "PlayWinProbabilityResponse": ".responses.play_win_probability_response",
     "PersonTypedDict": ".entities.person",
     "Person": ".entities.person",
     "FootballRosterTypedDict": ".entities.football_roster",

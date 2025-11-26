@@ -5,10 +5,6 @@ from typing import List, Union
 import pydantic
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
-from griddy.nfl.models.responses.win_probability_response import (
-    WinProbabilityResponse,
-    WinProbabilityResponseTypedDict,
-)
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
@@ -44,17 +40,3 @@ class GetPlaysWinProbabilityRequest(BaseModel):
     Can be a single game ID or multiple game IDs for batch retrieval.
 
     """
-
-
-GetPlaysWinProbabilityResponseTypedDict = TypeAliasType(
-    "GetPlaysWinProbabilityResponseTypedDict",
-    Union[WinProbabilityResponseTypedDict, List[WinProbabilityResponseTypedDict]],
-)
-r"""Successfully retrieved win probability data"""
-
-
-GetPlaysWinProbabilityResponse = TypeAliasType(
-    "GetPlaysWinProbabilityResponse",
-    Union[WinProbabilityResponse, List[WinProbabilityResponse]],
-)
-r"""Successfully retrieved win probability data"""

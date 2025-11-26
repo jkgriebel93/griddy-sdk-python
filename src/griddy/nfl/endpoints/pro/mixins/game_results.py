@@ -220,13 +220,13 @@ class GameResultsDataMixin:
             path="/api/secured/plays/winProbability",
             operation_id="getPlaysWinProbability",
             request=models.GetPlaysWinProbabilityRequest(game_id=game_id),
-            response_type=models.GetPlaysWinProbabilityResponse,
+            response_type=models.PlayWinProbabilityResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,  # TODO: Fix Pydantic model
         )
 
     def get_plays_win_probability(
@@ -237,7 +237,7 @@ class GameResultsDataMixin:
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetPlaysWinProbabilityResponse:
+    ) -> models.PlayWinProbabilityResponse:
         r"""Get Game Win Probability by Plays
 
         Retrieves comprehensive win probability data for every play in specified games.
@@ -270,7 +270,7 @@ class GameResultsDataMixin:
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetPlaysWinProbabilityResponse:
+    ) -> models.PlayWinProbabilityResponse:
         r"""Get Game Win Probability by Plays
 
         Retrieves comprehensive win probability data for every play in specified games.
