@@ -44,11 +44,6 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 
 ### Pro API - Mixins
 
-#### game_schedule.py
-| Method | Async Method | Response Model |
-|--------|--------------|----------------|
-| `get_game_team_rankings` | `get_game_team_rankings_async` | `TeamRankingsResponse` |
-
 #### game_results.py
 | Method | Async Method | Response Model |
 |--------|--------------|----------------|

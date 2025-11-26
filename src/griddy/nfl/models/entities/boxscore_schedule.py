@@ -7,6 +7,7 @@ import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 from ...types import BaseModel
 from .boxscore_score import BoxscoreScore, BoxscoreScoreTypedDict
@@ -50,8 +51,11 @@ class BoxscoreScheduleTypedDict(TypedDict):
 class BoxscoreSchedule(BaseModel):
     game_date: Annotated[Optional[str], pydantic.Field(alias="gameDate")] = None
 
-    game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
-
+    game_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="gameId"),
+        pydantic.BeforeValidator(int_to_str),
+    ] = None
     game_key: Annotated[Optional[int], pydantic.Field(alias="gameKey")] = None
 
     game_time: Annotated[Optional[datetime], pydantic.Field(alias="gameTime")] = None

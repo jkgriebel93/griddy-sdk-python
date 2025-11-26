@@ -19,13 +19,15 @@ else:
         login_email=NFL["login_email"], login_password=NFL["login_password"]
     )
 
-# This game_id is for 2025 Wk 08 Green Bay at Pittsburgh
-fapi_game_id = "f773ee57-311e-11f0-b670-ae1250fadad1"
-team_id = "10403900-8251-6892-d81c-4348525c2d47"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-result = nfl.transactions.get_transactions(month=11, year=2025, team_id=team_id)
+lions_uuid = "10401800-ab22-323d-721a-cee4713c4c2d"
+packers_uuid = "10401540-f97c-2d19-6fcd-fac6490a48b7"
+lions_at_packers_uuid = "f83858b1-311e-11f0-b670-ae1250fadad1"
+lions_at_packers_ten_dig_id = "2025101600"
+
+result = nfl.pro_games.get_stats_boxscore(game_id=lions_at_packers_ten_dig_id)
 from pprint import pprint
 
-pprint(result, indent=4)
+print(result.model_dump_json(indent=4))
