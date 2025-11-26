@@ -48,7 +48,7 @@ class TeamOffenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_overview(
@@ -161,7 +161,7 @@ class TeamOffenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_overview(
@@ -274,7 +274,7 @@ class TeamOffenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_pass_stats(
@@ -381,7 +381,7 @@ class TeamOffenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_pass_stats(
@@ -482,13 +482,13 @@ class TeamOffenseStats(ProSDK):
                 sort_key=sort_key,
                 sort_value=sort_value,
             ),
-            response_type=models.TeamOffensePassStatsResponse,
+            response_type=models.TeamOffenseRushStatsResponse,
             error_status_codes=STATS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_rush_stats(
@@ -583,13 +583,13 @@ class TeamOffenseStats(ProSDK):
                 sort_key=sort_key,
                 sort_value=sort_value,
             ),
-            response_type=models.TeamOffensePassStatsResponse,
+            response_type=models.TeamOffenseRushStatsResponse,
             error_status_codes=STATS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_rush_stats(

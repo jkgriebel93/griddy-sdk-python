@@ -5,29 +5,13 @@ from typing import Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.enums.defensive_position_group_enum import (
-    DefensivePositionGroupEnum,
+from griddy.nfl.models.enums.position_enums import (
+    DefenseNGSPositionEnum,
+    DefenseNGSPositionGroupEnum,
+    DefensePositionEnum,
+    DefensePositionGroupEnum,
 )
-
-from ...types import BaseModel
-
-DefensivePassRushStatsNgsPosition = Literal[
-    "ED",
-    "DT",
-    "LB",
-]
-r"""Next Gen Stats position"""
-
-
-DefensivePassRushStatsPosition = Literal[
-    "DE",
-    "DT",
-    "NT",
-    "OLB",
-    "ILB",
-    "MLB",
-]
-r"""Player position"""
+from griddy.nfl.types import BaseModel
 
 
 class DefensivePassRushStatsTypedDict(TypedDict):
@@ -39,7 +23,7 @@ class DefensivePassRushStatsTypedDict(TypedDict):
     r"""Games started"""
     nfl_id: str
     r"""NFL player identifier"""
-    position: DefensivePassRushStatsPosition
+    position: DefensePositionEnum
     r"""Player position"""
     pr: int
     r"""Pass rush grade/rating"""
@@ -61,11 +45,11 @@ class DefensivePassRushStatsTypedDict(TypedDict):
     r"""URL to player headshot image (contains formatInstructions placeholder)"""
     jersey_number: NotRequired[int]
     r"""Player's jersey number"""
-    ngs_position: NotRequired[DefensivePassRushStatsNgsPosition]
+    ngs_position: NotRequired[DefenseNGSPositionEnum]
     r"""Next Gen Stats position"""
-    ngs_position_group: NotRequired[DefensivePositionGroupEnum]
+    ngs_position_group: NotRequired[DefenseNGSPositionGroupEnum]
     r"""Defensive position group"""
-    position_group: NotRequired[DefensivePositionGroupEnum]
+    position_group: NotRequired[DefensePositionGroupEnum]
     r"""Defensive position group"""
     pr_go: NotRequired[float]
     r"""Pass rush get-off metric"""
@@ -102,7 +86,7 @@ class DefensivePassRushStats(BaseModel):
     nfl_id: Annotated[str, pydantic.Field(alias="nflId")]
     r"""NFL player identifier"""
 
-    position: DefensivePassRushStatsPosition
+    position: DefensePositionEnum
     r"""Player position"""
 
     pr: int
@@ -136,17 +120,17 @@ class DefensivePassRushStats(BaseModel):
     r"""Player's jersey number"""
 
     ngs_position: Annotated[
-        Optional[DefensivePassRushStatsNgsPosition], pydantic.Field(alias="ngsPosition")
+        Optional[DefenseNGSPositionEnum], pydantic.Field(alias="ngsPosition")
     ] = None
     r"""Next Gen Stats position"""
 
     ngs_position_group: Annotated[
-        Optional[DefensivePositionGroupEnum], pydantic.Field(alias="ngsPositionGroup")
+        Optional[DefenseNGSPositionGroupEnum], pydantic.Field(alias="ngsPositionGroup")
     ] = None
     r"""Defensive position group"""
 
     position_group: Annotated[
-        Optional[DefensivePositionGroupEnum], pydantic.Field(alias="positionGroup")
+        Optional[DefensePositionGroupEnum], pydantic.Field(alias="positionGroup")
     ] = None
     r"""Defensive position group"""
 

@@ -1,13 +1,17 @@
+from __future__ import annotations
+
 from typing import List, Optional
 
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.entities.team_offense_pass_stats import (
+    TeamOffensePassStats,
+    TeamOffensePassStatsTypedDict,
+)
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 from griddy.nfl.types import BaseModel
-
-from .teamoffensepassstats import TeamOffensePassStats, TeamOffensePassStatsTypedDict
 
 
 class TeamOffensePassStatsResponseTypedDict(TypedDict):
@@ -20,9 +24,9 @@ class TeamOffensePassStatsResponseTypedDict(TypedDict):
     r"""Season year"""
     season_type: SeasonTypeEnum
     r"""Type of NFL season"""
-    sort_key: str
+    sort_key: NotRequired[str]
     r"""Field used for sorting"""
-    sort_value: SortOrderEnum
+    sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction for ordered results"""
     total: int
     r"""Total number of teams matching the criteria"""
@@ -45,10 +49,12 @@ class TeamOffensePassStatsResponse(BaseModel):
     season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
     r"""Type of NFL season"""
 
-    sort_key: Annotated[str, pydantic.Field(alias="sortKey")]
+    sort_key: Annotated[Optional[str], pydantic.Field(alias="sortKey")] = None
     r"""Field used for sorting"""
 
-    sort_value: Annotated[SortOrderEnum, pydantic.Field(alias="sortValue")]
+    sort_value: Annotated[
+        Optional[SortOrderEnum], pydantic.Field(alias="sortValue")
+    ] = None
     r"""Sort direction for ordered results"""
 
     total: int

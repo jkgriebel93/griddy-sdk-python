@@ -1,13 +1,17 @@
-from typing import List
+from __future__ import annotations
+
+from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.entities.team_offense_rush_stats import (
+    TeamOffenseRushStats,
+    TeamOffenseRushStatsTypedDict,
+)
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 from griddy.nfl.types import BaseModel
-
-from .teamoffenserushstats import TeamOffenseRushStats, TeamOffenseRushStatsTypedDict
 
 
 class TeamOffenseRushStatsResponseTypedDict(TypedDict):
@@ -19,10 +23,9 @@ class TeamOffenseRushStatsResponseTypedDict(TypedDict):
     r"""Season year"""
     season_type: SeasonTypeEnum
     r"""Type of season"""
-    # TODO: Need to add enum for this
-    sort_key: str
+    sort_key: NotRequired[str]
     r"""Field used to sort results"""
-    sort_value: SortOrderEnum
+    sort_value: NotRequired[SortOrderEnum]
     r"""Sort direction for results"""
     total: int
     r"""Number of records matching criteria"""
@@ -32,17 +35,25 @@ class TeamOffenseRushStatsResponseTypedDict(TypedDict):
 class TeamOffenseRushStatsResponse(BaseModel):
     limit: int
     r"""Maximum number of results returned"""
+
     offset: int
     r"""Number of records skipped"""
+
     season: int
     r"""Season year"""
+
     season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
     r"""Type of season"""
-    # TODO: Need to add enum for this
-    sort_key: Annotated[str, pydantic.Field(alias="sortKey")]
+
+    sort_key: Annotated[Optional[str], pydantic.Field(alias="sortKey")] = None
     r"""Field used to sort results"""
-    sort_value: Annotated[SortOrderEnum, pydantic.Field(alias="sortValue")]
+
+    sort_value: Annotated[
+        Optional[SortOrderEnum], pydantic.Field(alias="sortValue")
+    ] = None
     r"""Sort direction for results"""
+
     total: int
     r"""Number of records matching criteria"""
-    offense: List[TeamOffenseRushStatsTypedDict]
+
+    offense: List[TeamOffenseRushStats]

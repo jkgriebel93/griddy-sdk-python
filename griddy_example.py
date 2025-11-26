@@ -27,10 +27,15 @@ packers_uuid = "10401540-f97c-2d19-6fcd-fac6490a48b7"
 lions_at_packers_uuid = "f83858b1-311e-11f0-b670-ae1250fadad1"
 lions_at_packers_ten_dig_id = "2025101600"
 
-result = nfl.stats.passing.get_season_summary(
+result = nfl.stats.team_defense.get_season_rush_stats(
     season=2025,
     season_type="REG",
 )
 # with open("plays_win_prob.json", "w") as outfile:
 #     json.dump(result, outfile, indent=4)
+print(result.model_dump_json(indent=4))
+
+result = nfl.stats.team_defense.get_weekly_rush_stats(
+    season=2025, season_type="REG", week="WEEK_12"
+)
 print(result.model_dump_json(indent=4))

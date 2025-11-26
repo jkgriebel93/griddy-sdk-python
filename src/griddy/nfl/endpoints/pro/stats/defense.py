@@ -47,7 +47,7 @@ class PlayerDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_summary(
@@ -178,7 +178,7 @@ class PlayerDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_summary(
@@ -291,7 +291,7 @@ class PlayerDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_pass_rush_summary(
@@ -398,7 +398,7 @@ class PlayerDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_pass_rush_summary(
@@ -501,13 +501,13 @@ class PlayerDefenseStats(ProSDK):
                 sort_value=sort_value,
                 qualified_defender=qualified_defender,
             ),
-            response_type=dict,
+            response_type=models.NearestDefenderStatsResponse,
             error_status_codes=STATS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # No Pydantic model exists
+            return_raw_json=False,
         )
 
     def get_season_nearest_defender_summary(
@@ -608,13 +608,13 @@ class PlayerDefenseStats(ProSDK):
                 sort_value=sort_value,
                 qualified_defender=qualified_defender,
             ),
-            response_type=dict,
+            response_type=models.NearestDefenderStatsResponse,
             error_status_codes=STATS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # No Pydantic model exists
+            return_raw_json=False,
         )
 
     def get_weekly_nearest_defender_summary(

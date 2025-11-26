@@ -19,14 +19,7 @@ DefensePositionGroupEnum = Literal[
     "LB",
 ]
 
-DefenseNGSPositionEnum = Literal[
-    "S",
-    "CB",
-    "SCB",
-    "LB",
-    "DE",
-    "DT",
-]
+DefenseNGSPositionEnum = Literal["S", "CB", "SCB", "LB", "DE", "DT", "ED"]
 r"""Next Gen Stats position"""
 
 

@@ -6,11 +6,10 @@ import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 from griddy.nfl.models.enums.game_result_enum import GameResultEnum
-from griddy.nfl.models.enums.offensive_skill_position_enum import (
-    OffensiveSkillPositionEnum,
+from griddy.nfl.models.enums.offensive_player_position_enum import (
+    OffensivePlayerPositionEnum,
 )
-
-from ...types import BaseModel
+from griddy.nfl.types import BaseModel
 
 
 class PlayerReceivingStatsTypedDict(TypedDict):
@@ -22,7 +21,7 @@ class PlayerReceivingStatsTypedDict(TypedDict):
     r"""Games started"""
     nfl_id: str
     r"""NFL player identifier"""
-    position: OffensiveSkillPositionEnum
+    position: OffensivePlayerPositionEnum
     r"""Offensive skill position (excluding QB)"""
     rec: int
     r"""Receptions"""
@@ -92,13 +91,13 @@ class PlayerReceivingStatsTypedDict(TypedDict):
     r"""Whether player's team was at home"""
     jersey_number: NotRequired[int]
     r"""Player's jersey number"""
-    ngs_position: NotRequired[OffensiveSkillPositionEnum]
+    ngs_position: NotRequired[OffensivePlayerPositionEnum]
     r"""Offensive skill position (excluding QB)"""
-    ngs_position_group: NotRequired[OffensiveSkillPositionEnum]
+    ngs_position_group: NotRequired[OffensivePlayerPositionEnum]
     r"""Offensive skill position (excluding QB)"""
     opponent_team_id: NotRequired[str]
     r"""Opponent team identifier"""
-    position_group: NotRequired[OffensiveSkillPositionEnum]
+    position_group: NotRequired[OffensivePlayerPositionEnum]
     r"""Offensive skill position (excluding QB)"""
     qr: NotRequired[bool]
     r"""Qualified receiver status"""
@@ -161,7 +160,7 @@ class PlayerReceivingStats(BaseModel):
     nfl_id: Annotated[str, pydantic.Field(alias="nflId")]
     r"""NFL player identifier"""
 
-    position: OffensiveSkillPositionEnum
+    position: OffensivePlayerPositionEnum
     r"""Offensive skill position (excluding QB)"""
 
     rec: int
@@ -269,12 +268,12 @@ class PlayerReceivingStats(BaseModel):
     r"""Player's jersey number"""
 
     ngs_position: Annotated[
-        Optional[OffensiveSkillPositionEnum], pydantic.Field(alias="ngsPosition")
+        Optional[OffensivePlayerPositionEnum], pydantic.Field(alias="ngsPosition")
     ] = None
     r"""Offensive skill position (excluding QB)"""
 
     ngs_position_group: Annotated[
-        Optional[OffensiveSkillPositionEnum], pydantic.Field(alias="ngsPositionGroup")
+        Optional[OffensivePlayerPositionEnum], pydantic.Field(alias="ngsPositionGroup")
     ] = None
     r"""Offensive skill position (excluding QB)"""
 
@@ -284,7 +283,7 @@ class PlayerReceivingStats(BaseModel):
     r"""Opponent team identifier"""
 
     position_group: Annotated[
-        Optional[OffensiveSkillPositionEnum], pydantic.Field(alias="positionGroup")
+        Optional[OffensivePlayerPositionEnum], pydantic.Field(alias="positionGroup")
     ] = None
     r"""Offensive skill position (excluding QB)"""
 

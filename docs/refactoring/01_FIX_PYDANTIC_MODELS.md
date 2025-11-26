@@ -62,49 +62,49 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 #### receiving.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_weekly_summary` | `get_weekly_summary_async` | `WeeklyReceivingStatsResponse` |
-| [ ] | `get_season_summary` | `get_season_summary_async` | `ReceivingStatsResponse` |
+|  [x]  | `get_weekly_summary` | `get_weekly_summary_async` | `WeeklyReceivingStatsResponse` |
+|  [x]  | `get_season_summary` | `get_season_summary_async` | `ReceivingStatsResponse` |
 
 #### rushing.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_weekly_summary` | `get_weekly_summary_async` | `WeeklyRushingStatsResponse` |
-| [ ] | `get_season_summary` | `get_season_summary_async` | `RushingStatsResponse` |
+|  [x]  | `get_weekly_summary` | `get_weekly_summary_async` | `WeeklyRushingStatsResponse` |
+|  [x]  | `get_season_summary` | `get_season_summary_async` | `RushingStatsResponse` |
 
 #### fantasy.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_fantasy_stats_by_season` | `get_fantasy_stats_by_season_async` | `FantasyStatsResponse` |
+|  [x]  | `get_fantasy_stats_by_season` | `get_fantasy_stats_by_season_async` | `FantasyStatsResponse` |
 
 #### defense.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_season_summary` | `get_season_summary_async` | `DefensiveOverviewStatsResponse` |
-| [ ] | `get_weekly_summary` | `get_weekly_summary_async` | `DefensiveOverviewStatsResponse` |
-| [ ] | `get_season_pass_rush_summary` | `get_season_pass_rush_summary_async` | `PassRushStatsResponse` |
-| [ ] | `get_weekly_pass_rush_summary` | `get_weekly_pass_rush_summary_async` | `PassRushStatsResponse` |
-| [ ] | `get_season_nearest_defender_summary` | `get_season_nearest_defender_summary_async` | `dict` (no model) |
-| [ ] | `get_weekly_nearest_defender_summary` | `get_weekly_nearest_defender_summary_async` | `dict` (no model) |
+|  [x]  | `get_season_summary` | `get_season_summary_async` | `DefensiveOverviewStatsResponse` |
+|  [x]  | `get_weekly_summary` | `get_weekly_summary_async` | `DefensiveOverviewStatsResponse` |
+|  [x]  | `get_season_pass_rush_summary` | `get_season_pass_rush_summary_async` | `PassRushStatsResponse` |
+|  [x]  | `get_weekly_pass_rush_summary` | `get_weekly_pass_rush_summary_async` | `PassRushStatsResponse` |
+|  [x]  | `get_season_nearest_defender_summary` | `get_season_nearest_defender_summary_async` | `dict` (no model) |
+|  [x]  | `get_weekly_nearest_defender_summary` | `get_weekly_nearest_defender_summary_async` | `dict` (no model) |
 
 #### team_offense.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_season_overview` | `get_season_overview_async` | `TeamOffenseStatsResponse` |
-| [ ] | `get_weekly_overview` | `get_weekly_overview_async` | `TeamOffenseStatsResponse` |
-| [ ] | `get_season_pass_stats` | `get_season_pass_stats_async` | `TeamOffensePassStatsResponse` |
-| [ ] | `get_weekly_pass_stats` | `get_weekly_pass_stats_async` | `TeamOffensePassStatsResponse` |
-| [ ] | `get_season_rush_stats` | `get_season_rush_stats_async` | `TeamOffensePassStatsResponse` |
-| [ ] | `get_weekly_rush_stats` | `get_weekly_rush_stats_async` | `TeamOffensePassStatsResponse` |
+|  [x]  | `get_season_overview` | `get_season_overview_async` | `TeamOffenseStatsResponse` |
+|  [x]  | `get_weekly_overview` | `get_weekly_overview_async` | `TeamOffenseStatsResponse` |
+|  [x]  | `get_season_pass_stats` | `get_season_pass_stats_async` | `TeamOffensePassStatsResponse` |
+|  [x]  | `get_weekly_pass_stats` | `get_weekly_pass_stats_async` | `TeamOffensePassStatsResponse` |
+|  [x]  | `get_season_rush_stats` | `get_season_rush_stats_async` | `TeamOffensePassStatsResponse` |
+|  [x]  | `get_weekly_rush_stats` | `get_weekly_rush_stats_async` | `TeamOffensePassStatsResponse` |
 
 #### team_defense.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_season_overview` | `get_season_overview_async` | `TeamDefenseStatsResponse` |
-| [ ] | `get_weekly_overview` | `get_weekly_overview_async` | `TeamDefenseStatsResponse` |
-| [ ] | `get_season_pass_stats` | `get_season_pass_stats_async` | `TeamDefensePassStatsResponse` |
-| [ ] | `get_weekly_pass_stats` | `get_weekly_pass_stats_async` | `TeamDefensePassStatsResponse` |
-| [ ] | `get_season_rush_stats` | `get_season_rush_stats_async` | `TeamDefenseRushStatsResponse` |
-| [ ] | `get_weekly_rush_stats` | `get_weekly_rush_stats_async` | `TeamDefenseRushStatsResponse` |
+|  [X]  | `get_season_overview` | `get_season_overview_async` | `TeamDefenseStatsResponse` |
+|  [X]  | `get_weekly_overview` | `get_weekly_overview_async` | `TeamDefenseStatsResponse` |
+|  [x]  | `get_season_pass_stats` | `get_season_pass_stats_async` | `TeamDefensePassStatsResponse` |
+|  [x]  | `get_weekly_pass_stats` | `get_weekly_pass_stats_async` | `TeamDefensePassStatsResponse` |
+|  [x]  | `get_season_rush_stats` | `get_season_rush_stats_async` | `TeamDefenseRushStatsResponse` |
+|  [x]  | `get_weekly_rush_stats` | `get_weekly_rush_stats_async` | `TeamDefenseRushStatsResponse` |
 
 ### Regular API - Football
 

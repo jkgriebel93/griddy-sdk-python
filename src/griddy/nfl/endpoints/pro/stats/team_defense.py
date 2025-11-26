@@ -45,7 +45,7 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_overview(
@@ -152,7 +152,7 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_overview(
@@ -259,7 +259,7 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_pass_stats(
@@ -360,7 +360,7 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_pass_stats(
@@ -463,7 +463,7 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_season_rush_stats(
@@ -564,7 +564,7 @@ class TeamDefenseStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_weekly_rush_stats(
