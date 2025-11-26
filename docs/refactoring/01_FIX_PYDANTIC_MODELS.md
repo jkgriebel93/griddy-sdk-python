@@ -19,16 +19,16 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 
 ### Pro API - Games (`endpoints/pro/games.py`)
 
-| Method                 | Async Method                 | Response Model           |
-|------------------------|------------------------------|--------------------------|
-| ~~`get_gamecenter`~~   | ~~`get_gamecenter_async`~~   | ~~`GamecenterResponse`~~ |
-| `get_live_game_scores` | `get_live_game_scores_async` | `LiveScoresResponse`     |
+| Method                     | Async Method                     | Response Model           |
+|----------------------------|----------------------------------|--------------------------|
+| ~~`get_gamecenter`~~       | ~~`get_gamecenter_async`~~       | ~~`GamecenterResponse`~~ |
+| ~~`get_live_game_scores`~~ | ~~`get_live_game_scores_async`~~ | ~~`LiveScoresResponse`~~ |
 
 ### Pro API - Players (`endpoints/pro/players.py`)
 
-| Method | Async Method | Response Model |
-|--------|--------------|----------------|
-| `get_player` | `get_player_async` | `PlayerDetail` |
+| Method           | Async Method           | Response Model     |
+|------------------|------------------------|--------------------|
+| ~~`get_player`~~ | ~~`get_player_async`~~ | ~~`PlayerDetail`~~ |
 
 ### Pro API - Content (`endpoints/pro/content.py`)
 

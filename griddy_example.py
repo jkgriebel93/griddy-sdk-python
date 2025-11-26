@@ -25,7 +25,7 @@ team_id = "10403900-8251-6892-d81c-4348525c2d47"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-result = nfl.pro_games.get_gamecenter(game_id=reg_game_id)
+result = nfl.players.get_player(nfl_id=29851)
 
 is_pydantic = True
 
