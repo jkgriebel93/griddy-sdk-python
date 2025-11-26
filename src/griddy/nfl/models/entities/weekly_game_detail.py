@@ -150,7 +150,7 @@ class WeeklyGameDetailTypedDict(TypedDict):
     r"""Replay video links"""
     summary: NotRequired[Nullable[SummaryTypedDict]]
     r"""Game summary information"""
-    tagged_videos: NotRequired[Nullable[TaggedVideosTypedDict]]
+    tagged_videos: NotRequired[Nullable[List[TaggedVideosTypedDict]]]
     r"""Tagged video content"""
 
 
@@ -161,9 +161,9 @@ class WeeklyGameDetail(BaseModel):
         Optional[BroadcastInfo], pydantic.Field(alias="broadcastInfo")
     ] = None
 
-    category: OptionalNullable[WeeklyGameDetailCategory] = UNSET
+    category: Optional[WeeklyGameDetailCategory] = None
 
-    date_: Annotated[Optional[date], pydantic.Field(alias="date")] = None
+    date_: Annotated[Optional[str], pydantic.Field(alias="date")] = None
     r"""Game date (YYYY-MM-DD)"""
 
     date_am_pm: Annotated[Optional[MeridiemEnum], pydantic.Field(alias="dateAmPm")] = (
@@ -227,16 +227,14 @@ class WeeklyGameDetail(BaseModel):
     status: Optional[WeeklyGameDetailStatus] = None
     r"""Game status"""
 
-    ticket_url: Annotated[OptionalNullable[str], pydantic.Field(alias="ticketUrl")] = (
-        UNSET
-    )
+    ticket_url: Annotated[Optional[str], pydantic.Field(alias="ticketUrl")] = None
     r"""Primary ticket purchase URL"""
 
     ticket_vendors: Annotated[
         Optional[List[TicketVendor]], pydantic.Field(alias="ticketVendors")
     ] = None
 
-    time: Optional[datetime] = None
+    time: Optional[str] = None
     r"""Game time in UTC"""
 
     venue: Optional[Venue] = None
@@ -254,9 +252,9 @@ class WeeklyGameDetail(BaseModel):
         Optional[Standings], pydantic.Field(alias="awayTeamStandings")
     ] = None
 
-    drive_chart: Annotated[
-        OptionalNullable[DriveChart], pydantic.Field(alias="driveChart")
-    ] = UNSET
+    drive_chart: Annotated[Optional[DriveChart], pydantic.Field(alias="driveChart")] = (
+        None
+    )
     r"""Drive-by-drive data"""
 
     home_team_standings: Annotated[
@@ -266,12 +264,12 @@ class WeeklyGameDetail(BaseModel):
     replays: Optional[List[Replay]] = None
     r"""Replay video links"""
 
-    summary: OptionalNullable[Summary] = UNSET
+    summary: Optional[Summary] = None
     r"""Game summary information"""
 
     tagged_videos: Annotated[
-        OptionalNullable[TaggedVideos], pydantic.Field(alias="taggedVideos")
-    ] = UNSET
+        Optional[List[TaggedVideos]], pydantic.Field(alias="taggedVideos")
+    ] = None
     r"""Tagged video content"""
 
     @model_serializer(mode="wrap")

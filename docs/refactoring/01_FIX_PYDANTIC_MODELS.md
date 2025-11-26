@@ -127,7 +127,7 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 #### games.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_weekly_game_details` | `get_weekly_game_details_async` | `List[WeeklyGameDetail]` |
+|  [x]  | `get_weekly_game_details` | `get_weekly_game_details_async` | `List[WeeklyGameDetail]` |
 
 ## Summary by Category
 
