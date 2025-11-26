@@ -5,6 +5,8 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.utils.unmarshal_json_response import int_to_str
+
 from ...types import BaseModel
 
 
@@ -25,7 +27,11 @@ class GamecenterScheduleTypedDict(TypedDict):
 class GamecenterSchedule(BaseModel):
     game_date: Annotated[Optional[str], pydantic.Field(alias="gameDate")] = None
 
-    game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
+    game_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="gameId"),
+        pydantic.BeforeValidator(int_to_str),
+    ] = None
 
     game_key: Annotated[Optional[int], pydantic.Field(alias="gameKey")] = None
 

@@ -6,9 +6,16 @@ from .. import errors
 from .serializers import unmarshal_json
 
 
+def int_to_str(value):
+    if isinstance(value, int):
+        return str(value)
+    return value
+
+
 def unmarshal_json_response(
     typ: Any, http_res: httpx.Response, body: Optional[str] = None
 ) -> Any:
+    print("ARMADILLO", typ)
     if body is None:
         body = http_res.text
     try:

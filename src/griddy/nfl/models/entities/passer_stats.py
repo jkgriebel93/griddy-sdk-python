@@ -5,6 +5,8 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.utils.unmarshal_json_response import int_to_str
+
 from ...types import BaseModel
 
 
@@ -31,7 +33,11 @@ class PasserStats(BaseModel):
 
     completions: Optional[int] = None
 
-    game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
+    game_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="gameId"),
+        pydantic.BeforeValidator(int_to_str),
+    ] = None
 
     interceptions: Optional[int] = None
 
