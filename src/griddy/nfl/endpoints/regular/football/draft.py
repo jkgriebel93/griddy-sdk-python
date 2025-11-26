@@ -34,7 +34,7 @@ class Draft(BaseSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def get_picks_report(

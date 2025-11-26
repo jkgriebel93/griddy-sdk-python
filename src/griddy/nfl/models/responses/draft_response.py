@@ -2,29 +2,36 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.entities.draft_day import DraftDay, DraftDayTypedDict
 from griddy.nfl.models.entities.draft_pick import DraftPick, DraftPickTypedDict
+from griddy.nfl.models.entities.pagination import Pagination, PaginationTypedDict
 from griddy.nfl.types import BaseModel
 
 
-class RoundTypedDict(TypedDict):
-    picks: NotRequired[List[DraftPickTypedDict]]
-    round: NotRequired[int]
-
-
-class Round(BaseModel):
-    picks: Optional[List[DraftPick]] = None
-
-    round: Optional[int] = None
-
-
 class DraftResponseTypedDict(TypedDict):
-    rounds: NotRequired[List[RoundTypedDict]]
-    year: NotRequired[int]
+    year: int
+    current_day: int
+    current_overall: int
+    current_pick: int
+    current_round: int
+    draft_state: str
+    team_on_the_clock: str
+    days: List[DraftDayTypedDict]
+    picks: List[DraftPickTypedDict]
+    pagination: PaginationTypedDict
 
 
 class DraftResponse(BaseModel):
-    rounds: Optional[List[Round]] = None
-
-    year: Optional[int] = None
+    year: int
+    current_day: Annotated[int, pydantic.Field(alias="currentDay")]
+    current_overall: Annotated[int, pydantic.Field(alias="currentOverall")]
+    current_pick: Annotated[int, pydantic.Field(alias="currentPick")]
+    current_round: Annotated[int, pydantic.Field(alias="currentRound")]
+    draft_state: Annotated[str, pydantic.Field(alias="draftState")]
+    team_on_the_clock: Annotated[str, pydantic.Field(alias="teamOnTheClock")]
+    days: List[DraftDay]
+    picks: List[DraftPick]
+    pagination: Pagination

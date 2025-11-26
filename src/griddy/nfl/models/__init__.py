@@ -26,6 +26,7 @@ if TYPE_CHECKING:
         CombineProfile,
         CombineProfileTypedDict,
     )
+    from griddy.nfl.models.entities.draft_day import DraftDay, DraftDayTypedDict
     from griddy.nfl.models.entities.football_roster import (
         FootballRoster,
         FootballRosterTypedDict,
@@ -245,8 +246,6 @@ if TYPE_CHECKING:
         GameIDTypedDict,
         GetPlaysWinProbabilityRequest,
         GetPlaysWinProbabilityRequestTypedDict,
-        GetPlaysWinProbabilityResponse,
-        GetPlaysWinProbabilityResponseTypedDict,
     )
     from griddy.nfl.models.requests.get_projected_stats_op import (
         GetProjectedStatsRequest,
@@ -453,8 +452,6 @@ if TYPE_CHECKING:
     from griddy.nfl.models.responses.draft_response import (
         DraftResponse,
         DraftResponseTypedDict,
-        Round,
-        RoundTypedDict,
     )
     from griddy.nfl.models.responses.fantasy_stats_response import (
         FantasyStatsResponse,
@@ -741,14 +738,10 @@ if TYPE_CHECKING:
     )
     from .entities.defensive_pass_rush_stats import (
         DefensivePassRushStats,
-        DefensivePassRushStatsNgsPosition,
-        DefensivePassRushStatsPosition,
         DefensivePassRushStatsTypedDict,
     )
     from .entities.defensive_player_overview_stats import (
         DefensivePlayerOverviewStats,
-        DefensivePlayerOverviewStatsNgsPosition,
-        DefensivePlayerOverviewStatsPosition,
         DefensivePlayerOverviewStatsTypedDict,
     )
     from .entities.defensive_stats import DefensiveStats, DefensiveStatsTypedDict
@@ -848,7 +841,7 @@ if TYPE_CHECKING:
     )
     from .entities.passing_stats import PassingStats, PassingStatsTypedDict
     from .entities.penalty import Penalty, PenaltyTypedDict
-    from .entities.play import Play, PlayType, PlayTypedDict
+    from .entities.play import Play, PlayTypedDict
     from .entities.play_detail import (
         PlayDetail,
         PlayDetailTypedDict,
@@ -1183,6 +1176,8 @@ __all__ = [
     "DefensiveStatsTypedDict",
     "Division",
     "DivisionTypedDict",
+    "DraftDay",
+    "DraftDayTypedDict",
     "DraftPick",
     "DraftPickTypedDict",
     "DraftResponse",
@@ -1645,8 +1640,6 @@ __all__ = [
     "RosterResponse",
     "RosterResponseTypedDict",
     "RosterTypedDict",
-    "Round",
-    "RoundTypedDict",
     "RushDirection",
     "Rushers",
     "RushersTypedDict",
@@ -1973,12 +1966,14 @@ _dynamic_imports: dict[str, str] = {
     "Division": ".entities.division",
     "DivisionTypedDict": ".entities.division",
     "DownEnum": ".enums.down_enum",
+    "DraftDayTypedDict": ".entities.draft_day",
+    "DraftDay": ".entities.draft_day",
     "DraftPick": ".entities.draft_pick",
     "DraftPickTypedDict": ".entities.draft_pick",
-    "DraftResponse": ".draft_response",
-    "DraftResponseTypedDict": ".draft_response",
-    "Round": ".draft_response",
-    "RoundTypedDict": ".draft_response",
+    "DraftResponse": ".responses.draft_response",
+    "DraftResponseTypedDict": ".responses.draft_response",
+    "Round": ".responses.draft_response",
+    "RoundTypedDict": ".responses.draft_response",
     "Drive": ".entities.drive",
     "DriveTypedDict": ".entities.drive",
     "Result": ".entities.drive",

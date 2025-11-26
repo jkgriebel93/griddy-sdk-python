@@ -122,7 +122,7 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 #### draft.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_picks_report` | `get_picks_report_async` | `DraftResponse` |
+|  [x]  | `get_picks_report` | `get_picks_report_async` | `DraftResponse` |
 
 #### games.py
 | Fixed | Method | Async Method | Response Model |
