@@ -5,7 +5,6 @@ from ._version import (
     __user_agent__,
     __version__,
 )
-from .client import NFLClient
 from .sdk import *
 from .sdkconfiguration import *
 

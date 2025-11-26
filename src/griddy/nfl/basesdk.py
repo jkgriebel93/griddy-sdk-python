@@ -1,16 +1,71 @@
-from typing import Callable, List, Mapping, Optional, Tuple
+from dataclasses import dataclass, field
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    Mapping,
+    Optional,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 from urllib.parse import parse_qs, urlparse
 
 import httpx
 
-from ..nfl._hooks import (
-    AfterErrorContext,
-    AfterSuccessContext,
-    BeforeRequestContext,
-)
+from ..nfl._hooks import AfterErrorContext, AfterSuccessContext, BeforeRequestContext
+from ..nfl._hooks.types import HookContext
 from ..nfl.utils import RetryConfig, SerializedRequestBody, get_body_content
 from . import errors, models, utils
 from .sdkconfiguration import SDKConfiguration
+from .types import UNSET, OptionalNullable
+from .utils.unmarshal_json_response import unmarshal_json_response
+
+T = TypeVar("T")
+
+
+@dataclass
+class EndpointConfig:
+    """Configuration for an API endpoint, enabling sync/async factory pattern.
+
+    This dataclass captures all the configuration needed to execute an endpoint,
+    allowing a single definition to generate both sync and async implementations.
+    """
+
+    # HTTP method and path
+    method: str
+    path: str
+    operation_id: str
+
+    # Request model instance (already constructed with parameters)
+    request: Any
+
+    # Response configuration
+    response_type: Type[T]
+    error_status_codes: List[str]
+
+    # Request configuration flags
+    request_body_required: bool = False
+    request_has_path_params: bool = False
+    request_has_query_params: bool = True
+
+    # Optional overrides
+    server_url: Optional[str] = None
+    timeout_ms: Optional[int] = None
+    http_headers: Optional[Mapping[str, str]] = None
+    retries: Any = field(default_factory=lambda: UNSET)  # OptionalNullable[RetryConfig]
+
+    # For endpoints that need raw JSON (due to Pydantic model issues)
+    return_raw_json: bool = False
+
+    # Optional body serializer
+    get_serialized_body: Optional[Callable[[], Optional[SerializedRequestBody]]] = None
+
+    # Standard headers (rarely need to change)
+    user_agent_header: str = "user-agent"
+    accept_header_value: str = "application/json"
 
 
 class BaseSDK:
@@ -39,6 +94,291 @@ class BaseSDK:
             url_variables = sdk_variables
 
         return utils.template_url(base_url, url_variables)
+
+    # -------------------------------------------------------------------------
+    # Helper methods to reduce boilerplate in endpoint implementations
+    # -------------------------------------------------------------------------
+
+    def _resolve_base_url(
+        self,
+        server_url: Optional[str] = None,
+        url_variables: Optional[Dict[str, str]] = None,
+    ) -> str:
+        """
+        Resolve the base URL for a request.
+
+        Args:
+            server_url: Optional server URL override
+            url_variables: Optional URL template variables
+
+        Returns:
+            The resolved base URL string
+        """
+        if server_url is not None:
+            return server_url
+        return self._get_url(None, url_variables)
+
+    def _resolve_timeout(self, timeout_ms: Optional[int] = None) -> Optional[int]:
+        """
+        Resolve timeout, falling back to SDK configuration.
+
+        Args:
+            timeout_ms: Optional timeout override in milliseconds
+
+        Returns:
+            The resolved timeout in milliseconds, or None
+        """
+        if timeout_ms is None:
+            return self.sdk_configuration.timeout_ms
+        return timeout_ms
+
+    def _resolve_retry_config(
+        self,
+        retries: OptionalNullable[RetryConfig],
+        retry_status_codes: Optional[List[str]] = None,
+    ) -> Optional[Tuple[RetryConfig, List[str]]]:
+        """
+        Resolve retry configuration.
+
+        Args:
+            retries: Retry configuration from method parameter
+            retry_status_codes: Status codes that should trigger a retry.
+                               Defaults to ["429", "500", "502", "503", "504"]
+
+        Returns:
+            Tuple of (RetryConfig, status_codes) if retries are configured, else None
+        """
+        if retry_status_codes is None:
+            retry_status_codes = ["429", "500", "502", "503", "504"]
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        if isinstance(retries, RetryConfig):
+            return (retries, retry_status_codes)
+        return None
+
+    def _create_hook_context(
+        self,
+        operation_id: str,
+        base_url: str,
+    ) -> HookContext:
+        """
+        Create a HookContext for request execution.
+
+        Args:
+            operation_id: The operation identifier (e.g., "getPlayer")
+            base_url: The base URL for the request
+
+        Returns:
+            A configured HookContext instance
+        """
+        return HookContext(
+            config=self.sdk_configuration,
+            base_url=base_url or "",
+            operation_id=operation_id,
+            oauth2_scopes=[],
+            security_source=utils.get_security_from_env(
+                self.sdk_configuration.security, models.Security
+            ),
+        )
+
+    def _handle_json_response(
+        self,
+        http_res: httpx.Response,
+        response_type: Type[T],
+        error_status_codes: List[str],
+    ) -> T:
+        """
+        Handle JSON response with standard error handling.
+
+        Args:
+            http_res: The HTTP response object
+            response_type: The Pydantic model type to unmarshal into
+            error_status_codes: List of error status codes to handle
+
+        Returns:
+            The unmarshaled response object
+
+        Raises:
+            GriddyNFLDefaultError: If the response indicates an error
+        """
+        print("CHEETAH")
+        if utils.match_response(http_res, "200", "application/json"):
+            print("DINGO")
+            return unmarshal_json_response(response_type, http_res)
+
+        # Handle client errors (4XX)
+        client_errors = [code for code in error_status_codes if code.startswith("4")]
+        if client_errors and utils.match_response(http_res, client_errors, "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GriddyNFLDefaultError(
+                "API error occurred", http_res, http_res_text
+            )
+
+        # Handle server errors (5XX)
+        server_errors = [code for code in error_status_codes if code.startswith("5")]
+        if server_errors and utils.match_response(http_res, server_errors, "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GriddyNFLDefaultError(
+                "API error occurred", http_res, http_res_text
+            )
+
+        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+
+    async def _handle_json_response_async(
+        self,
+        http_res: httpx.Response,
+        response_type: Type[T],
+        error_status_codes: List[str],
+    ) -> T:
+        """
+        Handle JSON response with standard error handling (async version).
+
+        Args:
+            http_res: The HTTP response object
+            response_type: The Pydantic model type to unmarshal into
+            error_status_codes: List of error status codes to handle
+
+        Returns:
+            The unmarshaled response object
+
+        Raises:
+            GriddyNFLDefaultError: If the response indicates an error
+        """
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(response_type, http_res)
+
+        # Handle client errors (4XX)
+        client_errors = [code for code in error_status_codes if code.startswith("4")]
+        if client_errors and utils.match_response(http_res, client_errors, "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GriddyNFLDefaultError(
+                "API error occurred", http_res, http_res_text
+            )
+
+        # Handle server errors (5XX)
+        server_errors = [code for code in error_status_codes if code.startswith("5")]
+        if server_errors and utils.match_response(http_res, server_errors, "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GriddyNFLDefaultError(
+                "API error occurred", http_res, http_res_text
+            )
+
+        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+
+    def _execute_endpoint(self, config: EndpointConfig) -> T:
+        """Execute an endpoint synchronously using the provided configuration.
+
+        This factory method handles all the boilerplate for sync endpoint execution:
+        - Resolves base URL and timeout
+        - Builds the HTTP request
+        - Resolves retry configuration
+        - Executes the request with hooks
+        - Handles the JSON response
+
+        Args:
+            config: The endpoint configuration containing all request details
+
+        Returns:
+            The unmarshaled response object of type T
+        """
+        base_url = self._resolve_base_url(config.server_url)
+        timeout_ms = self._resolve_timeout(config.timeout_ms)
+
+        req = self._build_request(
+            method=config.method,
+            path=config.path,
+            base_url=base_url,
+            url_variables=None,
+            request=config.request,
+            request_body_required=config.request_body_required,
+            request_has_path_params=config.request_has_path_params,
+            request_has_query_params=config.request_has_query_params,
+            user_agent_header=config.user_agent_header,
+            accept_header_value=config.accept_header_value,
+            http_headers=config.http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+            get_serialized_body=config.get_serialized_body,
+        )
+
+        retry_config = self._resolve_retry_config(config.retries)
+
+        http_res = self.do_request(
+            hook_ctx=self._create_hook_context(config.operation_id, base_url),
+            request=req,
+            error_status_codes=config.error_status_codes,
+            retry_config=retry_config,
+        )
+        print("BADGER", config.return_raw_json)
+        # Some endpoints need raw JSON due to Pydantic model issues
+        if config.return_raw_json:
+            if utils.match_response(http_res, "200", "application/json"):
+                return http_res.json()
+
+        return self._handle_json_response(
+            http_res, config.response_type, config.error_status_codes
+        )
+
+    async def _execute_endpoint_async(self, config: EndpointConfig) -> T:
+        """Execute an endpoint asynchronously using the provided configuration.
+
+        This factory method handles all the boilerplate for async endpoint execution:
+        - Resolves base URL and timeout
+        - Builds the HTTP request
+        - Resolves retry configuration
+        - Executes the request with hooks
+        - Handles the JSON response
+
+        Args:
+            config: The endpoint configuration containing all request details
+
+        Returns:
+            The unmarshaled response object of type T
+        """
+        base_url = self._resolve_base_url(config.server_url)
+        timeout_ms = self._resolve_timeout(config.timeout_ms)
+
+        req = self._build_request_async(
+            method=config.method,
+            path=config.path,
+            base_url=base_url,
+            url_variables=None,
+            request=config.request,
+            request_body_required=config.request_body_required,
+            request_has_path_params=config.request_has_path_params,
+            request_has_query_params=config.request_has_query_params,
+            user_agent_header=config.user_agent_header,
+            accept_header_value=config.accept_header_value,
+            http_headers=config.http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+            get_serialized_body=config.get_serialized_body,
+        )
+
+        retry_config = self._resolve_retry_config(config.retries)
+
+        http_res = await self.do_request_async(
+            hook_ctx=self._create_hook_context(config.operation_id, base_url),
+            request=req,
+            error_status_codes=config.error_status_codes,
+            retry_config=retry_config,
+        )
+
+        # Some endpoints need raw JSON due to Pydantic model issues
+        if config.return_raw_json:
+            if utils.match_response(http_res, "200", "application/json"):
+                return http_res.json()
+
+        return await self._handle_json_response_async(
+            http_res, config.response_type, config.error_status_codes
+        )
+
+    # -------------------------------------------------------------------------
+    # End of helper methods
+    # -------------------------------------------------------------------------
 
     def _build_request_async(
         self,

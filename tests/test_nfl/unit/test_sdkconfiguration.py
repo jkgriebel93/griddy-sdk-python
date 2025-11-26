@@ -8,7 +8,6 @@ import httpx
 import pytest
 
 from griddy.nfl import models
-from griddy.nfl.httpclient import AsyncHttpClient, HttpClient
 from griddy.nfl.sdkconfiguration import SERVERS, SDKConfiguration
 from griddy.nfl.types import UNSET
 from griddy.nfl.utils import RetryConfig

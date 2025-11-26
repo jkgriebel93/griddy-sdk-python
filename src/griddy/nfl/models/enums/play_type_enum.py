@@ -1,0 +1,25 @@
+from __future__ import annotations
+
+from typing import Literal
+
+PlayTypeEnum = Literal[
+    "play_type_kickoff",
+    "play_type_field_goal",
+    "play_type_rush",
+    "play_type_sack",
+    "play_type_two_point_conversion",
+    "play_type_xp",
+    "play_type_pass",
+    "play_type_punt",
+    "play_type_unknown",
+    "PASS",
+    "RUSH",
+    "PUNT",
+    "KICKOFF",
+    "FIELD_GOAL",
+    "EXTRA_POINT",
+    "PENALTY",
+    "TIMEOUT",
+    "TWO_MINUTE_WARNING",
+]
+r"""Enumeration of all possible play types"""

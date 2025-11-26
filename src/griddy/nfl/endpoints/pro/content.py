@@ -1,15 +1,37 @@
 from typing import List, Mapping, Optional
 
-from griddy.nfl import errors, models, utils
-from griddy.nfl._hooks import HookContext
+from griddy.nfl import models, utils
+from griddy.nfl._constants import COLLECTION_ERROR_CODES, SECURED_RESOURCE_ERROR_CODES
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.endpoints.pro.mixins import GameContentMixin
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import get_security_from_env
-from griddy.nfl.utils.unmarshal_json_response import unmarshal_json_response
 
 
 class Content(ProSDK, GameContentMixin):
+
+    def _get_home_film_cards_config(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_home_film_cards."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/content/home-film-cards",
+            operation_id="getHomeFilmCards",
+            request=None,
+            response_type=models.HomeFilmCardsResponse,
+            error_status_codes=["401", "4XX", "500", "5XX"],
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
+
     def get_home_film_cards(
         self,
         *,
@@ -29,68 +51,13 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-        req = self._build_request(
-            method="GET",
-            path="/api/content/home-film-cards",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_home_film_cards_config(
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getHomeFilmCards",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.HomeFilmCardsResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._execute_endpoint(config)
 
     async def get_home_film_cards_async(
         self,
@@ -111,68 +78,47 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-        req = self._build_request_async(
-            method="GET",
-            path="/api/content/home-film-cards",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+        config = self._get_home_film_cards_config(
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getHomeFilmCards",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+    def _get_season_insights_config(
+        self,
+        *,
+        season: int,
+        limit: Optional[int] = 20,
+        tags: Optional[List[models.Tag]] = None,
+        team_id: Optional[str] = None,
+        nfl_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_season_insights."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/content/insights/season",
+            operation_id="getSeasonContentInsights",
+            request=models.GetSeasonContentInsightsRequest(
+                season=season,
+                limit=limit,
+                tags=tags,
+                team_id=team_id,
+                nfl_id=nfl_id,
             ),
-            request=req,
-            error_status_codes=["401", "4XX", "500", "5XX"],
-            retry_config=retry_config,
+            response_type=List[models.Insight],
+            error_status_codes=COLLECTION_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+            return_raw_json=False,  # TODO: Fix Pydantic model - unmarshal is broken
         )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.HomeFilmCardsResponse, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
     def get_season_insights(
         self,
@@ -206,79 +152,18 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetSeasonContentInsightsRequest(
+        config = self._get_season_insights_config(
             season=season,
             limit=limit,
             tags=tags,
             team_id=team_id,
             nfl_id=nfl_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/content/insights/season",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getSeasonContentInsights",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            # TODO: unmarshal is borked. Fix pydantic model
-            # return unmarshal_json_response(List[models.Insight], http_res)
-            return http_res.json()
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._execute_endpoint(config)
 
     async def get_season_insights_async(
         self,
@@ -312,79 +197,117 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetSeasonContentInsightsRequest(
+        config = self._get_season_insights_config(
             season=season,
             limit=limit,
             tags=tags,
             team_id=team_id,
             nfl_id=nfl_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/content/insights/season",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getSeasonContentInsights",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.Insight], http_res)
-        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._execute_endpoint_async(config)
 
     # TODO: Consider how this method signature might be cleaned up
+    def _get_filmroom_plays_config(
+        self,
+        *,
+        game_id: Optional[List[str]] = None,
+        week_slug: Optional[List[models.WeekSlugEnum]] = None,
+        season: Optional[List[int]] = None,
+        season_type: Optional[List[models.SeasonTypeEnum]] = None,
+        nfl_id: Optional[List[str]] = None,
+        quarter: Optional[List[int]] = None,
+        down: Optional[List[int]] = None,
+        yards_to_go_type: Optional[List[models.YardsToGoType]] = None,
+        touchdown: Optional[List[models.BinaryFlagEnum]] = None,
+        rush10_plus_yards: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble_lost: Optional[List[models.BinaryFlagEnum]] = None,
+        fumble: Optional[List[models.BinaryFlagEnum]] = None,
+        qb_alignment: Optional[List[models.QbAlignment]] = None,
+        redzone: Optional[List[models.BinaryFlagEnum]] = None,
+        goal_to_go: Optional[List[models.BinaryFlagEnum]] = None,
+        pass_play: Optional[List[models.BinaryFlagEnum]] = None,
+        run_play: Optional[List[models.BinaryFlagEnum]] = None,
+        play_type: Optional[List[models.PlayTypeEnum]] = None,
+        attempt: Optional[List[models.BinaryFlagEnum]] = None,
+        completion: Optional[List[models.BinaryFlagEnum]] = None,
+        interception: Optional[List[models.BinaryFlagEnum]] = None,
+        reception: Optional[List[models.BinaryFlagEnum]] = None,
+        sack: Optional[List[models.BinaryFlagEnum]] = None,
+        rec_motion: Optional[List[models.BinaryFlagEnum]] = None,
+        target_location: Optional[List[models.TargetLocation]] = None,
+        air_yard_type: Optional[List[models.AirYardType]] = None,
+        dropback_time_type: Optional[List[models.DropbackTimeType]] = None,
+        pressure: Optional[List[models.BinaryFlagEnum]] = None,
+        blitz: Optional[List[models.BinaryFlagEnum]] = None,
+        play_action: Optional[List[models.BinaryFlagEnum]] = None,
+        rush_direction: Optional[List[models.RushDirection]] = None,
+        run_stuff: Optional[List[models.BinaryFlagEnum]] = None,
+        receiver_alignment: Optional[List[models.ReceiverAlignment]] = None,
+        separation_type: Optional[List[models.SeparationType]] = None,
+        personnel: Optional[List[models.Personnel]] = None,
+        defenders_in_the_box_type: Optional[List[models.DefendersInTheBoxType]] = None,
+        def_coverage_type: Optional[List[models.DefCoverageType]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_filmroom_plays."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/videos/filmroom/plays",
+            operation_id="getFilmroomPlays",
+            request=models.GetFilmroomPlaysRequest(
+                game_id=game_id,
+                week_slug=week_slug,
+                season=season,
+                season_type=season_type,
+                nfl_id=nfl_id,
+                quarter=quarter,
+                down=down,
+                yards_to_go_type=yards_to_go_type,
+                touchdown=touchdown,
+                rush10_plus_yards=rush10_plus_yards,
+                fumble_lost=fumble_lost,
+                fumble=fumble,
+                qb_alignment=qb_alignment,
+                redzone=redzone,
+                goal_to_go=goal_to_go,
+                pass_play=pass_play,
+                run_play=run_play,
+                play_type=play_type,
+                attempt=attempt,
+                completion=completion,
+                interception=interception,
+                reception=reception,
+                sack=sack,
+                rec_motion=rec_motion,
+                target_location=target_location,
+                air_yard_type=air_yard_type,
+                dropback_time_type=dropback_time_type,
+                pressure=pressure,
+                blitz=blitz,
+                play_action=play_action,
+                rush_direction=rush_direction,
+                run_stuff=run_stuff,
+                receiver_alignment=receiver_alignment,
+                separation_type=separation_type,
+                personnel=personnel,
+                defenders_in_the_box_type=defenders_in_the_box_type,
+                def_coverage_type=def_coverage_type,
+            ),
+            response_type=models.FilmroomPlaysResponse,
+            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
+        )
+
     def get_filmroom_plays(
         self,
         *,
@@ -486,17 +409,7 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetFilmroomPlaysRequest(
+        config = self._get_filmroom_plays_config(
             game_id=game_id,
             week_slug=week_slug,
             season=season,
@@ -534,61 +447,12 @@ class Content(ProSDK, GameContentMixin):
             personnel=personnel,
             defenders_in_the_box_type=defenders_in_the_box_type,
             def_coverage_type=def_coverage_type,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/videos/filmroom/plays",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getFilmroomPlays",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FilmroomPlaysResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._execute_endpoint(config)
 
     async def get_filmroom_plays_async(
         self,
@@ -685,17 +549,7 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetFilmroomPlaysRequest(
+        config = self._get_filmroom_plays_config(
             game_id=game_id,
             week_slug=week_slug,
             season=season,
@@ -733,61 +587,39 @@ class Content(ProSDK, GameContentMixin):
             personnel=personnel,
             defenders_in_the_box_type=defenders_in_the_box_type,
             def_coverage_type=def_coverage_type,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/secured/videos/filmroom/plays",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
+        return await self._execute_endpoint_async(config)
 
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getFilmroomPlays",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
+    def _get_coaches_film_videos_config(
+        self,
+        *,
+        game_id: List[str],
+        play_id: List[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> EndpointConfig:
+        """Create endpoint configuration for get_coaches_film_videos."""
+        return EndpointConfig(
+            method="GET",
+            path="/api/secured/videos/coaches",
+            operation_id="getCoachesFilmVideos",
+            request=models.GetCoachesFilmVideosRequest(
+                game_id=game_id,
+                play_id=play_id,
             ),
-            request=req,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
-            retry_config=retry_config,
+            response_type=models.CoachesFilmResponse,
+            error_status_codes=SECURED_RESOURCE_ERROR_CODES,
+            server_url=server_url,
+            timeout_ms=timeout_ms,
+            http_headers=http_headers,
+            retries=retries,
         )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.FilmroomPlaysResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
 
     def get_coaches_film_videos(
         self,
@@ -817,74 +649,15 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetCoachesFilmVideosRequest(
+        config = self._get_coaches_film_videos_config(
             game_id=game_id,
             play_id=play_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/api/secured/videos/coaches",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getCoachesFilmVideos",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CoachesFilmResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return self._execute_endpoint(config)
 
     async def get_coaches_film_videos_async(
         self,
@@ -911,71 +684,12 @@ class Content(ProSDK, GameContentMixin):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetCoachesFilmVideosRequest(
+        config = self._get_coaches_film_videos_config(
             game_id=game_id,
             play_id=play_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/api/secured/videos/coaches",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
+            retries=retries,
+            server_url=server_url,
             timeout_ms=timeout_ms,
+            http_headers=http_headers,
         )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getCoachesFilmVideos",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "500", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CoachesFilmResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GriddyNFLDefaultError(
-                "API error occurred", http_res, http_res_text
-            )
-
-        raise errors.GriddyNFLDefaultError("Unexpected response received", http_res)
+        return await self._execute_endpoint_async(config)

@@ -1,0 +1,102 @@
+from __future__ import annotations
+
+from typing import List, Optional
+
+import pydantic
+from pydantic import model_serializer
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
+from .odds_selection import OddsSelection, OddsSelectionTypedDict
+
+
+class FixtureTypedDict(TypedDict):
+    r"""Associated fixture information"""
+
+
+class Fixture(BaseModel):
+    r"""Associated fixture information"""
+
+
+class FuturesMarketTypedDict(TypedDict):
+    fixture: NotRequired[Nullable[FixtureTypedDict]]
+    r"""Associated fixture information"""
+    fixture_id: NotRequired[Nullable[str]]
+    r"""Associated fixture ID if applicable"""
+    hierarchy: NotRequired[str]
+    r"""Full betting hierarchy path"""
+    is_available: NotRequired[bool]
+    r"""Whether market is currently available"""
+    is_suspended: NotRequired[bool]
+    r"""Whether market is currently suspended"""
+    name: NotRequired[str]
+    r"""Market name (e.g., \"Winner\", \"Division Winner\")"""
+    selections: NotRequired[List[OddsSelectionTypedDict]]
+    source_id: NotRequired[str]
+    r"""Source identifier for the market"""
+
+
+class FuturesMarket(BaseModel):
+    fixture: OptionalNullable[Fixture] = UNSET
+    r"""Associated fixture information"""
+
+    fixture_id: Annotated[OptionalNullable[str], pydantic.Field(alias="fixtureId")] = (
+        UNSET
+    )
+    r"""Associated fixture ID if applicable"""
+
+    hierarchy: Optional[str] = None
+    r"""Full betting hierarchy path"""
+
+    is_available: Annotated[Optional[bool], pydantic.Field(alias="isAvailable")] = None
+    r"""Whether market is currently available"""
+
+    is_suspended: Annotated[Optional[bool], pydantic.Field(alias="isSuspended")] = None
+    r"""Whether market is currently suspended"""
+
+    name: Optional[str] = None
+    r"""Market name (e.g., \"Winner\", \"Division Winner\")"""
+
+    selections: Optional[List[OddsSelection]] = None
+
+    source_id: Annotated[Optional[str], pydantic.Field(alias="sourceId")] = None
+    r"""Source identifier for the market"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "fixture",
+            "fixtureId",
+            "hierarchy",
+            "isAvailable",
+            "isSuspended",
+            "name",
+            "selections",
+            "sourceId",
+        ]
+        nullable_fields = ["fixture", "fixtureId"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(n)  # FIX: Use field name, not alias
+            serialized.pop(n, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m

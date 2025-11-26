@@ -1,7 +1,5 @@
 import base64
-import importlib
 import json
-import sys
 import weakref
 from typing import TYPE_CHECKING, Dict, Optional, cast
 from uuid import uuid4
@@ -12,6 +10,7 @@ from griddy import settings
 
 from ..nfl import models, utils
 from ._hooks import SDKHooks
+from ._import import dynamic_import
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration
@@ -21,47 +20,35 @@ from .utils.retries import RetryConfig
 from .utils.security import do_browser_auth
 
 if TYPE_CHECKING:
+    from griddy.nfl.endpoints.pro.betting import Betting
     from griddy.nfl.endpoints.pro.content import Content
     from griddy.nfl.endpoints.pro.games import ProGames
     from griddy.nfl.endpoints.pro.players import Players
     from griddy.nfl.endpoints.pro.schedules import Schedules
-    from griddy.nfl.endpoints.pro.stats.defense import PlayerDefenseStats
-    from griddy.nfl.endpoints.pro.stats.passing import PlayerPassingStats
-    from griddy.nfl.endpoints.pro.stats.receiving import PlayerReceivingStats
-    from griddy.nfl.endpoints.pro.stats.rushing import PlayerRushingStats
-    from griddy.nfl.endpoints.pro.stats.team_defense import TeamDefenseStats
-    from griddy.nfl.endpoints.pro.stats.team_offense import TeamOffenseStats
+    from griddy.nfl.endpoints.pro.stats import StatsSDK
     from griddy.nfl.endpoints.pro.teams import Teams
+    from griddy.nfl.endpoints.pro.transactions import Transactions
+    from griddy.nfl.endpoints.regular.authentication import Authentication
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
-    from griddy.nfl.endpoints.regular.football.experience import Experience
     from griddy.nfl.endpoints.regular.football.games import Games
+    from griddy.nfl.endpoints.regular.football.injuries import Injuries
     from griddy.nfl.endpoints.regular.football.rosters import Rosters
     from griddy.nfl.endpoints.regular.football.standings import Standings
     from griddy.nfl.endpoints.regular.football.teams import Teams as FootballTeams
+    from griddy.nfl.endpoints.regular.football.venues import Venues
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
-
-    from .authentication import Authentication
-    from .betting import Betting
-    from .fantasy_statistics import FantasyStatistics
-    from .football import Football
-    from .player_statistics import PlayerStatistics
-    from .scores import Scores
-    from .stats_sdk import StatsSDK
-    from .team_offense_pass_statistics import TeamOffensePassStatistics
-    from .win_probability import WinProbability
 
 
 class GriddyNFL(BaseSDK):
     r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
 
-    ##### Regular SDKs #####
     combine: "Combine"
     r"""Combine information"""
     draft: "Draft"
     r"""Draft information"""
-    experience: "Experience"
-    r"""Unsure what 'experience' entails"""
+    injuries: "Injuries"
+    r"""Injury reports"""
     games: "Games"
     r"""Game information from the regular API"""
     rosters: "Rosters"
@@ -71,9 +58,15 @@ class GriddyNFL(BaseSDK):
     # TODO: Refactor/reconcile this with the Pro Team model and any other variants
     football_teams: "FootballTeams"
     r"""FootballTeams"""
+    venues: "Venues"
+    r"""Venue information"""
     weeks: "Weeks"
     r"""Weekly information"""
     ##### Pro SDKs #####
+    stats: "StatsSDK"
+    r"""Aggregated player and team statistics (access via stats.passing, stats.rushing, etc.)"""
+    betting: "Betting"
+    r"""Betting related resources"""
     content: "Content"
     r"""Game previews, film cards, and insights"""
     players: "Players"
@@ -84,101 +77,45 @@ class GriddyNFL(BaseSDK):
     r"""Game schedules, matchup rankings, and injury reports"""
     betting: "Betting"
     r"""Game betting odds and lines"""
-    scores: "Scores"
-    r"""Real-time scoring and game status endpoints"""
-    win_probability: "WinProbability"
-    r"""Game and play-level win probability analytics"""
+    transactions: "Transactions"
+    r"""Endpoint for fetching transactions"""
     fantasy_statistics: "FantasyStatistics"
     r"""Fantasy football player statistics and scoring metrics"""
-    player_statistics: "PlayerStatistics"
-    r"""Individual player passing statistics and analytics"""
-    player_passing_stats: "PlayerPassingStats"
-    r"""Individual player passing statistics"""
-    player_receiving_stats: "PlayerReceivingStats"
-    r"""Individual player receiving statistics and analytics"""
-    player_rushing_stats: "PlayerRushingStats"
-    r"""Individual player rushing statistics and analytics"""
-    player_defense_stats: "PlayerDefenseStats"
-    r"""Comprehensive individual defensive player statistics and analytics"""
-    team_offense_stats: "TeamOffenseStats"
-    r"""Overview Offensive Next Gen Stats"""
-    team_defense_stats: "TeamDefenseStats"
-    r"""Comprehensive team defensive rush statistics and situational analytics"""
-    # team_offense_overview_statistics: "TeamOffenseOverviewStatistics"
-    # r"""Comprehensive team offensive overview statistics and situational analytics"""
-    team_offense_pass_statistics: "TeamOffensePassStatistics"
-    r"""Comprehensive team offensive pass statistics and situational analytics"""
-    stats: "StatsSDK"
-    r"""Comprehensive game and team statistics endpoints"""
     teams: "Teams"
     r"""Team information, rosters, and schedules"""
 
-    experience: "Experience"
-    r"""Experience API endpoints for games and teams"""
-    football: "Football"
-    r"""Football API endpoints for games, standings, stats, and venues"""
     authentication: "Authentication"
     r"""Token generation and refresh operations for NFL API access"""
 
     _sub_sdk_map = {
+        "authentication": (
+            "griddy.nfl.endpoints.regular.authentication",
+            "Authentication",
+        ),
         "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
         # TODO: There will be a collision when we get to the top-level experience endpoint
-        "experience": (
-            "griddy.nfl.endpoints.regular.football.experience",
-            "Experience",
-        ),
+        "injuries": ("griddy.nfl.endpoints.regular.football.injuries", "Injuries"),
         "games": ("griddy.nfl.endpoints.regular.football.games", "Games"),
         "rosters": ("griddy.nfl.endpoints.regular.football.rosters", "Rosters"),
         "standings": ("griddy.nfl.endpoints.regular.football.standings", "Standings"),
         "football_teams": ("griddy.nfl.endpoints.regular.football.teams", "Teams"),
+        "venues": ("griddy.nfl.endpoints.regular.football.venues", "Venues"),
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
+        "stats": ("griddy.nfl.endpoints.pro.stats", "StatsSDK"),
         # TODO: Refactor so that this call will be invoked as nfl.pro.games
         "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
-        "betting": ("griddy.nfl.betting", "Betting"),
-        "scores": ("griddy.nfl.scores", "Scores"),
-        "win_probability": ("griddy.nfl.win_probability", "WinProbability"),
+        "betting": ("griddy.nfl.endpoints.pro.betting", "Betting"),
         "defensive_pass_rush_statistics": (
             "griddy.nfl.defensive_pass_rush_statistics",
             "DefensivePassRushStatistics",
         ),
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-        "player_statistics": ("griddy.nfl.player_statistics", "PlayerStatistics"),
-        "player_passing_stats": (
-            "griddy.nfl.endpoints.pro.stats.passing",
-            "PlayerPassingStats",
-        ),
-        "player_receiving_statistics": (
-            "griddy.nfl.endpoints.pro.stats.receiving",
-            "PlayerReceivingStats",
-        ),
-        "player_rushing_stats": (
-            "griddy.nfl.endpoints.pro.stats.rushing",
-            "PlayerRushingStats",
-        ),
-        "player_defense_stats": (
-            "griddy.nfl.endpoints.pro.stats.defense",
-            "PlayerDefenseStats",
-        ),
-        "team_offense_stats": (
-            "griddy.nfl.endpoints.pro.stats.team_offense",
-            "TeamOffenseStats",
-        ),
-        "team_defense_stats": (
-            "griddy.nfl.endpoints.pro.stats.team_defense",
-            "TeamDefenseStats",
-        ),
-        "team_offense_pass_statistics": (
-            "griddy.nfl.team_offense_pass_statistics",
-            "TeamOffensePassStatistics",
-        ),
-        "stats": ("griddy.nfl.stats_sdk", "StatsSDK"),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
-        "football": ("griddy.nfl.football", "Football"),
-        "authentication": ("griddy.nfl.authentication", "Authentication"),
+        "transactions": ("griddy.nfl.endpoints.pro.transactions", "Transactions"),
     }
 
     _client_data = {
@@ -305,22 +242,11 @@ class GriddyNFL(BaseSDK):
             self.sdk_configuration.async_client_supplied,
         )
 
-    def dynamic_import(self, modname, retries=3):
-        for attempt in range(retries):
-            try:
-                return importlib.import_module(modname)
-            except KeyError:
-                # Clear any half-initialized module and retry
-                sys.modules.pop(modname, None)
-                if attempt == retries - 1:
-                    break
-        raise KeyError(f"Failed to import module '{modname}' after {retries} attempts")
-
     def __getattr__(self, name: str):
         if name in self._sub_sdk_map:
             module_path, class_name = self._sub_sdk_map[name]
             try:
-                module = self.dynamic_import(module_path)
+                module = dynamic_import(module_path)
                 klass = getattr(module, class_name)
                 instance = klass(self.sdk_configuration, parent_ref=self)
                 setattr(self, name, instance)
