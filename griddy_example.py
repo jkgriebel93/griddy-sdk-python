@@ -25,18 +25,7 @@ team_id = "10403900-8251-6892-d81c-4348525c2d47"
 player_id = "2560726"
 reg_game_id = "2025102610"
 
-result = nfl.content.get_season_insights(season=2025, limit=5)
+result = nfl.transactions.get_transactions(month=11, year=2025, team_id=team_id)
+from pprint import pprint
 
-is_pydantic = True
-
-if is_pydantic:
-    if isinstance(result, list):
-        for r in result:
-            if isinstance(r, dict):
-                pprint(r, indent=4)
-            else:
-                pprint(r.model_dump(), indent=4)
-    else:
-        pprint(result.model_dump(), indent=4)
-else:
-    print(json.dumps(result, indent=4))
+pprint(result, indent=4)

@@ -32,15 +32,15 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 
 ### Pro API - Content (`endpoints/pro/content.py`)
 
-| Method | Async Method | Response Model |
-|--------|--------------|----------------|
-| `get_season_insights` | `get_season_insights_async` | `List[Insight]` |
+| Method                    | Async Method                    | Response Model      |
+|---------------------------|---------------------------------|---------------------|
+| ~~`get_season_insights`~~ | ~~`get_season_insights_async`~~ | ~~`List[Insight]`~~ |
 
 ### Pro API - Transactions (`endpoints/pro/transactions.py`)
 
-| Method | Async Method | Response Model |
-|--------|--------------|----------------|
-| `get_transactions` | `get_transactions_async` | `TransactionsResponse` |
+| Method                 | Async Method                 | Response Model             |
+|------------------------|------------------------------|----------------------------|
+| ~~`get_transactions`~~ | ~~`get_transactions_async`~~ | ~~`TransactionsResponse`~~ |
 
 ### Pro API - Mixins
 
