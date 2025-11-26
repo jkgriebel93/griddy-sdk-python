@@ -56,8 +56,8 @@ When a Pydantic model has schema issues (missing fields, incorrect types, etc.),
 #### passing.py
 | Fixed | Method | Async Method | Response Model |
 |:-----:|--------|--------------|----------------|
-| [ ] | `get_weekly_summary` | `get_weekly_summary_async` | `WeeklyPassingStatsResponse` |
-| [ ] | `get_season_summary` | `get_season_summary_async` | `PassingStatsResponse` |
+|  [x]  | `get_weekly_summary` | `get_weekly_summary_async` | `WeeklyPassingStatsResponse` |
+|  [x]  | `get_season_summary` | `get_season_summary_async` | `PassingStatsResponse` |
 
 #### receiving.py
 | Fixed | Method | Async Method | Response Model |
