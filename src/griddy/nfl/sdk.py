@@ -32,7 +32,6 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.games import Games
-    from griddy.nfl.endpoints.regular.football.injuries import Injuries
     from griddy.nfl.endpoints.regular.football.rosters import Rosters
     from griddy.nfl.endpoints.regular.football.standings import Standings
     from griddy.nfl.endpoints.regular.football.teams import Teams as FootballTeams
@@ -47,8 +46,6 @@ class GriddyNFL(BaseSDK):
     r"""Combine information"""
     draft: "Draft"
     r"""Draft information"""
-    injuries: "Injuries"
-    r"""Injury reports"""
     games: "Games"
     r"""Game information from the regular API"""
     rosters: "Rosters"

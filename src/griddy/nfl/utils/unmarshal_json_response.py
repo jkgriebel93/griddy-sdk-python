@@ -15,7 +15,6 @@ def int_to_str(value):
 def unmarshal_json_response(
     typ: Any, http_res: httpx.Response, body: Optional[str] = None
 ) -> Any:
-    print("ARMADILLO", typ)
     if body is None:
         body = http_res.text
     try:
