@@ -19,10 +19,7 @@ else:
         login_email=NFL["login_email"], login_password=NFL["login_password"]
     )
 
-print("==========vars(nfl)==========")
-pprint(vars(nfl), indent=4)
-print("==========dir(nfl)==========")
-result = nfl.teams.get_all_teams()
+result = nfl.ngs.league.get_teams()
 
 pprint(result, indent=4)
 
