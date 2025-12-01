@@ -19,6 +19,6 @@ class TestProSDK:
             parent_ref=None,
         )
 
-        assert sdk.sdk_configuration.is_pro
+        assert sdk.sdk_configuration.server_type == "pro"
         server_url = sdk._get_url(base_url=None, url_variables=None)
         assert server_url == "https://pro.nfl.com"

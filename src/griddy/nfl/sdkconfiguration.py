@@ -14,7 +14,11 @@ from .httpclient import AsyncHttpClient, HttpClient
 from .types import UNSET, OptionalNullable
 from .utils import Logger, RetryConfig, remove_suffix
 
-SERVERS = {"regular": "https://api.nfl.com", "pro": "https://pro.nfl.com"}
+SERVERS = {
+    "regular": "https://api.nfl.com",
+    "pro": "https://pro.nfl.com",
+    "ngs": "https://nextgenstats.nfl.com",
+}
 
 
 @dataclass
@@ -34,7 +38,7 @@ class SDKConfiguration:
     user_agent: str = __user_agent__
     retry_config: OptionalNullable[RetryConfig] = field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
-    is_pro: bool = False
+    server_type: str = "regular"
     custom_auth_info: Optional[dict] = None
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
@@ -43,10 +47,5 @@ class SDKConfiguration:
         if self.server_idx is None:
             self.server_idx = 0
 
-        if self.is_pro:
-            dets = SERVERS["pro"]
-        else:
-            dets = SERVERS["regular"]
-
-        server_details = dets, {}
-        return server_details
+        server_url = SERVERS.get(self.server_type, SERVERS["regular"])
+        return server_url, {}
