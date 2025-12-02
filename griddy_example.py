@@ -19,9 +19,10 @@ else:
         login_email=NFL["login_email"], login_password=NFL["login_password"]
     )
 
-result = nfl.ngs.league.get_teams()
+result = nfl.ngs.stats.get_passing_stats(season=2025, season_type="REG")
 
-pprint(result, indent=4)
+print(f"Result type: {type(result)}")
+pprint(result.model_dump(), indent=4)
 
 # result = nfl.ngs
 # dumpable = [w.model_dump() for w in result]

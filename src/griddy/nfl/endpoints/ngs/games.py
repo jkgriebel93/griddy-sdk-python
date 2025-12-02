@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Mapping, Optional
 
 from griddy.nfl import models
 from griddy.nfl.basesdk import EndpointConfig
@@ -124,7 +124,7 @@ class NgsGames(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsGameCenterOverviewResponse:
         """Get detailed game center overview with NGS metrics.
 
         Returns comprehensive game data including:
@@ -142,25 +142,21 @@ class NgsGames(NgsBaseSDK):
             http_headers: Additional headers to send
 
         Returns:
-            Dict containing the full game overview response
-
-        Note:
-            This endpoint returns raw JSON due to the complexity of the
-            nested response structure. Future versions may add typed models.
+            NgsGameCenterOverviewResponse with game overview data
         """
         config = EndpointConfig(
             method="GET",
             path="/api/gamecenter/overview",
             operation_id="getNgsGameOverview",
             request=models.GetNgsGameOverviewRequest(game_id=game_id),
-            response_type=Dict[str, Any],
+            response_type=models.NgsGameCenterOverviewResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -172,7 +168,7 @@ class NgsGames(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsGameCenterOverviewResponse:
         """Get detailed game center overview with NGS metrics (async).
 
         Returns comprehensive game data including:
@@ -190,24 +186,20 @@ class NgsGames(NgsBaseSDK):
             http_headers: Additional headers to send
 
         Returns:
-            Dict containing the full game overview response
-
-        Note:
-            This endpoint returns raw JSON due to the complexity of the
-            nested response structure. Future versions may add typed models.
+            NgsGameCenterOverviewResponse with game overview data
         """
         config = EndpointConfig(
             method="GET",
             path="/api/gamecenter/overview",
             operation_id="getNgsGameOverview",
             request=models.GetNgsGameOverviewRequest(game_id=game_id),
-            response_type=Dict[str, Any],
+            response_type=models.NgsGameCenterOverviewResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Mapping, Optional
 
 from griddy.nfl import models
 from griddy.nfl.basesdk import EndpointConfig
@@ -35,7 +35,7 @@ class NgsContent(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsChartsResponse:
         """Get player charts (route, pass, carry).
 
         Args:
@@ -58,14 +58,14 @@ class NgsContent(NgsBaseSDK):
                 team_id=team_id,
                 esb_id=esb_id,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsChartsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -82,7 +82,7 @@ class NgsContent(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsChartsResponse:
         """Get player charts (async)."""
         config = EndpointConfig(
             method="GET",
@@ -96,14 +96,14 @@ class NgsContent(NgsBaseSDK):
                 team_id=team_id,
                 esb_id=esb_id,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsChartsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -114,21 +114,21 @@ class NgsContent(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsChartPlayersResponse:
         """Get players available in the chart system."""
         config = EndpointConfig(
             method="GET",
             path="/api/content/microsite/players",
             operation_id="getNgsChartPlayers",
             request=models.GetNgsCurrentScheduleRequest(),  # No params needed
-            response_type=Dict[str, Any],
+            response_type=models.NgsChartPlayersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=False,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -139,21 +139,21 @@ class NgsContent(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsChartPlayersResponse:
         """Get players available in the chart system (async)."""
         config = EndpointConfig(
             method="GET",
             path="/api/content/microsite/players",
             operation_id="getNgsChartPlayers",
             request=models.GetNgsCurrentScheduleRequest(),
-            response_type=Dict[str, Any],
+            response_type=models.NgsChartPlayersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=False,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -166,7 +166,7 @@ class NgsContent(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsHighlightsResponse:
         """Get play highlights.
 
         Args:
@@ -178,14 +178,14 @@ class NgsContent(NgsBaseSDK):
             path="/api/plays/highlights",
             operation_id="getNgsHighlights",
             request=models.GetNgsHighlightsRequest(season=season, limit=limit),
-            response_type=Dict[str, Any],
+            response_type=models.NgsHighlightsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -198,20 +198,20 @@ class NgsContent(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsHighlightsResponse:
         """Get play highlights (async)."""
         config = EndpointConfig(
             method="GET",
             path="/api/plays/highlights",
             operation_id="getNgsHighlights",
             request=models.GetNgsHighlightsRequest(season=season, limit=limit),
-            response_type=Dict[str, Any],
+            response_type=models.NgsHighlightsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)

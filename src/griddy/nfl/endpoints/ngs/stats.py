@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Mapping, Optional
 
 from griddy.nfl import models
 from griddy.nfl.basesdk import EndpointConfig
@@ -33,7 +33,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsPassingStatsResponse:
         """Get NGS passing statistics.
 
         Returns detailed passing statistics including time to throw,
@@ -60,14 +60,14 @@ class NgsStats(NgsBaseSDK):
                 season_type=season_type,
                 week=week,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsPassingStatsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -81,7 +81,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsPassingStatsResponse:
         """Get NGS passing statistics (async)."""
         config = EndpointConfig(
             method="GET",
@@ -92,14 +92,14 @@ class NgsStats(NgsBaseSDK):
                 season_type=season_type,
                 week=week,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsPassingStatsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -113,7 +113,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsReceivingStatsResponse:
         """Get NGS receiving statistics.
 
         Returns detailed receiving statistics including separation,
@@ -129,7 +129,7 @@ class NgsStats(NgsBaseSDK):
             http_headers: Additional headers to send
 
         Returns:
-            Dict containing receiving statistics
+            NgsReceivingStatsResponse containing receiving statistics
         """
         config = EndpointConfig(
             method="GET",
@@ -140,14 +140,14 @@ class NgsStats(NgsBaseSDK):
                 season_type=season_type,
                 week=week,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsReceivingStatsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -161,7 +161,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsReceivingStatsResponse:
         """Get NGS receiving statistics (async)."""
         config = EndpointConfig(
             method="GET",
@@ -172,14 +172,14 @@ class NgsStats(NgsBaseSDK):
                 season_type=season_type,
                 week=week,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsReceivingStatsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -193,7 +193,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsRushingStatsResponse:
         """Get NGS rushing statistics.
 
         Returns detailed rushing statistics including time to LOS,
@@ -209,7 +209,7 @@ class NgsStats(NgsBaseSDK):
             http_headers: Additional headers to send
 
         Returns:
-            Dict containing rushing statistics
+            NgsRushingStatsResponse containing rushing statistics
         """
         config = EndpointConfig(
             method="GET",
@@ -220,14 +220,14 @@ class NgsStats(NgsBaseSDK):
                 season_type=season_type,
                 week=week,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsRushingStatsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -241,7 +241,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsRushingStatsResponse:
         """Get NGS rushing statistics (async)."""
         config = EndpointConfig(
             method="GET",
@@ -252,13 +252,13 @@ class NgsStats(NgsBaseSDK):
                 season_type=season_type,
                 week=week,
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsRushingStatsResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)

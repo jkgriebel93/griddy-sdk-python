@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Mapping, Optional
 
 from griddy.nfl import models
 from griddy.nfl.basesdk import EndpointConfig
@@ -37,7 +37,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsSpeedLeadersResponse:
         """Get fastest ball carrier speeds.
 
         Returns leaderboard of fastest ball carrier speeds recorded.
@@ -55,14 +55,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsSpeedLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -77,7 +77,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsSpeedLeadersResponse:
         """Get fastest ball carrier speeds (async)."""
         config = EndpointConfig(
             method="GET",
@@ -86,14 +86,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsSpeedLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -108,7 +108,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsSackLeadersResponse:
         """Get fastest sack times.
 
         Returns leaderboard of quickest sacks by time to tackle.
@@ -126,14 +126,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsSackLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -148,7 +148,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsSackLeadersResponse:
         """Get fastest sack times (async)."""
         config = EndpointConfig(
             method="GET",
@@ -157,14 +157,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsSackLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -177,7 +177,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsCompletionLeadersResponse:
         """Get most improbable completions.
 
         Returns leaderboard of completions with lowest completion probability.
@@ -193,14 +193,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsSeasonLeadersRequest(
                 season=season, season_type=season_type
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsCompletionLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -213,7 +213,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsCompletionLeadersResponse:
         """Get most improbable completions (async)."""
         config = EndpointConfig(
             method="GET",
@@ -222,14 +222,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsSeasonLeadersRequest(
                 season=season, season_type=season_type
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsCompletionLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -242,7 +242,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsYACLeadersResponse:
         """Get incredible YAC plays.
 
         Returns leaderboard of yards after catch over expectation.
@@ -258,14 +258,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsSeasonLeadersRequest(
                 season=season, season_type=season_type
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsYACLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -278,7 +278,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsYACLeadersResponse:
         """Get incredible YAC plays (async)."""
         config = EndpointConfig(
             method="GET",
@@ -287,14 +287,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsSeasonLeadersRequest(
                 season=season, season_type=season_type
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsYACLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -309,7 +309,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsDistanceLeadersResponse:
         """Get longest plays by in-play distance.
 
         Returns leaderboard of plays with most distance covered.
@@ -327,14 +327,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsDistanceLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -349,7 +349,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsDistanceLeadersResponse:
         """Get longest plays by in-play distance (async)."""
         config = EndpointConfig(
             method="GET",
@@ -358,14 +358,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsDistanceLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -380,7 +380,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsTackleLeadersResponse:
         """Get longest tackles by distance covered.
 
         Returns leaderboard of tackles with most distance covered to make the tackle.
@@ -398,14 +398,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsTackleLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -420,7 +420,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsTackleLeadersResponse:
         """Get longest tackles by distance covered (async)."""
         config = EndpointConfig(
             method="GET",
@@ -429,14 +429,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsLeadersRequest(
                 season=season, season_type=season_type, limit=limit, week=week
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsTackleLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -449,7 +449,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsERYLeadersResponse:
         """Get remarkable rushes.
 
         Returns leaderboard of rush yards over expected (ERY).
@@ -465,14 +465,14 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsSeasonLeadersRequest(
                 season=season, season_type=season_type
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsERYLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -485,7 +485,7 @@ class NgsLeaders(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsERYLeadersResponse:
         """Get remarkable rushes (async)."""
         config = EndpointConfig(
             method="GET",
@@ -494,13 +494,13 @@ class NgsLeaders(NgsBaseSDK):
             request=models.GetNgsSeasonLeadersRequest(
                 season=season, season_type=season_type
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsERYLeadersResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)

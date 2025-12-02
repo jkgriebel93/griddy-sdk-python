@@ -31,6 +31,118 @@ if TYPE_CHECKING:
         FootballRoster,
         FootballRosterTypedDict,
     )
+    from griddy.nfl.models.entities.ngs_content import (
+        NgsChart,
+        NgsChartPlayer,
+        NgsChartPlayerTypedDict,
+        NgsChartTypedDict,
+        NgsHighlight,
+        NgsHighlightTypedDict,
+    )
+    from griddy.nfl.models.entities.ngs_game_overview import (
+        NgsGameLeaders,
+        NgsGameLeadersTypedDict,
+        NgsGamePassDistanceLeader,
+        NgsGamePassDistanceLeaderTypedDict,
+        NgsGameSackLeader,
+        NgsGameSackLeaderTypedDict,
+        NgsGameScheduleInfo,
+        NgsGameScheduleInfoTypedDict,
+        NgsGameSpeedLeader,
+        NgsGameSpeedLeaderTypedDict,
+        NgsLeagueAverage,
+        NgsLeagueAverageTypedDict,
+        NgsPassDistanceLeadersMap,
+        NgsPassDistanceLeadersMapTypedDict,
+        NgsPasserInfo,
+        NgsPasserInfoTypedDict,
+        NgsPassersOverview,
+        NgsPassersOverviewTypedDict,
+        NgsPassInfo,
+        NgsPassInfoTypedDict,
+        NgsPassingZone,
+        NgsPassingZoneTypedDict,
+        NgsPassRusherInfo,
+        NgsPassRusherInfoTypedDict,
+        NgsPassRushersOverview,
+        NgsPassRushersOverviewTypedDict,
+        NgsReceiverInfo,
+        NgsReceiverInfoTypedDict,
+        NgsReceiversOverview,
+        NgsReceiversOverviewTypedDict,
+        NgsReceptionInfo,
+        NgsReceptionInfoTypedDict,
+        NgsRusherInfo,
+        NgsRusherInfoTypedDict,
+        NgsRushersOverview,
+        NgsRushersOverviewTypedDict,
+        NgsRushInfo,
+        NgsRushInfoTypedDict,
+        NgsRushLocationStats,
+        NgsRushLocationStatsTypedDict,
+        NgsSackLeadersMap,
+        NgsSackLeadersMapTypedDict,
+        NgsSpeedLeadersMap,
+        NgsSpeedLeadersMapTypedDict,
+        NgsTackleInfo,
+        NgsTackleInfoTypedDict,
+    )
+    from griddy.nfl.models.entities.ngs_leaders import (
+        NgsCompletionLeader,
+        NgsCompletionLeaderEntry,
+        NgsCompletionLeaderEntryTypedDict,
+        NgsCompletionLeaderTypedDict,
+        NgsDistanceLeader,
+        NgsDistanceLeaderEntry,
+        NgsDistanceLeaderEntryTypedDict,
+        NgsDistanceLeaderTypedDict,
+        NgsERYLeader,
+        NgsERYLeaderEntry,
+        NgsERYLeaderEntryTypedDict,
+        NgsERYLeaderTypedDict,
+        NgsSackLeader,
+        NgsSackLeaderEntry,
+        NgsSackLeaderEntryTypedDict,
+        NgsSackLeaderTypedDict,
+        NgsSpeedLeader,
+        NgsSpeedLeaderEntry,
+        NgsSpeedLeaderEntryTypedDict,
+        NgsSpeedLeaderTypedDict,
+        NgsTackleLeader,
+        NgsTackleLeaderEntry,
+        NgsTackleLeaderEntryTypedDict,
+        NgsTackleLeaderTypedDict,
+        NgsYACLeader,
+        NgsYACLeaderEntry,
+        NgsYACLeaderEntryTypedDict,
+        NgsYACLeaderTypedDict,
+    )
+    from griddy.nfl.models.entities.ngs_news import (
+        NgsContentItem,
+        NgsContentItemTypedDict,
+        NgsContentMetadata,
+        NgsContentMetadataTypedDict,
+        NgsContentPagination,
+        NgsContentPaginationTypedDict,
+        NgsContentTag,
+        NgsContentTagTypedDict,
+        NgsThumbnail,
+        NgsThumbnailTypedDict,
+    )
+    from griddy.nfl.models.entities.ngs_play import (
+        NgsPlay,
+        NgsPlayStat,
+        NgsPlayStatTypedDict,
+        NgsPlayTypedDict,
+    )
+    from griddy.nfl.models.entities.ngs_stats import (
+        NgsPassingStat,
+        NgsPassingStatTypedDict,
+        NgsReceivingStat,
+        NgsReceivingStatTypedDict,
+        NgsRushingStat,
+        NgsRushingStatTypedDict,
+    )
     from griddy.nfl.models.entities.person import Person, PersonTypedDict
     from griddy.nfl.models.entities.team_offense_rush_stats import (
         TeamOffenseRushStats,
@@ -194,6 +306,58 @@ if TYPE_CHECKING:
     from griddy.nfl.models.requests.get_multiple_rankings_all_teams_op import (
         GetMultipleRankingsAllTeamsRequest,
         GetMultipleRankingsAllTeamsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_content_op import (
+        GetNgsChartsRequest,
+        GetNgsChartsRequestTypedDict,
+        GetNgsHighlightsRequest,
+        GetNgsHighlightsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_current_schedule_op import (
+        GetNgsCurrentScheduleRequest,
+        GetNgsCurrentScheduleRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_game_overview_op import (
+        GetNgsGameOverviewRequest,
+        GetNgsGameOverviewRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_leaders_op import (
+        GetNgsLeadersRequest,
+        GetNgsLeadersRequestTypedDict,
+        GetNgsSeasonLeadersRequest,
+        GetNgsSeasonLeadersRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_live_scores_op import (
+        GetNgsLiveScoresRequest,
+        GetNgsLiveScoresRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_news_op import (
+        GetNgsArticlesRequest,
+        GetNgsArticlesRequestTypedDict,
+        GetNgsMixedContentRequest,
+        GetNgsMixedContentRequestTypedDict,
+        GetNgsVideoClipsRequest,
+        GetNgsVideoClipsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_passing_stats_op import (
+        GetNgsPassingStatsRequest,
+        GetNgsPassingStatsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_receiving_stats_op import (
+        GetNgsReceivingStatsRequest,
+        GetNgsReceivingStatsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_rushing_stats_op import (
+        GetNgsRushingStatsRequest,
+        GetNgsRushingStatsRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_schedule_op import (
+        GetNgsScheduleRequest,
+        GetNgsScheduleRequestTypedDict,
+    )
+    from griddy.nfl.models.requests.get_ngs_teams_op import (
+        GetNgsTeamsRequest,
+        GetNgsTeamsRequestTypedDict,
     )
     from griddy.nfl.models.requests.get_play_by_play_op import (
         GetPlayByPlayRequest,
@@ -538,6 +702,66 @@ if TYPE_CHECKING:
     from griddy.nfl.models.responses.nearest_defender_stats_response import (
         NearestDefenderStatsResponse,
         NearestDefenderStatsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_content_response import (
+        NgsChartPlayersResponse,
+        NgsChartPlayersResponseTypedDict,
+        NgsChartsResponse,
+        NgsChartsResponseTypedDict,
+        NgsHighlightsResponse,
+        NgsHighlightsResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_current_schedule_response import (
+        NgsCurrentScheduleResponse,
+        NgsCurrentScheduleResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_game_overview_response import (
+        NgsGameCenterOverviewResponse,
+        NgsGameCenterOverviewResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_leaders_response import (
+        NgsCompletionLeadersResponse,
+        NgsCompletionLeadersResponseTypedDict,
+        NgsDistanceLeadersResponse,
+        NgsDistanceLeadersResponseTypedDict,
+        NgsERYLeadersResponse,
+        NgsERYLeadersResponseTypedDict,
+        NgsSackLeadersResponse,
+        NgsSackLeadersResponseTypedDict,
+        NgsSpeedLeadersResponse,
+        NgsSpeedLeadersResponseTypedDict,
+        NgsTackleLeadersResponse,
+        NgsTackleLeadersResponseTypedDict,
+        NgsYACLeadersResponse,
+        NgsYACLeadersResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_live_scores_response import (
+        NgsGameScoreDetail,
+        NgsGameScoreDetailTypedDict,
+        NgsLiveGameScore,
+        NgsLiveGameScoreTypedDict,
+        NgsLiveScoresResponse,
+        NgsLiveScoresResponseTypedDict,
+        NgsTeamInfo,
+        NgsTeamInfoTypedDict,
+        NgsTeamScore,
+        NgsTeamScoreTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_news_response import (
+        NgsArticlesResponse,
+        NgsArticlesResponseTypedDict,
+        NgsMixedContentResponse,
+        NgsMixedContentResponseTypedDict,
+        NgsVideosResponse,
+        NgsVideosResponseTypedDict,
+    )
+    from griddy.nfl.models.responses.ngs_stats_response import (
+        NgsPassingStatsResponse,
+        NgsPassingStatsResponseTypedDict,
+        NgsReceivingStatsResponse,
+        NgsReceivingStatsResponseTypedDict,
+        NgsRushingStatsResponse,
+        NgsRushingStatsResponseTypedDict,
     )
     from griddy.nfl.models.responses.pass_rush_stats_response import (
         PassRushStatsResponse,

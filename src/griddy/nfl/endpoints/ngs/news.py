@@ -5,7 +5,7 @@ Note: These endpoints use a different server (api.nfl.com) than the other NGS en
 
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Mapping, Optional
 
 from griddy.nfl import models
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
@@ -49,7 +49,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsMixedContentResponse:
         """Get mixed NGS content (articles and videos).
 
         Args:
@@ -61,14 +61,14 @@ class NgsNews(BaseSDK):
             path="/content/v1/mixed/next-gen-stats",
             operation_id="getNgsMixedContent",
             request=models.GetNgsMixedContentRequest(limit=limit, offset=offset),
-            response_type=Dict[str, Any],
+            response_type=models.NgsMixedContentResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -81,21 +81,21 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsMixedContentResponse:
         """Get mixed NGS content (async)."""
         config = EndpointConfig(
             method="GET",
             path="/content/v1/mixed/next-gen-stats",
             operation_id="getNgsMixedContent",
             request=models.GetNgsMixedContentRequest(limit=limit, offset=offset),
-            response_type=Dict[str, Any],
+            response_type=models.NgsMixedContentResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -109,7 +109,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsArticlesResponse:
         """Get NGS articles.
 
         Args:
@@ -124,14 +124,14 @@ class NgsNews(BaseSDK):
             request=models.GetNgsArticlesRequest(
                 category=category, limit=limit, offset=offset
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsArticlesResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -145,7 +145,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsArticlesResponse:
         """Get NGS articles (async)."""
         config = EndpointConfig(
             method="GET",
@@ -154,14 +154,14 @@ class NgsNews(BaseSDK):
             request=models.GetNgsArticlesRequest(
                 category=category, limit=limit, offset=offset
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsArticlesResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
 
@@ -175,7 +175,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsVideosResponse:
         """Get NGS video clips.
 
         Args:
@@ -190,14 +190,14 @@ class NgsNews(BaseSDK):
             request=models.GetNgsVideoClipsRequest(
                 video_channel=video_channel, limit=limit, offset=offset
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsVideosResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return self._execute_endpoint(config)
 
@@ -211,7 +211,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> models.NgsVideosResponse:
         """Get NGS video clips (async)."""
         config = EndpointConfig(
             method="GET",
@@ -220,13 +220,13 @@ class NgsNews(BaseSDK):
             request=models.GetNgsVideoClipsRequest(
                 video_channel=video_channel, limit=limit, offset=offset
             ),
-            response_type=Dict[str, Any],
+            response_type=models.NgsVideosResponse,
             error_status_codes=NGS_ERROR_CODES,
             request_has_query_params=True,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=True,
+            return_raw_json=False,
         )
         return await self._execute_endpoint_async(config)
