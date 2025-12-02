@@ -32,7 +32,6 @@ def mock_sdk_config():
     config.retry_config = None
     config.timeout_ms = None
     config.debug_logger = None
-    config.is_pro = False
     return config
 
 

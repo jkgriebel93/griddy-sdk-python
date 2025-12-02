@@ -20,6 +20,7 @@ from .utils.retries import RetryConfig
 from .utils.security import do_browser_auth
 
 if TYPE_CHECKING:
+    from griddy.nfl.endpoints.ngs import NextGenStats
     from griddy.nfl.endpoints.pro.betting import Betting
     from griddy.nfl.endpoints.pro.content import Content
     from griddy.nfl.endpoints.pro.games import ProGames
@@ -80,6 +81,9 @@ class GriddyNFL(BaseSDK):
     r"""Fantasy football player statistics and scoring metrics"""
     teams: "Teams"
     r"""Team information, rosters, and schedules"""
+    ##### Next Gen Stats SDK #####
+    ngs: "NextGenStats"
+    r"""Next Gen Stats data (statistics, leaderboards, charts, highlights)"""
 
     authentication: "Authentication"
     r"""Token generation and refresh operations for NFL API access"""
@@ -113,6 +117,7 @@ class GriddyNFL(BaseSDK):
         "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "transactions": ("griddy.nfl.endpoints.pro.transactions", "Transactions"),
+        "ngs": ("griddy.nfl.endpoints.ngs", "NextGenStats"),
     }
 
     _client_data = {

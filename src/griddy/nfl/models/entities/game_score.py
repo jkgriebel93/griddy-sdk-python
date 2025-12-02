@@ -5,17 +5,9 @@ from typing import Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from ...types import BaseModel
-from .team_score import TeamScore, TeamScoreTypedDict
-
-Phase = Literal[
-    "PREGAME",
-    "INGAME",
-    "HALFTIME",
-    "FINAL",
-    "SUSPENDED",
-]
-r"""Game phase (P=Pregame, 1-4=Quarter, FINAL=Final)"""
+from griddy.nfl.models.entities.team_score import TeamScore, TeamScoreTypedDict
+from griddy.nfl.models.enums.game_phase_enum import GamePhaseEnum
+from griddy.nfl.types import BaseModel
 
 
 class GameScoreTypedDict(TypedDict):
@@ -24,7 +16,7 @@ class GameScoreTypedDict(TypedDict):
     home_score: NotRequired[int]
     r"""Home team current score"""
     home_team_score: NotRequired[TeamScoreTypedDict]
-    phase: NotRequired[Phase]
+    phase: NotRequired[GamePhaseEnum]
     r"""Game phase (P=Pregame, 1-4=Quarter, FINAL=Final)"""
     time: NotRequired[str]
     r"""Game clock time or status"""
@@ -42,7 +34,7 @@ class GameScore(BaseModel):
         Optional[TeamScore], pydantic.Field(alias="homeTeamScore")
     ] = None
 
-    phase: Optional[Phase] = None
+    phase: Optional[GamePhaseEnum] = None
     r"""Game phase (P=Pregame, 1-4=Quarter, FINAL=Final)"""
 
     time: Optional[str] = None

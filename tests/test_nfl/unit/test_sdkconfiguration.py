@@ -299,7 +299,7 @@ class TestGetServerDetails:
             async_client_supplied=True,
             debug_logger=logger,
             server_url="",
-            is_pro=True,
+            server_type="pro",
         )
 
         url, params = config.get_server_details()
@@ -361,7 +361,6 @@ class TestGetServerDetails:
             async_client_supplied=True,
             debug_logger=logger,
             server_url="",  # Empty string
-            is_pro=False,
         )
 
         url, params = config.get_server_details()
@@ -386,7 +385,7 @@ class TestSERVERSConstant:
 
     def test_servers_has_two_entries(self):
         """Test SERVERS has exactly two entries"""
-        assert len(SERVERS) == 2
+        assert len(SERVERS) == 3
 
 
 @pytest.mark.unit
@@ -422,7 +421,6 @@ class TestSDKConfigurationIntegration:
             server_idx=1,
             retry_config=retry_config,
             timeout_ms=60000,
-            is_pro=True,
             custom_auth_info=auth_info,
         )
 
@@ -436,7 +434,7 @@ class TestSDKConfigurationIntegration:
         assert config.server_idx == 1
         assert config.retry_config == retry_config
         assert config.timeout_ms == 60000
-        assert config.is_pro is True
+        assert config.server_type == "regular"
         assert config.custom_auth_info == auth_info
 
     def test_sdk_configuration_is_dataclass(self):

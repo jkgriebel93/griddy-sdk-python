@@ -42,6 +42,12 @@ class HackAuthHook(BeforeRequestHook):
     def before_request(
         self, hook_ctx: BeforeRequestContext, request: httpx.Request
     ) -> Union[httpx.Request, Exception]:
+        request.headers["referer"] = "https://nextgenstats.nfl.com/"
+        request.headers["x-override-env"] = "false"
+        request.headers["sec-fetch-dest"] = "empty"
+        request.headers["sec-fetch-mode"] = "cors"
+        request.headers["sec-fetch-site"] = "same-origin"
+        request.headers["authority"] = "nextgenstats.nfl.com"
 
         auth_info = hook_ctx.config.custom_auth_info
         if (auth_info["expiresIn"] - time.time()) < 30:

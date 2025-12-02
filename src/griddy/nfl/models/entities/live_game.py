@@ -5,7 +5,8 @@ from typing import Literal, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from ...types import BaseModel
+from griddy.nfl.models.enums.game_phase_enum import GamePhaseEnum
+from griddy.nfl.types import BaseModel
 
 
 class AwayTeamTypedDict(TypedDict):
@@ -36,16 +37,6 @@ class HomeTeam(BaseModel):
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
 
 
-LiveGameStatus = Literal[
-    "SCHEDULED",
-    "IN_PROGRESS",
-    "HALFTIME",
-    "FINAL",
-    "POSTPONED",
-    "CANCELLED",
-]
-
-
 class LiveGameTypedDict(TypedDict):
     r"""Live game scoring and status information"""
 
@@ -61,7 +52,7 @@ class LiveGameTypedDict(TypedDict):
     r"""Current quarter/period"""
     red_zone: NotRequired[bool]
     r"""Whether team is in red zone"""
-    status: NotRequired[LiveGameStatus]
+    status: NotRequired[GamePhaseEnum]
     time_remaining: NotRequired[str]
     r"""Time remaining in current period"""
 
@@ -88,7 +79,7 @@ class LiveGame(BaseModel):
     red_zone: Annotated[Optional[bool], pydantic.Field(alias="redZone")] = None
     r"""Whether team is in red zone"""
 
-    status: Optional[LiveGameStatus] = None
+    status: Optional[GamePhaseEnum] = None
 
     time_remaining: Annotated[Optional[str], pydantic.Field(alias="timeRemaining")] = (
         None
