@@ -7,22 +7,15 @@ This SDK provides access to multiple sports data sources including:
 - ESPN
 
 Usage:
-    from griddy import nfl, pfr, espn
+    from griddy import nfl
 
     # NFL data
     nfl_client = nfl.Client()
     games = nfl_client.get_games(season=2024, week=1)
 
-    # Pro Football Reference data
-    pfr_client = pfr.Client()
-    player = pfr_client.get_player("player_id")
-
-    # ESPN data
-    espn_client = espn.Client()
-    scoreboard = espn_client.get_scoreboard()
 """
 
-from . import core, espn, nfl, pff, pfr
+from . import core
 
 # Version
 __version__ = "0.1.0"
@@ -32,9 +25,6 @@ __all__ = [
     "__version__",
     "core",
     "nfl",
-    "pfr",
-    "espn",
-    "pff",
 ]
 
 # Convenience imports for common exceptions
