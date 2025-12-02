@@ -158,6 +158,7 @@ if TYPE_CHECKING:
     from griddy.nfl.models.enums.defensive_position_group_enum import (
         DefensivePositionGroupEnum,
     )
+    from griddy.nfl.models.enums.game_phase_enum import GamePhaseEnum
     from griddy.nfl.models.enums.game_result_enum import GameResultEnum
     from griddy.nfl.models.enums.game_status_enum import GameStatusEnum
     from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
@@ -176,6 +177,7 @@ if TYPE_CHECKING:
         ReceivingStatsCategoryEnum,
     )
     from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
+    from griddy.nfl.models.enums.site_roof_type_enum import SiteRoofTypeEnum
     from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
     from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
     from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
@@ -913,11 +915,7 @@ if TYPE_CHECKING:
     from .entities.award import Award, AwardType, AwardTypedDict
     from .entities.boxscore_schedule import BoxscoreSchedule, BoxscoreScheduleTypedDict
     from .entities.boxscore_score import BoxscoreScore, BoxscoreScoreTypedDict
-    from .entities.boxscore_site import (
-        BoxscoreSite,
-        BoxscoreSiteRoofType,
-        BoxscoreSiteTypedDict,
-    )
+    from .entities.boxscore_site import BoxscoreSite, BoxscoreSiteTypedDict
     from .entities.boxscore_team import BoxscoreTeam, BoxscoreTeamTypedDict
     from .entities.broadcast_info import (
         BroadcastInfo,
@@ -1014,7 +1012,7 @@ if TYPE_CHECKING:
     from .entities.game_odds import GameOdds, GameOddsTypedDict
     from .entities.game_schedule import GameSchedule, GameScheduleTypedDict
     from .entities.game_score import GameScore, GameScoreTypedDict, Phase
-    from .entities.game_site import GameSite, GameSiteRoofType, GameSiteTypedDict
+    from .entities.game_site import GameSite, GameSiteTypedDict
     from .entities.game_team import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
     from .entities.injury_entry import (
         InjuryEntry,
@@ -1166,7 +1164,7 @@ if TYPE_CHECKING:
     )
     from .entities.season_stats import SeasonStats, SeasonStatsTypedDict
     from .entities.security import Security, SecurityTypedDict
-    from .entities.site import Site, SiteRoofType, SiteTypedDict
+    from .entities.site import Site, SiteTypedDict
     from .entities.social_media import SocialMedia, SocialMediaTypedDict
     from .entities.standings import (
         Standings,
@@ -1220,7 +1218,7 @@ if TYPE_CHECKING:
     from .entities.totals import Totals, TotalsTypedDict
     from .entities.transaction import Transaction, TransactionType, TransactionTypedDict
     from .entities.venue import Venue, VenueTypedDict
-    from .entities.venue_info import VenueInfo, VenueInfoRoofType, VenueInfoTypedDict
+    from .entities.venue_info import VenueInfo, VenueInfoTypedDict
     from .entities.video_authorizations import (
         NFLPLUSPLUSNFLPLUSCOACHESFILM,
         NflPlusPlus,
@@ -1347,7 +1345,6 @@ __all__ = [
     "BoxscoreScore",
     "BoxscoreScoreTypedDict",
     "BoxscoreSite",
-    "BoxscoreSiteRoofType",
     "BoxscoreSiteTypedDict",
     "BoxscoreTeam",
     "BoxscoreTeamTypedDict",
@@ -1452,6 +1449,7 @@ __all__ = [
     "GameLocationEnum",
     "GameOdds",
     "GameOddsTypedDict",
+    "GamePhaseEnum",
     "GamePreviewResponse",
     "GamePreviewResponseTypedDict",
     "GameResultEnum",
@@ -1460,7 +1458,6 @@ __all__ = [
     "GameScore",
     "GameScoreTypedDict",
     "GameSite",
-    "GameSiteRoofType",
     "GameSiteTypedDict",
     "GameStatsResponse",
     "GameStatsResponseData",
@@ -2069,7 +2066,7 @@ __all__ = [
     "SecurityTypedDict",
     "SeparationType",
     "Site",
-    "SiteRoofType",
+    "SiteRoofTypeEnum",
     "SiteTypedDict",
     "SocialMedia",
     "SocialMediaTypedDict",
@@ -2175,7 +2172,6 @@ __all__ = [
     "TypePlayer",
     "Venue",
     "VenueInfo",
-    "VenueInfoRoofType",
     "VenueInfoTypedDict",
     "VenueTypedDict",
     "VenuesResponse",
@@ -2295,7 +2291,6 @@ _dynamic_imports: dict[str, str] = {
     "BoxscoreScore": ".entities.boxscore_score",
     "BoxscoreScoreTypedDict": ".entities.boxscore_score",
     "BoxscoreSite": ".entities.boxscore_site",
-    "BoxscoreSiteRoofType": ".entities.boxscore_site",
     "BoxscoreSiteTypedDict": ".entities.boxscore_site",
     "BoxscoreTeam": ".entities.boxscore_team",
     "BoxscoreTeamTypedDict": ".entities.boxscore_team",
@@ -2447,6 +2442,7 @@ _dynamic_imports: dict[str, str] = {
     "GamePreviewResponseTypedDict": ".responses.game_preview_response",
     "Preview": ".game_preview_response",
     "PreviewTypedDict": ".game_preview_response",
+    "GamePhaseEnum": ".enums.game_phase_enum",
     "GameResultEnum": ".enums.game_result_enum",
     "GameSchedule": ".entities.game_schedule",
     "GameScheduleTypedDict": ".entities.game_schedule",
@@ -2454,7 +2450,6 @@ _dynamic_imports: dict[str, str] = {
     "GameScoreTypedDict": ".entities.game_score",
     "Phase": ".entities.game_score",
     "GameSite": ".entities.game_site",
-    "GameSiteRoofType": ".entities.game_site",
     "GameSiteTypedDict": ".entities.game_site",
     "GamesResponse": ".responses.games_response",
     "GamesResponseTypedDict": ".responses.games_response",
@@ -3025,7 +3020,7 @@ _dynamic_imports: dict[str, str] = {
     "Security": ".entities.security",
     "SecurityTypedDict": ".entities.security",
     "Site": ".entities.site",
-    "SiteRoofType": ".entities.site",
+    "SiteRoofTypeEnum": ".enums.site_roof_type_enum",
     "SiteTypedDict": ".entities.site",
     "SocialMedia": ".entities.social_media",
     "SocialMediaTypedDict": ".entities.social_media",

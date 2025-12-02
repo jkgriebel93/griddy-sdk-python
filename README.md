@@ -403,3 +403,16 @@ The authors are not responsible for how this SDK is used. Always verify that you
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
+
+Working NGS methods:
+- `league.*`
+- `games.get_overview()`
+- `stats.*`
+- `leaders.*`
+- `content.*`
+- `news.*`
+
+
+Non-Data Errors:
+- `games.get_live_scores` returns `403 FORBIDDEN`
+  - Potentially because no games are live?

@@ -118,7 +118,7 @@ class NgsContent(NgsBaseSDK):
         """Get players available in the chart system."""
         config = EndpointConfig(
             method="GET",
-            path="/api/content/microsite/players",
+            path="/api/content/microsite/chart/players",
             operation_id="getNgsChartPlayers",
             request=models.GetNgsCurrentScheduleRequest(),  # No params needed
             response_type=models.NgsChartPlayersResponse,

@@ -6,18 +6,19 @@ import pydantic
 from pydantic import model_serializer
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-
-BoxscoreSiteRoofType = Literal[
-    "OUTDOOR",
-    "DOME",
-    "RETRACTABLE",
-]
+from griddy.nfl.models import SiteRoofTypeEnum
+from griddy.nfl.types import (
+    UNSET,
+    UNSET_SENTINEL,
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+)
 
 
 class BoxscoreSiteTypedDict(TypedDict):
     postal_code: NotRequired[str]
-    roof_type: NotRequired[BoxscoreSiteRoofType]
+    roof_type: NotRequired[SiteRoofTypeEnum]
     site_city: NotRequired[str]
     site_full_name: NotRequired[str]
     site_id: NotRequired[int]
@@ -29,7 +30,7 @@ class BoxscoreSite(BaseModel):
     postal_code: Annotated[Optional[str], pydantic.Field(alias="postalCode")] = None
 
     roof_type: Annotated[
-        Optional[BoxscoreSiteRoofType], pydantic.Field(alias="roofType")
+        Optional[SiteRoofTypeEnum], pydantic.Field(alias="roofType")
     ] = None
 
     site_city: Annotated[Optional[str], pydantic.Field(alias="siteCity")] = None
