@@ -1,4 +1,18 @@
-"""Base HTTP client for all Griddy SDK modules."""
+"""Base HTTP client for all Griddy SDK modules.
+
+This module provides the BaseClient class, which implements common HTTP
+functionality including rate limiting, automatic retries, and error handling.
+
+Example:
+    >>> from griddy.core import BaseClient
+    >>> client = BaseClient(
+    ...     base_url="https://api.example.com",
+    ...     timeout=30,
+    ...     rate_limit_delay=1.0,
+    ... )
+    >>> response = client.get("/endpoint", params={"key": "value"})
+    >>> client.close()
+"""
 
 import time
 from typing import Any, Dict, List
@@ -13,7 +27,31 @@ from .utils import retry_on_rate_limit
 
 
 class BaseClient:
-    """Base HTTP client with common functionality for all data source clients."""
+    """Base HTTP client with common functionality for all data source clients.
+
+    This class provides a foundation for building API clients with built-in
+    support for rate limiting, automatic retries on transient failures, and
+    consistent error handling.
+
+    Attributes:
+        base_url: The base URL for all API requests.
+        timeout: Request timeout in seconds.
+        rate_limit_delay: Minimum delay between requests in seconds.
+        session: The underlying requests Session object.
+        cookies_file: Path to a cookies file for authentication.
+
+    Example:
+        >>> client = BaseClient(
+        ...     base_url="https://api.nfl.com",
+        ...     timeout=30,
+        ...     max_retries=3,
+        ...     rate_limit_delay=1.0,
+        ... )
+        >>> try:
+        ...     data = client.get("/games", params={"season": 2024})
+        ... finally:
+        ...     client.close()
+    """
 
     def __init__(
         self,
@@ -23,17 +61,33 @@ class BaseClient:
         rate_limit_delay: float = 1.0,
         headers: Dict[str, str] | None = None,
         cookies_file: str | None = None,
-    ):
-        """
-        Initialize the base client.
+    ) -> None:
+        """Initialize the base client.
+
+        Creates an HTTP session with automatic retry capabilities for transient
+        errors (429, 500, 502, 503, 504 status codes).
 
         Args:
-            base_url: Base URL for the API
-            timeout: Request timeout in seconds
-            max_retries: Maximum number of retries for failed requests
-            rate_limit_delay: Delay between requests to avoid rate limiting
-            headers: Additional headers to include in requests
-            cookies_file: String representing path to a cookies file that will be used for authentication.
+            base_url: Base URL for the API (e.g., "https://api.nfl.com").
+                Trailing slashes are automatically removed.
+            timeout: Request timeout in seconds. Defaults to 30.
+            max_retries: Maximum number of retries for failed requests.
+                Defaults to 3.
+            rate_limit_delay: Minimum delay between requests in seconds
+                to avoid rate limiting. Defaults to 1.0.
+            headers: Additional headers to include in all requests.
+                These are merged with default headers (Accept, Content-Type).
+            cookies_file: Path to a Netscape-format cookies file for
+                authentication.
+
+        Example:
+            >>> client = BaseClient(
+            ...     base_url="https://api.example.com",
+            ...     timeout=60,
+            ...     max_retries=5,
+            ...     rate_limit_delay=2.0,
+            ...     headers={"Authorization": "Bearer token"},
+            ... )
         """
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
@@ -68,31 +122,36 @@ class BaseClient:
         self.session.headers.update(default_headers)
 
     def _enforce_rate_limit(self) -> None:
-        """Enforce rate limiting between requests."""
+        """Enforce rate limiting between requests.
+
+        Ensures that requests are spaced at least `rate_limit_delay` seconds
+        apart to avoid overwhelming the API server.
+        """
         if self.rate_limit_delay > 0:
             time_since_last = time.time() - self._last_request_time
             if time_since_last < self.rate_limit_delay:
                 time.sleep(self.rate_limit_delay - time_since_last)
         self._last_request_time = time.time()
 
-    # TODO: Create a TypeVar for this return type.
     def _handle_response(
         self, response: requests.Response
     ) -> Dict[str, Any] | List[Any]:
-        """
-        Handle HTTP response and raise appropriate exceptions.
+        """Handle HTTP response and raise appropriate exceptions.
+
+        Parses the response and raises specific exceptions based on the
+        HTTP status code.
 
         Args:
-            response: HTTP response object
+            response: The HTTP response object from requests.
 
         Returns:
-            Parsed JSON response data
+            Parsed JSON response data as a dictionary or list.
 
         Raises:
-            APIError: For general API errors
-            RateLimitError: For rate limit errors
-            NotFoundError: For 404 errors
-            AuthenticationError: For authentication errors
+            NotFoundError: When the resource is not found (404).
+            AuthenticationError: When authentication fails (401).
+            RateLimitError: When rate limit is exceeded (429).
+            APIError: For all other error status codes.
         """
         try:
             response_data = response.json() if response.content else {}
@@ -142,16 +201,30 @@ class BaseClient:
         params: Dict[str, Any] | None = None,
         headers: Dict[str, str] | None = None,
     ) -> Dict[str, Any] | List[Any]:
-        """
-        Make a GET request.
+        """Make a GET request to the API.
+
+        Automatically applies rate limiting and handles errors.
 
         Args:
-            endpoint: API endpoint
-            params: Query parameters
-            headers: Additional headers
+            endpoint: API endpoint path (e.g., "/games" or "players/123").
+                Leading slashes are handled automatically.
+            params: Query parameters to include in the request.
+            headers: Additional headers to include in this request only.
 
         Returns:
-            Response data
+            Parsed JSON response data.
+
+        Raises:
+            NotFoundError: When the resource is not found (404).
+            AuthenticationError: When authentication fails (401).
+            RateLimitError: When rate limit is exceeded (429).
+            APIError: For all other error status codes.
+
+        Example:
+            >>> data = client.get(
+            ...     "/games",
+            ...     params={"season": 2024, "week": 1},
+            ... )
         """
         self._enforce_rate_limit()
 
@@ -174,17 +247,30 @@ class BaseClient:
         json_data: Dict[str, Any] | None = None,
         headers: Dict[str, str] | None = None,
     ) -> Dict[str, Any]:
-        """
-        Make a POST request.
+        """Make a POST request to the API.
+
+        Automatically applies rate limiting and handles errors.
 
         Args:
-            endpoint: API endpoint
-            data: Form data
-            json_data: JSON data
-            headers: Additional headers
+            endpoint: API endpoint path.
+            data: Form data to send in the request body.
+            json_data: JSON data to send in the request body.
+            headers: Additional headers to include in this request only.
 
         Returns:
-            Response data
+            Parsed JSON response data.
+
+        Raises:
+            NotFoundError: When the resource is not found (404).
+            AuthenticationError: When authentication fails (401).
+            RateLimitError: When rate limit is exceeded (429).
+            APIError: For all other error status codes.
+
+        Example:
+            >>> result = client.post(
+            ...     "/auth/token",
+            ...     json_data={"username": "user", "password": "pass"},
+            ... )
         """
         self._enforce_rate_limit()
 
@@ -201,5 +287,16 @@ class BaseClient:
         return self._handle_response(response)
 
     def close(self) -> None:
-        """Close the HTTP session."""
+        """Close the HTTP session and release resources.
+
+        Should be called when the client is no longer needed to properly
+        clean up connections.
+
+        Example:
+            >>> client = BaseClient(base_url="https://api.example.com")
+            >>> try:
+            ...     data = client.get("/endpoint")
+            ... finally:
+            ...     client.close()
+        """
         self.session.close()

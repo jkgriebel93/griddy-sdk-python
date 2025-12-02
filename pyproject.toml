@@ -47,11 +47,18 @@ dev = [
     "pytest-asyncio==1.2.0",
     "pytest-httpx==0.35.0"
 ]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.4.0",
+    "mkdocstrings[python]>=0.24.0",
+    "mike>=2.0.0",
+]
 
 [project.urls]
-Homepage = "https://github.com/jkgriebel93/griddy-sdk"
-Repository = "https://github.com/jkgriebel93/griddy-sdk"
-Issues = "https://github.com/jkgriebel93/griddy-sdk/issues"
+Homepage = "https://github.com/jkgriebel93/griddy-sdk-python"
+Documentation = "https://jkgriebel93.github.io/griddy-sdk-python"
+Repository = "https://github.com/jkgriebel93/griddy-sdk-python"
+Issues = "https://github.com/jkgriebel93/griddy-sdk-python/issues"
 
 [build-system]
 requires = ["hatchling"]
