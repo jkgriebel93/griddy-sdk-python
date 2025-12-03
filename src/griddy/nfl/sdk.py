@@ -1,7 +1,19 @@
+"""NFL SDK client for accessing NFL data from multiple API endpoints.
+
+This module provides the GriddyNFL class, the main entry point for accessing
+NFL data including games, stats, rosters, and Next Gen Stats.
+
+Example:
+    >>> from griddy.nfl import GriddyNFL
+    >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
+    >>> games = nfl.games.get_games(season=2024, week=1)
+    >>> stats = nfl.stats.passing.get_passing_stats(season=2024)
+"""
+
 import base64
 import json
 import weakref
-from typing import TYPE_CHECKING, Dict, Optional, cast
+from typing import TYPE_CHECKING, Any, Dict, Optional, cast
 from uuid import uuid4
 
 import httpx
@@ -41,52 +53,92 @@ if TYPE_CHECKING:
 
 
 class GriddyNFL(BaseSDK):
-    r"""NFL REST APIs: Regular API - NFL's public API for accessing game schedules, team information, standings, statistics, and venue data. This API provides comprehensive access to NFL data including real-time game information, team rosters, seasonal statistics, and historical data. The NFL Pro API is for accessing advanced statistics, film room content, player data, and fantasy information. This API provides comprehensive access to NFL Pro features including Next Gen Stats, Film Room analysis, player projections, and game insights."""
+    """Main client for accessing NFL data from multiple API endpoints.
 
-    combine: "Combine"
-    r"""Combine information"""
-    draft: "Draft"
-    r"""Draft information"""
-    games: "Games"
-    r"""Game information from the regular API"""
-    rosters: "Rosters"
-    r"""Base team rosters"""
-    standings: "Standings"
-    r"""Standings information"""
-    # TODO: Refactor/reconcile this with the Pro Team model and any other variants
-    football_teams: "FootballTeams"
-    r"""FootballTeams"""
-    venues: "Venues"
-    r"""Venue information"""
-    weeks: "Weeks"
-    r"""Weekly information"""
-    ##### Pro SDKs #####
-    stats: "StatsSDK"
-    r"""Aggregated player and team statistics (access via stats.passing, stats.rushing, etc.)"""
-    betting: "Betting"
-    r"""Betting related resources"""
-    content: "Content"
-    r"""Game previews, film cards, and insights"""
-    players: "Players"
-    r"""Player information, statistics, and projections"""
-    pro_games: "ProGames"
-    r"""Game information and statistics"""
-    schedules: "Schedules"
-    r"""Game schedules, matchup rankings, and injury reports"""
-    betting: "Betting"
-    r"""Game betting odds and lines"""
-    transactions: "Transactions"
-    r"""Endpoint for fetching transactions"""
-    fantasy_statistics: "FantasyStatistics"
-    r"""Fantasy football player statistics and scoring metrics"""
-    teams: "Teams"
-    r"""Team information, rosters, and schedules"""
-    ##### Next Gen Stats SDK #####
-    ngs: "NextGenStats"
-    r"""Next Gen Stats data (statistics, leaderboards, charts, highlights)"""
+    GriddyNFL provides unified access to NFL data through three API categories:
 
+    - **Regular API**: Public NFL.com endpoints for games, rosters, standings
+    - **Pro API**: Advanced statistics, betting odds, player projections
+    - **Next Gen Stats**: Player tracking data and advanced analytics
+
+    Sub-SDKs are loaded lazily on first access to minimize startup time.
+
+    Attributes:
+        authentication: Token generation and refresh operations.
+        combine: NFL Combine workout data and results.
+        draft: NFL Draft picks and information.
+        games: Game schedules, scores, and details.
+        rosters: Team rosters and player assignments.
+        standings: Division and conference standings.
+        football_teams: Team information and details.
+        venues: Stadium information.
+        weeks: Season week information.
+        stats: Aggregated player/team statistics (passing, rushing, etc.).
+        betting: Betting odds and lines.
+        content: Game previews and film cards.
+        players: Player information and projections.
+        pro_games: Advanced game data.
+        schedules: Matchup rankings and injury reports.
+        transactions: Player transactions.
+        teams: Pro team information.
+        ngs: Next Gen Stats (tracking data, leaderboards, charts).
+
+    Example:
+        >>> from griddy.nfl import GriddyNFL
+        >>> # Initialize with auth token
+        >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
+        >>> # Get games
+        >>> games = nfl.games.get_games(season=2024, week=1)
+        >>> # Get Next Gen Stats
+        >>> passing = nfl.ngs.stats.get_passing_stats(season=2024)
+        >>> # Use as context manager
+        >>> with GriddyNFL(nfl_auth=auth) as nfl:
+        ...     games = nfl.games.get_games(season=2024)
+    """
+
+    # Regular API endpoints
     authentication: "Authentication"
-    r"""Token generation and refresh operations for NFL API access"""
+    """Token generation and refresh operations for NFL API access."""
+    combine: "Combine"
+    """NFL Combine workout data and results."""
+    draft: "Draft"
+    """NFL Draft picks and information."""
+    games: "Games"
+    """Game schedules, scores, and details from the regular API."""
+    rosters: "Rosters"
+    """Team rosters and player assignments."""
+    standings: "Standings"
+    """Division and conference standings."""
+    football_teams: "FootballTeams"
+    """Team information and details."""
+    venues: "Venues"
+    """Stadium and venue information."""
+    weeks: "Weeks"
+    """Season week information."""
+
+    # Pro API endpoints
+    stats: "StatsSDK"
+    """Aggregated player and team statistics (stats.passing, stats.rushing, etc.)."""
+    betting: "Betting"
+    """Betting odds and lines."""
+    content: "Content"
+    """Game previews, film cards, and insights."""
+    players: "Players"
+    """Player information, statistics, and projections."""
+    pro_games: "ProGames"
+    """Advanced game data and statistics."""
+    schedules: "Schedules"
+    """Matchup rankings and injury reports."""
+    transactions: "Transactions"
+    """Player transactions and roster moves."""
+    fantasy_statistics: "FantasyStatistics"
+    """Fantasy football statistics and scoring metrics."""
+    teams: "Teams"
+    """Pro team information, rosters, and schedules."""
+
+    # Next Gen Stats
+    ngs: "NextGenStats"
+    """Next Gen Stats data (tracking statistics, leaderboards, charts, highlights)."""
 
     _sub_sdk_map = {
         "authentication": (
@@ -141,7 +193,7 @@ class GriddyNFL(BaseSDK):
 
     def __init__(
         self,
-        nfl_auth: Optional[Dict] = None,
+        nfl_auth: Optional[Dict[str, Any]] = None,
         login_email: Optional[str] = None,
         login_password: Optional[str] = None,
         headless_login: Optional[bool] = False,
@@ -154,16 +206,42 @@ class GriddyNFL(BaseSDK):
         timeout_ms: Optional[int] = None,
         debug_logger: Optional[Logger] = None,
     ) -> None:
-        r"""Instantiates the SDK configuring it with the provided parameters.
+        """Initialize the GriddyNFL client.
 
-        :param nfl_auth: The file path of a Netscape formatted cookies file used to set up NFL auth.
-        :param server_idx: The index of the server to use for all methods
-        :param server_url: The server URL to use for all methods
-        :param url_params: Parameters to optionally template the server URL with
-        :param client: The HTTP client to use for all synchronous methods
-        :param async_client: The Async HTTP client to use for all asynchronous methods
-        :param retry_config: The retry configuration to use for all supported methods
-        :param timeout_ms: Optional request timeout applied to each operation in milliseconds
+        You must provide authentication either via a pre-obtained auth token
+        (nfl_auth) or via email/password for browser-based authentication.
+
+        Args:
+            nfl_auth: Dictionary containing authentication information,
+                must include 'accessToken' key. Example:
+                {"accessToken": "your_nfl_access_token"}
+            login_email: Email address for NFL.com account. Used with
+                login_password for browser-based authentication.
+            login_password: Password for NFL.com account.
+            headless_login: If True, run browser in headless mode during
+                authentication. Defaults to False.
+            server_idx: Index of the server to use from the server list.
+            server_url: Override the default server URL.
+            url_params: Parameters to template into the server URL.
+            client: Custom synchronous HTTP client (must implement HttpClient).
+            async_client: Custom async HTTP client (must implement AsyncHttpClient).
+            retry_config: Configuration for automatic request retries.
+            timeout_ms: Request timeout in milliseconds.
+            debug_logger: Custom logger for debug output.
+
+        Raises:
+            ValueError: If neither nfl_auth nor email/password is provided,
+                or if both are provided.
+
+        Example:
+            >>> # With pre-obtained token
+            >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
+            >>> # With email/password
+            >>> nfl = GriddyNFL(
+            ...     login_email="user@example.com",
+            ...     login_password="password",
+            ...     headless_login=True,
+            ... )
         """
         client_supplied = True
         if client is None:

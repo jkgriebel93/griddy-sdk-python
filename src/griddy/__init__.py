@@ -1,40 +1,48 @@
+"""Griddy SDK - Python SDK for NFL data sources.
+
+Griddy SDK provides a unified, type-safe interface for accessing NFL data
+from multiple sources including NFL.com, Next Gen Stats, and the Pro API.
+
+Modules:
+    nfl: NFL-specific SDK with access to games, stats, rosters, and more
+    core: Shared functionality including HTTP client and exceptions
+
+Basic Usage:
+    >>> from griddy.nfl import GriddyNFL
+    >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
+    >>> games = nfl.games.get_games(season=2024, week=1)
+    >>> stats = nfl.ngs.stats.get_passing_stats(season=2024)
+
+Error Handling:
+    >>> from griddy import GriddyError, RateLimitError
+    >>> try:
+    ...     games = nfl.games.get_games(season=2024)
+    ... except RateLimitError as e:
+    ...     print(f"Rate limited. Retry after: {e.retry_after}")
+    ... except GriddyError as e:
+    ...     print(f"Error: {e.message}")
+
+For more information, see the documentation at:
+https://jkgriebel93.github.io/griddy-sdk-python
 """
-Griddy SDK - Python SDK for sports data sources.
 
-This SDK provides access to multiple sports data sources including:
-- NFL.com
-- Pro Football Reference
-- ESPN
+from . import core
 
-Usage:
-    from griddy import nfl, pfr, espn
-
-    # NFL data
-    nfl_client = nfl.Client()
-    games = nfl_client.get_games(season=2024, week=1)
-
-    # Pro Football Reference data
-    pfr_client = pfr.Client()
-    player = pfr_client.get_player("player_id")
-
-    # ESPN data
-    espn_client = espn.Client()
-    scoreboard = espn_client.get_scoreboard()
-"""
-
-from . import core, espn, nfl, pff, pfr
-
-# Version
-__version__ = "0.1.0"
+# Version - synced with pyproject.toml
+__version__ = "0.7.0"
 
 # Main exports
 __all__ = [
     "__version__",
     "core",
     "nfl",
-    "pfr",
-    "espn",
-    "pff",
+    # Exceptions
+    "GriddyError",
+    "APIError",
+    "RateLimitError",
+    "NotFoundError",
+    "AuthenticationError",
+    "ValidationError",
 ]
 
 # Convenience imports for common exceptions
@@ -45,16 +53,4 @@ from .core.exceptions import (
     NotFoundError,
     RateLimitError,
     ValidationError,
-)
-
-# Add exceptions to __all__
-__all__.extend(
-    [
-        "GriddyError",
-        "APIError",
-        "RateLimitError",
-        "NotFoundError",
-        "AuthenticationError",
-        "ValidationError",
-    ]
 )
