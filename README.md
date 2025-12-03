@@ -1,22 +1,18 @@
 # Griddy SDK
 
-A Python SDK for accessing sports data from multiple sources including NFL.com, Pro Football Reference, ESPN, and Pro Football Focus.
+A Python SDK for accessing NFL data from multiple sources including NFL.com, with other sources to come.
 
 ## Features
 
-- 🏈 **NFL.com Integration** - Access current season data, live scores, and player information
-- 📊 **Pro Football Reference** - Historical statistics, career data, and advanced metrics
-- 📺 **ESPN Integration** - Live scores, news, team rosters, and real-time updates
-- 🎯 **Pro Football Focus** - Advanced player grades, analytics, and performance metrics
-- 🔧 **Unified Interface** - Consistent API across all data sources
-- ⚡ **Rate Limiting** - Built-in request throttling to respect API limits
-- 🛡️ **Error Handling** - Comprehensive exception handling and retry logic
-- 📝 **Type Safety** - Full type hints and Pydantic models for data validation
-- 🍪 **Cookie Support** - Extract and use cookies from cookies.txt files for authenticated requests
+- **Unified API**: Single interface for multiple NFL data sources
+- **Type Safety**: Full type hints with Pydantic models
+- **Async Support**: Both sync and async methods for all endpoints
+- **Lazy Loading**: Sub-SDKs load on demand for fast startup
+- **Comprehensive Data**: Player stats, game schedules, rosters, Next Gen Stats, and more
 
 ## Requirements
 
-- Python 3.13 or higher
+- Python 3.13+
 
 ## Installation
 
@@ -24,284 +20,144 @@ A Python SDK for accessing sports data from multiple sources including NFL.com, 
 pip install griddy
 ```
 
-### Development Installation
+For development:
 
 ```bash
-git clone https://github.com/jkgriebel93/griddy-sdk.git
-cd griddy-sdk
 pip install -e ".[dev]"
 ```
 
 ## Quick Start
 
-### NFL.com Data
-
 ```python
-from griddy import nfl
+from griddy.nfl import GriddyNFL
 
-# Initialize client
-client = nfl.Client()
-
-# Get games for current week
-games = client.get_games(season=2024, week=1)
-for game in games:
-    print(f"{game.away_team} @ {game.home_team}: {game.status}")
-
-# Get team information
-teams = client.get_teams()
-for team in teams[:5]:
-    print(f"{team.name} ({team.abbreviation})")
-
-# Get player statistics
-stats = client.get_player_stats("player_id", season=2024, week=1)
-for stat in stats:
-    print(f"Week {stat.week}: {stat.passing_yards} passing yards")
-```
-
-### Pro Football Reference Data
-
-```python
-from griddy import pfr
-
-# Initialize client
-client = pfr.Client()
-
-# Search for players
-players = client.search_players("Brady", position="QB")
-for player in players:
-    print(f"{player.name} - {player.position}")
-
-# Get career statistics
-career_stats = client.get_player_career_stats("player_id")
-if career_stats:
-    print(f"Career passing yards: {career_stats.career_totals.pass_yards}")
-
-# Get draft information
-draft_picks = client.get_draft_class(2023)
-first_round = [p for p in draft_picks if p.round == 1]
-for pick in first_round[:5]:
-    print(f"{pick.pick}. {pick.player_name} - {pick.team}")
-```
-
-### ESPN Data
-
-```python
-from griddy import espn
-
-# Initialize client
-client = espn.Client()
-
-# Get current scoreboard
-scoreboard = client.get_scoreboard()
-print(f"Games on {scoreboard.date}: {len(scoreboard.games)}")
-
-# Get live scores
-live_games = client.get_live_scores()
-for game in live_games:
-    print(f"{game.away_team} {game.away_score} - {game.home_score} {game.home_team}")
-
-# Get team roster
-roster = client.get_team_roster("team_id")
-quarterbacks = [p for p in roster if p.position == "QB"]
-for qb in quarterbacks:
-    print(f"#{qb.jersey_number} {qb.name}")
-
-# Get news
-news = client.get_news(limit=5)
-for article in news:
-    print(f"{article.headline} - {article.published}")
-```
-
-### Pro Football Focus Data
-
-```python
-from griddy import pff
-
-# Initialize client (with optional API key)
-client = pff.Client(api_key="your_pff_api_key")
-
-# Get player grades
-grades = client.get_player_grades("player_id", season=2024, week=1)
-print(f"Overall Grade: {grades.overall_grade}")
-print(f"Pass Rush Grade: {grades.defense.pass_rush_grade}")
-
-# Get position rankings
-qb_rankings = client.get_position_rankings("QB", season=2024, limit=10)
-for i, qb in enumerate(qb_rankings, 1):
-    print(f"{i}. {qb.player_id}: {qb.overall_grade}")
-
-# Get team grades
-team_grades = client.get_team_grades("KC", season=2024)
-print(f"Offense: {team_grades.overall_offense_grade}")
-print(f"Defense: {team_grades.overall_defense_grade}")
-
-# Get draft prospects
-prospects = client.get_draft_board(2024, limit=10)
-for prospect in prospects:
-    print(f"{prospect.name} - {prospect.position} ({prospect.pff_grade})")
-```
-
-## Module Overview
-
-### Core Module (`griddy.core`)
-
-The core module provides shared functionality:
-
-- **BaseClient**: HTTP client with rate limiting and error handling
-- **Exceptions**: Custom exception classes for different error types
-- **Models**: Base data models and common structures
-- **Utils**: Utility functions for data parsing and validation
-
-### NFL Module (`griddy.nfl`)
-
-Access NFL.com data:
-
-- Current season games and scores
-- Team information and rosters
-- Player statistics and profiles
-- Schedule and standings
-- News and updates
-
-### PFR Module (`griddy.pfr`)
-
-Access Pro Football Reference data:
-
-- Historical player statistics
-- Career summaries and advanced metrics
-- Draft information and analysis
-- Team statistics by season
-- Hall of Fame data
-
-### ESPN Module (`griddy.espn`)
-
-Access ESPN data:
-
-- Live scores and real-time updates
-- Team rosters and player profiles
-- News articles and analysis
-- Detailed game information
-- Standings and schedules
-
-### PFF Module (`griddy.pff`)
-
-Access Pro Football Focus data:
-
-- Player grades and rankings by position
-- Advanced analytics and metrics
-- Team performance evaluations
-- Draft prospect analysis and rankings
-- Injury reports and analysis
-- All-Pro teams and awards
-- Pass rush and coverage statistics
-
-## Configuration
-
-### Rate Limiting
-
-All clients support rate limiting configuration:
-
-```python
-from griddy import nfl
-
-client = nfl.Client(
-    rate_limit_delay=2.0,  # 2 second delay between requests
-    max_retries=5,         # Retry failed requests up to 5 times
-    timeout=60             # 60 second request timeout
+# Initialize with authentication
+nfl = GriddyNFL(
+    login_email="your_email@example.com",
+    login_password="your_password"
 )
+
+# Or use an existing auth token
+nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
+
+# Get game schedules
+games = nfl.games.get_games(season=2024, week=1)
+
+# Get player passing stats
+passing_stats = nfl.stats.passing.get_passing_stats_by_season(season=2024)
+
+# Get Next Gen Stats
+ngs_passing = nfl.ngs.stats.get_passing_stats(season=2024, season_type="REG")
 ```
 
-### Custom Headers
+## API Categories
 
-Add custom headers to requests:
+### Regular API
+
+Public NFL.com endpoints for core football data:
 
 ```python
-from griddy import espn
+# Games and schedules
+games = nfl.games.get_games(season=2024, week=1)
 
-client = espn.Client(
-    headers={
-        "Custom-Header": "custom-value",
-        "User-Agent": "My App/1.0"
-    }
+# Team rosters
+rosters = nfl.rosters.get_rosters(team_id="SF", season=2024)
+
+# Standings
+standings = nfl.standings.get_standings(season=2024)
+
+# NFL Draft
+draft_picks = nfl.draft.get_draft_picks(season=2024)
+
+# NFL Combine
+combine_results = nfl.combine.get_combine_results(season=2024)
+```
+
+### Pro API
+
+Advanced statistics and analytics:
+
+```python
+# Player statistics
+passing = nfl.stats.passing.get_passing_stats_by_season(season=2024)
+rushing = nfl.stats.rushing.get_rushing_stats_by_season(season=2024)
+receiving = nfl.stats.receiving.get_receiving_stats_by_season(season=2024)
+defense = nfl.stats.defense.get_defensive_stats_by_season(season=2024)
+
+# Team statistics
+team_offense = nfl.stats.team_offense.get_team_offense_stats_by_season(season=2024)
+team_defense = nfl.stats.team_defense.get_team_defense_stats_by_season(season=2024)
+
+# Betting odds
+betting = nfl.betting.get_odds(game_id="2024091500")
+
+# Player information
+player = nfl.players.get_player(player_id="46101")
+
+# Transactions
+transactions = nfl.transactions.get_transactions(season=2024)
+```
+
+### Next Gen Stats (NGS)
+
+Player tracking data and advanced analytics:
+
+```python
+# Stats
+passing = nfl.ngs.stats.get_passing_stats(season=2024, season_type="REG")
+rushing = nfl.ngs.stats.get_rushing_stats(season=2024, season_type="REG")
+receiving = nfl.ngs.stats.get_receiving_stats(season=2024, season_type="REG")
+
+# Weekly stats
+weekly_passing = nfl.ngs.stats.get_passing_stats(
+    season=2024, season_type="REG", week=12
 )
+
+# Leaders
+fastest_carriers = nfl.ngs.leaders.get_fastest_ball_carriers(
+    season=2024, season_type="REG", limit=10
+)
+longest_plays = nfl.ngs.leaders.get_longest_plays(
+    season=2024, season_type="REG", limit=10
+)
+
+# League info
+schedule = nfl.ngs.league.get_schedule(season=2024)
+teams = nfl.ngs.league.get_teams()
+
+# Content
+charts = nfl.ngs.content.get_charts(season=2024)
+highlights = nfl.ngs.content.get_highlights(season=2024)
 ```
 
-### Cookie Extraction
+## Async Support
 
-Extract cookies from cookies.txt files for authenticated requests:
+All endpoints have async versions:
 
 ```python
-from griddy.core.utils import extract_cookies_as_header, extract_cookies_as_dict
+import asyncio
+from griddy.nfl import GriddyNFL
 
-# Extract cookies for a specific URL
-cookies_dict = extract_cookies_as_dict("cookies.txt", "https://example.com")
-cookie_header = extract_cookies_as_header("cookies.txt", "https://example.com")
+async def main():
+    nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
 
-# Use with HTTP clients
-import requests
-response = requests.get("https://example.com/api", cookies=cookies_dict)
+    # Use async methods
+    games = await nfl.games.get_games_async(season=2024, week=1)
+    stats = await nfl.ngs.stats.get_passing_stats_async(
+        season=2024, season_type="REG"
+    )
 
-# Or use with Griddy SDK clients
-from griddy import nfl
-client = nfl.Client(headers={"Cookie": cookie_header})
+asyncio.run(main())
 ```
 
-## Error Handling
+## Context Manager
 
-The SDK provides comprehensive error handling:
+Use as a context manager for automatic resource cleanup:
 
 ```python
-from griddy import nfl
-from griddy.core.exceptions import GriddyError, RateLimitError, NotFoundError
-
-client = nfl.Client()
-
-try:
-    games = client.get_games(season=2024, week=1)
-except RateLimitError as e:
-    print(f"Rate limited. Retry after: {e.retry_after} seconds")
-except NotFoundError as e:
-    print(f"Resource not found: {e.message}")
-except GriddyError as e:
-    print(f"API error: {e.message} (Status: {e.status_code})")
-```
-
-## Data Models
-
-All data is returned as typed Pydantic models:
-
-```python
-from griddy import nfl
-from griddy.nfl.models import NFLGame
-
-client = nfl.Client()
-# Games have structured data
-game: NFLGame = client.get_games(season=2024, week=1)[0]
-
-# Access with full type safety
-print(game.home_team)      # str
-print(game.home_score)     # Optional[int]
-print(game.start_time)     # Optional[datetime]
-print(game.status)         # str
-```
-
-## Examples
-
-Check the `examples/` directory for comprehensive usage examples:
-
-- `examples/nfl_example.py` - NFL.com data access
-- `examples/pfr_example.py` - Pro Football Reference usage
-- `examples/espn_example.py` - ESPN data integration
-- `examples/pff_example.py` - Pro Football Focus analytics
-- `examples/cookie_extraction_example.py` - Cookie extraction utilities
-
-Run examples:
-
-```bash
-python examples/nfl_example.py
-python examples/pfr_example.py
-python examples/espn_example.py
-python examples/pff_example.py
-python examples/cookie_extraction_example.py
+with GriddyNFL(nfl_auth=auth) as nfl:
+    games = nfl.games.get_games(season=2024)
+# Resources automatically cleaned up
 ```
 
 ## Development
@@ -309,8 +165,15 @@ python examples/cookie_extraction_example.py
 ### Setup
 
 ```bash
-git clone https://github.com/jkgriebel93/griddy-sdk.git
-cd griddy-sdk
+# Clone the repository
+git clone https://github.com/jkgriebel93/griddy-sdk-python.git
+cd griddy-sdk-python
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install development dependencies
 pip install -e ".[dev]"
 ```
 
@@ -323,8 +186,8 @@ pytest
 # Run with coverage
 pytest --cov=src/griddy --cov-report=html
 
-# Run specific module tests
-pytest tests/test_nfl/
+# Run specific tests
+pytest tests/test_nfl/test_endpoints/
 ```
 
 ### Code Quality
@@ -343,76 +206,30 @@ mypy src/
 flake8 src/ tests/
 ```
 
-## API Limitations
+### Documentation
 
-### NFL.com
-- No official public API - implementation would require web scraping
-- Rate limiting recommended for respectful usage
-- Data availability may vary
+```bash
+# Install docs dependencies
+pip install -e ".[docs]"
 
-### Pro Football Reference
-- No official API - requires web scraping
-- Respectful rate limiting is essential
-- Historical data coverage is extensive
+# Serve documentation locally
+mkdocs serve
 
-### ESPN
-- Public API available for some endpoints
-- Rate limits apply
-- Live data may require special access
+# Build documentation
+mkdocs build
+```
 
-### Pro Football Focus
-- Premium subscription-based API
-- API key required for authenticated requests
-- Advanced analytics and proprietary grades
-- Comprehensive draft and player evaluation data
+## Documentation
 
-## Contributing
+Full documentation is available at [https://jkgriebel93.github.io/griddy-sdk-python](https://jkgriebel93.github.io/griddy-sdk-python)
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass (`pytest`)
-6. Run code quality checks (`black`, `isort`, `flake8`, `mypy`)
-7. Commit your changes (`git commit -m 'Add amazing feature'`)
-8. Push to the branch (`git push origin feature/amazing-feature`)
-9. Open a Pull Request
 
-## License
+## Contact
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+John Griebel - john@thistlegrow.com
 
 ## Disclaimer
 
-This SDK is for educational and personal use. When accessing data from sports websites:
+This software is intended for personal, non-commercial use only. Users are responsible for ensuring their use complies with all applicable terms of service and laws. Do not use this software for any malicious, harmful, or unauthorized purposes.
 
-- Respect robots.txt and terms of service
-- Implement appropriate rate limiting
-- Don't overload servers with requests
-- Consider the ethical implications of web scraping
-- Some data sources may require permission for commercial use
-
-The authors are not responsible for how this SDK is used. Always verify that your usage complies with the terms of service of the data sources you're accessing.
-
-## Support
-
-- 📖 [Documentation](https://github.com/jkgriebel93/griddy-sdk/wiki)
-- 🐛 [Issue Tracker](https://github.com/jkgriebel93/griddy-sdk/issues)
-- 💬 [Discussions](https://github.com/jkgriebel93/griddy-sdk/discussions)
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
-
-Working NGS methods:
-- `league.*`
-- `games.get_overview()`
-- `stats.*`
-- `leaders.*`
-- `content.*`
-- `news.*`
-
-
-Non-Data Errors:
-- `games.get_live_scores` returns `403 FORBIDDEN`
-  - Potentially because no games are live?
+This project is not affiliated with, endorsed by, or officially connected to the National Football League (NFL), NFL Enterprises LLC, or any of their subsidiaries or affiliates. All NFL-related trademarks, logos, and data are the property of their respective owners.
