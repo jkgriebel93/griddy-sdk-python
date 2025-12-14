@@ -221,7 +221,7 @@ mkdocs build
 
 ## Documentation
 
-Full documentation is available at [https://jkgriebel93.github.io/griddy-sdk-python](https://jkgriebel93.github.io/griddy-sdk-python)
+Full documentation is available at [https://jkgriebel93.github.io/griddy-sdk-python](https://jkgriebel93.github.io/griddy-docs)
 
 
 ## Contact
