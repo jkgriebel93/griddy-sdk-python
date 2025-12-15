@@ -7,8 +7,35 @@ on:
   workflow_dispatch:
 
 jobs:
+  check-version-bump:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.version_check.outputs.version_changed }}
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if version was bumped
+        id: version_check
+        run: |
+          CURRENT_VERSION=$(grep -E '^version = ' pyproject.toml | head -1 | cut -d'"' -f2)
+          PREVIOUS_VERSION=$(git show HEAD~1:pyproject.toml | grep -E '^version = ' | head -1 | cut -d'"' -f2)
+          echo "Current version: $CURRENT_VERSION"
+          echo "Previous version: $PREVIOUS_VERSION"
+          if [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
+            echo "Version changed from $PREVIOUS_VERSION to $CURRENT_VERSION"
+            echo "version_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version unchanged"
+            echo "version_changed=false" >> $GITHUB_OUTPUT
+          fi
+
   publish-codeartifacts:
     runs-on: ubuntu-latest
+    needs: check-version-bump
+    if: needs.check-version-bump.outputs.version_changed == 'true' || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
     steps:
