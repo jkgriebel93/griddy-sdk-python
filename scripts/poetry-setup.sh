@@ -11,7 +11,7 @@ eval $(poetry env activate)
 
 if [ "$job_type" = "formatting" ]; then
     isort --check-only --diff "."
-    run: black --check --diff .
+    black --check --diff .
 elif [ "$job_type" = "tests" ]; then
     pytest -m unit --cov=src/griddy --cov-report=term --cov-report=xml
 fi
