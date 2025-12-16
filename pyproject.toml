@@ -1,6 +1,6 @@
 [project]
 name = "griddy"
-version = "0.7.3"
+version = "0.7.4"
 description = "Python SDK for football data sources."
 authors = [
     {name = "John Griebel", email = "john@thistlegrow.com"}
@@ -30,7 +30,7 @@ dependencies = [
     "playwright==1.55.0"
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
@@ -59,6 +59,12 @@ docs = [
 
 
 ]
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.docs]
+optional = true
 
 [project.urls]
 Homepage = "https://github.com/jkgriebel93/griddy-sdk-python"

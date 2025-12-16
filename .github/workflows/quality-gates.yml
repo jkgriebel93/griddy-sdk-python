@@ -14,15 +14,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-      - name: Install dependencies
-        run: |
-          pip install black isort
-
-      - name: Run isort
-        run: isort --check-only --diff .
-
-      - name: Run black formatter
-        run: black --check --diff .
+      - name: Run formatters
+        run: bash scripts/poetry-setup.sh "formatting"
 
   tests:
     runs-on: ubuntu-latest
@@ -32,13 +25,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-      - name: Install dependencies
-        run: |
-          pip install -e ".[dev]"
-
-      - name: Run tests with coverage
-        run: |
-          pytest -m unit --cov=src/griddy --cov-report=term --cov-report=xml
+      - name: Run Tests
+        run: bash scripts/poetry-setup.sh tests
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v4
