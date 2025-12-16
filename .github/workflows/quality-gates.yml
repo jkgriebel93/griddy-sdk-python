@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: '3.14'
       - name: Set up poetry
-        run: ./poetry-setup.sh
+        run: bash scripts/poetry-setup.sh
 
       - name: Run isort
         run: isort --check-only --diff .
@@ -32,7 +32,7 @@ jobs:
         with:
           python-version: '3.14'
       - name: Install dependencies
-        run: ./poetry-setup.sh
+        run: bash scripts/poetry-setup.sh
 
       - name: Run tests with coverage
         run: |
