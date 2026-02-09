@@ -124,18 +124,18 @@ class ProPlay(BaseModel):
     home_score: Annotated[int, pydantic.Field(alias="homeScore")]
     is_big_play: Annotated[bool, pydantic.Field(alias="isBigPlay")]
     is_stp_play: Annotated[bool, pydantic.Field(alias="isSTPlay")]
-    is_scoring: Annotated[bool, pydantic.Field(alias="isScoring")]
-    play_description: Annotated[str, pydantic.Field(alias="playDescription")]
+    is_scoring: Annotated[Optional[bool], pydantic.Field(alias="isScoring")]
+    play_description: Annotated[Optional[str], pydantic.Field(alias="playDescription")]
     # TODO: This should probably be an enum
     play_state: Annotated[str, pydantic.Field(alias="playState")]
     play_stats: Annotated[List[PlayStat], pydantic.Field(alias="playStats")]
-    play_type: Annotated[str, pydantic.Field(alias="playType")]
+    play_type: Annotated[Optional[str], pydantic.Field(alias="playType")]
     possession_team: Annotated[str, pydantic.Field(alias="possessionTeam")]
     possession_team_id: Annotated[str, pydantic.Field(alias="possessionTeamId")]
     quarter: int
     season: int
     season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
-    sequence: float
+    sequence: Optional[float]
     visitor_score: Annotated[int, pydantic.Field(alias="visitorScore")]
     week: int
     yards_to_go: Annotated[int, pydantic.Field(alias="yardsToGo")]
