@@ -44,12 +44,266 @@ WeeklyGameDetailStatus = Literal[
 r"""Game status"""
 
 
+class DriveChartPlayStatTypedDict(TypedDict):
+    play_stat_id: NotRequired[str]
+    gsis_player_id: NotRequired[Optional[str]]
+    gsis_player_name: NotRequired[Optional[str]]
+    gsis_player_jersey_number: NotRequired[Optional[str]]
+    person_id: NotRequired[Optional[str]]
+    stat_type: NotRequired[int]
+    team_id: NotRequired[str]
+    yards: NotRequired[Optional[int]]
+
+
+class DriveChartPlayStat(BaseModel):
+    play_stat_id: Annotated[
+        Optional[str], pydantic.Field(alias="playStatId")
+    ] = None
+    gsis_player_id: Annotated[
+        Optional[str], pydantic.Field(alias="gsisPlayerId")
+    ] = None
+    gsis_player_name: Annotated[
+        Optional[str], pydantic.Field(alias="gsisPlayerName")
+    ] = None
+    gsis_player_jersey_number: Annotated[
+        Optional[str], pydantic.Field(alias="gsisPlayerJerseyNumber")
+    ] = None
+    person_id: Annotated[
+        Optional[str], pydantic.Field(alias="personId")
+    ] = None
+    stat_type: Annotated[
+        Optional[int], pydantic.Field(alias="statType")
+    ] = None
+    team_id: Annotated[
+        Optional[str], pydantic.Field(alias="teamId")
+    ] = None
+    yards: Optional[int] = None
+
+
+class DriveChartPlayTypedDict(TypedDict):
+    play_id: NotRequired[int]
+    clock_time: NotRequired[Optional[str]]
+    down: NotRequired[int]
+    drive_net_yards: NotRequired[int]
+    drive_play_count: NotRequired[int]
+    drive_sequence: NotRequired[int]
+    drive_time_of_possession: NotRequired[Optional[str]]
+    next_play_type: NotRequired[str]
+    next_play_is_goal_to_go: NotRequired[bool]
+    pre_play_by_play: NotRequired[Optional[str]]
+    play_deleted: NotRequired[bool]
+    play_description: NotRequired[Optional[str]]
+    play_description_with_jersey_numbers: NotRequired[Optional[str]]
+    play_end_time: NotRequired[Optional[str]]
+    play_is_end_of_quarter: NotRequired[bool]
+    play_is_goal_to_go: NotRequired[bool]
+    play_scored: NotRequired[bool]
+    play_sequence_number: NotRequired[float]
+    play_start_time: NotRequired[Optional[str]]
+    play_type: NotRequired[str]
+    quarter: NotRequired[int]
+    scoring_play_type: NotRequired[str]
+    scoring_team_id: NotRequired[Optional[str]]
+    special_teams_play_type: NotRequired[str]
+    yard_line: NotRequired[Optional[str]]
+    yards_gained: NotRequired[int]
+    yards_remaining: NotRequired[int]
+    stats: NotRequired[List[DriveChartPlayStatTypedDict]]
+
+
+class DriveChartPlay(BaseModel):
+    play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
+    clock_time: Annotated[
+        Optional[str], pydantic.Field(alias="clockTime")
+    ] = None
+    down: Optional[int] = None
+    drive_net_yards: Annotated[
+        Optional[int], pydantic.Field(alias="driveNetYards")
+    ] = None
+    drive_play_count: Annotated[
+        Optional[int], pydantic.Field(alias="drivePlayCount")
+    ] = None
+    drive_sequence: Annotated[
+        Optional[int], pydantic.Field(alias="driveSequence")
+    ] = None
+    drive_time_of_possession: Annotated[
+        Optional[str], pydantic.Field(alias="driveTimeOfPossession")
+    ] = None
+    next_play_type: Annotated[
+        Optional[str], pydantic.Field(alias="nextPlayType")
+    ] = None
+    next_play_is_goal_to_go: Annotated[
+        Optional[bool], pydantic.Field(alias="nextPlayIsGoalToGo")
+    ] = None
+    pre_play_by_play: Annotated[
+        Optional[str], pydantic.Field(alias="prePlayByPlay")
+    ] = None
+    play_deleted: Annotated[
+        Optional[bool], pydantic.Field(alias="playDeleted")
+    ] = None
+    play_description: Annotated[
+        Optional[str], pydantic.Field(alias="playDescription")
+    ] = None
+    play_description_with_jersey_numbers: Annotated[
+        Optional[str], pydantic.Field(alias="playDescriptionWithJerseyNumbers")
+    ] = None
+    play_end_time: Annotated[
+        Optional[str], pydantic.Field(alias="playEndTime")
+    ] = None
+    play_is_end_of_quarter: Annotated[
+        Optional[bool], pydantic.Field(alias="playIsEndOfQuarter")
+    ] = None
+    play_is_goal_to_go: Annotated[
+        Optional[bool], pydantic.Field(alias="playIsGoalToGo")
+    ] = None
+    play_scored: Annotated[
+        Optional[bool], pydantic.Field(alias="playScored")
+    ] = None
+    play_sequence_number: Annotated[
+        Optional[float], pydantic.Field(alias="playSequenceNumber")
+    ] = None
+    play_start_time: Annotated[
+        Optional[str], pydantic.Field(alias="playStartTime")
+    ] = None
+    play_type: Annotated[
+        Optional[str], pydantic.Field(alias="playType")
+    ] = None
+    quarter: Optional[int] = None
+    scoring_play_type: Annotated[
+        Optional[str], pydantic.Field(alias="scoringPlayType")
+    ] = None
+    scoring_team_id: Annotated[
+        Optional[str], pydantic.Field(alias="scoringTeamId")
+    ] = None
+    special_teams_play_type: Annotated[
+        Optional[str], pydantic.Field(alias="specialTeamsPlayType")
+    ] = None
+    yard_line: Annotated[
+        Optional[str], pydantic.Field(alias="yardLine")
+    ] = None
+    yards_gained: Annotated[
+        Optional[int], pydantic.Field(alias="yardsGained")
+    ] = None
+    yards_remaining: Annotated[
+        Optional[int], pydantic.Field(alias="yardsRemaining")
+    ] = None
+    stats: Optional[List[DriveChartPlayStat]] = None
+
+
+class DriveTypedDict(TypedDict):
+    sequence: NotRequired[int]
+    team_id: NotRequired[str]
+    started_clock: NotRequired[str]
+    started_description: NotRequired[str]
+    started_play_id: NotRequired[int]
+    started_play_sequence_number: NotRequired[float]
+    started_quarter: NotRequired[int]
+    started_time: NotRequired[str]
+    started_yard_line: NotRequired[str]
+    ended_clock: NotRequired[str]
+    ended_description: NotRequired[str]
+    ended_play_id: NotRequired[int]
+    ended_play_sequence_number: NotRequired[float]
+    ended_quarter: NotRequired[int]
+    ended_time: NotRequired[Optional[str]]
+    ended_with_score: NotRequired[bool]
+    ended_yard_line: NotRequired[str]
+    first_downs: NotRequired[int]
+    inside_20: NotRequired[bool]
+    plays: NotRequired[int]
+    time_of_possession: NotRequired[str]
+    total_ended_with_score: NotRequired[bool]
+    yards_gained: NotRequired[int]
+    yards_gained_by_penalty: NotRequired[int]
+    yards_gained_net: NotRequired[int]
+
+
+class Drive(BaseModel):
+    sequence: Optional[int] = None
+    team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
+    started_clock: Annotated[
+        Optional[str], pydantic.Field(alias="startedClock")
+    ] = None
+    started_description: Annotated[
+        Optional[str], pydantic.Field(alias="startedDescription")
+    ] = None
+    started_play_id: Annotated[
+        Optional[int], pydantic.Field(alias="startedPlayId")
+    ] = None
+    started_play_sequence_number: Annotated[
+        Optional[float], pydantic.Field(alias="startedPlaySequenceNumber")
+    ] = None
+    started_quarter: Annotated[
+        Optional[int], pydantic.Field(alias="startedQuarter")
+    ] = None
+    started_time: Annotated[
+        Optional[str], pydantic.Field(alias="startedTime")
+    ] = None
+    started_yard_line: Annotated[
+        Optional[str], pydantic.Field(alias="startedYardLine")
+    ] = None
+    ended_clock: Annotated[
+        Optional[str], pydantic.Field(alias="endedClock")
+    ] = None
+    ended_description: Annotated[
+        Optional[str], pydantic.Field(alias="endedDescription")
+    ] = None
+    ended_play_id: Annotated[
+        Optional[int], pydantic.Field(alias="endedPlayId")
+    ] = None
+    ended_play_sequence_number: Annotated[
+        Optional[float], pydantic.Field(alias="endedPlaySequenceNumber")
+    ] = None
+    ended_quarter: Annotated[
+        Optional[int], pydantic.Field(alias="endedQuarter")
+    ] = None
+    ended_time: Annotated[
+        Optional[str], pydantic.Field(alias="endedTime")
+    ] = None
+    ended_with_score: Annotated[
+        Optional[bool], pydantic.Field(alias="endedWithScore")
+    ] = None
+    ended_yard_line: Annotated[
+        Optional[str], pydantic.Field(alias="endedYardLine")
+    ] = None
+    first_downs: Annotated[
+        Optional[int], pydantic.Field(alias="firstDowns")
+    ] = None
+    inside_20: Annotated[
+        Optional[bool], pydantic.Field(alias="inside20")
+    ] = None
+    plays: Optional[int] = None
+    time_of_possession: Annotated[
+        Optional[str], pydantic.Field(alias="timeOfPossession")
+    ] = None
+    total_ended_with_score: Annotated[
+        Optional[bool], pydantic.Field(alias="totalEndedWithScore")
+    ] = None
+    yards_gained: Annotated[
+        Optional[int], pydantic.Field(alias="yardsGained")
+    ] = None
+    yards_gained_by_penalty: Annotated[
+        Optional[int], pydantic.Field(alias="yardsGainedByPenalty")
+    ] = None
+    yards_gained_net: Annotated[
+        Optional[int], pydantic.Field(alias="yardsGainedNet")
+    ] = None
+
+
 class DriveChartTypedDict(TypedDict):
     r"""Drive-by-drive data"""
+    game_id: NotRequired[str]
+    offset: NotRequired[int]
+    drives: NotRequired[List[DriveTypedDict]]
+    plays: NotRequired[List[DriveChartPlayTypedDict]]
 
 
 class DriveChart(BaseModel):
     r"""Drive-by-drive data"""
+    game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
+    offset: Optional[int] = None
+    drives: Optional[List[Drive]] = None
+    plays: Optional[List[DriveChartPlay]] = None
 
 
 class ReplayTypedDict(TypedDict):
