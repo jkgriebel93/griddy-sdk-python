@@ -1,0 +1,323 @@
+Play:
+  type: object
+  required:
+    - gameId
+    - playId
+    - down
+    - homeScore
+    - isBigPlay
+    - isSTPlay
+    - isScoring
+    - playDescription
+    - playState
+    - playStats
+    - playType
+    - possessionTeam
+    - possessionTeamId
+    - quarter
+    - season
+    - seasonType
+    - sequence
+    - unofficialPlay
+    - visitorScore
+    - week
+    - yardlineNumber
+    - yardlineSide
+    - yardsToGo
+    - nflIds
+    - isMarkerPlay
+  properties:
+    gameId:
+      type: integer
+      description: Unique game identifier.
+      example: 2025090400
+    playId:
+      type: integer
+      description: Unique play identifier within the game.
+      example: 40
+    down:
+      type: integer
+      minimum: 0
+      maximum: 4
+      description: Current down. 0 indicates not applicable (kickoffs, marker plays).
+      example: 1
+    homeScore:
+      type: integer
+      description: Home team score at the time of the play.
+      example: 7
+    isBigPlay:
+      type: boolean
+      description: Whether the play is flagged as a big play.
+    isSTPlay:
+      type: boolean
+      description: Whether the play is a special teams play.
+    isScoring:
+      type: boolean
+      description: Whether the play resulted in a score.
+    playDescription:
+      type: string
+      description: Human-readable narrative of the play.
+      example: "(14:54) J.Williams left tackle to PHI 46 for 7 yards (C.DeJean)."
+    playState:
+      type: string
+      description: Approval state of the play.
+      example: "APPROVED"
+    playStats:
+      type: array
+      description: Individual player and team statistics recorded on this play. Empty array for marker plays.
+      items:
+        $ref: "#/components/schemas/PlayStat"
+    playType:
+      type: string
+      description: Classification of the play.
+      enum:
+        - play_type_unknown
+        - play_type_kickoff
+        - play_type_rush
+        - play_type_pass
+        - play_type_sack
+        - play_type_xp
+        - play_type_field_goal
+        - play_type_punt
+    possessionTeam:
+      type: string
+      description: Abbreviation of the team with possession. Empty string on marker plays.
+      example: "DAL"
+    possessionTeamId:
+      type: string
+      description: Unique identifier of the team with possession.
+      example: "1200"
+    quarter:
+      type: integer
+      minimum: 1
+      maximum: 4
+      description: Game quarter.
+      example: 1
+    season:
+      type: integer
+      description: Season year.
+      example: 2025
+    seasonType:
+      type: string
+      description: Type of season.
+      example: "REG"
+    sequence:
+      type: number
+      description: >
+        Ordering sequence for the play within the game. Integer for regular plays,
+        decimal (e.g. 277.5) for marker plays inserted between regular plays.
+      example: 71
+    unofficialPlay:
+      nullable: true
+      allOf:
+        - $ref: "#/components/schemas/UnofficialPlay"
+      description: Timestamp metadata for the play. Null on marker plays (timeouts, injuries, end of quarter).
+    visitorScore:
+      type: integer
+      description: Visiting team score at the time of the play.
+      example: 0
+    week:
+      type: integer
+      description: Week number within the season.
+      example: 1
+    yardlineNumber:
+      type: integer
+      nullable: true
+      minimum: 1
+      maximum: 50
+      description: Yardline number (1-50). Null on marker plays.
+      example: 35
+    yardlineSide:
+      type: string
+      nullable: true
+      description: Which team's side of the field the yardline is on. Null on marker plays.
+      example: "PHI"
+    yardsToGo:
+      type: integer
+      description: Yards needed for a first down.
+      example: 10
+    nflIds:
+      type: array
+      description: NFL player IDs of players on the field for this play. Empty array on marker plays.
+      items:
+        type: integer
+      example: [43424, 54594, 52482]
+    isMarkerPlay:
+      type: boolean
+      description: >
+        Whether the play is a non-action marker (timeout, injury, end of quarter,
+        end of game) rather than a live play.
+    endGameClock:
+      type: string
+      nullable: true
+      description: Game clock time remaining when the play ended. Absent on some plays.
+      example: "14:55"
+    startGameClock:
+      type: string
+      nullable: true
+      description: Game clock time remaining when the play started. Absent on some plays.
+      example: "15:00"
+    isRedzonePlay:
+      type: boolean
+      description: Whether the play occurred inside the opponent's 20-yard line. Absent on marker and some special teams plays.
+    offense:
+      $ref: "#/components/schemas/OffenseInfo"
+      description: >
+        Offensive formation and personnel. Present only on rush, pass, sack, and
+        some unknown-type plays. Absent on kickoff, punt, XP, and field goal plays.
+    defense:
+      $ref: "#/components/schemas/DefenseInfo"
+      description: >
+        Defensive personnel and coverage details. Present on the same plays as
+        offense (always appear together or both absent).
+    passInfo:
+      $ref: "#/components/schemas/PassInfo"
+      description: Passing analytics. Present only on pass plays.
+    recInfo:
+      $ref: "#/components/schemas/RecInfo"
+      description: >
+        Receiver route information. Present on most pass plays but occasionally
+        absent even when passInfo is present.
+
+PlayStat:
+  type: object
+  required:
+    - playId
+    - clubCode
+    - statId
+    - yards
+  properties:
+    playId:
+      type: integer
+      description: Play this stat belongs to.
+      example: 40
+    clubCode:
+      type: string
+      description: Team abbreviation for this stat entry.
+      example: "PHI"
+    statId:
+      type: integer
+      description: Numeric stat category identifier.
+      example: 10
+    yards:
+      type: integer
+      description: Yardage associated with this stat. Can be negative.
+      example: 7
+    gsisId:
+      type: string
+      description: >
+        GSIS player identifier. Absent on team-level stats (e.g. team rushing
+        attempts) where no individual player is credited.
+      example: "00-0033787"
+    playerName:
+      type: string
+      description: >
+        Abbreviated player name. Absent on team-level stats, present alongside
+        gsisId on player-level stats.
+      example: "J.Elliott"
+
+UnofficialPlay:
+  type: object
+  required:
+    - dateTimeStampUTC
+  properties:
+    dateTimeStampUTC:
+      type: string
+      format: date-time
+      description: ISO 8601 UTC timestamp of when the play occurred.
+      example: "2025-09-05T00:27:22.7799256Z"
+
+OffenseInfo:
+  type: object
+  required:
+    - offenseFormation
+    - personnel
+  properties:
+    offenseFormation:
+      type: string
+      description: Offensive formation.
+      enum:
+        - SINGLEBACK
+        - SHOTGUN
+        - PISTOL
+        - I_FORM
+        - JUMBO
+        - EMPTY
+    personnel:
+      type: string
+      description: Offensive personnel grouping.
+      example: "1 RB, 1 TE, 3 WR"
+
+DefenseInfo:
+  type: object
+  required:
+    - defendersInTheBox
+    - personnel
+  properties:
+    defendersInTheBox:
+      type: integer
+      minimum: 6
+      maximum: 9
+      description: Number of defenders in the box.
+      example: 6
+    personnel:
+      type: string
+      description: Defensive personnel grouping.
+      example: "2 DL, 4 LB, 5 DB"
+    numberOfPassRushers:
+      type: integer
+      description: Number of pass rushers. Only present on some pass plays.
+      example: 4
+    manZoneType:
+      type: string
+      description: Coverage scheme type. Only present on some pass plays.
+      enum:
+        - MAN_COVERAGE
+        - ZONE_COVERAGE
+    coverageType:
+      type: string
+      description: Specific coverage shell. Only present on some pass plays.
+      enum:
+        - COVER_0
+        - COVER_1
+        - COVER_2
+        - COVER_3
+        - COVER_4
+        - COVER_6
+
+PassInfo:
+  type: object
+  properties:
+    airYards:
+      type: number
+      format: float
+      description: Distance the ball traveled through the air.
+      example: 5.54
+    timeToThrow:
+      type: number
+      format: float
+      description: Seconds from snap to throw.
+      example: 2.57
+    wasPressure:
+      type: boolean
+      description: Whether the QB was pressured on the play.
+
+RecInfo:
+  type: object
+  required:
+    - route
+  properties:
+    route:
+      type: string
+      description: Route run by the targeted receiver.
+      enum:
+        - HITCH
+        - CORNER
+        - GO
+        - CROSS
+        - SLANT
+        - POST
+        - STREAK
+        - WHEEL
+        - FADE
+        - DIG

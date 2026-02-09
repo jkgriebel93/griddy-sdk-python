@@ -1011,7 +1011,7 @@ if TYPE_CHECKING:
     )
     from .entities.game_odds import GameOdds, GameOddsTypedDict
     from .entities.game_schedule import GameSchedule, GameScheduleTypedDict
-    from .entities.game_score import GameScore, GameScoreTypedDict, Phase
+    from .entities.game_score import GameScore, GameScoreTypedDict
     from .entities.game_site import GameSite, GameSiteTypedDict
     from .entities.game_team import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
     from .entities.injury_entry import (
@@ -1034,7 +1034,6 @@ if TYPE_CHECKING:
         HomeTeam,
         HomeTeamTypedDict,
         LiveGame,
-        LiveGameStatus,
         LiveGameTypedDict,
     )
     from .entities.moneyline import MoneyLine, MoneyLineTypedDict
@@ -1063,6 +1062,7 @@ if TYPE_CHECKING:
     )
     from .entities.passing_stats import PassingStats, PassingStatsTypedDict
     from .entities.penalty import Penalty, PenaltyTypedDict
+    from .entities.pro_play import ProPlay, ProPlayTypedDict
     from .entities.play import Play, PlayTypedDict
     from .entities.play_detail import (
         PlayDetail,
@@ -1562,6 +1562,8 @@ __all__ = [
     "GetPlayByPlayRequestTypedDict",
     "GetPlayListRequest",
     "GetPlayListRequestTypedDict",
+    "ProPlayTypedDict",
+    "ProPlay",
     "PlaylistResponse",
     "PlaylistResponseTypedDict",
     "GetPlayerDetailsRequest",
@@ -1707,7 +1709,6 @@ __all__ = [
     "LinkParams",
     "LinkParamsTypedDict",
     "LiveGame",
-    "LiveGameStatus",
     "LiveGameTypedDict",
     "LiveScoresResponse",
     "LiveScoresResponseTypedDict",
@@ -1912,7 +1913,6 @@ __all__ = [
     "Penalty",
     "PenaltyTypedDict",
     "Personnel",
-    "Phase",
     "Play",
     "PlayByPlayResponse",
     "PlayByPlayResponseTypedDict",
@@ -2696,7 +2696,6 @@ _dynamic_imports: dict[str, str] = {
     "HomeTeam": ".entities.live_game",
     "HomeTeamTypedDict": ".entities.live_game",
     "LiveGame": ".entities.live_game",
-    "LiveGameStatus": ".entities.live_game",
     "LiveGameTypedDict": ".entities.live_game",
     "LiveScoresResponse": ".responses.lives_cores_response",
     "LiveScoresResponseTypedDict": ".responses.lives_cores_response",
