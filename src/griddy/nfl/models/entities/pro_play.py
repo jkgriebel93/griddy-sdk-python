@@ -60,22 +60,16 @@ class DefenseInfo(BaseModel):
     number_of_pass_rushers: Annotated[
         Optional[int], pydantic.Field(alias="numberOfPassRushers")
     ] = None
-    man_zone_type: Annotated[
-        Optional[str], pydantic.Field(alias="manZoneType")
-    ] = None
-    coverage_type: Annotated[
-        Optional[str], pydantic.Field(alias="coverageType")
-    ] = None
+    man_zone_type: Annotated[Optional[str], pydantic.Field(alias="manZoneType")] = None
+    coverage_type: Annotated[Optional[str], pydantic.Field(alias="coverageType")] = None
 
 
 class PassInfo(BaseModel):
     air_yards: Annotated[Optional[float], pydantic.Field(alias="airYards")] = None
-    time_to_throw: Annotated[
-        Optional[float], pydantic.Field(alias="timeToThrow")
-    ] = None
-    was_pressure: Annotated[
-        Optional[bool], pydantic.Field(alias="wasPressure")
-    ] = None
+    time_to_throw: Annotated[Optional[float], pydantic.Field(alias="timeToThrow")] = (
+        None
+    )
+    was_pressure: Annotated[Optional[bool], pydantic.Field(alias="wasPressure")] = None
 
 
 class RecInfo(BaseModel):
@@ -153,27 +147,25 @@ class ProPlay(BaseModel):
         Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
     ] = None
     sequence: Optional[float] = None
-    visitor_score: Annotated[Optional[int], pydantic.Field(alias="visitorScore")] = (
-        None
-    )
+    visitor_score: Annotated[Optional[int], pydantic.Field(alias="visitorScore")] = None
     week: Optional[int] = None
     yards_to_go: Annotated[Optional[int], pydantic.Field(alias="yardsToGo")] = None
     nfl_ids: Annotated[Optional[List[int]], pydantic.Field(alias="nflIds")] = None
-    is_marker_play: Annotated[
-        Optional[bool], pydantic.Field(alias="isMarkerPlay")
-    ] = None
+    is_marker_play: Annotated[Optional[bool], pydantic.Field(alias="isMarkerPlay")] = (
+        None
+    )
     unofficial_play: Annotated[
         Optional[UnofficialPlay], pydantic.Field(alias="unofficialPlay")
     ] = None
     yard_line_number: Annotated[
         Optional[int], pydantic.Field(alias="yardlineNumber")
     ] = None
-    yard_line_side: Annotated[
-        Optional[str], pydantic.Field(alias="yardlineSide")
-    ] = None
-    end_game_clock: Annotated[
-        Optional[str], pydantic.Field(alias="endGameClock")
-    ] = None
+    yard_line_side: Annotated[Optional[str], pydantic.Field(alias="yardlineSide")] = (
+        None
+    )
+    end_game_clock: Annotated[Optional[str], pydantic.Field(alias="endGameClock")] = (
+        None
+    )
     start_game_clock: Annotated[
         Optional[str], pydantic.Field(alias="startGameClock")
     ] = None
