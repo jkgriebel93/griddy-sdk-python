@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from typing import Optional
+
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 from ...types import BaseModel
 
@@ -9,11 +11,11 @@ from ...types import BaseModel
 class PlayStatTypedDict(TypedDict):
     club_code: str
     r"""Team abbreviation"""
-    gsis_id: str
-    r"""Player GSIS ID"""
+    gsis_id: NotRequired[str]
+    r"""Player GSIS ID. Absent on team-level stats."""
     play_id: int
-    player_name: str
-    r"""Player name"""
+    player_name: NotRequired[str]
+    r"""Player name. Absent on team-level stats."""
     stat_id: int
     r"""Type of statistic"""
     yards: int
@@ -24,16 +26,16 @@ class PlayStat(BaseModel):
     club_code: Annotated[str, pydantic.Field(alias="clubCode")]
     r"""Team abbreviation"""
 
-    gsis_id: Annotated[str, pydantic.Field(alias="gsisId")]
-    r"""Player GSIS ID"""
-
     play_id: Annotated[int, pydantic.Field(alias="playId")]
-
-    player_name: Annotated[str, pydantic.Field(alias="playerName")]
-    r"""Player name"""
 
     stat_id: Annotated[int, pydantic.Field(alias="statId")]
     r"""Type of statistic"""
 
     yards: int
     r"""Yards gained/lost"""
+
+    gsis_id: Annotated[Optional[str], pydantic.Field(alias="gsisId")] = None
+    r"""Player GSIS ID. Absent on team-level stats."""
+
+    player_name: Annotated[Optional[str], pydantic.Field(alias="playerName")] = None
+    r"""Player name. Absent on team-level stats."""

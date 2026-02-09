@@ -3,7 +3,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
-from griddy.nfl.models.entities.play import Play, PlayTypedDict
+from griddy.nfl.models.entities.pro_play import ProPlay, ProPlayTypedDict
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
@@ -13,7 +13,7 @@ class PlaylistResponseTypedDict(TypedDict):
     r"""Ten digit game ID"""
     game_key: int
     r"""Another ID looking value, not sure what it is."""
-    plays: List[PlayTypedDict]
+    plays: List[ProPlayTypedDict]
 
 
 class PlaylistResponse(BaseModel):
@@ -23,4 +23,4 @@ class PlaylistResponse(BaseModel):
         pydantic.BeforeValidator(int_to_str),
     ] = None
     game_key: Annotated[Optional[int], pydantic.Field(alias="gameKey")] = None
-    plays: List[Play]
+    plays: List[ProPlay]
