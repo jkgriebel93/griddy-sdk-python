@@ -56,27 +56,19 @@ class DriveChartPlayStatTypedDict(TypedDict):
 
 
 class DriveChartPlayStat(BaseModel):
-    play_stat_id: Annotated[
-        Optional[str], pydantic.Field(alias="playStatId")
-    ] = None
-    gsis_player_id: Annotated[
-        Optional[str], pydantic.Field(alias="gsisPlayerId")
-    ] = None
+    play_stat_id: Annotated[Optional[str], pydantic.Field(alias="playStatId")] = None
+    gsis_player_id: Annotated[Optional[str], pydantic.Field(alias="gsisPlayerId")] = (
+        None
+    )
     gsis_player_name: Annotated[
         Optional[str], pydantic.Field(alias="gsisPlayerName")
     ] = None
     gsis_player_jersey_number: Annotated[
         Optional[str], pydantic.Field(alias="gsisPlayerJerseyNumber")
     ] = None
-    person_id: Annotated[
-        Optional[str], pydantic.Field(alias="personId")
-    ] = None
-    stat_type: Annotated[
-        Optional[int], pydantic.Field(alias="statType")
-    ] = None
-    team_id: Annotated[
-        Optional[str], pydantic.Field(alias="teamId")
-    ] = None
+    person_id: Annotated[Optional[str], pydantic.Field(alias="personId")] = None
+    stat_type: Annotated[Optional[int], pydantic.Field(alias="statType")] = None
+    team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
     yards: Optional[int] = None
 
 
@@ -113,77 +105,63 @@ class DriveChartPlayTypedDict(TypedDict):
 
 class DriveChartPlay(BaseModel):
     play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
-    clock_time: Annotated[
-        Optional[str], pydantic.Field(alias="clockTime")
-    ] = None
+    clock_time: Annotated[Optional[str], pydantic.Field(alias="clockTime")] = None
     down: Optional[int] = None
-    drive_net_yards: Annotated[
-        Optional[int], pydantic.Field(alias="driveNetYards")
-    ] = None
+    drive_net_yards: Annotated[Optional[int], pydantic.Field(alias="driveNetYards")] = (
+        None
+    )
     drive_play_count: Annotated[
         Optional[int], pydantic.Field(alias="drivePlayCount")
     ] = None
-    drive_sequence: Annotated[
-        Optional[int], pydantic.Field(alias="driveSequence")
-    ] = None
+    drive_sequence: Annotated[Optional[int], pydantic.Field(alias="driveSequence")] = (
+        None
+    )
     drive_time_of_possession: Annotated[
         Optional[str], pydantic.Field(alias="driveTimeOfPossession")
     ] = None
-    next_play_type: Annotated[
-        Optional[str], pydantic.Field(alias="nextPlayType")
-    ] = None
+    next_play_type: Annotated[Optional[str], pydantic.Field(alias="nextPlayType")] = (
+        None
+    )
     next_play_is_goal_to_go: Annotated[
         Optional[bool], pydantic.Field(alias="nextPlayIsGoalToGo")
     ] = None
     pre_play_by_play: Annotated[
         Optional[str], pydantic.Field(alias="prePlayByPlay")
     ] = None
-    play_deleted: Annotated[
-        Optional[bool], pydantic.Field(alias="playDeleted")
-    ] = None
+    play_deleted: Annotated[Optional[bool], pydantic.Field(alias="playDeleted")] = None
     play_description: Annotated[
         Optional[str], pydantic.Field(alias="playDescription")
     ] = None
     play_description_with_jersey_numbers: Annotated[
         Optional[str], pydantic.Field(alias="playDescriptionWithJerseyNumbers")
     ] = None
-    play_end_time: Annotated[
-        Optional[str], pydantic.Field(alias="playEndTime")
-    ] = None
+    play_end_time: Annotated[Optional[str], pydantic.Field(alias="playEndTime")] = None
     play_is_end_of_quarter: Annotated[
         Optional[bool], pydantic.Field(alias="playIsEndOfQuarter")
     ] = None
     play_is_goal_to_go: Annotated[
         Optional[bool], pydantic.Field(alias="playIsGoalToGo")
     ] = None
-    play_scored: Annotated[
-        Optional[bool], pydantic.Field(alias="playScored")
-    ] = None
+    play_scored: Annotated[Optional[bool], pydantic.Field(alias="playScored")] = None
     play_sequence_number: Annotated[
         Optional[float], pydantic.Field(alias="playSequenceNumber")
     ] = None
-    play_start_time: Annotated[
-        Optional[str], pydantic.Field(alias="playStartTime")
-    ] = None
-    play_type: Annotated[
-        Optional[str], pydantic.Field(alias="playType")
-    ] = None
+    play_start_time: Annotated[Optional[str], pydantic.Field(alias="playStartTime")] = (
+        None
+    )
+    play_type: Annotated[Optional[str], pydantic.Field(alias="playType")] = None
     quarter: Optional[int] = None
     scoring_play_type: Annotated[
         Optional[str], pydantic.Field(alias="scoringPlayType")
     ] = None
-    scoring_team_id: Annotated[
-        Optional[str], pydantic.Field(alias="scoringTeamId")
-    ] = None
+    scoring_team_id: Annotated[Optional[str], pydantic.Field(alias="scoringTeamId")] = (
+        None
+    )
     special_teams_play_type: Annotated[
         Optional[str], pydantic.Field(alias="specialTeamsPlayType")
     ] = None
-    yard_line: Annotated[
-        Optional[str], pydantic.Field(alias="yardLine")
-    ] = None
-    yards_gained: Annotated[
-        Optional[int], pydantic.Field(alias="yardsGained")
-    ] = None
+    yard_line: Annotated[Optional[str], pydantic.Field(alias="yardLine")] = None
+    yards_gained: Annotated[Optional[int], pydantic.Field(alias="yardsGained")] = None
     yards_remaining: Annotated[
         Optional[int], pydantic.Field(alias="yardsRemaining")
     ] = None
@@ -221,57 +199,41 @@ class DriveTypedDict(TypedDict):
 class Drive(BaseModel):
     sequence: Optional[int] = None
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
-    started_clock: Annotated[
-        Optional[str], pydantic.Field(alias="startedClock")
-    ] = None
+    started_clock: Annotated[Optional[str], pydantic.Field(alias="startedClock")] = None
     started_description: Annotated[
         Optional[str], pydantic.Field(alias="startedDescription")
     ] = None
-    started_play_id: Annotated[
-        Optional[int], pydantic.Field(alias="startedPlayId")
-    ] = None
+    started_play_id: Annotated[Optional[int], pydantic.Field(alias="startedPlayId")] = (
+        None
+    )
     started_play_sequence_number: Annotated[
         Optional[float], pydantic.Field(alias="startedPlaySequenceNumber")
     ] = None
     started_quarter: Annotated[
         Optional[int], pydantic.Field(alias="startedQuarter")
     ] = None
-    started_time: Annotated[
-        Optional[str], pydantic.Field(alias="startedTime")
-    ] = None
+    started_time: Annotated[Optional[str], pydantic.Field(alias="startedTime")] = None
     started_yard_line: Annotated[
         Optional[str], pydantic.Field(alias="startedYardLine")
     ] = None
-    ended_clock: Annotated[
-        Optional[str], pydantic.Field(alias="endedClock")
-    ] = None
+    ended_clock: Annotated[Optional[str], pydantic.Field(alias="endedClock")] = None
     ended_description: Annotated[
         Optional[str], pydantic.Field(alias="endedDescription")
     ] = None
-    ended_play_id: Annotated[
-        Optional[int], pydantic.Field(alias="endedPlayId")
-    ] = None
+    ended_play_id: Annotated[Optional[int], pydantic.Field(alias="endedPlayId")] = None
     ended_play_sequence_number: Annotated[
         Optional[float], pydantic.Field(alias="endedPlaySequenceNumber")
     ] = None
-    ended_quarter: Annotated[
-        Optional[int], pydantic.Field(alias="endedQuarter")
-    ] = None
-    ended_time: Annotated[
-        Optional[str], pydantic.Field(alias="endedTime")
-    ] = None
+    ended_quarter: Annotated[Optional[int], pydantic.Field(alias="endedQuarter")] = None
+    ended_time: Annotated[Optional[str], pydantic.Field(alias="endedTime")] = None
     ended_with_score: Annotated[
         Optional[bool], pydantic.Field(alias="endedWithScore")
     ] = None
-    ended_yard_line: Annotated[
-        Optional[str], pydantic.Field(alias="endedYardLine")
-    ] = None
-    first_downs: Annotated[
-        Optional[int], pydantic.Field(alias="firstDowns")
-    ] = None
-    inside_20: Annotated[
-        Optional[bool], pydantic.Field(alias="inside20")
-    ] = None
+    ended_yard_line: Annotated[Optional[str], pydantic.Field(alias="endedYardLine")] = (
+        None
+    )
+    first_downs: Annotated[Optional[int], pydantic.Field(alias="firstDowns")] = None
+    inside_20: Annotated[Optional[bool], pydantic.Field(alias="inside20")] = None
     plays: Optional[int] = None
     time_of_possession: Annotated[
         Optional[str], pydantic.Field(alias="timeOfPossession")
@@ -279,9 +241,7 @@ class Drive(BaseModel):
     total_ended_with_score: Annotated[
         Optional[bool], pydantic.Field(alias="totalEndedWithScore")
     ] = None
-    yards_gained: Annotated[
-        Optional[int], pydantic.Field(alias="yardsGained")
-    ] = None
+    yards_gained: Annotated[Optional[int], pydantic.Field(alias="yardsGained")] = None
     yards_gained_by_penalty: Annotated[
         Optional[int], pydantic.Field(alias="yardsGainedByPenalty")
     ] = None
@@ -292,6 +252,7 @@ class Drive(BaseModel):
 
 class DriveChartTypedDict(TypedDict):
     r"""Drive-by-drive data"""
+
     game_id: NotRequired[str]
     offset: NotRequired[int]
     drives: NotRequired[List[DriveTypedDict]]
@@ -300,6 +261,7 @@ class DriveChartTypedDict(TypedDict):
 
 class DriveChart(BaseModel):
     r"""Drive-by-drive data"""
+
     game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
     offset: Optional[int] = None
     drives: Optional[List[Drive]] = None
