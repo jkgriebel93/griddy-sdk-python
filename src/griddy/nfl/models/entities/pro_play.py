@@ -10,17 +10,17 @@ from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 
 class UnofficialPlayTypedDict(TypedDict):
-    date_time_stamp_utc: str
+    date_time_stamp_utc: NotRequired[str]
 
 
 class OffenseInfoTypedDict(TypedDict):
     offense_formation: NotRequired[str]
-    personnel: str
+    personnel: NotRequired[str]
 
 
 class DefenseInfoTypedDict(TypedDict):
     defenders_in_the_box: NotRequired[int]
-    personnel: str
+    personnel: NotRequired[str]
     number_of_pass_rushers: NotRequired[int]
     man_zone_type: NotRequired[str]
     coverage_type: NotRequired[str]
@@ -33,77 +33,85 @@ class PassInfoTypedDict(TypedDict):
 
 
 class RecInfoTypedDict(TypedDict):
-    route: str
+    route: NotRequired[str]
 
 
 # --- Nested Pydantic Models ---
 
 
 class UnofficialPlay(BaseModel):
-    date_time_stamp_utc: Annotated[str, pydantic.Field(alias="dateTimeStampUTC")]
+    date_time_stamp_utc: Annotated[
+        Optional[str], pydantic.Field(alias="dateTimeStampUTC")
+    ] = None
 
 
 class OffenseInfo(BaseModel):
     offense_formation: Annotated[
         Optional[str], pydantic.Field(alias="offenseFormation")
     ] = None
-    personnel: str
+    personnel: Optional[str] = None
 
 
 class DefenseInfo(BaseModel):
     defenders_in_the_box: Annotated[
         Optional[int], pydantic.Field(alias="defendersInTheBox")
     ] = None
-    personnel: str
+    personnel: Optional[str] = None
     number_of_pass_rushers: Annotated[
         Optional[int], pydantic.Field(alias="numberOfPassRushers")
     ] = None
-    man_zone_type: Annotated[Optional[str], pydantic.Field(alias="manZoneType")] = None
-    coverage_type: Annotated[Optional[str], pydantic.Field(alias="coverageType")] = None
+    man_zone_type: Annotated[
+        Optional[str], pydantic.Field(alias="manZoneType")
+    ] = None
+    coverage_type: Annotated[
+        Optional[str], pydantic.Field(alias="coverageType")
+    ] = None
 
 
 class PassInfo(BaseModel):
     air_yards: Annotated[Optional[float], pydantic.Field(alias="airYards")] = None
-    time_to_throw: Annotated[Optional[float], pydantic.Field(alias="timeToThrow")] = (
-        None
-    )
-    was_pressure: Annotated[Optional[bool], pydantic.Field(alias="wasPressure")] = None
+    time_to_throw: Annotated[
+        Optional[float], pydantic.Field(alias="timeToThrow")
+    ] = None
+    was_pressure: Annotated[
+        Optional[bool], pydantic.Field(alias="wasPressure")
+    ] = None
 
 
 class RecInfo(BaseModel):
-    route: str
+    route: Optional[str] = None
 
 
 # --- Main TypedDict ---
 
 
 class ProPlayTypedDict(TypedDict):
-    game_id: int
-    play_id: int
-    down: int
-    home_score: int
-    is_big_play: bool
-    is_stp_play: bool
-    is_scoring: bool
-    play_description: str
+    game_id: NotRequired[int]
+    play_id: NotRequired[int]
+    down: NotRequired[int]
+    home_score: NotRequired[int]
+    is_big_play: NotRequired[bool]
+    is_stp_play: NotRequired[bool]
+    is_scoring: NotRequired[bool]
+    play_description: NotRequired[str]
     # TODO: This should probably be an enum
-    play_state: str
-    play_stats: List[PlayStatTypedDict]
-    play_type: str
-    possession_team: str
-    possession_team_id: str
-    quarter: int
-    season: int
-    season_type: SeasonTypeEnum
-    sequence: float
-    unofficial_play: Optional[UnofficialPlayTypedDict]
-    visitor_score: int
-    week: int
-    yard_line_number: Optional[int]
-    yard_line_side: Optional[str]
-    yards_to_go: int
-    nfl_ids: List[int]
-    is_marker_play: bool
+    play_state: NotRequired[str]
+    play_stats: NotRequired[List[PlayStatTypedDict]]
+    play_type: NotRequired[str]
+    possession_team: NotRequired[str]
+    possession_team_id: NotRequired[str]
+    quarter: NotRequired[int]
+    season: NotRequired[int]
+    season_type: NotRequired[SeasonTypeEnum]
+    sequence: NotRequired[float]
+    unofficial_play: NotRequired[Optional[UnofficialPlayTypedDict]]
+    visitor_score: NotRequired[int]
+    week: NotRequired[int]
+    yard_line_number: NotRequired[Optional[int]]
+    yard_line_side: NotRequired[Optional[str]]
+    yards_to_go: NotRequired[int]
+    nfl_ids: NotRequired[List[int]]
+    is_marker_play: NotRequired[bool]
     end_game_clock: NotRequired[Optional[str]]
     start_game_clock: NotRequired[Optional[str]]
     is_red_zone_play: NotRequired[bool]
@@ -117,42 +125,55 @@ class ProPlayTypedDict(TypedDict):
 
 
 class ProPlay(BaseModel):
-    # Required fields (always present in API response)
-    game_id: Annotated[int, pydantic.Field(alias="gameId")]
-    play_id: Annotated[int, pydantic.Field(alias="playId")]
-    down: int
-    home_score: Annotated[int, pydantic.Field(alias="homeScore")]
-    is_big_play: Annotated[bool, pydantic.Field(alias="isBigPlay")]
-    is_stp_play: Annotated[bool, pydantic.Field(alias="isSTPlay")]
-    is_scoring: Annotated[Optional[bool], pydantic.Field(alias="isScoring")]
-    play_description: Annotated[Optional[str], pydantic.Field(alias="playDescription")]
+    game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
+    play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
+    down: Optional[int] = None
+    home_score: Annotated[Optional[int], pydantic.Field(alias="homeScore")] = None
+    is_big_play: Annotated[Optional[bool], pydantic.Field(alias="isBigPlay")] = None
+    is_stp_play: Annotated[Optional[bool], pydantic.Field(alias="isSTPlay")] = None
+    is_scoring: Annotated[Optional[bool], pydantic.Field(alias="isScoring")] = None
+    play_description: Annotated[
+        Optional[str], pydantic.Field(alias="playDescription")
+    ] = None
     # TODO: This should probably be an enum
-    play_state: Annotated[str, pydantic.Field(alias="playState")]
-    play_stats: Annotated[List[PlayStat], pydantic.Field(alias="playStats")]
-    play_type: Annotated[Optional[str], pydantic.Field(alias="playType")]
-    possession_team: Annotated[str, pydantic.Field(alias="possessionTeam")]
-    possession_team_id: Annotated[str, pydantic.Field(alias="possessionTeamId")]
-    quarter: int
-    season: int
-    season_type: Annotated[SeasonTypeEnum, pydantic.Field(alias="seasonType")]
-    sequence: Optional[float]
-    visitor_score: Annotated[int, pydantic.Field(alias="visitorScore")]
-    week: int
-    yards_to_go: Annotated[int, pydantic.Field(alias="yardsToGo")]
-    nfl_ids: Annotated[List[int], pydantic.Field(alias="nflIds")]
-    is_marker_play: Annotated[bool, pydantic.Field(alias="isMarkerPlay")]
-
-    # Required but nullable (always present, value may be null)
-    unofficial_play: Annotated[
-        Optional[UnofficialPlay], pydantic.Field(alias="unofficialPlay")
-    ]
-    yard_line_number: Annotated[Optional[int], pydantic.Field(alias="yardlineNumber")]
-    yard_line_side: Annotated[Optional[str], pydantic.Field(alias="yardlineSide")]
-
-    # Conditional fields (may be absent from API response)
-    end_game_clock: Annotated[Optional[str], pydantic.Field(alias="endGameClock")] = (
+    play_state: Annotated[Optional[str], pydantic.Field(alias="playState")] = None
+    play_stats: Annotated[
+        Optional[List[PlayStat]], pydantic.Field(alias="playStats")
+    ] = None
+    play_type: Annotated[Optional[str], pydantic.Field(alias="playType")] = None
+    possession_team: Annotated[
+        Optional[str], pydantic.Field(alias="possessionTeam")
+    ] = None
+    possession_team_id: Annotated[
+        Optional[str], pydantic.Field(alias="possessionTeamId")
+    ] = None
+    quarter: Optional[int] = None
+    season: Optional[int] = None
+    season_type: Annotated[
+        Optional[SeasonTypeEnum], pydantic.Field(alias="seasonType")
+    ] = None
+    sequence: Optional[float] = None
+    visitor_score: Annotated[Optional[int], pydantic.Field(alias="visitorScore")] = (
         None
     )
+    week: Optional[int] = None
+    yards_to_go: Annotated[Optional[int], pydantic.Field(alias="yardsToGo")] = None
+    nfl_ids: Annotated[Optional[List[int]], pydantic.Field(alias="nflIds")] = None
+    is_marker_play: Annotated[
+        Optional[bool], pydantic.Field(alias="isMarkerPlay")
+    ] = None
+    unofficial_play: Annotated[
+        Optional[UnofficialPlay], pydantic.Field(alias="unofficialPlay")
+    ] = None
+    yard_line_number: Annotated[
+        Optional[int], pydantic.Field(alias="yardlineNumber")
+    ] = None
+    yard_line_side: Annotated[
+        Optional[str], pydantic.Field(alias="yardlineSide")
+    ] = None
+    end_game_clock: Annotated[
+        Optional[str], pydantic.Field(alias="endGameClock")
+    ] = None
     start_game_clock: Annotated[
         Optional[str], pydantic.Field(alias="startGameClock")
     ] = None
