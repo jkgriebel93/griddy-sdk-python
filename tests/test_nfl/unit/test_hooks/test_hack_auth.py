@@ -2,6 +2,7 @@ import time
 from unittest.mock import MagicMock, patch
 from uuid import uuid4
 
+import httpx
 import pytest
 import responses
 
@@ -506,12 +507,18 @@ class TestHackAuthHook:
             json=fake_auth_response,
             status=200,
         )
-        mock_request = MagicMock()
+
+        # Use a real httpx.Request so we can verify the Authorization header is updated
+        request = httpx.Request(
+            "GET",
+            "https://pro.nfl.com/api/test",
+            headers={"Authorization": f"Bearer {nfl_auth_info['accessToken']}"},
+        )
 
         nfl = GriddyNFL(nfl_auth=nfl_auth_info)
 
         hook = HackAuthHook()
-        hook.before_request(
+        returned_request = hook.before_request(
             hook_ctx=BeforeRequestContext(
                 hook_ctx=HookContext(
                     config=nfl.sdk_configuration,
@@ -521,7 +528,7 @@ class TestHackAuthHook:
                     security_source=nfl.sdk_configuration.security,
                 )
             ),
-            request=mock_request,
+            request=request,
         )
 
         post_hook_custom_auth_info = nfl.sdk_configuration.custom_auth_info
@@ -530,6 +537,12 @@ class TestHackAuthHook:
         assert post_hook_custom_auth_info == fake_auth_response
         assert post_hook_security_obj == models.Security(
             nfl_auth=fake_auth_response["accessToken"]
+        )
+
+        # Verify the request's Authorization header was updated with the new token
+        assert (
+            returned_request.headers["Authorization"]
+            == f"Bearer {fake_auth_response['accessToken']}"
         )
 
     @patch("griddy.nfl._hooks.hack_auth.HackAuthHook.before_request")

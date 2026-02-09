@@ -54,5 +54,6 @@ class HackAuthHook(BeforeRequestHook):
             resp_data = self._do_refresh_token(refresh_token=auth_info["refreshToken"])
             hook_ctx.config.custom_auth_info = resp_data
             hook_ctx.config.security = Security(nfl_auth=resp_data["accessToken"])
+            request.headers["Authorization"] = f"Bearer {resp_data['accessToken']}"
 
         return request
