@@ -1062,7 +1062,6 @@ if TYPE_CHECKING:
     )
     from .entities.passing_stats import PassingStats, PassingStatsTypedDict
     from .entities.penalty import Penalty, PenaltyTypedDict
-    from .entities.pro_play import ProPlay, ProPlayTypedDict
     from .entities.play import Play, PlayTypedDict
     from .entities.play_detail import (
         PlayDetail,
@@ -1144,6 +1143,7 @@ if TYPE_CHECKING:
         ProGameStatus,
         ProGameTypedDict,
     )
+    from .entities.pro_play import ProPlay, ProPlayTypedDict
     from .entities.pro_team import (
         ProTeam,
         ProTeamConferenceAbbr,
