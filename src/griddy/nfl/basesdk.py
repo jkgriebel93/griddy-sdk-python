@@ -304,7 +304,6 @@ class BaseSDK:
         )
 
         retry_config = self._resolve_retry_config(config.retries)
-
         http_res = self.do_request(
             hook_ctx=self._create_hook_context(config.operation_id, base_url),
             request=req,

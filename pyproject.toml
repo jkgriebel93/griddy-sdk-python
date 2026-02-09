@@ -1,6 +1,6 @@
 [project]
 name = "griddy"
-version = "0.7.4"
+version = "0.7.5"
 description = "Python SDK for football data sources."
 authors = [
     {name = "John Griebel", email = "john@thistlegrow.com"}
@@ -132,11 +132,18 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=html",
     "--cov-report=xml",
+    "-m",
+    "not integration",
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests as integration tests",
+    "unit: Unit tests for logic that doesn't contact external services",
 ]
+log_date_format = "%Y-%m-%d %H:%M:%S"
+log_file = "logs/pytest-logs.txt"
+log_file_format = "%(asctime)s %(levelname)s %(message)s"
+log_file_level = "DEBUG"
 
 [tool.coverage.run]
 source = ["src"]
