@@ -194,6 +194,9 @@ def do_browser_auth(email: str, password: str, headless: bool = False) -> Dict:
         print("Opening login page")
         page.goto("https://id.nfl.com/account/sign-in")
 
+        print("Acknowledge tracking")
+        page.get_by_role("button", name="Acknowledge Tracking").click()
+
         print("Enter email")
         page.get_by_test_id("email-input").fill(email)
         time.sleep(uniform(2.5, 3.5))
