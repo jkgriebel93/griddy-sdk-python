@@ -18,11 +18,7 @@ from .game_team import GameTeam, GameTeamTypedDict
 from .ticket_vendor import TicketVendor, TicketVendorTypedDict
 from .venue import Venue, VenueTypedDict
 
-CurrentGameCategory = Literal[
-    "MNF",
-    "SNF",
-    "TNF",
-]
+CurrentGameCategory = Literal["MNF", "SNF", "TNF", "OTHER"]
 r"""Prime time game designation"""
 
 
