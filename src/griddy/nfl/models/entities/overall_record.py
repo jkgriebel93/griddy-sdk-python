@@ -25,6 +25,7 @@ OverallRecordType = Literal[
     "T",
     "STREAK_TYPE_WINNING",
     "STREAK_TYPE_LOSING",
+    "STREAK_TYPE_TYING",
 ]
 r"""Type of current streak"""
 
