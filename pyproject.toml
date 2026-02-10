@@ -1,6 +1,6 @@
 [project]
 name = "griddy"
-version = "0.8.3"
+version = "0.8.4"
 description = "Python SDK for football data sources."
 authors = [
     {name = "John Griebel", email = "john@thistlegrow.com"}
