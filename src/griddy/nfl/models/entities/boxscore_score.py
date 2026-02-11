@@ -11,7 +11,7 @@ from .team_score import TeamScore, TeamScoreTypedDict
 
 class BoxscoreScoreTypedDict(TypedDict):
     home_team_score: NotRequired[TeamScoreTypedDict]
-    phase: NotRequired[str]
+    phase: NotRequired[str | int]
     r"""Game phase (P=Pregame, 1-4=Quarter, F=Final)"""
     visitor_team_score: NotRequired[TeamScoreTypedDict]
 
@@ -21,7 +21,7 @@ class BoxscoreScore(BaseModel):
         Optional[TeamScore], pydantic.Field(alias="homeTeamScore")
     ] = None
 
-    phase: Optional[str] = None
+    phase: Optional[str | int] = None
     r"""Game phase (P=Pregame, 1-4=Quarter, F=Final)"""
 
     visitor_team_score: Annotated[
