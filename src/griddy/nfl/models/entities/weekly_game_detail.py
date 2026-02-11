@@ -334,7 +334,7 @@ class WeeklyGameDetailTypedDict(TypedDict):
     r"""Whether game is played internationally"""
     neutral_site: NotRequired[bool]
     r"""Whether game is at neutral venue"""
-    phase: NotRequired[str]
+    phase: NotRequired[str | int]
     r"""Game phase"""
     season: NotRequired[int]
     r"""Season year"""
@@ -425,7 +425,7 @@ class WeeklyGameDetail(BaseModel):
     neutral_site: Annotated[Optional[bool], pydantic.Field(alias="neutralSite")] = None
     r"""Whether game is at neutral venue"""
 
-    phase: Optional[str] = None
+    phase: Optional[str | int] = None
     r"""Game phase"""
 
     season: Optional[int] = None

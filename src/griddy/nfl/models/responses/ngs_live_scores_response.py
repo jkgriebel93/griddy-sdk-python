@@ -40,7 +40,7 @@ class NgsGameScoreDetailTypedDict(TypedDict):
     """Detailed score information for a game."""
 
     time: NotRequired[str]
-    phase: NotRequired[str]
+    phase: NotRequired[str | int]
     visitor_team_score: NotRequired[NgsTeamScoreTypedDict]
     home_team_score: NotRequired[NgsTeamScoreTypedDict]
 
@@ -49,7 +49,7 @@ class NgsGameScoreDetail(BaseModel):
     """Detailed score information for a game."""
 
     time: Optional[str] = None
-    phase: Optional[str] = None
+    phase: Optional[str | int] = None
     visitor_team_score: Annotated[
         Optional[NgsTeamScore], pydantic.Field(alias="visitorTeamScore")
     ] = None
