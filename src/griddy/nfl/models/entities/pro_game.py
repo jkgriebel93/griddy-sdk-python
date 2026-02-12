@@ -35,6 +35,7 @@ ProGameStatus = Literal[
     "FINAL",
     "POSTPONED",
     "CANCELLED",
+    "FINAL_OVERTIME"
 ]
 r"""Game status"""
 

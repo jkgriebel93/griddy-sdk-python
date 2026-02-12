@@ -8,5 +8,6 @@ GameStatusEnum = Literal[
     "IN_PROGRESS",
     "POSTPONED",
     "SCHEDULED",
+    "FINAL_OVERTIME"
 ]
 r"""Game status"""
