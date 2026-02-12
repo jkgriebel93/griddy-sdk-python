@@ -30,11 +30,7 @@ class GameExtension(BaseModel):
 
 
 GameStatus = Literal[
-    "SCHEDULED",
-    "IN_PROGRESS",
-    "FINAL",
-    "POSTPONED",
-    "CANCELLED",
+    "SCHEDULED", "IN_PROGRESS", "FINAL", "POSTPONED", "CANCELLED", "FINAL_OVERTIME"
 ]
 r"""Game status"""
 
