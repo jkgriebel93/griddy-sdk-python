@@ -31,12 +31,7 @@ class WeeklyGameDetailExtension(BaseModel):
 
 
 WeeklyGameDetailStatus = Literal[
-    "SCHEDULED",
-    "IN_PROGRESS",
-    "FINAL",
-    "POSTPONED",
-    "CANCELLED",
-    "FINAL_OVERTIME"
+    "SCHEDULED", "IN_PROGRESS", "FINAL", "POSTPONED", "CANCELLED", "FINAL_OVERTIME"
 ]
 r"""Game status"""
 

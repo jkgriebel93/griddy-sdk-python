@@ -30,12 +30,7 @@ class ProGameExtension(BaseModel):
 
 
 ProGameStatus = Literal[
-    "SCHEDULED",
-    "IN_PROGRESS",
-    "FINAL",
-    "POSTPONED",
-    "CANCELLED",
-    "FINAL_OVERTIME"
+    "SCHEDULED", "IN_PROGRESS", "FINAL", "POSTPONED", "CANCELLED", "FINAL_OVERTIME"
 ]
 r"""Game status"""
 
