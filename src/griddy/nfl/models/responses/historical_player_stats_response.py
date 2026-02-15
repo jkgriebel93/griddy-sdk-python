@@ -56,6 +56,7 @@ class HistoricalPlayerStatsResponseTypedDict(TypedDict):
 
 class HistoricalPlayerStatsResponse(BaseModel):
     r"""Historical player statistics for a specific game and team."""
+
     # TODO: Verify this object schema
     game: Optional[str] = None
     # TODO: Verify this object schema

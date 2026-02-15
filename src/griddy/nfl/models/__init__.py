@@ -1014,6 +1014,10 @@ if TYPE_CHECKING:
     from .entities.game_score import GameScore, GameScoreTypedDict
     from .entities.game_site import GameSite, GameSiteTypedDict
     from .entities.game_team import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
+    from .entities.historical_stat_categories import (
+        HistoricalStatCategories,
+        HistoricalStatCategoriesTypedDict,
+    )
     from .entities.injury_entry import (
         InjuryEntry,
         InjuryEntryGameStatus,
@@ -1319,10 +1323,6 @@ if TYPE_CHECKING:
         PersonStatLineup,
         PersonStatLineupTypedDict,
         PersonStatTypedDict,
-    )
-    from .entities.historical_stat_categories import (
-        HistoricalStatCategories,
-        HistoricalStatCategoriesTypedDict,
     )
     from .responses.historical_team_stats_response import (
         HistoricalGameInfo,
