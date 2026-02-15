@@ -26,11 +26,13 @@ class LivePlayerStatisticsResponse(BaseModel):
     game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
 
     offset: Optional[int] = None
-
+    # TODO: Fill this in with an actual object - Can we use an existing model?
+    # Probably not, as this is a list of statistics, not team info
     away_team: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="awayTeam")] = (
         None
     )
-
+    # TODO: Fill this in with an actual object - Can we use an existing model?
+    # Probably not, as this is a list of statistics, not team info
     home_team: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="homeTeam")] = (
         None
     )

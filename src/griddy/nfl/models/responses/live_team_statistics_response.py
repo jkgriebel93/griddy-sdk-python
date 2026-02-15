@@ -26,10 +26,11 @@ class LiveTeamStatisticsResponse(BaseModel):
 
     offset: Optional[int] = None
 
+    # TODO: Fill this in with an actual object - Can we use an existing model?
     away_team: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="awayTeam")] = (
         None
     )
-
+    # TODO: Fill this in with an actual object - Can we use an existing model?
     home_team: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="homeTeam")] = (
         None
     )

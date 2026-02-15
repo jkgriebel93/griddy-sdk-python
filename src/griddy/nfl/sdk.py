@@ -22,7 +22,7 @@ from griddy import settings
 
 from ..nfl import models, utils
 from ._hooks import SDKHooks
-from ._import import dynamic_import
+from ._lazy_load import LazySubSDKMixin
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration
@@ -55,7 +55,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
 
-class GriddyNFL(BaseSDK):
+class GriddyNFL(LazySubSDKMixin, BaseSDK):
     """Main client for accessing NFL data from multiple API endpoints.
 
     GriddyNFL provides unified access to NFL data through three API categories:
@@ -343,35 +343,6 @@ class GriddyNFL(BaseSDK):
             self.sdk_configuration.async_client,
             self.sdk_configuration.async_client_supplied,
         )
-
-    def __getattr__(self, name: str):
-        if name in self._sub_sdk_map:
-            module_path, class_name = self._sub_sdk_map[name]
-            try:
-                module = dynamic_import(module_path)
-                klass = getattr(module, class_name)
-                instance = klass(self.sdk_configuration, parent_ref=self)
-                setattr(self, name, instance)
-                return instance
-            except ImportError as e:
-                print(f"module_path:{module_path}")
-                print(f"class_name: {class_name}")
-                raise AttributeError(
-                    f"Failed to import module {module_path} for attribute {name}: {e}"
-                ) from e
-            except AttributeError as e:
-                raise AttributeError(
-                    f"Failed to find class {class_name} in module {module_path} for attribute {name}: {e}"
-                ) from e
-
-        raise AttributeError(
-            f"'{type(self).__name__}' object has no attribute '{name}'"
-        )
-
-    def __dir__(self):
-        default_attrs = list(super().__dir__())
-        lazy_attrs = list(self._sub_sdk_map.keys())
-        return sorted(list(set(default_attrs + lazy_attrs)))
 
     def __enter__(self):
         return self

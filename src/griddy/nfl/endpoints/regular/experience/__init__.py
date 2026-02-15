@@ -52,7 +52,8 @@ class Experience(BaseSDK):
         r"""Get Game Details by Slug
 
         Retrieves detailed game information using a game slug identifier.
-        Optionally includes replay videos.
+        Optionally includes replay videos. Returns the same shape as
+        WeeklyGameDetail (the experience response is a subset of those fields).
 
 
         :param slug: Game slug identifier
@@ -147,6 +148,7 @@ class Experience(BaseSDK):
 
         Retrieves detailed game information by game ID. Supports optional
         inclusion of drive chart, replays, standings, and tagged videos.
+        Returns the same shape as WeeklyGameDetail.
 
 
         :param game_id: Game identifier (UUID)
