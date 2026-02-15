@@ -42,11 +42,14 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.pro.transactions import Transactions
     from griddy.nfl.endpoints.regular.authentication import Authentication
+    from griddy.nfl.endpoints.regular.content import VideoContent
+    from griddy.nfl.endpoints.regular.experience import Experience
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.games import Games
     from griddy.nfl.endpoints.regular.football.rosters import Rosters
     from griddy.nfl.endpoints.regular.football.standings import Standings
+    from griddy.nfl.endpoints.regular.football.stats import FootballStatsSDK
     from griddy.nfl.endpoints.regular.football.teams import Teams as FootballTeams
     from griddy.nfl.endpoints.regular.football.venues import Venues
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
@@ -116,6 +119,13 @@ class GriddyNFL(BaseSDK):
     weeks: "Weeks"
     """Season week information."""
 
+    football_stats: "FootballStatsSDK"
+    """Historical and live football statistics (football_stats.historical, football_stats.live)."""
+    experience: "Experience"
+    """Game details by slug or ID, with optional replays and drive charts."""
+    video_content: "VideoContent"
+    """Video replay content for games."""
+
     # Pro API endpoints
     stats: "StatsSDK"
     """Aggregated player and team statistics (stats.passing, stats.rushing, etc.)."""
@@ -155,6 +165,18 @@ class GriddyNFL(BaseSDK):
         "football_teams": ("griddy.nfl.endpoints.regular.football.teams", "Teams"),
         "venues": ("griddy.nfl.endpoints.regular.football.venues", "Venues"),
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
+        "football_stats": (
+            "griddy.nfl.endpoints.regular.football.stats",
+            "FootballStatsSDK",
+        ),
+        "experience": (
+            "griddy.nfl.endpoints.regular.experience",
+            "Experience",
+        ),
+        "video_content": (
+            "griddy.nfl.endpoints.regular.content",
+            "VideoContent",
+        ),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "stats": ("griddy.nfl.endpoints.pro.stats", "StatsSDK"),
