@@ -6,66 +6,60 @@ from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
-class Experience(BaseSDK):
+class LiveStats(BaseSDK):
 
-    def _get_game_details_by_slug_config(
+    def _get_team_statistics_config(
         self,
         *,
-        slug: str,
-        include_replays: Optional[bool] = None,
+        game_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        request = models.GetGameDetailsBySlugRequest(
-            slug=slug,
-            include_replays=include_replays,
+        request = models.GetLiveTeamStatisticsRequest(
+            game_id=game_id,
         )
 
         return EndpointConfig(
             method="GET",
-            path="/experience/v1/gamedetailsbyslug/{slug}",
-            operation_id="getGameDetailsBySlug",
+            path="/football/v2/stats/live/team-statistics/{gameId}",
+            operation_id="getLiveTeamStatistics",
             request=request,
-            response_type=models.WeeklyGameDetail,
+            response_type=models.LiveTeamStatisticsResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=True,
-            request_has_query_params=True,
+            request_has_query_params=False,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
         )
 
-    def get_game_details_by_slug(
+    def get_team_statistics(
         self,
         *,
-        slug: str,
-        include_replays: Optional[bool] = None,
+        game_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeklyGameDetail:
-        r"""Get Game Details by Slug
+    ) -> models.LiveTeamStatisticsResponse:
+        r"""Get Live Team Statistics
 
-        Retrieves detailed game information using a game slug identifier.
-        Optionally includes replay videos. Returns the same shape as
-        WeeklyGameDetail (the experience response is a subset of those fields).
+        Retrieves live team statistics for a specific game.
+        Returns awayTeam and homeTeam objects each containing 100+ stat fields.
 
 
-        :param slug: Game slug identifier
-        :param include_replays: Include replay videos in response
+        :param game_id: Game identifier (UUID)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        config = self._get_game_details_by_slug_config(
-            slug=slug,
-            include_replays=include_replays,
+        config = self._get_team_statistics_config(
+            game_id=game_id,
             retries=retries,
             server_url=server_url,
             timeout_ms=timeout_ms,
@@ -73,20 +67,18 @@ class Experience(BaseSDK):
         )
         return self._execute_endpoint(config)
 
-    async def get_game_details_by_slug_async(
+    async def get_team_statistics_async(
         self,
         *,
-        slug: str,
-        include_replays: Optional[bool] = None,
+        game_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeklyGameDetail:
-        r"""Get Game Details by Slug"""
-        config = self._get_game_details_by_slug_config(
-            slug=slug,
-            include_replays=include_replays,
+    ) -> models.LiveTeamStatisticsResponse:
+        r"""Get Live Team Statistics"""
+        config = self._get_team_statistics_config(
+            game_id=game_id,
             retries=retries,
             server_url=server_url,
             timeout_ms=timeout_ms,
@@ -94,79 +86,59 @@ class Experience(BaseSDK):
         )
         return await self._execute_endpoint_async(config)
 
-    def _get_game_details_config(
+    def _get_player_statistics_config(
         self,
         *,
         game_id: str,
-        include_drive_chart: Optional[bool] = None,
-        include_replays: Optional[bool] = None,
-        include_standings: Optional[bool] = None,
-        include_tagged_videos: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        request = models.GetGameDetailsRequest(
+        request = models.GetLivePlayerStatisticsRequest(
             game_id=game_id,
-            include_drive_chart=include_drive_chart,
-            include_replays=include_replays,
-            include_standings=include_standings,
-            include_tagged_videos=include_tagged_videos,
         )
 
         return EndpointConfig(
             method="GET",
-            path="/experience/v2/gamedetails/{gameId}",
-            operation_id="getGameDetails",
+            path="/football/v2/stats/live/player-statistics/{gameId}",
+            operation_id="getLivePlayerStatistics",
             request=request,
-            response_type=models.WeeklyGameDetail,
+            response_type=models.LivePlayerStatisticsResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=True,
-            request_has_query_params=True,
+            request_has_query_params=False,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
         )
 
-    def get_game_details(
+    def get_player_statistics(
         self,
         *,
         game_id: str,
-        include_drive_chart: Optional[bool] = None,
-        include_replays: Optional[bool] = None,
-        include_standings: Optional[bool] = None,
-        include_tagged_videos: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeklyGameDetail:
-        r"""Get Game Details
+    ) -> models.LivePlayerStatisticsResponse:
+        r"""Get Live Player Statistics
 
-        Retrieves detailed game information by game ID. Supports optional
-        inclusion of drive chart, replays, standings, and tagged videos.
-        Returns the same shape as WeeklyGameDetail.
+        Retrieves live player statistics for a specific game.
+        Returns awayTeam and homeTeam objects, each containing a players
+        array with per-player identification and 100+ stat fields.
 
 
         :param game_id: Game identifier (UUID)
-        :param include_drive_chart: Include drive chart data in response
-        :param include_replays: Include replay videos in response
-        :param include_standings: Include standings data in response
-        :param include_tagged_videos: Include tagged videos in response
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        config = self._get_game_details_config(
+        config = self._get_player_statistics_config(
             game_id=game_id,
-            include_drive_chart=include_drive_chart,
-            include_replays=include_replays,
-            include_standings=include_standings,
-            include_tagged_videos=include_tagged_videos,
             retries=retries,
             server_url=server_url,
             timeout_ms=timeout_ms,
@@ -174,26 +146,18 @@ class Experience(BaseSDK):
         )
         return self._execute_endpoint(config)
 
-    async def get_game_details_async(
+    async def get_player_statistics_async(
         self,
         *,
         game_id: str,
-        include_drive_chart: Optional[bool] = None,
-        include_replays: Optional[bool] = None,
-        include_standings: Optional[bool] = None,
-        include_tagged_videos: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeklyGameDetail:
-        r"""Get Game Details"""
-        config = self._get_game_details_config(
+    ) -> models.LivePlayerStatisticsResponse:
+        r"""Get Live Player Statistics"""
+        config = self._get_player_statistics_config(
             game_id=game_id,
-            include_drive_chart=include_drive_chart,
-            include_replays=include_replays,
-            include_standings=include_standings,
-            include_tagged_videos=include_tagged_videos,
             retries=retries,
             server_url=server_url,
             timeout_ms=timeout_ms,
