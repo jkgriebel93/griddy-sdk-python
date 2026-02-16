@@ -514,6 +514,22 @@ class HistoricalPuntReturnsStats(BaseModel):
 # Kicking
 # ---------------------------------------------------------------------------
 
+class KickingDetails(BaseModel):
+    # These are provided for each range
+    attempts: Optional[int] = None
+    made: Optional[int] = None
+    percentage: Optional[float] = None
+
+    # These are only on "FieldGoals" or "extraPoints"
+    attempted_yards: Annotated[
+        Optional[int], pydantic.Field(alias="attemptedYards")
+    ] = None
+    blocked: Optional[int] = None
+    long: Optional[int] = None
+    made_per_game: Annotated[
+        Optional[float], pydantic.Field(alias="madePerGame")
+    ] = None
+
 
 class HistoricalKickingStatsTypedDict(TypedDict):
     attempts_1_to_19: NotRequired[int]
@@ -528,27 +544,27 @@ class HistoricalKickingStatsTypedDict(TypedDict):
 
 class HistoricalKickingStats(BaseModel):
     attempts_1_to_19: Annotated[
-        Optional[int], pydantic.Field(alias="attempts1To19")
+        Optional[KickingDetails], pydantic.Field(alias="attempts1To19")
     ] = None
 
     attempts_20_to_29: Annotated[
-        Optional[int], pydantic.Field(alias="attempts20To29")
+        Optional[KickingDetails], pydantic.Field(alias="attempts20To29")
     ] = None
 
     attempts_30_to_39: Annotated[
-        Optional[int], pydantic.Field(alias="attempts30To39")
+        Optional[KickingDetails], pydantic.Field(alias="attempts30To39")
     ] = None
 
     attempts_40_to_49: Annotated[
-        Optional[int], pydantic.Field(alias="attempts40To49")
+        Optional[KickingDetails], pydantic.Field(alias="attempts40To49")
     ] = None
 
     attempts_50_to_59: Annotated[
-        Optional[int], pydantic.Field(alias="attempts50To59")
+        Optional[KickingDetails], pydantic.Field(alias="attempts50To59")
     ] = None
 
     attempts_60_plus: Annotated[
-        Optional[int], pydantic.Field(alias="attempts60Plus")
+        Optional[KickingDetails], pydantic.Field(alias="attempts60Plus")
     ] = None
 
     extra_points: Annotated[
