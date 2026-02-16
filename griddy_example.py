@@ -33,10 +33,7 @@ from pprint import pprint
 team_stats = nfl.football_stats.live.get_team_statistics(game_id=game_id)
 player_stats = nfl.football_stats.live.get_player_statistics(game_id=game_id)
 
-all_stats = {
-    "team": team_stats.model_dump(),
-    "player": player_stats.model_dump()
-}
+all_stats = {"team": team_stats.model_dump(), "player": player_stats.model_dump()}
 
 with open("live_stats_responses.json", "w") as outfile:
     json.dump(all_stats, outfile, indent=4)

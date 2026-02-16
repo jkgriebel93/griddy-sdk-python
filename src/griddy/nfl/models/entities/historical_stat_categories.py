@@ -514,6 +514,7 @@ class HistoricalPuntReturnsStats(BaseModel):
 # Kicking
 # ---------------------------------------------------------------------------
 
+
 class KickingDetails(BaseModel):
     # These are provided for each range
     attempts: Optional[int] = None
@@ -526,9 +527,9 @@ class KickingDetails(BaseModel):
     ] = None
     blocked: Optional[int] = None
     long: Optional[int] = None
-    made_per_game: Annotated[
-        Optional[float], pydantic.Field(alias="madePerGame")
-    ] = None
+    made_per_game: Annotated[Optional[float], pydantic.Field(alias="madePerGame")] = (
+        None
+    )
 
 
 class HistoricalKickingStatsTypedDict(TypedDict):

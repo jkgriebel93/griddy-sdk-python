@@ -1040,6 +1040,14 @@ if TYPE_CHECKING:
         LiveGame,
         LiveGameTypedDict,
     )
+    from .entities.live_stat_entries import (
+        LivePlayerStatEntry,
+        LivePlayerStatEntryTypedDict,
+        LivePlayerTeamEntry,
+        LivePlayerTeamEntryTypedDict,
+        LiveTeamStatEntry,
+        LiveTeamStatEntryTypedDict,
+    )
     from .entities.moneyline import MoneyLine, MoneyLineTypedDict
     from .entities.multiple_rankings_category import (
         MultipleRankingsCategory,
@@ -2304,8 +2312,14 @@ __all__ = [
     "GetLivePlayerStatisticsRequestTypedDict",
     "LiveTeamStatisticsResponse",
     "LiveTeamStatisticsResponseTypedDict",
+    "LiveTeamStatEntry",
+    "LiveTeamStatEntryTypedDict",
     "LivePlayerStatisticsResponse",
     "LivePlayerStatisticsResponseTypedDict",
+    "LivePlayerStatEntry",
+    "LivePlayerStatEntryTypedDict",
+    "LivePlayerTeamEntry",
+    "LivePlayerTeamEntryTypedDict",
     # Experience
     "GetGameDetailsBySlugRequest",
     "GetGameDetailsBySlugRequestTypedDict",
@@ -3295,8 +3309,14 @@ _dynamic_imports: dict[str, str] = {
     "GetLivePlayerStatisticsRequestTypedDict": ".requests.get_live_player_statistics_op",
     "LiveTeamStatisticsResponse": ".responses.live_team_statistics_response",
     "LiveTeamStatisticsResponseTypedDict": ".responses.live_team_statistics_response",
+    "LiveTeamStatEntry": ".entities.live_stat_entries",
+    "LiveTeamStatEntryTypedDict": ".entities.live_stat_entries",
     "LivePlayerStatisticsResponse": ".responses.live_player_statistics_response",
     "LivePlayerStatisticsResponseTypedDict": ".responses.live_player_statistics_response",
+    "LivePlayerStatEntry": ".entities.live_stat_entries",
+    "LivePlayerStatEntryTypedDict": ".entities.live_stat_entries",
+    "LivePlayerTeamEntry": ".entities.live_stat_entries",
+    "LivePlayerTeamEntryTypedDict": ".entities.live_stat_entries",
     # Experience
     "GetGameDetailsBySlugRequest": ".requests.get_game_details_by_slug_op",
     "GetGameDetailsBySlugRequestTypedDict": ".requests.get_game_details_by_slug_op",

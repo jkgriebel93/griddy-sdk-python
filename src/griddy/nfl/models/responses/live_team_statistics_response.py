@@ -1,36 +1,39 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 import pydantic
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+from griddy.nfl.models.entities.live_stat_entries import (
+    LiveTeamStatEntry,
+    LiveTeamStatEntryTypedDict,
+)
 from griddy.nfl.types import BaseModel
 
 
 class LiveTeamStatisticsResponseTypedDict(TypedDict):
     game_id: NotRequired[Optional[str]]
     offset: NotRequired[Optional[int]]
-    away_team: NotRequired[Optional[Dict[str, Any]]]
-    home_team: NotRequired[Optional[Dict[str, Any]]]
+    away_team: NotRequired[Optional[LiveTeamStatEntryTypedDict]]
+    home_team: NotRequired[Optional[LiveTeamStatEntryTypedDict]]
 
 
 class LiveTeamStatisticsResponse(BaseModel):
     r"""Live team statistics for a game.
 
     The awayTeam and homeTeam fields each contain a teamId and 100+ stat
-    fields with camelCase keys (defensiveFumblesForced, passingYards, etc.).
+    fields covering defense, passing, rushing, receiving, kicking, and more.
     """
 
     game_id: Annotated[Optional[str], pydantic.Field(alias="gameId")] = None
 
     offset: Optional[int] = None
 
-    # TODO: Fill this in with an actual object - Can we use an existing model?
-    away_team: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="awayTeam")] = (
-        None
-    )
-    # TODO: Fill this in with an actual object - Can we use an existing model?
-    home_team: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="homeTeam")] = (
-        None
-    )
+    away_team: Annotated[
+        Optional[LiveTeamStatEntry], pydantic.Field(alias="awayTeam")
+    ] = None
+
+    home_team: Annotated[
+        Optional[LiveTeamStatEntry], pydantic.Field(alias="homeTeam")
+    ] = None
