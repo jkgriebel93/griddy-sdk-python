@@ -20,6 +20,8 @@ class GetGameDetailsRequestTypedDict(TypedDict):
     r"""Include standings data in response"""
     include_tagged_videos: NotRequired[bool]
     r"""Include tagged videos in response"""
+    include_summary: NotRequired[bool]
+    r"""Include summary information in response"""
 
 
 class GetGameDetailsRequest(BaseModel):
@@ -57,3 +59,10 @@ class GetGameDetailsRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Include tagged videos in response"""
+
+    include_summary: Annotated[
+        Optional[bool],
+        pydantic.Field(alias="includeSummary"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Include summary information in response"""
