@@ -22,7 +22,7 @@ from griddy import settings
 
 from ..nfl import models, utils
 from ._hooks import SDKHooks
-from ._import import dynamic_import
+from ._lazy_load import LazySubSDKMixin
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration
@@ -42,17 +42,20 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.pro.teams import Teams
     from griddy.nfl.endpoints.pro.transactions import Transactions
     from griddy.nfl.endpoints.regular.authentication import Authentication
+    from griddy.nfl.endpoints.regular.content import VideoContent
+    from griddy.nfl.endpoints.regular.experience import Experience
     from griddy.nfl.endpoints.regular.football.combine import Combine
     from griddy.nfl.endpoints.regular.football.draft import Draft
     from griddy.nfl.endpoints.regular.football.games import Games
     from griddy.nfl.endpoints.regular.football.rosters import Rosters
     from griddy.nfl.endpoints.regular.football.standings import Standings
+    from griddy.nfl.endpoints.regular.football.stats import FootballStatsSDK
     from griddy.nfl.endpoints.regular.football.teams import Teams as FootballTeams
     from griddy.nfl.endpoints.regular.football.venues import Venues
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
 
-class GriddyNFL(BaseSDK):
+class GriddyNFL(LazySubSDKMixin, BaseSDK):
     """Main client for accessing NFL data from multiple API endpoints.
 
     GriddyNFL provides unified access to NFL data through three API categories:
@@ -116,6 +119,13 @@ class GriddyNFL(BaseSDK):
     weeks: "Weeks"
     """Season week information."""
 
+    football_stats: "FootballStatsSDK"
+    """Historical and live football statistics (football_stats.historical, football_stats.live)."""
+    experience: "Experience"
+    """Game details by slug or ID, with optional replays and drive charts."""
+    video_content: "VideoContent"
+    """Video replay content for games."""
+
     # Pro API endpoints
     stats: "StatsSDK"
     """Aggregated player and team statistics (stats.passing, stats.rushing, etc.)."""
@@ -155,6 +165,18 @@ class GriddyNFL(BaseSDK):
         "football_teams": ("griddy.nfl.endpoints.regular.football.teams", "Teams"),
         "venues": ("griddy.nfl.endpoints.regular.football.venues", "Venues"),
         "weeks": ("griddy.nfl.endpoints.regular.football.weeks", "Weeks"),
+        "football_stats": (
+            "griddy.nfl.endpoints.regular.football.stats",
+            "FootballStatsSDK",
+        ),
+        "experience": (
+            "griddy.nfl.endpoints.regular.experience",
+            "Experience",
+        ),
+        "video_content": (
+            "griddy.nfl.endpoints.regular.content",
+            "VideoContent",
+        ),
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "stats": ("griddy.nfl.endpoints.pro.stats", "StatsSDK"),
@@ -321,35 +343,6 @@ class GriddyNFL(BaseSDK):
             self.sdk_configuration.async_client,
             self.sdk_configuration.async_client_supplied,
         )
-
-    def __getattr__(self, name: str):
-        if name in self._sub_sdk_map:
-            module_path, class_name = self._sub_sdk_map[name]
-            try:
-                module = dynamic_import(module_path)
-                klass = getattr(module, class_name)
-                instance = klass(self.sdk_configuration, parent_ref=self)
-                setattr(self, name, instance)
-                return instance
-            except ImportError as e:
-                print(f"module_path:{module_path}")
-                print(f"class_name: {class_name}")
-                raise AttributeError(
-                    f"Failed to import module {module_path} for attribute {name}: {e}"
-                ) from e
-            except AttributeError as e:
-                raise AttributeError(
-                    f"Failed to find class {class_name} in module {module_path} for attribute {name}: {e}"
-                ) from e
-
-        raise AttributeError(
-            f"'{type(self).__name__}' object has no attribute '{name}'"
-        )
-
-    def __dir__(self):
-        default_attrs = list(super().__dir__())
-        lazy_attrs = list(self._sub_sdk_map.keys())
-        return sorted(list(set(default_attrs + lazy_attrs)))
 
     def __enter__(self):
         return self

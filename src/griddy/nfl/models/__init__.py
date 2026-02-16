@@ -1014,6 +1014,10 @@ if TYPE_CHECKING:
     from .entities.game_score import GameScore, GameScoreTypedDict
     from .entities.game_site import GameSite, GameSiteTypedDict
     from .entities.game_team import GameTeam, GameTeamTypedDict, Score, ScoreTypedDict
+    from .entities.historical_stat_categories import (
+        HistoricalStatCategories,
+        HistoricalStatCategoriesTypedDict,
+    )
     from .entities.injury_entry import (
         InjuryEntry,
         InjuryEntryGameStatus,
@@ -1035,6 +1039,14 @@ if TYPE_CHECKING:
         HomeTeamTypedDict,
         LiveGame,
         LiveGameTypedDict,
+    )
+    from .entities.live_stat_entries import (
+        LivePlayerStatEntry,
+        LivePlayerStatEntryTypedDict,
+        LivePlayerTeamEntry,
+        LivePlayerTeamEntryTypedDict,
+        LiveTeamStatEntry,
+        LiveTeamStatEntryTypedDict,
     )
     from .entities.moneyline import MoneyLine, MoneyLineTypedDict
     from .entities.multiple_rankings_category import (
@@ -1284,6 +1296,60 @@ if TYPE_CHECKING:
     )
     from .enums.quarter_enum import QuarterEnum
     from .enums.yards_to_go_enum import YardsToGoEnum
+    from .requests.get_game_details_by_slug_op import (
+        GetGameDetailsBySlugRequest,
+        GetGameDetailsBySlugRequestTypedDict,
+    )
+    from .requests.get_game_details_op import (
+        GetGameDetailsRequest,
+        GetGameDetailsRequestTypedDict,
+    )
+    from .requests.get_historical_player_stats_op import (
+        GetHistoricalPlayerStatsRequest,
+        GetHistoricalPlayerStatsRequestTypedDict,
+    )
+    from .requests.get_historical_team_stats_op import (
+        GetHistoricalTeamStatsRequest,
+        GetHistoricalTeamStatsRequestTypedDict,
+    )
+    from .requests.get_live_player_statistics_op import (
+        GetLivePlayerStatisticsRequest,
+        GetLivePlayerStatisticsRequestTypedDict,
+    )
+    from .requests.get_live_team_statistics_op import (
+        GetLiveTeamStatisticsRequest,
+        GetLiveTeamStatisticsRequestTypedDict,
+    )
+    from .requests.get_video_replays_op import (
+        GetVideoReplaysRequest,
+        GetVideoReplaysRequestTypedDict,
+    )
+    from .responses.historical_player_stats_response import (
+        HistoricalPlayerStatsResponse,
+        HistoricalPlayerStatsResponseTypedDict,
+        PersonStat,
+        PersonStatLineup,
+        PersonStatLineupTypedDict,
+        PersonStatTypedDict,
+    )
+    from .responses.historical_team_stats_response import (
+        HistoricalGameInfo,
+        HistoricalGameInfoTypedDict,
+        HistoricalTeamStatsResponse,
+        HistoricalTeamStatsResponseTypedDict,
+    )
+    from .responses.live_player_statistics_response import (
+        LivePlayerStatisticsResponse,
+        LivePlayerStatisticsResponseTypedDict,
+    )
+    from .responses.live_team_statistics_response import (
+        LiveTeamStatisticsResponse,
+        LiveTeamStatisticsResponseTypedDict,
+    )
+    from .responses.video_replays_response import (
+        VideoReplaysResponse,
+        VideoReplaysResponseTypedDict,
+    )
 
 __all__ = [
     "PersonTypedDict",
@@ -2222,6 +2288,48 @@ __all__ = [
     "YardsToGoType",
     "Zone",
     "ZoneTypedDict",
+    # Historical stats
+    "GetHistoricalTeamStatsRequest",
+    "GetHistoricalTeamStatsRequestTypedDict",
+    "GetHistoricalPlayerStatsRequest",
+    "GetHistoricalPlayerStatsRequestTypedDict",
+    "HistoricalTeamStatsResponse",
+    "HistoricalTeamStatsResponseTypedDict",
+    "HistoricalStatCategories",
+    "HistoricalStatCategoriesTypedDict",
+    "HistoricalGameInfo",
+    "HistoricalGameInfoTypedDict",
+    "HistoricalPlayerStatsResponse",
+    "HistoricalPlayerStatsResponseTypedDict",
+    "PersonStat",
+    "PersonStatTypedDict",
+    "PersonStatLineup",
+    "PersonStatLineupTypedDict",
+    # Live stats
+    "GetLiveTeamStatisticsRequest",
+    "GetLiveTeamStatisticsRequestTypedDict",
+    "GetLivePlayerStatisticsRequest",
+    "GetLivePlayerStatisticsRequestTypedDict",
+    "LiveTeamStatisticsResponse",
+    "LiveTeamStatisticsResponseTypedDict",
+    "LiveTeamStatEntry",
+    "LiveTeamStatEntryTypedDict",
+    "LivePlayerStatisticsResponse",
+    "LivePlayerStatisticsResponseTypedDict",
+    "LivePlayerStatEntry",
+    "LivePlayerStatEntryTypedDict",
+    "LivePlayerTeamEntry",
+    "LivePlayerTeamEntryTypedDict",
+    # Experience
+    "GetGameDetailsBySlugRequest",
+    "GetGameDetailsBySlugRequestTypedDict",
+    "GetGameDetailsRequest",
+    "GetGameDetailsRequestTypedDict",
+    # Content
+    "GetVideoReplaysRequest",
+    "GetVideoReplaysRequestTypedDict",
+    "VideoReplaysResponse",
+    "VideoReplaysResponseTypedDict",
 ]
 
 _dynamic_imports: dict[str, str] = {
@@ -3177,6 +3285,48 @@ _dynamic_imports: dict[str, str] = {
     "WinProbabilityResponse": ".responses.win_probability_response",
     "WinProbabilityResponseTypedDict": ".responses.win_probability_response",
     "YardsToGoEnum": ".enums.yards_to_go_enum",
+    # Historical stats
+    "GetHistoricalTeamStatsRequest": ".requests.get_historical_team_stats_op",
+    "GetHistoricalTeamStatsRequestTypedDict": ".requests.get_historical_team_stats_op",
+    "GetHistoricalPlayerStatsRequest": ".requests.get_historical_player_stats_op",
+    "GetHistoricalPlayerStatsRequestTypedDict": ".requests.get_historical_player_stats_op",
+    "HistoricalTeamStatsResponse": ".responses.historical_team_stats_response",
+    "HistoricalTeamStatsResponseTypedDict": ".responses.historical_team_stats_response",
+    "HistoricalStatCategories": ".entities.historical_stat_categories",
+    "HistoricalStatCategoriesTypedDict": ".entities.historical_stat_categories",
+    "HistoricalGameInfo": ".responses.historical_team_stats_response",
+    "HistoricalGameInfoTypedDict": ".responses.historical_team_stats_response",
+    "HistoricalPlayerStatsResponse": ".responses.historical_player_stats_response",
+    "HistoricalPlayerStatsResponseTypedDict": ".responses.historical_player_stats_response",
+    "PersonStat": ".responses.historical_player_stats_response",
+    "PersonStatTypedDict": ".responses.historical_player_stats_response",
+    "PersonStatLineup": ".responses.historical_player_stats_response",
+    "PersonStatLineupTypedDict": ".responses.historical_player_stats_response",
+    # Live stats
+    "GetLiveTeamStatisticsRequest": ".requests.get_live_team_statistics_op",
+    "GetLiveTeamStatisticsRequestTypedDict": ".requests.get_live_team_statistics_op",
+    "GetLivePlayerStatisticsRequest": ".requests.get_live_player_statistics_op",
+    "GetLivePlayerStatisticsRequestTypedDict": ".requests.get_live_player_statistics_op",
+    "LiveTeamStatisticsResponse": ".responses.live_team_statistics_response",
+    "LiveTeamStatisticsResponseTypedDict": ".responses.live_team_statistics_response",
+    "LiveTeamStatEntry": ".entities.live_stat_entries",
+    "LiveTeamStatEntryTypedDict": ".entities.live_stat_entries",
+    "LivePlayerStatisticsResponse": ".responses.live_player_statistics_response",
+    "LivePlayerStatisticsResponseTypedDict": ".responses.live_player_statistics_response",
+    "LivePlayerStatEntry": ".entities.live_stat_entries",
+    "LivePlayerStatEntryTypedDict": ".entities.live_stat_entries",
+    "LivePlayerTeamEntry": ".entities.live_stat_entries",
+    "LivePlayerTeamEntryTypedDict": ".entities.live_stat_entries",
+    # Experience
+    "GetGameDetailsBySlugRequest": ".requests.get_game_details_by_slug_op",
+    "GetGameDetailsBySlugRequestTypedDict": ".requests.get_game_details_by_slug_op",
+    "GetGameDetailsRequest": ".requests.get_game_details_op",
+    "GetGameDetailsRequestTypedDict": ".requests.get_game_details_op",
+    # Content
+    "GetVideoReplaysRequest": ".requests.get_video_replays_op",
+    "GetVideoReplaysRequestTypedDict": ".requests.get_video_replays_op",
+    "VideoReplaysResponse": ".responses.video_replays_response",
+    "VideoReplaysResponseTypedDict": ".responses.video_replays_response",
 }
 
 

@@ -20,18 +20,20 @@ else:
         login_email=NFL["login_email"], login_password=NFL["login_password"]
     )
 
-game_id = 2025090400
+# 2015 Week 01 Pittsburgh at New England
+game_id = "10012015-0910-001f-0988-f51e8eea770e"
+# Pittsburgh ID
+pit_id = "10403900-8251-6892-d81c-4348525c2d47"
+# New England ID
+nwe_id = "10403200-69ab-9ea6-5af5-e240fbc08bea"
 # play_list_response = nfl.pro_games.get_playlist(game_id=str(game_id))
 # plays_as_json = [p.model_dump() for p in play_list_response.plays]
 from pprint import pprint
 
-wgd = nfl.games.get_weekly_game_details(
-    season=2025,
-    week=1,
-    type_="REG",
-    include_drive_chart=True,
-    include_replays=True,
-    include_standings=True,
-)
-dtls = wgd[0]
-pprint(dtls.model_dump()["driveChart"], indent=4)
+team_stats = nfl.football_stats.live.get_team_statistics(game_id=game_id)
+player_stats = nfl.football_stats.live.get_player_statistics(game_id=game_id)
+
+all_stats = {"team": team_stats.model_dump(), "player": player_stats.model_dump()}
+
+with open("live_stats_responses.json", "w") as outfile:
+    json.dump(all_stats, outfile, indent=4)
