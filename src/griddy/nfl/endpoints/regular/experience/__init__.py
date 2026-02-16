@@ -102,6 +102,7 @@ class Experience(BaseSDK):
         include_replays: Optional[bool] = None,
         include_standings: Optional[bool] = None,
         include_tagged_videos: Optional[bool] = None,
+        include_summary: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -113,6 +114,7 @@ class Experience(BaseSDK):
             include_replays=include_replays,
             include_standings=include_standings,
             include_tagged_videos=include_tagged_videos,
+            include_summary=include_summary
         )
 
         return EndpointConfig(
@@ -139,6 +141,7 @@ class Experience(BaseSDK):
         include_replays: Optional[bool] = None,
         include_standings: Optional[bool] = None,
         include_tagged_videos: Optional[bool] = None,
+        include_summary: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -167,6 +170,7 @@ class Experience(BaseSDK):
             include_replays=include_replays,
             include_standings=include_standings,
             include_tagged_videos=include_tagged_videos,
+            include_summary=include_summary,
             retries=retries,
             server_url=server_url,
             timeout_ms=timeout_ms,
@@ -182,6 +186,7 @@ class Experience(BaseSDK):
         include_replays: Optional[bool] = None,
         include_standings: Optional[bool] = None,
         include_tagged_videos: Optional[bool] = None,
+        include_summary: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -194,6 +199,7 @@ class Experience(BaseSDK):
             include_replays=include_replays,
             include_standings=include_standings,
             include_tagged_videos=include_tagged_videos,
+            include_summary=include_summary,
             retries=retries,
             server_url=server_url,
             timeout_ms=timeout_ms,
