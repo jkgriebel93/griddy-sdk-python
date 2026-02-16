@@ -114,7 +114,7 @@ class Experience(BaseSDK):
             include_replays=include_replays,
             include_standings=include_standings,
             include_tagged_videos=include_tagged_videos,
-            include_summary=include_summary
+            include_summary=include_summary,
         )
 
         return EndpointConfig(
