@@ -1,0 +1,20 @@
+from typing import List, Optional
+
+import pydantic
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+from griddy_nfl.models.entities.pagination import Pagination, PaginationTypedDict
+from griddy_nfl.models.entities.team import Team, TeamTypedDict
+from griddy_nfl.types import BaseModel
+
+
+class FootballTeamsResponseTypedDict(TypedDict):
+    teams: List[TeamTypedDict]
+    r"""List of teams"""
+    pagination: PaginationTypedDict
+    r"""Pagination information"""
+
+
+class FootballTeamsResponse(BaseModel):
+    teams: List[Team]
+    pagination: Pagination

@@ -1,0 +1,87 @@
+from __future__ import annotations
+
+from typing import List, Optional, Union
+
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
+
+from griddy_nfl.models.entities.player_projection import (
+    PlayerProjection,
+    PlayerProjectionTypedDict,
+)
+from griddy_nfl.models.entities.player_week_projected_points import (
+    PlayerWeekProjectedPoints,
+    PlayerWeekProjectedPointsTypedDict,
+)
+from griddy_nfl.models.entities.player_week_projected_stats import (
+    PlayerWeekProjectedStats,
+    PlayerWeekProjectedStatsTypedDict,
+)
+from griddy_nfl.types import BaseModel
+
+IncludedTypedDict = TypeAliasType(
+    "IncludedTypedDict",
+    Union[PlayerWeekProjectedPointsTypedDict, PlayerWeekProjectedStatsTypedDict],
+)
+
+
+Included = TypeAliasType(
+    "Included", Union[PlayerWeekProjectedPoints, PlayerWeekProjectedStats]
+)
+
+
+class PageTypedDict(TypedDict):
+    number: NotRequired[int]
+    r"""Current page number"""
+    size: NotRequired[int]
+    r"""Page size"""
+
+
+class Page(BaseModel):
+    number: Optional[int] = None
+    r"""Current page number"""
+
+    size: Optional[int] = None
+    r"""Page size"""
+
+
+class MetaTypedDict(TypedDict):
+    page: NotRequired[PageTypedDict]
+
+
+class Meta(BaseModel):
+    page: Optional[Page] = None
+
+
+class ProjectedStatsResponsePaginationTypedDict(TypedDict):
+    token: NotRequired[str]
+    r"""Token for next page of results"""
+
+
+class ProjectedStatsResponsePagination(BaseModel):
+    token: Optional[str] = None
+    r"""Token for next page of results"""
+
+
+class ProjectedStatsResponseTypedDict(TypedDict):
+    r"""JSON:API formatted response for projected statistics"""
+
+    data: List[PlayerProjectionTypedDict]
+    r"""Primary player data with relationships"""
+    included: List[IncludedTypedDict]
+    r"""Related data included in response"""
+    meta: NotRequired[MetaTypedDict]
+    pagination: NotRequired[ProjectedStatsResponsePaginationTypedDict]
+
+
+class ProjectedStatsResponse(BaseModel):
+    r"""JSON:API formatted response for projected statistics"""
+
+    data: List[PlayerProjection]
+    r"""Primary player data with relationships"""
+
+    included: List[Included]
+    r"""Related data included in response"""
+
+    meta: Optional[Meta] = None
+
+    pagination: Optional[ProjectedStatsResponsePagination] = None
