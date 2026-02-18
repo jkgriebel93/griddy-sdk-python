@@ -47,6 +47,11 @@ jobs:
         with:
           python-version: '3.14'
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "latest"
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -54,23 +59,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Install Dependencies
-        run: pip install .
+      - name: Install dependencies
+        run: uv sync
 
-      - name: Build Python package
-        run: |
-          hatch build
+      - name: Build package
+        run: uv build
 
-      - name: Login to CodeArtifact
+      - name: Get CodeArtifact token
         run: |
-          aws --version
-          aws codeartifact login \
-          --tool twine \
-          --repository ${{ secrets.AWS_CODEARTIFACT_REPO }} \
-          --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} \
-          --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} \
-          --region ${{ secrets.AWS_REGION }}
+          CODEARTIFACT_TOKEN=$(aws codeartifact get-authorization-token \
+            --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} \
+            --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} \
+            --region ${{ secrets.AWS_REGION }} \
+            --query authorizationToken \
+            --output text)
+          echo "CODEARTIFACT_TOKEN=$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
 
       - name: Publish to CodeArtifact
         run: |
-          twine upload --repository codeartifact dist/*
+          REPO_URL="https://aws:${CODEARTIFACT_TOKEN}@${{ secrets.AWS_CODEARTIFACT_DOMAIN }}-${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }}.d.codeartifact.${{ secrets.AWS_REGION }}.amazonaws.com/pypi/${{ secrets.AWS_CODEARTIFACT_REPO }}/"
+          uv publish dist/* --publish-url "$REPO_URL"
