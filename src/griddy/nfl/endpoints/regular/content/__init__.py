@@ -1,7 +1,7 @@
 from typing import Mapping, Optional
 
+from griddy.core._constants import RESOURCE_ERROR_CODES
 from griddy.nfl import models, utils
-from griddy.nfl._constants import RESOURCE_ERROR_CODES
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
