@@ -121,6 +121,16 @@ log_file_level = "DEBUG"
 [tool.coverage.run]
 source = ["src"]
 branch = true
+omit = [
+    # Single-line re-export stubs — tested via their core originals
+    "src/griddy/pfr/_constants.py",
+    "src/griddy/pfr/_import.py",
+    "src/griddy/pfr/_lazy_load.py",
+    # Old pre-refactor utility module — functionality lives in core/utils/*
+    "src/griddy/core/utils.py",
+    # Event streaming utilities — not used by any current SDK endpoints
+    "src/griddy/core/utils/eventstreaming.py",
+]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -134,4 +144,10 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
+    "if TYPE_CHECKING:",
+    # Defensive re-raise blocks in lazy-loading __getattr__ (corrupt install guard)
+    "except ImportError as e:",
+    "except AttributeError as e:",
+    # Client type assertions (only fire with invalid user-supplied clients)
+    "assert issubclass\\(",
 ]

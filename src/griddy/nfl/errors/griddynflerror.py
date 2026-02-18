@@ -1,29 +1,16 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 import httpx
 
+from griddy.core.errors.sdkerror import SDKError
+
 
 @dataclass(frozen=True)
-class GriddyNFLError(Exception):
-    """The base class for all HTTP error responses."""
-
-    message: str
-    status_code: int
-    body: str
-    headers: httpx.Headers = field(hash=False)
-    raw_response: httpx.Response = field(hash=False)
+class GriddyNFLError(SDKError):
+    """The base class for all NFL SDK HTTP error responses."""
 
     def __init__(
         self, message: str, raw_response: httpx.Response, body: Optional[str] = None
     ):
-        object.__setattr__(self, "message", message)
-        object.__setattr__(self, "status_code", raw_response.status_code)
-        object.__setattr__(
-            self, "body", body if body is not None else raw_response.text
-        )
-        object.__setattr__(self, "headers", raw_response.headers)
-        object.__setattr__(self, "raw_response", raw_response)
-
-    def __str__(self):
-        return self.message
+        super().__init__(message, raw_response, body)

@@ -1,26 +1,7 @@
-import logging
-import os
-from typing import Any, Protocol
-
-import httpx
-
-
-class Logger(Protocol):
-    def debug(self, msg: str, *args: Any, **kwargs: Any) -> None:
-        pass
-
-
-class NoOpLogger:
-    def debug(self, msg: str, *args: Any, **kwargs: Any) -> None:
-        pass
-
-
-def get_body_content(req: httpx.Request) -> str:
-    return "<streaming body>" if not hasattr(req, "_content") else str(req.content)
+from griddy.core.utils.logger import Logger, NoOpLogger, get_body_content  # noqa: F401
+from griddy.core.utils.logger import get_default_logger as _core_get_default_logger
 
 
 def get_default_logger() -> Logger:
-    if os.getenv("GRIDDY_NFL_DEBUG"):
-        logging.basicConfig(level=logging.DEBUG)
-        return logging.getLogger("griddy_nfl")
-    return NoOpLogger()
+    """Get default logger with NFL-specific env var."""
+    return _core_get_default_logger(env_var="GRIDDY_NFL_DEBUG")

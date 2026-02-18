@@ -248,9 +248,9 @@ class TestHandleJsonResponse:
         mock_response.text = '{"nfl_auth": "test"}'
 
         with patch(
-            "griddy.nfl.basesdk.utils.match_response", return_value=True
+            "griddy.core.basesdk.utils.match_response", return_value=True
         ) as mock_match:
-            with patch("griddy.nfl.basesdk.unmarshal_json_response") as mock_unmarshal:
+            with patch("griddy.core.basesdk.unmarshal_json_response") as mock_unmarshal:
                 mock_unmarshal.return_value = models.Security(nfl_auth="test")
 
                 result = base_sdk._handle_json_response(
@@ -277,10 +277,10 @@ class TestHandleJsonResponse:
             return False
 
         with patch(
-            "griddy.nfl.basesdk.utils.match_response", side_effect=match_side_effect
+            "griddy.core.basesdk.utils.match_response", side_effect=match_side_effect
         ):
             with patch(
-                "griddy.nfl.basesdk.utils.stream_to_text", return_value="Bad Request"
+                "griddy.core.basesdk.utils.stream_to_text", return_value="Bad Request"
             ):
                 with pytest.raises(errors.GriddyNFLDefaultError) as exc_info:
                     base_sdk._handle_json_response(
@@ -308,10 +308,10 @@ class TestHandleJsonResponse:
             return False
 
         with patch(
-            "griddy.nfl.basesdk.utils.match_response", side_effect=match_side_effect
+            "griddy.core.basesdk.utils.match_response", side_effect=match_side_effect
         ):
             with patch(
-                "griddy.nfl.basesdk.utils.stream_to_text",
+                "griddy.core.basesdk.utils.stream_to_text",
                 return_value="Internal Server Error",
             ):
                 with pytest.raises(errors.GriddyNFLDefaultError) as exc_info:
@@ -331,7 +331,7 @@ class TestHandleJsonResponse:
         mock_response.url = "https://api.test.com/endpoint"
         mock_response.text = "Redirect"
 
-        with patch("griddy.nfl.basesdk.utils.match_response", return_value=False):
+        with patch("griddy.core.basesdk.utils.match_response", return_value=False):
             with pytest.raises(errors.GriddyNFLDefaultError) as exc_info:
                 base_sdk._handle_json_response(
                     mock_response, models.Security, ["400", "401", "4XX", "500", "5XX"]
@@ -353,9 +353,9 @@ class TestHandleJsonResponseAsync:
         mock_response.text = '{"nfl_auth": "test"}'
 
         with patch(
-            "griddy.nfl.basesdk.utils.match_response", return_value=True
+            "griddy.core.basesdk.utils.match_response", return_value=True
         ) as mock_match:
-            with patch("griddy.nfl.basesdk.unmarshal_json_response") as mock_unmarshal:
+            with patch("griddy.core.basesdk.unmarshal_json_response") as mock_unmarshal:
                 mock_unmarshal.return_value = models.Security(nfl_auth="test")
 
                 result = await base_sdk._handle_json_response_async(
@@ -383,10 +383,10 @@ class TestHandleJsonResponseAsync:
             return False
 
         with patch(
-            "griddy.nfl.basesdk.utils.match_response", side_effect=match_side_effect
+            "griddy.core.basesdk.utils.match_response", side_effect=match_side_effect
         ):
             with patch(
-                "griddy.nfl.basesdk.utils.stream_to_text_async",
+                "griddy.core.basesdk.utils.stream_to_text_async",
                 new_callable=AsyncMock,
                 return_value="Bad Request",
             ):
@@ -408,7 +408,7 @@ class TestHandleJsonResponseAsync:
         mock_response.url = "https://api.test.com/endpoint"
         mock_response.text = "Redirect"
 
-        with patch("griddy.nfl.basesdk.utils.match_response", return_value=False):
+        with patch("griddy.core.basesdk.utils.match_response", return_value=False):
             with pytest.raises(errors.GriddyNFLDefaultError) as exc_info:
                 await base_sdk._handle_json_response_async(
                     mock_response, models.Security, ["400", "401", "4XX", "500", "5XX"]

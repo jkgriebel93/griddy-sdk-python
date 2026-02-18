@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from griddy.core.utils import (
+from griddy.core.base_utils import (
     Cookie,
     build_url,
     clean_text,
