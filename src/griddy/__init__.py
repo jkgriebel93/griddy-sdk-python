@@ -29,13 +29,14 @@ https://jkgriebel93.github.io/griddy-sdk-python
 from . import core
 
 # Version - synced with pyproject.toml
-__version__ = "0.7.0"
+__version__ = "0.10.0"
 
 # Main exports
 __all__ = [
     "__version__",
     "core",
     "nfl",
+    "pfr",
     # Exceptions
     "GriddyError",
     "APIError",
