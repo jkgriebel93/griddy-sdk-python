@@ -19,10 +19,10 @@ from uuid import uuid4
 import httpx
 
 from griddy import settings
+from griddy.core._lazy_load import LazySubSDKMixin
 
 from ..nfl import models, utils
 from ._hooks import SDKHooks
-from ._lazy_load import LazySubSDKMixin
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
 from .sdkconfiguration import SDKConfiguration

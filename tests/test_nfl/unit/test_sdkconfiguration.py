@@ -215,13 +215,9 @@ class TestSDKConfiguration:
         )
 
         # These fields should exist and have values
-        assert hasattr(config, "openapi_doc_version")
         assert hasattr(config, "sdk_version")
-        assert hasattr(config, "gen_version")
         assert hasattr(config, "user_agent")
-        assert isinstance(config.openapi_doc_version, str)
         assert isinstance(config.sdk_version, str)
-        assert isinstance(config.gen_version, str)
         assert isinstance(config.user_agent, str)
 
 

@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Working Conventions
+- When context usage exceeds 60%, proactively summarize current task state under "## Current Task" in this file
+- Run /compact proactively rather than waiting for the context limit
+
 ## Build and Test Commands
 
 ```bash

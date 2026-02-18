@@ -1,7 +1,7 @@
 import builtins
 from typing import TYPE_CHECKING
 
-from griddy.nfl._import import dynamic_import
+from griddy.core._import import dynamic_import
 
 if TYPE_CHECKING:
     from griddy.nfl.models.entities.combine_events import (
