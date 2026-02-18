@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
-from griddy.nfl._lazy_load import LazySubSDKMixin
+from griddy.core._lazy_load import LazySubSDKMixin
 from griddy.nfl.basesdk import BaseSDK
 from griddy.nfl.sdkconfiguration import SDKConfiguration
 

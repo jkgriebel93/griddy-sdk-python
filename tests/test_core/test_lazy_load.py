@@ -1,12 +1,11 @@
 """Tests for griddy.nfl._lazy_load and griddy.nfl._import."""
 
-import sys
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
-from griddy.nfl._import import dynamic_import
-from griddy.nfl._lazy_load import LazySubSDKMixin
+from griddy.core._import import dynamic_import
+from griddy.core._lazy_load import LazySubSDKMixin
 
 
 @pytest.mark.unit
@@ -23,7 +22,7 @@ class TestDynamicImport:
             else __import__
         )
 
-        with patch("griddy.nfl._import.import_module") as mock_import:
+        with patch("griddy.core._import.import_module") as mock_import:
             # First call raises KeyError, second succeeds
             import json
 
@@ -33,7 +32,7 @@ class TestDynamicImport:
             assert mock_import.call_count == 2
 
     def test_all_retries_exhausted(self):
-        with patch("griddy.nfl._import.import_module") as mock_import:
+        with patch("griddy.core._import.import_module") as mock_import:
             mock_import.side_effect = KeyError("bad")
             with pytest.raises(KeyError, match="Failed to import"):
                 dynamic_import("nonexistent_module", retries=2)
