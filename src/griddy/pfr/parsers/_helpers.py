@@ -29,6 +29,14 @@ def safe_numeric(value: str) -> Any:
         return value
 
 
+def safe_float(value: str) -> Optional[float]:
+    """Convert a string to float, returning None for empty/non-numeric values."""
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return None
+
+
 def safe_pct(value: str) -> Optional[float]:
     """Convert a percentage string (e.g. ``'63.46%'``) to a float.
 
