@@ -15,6 +15,8 @@ Provides:
   (``/friv/birthplaces.cgi``)
 - ``get_players_born_before()`` — Active players born on or before a date
   (``/friv/age.cgi``)
+- ``get_uniform_numbers()`` — Players who wore a specific uniform number
+  (``/players/uniform.cgi``)
 """
 
 from typing import Optional
@@ -24,6 +26,7 @@ from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
+from griddy.pfr.parsers.uniform_numbers import UniformNumbersParser
 from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
 
 from ..basesdk import BaseSDK, EndpointConfig
@@ -34,6 +37,7 @@ from ..models import (
     MultiTeamPlayers,
     PlayersBornBefore,
     StatisticalMilestones,
+    UniformNumbers,
     UpcomingMilestones,
 )
 
@@ -43,6 +47,7 @@ _upcoming_parser = UpcomingMilestonesParser()
 _birthdays_parser = BirthdaysParser()
 _birthplaces_parser = BirthplacesParser()
 _born_before_parser = PlayersBornBeforeParser()
+_uniform_numbers_parser = UniformNumbersParser()
 
 
 class Frivolities(BaseSDK):
@@ -396,3 +401,56 @@ class Frivolities(BaseSDK):
         )
         data = self._execute_endpoint(config)
         return PlayersBornBefore.model_validate(data)
+
+    # ── Players By Uniform Number ──────────────────────────────────────
+
+    def _get_uniform_numbers_config(
+        self,
+        *,
+        number: int,
+        team: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        query: dict[str, str] = {"number": str(number)}
+        if team:
+            query["team"] = team
+
+        return EndpointConfig(
+            path_template="/players/uniform.cgi",
+            operation_id="getUniformNumbers",
+            wait_for_element="#uniform_number",
+            parser=_uniform_numbers_parser.parse,
+            response_type=UniformNumbers,
+            query_params=query,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_uniform_numbers(
+        self,
+        *,
+        number: int,
+        team: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+    ) -> UniformNumbers:
+        """Fetch players who wore a specific uniform number.
+
+        Scrapes the PFR page at ``/players/uniform.cgi`` and returns
+        a list of players who wore the specified number, optionally
+        filtered by team/franchise.
+
+        Args:
+            number: The uniform number to look up (e.g. ``6``).
+            team: Optional PFR team abbreviation (e.g. ``"pit"``).
+                When omitted, returns all players across all teams.
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.UniformNumbers` instance
+            containing the player listing.
+        """
+        config = self._get_uniform_numbers_config(
+            number=number, team=team, timeout_ms=timeout_ms
+        )
+        data = self._execute_endpoint(config)
+        return UniformNumbers.model_validate(data)
