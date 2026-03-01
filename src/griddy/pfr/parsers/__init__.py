@@ -6,6 +6,7 @@ Re-exports the individual parser classes for convenient access::
 """
 
 from .awards import AwardsParser
+from .birthdays import BirthdaysParser
 from .coach_profile import CoachProfileParser
 from .draft import DraftParser
 from .executive_profile import ExecutiveProfileParser
@@ -27,6 +28,7 @@ from .upcoming_milestones import UpcomingMilestonesParser
 
 __all__ = [
     "AwardsParser",
+    "BirthdaysParser",
     "CoachProfileParser",
     "DraftParser",
     "ExecutiveProfileParser",

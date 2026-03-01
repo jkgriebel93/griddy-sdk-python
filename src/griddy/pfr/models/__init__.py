@@ -18,6 +18,12 @@ if TYPE_CHECKING:
         ProBowlRoster,
         ProBowlRosterTypedDict,
     )
+    from griddy.pfr.models.entities.birthdays import (
+        BirthdayPlayer,
+        BirthdayPlayerTypedDict,
+        Birthdays,
+        BirthdaysTypedDict,
+    )
     from griddy.pfr.models.entities.coach_profile import (
         ChallengeResult,
         ChallengeResultTypedDict,
@@ -263,6 +269,10 @@ if TYPE_CHECKING:
     )
 
 __all__ = [
+    "BirthdayPlayer",
+    "BirthdayPlayerTypedDict",
+    "Birthdays",
+    "BirthdaysTypedDict",
     "AwardHistory",
     "AwardHistoryTypedDict",
     "AwardWinner",
@@ -486,6 +496,10 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "BirthdayPlayer": ".entities.birthdays",
+    "BirthdayPlayerTypedDict": ".entities.birthdays",
+    "Birthdays": ".entities.birthdays",
+    "BirthdaysTypedDict": ".entities.birthdays",
     "AwardHistory": ".entities.awards",
     "AwardHistoryTypedDict": ".entities.awards",
     "AwardWinner": ".entities.awards",
