@@ -9,11 +9,16 @@ Provides:
   (``/friv/upcoming-milestones.htm``)
 - ``get_birthdays()`` — Players born on a given month/day
   (``/friv/birthdays.cgi``)
+- ``get_birthplaces()`` — Location summary with player counts
+  (``/friv/birthplaces.htm``)
+- ``get_birthplace_players()`` — Players born in a specific country/state
+  (``/friv/birthplaces.cgi``)
 """
 
 from typing import Optional
 
 from griddy.pfr.parsers.birthdays import BirthdaysParser
+from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
@@ -21,6 +26,8 @@ from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import (
     Birthdays,
+    BirthplaceFiltered,
+    BirthplaceLanding,
     MultiTeamPlayers,
     StatisticalMilestones,
     UpcomingMilestones,
@@ -30,6 +37,7 @@ _multi_team_parser = MultiTeamPlayersParser()
 _milestones_parser = StatisticalMilestonesParser()
 _upcoming_parser = UpcomingMilestonesParser()
 _birthdays_parser = BirthdaysParser()
+_birthplaces_parser = BirthplacesParser()
 
 
 class Frivolities(BaseSDK):
@@ -242,3 +250,89 @@ class Frivolities(BaseSDK):
         config = self._get_birthdays_config(month=month, day=day, timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return Birthdays.model_validate(data)
+
+    # ── Birthplaces ───────────────────────────────────────────────────
+
+    def _get_birthplaces_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/birthplaces.htm",
+            operation_id="getBirthplaces",
+            wait_for_element="#birthplaces",
+            parser=_birthplaces_parser.parse_landing,
+            response_type=BirthplaceLanding,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_birthplaces(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> BirthplaceLanding:
+        """Fetch the birthplaces landing page with location summaries.
+
+        Scrapes the PFR page at ``/friv/birthplaces.htm`` and returns
+        a table of countries and states with player counts, hall of
+        famers, and notable player highlights.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.BirthplaceLanding` instance
+            containing the location summary table.
+        """
+        config = self._get_birthplaces_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return BirthplaceLanding.model_validate(data)
+
+    def _get_birthplace_players_config(
+        self,
+        *,
+        country: str,
+        state: str = "",
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/birthplaces.cgi",
+            operation_id="getBirthplacePlayers",
+            wait_for_element="#birthplaces",
+            parser=_birthplaces_parser.parse_filtered,
+            response_type=BirthplaceFiltered,
+            query_params={"country": country, "state": state},
+            timeout_ms=timeout_ms,
+        )
+
+    def get_birthplace_players(
+        self,
+        *,
+        country: str,
+        state: str = "",
+        timeout_ms: Optional[int] = None,
+    ) -> BirthplaceFiltered:
+        """Fetch NFL players born in a specific country/state.
+
+        Scrapes the PFR page at ``/friv/birthplaces.cgi`` and returns
+        a list of players born in the given location with their career
+        statistics.
+
+        Args:
+            country: Country code (e.g. ``"USA"``).
+            state: State abbreviation (e.g. ``"PA"``). Defaults to
+                empty string for country-level results.
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.BirthplaceFiltered` instance
+            containing the player listing with career stats.
+        """
+        config = self._get_birthplace_players_config(
+            country=country, state=state, timeout_ms=timeout_ms
+        )
+        data = self._execute_endpoint(config)
+        return BirthplaceFiltered.model_validate(data)
