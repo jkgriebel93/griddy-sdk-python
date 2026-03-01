@@ -3,6 +3,8 @@
 Covers:
 - Multi-Team Players
   (``/friv/players-who-played-for-multiple-teams-franchises.fcgi``)
+- Statistical Milestones
+  (``/friv/milestones.cgi``)
 """
 
 from unittest.mock import patch
@@ -10,18 +12,23 @@ from unittest.mock import patch
 import pytest
 
 from griddy.pfr.models import (
+    CareerLeader,
+    MilestoneEntry,
     MultiTeamPlayers,
     MultiTeamPlayerStats,
+    StatisticalMilestones,
     StatsTable,
     TopPlayerSummary,
 )
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
+from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.sdk import GriddyPFR
 from griddy.settings import FIXTURE_DIR
 
 FIXTURE_DIR = FIXTURE_DIR / "pfr" / "frivolities"
 
 _parser = MultiTeamPlayersParser()
+_milestones_parser = StatisticalMilestonesParser()
 
 # -------------------------------------------------------------------------
 # Fixtures
@@ -275,3 +282,200 @@ class TestEndpointConfig:
         assert isinstance(result, MultiTeamPlayers)
         assert result.total_players == 75
         assert len(result.stats_tables) == 4
+
+
+# #########################################################################
+#
+#  Statistical Milestones
+#
+# #########################################################################
+
+# -------------------------------------------------------------------------
+# Fixtures
+# -------------------------------------------------------------------------
+
+
+@pytest.fixture(scope="module")
+def milestones_html() -> str:
+    return (FIXTURE_DIR / "statistical_milestones_pass_td.html").read_text()
+
+
+@pytest.fixture(scope="module")
+def milestones_parsed(milestones_html: str) -> dict:
+    return _milestones_parser.parse(milestones_html)
+
+
+@pytest.fixture(scope="module")
+def milestones_model(milestones_parsed: dict) -> StatisticalMilestones:
+    return StatisticalMilestones.model_validate(milestones_parsed)
+
+
+# =========================================================================
+# Smoke tests
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestMilestonesSmoke:
+    def test_parse_returns_dict(self, milestones_parsed):
+        assert isinstance(milestones_parsed, dict)
+
+    def test_has_required_keys(self, milestones_parsed):
+        assert "title" in milestones_parsed
+        assert "stat" in milestones_parsed
+        assert "milestones" in milestones_parsed
+        assert "career_leaders" in milestones_parsed
+
+    def test_model_validates(self, milestones_model):
+        assert isinstance(milestones_model, StatisticalMilestones)
+
+
+# =========================================================================
+# Title and metadata
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestMilestonesMetadata:
+    def test_title(self, milestones_model):
+        assert milestones_model.title == "NFL Milestone Watch: Passing TD"
+
+    def test_stat(self, milestones_model):
+        assert milestones_model.stat == "pass_td"
+
+
+# =========================================================================
+# Milestones table
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestMilestonesTable:
+    def test_milestone_count(self, milestones_model):
+        assert len(milestones_model.milestones) == 15
+
+    def test_milestone_types(self, milestones_model):
+        for m in milestones_model.milestones:
+            assert isinstance(m, MilestoneEntry)
+
+    def test_first_milestone(self, milestones_model):
+        first = milestones_model.milestones[0]
+        assert first.player == "Aaron Rodgers"
+        assert first.player_id == "RodgAa00"
+        assert first.player_href == "/players/R/RodgAa00.htm"
+        assert first.value == 527
+        assert first.needed == "23 to milestone"
+        assert first.milestone == "550 Passing TD"
+
+    def test_second_milestone_threshold(self, milestones_model):
+        second = milestones_model.milestones[1]
+        assert second.player == "Philip Rivers"
+        assert second.milestone == "450 Passing TD"
+        assert second.value == 425
+
+    def test_players_under_same_milestone(self, milestones_model):
+        # Baker Mayfield and Lamar Jackson are both under "200 Passing TD"
+        mayfield = milestones_model.milestones[4]
+        jackson = milestones_model.milestones[5]
+        assert mayfield.player == "Baker Mayfield"
+        assert mayfield.milestone == "200 Passing TD"
+        assert jackson.player == "Lamar Jackson"
+        assert jackson.milestone == "200 Passing TD"
+
+    def test_last_milestone(self, milestones_model):
+        last = milestones_model.milestones[-1]
+        assert last.player == "Teddy Bridgewater"
+        assert last.value == 75
+        assert last.needed == "25 to milestone"
+
+
+# =========================================================================
+# Career leaders table
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestCareerLeaders:
+    def test_leader_count(self, milestones_model):
+        assert len(milestones_model.career_leaders) == 25
+
+    def test_leader_types(self, milestones_model):
+        for leader in milestones_model.career_leaders:
+            assert isinstance(leader, CareerLeader)
+
+    def test_first_leader(self, milestones_model):
+        first = milestones_model.career_leaders[0]
+        assert first.rank == 1
+        assert first.player == "Tom Brady"
+        assert first.player_id == "BradTo00"
+        assert first.player_href == "/players/B/BradTo00.htm"
+        assert first.value == 649
+        assert first.is_active is False
+        assert first.needed is None
+
+    def test_active_player(self, milestones_model):
+        # Aaron Rodgers is rank 4 and active
+        rodgers = milestones_model.career_leaders[3]
+        assert rodgers.rank == 4
+        assert rodgers.player == "Aaron Rodgers"
+        assert rodgers.player_id == "RodgAa00"
+        assert rodgers.value == 527
+        assert rodgers.is_active is True
+        assert rodgers.needed == "(needs 13 to move into 3rd place)"
+
+    def test_hof_player(self, milestones_model):
+        # Drew Brees is a HOF player (has * after name)
+        brees = milestones_model.career_leaders[1]
+        assert brees.rank == 2
+        assert brees.player == "Drew Brees"
+        assert brees.is_active is False
+
+    def test_last_leader(self, milestones_model):
+        last = milestones_model.career_leaders[-1]
+        assert last.rank == 25
+        assert last.player == "Jared Goff"
+        assert last.is_active is True
+
+
+# =========================================================================
+# Parser error handling
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestMilestonesParserErrors:
+    def test_raises_on_missing_milestones_table(self):
+        with pytest.raises(ValueError, match="Could not find milestones table"):
+            _milestones_parser.parse("<html><body>No tables here</body></html>")
+
+
+# =========================================================================
+# Endpoint config
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestMilestonesEndpointConfig:
+    def test_config_basic(self):
+        pfr = GriddyPFR()
+        config = pfr.frivolities._get_statistical_milestones_config(stat="pass_td")
+        assert config.query_params["stat"] == "pass_td"
+        assert config.operation_id == "getStatisticalMilestones"
+
+    def test_config_different_stat(self):
+        pfr = GriddyPFR()
+        config = pfr.frivolities._get_statistical_milestones_config(stat="rush_yds")
+        assert config.query_params["stat"] == "rush_yds"
+
+    def test_endpoint_via_mock(self, milestones_html):
+        pfr = GriddyPFR()
+        with patch.object(
+            pfr.frivolities.browserless,
+            "get_page_content",
+            return_value=milestones_html,
+        ):
+            result = pfr.frivolities.get_statistical_milestones(stat="pass_td")
+        assert isinstance(result, StatisticalMilestones)
+        assert result.stat == "pass_td"
+        assert len(result.milestones) == 15
+        assert len(result.career_leaders) == 25
