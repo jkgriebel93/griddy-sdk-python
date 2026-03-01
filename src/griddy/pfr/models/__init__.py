@@ -253,6 +253,14 @@ if TYPE_CHECKING:
         TeamSeasonMetaTypedDict,
         TeamSeasonTypedDict,
     )
+    from griddy.pfr.models.entities.upcoming_milestones import (
+        UpcomingLeaderboardEntry,
+        UpcomingLeaderboardEntryTypedDict,
+        UpcomingMilestoneEntry,
+        UpcomingMilestoneEntryTypedDict,
+        UpcomingMilestones,
+        UpcomingMilestonesTypedDict,
+    )
 
 __all__ = [
     "AwardHistory",
@@ -469,6 +477,12 @@ __all__ = [
     "MilestoneEntryTypedDict",
     "StatisticalMilestones",
     "StatisticalMilestonesTypedDict",
+    "UpcomingLeaderboardEntry",
+    "UpcomingLeaderboardEntryTypedDict",
+    "UpcomingMilestoneEntry",
+    "UpcomingMilestoneEntryTypedDict",
+    "UpcomingMilestones",
+    "UpcomingMilestonesTypedDict",
 ]
 
 _dynamic_imports: dict[str, str] = {
@@ -686,6 +700,12 @@ _dynamic_imports: dict[str, str] = {
     "MilestoneEntryTypedDict": ".entities.statistical_milestones",
     "StatisticalMilestones": ".entities.statistical_milestones",
     "StatisticalMilestonesTypedDict": ".entities.statistical_milestones",
+    "UpcomingLeaderboardEntry": ".entities.upcoming_milestones",
+    "UpcomingLeaderboardEntryTypedDict": ".entities.upcoming_milestones",
+    "UpcomingMilestoneEntry": ".entities.upcoming_milestones",
+    "UpcomingMilestoneEntryTypedDict": ".entities.upcoming_milestones",
+    "UpcomingMilestones": ".entities.upcoming_milestones",
+    "UpcomingMilestonesTypedDict": ".entities.upcoming_milestones",
 }
 
 

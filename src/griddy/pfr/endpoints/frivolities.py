@@ -5,18 +5,22 @@ Provides:
   (``/friv/players-who-played-for-multiple-teams-franchises.fcgi``)
 - ``get_statistical_milestones()`` — Milestone watch and career leaders
   (``/friv/milestones.cgi``)
+- ``get_upcoming_milestones()`` — Upcoming milestones and leaderboard movement
+  (``/friv/upcoming-milestones.htm``)
 """
 
 from typing import Optional
 
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
+from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
 
 from ..basesdk import BaseSDK, EndpointConfig
-from ..models import MultiTeamPlayers, StatisticalMilestones
+from ..models import MultiTeamPlayers, StatisticalMilestones, UpcomingMilestones
 
 _multi_team_parser = MultiTeamPlayersParser()
 _milestones_parser = StatisticalMilestonesParser()
+_upcoming_parser = UpcomingMilestonesParser()
 
 
 class Frivolities(BaseSDK):
@@ -145,3 +149,42 @@ class Frivolities(BaseSDK):
         )
         data = self._execute_endpoint(config)
         return StatisticalMilestones.model_validate(data)
+
+    # ── Upcoming Milestones ───────────────────────────────────────
+
+    def _get_upcoming_milestones_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/upcoming-milestones.htm",
+            operation_id="getUpcomingMilestones",
+            wait_for_element="#upcoming_milestones",
+            parser=_upcoming_parser.parse,
+            response_type=UpcomingMilestones,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_upcoming_milestones(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> UpcomingMilestones:
+        """Fetch upcoming milestones and leaderboard movements.
+
+        Scrapes the PFR page at ``/friv/upcoming-milestones.htm`` and
+        returns players who may hit a milestone or move up the career
+        leaderboard in their next game.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.UpcomingMilestones` instance
+            containing milestone entries and leaderboard entries.
+        """
+        config = self._get_upcoming_milestones_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return UpcomingMilestones.model_validate(data)
