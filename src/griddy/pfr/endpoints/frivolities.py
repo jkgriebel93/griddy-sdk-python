@@ -19,6 +19,8 @@ Provides:
   (``/players/uniform.cgi``)
 - ``get_qb_wins_vs_franchises()`` — QBs who beat every (or nearly every) franchise
   (``/friv/qb-wins.htm``)
+- ``get_non_qb_passers()`` — Non-QB players who have thrown a pass
+  (``/friv/nonqb.htm``)
 """
 
 from typing import Optional
@@ -26,6 +28,7 @@ from typing import Optional
 from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
+from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
@@ -38,6 +41,7 @@ from ..models import (
     BirthplaceFiltered,
     BirthplaceLanding,
     MultiTeamPlayers,
+    NonQBPassers,
     PlayersBornBefore,
     QBWins,
     StatisticalMilestones,
@@ -53,6 +57,7 @@ _birthplaces_parser = BirthplacesParser()
 _born_before_parser = PlayersBornBeforeParser()
 _uniform_numbers_parser = UniformNumbersParser()
 _qb_wins_parser = QBWinsParser()
+_non_qb_passers_parser = NonQBPassersParser()
 
 
 class Frivolities(BaseSDK):
@@ -498,3 +503,41 @@ class Frivolities(BaseSDK):
         config = self._get_qb_wins_vs_franchises_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return QBWins.model_validate(data)
+
+    # ── Non-Quarterback Passers ──────────────────────────────────────────
+
+    def _get_non_qb_passers_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/nonqb.htm",
+            operation_id="getNonQBPassers",
+            wait_for_element="#nonqb_passers",
+            parser=_non_qb_passers_parser.parse,
+            response_type=NonQBPassers,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_non_qb_passers(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> NonQBPassers:
+        """Fetch non-quarterback players who have thrown a pass.
+
+        Scrapes the PFR page at ``/friv/nonqb.htm`` and returns a list
+        of non-QB players with their passing statistics.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.NonQBPassers` instance
+            containing the player entries with passing stats.
+        """
+        config = self._get_non_qb_passers_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return NonQBPassers.model_validate(data)

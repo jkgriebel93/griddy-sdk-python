@@ -148,6 +148,12 @@ if TYPE_CHECKING:
         TopPlayerSummary,
         TopPlayerSummaryTypedDict,
     )
+    from griddy.pfr.models.entities.non_qb_passers import (
+        NonQBPasserEntry,
+        NonQBPasserEntryTypedDict,
+        NonQBPassers,
+        NonQBPassersTypedDict,
+    )
     from griddy.pfr.models.entities.official_profile import (
         OfficialBio,
         OfficialBioTypedDict,
@@ -313,6 +319,10 @@ __all__ = [
     "PlayerBornBeforeTypedDict",
     "PlayersBornBefore",
     "PlayersBornBeforeTypedDict",
+    "NonQBPasserEntry",
+    "NonQBPasserEntryTypedDict",
+    "NonQBPassers",
+    "NonQBPassersTypedDict",
     "QBWinEntry",
     "QBWinEntryTypedDict",
     "QBWins",
@@ -560,6 +570,10 @@ _dynamic_imports: dict[str, str] = {
     "PlayerBornBeforeTypedDict": ".entities.players_born_before",
     "PlayersBornBefore": ".entities.players_born_before",
     "PlayersBornBeforeTypedDict": ".entities.players_born_before",
+    "NonQBPasserEntry": ".entities.non_qb_passers",
+    "NonQBPasserEntryTypedDict": ".entities.non_qb_passers",
+    "NonQBPassers": ".entities.non_qb_passers",
+    "NonQBPassersTypedDict": ".entities.non_qb_passers",
     "QBWinEntry": ".entities.qb_wins",
     "QBWinEntryTypedDict": ".entities.qb_wins",
     "QBWins": ".entities.qb_wins",
