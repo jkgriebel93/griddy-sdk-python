@@ -178,6 +178,12 @@ if TYPE_CHECKING:
         Transaction,
         TransactionTypedDict,
     )
+    from griddy.pfr.models.entities.players_born_before import (
+        PlayerBornBefore,
+        PlayerBornBeforeTypedDict,
+        PlayersBornBefore,
+        PlayersBornBeforeTypedDict,
+    )
     from griddy.pfr.models.entities.schedule_game import (
         ScheduleGame,
         ScheduleGameTypedDict,
@@ -291,6 +297,10 @@ __all__ = [
     "BirthplaceLocationTypedDict",
     "BirthplacePlayer",
     "BirthplacePlayerTypedDict",
+    "PlayerBornBefore",
+    "PlayerBornBeforeTypedDict",
+    "PlayersBornBefore",
+    "PlayersBornBeforeTypedDict",
     "AwardHistory",
     "AwardHistoryTypedDict",
     "AwardWinner",
@@ -526,6 +536,10 @@ _dynamic_imports: dict[str, str] = {
     "BirthplaceLocationTypedDict": ".entities.birthplaces",
     "BirthplacePlayer": ".entities.birthplaces",
     "BirthplacePlayerTypedDict": ".entities.birthplaces",
+    "PlayerBornBefore": ".entities.players_born_before",
+    "PlayerBornBeforeTypedDict": ".entities.players_born_before",
+    "PlayersBornBefore": ".entities.players_born_before",
+    "PlayersBornBeforeTypedDict": ".entities.players_born_before",
     "AwardHistory": ".entities.awards",
     "AwardHistoryTypedDict": ".entities.awards",
     "AwardWinner": ".entities.awards",

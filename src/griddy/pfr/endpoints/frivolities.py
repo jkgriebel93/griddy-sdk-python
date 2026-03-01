@@ -13,6 +13,8 @@ Provides:
   (``/friv/birthplaces.htm``)
 - ``get_birthplace_players()`` — Players born in a specific country/state
   (``/friv/birthplaces.cgi``)
+- ``get_players_born_before()`` — Active players born on or before a date
+  (``/friv/age.cgi``)
 """
 
 from typing import Optional
@@ -20,6 +22,7 @@ from typing import Optional
 from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
+from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
 
@@ -29,6 +32,7 @@ from ..models import (
     BirthplaceFiltered,
     BirthplaceLanding,
     MultiTeamPlayers,
+    PlayersBornBefore,
     StatisticalMilestones,
     UpcomingMilestones,
 )
@@ -38,6 +42,7 @@ _milestones_parser = StatisticalMilestonesParser()
 _upcoming_parser = UpcomingMilestonesParser()
 _birthdays_parser = BirthdaysParser()
 _birthplaces_parser = BirthplacesParser()
+_born_before_parser = PlayersBornBeforeParser()
 
 
 class Frivolities(BaseSDK):
@@ -336,3 +341,58 @@ class Frivolities(BaseSDK):
         )
         data = self._execute_endpoint(config)
         return BirthplaceFiltered.model_validate(data)
+
+    # ── Players Born Before a Date ────────────────────────────────────
+
+    def _get_players_born_before_config(
+        self,
+        *,
+        month: int,
+        day: int,
+        year: int,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/age.cgi",
+            operation_id="getPlayersBornBefore",
+            wait_for_element="#players",
+            parser=_born_before_parser.parse,
+            response_type=PlayersBornBefore,
+            query_params={
+                "month": str(month),
+                "day": str(day),
+                "year": str(year),
+            },
+            timeout_ms=timeout_ms,
+        )
+
+    def get_players_born_before(
+        self,
+        *,
+        month: int,
+        day: int,
+        year: int,
+        timeout_ms: Optional[int] = None,
+    ) -> PlayersBornBefore:
+        """Fetch active players born on or before a given date.
+
+        Scrapes the PFR page at ``/friv/age.cgi`` and returns a list of
+        active players born on or before the specified date with their
+        career statistics.
+
+        Args:
+            month: Birth month (1–12).
+            day: Birth day (1–31).
+            year: Birth year (e.g. ``1993``).
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.PlayersBornBefore` instance
+            containing the player listing with career stats.
+        """
+        config = self._get_players_born_before_config(
+            month=month, day=day, year=year, timeout_ms=timeout_ms
+        )
+        data = self._execute_endpoint(config)
+        return PlayersBornBefore.model_validate(data)
