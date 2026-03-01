@@ -21,6 +21,8 @@ Provides:
   (``/friv/qb-wins.htm``)
 - ``get_non_qb_passers()`` — Non-QB players who have thrown a pass
   (``/friv/nonqb.htm``)
+- ``get_non_skill_pos_td_scorers()`` — Non-skill position TD scorers
+  (``/friv/odd_td.htm``)
 """
 
 from typing import Optional
@@ -29,6 +31,7 @@ from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
+from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
@@ -42,6 +45,7 @@ from ..models import (
     BirthplaceLanding,
     MultiTeamPlayers,
     NonQBPassers,
+    NonSkillPosTdScorers,
     PlayersBornBefore,
     QBWins,
     StatisticalMilestones,
@@ -58,6 +62,7 @@ _born_before_parser = PlayersBornBeforeParser()
 _uniform_numbers_parser = UniformNumbersParser()
 _qb_wins_parser = QBWinsParser()
 _non_qb_passers_parser = NonQBPassersParser()
+_non_skill_pos_td_parser = NonSkillPosTdParser()
 
 
 class Frivolities(BaseSDK):
@@ -541,3 +546,42 @@ class Frivolities(BaseSDK):
         config = self._get_non_qb_passers_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return NonQBPassers.model_validate(data)
+
+    # ── Non-Skill Position TD Scorers ─────────────────────────────────────
+
+    def _get_non_skill_pos_td_scorers_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/odd_td.htm",
+            operation_id="getNonSkillPosTdScorers",
+            wait_for_element="#odd_scorers",
+            parser=_non_skill_pos_td_parser.parse,
+            response_type=NonSkillPosTdScorers,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_non_skill_pos_td_scorers(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> NonSkillPosTdScorers:
+        """Fetch non-skill position players who scored an offensive TD.
+
+        Scrapes the PFR page at ``/friv/odd_td.htm`` and returns a list
+        of game-level instances where non-skill position players scored
+        an offensive touchdown, with rushing and receiving stats.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.NonSkillPosTdScorers` instance
+            containing the scoring entries.
+        """
+        config = self._get_non_skill_pos_td_scorers_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return NonSkillPosTdScorers.model_validate(data)
