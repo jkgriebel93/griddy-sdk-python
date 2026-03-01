@@ -7,20 +7,29 @@ Provides:
   (``/friv/milestones.cgi``)
 - ``get_upcoming_milestones()`` — Upcoming milestones and leaderboard movement
   (``/friv/upcoming-milestones.htm``)
+- ``get_birthdays()`` — Players born on a given month/day
+  (``/friv/birthdays.cgi``)
 """
 
 from typing import Optional
 
+from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
 
 from ..basesdk import BaseSDK, EndpointConfig
-from ..models import MultiTeamPlayers, StatisticalMilestones, UpcomingMilestones
+from ..models import (
+    Birthdays,
+    MultiTeamPlayers,
+    StatisticalMilestones,
+    UpcomingMilestones,
+)
 
 _multi_team_parser = MultiTeamPlayersParser()
 _milestones_parser = StatisticalMilestonesParser()
 _upcoming_parser = UpcomingMilestonesParser()
+_birthdays_parser = BirthdaysParser()
 
 
 class Frivolities(BaseSDK):
@@ -188,3 +197,48 @@ class Frivolities(BaseSDK):
         config = self._get_upcoming_milestones_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return UpcomingMilestones.model_validate(data)
+
+    # ── Birthdays ──────────────────────────────────────────────────
+
+    def _get_birthdays_config(
+        self,
+        *,
+        month: int,
+        day: int,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/birthdays.cgi",
+            operation_id="getBirthdays",
+            wait_for_element="#birthdays",
+            parser=_birthdays_parser.parse,
+            response_type=Birthdays,
+            query_params={"month": str(month), "day": str(day)},
+            timeout_ms=timeout_ms,
+        )
+
+    def get_birthdays(
+        self,
+        *,
+        month: int,
+        day: int,
+        timeout_ms: Optional[int] = None,
+    ) -> Birthdays:
+        """Fetch NFL players born on a given month and day.
+
+        Scrapes the PFR page at ``/friv/birthdays.cgi`` and returns
+        a list of players with their career statistics.
+
+        Args:
+            month: Birth month (1–12).
+            day: Birth day (1–31).
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.Birthdays` instance
+            containing the player listing with career stats.
+        """
+        config = self._get_birthdays_config(month=month, day=day, timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return Birthdays.model_validate(data)
