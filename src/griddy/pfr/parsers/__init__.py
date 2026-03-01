@@ -17,6 +17,7 @@ from .leaders import LeadersParser
 from .multi_team_players import MultiTeamPlayersParser
 from .official_profile import OfficialProfileParser
 from .player_profile import PlayerProfileParser
+from .players_born_before import PlayersBornBeforeParser
 from .schedule import ScheduleParser
 from .schools import SchoolsParser
 from .season_overview import SeasonOverviewParser
@@ -31,6 +32,7 @@ __all__ = [
     "AwardsParser",
     "BirthdaysParser",
     "BirthplacesParser",
+    "PlayersBornBeforeParser",
     "CoachProfileParser",
     "DraftParser",
     "ExecutiveProfileParser",
