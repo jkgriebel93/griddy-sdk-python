@@ -17,6 +17,8 @@ Provides:
   (``/friv/age.cgi``)
 - ``get_uniform_numbers()`` — Players who wore a specific uniform number
   (``/players/uniform.cgi``)
+- ``get_qb_wins_vs_franchises()`` — QBs who beat every (or nearly every) franchise
+  (``/friv/qb-wins.htm``)
 """
 
 from typing import Optional
@@ -25,6 +27,7 @@ from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
+from griddy.pfr.parsers.qb_wins import QBWinsParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.uniform_numbers import UniformNumbersParser
 from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
@@ -36,6 +39,7 @@ from ..models import (
     BirthplaceLanding,
     MultiTeamPlayers,
     PlayersBornBefore,
+    QBWins,
     StatisticalMilestones,
     UniformNumbers,
     UpcomingMilestones,
@@ -48,6 +52,7 @@ _birthdays_parser = BirthdaysParser()
 _birthplaces_parser = BirthplacesParser()
 _born_before_parser = PlayersBornBeforeParser()
 _uniform_numbers_parser = UniformNumbersParser()
+_qb_wins_parser = QBWinsParser()
 
 
 class Frivolities(BaseSDK):
@@ -454,3 +459,42 @@ class Frivolities(BaseSDK):
         )
         data = self._execute_endpoint(config)
         return UniformNumbers.model_validate(data)
+
+    # ── Quarterback Wins vs. Each Franchise ──────────────────────────────
+
+    def _get_qb_wins_vs_franchises_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/qb-wins.htm",
+            operation_id="getQBWinsVsFranchises",
+            wait_for_element="#qb_wins",
+            parser=_qb_wins_parser.parse,
+            response_type=QBWins,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_qb_wins_vs_franchises(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> QBWins:
+        """Fetch quarterbacks who beat every (or nearly every) franchise.
+
+        Scrapes the PFR page at ``/friv/qb-wins.htm`` and returns a list
+        of quarterbacks with the number of franchises they beat and the
+        franchises they did not beat.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.QBWins` instance containing
+            the quarterback entries.
+        """
+        config = self._get_qb_wins_vs_franchises_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return QBWins.model_validate(data)
