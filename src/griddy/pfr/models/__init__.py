@@ -275,6 +275,12 @@ if TYPE_CHECKING:
         TeamSeasonMetaTypedDict,
         TeamSeasonTypedDict,
     )
+    from griddy.pfr.models.entities.uniform_numbers import (
+        UniformNumberPlayer,
+        UniformNumberPlayerTypedDict,
+        UniformNumbers,
+        UniformNumbersTypedDict,
+    )
     from griddy.pfr.models.entities.upcoming_milestones import (
         UpcomingLeaderboardEntry,
         UpcomingLeaderboardEntryTypedDict,
@@ -515,6 +521,10 @@ __all__ = [
     "MilestoneEntryTypedDict",
     "StatisticalMilestones",
     "StatisticalMilestonesTypedDict",
+    "UniformNumberPlayer",
+    "UniformNumberPlayerTypedDict",
+    "UniformNumbers",
+    "UniformNumbersTypedDict",
     "UpcomingLeaderboardEntry",
     "UpcomingLeaderboardEntryTypedDict",
     "UpcomingMilestoneEntry",
@@ -754,6 +764,10 @@ _dynamic_imports: dict[str, str] = {
     "MilestoneEntryTypedDict": ".entities.statistical_milestones",
     "StatisticalMilestones": ".entities.statistical_milestones",
     "StatisticalMilestonesTypedDict": ".entities.statistical_milestones",
+    "UniformNumberPlayer": ".entities.uniform_numbers",
+    "UniformNumberPlayerTypedDict": ".entities.uniform_numbers",
+    "UniformNumbers": ".entities.uniform_numbers",
+    "UniformNumbersTypedDict": ".entities.uniform_numbers",
     "UpcomingLeaderboardEntry": ".entities.upcoming_milestones",
     "UpcomingLeaderboardEntryTypedDict": ".entities.upcoming_milestones",
     "UpcomingMilestoneEntry": ".entities.upcoming_milestones",

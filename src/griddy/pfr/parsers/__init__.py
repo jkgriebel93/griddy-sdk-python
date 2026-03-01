@@ -26,6 +26,7 @@ from .statistical_milestones import StatisticalMilestonesParser
 from .superbowl import SuperBowlParser
 from .team_franchise import FranchiseParser
 from .team_season import TeamSeasonParser
+from .uniform_numbers import UniformNumbersParser
 from .upcoming_milestones import UpcomingMilestonesParser
 
 __all__ = [
@@ -50,5 +51,6 @@ __all__ = [
     "FranchiseParser",
     "StatisticalMilestonesParser",
     "TeamSeasonParser",
+    "UniformNumbersParser",
     "UpcomingMilestonesParser",
 ]
