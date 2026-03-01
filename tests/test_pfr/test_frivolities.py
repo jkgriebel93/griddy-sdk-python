@@ -19,9 +19,13 @@ from griddy.pfr.models import (
     StatisticalMilestones,
     StatsTable,
     TopPlayerSummary,
+    UpcomingLeaderboardEntry,
+    UpcomingMilestoneEntry,
+    UpcomingMilestones,
 )
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
+from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
 from griddy.pfr.sdk import GriddyPFR
 from griddy.settings import FIXTURE_DIR
 
@@ -29,6 +33,7 @@ FIXTURE_DIR = FIXTURE_DIR / "pfr" / "frivolities"
 
 _parser = MultiTeamPlayersParser()
 _milestones_parser = StatisticalMilestonesParser()
+_upcoming_parser = UpcomingMilestonesParser()
 
 # -------------------------------------------------------------------------
 # Fixtures
@@ -479,3 +484,206 @@ class TestMilestonesEndpointConfig:
         assert result.stat == "pass_td"
         assert len(result.milestones) == 15
         assert len(result.career_leaders) == 25
+
+
+# #########################################################################
+#
+#  Upcoming Milestones
+#
+# #########################################################################
+
+# -------------------------------------------------------------------------
+# Fixtures
+# -------------------------------------------------------------------------
+
+
+@pytest.fixture(scope="module")
+def upcoming_html() -> str:
+    return (FIXTURE_DIR / "upcoming_milestones.html").read_text()
+
+
+@pytest.fixture(scope="module")
+def upcoming_parsed(upcoming_html: str) -> dict:
+    return _upcoming_parser.parse(upcoming_html)
+
+
+@pytest.fixture(scope="module")
+def upcoming_model(upcoming_parsed: dict) -> UpcomingMilestones:
+    return UpcomingMilestones.model_validate(upcoming_parsed)
+
+
+# =========================================================================
+# Smoke tests
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestUpcomingSmoke:
+    def test_parse_returns_dict(self, upcoming_parsed):
+        assert isinstance(upcoming_parsed, dict)
+
+    def test_has_required_keys(self, upcoming_parsed):
+        assert "title" in upcoming_parsed
+        assert "description" in upcoming_parsed
+        assert "milestones" in upcoming_parsed
+        assert "leaderboards" in upcoming_parsed
+
+    def test_model_validates(self, upcoming_model):
+        assert isinstance(upcoming_model, UpcomingMilestones)
+
+
+# =========================================================================
+# Title and metadata
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestUpcomingMetadata:
+    def test_title(self, upcoming_model):
+        assert (
+            upcoming_model.title == "NFL Upcoming Milestones and Leaderboard Movement"
+        )
+
+    def test_description(self, upcoming_model):
+        assert upcoming_model.description.startswith(
+            "Potential leaderboard movements and milestones"
+        )
+
+
+# =========================================================================
+# Milestones table
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestUpcomingMilestonesTable:
+    def test_milestone_count(self, upcoming_model):
+        assert len(upcoming_model.milestones) == 17
+
+    def test_milestone_types(self, upcoming_model):
+        for m in upcoming_model.milestones:
+            assert isinstance(m, UpcomingMilestoneEntry)
+
+    def test_first_milestone(self, upcoming_model):
+        first = upcoming_model.milestones[0]
+        assert first.category == "Yds From Scrimmage"
+        assert first.player == "Christian McCaffrey"
+        assert first.player_href == "/players/M/McCaCh01.htm"
+        assert first.player_id == "McCaCh01"
+        assert first.value == 12979
+        assert first.needed == "21 to 13000"
+
+    def test_milestone_with_small_value(self, upcoming_model):
+        # Josh Allen — Rushing TD, value=79
+        allen = upcoming_model.milestones[1]
+        assert allen.player == "Josh Allen"
+        assert allen.category == "Rushing TD"
+        assert allen.value == 79
+        assert allen.needed == "1 to 80"
+
+    def test_last_milestone(self, upcoming_model):
+        last = upcoming_model.milestones[-1]
+        assert last.category == "Touchdowns"
+        assert last.player == "Nick Chubb"
+        assert last.player_id == "ChubNi00"
+        assert last.value == 59
+        assert last.needed == "1 to 60"
+
+    def test_categories_present(self, upcoming_model):
+        categories = {m.category for m in upcoming_model.milestones}
+        assert "Yds From Scrimmage" in categories
+        assert "Rushing TD" in categories
+        assert "Receiving Yds" in categories
+        assert "Passing TD" in categories
+        assert "Touchdowns" in categories
+
+
+# =========================================================================
+# Leaderboards table
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestUpcomingLeaderboardsTable:
+    def test_leaderboard_count(self, upcoming_model):
+        assert len(upcoming_model.leaderboards) == 43
+
+    def test_leaderboard_types(self, upcoming_model):
+        for lb in upcoming_model.leaderboards:
+            assert isinstance(lb, UpcomingLeaderboardEntry)
+
+    def test_first_leaderboard(self, upcoming_model):
+        first = upcoming_model.leaderboards[0]
+        assert first.category == "Yds From Scrimmage"
+        assert first.player == "Derrick Henry"
+        assert first.player_href == "/players/H/HenrDe00.htm"
+        assert first.player_id == "HenrDe00"
+        assert first.value == 14819
+        assert first.needed == "72 to 27th place"
+        assert first.leader_href == "/leaders/yds_from_scrimmage_career.htm"
+
+    def test_leaderboard_with_link(self, upcoming_model):
+        # Matthew Stafford — Passing TD, moving to 6th place
+        stafford = upcoming_model.leaderboards[25]
+        assert stafford.player == "Matthew Stafford"
+        assert stafford.category == "Passing TD"
+        assert stafford.value == 423
+        assert stafford.needed == "2 to 6th place"
+        assert stafford.leader_href == "/leaders/pass_td_career.htm"
+
+    def test_last_leaderboard(self, upcoming_model):
+        last = upcoming_model.leaderboards[-1]
+        assert last.category == "All-Purpose Yds"
+        assert last.player == "Derrick Henry"
+        assert last.player_id == "HenrDe00"
+        assert last.value == 14813
+        assert last.needed == "78 to 42nd place"
+        assert last.leader_href == "/leaders/all_purpose_yds_career.htm"
+
+    def test_categories_present(self, upcoming_model):
+        categories = {lb.category for lb in upcoming_model.leaderboards}
+        assert "Points Scored" in categories
+        assert "Rushing TD" in categories
+        assert "Receiving Yds" in categories
+        assert "Games" in categories
+        assert "Field Goals Made" in categories
+
+
+# =========================================================================
+# Parser error handling
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestUpcomingParserErrors:
+    def test_raises_on_missing_milestones_table(self):
+        with pytest.raises(
+            ValueError, match="Could not find upcoming milestones table"
+        ):
+            _upcoming_parser.parse("<html><body>No tables here</body></html>")
+
+
+# =========================================================================
+# Endpoint config
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestUpcomingEndpointConfig:
+    def test_config_basic(self):
+        pfr = GriddyPFR()
+        config = pfr.frivolities._get_upcoming_milestones_config()
+        assert config.operation_id == "getUpcomingMilestones"
+        assert config.query_params == {}
+
+    def test_endpoint_via_mock(self, upcoming_html):
+        pfr = GriddyPFR()
+        with patch.object(
+            pfr.frivolities.browserless,
+            "get_page_content",
+            return_value=upcoming_html,
+        ):
+            result = pfr.frivolities.get_upcoming_milestones()
+        assert isinstance(result, UpcomingMilestones)
+        assert len(result.milestones) == 17
+        assert len(result.leaderboards) == 43
