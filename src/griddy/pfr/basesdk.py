@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Type
+from urllib.parse import urlencode
 
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
@@ -17,6 +18,7 @@ class EndpointConfig:
     parser: Callable[[str], Any]
     response_type: Type
     path_params: Dict[str, Any] = field(default_factory=dict)
+    query_params: Dict[str, str] = field(default_factory=dict)
     timeout_ms: Optional[int] = None
 
 
@@ -52,6 +54,9 @@ class BaseSDK(CoreBaseSDK):
         base_url, _ = self.sdk_configuration.get_server_details()
         path = config.path_template.format(**config.path_params)
         url = f"{base_url}{path}"
+
+        if config.query_params:
+            url = f"{url}?{urlencode(config.query_params)}"
 
         html = self.browserless.get_page_content(
             url,
