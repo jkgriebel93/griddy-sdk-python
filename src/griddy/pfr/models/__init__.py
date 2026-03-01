@@ -209,6 +209,14 @@ if TYPE_CHECKING:
         StadiumTeam,
         StadiumTeamTypedDict,
     )
+    from griddy.pfr.models.entities.statistical_milestones import (
+        CareerLeader,
+        CareerLeaderTypedDict,
+        MilestoneEntry,
+        MilestoneEntryTypedDict,
+        StatisticalMilestones,
+        StatisticalMilestonesTypedDict,
+    )
     from griddy.pfr.models.entities.superbowl import (
         SuperBowlGame,
         SuperBowlGameTypedDict,
@@ -455,6 +463,12 @@ __all__ = [
     "StatsTableTypedDict",
     "TopPlayerSummary",
     "TopPlayerSummaryTypedDict",
+    "CareerLeader",
+    "CareerLeaderTypedDict",
+    "MilestoneEntry",
+    "MilestoneEntryTypedDict",
+    "StatisticalMilestones",
+    "StatisticalMilestonesTypedDict",
 ]
 
 _dynamic_imports: dict[str, str] = {
@@ -666,6 +680,12 @@ _dynamic_imports: dict[str, str] = {
     "StatsTableTypedDict": ".entities.multi_team_players",
     "TopPlayerSummary": ".entities.multi_team_players",
     "TopPlayerSummaryTypedDict": ".entities.multi_team_players",
+    "CareerLeader": ".entities.statistical_milestones",
+    "CareerLeaderTypedDict": ".entities.statistical_milestones",
+    "MilestoneEntry": ".entities.statistical_milestones",
+    "MilestoneEntryTypedDict": ".entities.statistical_milestones",
+    "StatisticalMilestones": ".entities.statistical_milestones",
+    "StatisticalMilestonesTypedDict": ".entities.statistical_milestones",
 }
 
 

@@ -19,6 +19,7 @@ from .schedule import ScheduleParser
 from .schools import SchoolsParser
 from .season_overview import SeasonOverviewParser
 from .stadium import StadiumParser
+from .statistical_milestones import StatisticalMilestonesParser
 from .superbowl import SuperBowlParser
 from .team_franchise import FranchiseParser
 from .team_season import TeamSeasonParser
@@ -40,5 +41,6 @@ __all__ = [
     "StadiumParser",
     "SuperBowlParser",
     "FranchiseParser",
+    "StatisticalMilestonesParser",
     "TeamSeasonParser",
 ]
