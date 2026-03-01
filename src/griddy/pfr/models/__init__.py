@@ -122,6 +122,16 @@ if TYPE_CHECKING:
         LeaderEntry,
         LeaderEntryTypedDict,
     )
+    from griddy.pfr.models.entities.multi_team_players import (
+        MultiTeamPlayers,
+        MultiTeamPlayerStats,
+        MultiTeamPlayerStatsTypedDict,
+        MultiTeamPlayersTypedDict,
+        StatsTable,
+        StatsTableTypedDict,
+        TopPlayerSummary,
+        TopPlayerSummaryTypedDict,
+    )
     from griddy.pfr.models.entities.official_profile import (
         OfficialBio,
         OfficialBioTypedDict,
@@ -437,6 +447,14 @@ __all__ = [
     "HighSchoolTypedDict",
     "HighSchoolList",
     "HighSchoolListTypedDict",
+    "MultiTeamPlayerStats",
+    "MultiTeamPlayerStatsTypedDict",
+    "MultiTeamPlayers",
+    "MultiTeamPlayersTypedDict",
+    "StatsTable",
+    "StatsTableTypedDict",
+    "TopPlayerSummary",
+    "TopPlayerSummaryTypedDict",
 ]
 
 _dynamic_imports: dict[str, str] = {
@@ -640,6 +658,14 @@ _dynamic_imports: dict[str, str] = {
     "HighSchoolTypedDict": ".entities.schools",
     "HighSchoolList": ".entities.schools",
     "HighSchoolListTypedDict": ".entities.schools",
+    "MultiTeamPlayerStats": ".entities.multi_team_players",
+    "MultiTeamPlayerStatsTypedDict": ".entities.multi_team_players",
+    "MultiTeamPlayers": ".entities.multi_team_players",
+    "MultiTeamPlayersTypedDict": ".entities.multi_team_players",
+    "StatsTable": ".entities.multi_team_players",
+    "StatsTableTypedDict": ".entities.multi_team_players",
+    "TopPlayerSummary": ".entities.multi_team_players",
+    "TopPlayerSummaryTypedDict": ".entities.multi_team_players",
 }
 
 

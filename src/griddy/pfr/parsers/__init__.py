@@ -12,6 +12,7 @@ from .executive_profile import ExecutiveProfileParser
 from .fantasy import FantasyParser
 from .game_details import GameDetailsParser
 from .leaders import LeadersParser
+from .multi_team_players import MultiTeamPlayersParser
 from .official_profile import OfficialProfileParser
 from .player_profile import PlayerProfileParser
 from .schedule import ScheduleParser
@@ -30,6 +31,7 @@ __all__ = [
     "FantasyParser",
     "GameDetailsParser",
     "LeadersParser",
+    "MultiTeamPlayersParser",
     "OfficialProfileParser",
     "PlayerProfileParser",
     "ScheduleParser",
