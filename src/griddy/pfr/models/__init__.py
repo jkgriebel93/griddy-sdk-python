@@ -154,6 +154,12 @@ if TYPE_CHECKING:
         NonQBPassers,
         NonQBPassersTypedDict,
     )
+    from griddy.pfr.models.entities.non_skill_pos_td import (
+        NonSkillPosTdEntry,
+        NonSkillPosTdEntryTypedDict,
+        NonSkillPosTdScorers,
+        NonSkillPosTdScorersTypedDict,
+    )
     from griddy.pfr.models.entities.official_profile import (
         OfficialBio,
         OfficialBioTypedDict,
@@ -323,6 +329,10 @@ __all__ = [
     "NonQBPasserEntryTypedDict",
     "NonQBPassers",
     "NonQBPassersTypedDict",
+    "NonSkillPosTdEntry",
+    "NonSkillPosTdEntryTypedDict",
+    "NonSkillPosTdScorers",
+    "NonSkillPosTdScorersTypedDict",
     "QBWinEntry",
     "QBWinEntryTypedDict",
     "QBWins",
@@ -574,6 +584,10 @@ _dynamic_imports: dict[str, str] = {
     "NonQBPasserEntryTypedDict": ".entities.non_qb_passers",
     "NonQBPassers": ".entities.non_qb_passers",
     "NonQBPassersTypedDict": ".entities.non_qb_passers",
+    "NonSkillPosTdEntry": ".entities.non_skill_pos_td",
+    "NonSkillPosTdEntryTypedDict": ".entities.non_skill_pos_td",
+    "NonSkillPosTdScorers": ".entities.non_skill_pos_td",
+    "NonSkillPosTdScorersTypedDict": ".entities.non_skill_pos_td",
     "QBWinEntry": ".entities.qb_wins",
     "QBWinEntryTypedDict": ".entities.qb_wins",
     "QBWins": ".entities.qb_wins",
