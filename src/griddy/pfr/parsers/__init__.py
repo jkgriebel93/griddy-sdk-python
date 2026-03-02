@@ -14,6 +14,7 @@ from .draft import DraftParser
 from .executive_profile import ExecutiveProfileParser
 from .fantasy import FantasyParser
 from .game_details import GameDetailsParser
+from .last_undefeated import LastUndefeatedParser
 from .leaders import LeadersParser
 from .multi_sport_players import MultiSportPlayersParser
 from .multi_team_players import MultiTeamPlayersParser
@@ -48,6 +49,7 @@ __all__ = [
     "ExecutiveProfileParser",
     "FantasyParser",
     "GameDetailsParser",
+    "LastUndefeatedParser",
     "LeadersParser",
     "MultiSportPlayersParser",
     "MultiTeamPlayersParser",

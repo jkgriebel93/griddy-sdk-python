@@ -138,6 +138,12 @@ if TYPE_CHECKING:
         Starter,
         StarterTypedDict,
     )
+    from griddy.pfr.models.entities.last_undefeated import (
+        LastUndefeated,
+        LastUndefeatedEntry,
+        LastUndefeatedEntryTypedDict,
+        LastUndefeatedTypedDict,
+    )
     from griddy.pfr.models.entities.leaders import (
         Leaderboard,
         LeaderboardTypedDict,
@@ -373,6 +379,10 @@ __all__ = [
     "OvertimeTieEntryTypedDict",
     "OvertimeTies",
     "OvertimeTiesTypedDict",
+    "LastUndefeated",
+    "LastUndefeatedEntry",
+    "LastUndefeatedEntryTypedDict",
+    "LastUndefeatedTypedDict",
     "CoffeeEntry",
     "CoffeeEntryTypedDict",
     "CupsOfCoffee",
@@ -650,6 +660,10 @@ _dynamic_imports: dict[str, str] = {
     "OvertimeTieEntryTypedDict": ".entities.overtime_ties",
     "OvertimeTies": ".entities.overtime_ties",
     "OvertimeTiesTypedDict": ".entities.overtime_ties",
+    "LastUndefeated": ".entities.last_undefeated",
+    "LastUndefeatedEntry": ".entities.last_undefeated",
+    "LastUndefeatedEntryTypedDict": ".entities.last_undefeated",
+    "LastUndefeatedTypedDict": ".entities.last_undefeated",
     "CoffeeEntry": ".entities.cups_of_coffee",
     "CoffeeEntryTypedDict": ".entities.cups_of_coffee",
     "CupsOfCoffee": ".entities.cups_of_coffee",
