@@ -23,6 +23,7 @@ from .octopus_tracker import OctopusTrackerParser
 from .official_profile import OfficialProfileParser
 from .player_profile import PlayerProfileParser
 from .players_born_before import PlayersBornBeforeParser
+from .pronunciation_guide import PronunciationGuideParser
 from .qb_wins import QBWinsParser
 from .schedule import ScheduleParser
 from .schools import SchoolsParser
@@ -54,6 +55,7 @@ __all__ = [
     "OctopusTrackerParser",
     "OfficialProfileParser",
     "PlayerProfileParser",
+    "PronunciationGuideParser",
     "QBWinsParser",
     "ScheduleParser",
     "SchoolsParser",

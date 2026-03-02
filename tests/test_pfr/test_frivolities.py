@@ -27,6 +27,8 @@ Covers:
   (``/friv/coffee.htm``)
 - Multi-Sport Players
   (``/friv/multisport.htm``)
+- Pronunciation Guide
+  (``/friv/pronunciation-guide.htm``)
 """
 
 from unittest.mock import patch
@@ -56,6 +58,8 @@ from griddy.pfr.models import (
     OctopusTracker,
     PlayerBornBefore,
     PlayersBornBefore,
+    PronunciationEntry,
+    PronunciationGuide,
     QBWinEntry,
     QBWins,
     StatisticalMilestones,
@@ -76,6 +80,7 @@ from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
 from griddy.pfr.parsers.octopus_tracker import OctopusTrackerParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
+from griddy.pfr.parsers.pronunciation_guide import PronunciationGuideParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.uniform_numbers import UniformNumbersParser
@@ -98,6 +103,7 @@ _non_skill_pos_td_parser = NonSkillPosTdParser()
 _octopus_tracker_parser = OctopusTrackerParser()
 _cups_of_coffee_parser = CupsOfCoffeeParser()
 _multi_sport_players_parser = MultiSportPlayersParser()
+_pronunciation_guide_parser = PronunciationGuideParser()
 
 # -------------------------------------------------------------------------
 # Fixtures
@@ -2722,3 +2728,172 @@ class TestMultiSportPlayersEndpointConfig:
         assert result.title == "Multisport Athletes"
         assert len(result.entries) == 450
         assert result.entries[0].player == "Mo Alie-Cox"
+
+
+# =========================================================================
+# Pronunciation Guide
+# =========================================================================
+
+
+@pytest.fixture(scope="module")
+def pronunciation_guide_html() -> str:
+    return (FIXTURE_DIR / "pronunciation_guide.html").read_text()
+
+
+@pytest.fixture(scope="module")
+def pronunciation_guide_parsed(pronunciation_guide_html: str) -> dict:
+    return _pronunciation_guide_parser.parse(pronunciation_guide_html)
+
+
+@pytest.fixture(scope="module")
+def pronunciation_guide_model(
+    pronunciation_guide_parsed: dict,
+) -> PronunciationGuide:
+    return PronunciationGuide.model_validate(pronunciation_guide_parsed)
+
+
+# =========================================================================
+# Smoke tests
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestPronunciationGuideSmoke:
+    def test_parse_returns_dict(self, pronunciation_guide_parsed):
+        assert isinstance(pronunciation_guide_parsed, dict)
+
+    def test_has_required_keys(self, pronunciation_guide_parsed):
+        assert "title" in pronunciation_guide_parsed
+        assert "entries" in pronunciation_guide_parsed
+
+    def test_model_validates(self, pronunciation_guide_model):
+        assert isinstance(pronunciation_guide_model, PronunciationGuide)
+
+
+# =========================================================================
+# Metadata
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestPronunciationGuideMetadata:
+    def test_title(self, pronunciation_guide_model):
+        assert (
+            pronunciation_guide_model.title
+            == "Current and Former Player Name Pronunciation Guide"
+        )
+
+
+# =========================================================================
+# Entries
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestPronunciationGuideEntries:
+    def test_entry_count(self, pronunciation_guide_model):
+        assert len(pronunciation_guide_model.entries) == 2093
+
+    def test_all_entries_are_pronunciation_entry(self, pronunciation_guide_model):
+        for entry in pronunciation_guide_model.entries:
+            assert isinstance(entry, PronunciationEntry)
+
+    def test_first_entry(self, pronunciation_guide_model):
+        first = pronunciation_guide_model.entries[0]
+        assert first.player == "Isaako Aaitui"
+        assert first.player_href == "/players/A/AaitIs00.htm"
+        assert first.player_id == "AaitIs00"
+        assert first.pronunciation == "e-saw-AH-co ah-ah-TWO-e"
+
+    def test_last_entry(self, pronunciation_guide_model):
+        last = pronunciation_guide_model.entries[-1]
+        assert last.player == "Shane Zylstra"
+        assert last.player_id == "ZylsSh00"
+        assert last.pronunciation == "ZILL-struh"
+
+    def test_parenthetical_pronunciation(self, pronunciation_guide_model):
+        """David Blough uses parenthetical clarification."""
+        blough = next(
+            e for e in pronunciation_guide_model.entries if e.player == "David Blough"
+        )
+        assert 'BLAU (like "cow")' in blough.pronunciation
+
+    def test_apostrophe_in_name(self, pronunciation_guide_model):
+        """De'Von Achane has an apostrophe in first name."""
+        achane = next(
+            e for e in pronunciation_guide_model.entries if e.player == "De'Von Achane"
+        )
+        assert achane.player_id == "AchaDe00"
+        assert achane.pronunciation == "duh-VAHN AY-chan"
+
+    def test_name_with_suffix(self, pronunciation_guide_model):
+        """Dorance Armstrong Jr. has a name suffix."""
+        armstrong = next(
+            e
+            for e in pronunciation_guide_model.entries
+            if e.player == "Dorance Armstrong Jr."
+        )
+        assert armstrong.pronunciation == "DOOR-intz"
+
+    def test_tua_tagovailoa(self, pronunciation_guide_model):
+        """Tua Tagovailoa is a well-known pronunciation example."""
+        tua = next(
+            e for e in pronunciation_guide_model.entries if e.player == "Tua Tagovailoa"
+        )
+        assert tua.player_id == "TagoTu00"
+        assert tua.pronunciation == "TWO-uh TUNG-oh-vai-LO-uh"
+
+    def test_all_entries_have_pronunciation(self, pronunciation_guide_model):
+        for entry in pronunciation_guide_model.entries:
+            assert entry.pronunciation, f"{entry.player} has empty pronunciation"
+
+    def test_all_entries_have_player_href(self, pronunciation_guide_model):
+        for entry in pronunciation_guide_model.entries:
+            assert entry.player_href is not None
+            assert entry.player_href.startswith("/players/")
+
+
+# =========================================================================
+# Parser error handling
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestPronunciationGuideParserErrors:
+    def test_raises_on_missing_content_div(self):
+        with pytest.raises(ValueError, match="Could not find #content div"):
+            _pronunciation_guide_parser.parse("<html><body>No content</body></html>")
+
+    def test_raises_on_missing_list(self):
+        with pytest.raises(ValueError, match="Could not find pronunciation list"):
+            _pronunciation_guide_parser.parse(
+                '<html><body><div id="content"><h1>Title</h1></div></body></html>'
+            )
+
+
+# =========================================================================
+# Endpoint config
+# =========================================================================
+
+
+@pytest.mark.unit
+class TestPronunciationGuideEndpointConfig:
+    def test_config(self):
+        pfr = GriddyPFR()
+        config = pfr.frivolities._get_pronunciation_guide_config()
+        assert config.operation_id == "getPronunciationGuide"
+        assert config.path_template == "/friv/pronunciation-guide.htm"
+        assert config.wait_for_element == "#content ul"
+
+    def test_endpoint_via_mock(self, pronunciation_guide_html):
+        pfr = GriddyPFR()
+        with patch.object(
+            pfr.frivolities.browserless,
+            "get_page_content",
+            return_value=pronunciation_guide_html,
+        ):
+            result = pfr.frivolities.get_pronunciation_guide()
+        assert isinstance(result, PronunciationGuide)
+        assert result.title == "Current and Former Player Name Pronunciation Guide"
+        assert len(result.entries) == 2093
+        assert result.entries[0].player == "Isaako Aaitui"

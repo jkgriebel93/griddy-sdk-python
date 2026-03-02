@@ -29,6 +29,8 @@ Provides:
   (``/friv/coffee.htm``)
 - ``get_multi_sport_players()`` — Athletes who played multiple sports
   (``/friv/multisport.htm``)
+- ``get_pronunciation_guide()`` — Player name pronunciation guide
+  (``/friv/pronunciation-guide.htm``)
 """
 
 from typing import Optional
@@ -42,6 +44,7 @@ from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
 from griddy.pfr.parsers.octopus_tracker import OctopusTrackerParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
+from griddy.pfr.parsers.pronunciation_guide import PronunciationGuideParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.uniform_numbers import UniformNumbersParser
@@ -59,6 +62,7 @@ from ..models import (
     NonSkillPosTdScorers,
     OctopusTracker,
     PlayersBornBefore,
+    PronunciationGuide,
     QBWins,
     StatisticalMilestones,
     UniformNumbers,
@@ -78,6 +82,7 @@ _non_skill_pos_td_parser = NonSkillPosTdParser()
 _octopus_tracker_parser = OctopusTrackerParser()
 _cups_of_coffee_parser = CupsOfCoffeeParser()
 _multi_sport_players_parser = MultiSportPlayersParser()
+_pronunciation_guide_parser = PronunciationGuideParser()
 
 
 class Frivolities(BaseSDK):
@@ -719,3 +724,42 @@ class Frivolities(BaseSDK):
         config = self._get_multi_sport_players_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return MultiSportPlayers.model_validate(data)
+
+    # ── Pronunciation Guide ──────────────────────────────────────────────────
+
+    def _get_pronunciation_guide_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/pronunciation-guide.htm",
+            operation_id="getPronunciationGuide",
+            wait_for_element="#content ul",
+            parser=_pronunciation_guide_parser.parse,
+            response_type=PronunciationGuide,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_pronunciation_guide(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> PronunciationGuide:
+        """Fetch the player name pronunciation guide.
+
+        Scrapes the PFR page at ``/friv/pronunciation-guide.htm`` and
+        returns a list of player names with their phonetic pronunciations,
+        sourced from NFL and team media guides.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.PronunciationGuide` instance
+            containing the pronunciation entries.
+        """
+        config = self._get_pronunciation_guide_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return PronunciationGuide.model_validate(data)

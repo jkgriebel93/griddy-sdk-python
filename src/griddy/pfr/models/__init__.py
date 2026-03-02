@@ -216,6 +216,12 @@ if TYPE_CHECKING:
         PlayersBornBefore,
         PlayersBornBeforeTypedDict,
     )
+    from griddy.pfr.models.entities.pronunciation_guide import (
+        PronunciationEntry,
+        PronunciationEntryTypedDict,
+        PronunciationGuide,
+        PronunciationGuideTypedDict,
+    )
     from griddy.pfr.models.entities.qb_wins import (
         QBWinEntry,
         QBWinEntryTypedDict,
@@ -571,6 +577,10 @@ __all__ = [
     "MultiSportPlayersTypedDict",
     "OtherSportLink",
     "OtherSportLinkTypedDict",
+    "PronunciationEntry",
+    "PronunciationEntryTypedDict",
+    "PronunciationGuide",
+    "PronunciationGuideTypedDict",
     "MultiTeamPlayerStats",
     "MultiTeamPlayerStatsTypedDict",
     "MultiTeamPlayers",
@@ -840,6 +850,10 @@ _dynamic_imports: dict[str, str] = {
     "MultiSportPlayersTypedDict": ".entities.multi_sport_players",
     "OtherSportLink": ".entities.multi_sport_players",
     "OtherSportLinkTypedDict": ".entities.multi_sport_players",
+    "PronunciationEntry": ".entities.pronunciation_guide",
+    "PronunciationEntryTypedDict": ".entities.pronunciation_guide",
+    "PronunciationGuide": ".entities.pronunciation_guide",
+    "PronunciationGuideTypedDict": ".entities.pronunciation_guide",
     "MultiTeamPlayerStats": ".entities.multi_team_players",
     "MultiTeamPlayerStatsTypedDict": ".entities.multi_team_players",
     "MultiTeamPlayers": ".entities.multi_team_players",
