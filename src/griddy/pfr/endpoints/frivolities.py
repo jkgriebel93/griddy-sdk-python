@@ -33,6 +33,8 @@ Provides:
   (``/friv/pronunciation-guide.htm``)
 - ``get_overtime_ties()`` — Tied games since sudden-death overtime (1974)
   (``/friv/nfl-ties.htm``)
+- ``get_last_undefeated()`` — Last undefeated team(s) in every season
+  (``/friv/last-undefeated.htm``)
 """
 
 from typing import Optional
@@ -40,6 +42,7 @@ from typing import Optional
 from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.cups_of_coffee import CupsOfCoffeeParser
+from griddy.pfr.parsers.last_undefeated import LastUndefeatedParser
 from griddy.pfr.parsers.multi_sport_players import MultiSportPlayersParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
@@ -59,6 +62,7 @@ from ..models import (
     BirthplaceFiltered,
     BirthplaceLanding,
     CupsOfCoffee,
+    LastUndefeated,
     MultiSportPlayers,
     MultiTeamPlayers,
     NonQBPassers,
@@ -88,6 +92,7 @@ _overtime_ties_parser = OvertimeTiesParser()
 _cups_of_coffee_parser = CupsOfCoffeeParser()
 _multi_sport_players_parser = MultiSportPlayersParser()
 _pronunciation_guide_parser = PronunciationGuideParser()
+_last_undefeated_parser = LastUndefeatedParser()
 
 
 class Frivolities(BaseSDK):
@@ -807,3 +812,42 @@ class Frivolities(BaseSDK):
         config = self._get_overtime_ties_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return OvertimeTies.model_validate(data)
+
+    # ── Last Undefeated Team ────────────────────────────────────────────────
+
+    def _get_last_undefeated_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/last-undefeated.htm",
+            operation_id="getLastUndefeated",
+            wait_for_element="#undefeated_teams",
+            parser=_last_undefeated_parser.parse,
+            response_type=LastUndefeated,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_last_undefeated(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> LastUndefeated:
+        """Fetch the last undefeated team(s) in every season.
+
+        Scrapes the PFR page at ``/friv/last-undefeated.htm`` and returns
+        a season-by-season breakdown of the last undefeated team (or teams)
+        in each league, including playoffs.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.LastUndefeated` instance
+            containing the undefeated team entries.
+        """
+        config = self._get_last_undefeated_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return LastUndefeated.model_validate(data)
