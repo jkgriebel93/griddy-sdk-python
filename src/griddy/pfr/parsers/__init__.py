@@ -31,6 +31,7 @@ from .schedule import ScheduleParser
 from .schools import SchoolsParser
 from .season_overview import SeasonOverviewParser
 from .stadium import StadiumParser
+from .standings_on_date import StandingsOnDateParser
 from .statistical_milestones import StatisticalMilestonesParser
 from .superbowl import SuperBowlParser
 from .team_franchise import FranchiseParser
@@ -63,6 +64,7 @@ __all__ = [
     "QBWinsParser",
     "ScheduleParser",
     "SchoolsParser",
+    "StandingsOnDateParser",
     "SeasonOverviewParser",
     "StadiumParser",
     "SuperBowlParser",
