@@ -27,6 +27,8 @@ Provides:
   (``/friv/octopus-tracker.htm``)
 - ``get_cups_of_coffee()`` — Players with a single game played
   (``/friv/coffee.htm``)
+- ``get_multi_sport_players()`` — Athletes who played multiple sports
+  (``/friv/multisport.htm``)
 """
 
 from typing import Optional
@@ -34,6 +36,7 @@ from typing import Optional
 from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.cups_of_coffee import CupsOfCoffeeParser
+from griddy.pfr.parsers.multi_sport_players import MultiSportPlayersParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
@@ -50,6 +53,7 @@ from ..models import (
     BirthplaceFiltered,
     BirthplaceLanding,
     CupsOfCoffee,
+    MultiSportPlayers,
     MultiTeamPlayers,
     NonQBPassers,
     NonSkillPosTdScorers,
@@ -73,6 +77,7 @@ _non_qb_passers_parser = NonQBPassersParser()
 _non_skill_pos_td_parser = NonSkillPosTdParser()
 _octopus_tracker_parser = OctopusTrackerParser()
 _cups_of_coffee_parser = CupsOfCoffeeParser()
+_multi_sport_players_parser = MultiSportPlayersParser()
 
 
 class Frivolities(BaseSDK):
@@ -673,3 +678,44 @@ class Frivolities(BaseSDK):
         config = self._get_cups_of_coffee_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return CupsOfCoffee.model_validate(data)
+
+    # ── Multi-Sport Players ──────────────────────────────────────────────────
+
+    def _get_multi_sport_players_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/multisport.htm",
+            operation_id="getMultiSportPlayers",
+            wait_for_element="#multisport",
+            parser=_multi_sport_players_parser.parse,
+            response_type=MultiSportPlayers,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_multi_sport_players(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> MultiSportPlayers:
+        """Fetch athletes who played multiple sports professionally.
+
+        Scrapes the PFR page at ``/friv/multisport.htm`` and returns a
+        list of athletes who played in the NFL and at least one other
+        professional sport, with their NFL career statistics and links
+        to other sports reference sites.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.MultiSportPlayers` instance
+            containing the player entries with career stats and other
+            sport links.
+        """
+        config = self._get_multi_sport_players_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return MultiSportPlayers.model_validate(data)

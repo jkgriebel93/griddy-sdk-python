@@ -15,6 +15,7 @@ from .executive_profile import ExecutiveProfileParser
 from .fantasy import FantasyParser
 from .game_details import GameDetailsParser
 from .leaders import LeadersParser
+from .multi_sport_players import MultiSportPlayersParser
 from .multi_team_players import MultiTeamPlayersParser
 from .non_qb_passers import NonQBPassersParser
 from .non_skill_pos_td import NonSkillPosTdParser
@@ -46,6 +47,7 @@ __all__ = [
     "FantasyParser",
     "GameDetailsParser",
     "LeadersParser",
+    "MultiSportPlayersParser",
     "MultiTeamPlayersParser",
     "NonQBPassersParser",
     "NonSkillPosTdParser",
