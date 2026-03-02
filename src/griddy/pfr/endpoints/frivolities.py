@@ -25,12 +25,15 @@ Provides:
   (``/friv/odd_td.htm``)
 - ``get_octopus_tracker()`` — Octopus TD + 2pt conversion scorers
   (``/friv/octopus-tracker.htm``)
+- ``get_cups_of_coffee()`` — Players with a single game played
+  (``/friv/coffee.htm``)
 """
 
 from typing import Optional
 
 from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
+from griddy.pfr.parsers.cups_of_coffee import CupsOfCoffeeParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
@@ -46,6 +49,7 @@ from ..models import (
     Birthdays,
     BirthplaceFiltered,
     BirthplaceLanding,
+    CupsOfCoffee,
     MultiTeamPlayers,
     NonQBPassers,
     NonSkillPosTdScorers,
@@ -68,6 +72,7 @@ _qb_wins_parser = QBWinsParser()
 _non_qb_passers_parser = NonQBPassersParser()
 _non_skill_pos_td_parser = NonSkillPosTdParser()
 _octopus_tracker_parser = OctopusTrackerParser()
+_cups_of_coffee_parser = CupsOfCoffeeParser()
 
 
 class Frivolities(BaseSDK):
@@ -629,3 +634,42 @@ class Frivolities(BaseSDK):
         config = self._get_octopus_tracker_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return OctopusTracker.model_validate(data)
+
+    # ── Cups of Coffee ──────────────────────────────────────────────────────
+
+    def _get_cups_of_coffee_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/coffee.htm",
+            operation_id="getCupsOfCoffee",
+            wait_for_element="#coffee",
+            parser=_cups_of_coffee_parser.parse,
+            response_type=CupsOfCoffee,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_cups_of_coffee(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> CupsOfCoffee:
+        """Fetch players who played only a single game in the NFL.
+
+        Scrapes the PFR page at ``/friv/coffee.htm`` and returns a list
+        of players who had only one NFL game appearance, with their
+        passing, rushing, and receiving statistics from that game.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.CupsOfCoffee` instance
+            containing the player entries with career stats.
+        """
+        config = self._get_cups_of_coffee_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return CupsOfCoffee.model_validate(data)

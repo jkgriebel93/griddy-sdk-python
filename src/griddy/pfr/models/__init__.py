@@ -52,6 +52,12 @@ if TYPE_CHECKING:
         CoachProfile,
         CoachProfileTypedDict,
     )
+    from griddy.pfr.models.entities.cups_of_coffee import (
+        CoffeeEntry,
+        CoffeeEntryTypedDict,
+        CupsOfCoffee,
+        CupsOfCoffeeTypedDict,
+    )
     from griddy.pfr.models.entities.draft import (
         CombineEntry,
         CombineEntryTypedDict,
@@ -343,6 +349,10 @@ __all__ = [
     "OctopusEntryTypedDict",
     "OctopusTracker",
     "OctopusTrackerTypedDict",
+    "CoffeeEntry",
+    "CoffeeEntryTypedDict",
+    "CupsOfCoffee",
+    "CupsOfCoffeeTypedDict",
     "QBWinEntry",
     "QBWinEntryTypedDict",
     "QBWins",
@@ -602,6 +612,10 @@ _dynamic_imports: dict[str, str] = {
     "OctopusEntryTypedDict": ".entities.octopus_tracker",
     "OctopusTracker": ".entities.octopus_tracker",
     "OctopusTrackerTypedDict": ".entities.octopus_tracker",
+    "CoffeeEntry": ".entities.cups_of_coffee",
+    "CoffeeEntryTypedDict": ".entities.cups_of_coffee",
+    "CupsOfCoffee": ".entities.cups_of_coffee",
+    "CupsOfCoffeeTypedDict": ".entities.cups_of_coffee",
     "QBWinEntry": ".entities.qb_wins",
     "QBWinEntryTypedDict": ".entities.qb_wins",
     "QBWins": ".entities.qb_wins",
