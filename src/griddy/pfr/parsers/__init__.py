@@ -9,6 +9,7 @@ from .awards import AwardsParser
 from .birthdays import BirthdaysParser
 from .birthplaces import BirthplacesParser
 from .coach_profile import CoachProfileParser
+from .cups_of_coffee import CupsOfCoffeeParser
 from .draft import DraftParser
 from .executive_profile import ExecutiveProfileParser
 from .fantasy import FantasyParser
@@ -39,6 +40,7 @@ __all__ = [
     "BirthplacesParser",
     "PlayersBornBeforeParser",
     "CoachProfileParser",
+    "CupsOfCoffeeParser",
     "DraftParser",
     "ExecutiveProfileParser",
     "FantasyParser",
