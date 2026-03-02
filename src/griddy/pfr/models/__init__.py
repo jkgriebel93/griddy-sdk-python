@@ -160,6 +160,12 @@ if TYPE_CHECKING:
         NonSkillPosTdScorers,
         NonSkillPosTdScorersTypedDict,
     )
+    from griddy.pfr.models.entities.octopus_tracker import (
+        OctopusEntry,
+        OctopusEntryTypedDict,
+        OctopusTracker,
+        OctopusTrackerTypedDict,
+    )
     from griddy.pfr.models.entities.official_profile import (
         OfficialBio,
         OfficialBioTypedDict,
@@ -333,6 +339,10 @@ __all__ = [
     "NonSkillPosTdEntryTypedDict",
     "NonSkillPosTdScorers",
     "NonSkillPosTdScorersTypedDict",
+    "OctopusEntry",
+    "OctopusEntryTypedDict",
+    "OctopusTracker",
+    "OctopusTrackerTypedDict",
     "QBWinEntry",
     "QBWinEntryTypedDict",
     "QBWins",
@@ -588,6 +598,10 @@ _dynamic_imports: dict[str, str] = {
     "NonSkillPosTdEntryTypedDict": ".entities.non_skill_pos_td",
     "NonSkillPosTdScorers": ".entities.non_skill_pos_td",
     "NonSkillPosTdScorersTypedDict": ".entities.non_skill_pos_td",
+    "OctopusEntry": ".entities.octopus_tracker",
+    "OctopusEntryTypedDict": ".entities.octopus_tracker",
+    "OctopusTracker": ".entities.octopus_tracker",
+    "OctopusTrackerTypedDict": ".entities.octopus_tracker",
     "QBWinEntry": ".entities.qb_wins",
     "QBWinEntryTypedDict": ".entities.qb_wins",
     "QBWins": ".entities.qb_wins",
