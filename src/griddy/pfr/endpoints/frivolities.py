@@ -31,6 +31,8 @@ Provides:
   (``/friv/multisport.htm``)
 - ``get_pronunciation_guide()`` — Player name pronunciation guide
   (``/friv/pronunciation-guide.htm``)
+- ``get_overtime_ties()`` — Tied games since sudden-death overtime (1974)
+  (``/friv/nfl-ties.htm``)
 """
 
 from typing import Optional
@@ -43,6 +45,7 @@ from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
 from griddy.pfr.parsers.octopus_tracker import OctopusTrackerParser
+from griddy.pfr.parsers.overtime_ties import OvertimeTiesParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.pronunciation_guide import PronunciationGuideParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
@@ -61,6 +64,7 @@ from ..models import (
     NonQBPassers,
     NonSkillPosTdScorers,
     OctopusTracker,
+    OvertimeTies,
     PlayersBornBefore,
     PronunciationGuide,
     QBWins,
@@ -80,6 +84,7 @@ _qb_wins_parser = QBWinsParser()
 _non_qb_passers_parser = NonQBPassersParser()
 _non_skill_pos_td_parser = NonSkillPosTdParser()
 _octopus_tracker_parser = OctopusTrackerParser()
+_overtime_ties_parser = OvertimeTiesParser()
 _cups_of_coffee_parser = CupsOfCoffeeParser()
 _multi_sport_players_parser = MultiSportPlayersParser()
 _pronunciation_guide_parser = PronunciationGuideParser()
@@ -763,3 +768,42 @@ class Frivolities(BaseSDK):
         config = self._get_pronunciation_guide_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return PronunciationGuide.model_validate(data)
+
+    # ── Overtime Ties ──────────────────────────────────────────────────────
+
+    def _get_overtime_ties_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/nfl-ties.htm",
+            operation_id="getOvertimeTies",
+            wait_for_element="#ot_ties",
+            parser=_overtime_ties_parser.parse,
+            response_type=OvertimeTies,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_overtime_ties(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> OvertimeTies:
+        """Fetch all tied games since sudden-death overtime (1974).
+
+        Scrapes the PFR page at ``/friv/nfl-ties.htm`` and returns a list
+        of all games that ended in a tie since sudden-death overtime was
+        instituted in 1974.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.OvertimeTies` instance
+            containing the tie game entries.
+        """
+        config = self._get_overtime_ties_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return OvertimeTies.model_validate(data)

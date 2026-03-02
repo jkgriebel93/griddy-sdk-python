@@ -190,6 +190,12 @@ if TYPE_CHECKING:
         OfficialSeasonStat,
         OfficialSeasonStatTypedDict,
     )
+    from griddy.pfr.models.entities.overtime_ties import (
+        OvertimeTieEntry,
+        OvertimeTieEntryTypedDict,
+        OvertimeTies,
+        OvertimeTiesTypedDict,
+    )
     from griddy.pfr.models.entities.player_profile import (
         BirthPlace,
         BirthPlaceTypedDict,
@@ -363,6 +369,10 @@ __all__ = [
     "OctopusEntryTypedDict",
     "OctopusTracker",
     "OctopusTrackerTypedDict",
+    "OvertimeTieEntry",
+    "OvertimeTieEntryTypedDict",
+    "OvertimeTies",
+    "OvertimeTiesTypedDict",
     "CoffeeEntry",
     "CoffeeEntryTypedDict",
     "CupsOfCoffee",
@@ -636,6 +646,10 @@ _dynamic_imports: dict[str, str] = {
     "OctopusEntryTypedDict": ".entities.octopus_tracker",
     "OctopusTracker": ".entities.octopus_tracker",
     "OctopusTrackerTypedDict": ".entities.octopus_tracker",
+    "OvertimeTieEntry": ".entities.overtime_ties",
+    "OvertimeTieEntryTypedDict": ".entities.overtime_ties",
+    "OvertimeTies": ".entities.overtime_ties",
+    "OvertimeTiesTypedDict": ".entities.overtime_ties",
     "CoffeeEntry": ".entities.cups_of_coffee",
     "CoffeeEntryTypedDict": ".entities.cups_of_coffee",
     "CupsOfCoffee": ".entities.cups_of_coffee",
