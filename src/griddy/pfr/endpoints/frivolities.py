@@ -35,6 +35,8 @@ Provides:
   (``/friv/nfl-ties.htm``)
 - ``get_last_undefeated()`` — Last undefeated team(s) in every season
   (``/friv/last-undefeated.htm``)
+- ``get_standings_on_date()`` — NFL standings as of a specific date or week
+  (``/boxscores/standings.cgi``)
 """
 
 from typing import Optional
@@ -52,6 +54,7 @@ from griddy.pfr.parsers.overtime_ties import OvertimeTiesParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.pronunciation_guide import PronunciationGuideParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
+from griddy.pfr.parsers.standings_on_date import StandingsOnDateParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
 from griddy.pfr.parsers.uniform_numbers import UniformNumbersParser
 from griddy.pfr.parsers.upcoming_milestones import UpcomingMilestonesParser
@@ -72,6 +75,7 @@ from ..models import (
     PlayersBornBefore,
     PronunciationGuide,
     QBWins,
+    StandingsOnDate,
     StatisticalMilestones,
     UniformNumbers,
     UpcomingMilestones,
@@ -93,6 +97,7 @@ _cups_of_coffee_parser = CupsOfCoffeeParser()
 _multi_sport_players_parser = MultiSportPlayersParser()
 _pronunciation_guide_parser = PronunciationGuideParser()
 _last_undefeated_parser = LastUndefeatedParser()
+_standings_on_date_parser = StandingsOnDateParser()
 
 
 class Frivolities(BaseSDK):
@@ -851,3 +856,79 @@ class Frivolities(BaseSDK):
         config = self._get_last_undefeated_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return LastUndefeated.model_validate(data)
+
+    # ── Standings on Any Date ────────────────────────────────────────────────
+
+    def _get_standings_on_date_config(
+        self,
+        *,
+        year: int,
+        month: Optional[int] = None,
+        day: Optional[int] = None,
+        week: Optional[int] = None,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        if week is not None:
+            query: dict[str, str] = {"week": str(week), "year": str(year)}
+        elif month is not None and day is not None:
+            query = {
+                "month": str(month),
+                "day": str(day),
+                "year": str(year),
+            }
+        else:
+            raise ValueError("Provide either 'week' or both 'month' and 'day'.")
+
+        return EndpointConfig(
+            path_template="/boxscores/standings.cgi",
+            operation_id="getStandingsOnDate",
+            wait_for_element="#AFC",
+            parser=_standings_on_date_parser.parse,
+            response_type=StandingsOnDate,
+            query_params=query,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_standings_on_date(
+        self,
+        *,
+        year: int,
+        month: Optional[int] = None,
+        day: Optional[int] = None,
+        week: Optional[int] = None,
+        timeout_ms: Optional[int] = None,
+    ) -> StandingsOnDate:
+        """Fetch NFL standings as of a specific date or week.
+
+        Scrapes the PFR page at ``/boxscores/standings.cgi`` and returns
+        conference standings broken out by division, including win-loss
+        records, point differentials, and margin of victory.
+
+        Provide either ``week`` (for standings after a specific week) or
+        ``month`` + ``day`` (for standings on a calendar date).
+
+        Args:
+            year: The season year (e.g. ``2024``).
+            month: Calendar month (1–12). Required with ``day``.
+            day: Calendar day (1–31). Required with ``month``.
+            week: Week number (1–18). Alternative to month/day.
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.StandingsOnDate` instance
+            containing team standings grouped by conference and division.
+
+        Raises:
+            ValueError: If neither ``week`` nor ``month``/``day`` are
+                provided.
+        """
+        config = self._get_standings_on_date_config(
+            year=year,
+            month=month,
+            day=day,
+            week=week,
+            timeout_ms=timeout_ms,
+        )
+        data = self._execute_endpoint(config)
+        return StandingsOnDate.model_validate(data)

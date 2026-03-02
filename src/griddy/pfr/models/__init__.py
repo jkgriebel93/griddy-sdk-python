@@ -287,6 +287,12 @@ if TYPE_CHECKING:
         StadiumTeam,
         StadiumTeamTypedDict,
     )
+    from griddy.pfr.models.entities.standings_on_date import (
+        StandingsOnDate,
+        StandingsOnDateTypedDict,
+        StandingsTeamEntry,
+        StandingsTeamEntryTypedDict,
+    )
     from griddy.pfr.models.entities.statistical_milestones import (
         CareerLeader,
         CareerLeaderTypedDict,
@@ -383,6 +389,10 @@ __all__ = [
     "LastUndefeatedEntry",
     "LastUndefeatedEntryTypedDict",
     "LastUndefeatedTypedDict",
+    "StandingsOnDate",
+    "StandingsOnDateTypedDict",
+    "StandingsTeamEntry",
+    "StandingsTeamEntryTypedDict",
     "CoffeeEntry",
     "CoffeeEntryTypedDict",
     "CupsOfCoffee",
@@ -664,6 +674,10 @@ _dynamic_imports: dict[str, str] = {
     "LastUndefeatedEntry": ".entities.last_undefeated",
     "LastUndefeatedEntryTypedDict": ".entities.last_undefeated",
     "LastUndefeatedTypedDict": ".entities.last_undefeated",
+    "StandingsOnDate": ".entities.standings_on_date",
+    "StandingsOnDateTypedDict": ".entities.standings_on_date",
+    "StandingsTeamEntry": ".entities.standings_on_date",
+    "StandingsTeamEntryTypedDict": ".entities.standings_on_date",
     "CoffeeEntry": ".entities.cups_of_coffee",
     "CoffeeEntryTypedDict": ".entities.cups_of_coffee",
     "CupsOfCoffee": ".entities.cups_of_coffee",
