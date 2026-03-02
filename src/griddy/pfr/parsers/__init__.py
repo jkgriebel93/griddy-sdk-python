@@ -17,6 +17,7 @@ from .leaders import LeadersParser
 from .multi_team_players import MultiTeamPlayersParser
 from .non_qb_passers import NonQBPassersParser
 from .non_skill_pos_td import NonSkillPosTdParser
+from .octopus_tracker import OctopusTrackerParser
 from .official_profile import OfficialProfileParser
 from .player_profile import PlayerProfileParser
 from .players_born_before import PlayersBornBeforeParser
@@ -46,6 +47,7 @@ __all__ = [
     "MultiTeamPlayersParser",
     "NonQBPassersParser",
     "NonSkillPosTdParser",
+    "OctopusTrackerParser",
     "OfficialProfileParser",
     "PlayerProfileParser",
     "QBWinsParser",

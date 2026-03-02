@@ -23,6 +23,8 @@ Provides:
   (``/friv/nonqb.htm``)
 - ``get_non_skill_pos_td_scorers()`` — Non-skill position TD scorers
   (``/friv/odd_td.htm``)
+- ``get_octopus_tracker()`` — Octopus TD + 2pt conversion scorers
+  (``/friv/octopus-tracker.htm``)
 """
 
 from typing import Optional
@@ -32,6 +34,7 @@ from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.multi_team_players import MultiTeamPlayersParser
 from griddy.pfr.parsers.non_qb_passers import NonQBPassersParser
 from griddy.pfr.parsers.non_skill_pos_td import NonSkillPosTdParser
+from griddy.pfr.parsers.octopus_tracker import OctopusTrackerParser
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.parsers.qb_wins import QBWinsParser
 from griddy.pfr.parsers.statistical_milestones import StatisticalMilestonesParser
@@ -46,6 +49,7 @@ from ..models import (
     MultiTeamPlayers,
     NonQBPassers,
     NonSkillPosTdScorers,
+    OctopusTracker,
     PlayersBornBefore,
     QBWins,
     StatisticalMilestones,
@@ -63,6 +67,7 @@ _uniform_numbers_parser = UniformNumbersParser()
 _qb_wins_parser = QBWinsParser()
 _non_qb_passers_parser = NonQBPassersParser()
 _non_skill_pos_td_parser = NonSkillPosTdParser()
+_octopus_tracker_parser = OctopusTrackerParser()
 
 
 class Frivolities(BaseSDK):
@@ -585,3 +590,42 @@ class Frivolities(BaseSDK):
         config = self._get_non_skill_pos_td_scorers_config(timeout_ms=timeout_ms)
         data = self._execute_endpoint(config)
         return NonSkillPosTdScorers.model_validate(data)
+
+    # ── Octopus Tracker ────────────────────────────────────────────────────
+
+    def _get_octopus_tracker_config(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> EndpointConfig:
+        return EndpointConfig(
+            path_template="/friv/octopus-tracker.htm",
+            operation_id="getOctopusTracker",
+            wait_for_element="#octopus",
+            parser=_octopus_tracker_parser.parse,
+            response_type=OctopusTracker,
+            timeout_ms=timeout_ms,
+        )
+
+    def get_octopus_tracker(
+        self,
+        *,
+        timeout_ms: Optional[int] = None,
+    ) -> OctopusTracker:
+        """Fetch octopus TD + 2pt conversion scorers since 1994.
+
+        Scrapes the PFR page at ``/friv/octopus-tracker.htm`` and returns
+        a list of game-level instances where a player scored both the
+        touchdown and the two-point conversion on a single possession.
+
+        Args:
+            timeout_ms: Optional timeout in milliseconds for the page
+                selector.
+
+        Returns:
+            A :class:`~griddy.pfr.models.OctopusTracker` instance
+            containing the scoring entries.
+        """
+        config = self._get_octopus_tracker_config(timeout_ms=timeout_ms)
+        data = self._execute_endpoint(config)
+        return OctopusTracker.model_validate(data)
