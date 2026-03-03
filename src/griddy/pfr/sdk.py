@@ -129,9 +129,10 @@ class GriddyPFR(LazySubSDKMixin, BaseSDK):
             client = httpx.Client(follow_redirects=True)
             client_supplied = False
 
-        assert issubclass(
-            type(client), HttpClient
-        ), "The provided client must implement the HttpClient protocol."
+        if not issubclass(type(client), HttpClient):
+            raise TypeError(
+                "The provided client must implement the HttpClient protocol."
+            )
 
         async_client_supplied = True
         if async_client is None:
@@ -141,9 +142,10 @@ class GriddyPFR(LazySubSDKMixin, BaseSDK):
         if debug_logger is None:
             debug_logger = get_default_logger(env_var="GRIDDY_PFR_DEBUG")
 
-        assert issubclass(
-            type(async_client), AsyncHttpClient
-        ), "The provided async_client must implement the AsyncHttpClient protocol."
+        if not issubclass(type(async_client), AsyncHttpClient):
+            raise TypeError(
+                "The provided async_client must implement the AsyncHttpClient protocol."
+            )
 
         security = None
         if pfr_auth and "accessToken" in pfr_auth:
