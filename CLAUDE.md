@@ -126,7 +126,6 @@ PFR: currently does not require authentication.
 
 `core/exceptions.py` defines: `GriddyError` (base) -> `APIError`, `RateLimitError`, `NotFoundError`, `AuthenticationError`, `ValidationError`. The NFL SDK also has `errors.GriddyNFLDefaultError` used by `basesdk.py` for API response errors. The PFR SDK has `errors.GriddyPFRDefaultError` and `errors.NoResponseError`.
 
-
 ## Code Style
 
 - Black (line-length 88), isort (black profile), mypy strict (`disallow_untyped_defs`)
