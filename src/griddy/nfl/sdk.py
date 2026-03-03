@@ -157,8 +157,6 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
         ),
         "combine": ("griddy.nfl.endpoints.regular.football.combine", "Combine"),
         "draft": ("griddy.nfl.endpoints.regular.football.draft", "Draft"),
-        # TODO: There will be a collision when we get to the top-level experience endpoint
-        "injuries": ("griddy.nfl.endpoints.regular.football.injuries", "Injuries"),
         "games": ("griddy.nfl.endpoints.regular.football.games", "Games"),
         "rosters": ("griddy.nfl.endpoints.regular.football.rosters", "Rosters"),
         "standings": ("griddy.nfl.endpoints.regular.football.standings", "Standings"),
@@ -184,11 +182,6 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
         "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.endpoints.pro.betting", "Betting"),
-        "defensive_pass_rush_statistics": (
-            "griddy.nfl.defensive_pass_rush_statistics",
-            "DefensivePassRushStatistics",
-        ),
-        "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
         "teams": ("griddy.nfl.endpoints.pro.teams", "Teams"),
         "transactions": ("griddy.nfl.endpoints.pro.transactions", "Transactions"),
         "ngs": ("griddy.nfl.endpoints.ngs", "NextGenStats"),
