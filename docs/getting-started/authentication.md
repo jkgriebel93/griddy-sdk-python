@@ -34,37 +34,34 @@ nfl = GriddyNFL(nfl_auth=auth_info)
 
 ## Method 2: Browser Authentication
 
-The SDK can automatically log in using Playwright:
+The SDK can automatically log in using Playwright via the `authenticate_via_browser()` class method:
 
 ```python
 from griddy.nfl import GriddyNFL
 
-nfl = GriddyNFL(
+nfl = GriddyNFL.authenticate_via_browser(
     login_email="your_email@example.com",
     login_password="your_password",
-    headless_login=True  # Set to False to see the browser
+    headless=True,  # Set to False to see the browser
 )
 ```
 
-### Prerequisites for Browser Auth
+### Saving Credentials
 
-Install Playwright browsers first:
+You can optionally save the credentials to a file for reuse by providing `save_credentials_path`:
 
-```bash
-playwright install chromium
+```python
+nfl = GriddyNFL.authenticate_via_browser(
+    login_email="your_email@example.com",
+    login_password="your_password",
+    headless=True,
+    save_credentials_path="creds.json",
+)
 ```
 
-### How Browser Auth Works
+### Reusing Saved Credentials
 
-1. Playwright opens a Chromium browser
-2. Navigates to the NFL login page
-3. Enters your credentials
-4. Captures the authentication token
-5. Saves credentials to `creds.json` for reuse
-
-### Reusing Credentials
-
-After browser authentication, credentials are saved to `creds.json`. You can load and reuse them:
+After saving credentials, you can load and reuse them:
 
 ```python
 import json
@@ -77,6 +74,22 @@ with open("creds.json", "r") as f:
 # Use saved credentials
 nfl = GriddyNFL(nfl_auth=auth_info)
 ```
+
+### Prerequisites for Browser Auth
+
+Install Playwright browsers first:
+
+```bash
+playwright install firefox
+```
+
+### How Browser Auth Works
+
+1. Playwright opens a Firefox browser
+2. Navigates to the NFL login page
+3. Enters your credentials
+4. Captures the authentication token
+5. Optionally saves credentials to a file (when `save_credentials_path` is provided)
 
 ## Token Refresh
 
@@ -100,10 +113,10 @@ Store credentials in environment variables:
 import os
 from griddy.nfl import GriddyNFL
 
-nfl = GriddyNFL(
-    login_email=os.environ.get("NFL_EMAIL"),
-    login_password=os.environ.get("NFL_PASSWORD"),
-    headless_login=True
+nfl = GriddyNFL.authenticate_via_browser(
+    login_email=os.environ["NFL_EMAIL"],
+    login_password=os.environ["NFL_PASSWORD"],
+    headless=True,
 )
 ```
 
@@ -130,8 +143,8 @@ For production applications:
 
 **Solutions**:
 
-1. Set `headless_login=False` to see what's happening
-2. Ensure Playwright browsers are installed: `playwright install chromium`
+1. Set `headless=False` to see what's happening
+2. Ensure Playwright browsers are installed: `playwright install firefox`
 3. Check if NFL.com has changed their login flow
 
 ### Token Expired
@@ -162,12 +175,6 @@ For production applications:
 │ (email/pass or  │     │ (Authentication)│     │   (Token)       │
 │  auth token)    │     │                 │     │                 │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
-                               │
-                               ▼
-                        ┌─────────────────┐
-                        │  creds.json     │
-                        │ (Saved locally) │
-                        └─────────────────┘
 ```
 
 ## Next Steps

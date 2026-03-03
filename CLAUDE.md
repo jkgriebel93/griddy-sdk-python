@@ -51,7 +51,6 @@ It is crucial to follow this branch naming convention, as the `tgf-commit` comma
 - When context usage exceeds 60%, proactively summarize current task state under "## Current Task" in this file
 - Run /compact proactively rather than waiting for the context limit
 - Always use `tgf-format` before commiting changes and `tgf-commit` to commit changes.
-- Ensure that `version` is updated in `pyproject.toml` as part of any pull request.
 - Run `uv lock` before committing any time `pyproject.toml` has been modified.
 
 ## Build and Test Commands

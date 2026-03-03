@@ -12,10 +12,10 @@ class TestProAPI:
 
     @pytest.fixture(scope="class")
     def nfl(self):
-        return GriddyNFL(
+        return GriddyNFL.authenticate_via_browser(
             login_email=NFL["login_email"],
             login_password=NFL["login_password"],
-            headless_login=True,
+            headless=True,
         )
 
     def test_content(self, nfl):
