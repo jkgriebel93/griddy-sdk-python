@@ -1,3 +1,4 @@
+import logging
 import re
 from collections import defaultdict
 from datetime import date, datetime
@@ -8,6 +9,8 @@ from bs4.element import ResultSet, Tag
 
 from griddy.core.utils.converters import multi_replace, safe_numberify, snakify
 from griddy.pfr.models.entities.player_profile import PlayerProfile
+
+logger = logging.getLogger(__name__)
 
 
 class PlayerProfileParser:
@@ -286,9 +289,9 @@ class PlayerProfileParser:
                         strip=True
                     )
                 )
-            except AttributeError as e:
-                print(row.prettify())
-                raise e
+            except AttributeError:
+                logger.exception("Failed to parse season row:\n%s", row.prettify())
+                raise
             values = [
                 safe_numberify(td.get_text(strip=True)) for td in row.find_all("td")
             ]
