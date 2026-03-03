@@ -16,8 +16,10 @@ if len(args) == 1:
         custom_auth_info = json.load(infile)
     nfl = GriddyNFL(nfl_auth=custom_auth_info)
 else:
-    nfl = GriddyNFL(
-        login_email=NFL["login_email"], login_password=NFL["login_password"]
+    nfl = GriddyNFL.authenticate_via_browser(
+        login_email=NFL["login_email"],
+        login_password=NFL["login_password"],
+        headless=True,
     )
 
 # 2015 Week 01 Pittsburgh at New England

@@ -29,7 +29,6 @@ from .sdkconfiguration import SDKConfiguration
 from .types import UNSET, OptionalNullable
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
-from .utils.security import do_browser_auth
 
 if TYPE_CHECKING:
     from griddy.nfl.endpoints.ngs import NextGenStats
@@ -208,10 +207,7 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
 
     def __init__(
         self,
-        nfl_auth: Optional[Dict[str, Any]] = None,
-        login_email: Optional[str] = None,
-        login_password: Optional[str] = None,
-        headless_login: Optional[bool] = False,
+        nfl_auth: Dict[str, Any],
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -223,18 +219,10 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
     ) -> None:
         """Initialize the GriddyNFL client.
 
-        You must provide authentication either via a pre-obtained auth token
-        (nfl_auth) or via email/password for browser-based authentication.
-
         Args:
             nfl_auth: Dictionary containing authentication information,
                 must include 'accessToken' key. Example:
                 {"accessToken": "your_nfl_access_token"}
-            login_email: Email address for NFL.com account. Used with
-                login_password for browser-based authentication.
-            login_password: Password for NFL.com account.
-            headless_login: If True, run browser in headless mode during
-                authentication. Defaults to False.
             server_idx: Index of the server to use from the server list.
             server_url: Override the default server URL.
             url_params: Parameters to template into the server URL.
@@ -244,19 +232,8 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
             timeout_ms: Request timeout in milliseconds.
             debug_logger: Custom logger for debug output.
 
-        Raises:
-            ValueError: If neither nfl_auth nor email/password is provided,
-                or if both are provided.
-
         Example:
-            >>> # With pre-obtained token
             >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
-            >>> # With email/password
-            >>> nfl = GriddyNFL(
-            ...     login_email="user@example.com",
-            ...     login_password="password",
-            ...     headless_login=True,
-            ... )
         """
         client_supplied = True
         if client is None:
@@ -280,23 +257,6 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
             raise TypeError(
                 "The provided async_client must implement the AsyncHttpClient protocol."
             )
-
-        auth_params_error = (
-            "You must provide either nfl_auth, OR email/password combination."
-        )
-        if all([nfl_auth, login_email, login_password]):
-            raise ValueError(auth_params_error)
-        elif not any([nfl_auth, login_email, login_password]):
-            raise ValueError(auth_params_error)
-
-        if not nfl_auth:
-            nfl_auth = do_browser_auth(
-                email=login_email, password=login_password, headless=headless_login
-            )
-
-            print("Writing auth creds to file")
-            with open("creds.json", "w") as outfile:
-                json.dump(nfl_auth, outfile, indent=4)
 
         security = models.Security(nfl_auth=nfl_auth["accessToken"])
 
@@ -337,6 +297,79 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
             self.sdk_configuration.client_supplied,
             self.sdk_configuration.async_client,
             self.sdk_configuration.async_client_supplied,
+        )
+
+    @classmethod
+    def authenticate_via_browser(
+        cls,
+        login_email: str,
+        login_password: str,
+        headless: bool = False,
+        save_credentials_path: Optional[str] = None,
+        server_idx: Optional[int] = None,
+        server_url: Optional[str] = None,
+        url_params: Optional[Dict[str, str]] = None,
+        client: Optional[HttpClient] = None,
+        async_client: Optional[AsyncHttpClient] = None,
+        retry_config: OptionalNullable[RetryConfig] = UNSET,
+        timeout_ms: Optional[int] = None,
+        debug_logger: Optional[Logger] = None,
+    ) -> "GriddyNFL":
+        """Create a GriddyNFL instance by authenticating via browser.
+
+        Uses Playwright to log into NFL.com and capture auth tokens.
+
+        Args:
+            login_email: Email address for NFL.com account.
+            login_password: Password for NFL.com account.
+            headless: If True, run browser in headless mode. Defaults to False.
+            save_credentials_path: If provided, save credentials to this file path.
+            server_idx: Index of the server to use from the server list.
+            server_url: Override the default server URL.
+            url_params: Parameters to template into the server URL.
+            client: Custom synchronous HTTP client (must implement HttpClient).
+            async_client: Custom async HTTP client (must implement AsyncHttpClient).
+            retry_config: Configuration for automatic request retries.
+            timeout_ms: Request timeout in milliseconds.
+            debug_logger: Custom logger for debug output.
+
+        Returns:
+            A fully-initialized GriddyNFL instance.
+
+        Example:
+            >>> nfl = GriddyNFL.authenticate_via_browser(
+            ...     login_email="user@example.com",
+            ...     login_password="password",
+            ...     headless=True,
+            ...     save_credentials_path="creds.json",
+            ... )
+        """
+        from .utils.security import do_browser_auth
+
+        if debug_logger is None:
+            debug_logger = get_default_logger()
+
+        nfl_auth = do_browser_auth(
+            email=login_email,
+            password=login_password,
+            headless=headless,
+            logger=debug_logger,
+        )
+
+        if save_credentials_path is not None:
+            with open(save_credentials_path, "w") as outfile:
+                json.dump(nfl_auth, outfile, indent=4)
+
+        return cls(
+            nfl_auth=nfl_auth,
+            server_idx=server_idx,
+            server_url=server_url,
+            url_params=url_params,
+            client=client,
+            async_client=async_client,
+            retry_config=retry_config,
+            timeout_ms=timeout_ms,
+            debug_logger=debug_logger,
         )
 
     def __enter__(self):

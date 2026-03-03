@@ -2,6 +2,7 @@
 
 import base64
 from typing import Optional
+from unittest.mock import MagicMock, patch
 
 import pytest
 from pydantic import Field
@@ -14,6 +15,7 @@ from griddy.nfl.utils.security import (
     _parse_basic_auth_scheme,
     _parse_security_option,
     _parse_security_scheme_value,
+    do_browser_auth,
     get_security,
     get_security_from_env,
 )
@@ -239,3 +241,35 @@ class TestParseBasicAuthScheme:
             TypeError, match="basic auth scheme must be a pydantic model"
         ):
             _parse_basic_auth_scheme({}, "not a model")
+
+
+@pytest.mark.unit
+class TestDoBrowserAuthLogger:
+    @patch("griddy.nfl.utils.security.sync_playwright")
+    def test_uses_logger_debug_instead_of_print(self, mock_playwright):
+        mock_browser = MagicMock()
+        mock_page = MagicMock()
+        mock_response = MagicMock()
+        mock_response.value.json.return_value = {"accessToken": "tok"}
+
+        mock_pw = MagicMock()
+        mock_pw.firefox.launch.return_value = mock_browser
+        mock_browser.new_page.return_value = mock_page
+        mock_page.expect_response.return_value.__enter__ = MagicMock(
+            return_value=mock_response
+        )
+        mock_page.expect_response.return_value.__exit__ = MagicMock(return_value=False)
+        mock_playwright.return_value.__enter__ = MagicMock(return_value=mock_pw)
+        mock_playwright.return_value.__exit__ = MagicMock(return_value=False)
+
+        logger = MagicMock()
+        do_browser_auth(
+            email="test@example.com",
+            password="password",
+            headless=True,
+            logger=logger,
+        )
+        assert logger.debug.call_count > 0
+        debug_messages = [call.args[0] for call in logger.debug.call_args_list]
+        assert "Begin do_browser_auth." in debug_messages
+        assert "Launching browser." in debug_messages
