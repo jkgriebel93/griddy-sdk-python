@@ -1,41 +1,31 @@
 name: Build SDK and publish to AWS CodeArtifact
 
 on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
-  check-version-bump:
+  verify-tag:
     runs-on: ubuntu-latest
-    outputs:
-      version_changed: ${{ steps.version_check.outputs.version_changed }}
     steps:
       - name: Checkout source repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
-      - name: Check if version was bumped
-        id: version_check
+      - name: Verify tag matches pyproject.toml version
         run: |
-          CURRENT_VERSION=$(grep -E '^version = ' pyproject.toml | head -1 | cut -d'"' -f2)
-          PREVIOUS_VERSION=$(git show HEAD~1:pyproject.toml | grep -E '^version = ' | head -1 | cut -d'"' -f2)
-          echo "Current version: $CURRENT_VERSION"
-          echo "Previous version: $PREVIOUS_VERSION"
-          if [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
-            echo "Version changed from $PREVIOUS_VERSION to $CURRENT_VERSION"
-            echo "version_changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "Version unchanged"
-            echo "version_changed=false" >> $GITHUB_OUTPUT
+          PKG_VERSION=$(grep -E '^version = ' pyproject.toml | head -1 | cut -d'"' -f2)
+          TAG="${GITHUB_REF_NAME#v}"
+          echo "pyproject.toml version: $PKG_VERSION"
+          echo "Release tag (stripped 'v' prefix): $TAG"
+          if [ "$PKG_VERSION" != "$TAG" ]; then
+            echo "::error::Version mismatch: pyproject.toml has '$PKG_VERSION' but release tag is '$GITHUB_REF_NAME'"
+            exit 1
           fi
+          echo "Versions match."
 
   publish-codeartifacts:
     runs-on: ubuntu-latest
-    needs: check-version-bump
-    if: needs.check-version-bump.outputs.version_changed == 'true' || github.event_name == 'workflow_dispatch'
+    needs: verify-tag
     permissions:
       contents: write
     steps:

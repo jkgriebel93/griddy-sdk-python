@@ -12,6 +12,7 @@ dependencies = [
     "httpx>=0.28.1",
     "playwright==1.58.0",
     "pydantic>=2.12.5",
+    "pytest-xdist[psutil]>=3.8.0",
     "python-dateutil>=2.9.0.post0",
     "pyyaml>=6.0.3",
     "requests>=2.32.5",
@@ -109,6 +110,7 @@ addopts = [
     "--cov-report=xml",
     "-m",
     "not integration",
+    "--numprocesses=auto"
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
