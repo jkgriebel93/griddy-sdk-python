@@ -263,9 +263,10 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
             client = httpx.Client(follow_redirects=True)
             client_supplied = False
 
-        assert issubclass(
-            type(client), HttpClient
-        ), "The provided client must implement the HttpClient protocol."
+        if not issubclass(type(client), HttpClient):
+            raise TypeError(
+                "The provided client must implement the HttpClient protocol."
+            )
 
         async_client_supplied = True
         if async_client is None:
@@ -275,9 +276,10 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
         if debug_logger is None:
             debug_logger = get_default_logger()
 
-        assert issubclass(
-            type(async_client), AsyncHttpClient
-        ), "The provided async_client must implement the AsyncHttpClient protocol."
+        if not issubclass(type(async_client), AsyncHttpClient):
+            raise TypeError(
+                "The provided async_client must implement the AsyncHttpClient protocol."
+            )
 
         auth_params_error = (
             "You must provide either nfl_auth, OR email/password combination."
