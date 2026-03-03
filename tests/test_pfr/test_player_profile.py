@@ -1,9 +1,11 @@
 """Tests for griddy.pfr.parsers.player_profile module."""
 
 import json
+import logging
 from unittest.mock import patch
 
 import pytest
+from bs4 import BeautifulSoup
 
 from griddy.pfr import GriddyPFR
 from griddy.pfr.models.entities.player_profile import PlayerProfile
@@ -487,6 +489,50 @@ class TestPlayersEndpoint:
 # ---------------------------------------------------------------------------
 # Edge cases
 # ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# Error handling in _parse_stats_table (TGF-87)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.unit
+class TestParseStatsTableErrorHandling:
+    """Verify that _parse_stats_table uses logger.exception and bare raise."""
+
+    def _make_bad_table(self) -> BeautifulSoup:
+        """Build a minimal stats table where the row is missing the year_id/year attr."""
+        html = """
+        <table id="test_stats" class="stats_table">
+          <thead>
+            <tr><th data-stat="year_id">Year</th><th data-stat="g">G</th></tr>
+          </thead>
+          <tbody>
+            <tr><td data-stat="g">16</td></tr>
+          </tbody>
+        </table>
+        """
+        return BeautifulSoup(html, "html.parser").find("table")
+
+    def test_logs_exception_on_bad_row(self, parser, caplog):
+        table = self._make_bad_table()
+        with caplog.at_level(logging.ERROR, logger="griddy.pfr.parsers.player_profile"):
+            with pytest.raises(AttributeError):
+                parser._parse_stats_table(table=table)
+        assert "Failed to parse season row" in caplog.text
+
+    def test_preserves_traceback_chain(self, parser):
+        table = self._make_bad_table()
+        with pytest.raises(AttributeError) as exc_info:
+            parser._parse_stats_table(table=table)
+        # bare `raise` preserves __traceback__; `raise e` would reset it.
+        # Verify the traceback includes _parse_stats_table.
+        tb = exc_info.tb
+        tb_names = []
+        while tb is not None:
+            tb_names.append(tb.tb_frame.f_code.co_name)
+            tb = tb.tb_next
+        assert "_parse_stats_table" in tb_names
 
 
 @pytest.mark.unit
