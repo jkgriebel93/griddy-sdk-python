@@ -12,7 +12,7 @@ Example:
 
 import base64
 import json
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional, Union
 from uuid import uuid4
 
 from griddy import settings
@@ -205,7 +205,7 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
 
     def __init__(
         self,
-        nfl_auth: Dict[str, Any],
+        nfl_auth: Union[models.NFLAuth, Dict[str, Any]],
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -218,9 +218,10 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         """Initialize the GriddyNFL client.
 
         Args:
-            nfl_auth: Dictionary containing authentication information,
-                must include 'accessToken' key. Example:
-                {"accessToken": "your_nfl_access_token"}
+            nfl_auth: Authentication info containing at least an access token.
+                Accepts an ``NFLAuth`` model or a dict with camelCase keys
+                (e.g. ``{"accessToken": "..."}``).  Dicts are validated and
+                coerced to ``NFLAuth`` at init time.
             server_idx: Index of the server to use from the server list.
             server_url: Override the default server URL.
             url_params: Parameters to template into the server URL.
@@ -233,6 +234,9 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         Example:
             >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
         """
+        if isinstance(nfl_auth, dict):
+            nfl_auth = models.NFLAuth.model_validate(nfl_auth)
+
         self._init_sdk(
             auth=nfl_auth,
             server_idx=server_idx,
@@ -254,7 +258,7 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         return "GRIDDY_DEBUG"
 
     def _create_security(self, auth: Any) -> Any:
-        return models.Security(nfl_auth=auth["accessToken"])
+        return models.Security(nfl_auth=auth.access_token)
 
     def _create_sdk_configuration(self, **kwargs: Any) -> Any:
         return SDKConfiguration(**kwargs)

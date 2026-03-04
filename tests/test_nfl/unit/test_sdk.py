@@ -5,12 +5,14 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import httpx
 import pytest
+from pydantic import ValidationError
 
 from griddy.core.base_griddy_sdk import BaseGriddySDK
 from griddy.nfl import GriddyNFL
 from griddy.nfl.endpoints.ngs import NextGenStats
 from griddy.nfl.endpoints.pro.stats import StatsSDK
 from griddy.nfl.endpoints.regular.football.stats import FootballStatsSDK
+from griddy.nfl.models import NFLAuth
 
 
 @pytest.mark.unit
@@ -23,6 +25,31 @@ class TestGriddyNFLInit:
     def test_init_raises_without_nfl_auth(self):
         with pytest.raises(TypeError):
             GriddyNFL()
+
+    def test_init_coerces_dict_to_nfl_auth(self):
+        nfl = GriddyNFL(nfl_auth={"accessToken": "tok"})
+        assert isinstance(nfl.sdk_configuration.custom_auth_info, NFLAuth)
+        assert nfl.sdk_configuration.custom_auth_info.access_token == "tok"
+
+    def test_init_accepts_nfl_auth_model(self):
+        auth = NFLAuth(access_token="tok")
+        nfl = GriddyNFL(nfl_auth=auth)
+        assert nfl.sdk_configuration.custom_auth_info is auth
+
+    def test_init_raises_validation_error_for_empty_dict(self):
+        with pytest.raises(ValidationError):
+            GriddyNFL(nfl_auth={})
+
+    def test_init_raises_validation_error_for_wrong_keys(self):
+        with pytest.raises(ValidationError):
+            GriddyNFL(nfl_auth={"wrong_key": "value"})
+
+    def test_init_preserves_optional_fields(self, nfl_auth_info_valid):
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
+        auth = nfl.sdk_configuration.custom_auth_info
+        assert auth.access_token == "ZEBRA"
+        assert auth.refresh_token is not None
+        assert auth.expires_in is not None
 
 
 @pytest.mark.unit
