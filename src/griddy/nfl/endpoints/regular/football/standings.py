@@ -1,11 +1,13 @@
 from typing import Mapping, Optional
 
 from griddy.core._constants import COLLECTION_ERROR_CODES
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
+@sdk_endpoints
 class Standings(BaseSDK):
 
     def _get_standings_config(
@@ -20,6 +22,21 @@ class Standings(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Standings
+
+        Retrieves team standings for a specific season, season type, and week.
+        Includes division, conference, and overall standings with detailed statistics.
+
+
+        :param season: Season year
+        :param season_type: Type of season
+        :param week: Week number
+        :param limit: Maximum number of results to return
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetStandingsRequest(
             season=season,
             season_type=season_type,
@@ -42,67 +59,3 @@ class Standings(BaseSDK):
             http_headers=http_headers,
             retries=retries,
         )
-
-    def get_standings(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: int,
-        limit: Optional[int] = 20,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.StandingsResponse:
-        r"""Get Standings
-
-        Retrieves team standings for a specific season, season type, and week.
-        Includes division, conference, and overall standings with detailed statistics.
-
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number
-        :param limit: Maximum number of results to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_standings_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_standings_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: int,
-        limit: Optional[int] = 20,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.StandingsResponse:
-        r"""Get Standings"""
-        config = self._get_standings_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)

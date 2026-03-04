@@ -1,11 +1,13 @@
 from typing import Mapping, Optional
 
 from griddy.core._constants import RESOURCE_ERROR_CODES
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
+@sdk_endpoints
 class Combine(BaseSDK):
 
     def _get_profiles_config(
@@ -18,6 +20,15 @@ class Combine(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Combine Profiles
+
+        :param year: Draft year
+        :param limit: Maximum number of combine profiles to return
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetCombineProfilesRequest(year=year, limit=limit)
 
         return EndpointConfig(
@@ -37,57 +48,6 @@ class Combine(BaseSDK):
             return_raw_json=False,
         )
 
-    def get_profiles(
-        self,
-        *,
-        year: int,
-        limit: int = 1000,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CombineProfilesResponse:
-        r"""Get Combine Profiles
-
-        :param year: Draft year
-        :param limit: Maximum number of combine profiles to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_profiles_config(
-            year=year,
-            limit=limit,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_profiles_async(
-        self,
-        *,
-        year: int,
-        limit: Optional[int] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CombineProfilesResponse:
-        r"""Get Combine Profiles"""
-        # Note: sync version has limit=1000, async has limit=None - keeping original behavior
-        config = self._get_profiles_config(
-            year=year,
-            limit=limit if limit is not None else 1000,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_rankings_config(
         self,
         *,
@@ -100,6 +60,17 @@ class Combine(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Combine Rankings
+
+        :param rank_attribute: Attribute to rank by
+        :param sort_order: Sort order
+        :param year: Draft year
+        :param limit: Maximum number of combine profiles to return
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetCombineRankingsRequest(
             rank_attribute=rank_attribute,
             sort_order=sort_order,
@@ -123,64 +94,3 @@ class Combine(BaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-
-    def get_rankings(
-        self,
-        *,
-        rank_attribute: models.EventFilterEnum,
-        sort_order: models.SortOrderEnum,
-        year: int,
-        limit: int = 1000,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CombineRankingsResponse:
-        r"""Get Combine Rankings
-
-        :param rank_attribute: Attribute to rank by
-        :param sort_order: Sort order
-        :param year: Draft year
-        :param limit: Maximum number of combine profiles to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_rankings_config(
-            rank_attribute=rank_attribute,
-            sort_order=sort_order,
-            year=year,
-            limit=limit,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_rankings_async(
-        self,
-        *,
-        rank_attribute: models.EventFilterEnum,
-        sort_order: models.SortOrderEnum,
-        year: int,
-        limit: Optional[int] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CombineRankingsResponse:
-        r"""Get Combine Rankings"""
-        # Note: sync version has limit=1000, async has limit=None - keeping original behavior
-        config = self._get_rankings_config(
-            rank_attribute=rank_attribute,
-            sort_order=sort_order,
-            year=year,
-            limit=limit if limit is not None else 1000,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)

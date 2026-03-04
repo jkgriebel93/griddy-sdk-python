@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Mapping, Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models
 from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.ngs import NgsBaseSDK
@@ -14,6 +15,7 @@ from griddy.nfl.utils import RetryConfig
 NGS_ERROR_CODES = ["400", "401", "403", "404", "4XX", "500", "5XX"]
 
 
+@sdk_endpoints
 class NgsStats(NgsBaseSDK):
     """NGS Stats endpoints for player statistics.
 
@@ -23,7 +25,7 @@ class NgsStats(NgsBaseSDK):
     - Rushing statistics (time to LOS, rush yards over expected, etc.)
     """
 
-    def get_passing_stats(
+    def _get_passing_stats_config(
         self,
         *,
         season: int,
@@ -33,7 +35,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsPassingStatsResponse:
+    ) -> EndpointConfig:
         """Get NGS passing statistics.
 
         Returns detailed passing statistics including time to throw,
@@ -51,7 +53,7 @@ class NgsStats(NgsBaseSDK):
         Returns:
             Dict containing passing statistics
         """
-        config = EndpointConfig(
+        return EndpointConfig(
             method="GET",
             path="/api/statboard/passing",
             operation_id="getNgsPassingStats",
@@ -69,9 +71,8 @@ class NgsStats(NgsBaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-        return self._execute_endpoint(config)
 
-    async def get_passing_stats_async(
+    def _get_receiving_stats_config(
         self,
         *,
         season: int,
@@ -81,39 +82,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsPassingStatsResponse:
-        """Get NGS passing statistics (async)."""
-        config = EndpointConfig(
-            method="GET",
-            path="/api/statboard/passing",
-            operation_id="getNgsPassingStats",
-            request=models.GetNgsPassingStatsRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-            ),
-            response_type=models.NgsPassingStatsResponse,
-            error_status_codes=NGS_ERROR_CODES,
-            request_has_query_params=True,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-            retries=retries,
-            return_raw_json=False,
-        )
-        return await self._execute_endpoint_async(config)
-
-    def get_receiving_stats(
-        self,
-        *,
-        season: int,
-        season_type: str,
-        week: Optional[int] = None,
-        retries: OptionalNullable[RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsReceivingStatsResponse:
+    ) -> EndpointConfig:
         """Get NGS receiving statistics.
 
         Returns detailed receiving statistics including separation,
@@ -131,7 +100,7 @@ class NgsStats(NgsBaseSDK):
         Returns:
             NgsReceivingStatsResponse containing receiving statistics
         """
-        config = EndpointConfig(
+        return EndpointConfig(
             method="GET",
             path="/api/statboard/receiving",
             operation_id="getNgsReceivingStats",
@@ -149,9 +118,8 @@ class NgsStats(NgsBaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-        return self._execute_endpoint(config)
 
-    async def get_receiving_stats_async(
+    def _get_rushing_stats_config(
         self,
         *,
         season: int,
@@ -161,39 +129,7 @@ class NgsStats(NgsBaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsReceivingStatsResponse:
-        """Get NGS receiving statistics (async)."""
-        config = EndpointConfig(
-            method="GET",
-            path="/api/statboard/receiving",
-            operation_id="getNgsReceivingStats",
-            request=models.GetNgsReceivingStatsRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-            ),
-            response_type=models.NgsReceivingStatsResponse,
-            error_status_codes=NGS_ERROR_CODES,
-            request_has_query_params=True,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-            retries=retries,
-            return_raw_json=False,
-        )
-        return await self._execute_endpoint_async(config)
-
-    def get_rushing_stats(
-        self,
-        *,
-        season: int,
-        season_type: str,
-        week: Optional[int] = None,
-        retries: OptionalNullable[RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsRushingStatsResponse:
+    ) -> EndpointConfig:
         """Get NGS rushing statistics.
 
         Returns detailed rushing statistics including time to LOS,
@@ -211,7 +147,7 @@ class NgsStats(NgsBaseSDK):
         Returns:
             NgsRushingStatsResponse containing rushing statistics
         """
-        config = EndpointConfig(
+        return EndpointConfig(
             method="GET",
             path="/api/statboard/rushing",
             operation_id="getNgsRushingStats",
@@ -229,36 +165,3 @@ class NgsStats(NgsBaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-        return self._execute_endpoint(config)
-
-    async def get_rushing_stats_async(
-        self,
-        *,
-        season: int,
-        season_type: str,
-        week: Optional[int] = None,
-        retries: OptionalNullable[RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsRushingStatsResponse:
-        """Get NGS rushing statistics (async)."""
-        config = EndpointConfig(
-            method="GET",
-            path="/api/statboard/rushing",
-            operation_id="getNgsRushingStats",
-            request=models.GetNgsRushingStatsRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-            ),
-            response_type=models.NgsRushingStatsResponse,
-            error_status_codes=NGS_ERROR_CODES,
-            request_has_query_params=True,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-            retries=retries,
-            return_raw_json=False,
-        )
-        return await self._execute_endpoint_async(config)

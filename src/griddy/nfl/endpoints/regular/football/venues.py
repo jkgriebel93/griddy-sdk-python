@@ -1,11 +1,13 @@
 from typing import Mapping, Optional
 
 from griddy.core._constants import COLLECTION_ERROR_CODES
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
+@sdk_endpoints
 class Venues(BaseSDK):
 
     def _get_venues_config(
@@ -18,6 +20,19 @@ class Venues(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get NFL Venues
+
+        Retrieves information about all NFL stadiums and venues, including international venues.
+        Provides venue details such as addresses, locations, and territories.
+
+
+        :param season: Season year
+        :param limit: Maximum number of venues to return
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetVenuesRequest(
             season=season,
             limit=limit,
@@ -38,57 +53,3 @@ class Venues(BaseSDK):
             http_headers=http_headers,
             retries=retries,
         )
-
-    def get_venues(
-        self,
-        *,
-        season: int,
-        limit: Optional[int] = 20,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.VenuesResponse:
-        r"""Get NFL Venues
-
-        Retrieves information about all NFL stadiums and venues, including international venues.
-        Provides venue details such as addresses, locations, and territories.
-
-
-        :param season: Season year
-        :param limit: Maximum number of venues to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_venues_config(
-            season=season,
-            limit=limit,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_venues_async(
-        self,
-        *,
-        season: int,
-        limit: Optional[int] = 20,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.VenuesResponse:
-        r"""Get NFL Venues"""
-        config = self._get_venues_config(
-            season=season,
-            limit=limit,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)

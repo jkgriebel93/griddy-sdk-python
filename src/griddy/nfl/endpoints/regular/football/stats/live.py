@@ -1,11 +1,13 @@
 from typing import Mapping, Optional
 
 from griddy.core._constants import RESOURCE_ERROR_CODES
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
+@sdk_endpoints
 class LiveStats(BaseSDK):
 
     def _get_team_statistics_config(
@@ -17,6 +19,18 @@ class LiveStats(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Live Team Statistics
+
+        Retrieves live team statistics for a specific game.
+        Returns awayTeam and homeTeam objects each containing 100+ stat fields.
+
+
+        :param game_id: Game identifier (UUID)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetLiveTeamStatisticsRequest(
             game_id=game_id,
         )
@@ -37,55 +51,6 @@ class LiveStats(BaseSDK):
             retries=retries,
         )
 
-    def get_team_statistics(
-        self,
-        *,
-        game_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.LiveTeamStatisticsResponse:
-        r"""Get Live Team Statistics
-
-        Retrieves live team statistics for a specific game.
-        Returns awayTeam and homeTeam objects each containing 100+ stat fields.
-
-
-        :param game_id: Game identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_team_statistics_config(
-            game_id=game_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_team_statistics_async(
-        self,
-        *,
-        game_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.LiveTeamStatisticsResponse:
-        r"""Get Live Team Statistics"""
-        config = self._get_team_statistics_config(
-            game_id=game_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_player_statistics_config(
         self,
         *,
@@ -95,6 +60,19 @@ class LiveStats(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Live Player Statistics
+
+        Retrieves live player statistics for a specific game.
+        Returns awayTeam and homeTeam objects, each containing a players
+        array with per-player identification and 100+ stat fields.
+
+
+        :param game_id: Game identifier (UUID)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetLivePlayerStatisticsRequest(
             game_id=game_id,
         )
@@ -114,53 +92,3 @@ class LiveStats(BaseSDK):
             http_headers=http_headers,
             retries=retries,
         )
-
-    def get_player_statistics(
-        self,
-        *,
-        game_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.LivePlayerStatisticsResponse:
-        r"""Get Live Player Statistics
-
-        Retrieves live player statistics for a specific game.
-        Returns awayTeam and homeTeam objects, each containing a players
-        array with per-player identification and 100+ stat fields.
-
-
-        :param game_id: Game identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_player_statistics_config(
-            game_id=game_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_player_statistics_async(
-        self,
-        *,
-        game_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.LivePlayerStatisticsResponse:
-        r"""Get Live Player Statistics"""
-        config = self._get_player_statistics_config(
-            game_id=game_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)

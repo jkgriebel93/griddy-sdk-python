@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from typing import Mapping, Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.sdkconfiguration import SERVERS
@@ -19,6 +20,7 @@ NFL_API_SERVER_URL = SERVERS["regular"]
 NGS_ERROR_CODES = ["400", "401", "403", "404", "4XX", "500", "5XX"]
 
 
+@sdk_endpoints
 class NgsNews(BaseSDK):
     """NGS News endpoints for articles and videos.
 
@@ -40,7 +42,7 @@ class NgsNews(BaseSDK):
             return server_url
         return NFL_API_SERVER_URL
 
-    def get_mixed_content(
+    def _get_mixed_content_config(
         self,
         *,
         limit: int = 16,
@@ -49,14 +51,14 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsMixedContentResponse:
+    ) -> EndpointConfig:
         """Get mixed NGS content (articles and videos).
 
         Args:
             limit: Number of items to return (default: 16)
             offset: Offset for pagination (default: 0)
         """
-        config = EndpointConfig(
+        return EndpointConfig(
             method="GET",
             path="/content/v1/mixed/next-gen-stats",
             operation_id="getNgsMixedContent",
@@ -70,36 +72,8 @@ class NgsNews(BaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-        return self._execute_endpoint(config)
 
-    async def get_mixed_content_async(
-        self,
-        *,
-        limit: int = 16,
-        offset: int = 0,
-        retries: OptionalNullable[RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsMixedContentResponse:
-        """Get mixed NGS content (async)."""
-        config = EndpointConfig(
-            method="GET",
-            path="/content/v1/mixed/next-gen-stats",
-            operation_id="getNgsMixedContent",
-            request=models.GetNgsMixedContentRequest(limit=limit, offset=offset),
-            response_type=models.NgsMixedContentResponse,
-            error_status_codes=NGS_ERROR_CODES,
-            request_has_query_params=True,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-            retries=retries,
-            return_raw_json=False,
-        )
-        return await self._execute_endpoint_async(config)
-
-    def get_articles(
+    def _get_articles_config(
         self,
         *,
         category: str = "next-gen-stats-news",
@@ -109,7 +83,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsArticlesResponse:
+    ) -> EndpointConfig:
         """Get NGS articles.
 
         Args:
@@ -117,7 +91,7 @@ class NgsNews(BaseSDK):
             limit: Number of items to return (default: 16)
             offset: Offset for pagination (default: 0)
         """
-        config = EndpointConfig(
+        return EndpointConfig(
             method="GET",
             path="/content/v1/articles",
             operation_id="getNgsArticles",
@@ -133,39 +107,8 @@ class NgsNews(BaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-        return self._execute_endpoint(config)
 
-    async def get_articles_async(
-        self,
-        *,
-        category: str = "next-gen-stats-news",
-        limit: int = 16,
-        offset: int = 0,
-        retries: OptionalNullable[RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsArticlesResponse:
-        """Get NGS articles (async)."""
-        config = EndpointConfig(
-            method="GET",
-            path="/content/v1/articles",
-            operation_id="getNgsArticles",
-            request=models.GetNgsArticlesRequest(
-                category=category, limit=limit, offset=offset
-            ),
-            response_type=models.NgsArticlesResponse,
-            error_status_codes=NGS_ERROR_CODES,
-            request_has_query_params=True,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-            retries=retries,
-            return_raw_json=False,
-        )
-        return await self._execute_endpoint_async(config)
-
-    def get_video_clips(
+    def _get_video_clips_config(
         self,
         *,
         video_channel: str = "next-gen-stats-vc",
@@ -175,7 +118,7 @@ class NgsNews(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsVideosResponse:
+    ) -> EndpointConfig:
         """Get NGS video clips.
 
         Args:
@@ -183,7 +126,7 @@ class NgsNews(BaseSDK):
             limit: Number of items to return (default: 16)
             offset: Offset for pagination (default: 0)
         """
-        config = EndpointConfig(
+        return EndpointConfig(
             method="GET",
             path="/content/v1/videos/clips",
             operation_id="getNgsVideoClips",
@@ -199,34 +142,3 @@ class NgsNews(BaseSDK):
             retries=retries,
             return_raw_json=False,
         )
-        return self._execute_endpoint(config)
-
-    async def get_video_clips_async(
-        self,
-        *,
-        video_channel: str = "next-gen-stats-vc",
-        limit: int = 16,
-        offset: int = 0,
-        retries: OptionalNullable[RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.NgsVideosResponse:
-        """Get NGS video clips (async)."""
-        config = EndpointConfig(
-            method="GET",
-            path="/content/v1/videos/clips",
-            operation_id="getNgsVideoClips",
-            request=models.GetNgsVideoClipsRequest(
-                video_channel=video_channel, limit=limit, offset=offset
-            ),
-            response_type=models.NgsVideosResponse,
-            error_status_codes=NGS_ERROR_CODES,
-            request_has_query_params=True,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-            retries=retries,
-            return_raw_json=False,
-        )
-        return await self._execute_endpoint_async(config)
