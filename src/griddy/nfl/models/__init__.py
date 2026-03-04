@@ -1055,6 +1055,7 @@ if TYPE_CHECKING:
         MultipleRankingsCategoryPaginationTypedDict,
         MultipleRankingsCategoryTypedDict,
     )
+    from .entities.nfl_auth import NFLAuth, NFLAuthTypedDict
     from .entities.odds_selection import OddsSelection, OddsSelectionTypedDict
     from .entities.overall_record import (
         OverallRecord,
@@ -1789,6 +1790,8 @@ __all__ = [
     "MultipleRankingsCategoryPagination",
     "MultipleRankingsCategoryPaginationTypedDict",
     "MultipleRankingsCategoryTypedDict",
+    "NFLAuth",
+    "NFLAuthTypedDict",
     "NFLPLUSPLUSNFLPLUSCOACHESFILM",
     "NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict",
     "NFLPLUSPremiumNFLPLUSCOACHESFILM",
@@ -2816,6 +2819,8 @@ _dynamic_imports: dict[str, str] = {
     "MultipleRankingsCategoryPagination": ".entities.multiple_rankings_category",
     "MultipleRankingsCategoryPaginationTypedDict": ".entities.multiple_rankings_category",
     "MultipleRankingsCategoryTypedDict": ".entities.multiple_rankings_category",
+    "NFLAuth": ".entities.nfl_auth",
+    "NFLAuthTypedDict": ".entities.nfl_auth",
     "NgsCurrentScheduleResponse": ".responses.ngs_current_schedule_response",
     "NgsCurrentScheduleResponseTypedDict": ".responses.ngs_current_schedule_response",
     "NgsGameScoreDetail": ".responses.ngs_live_scores_response",

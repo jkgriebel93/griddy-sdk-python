@@ -25,7 +25,7 @@ class SDKConfiguration(CoreSDKConfiguration):
     sdk_version: str = __version__
     user_agent: str = __user_agent__
     server_type: str = "regular"
-    custom_auth_info: Optional[dict] = None
+    custom_auth_info: Optional[models.NFLAuth] = None
 
     def __post_init__(self) -> None:
         if self.server_idx is None:

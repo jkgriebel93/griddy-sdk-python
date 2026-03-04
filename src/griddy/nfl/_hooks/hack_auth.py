@@ -8,7 +8,7 @@ import httpx
 
 from griddy import settings
 from griddy.nfl._hooks.types import BeforeRequestContext, BeforeRequestHook
-from griddy.nfl.models import Security
+from griddy.nfl.models import NFLAuth, Security
 
 
 class HackAuthHook(BeforeRequestHook):
@@ -49,10 +49,14 @@ class HackAuthHook(BeforeRequestHook):
         request.headers["authority"] = "nextgenstats.nfl.com"
 
         auth_info = hook_ctx.config.custom_auth_info
-        if (auth_info["expiresIn"] - time.time()) < 30:
-            resp_data = self._do_refresh_token(refresh_token=auth_info["refreshToken"])
-            hook_ctx.config.custom_auth_info = resp_data
-            hook_ctx.config.security = Security(nfl_auth=resp_data["accessToken"])
-            request.headers["Authorization"] = f"Bearer {resp_data['accessToken']}"
+        if (
+            auth_info.expires_in is not None
+            and (auth_info.expires_in - time.time()) < 30
+        ):
+            resp_data = self._do_refresh_token(refresh_token=auth_info.refresh_token)
+            new_auth = NFLAuth.model_validate(resp_data)
+            hook_ctx.config.custom_auth_info = new_auth
+            hook_ctx.config.security = Security(nfl_auth=new_auth.access_token)
+            request.headers["Authorization"] = f"Bearer {new_auth.access_token}"
 
         return request

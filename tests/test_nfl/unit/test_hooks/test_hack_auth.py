@@ -531,7 +531,9 @@ class TestHackAuthHook:
         post_hook_custom_auth_info = nfl.sdk_configuration.custom_auth_info
         post_hook_security_obj = nfl.sdk_configuration.security
 
-        assert post_hook_custom_auth_info == fake_auth_response
+        assert post_hook_custom_auth_info == models.NFLAuth.model_validate(
+            fake_auth_response
+        )
         assert post_hook_security_obj == models.Security(
             nfl_auth=fake_auth_response["accessToken"]
         )
