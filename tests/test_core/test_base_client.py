@@ -1,12 +1,14 @@
-"""Tests for griddy.core.base_client."""
+"""Tests for griddy.core.base_client (deprecated, requires ``requests``)."""
 
 import warnings
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from griddy.core.base_client import BaseClient
-from griddy.core.exceptions import (
+requests = pytest.importorskip("requests", reason="BaseClient requires requests")
+
+from griddy.core.base_client import BaseClient  # noqa: E402
+from griddy.core.exceptions import (  # noqa: E402
     APIError,
     AuthenticationError,
     NotFoundError,

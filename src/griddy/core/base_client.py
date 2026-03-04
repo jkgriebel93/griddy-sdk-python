@@ -10,10 +10,6 @@ import warnings
 from typing import Any, Dict, List
 from urllib.parse import urljoin
 
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-
 from .exceptions import APIError, AuthenticationError, NotFoundError, RateLimitError
 from .utils.retries import retry_on_rate_limit
 
@@ -25,6 +21,8 @@ class BaseClient:
         ``BaseClient`` is deprecated and will be removed in a future release.
         Migrate to :class:`griddy.core.basesdk.BaseSDK` which uses ``httpx``
         for both sync and async HTTP support.
+
+    Requires the ``requests`` package to be installed separately.
     """
 
     def __init__(
@@ -69,6 +67,11 @@ class BaseClient:
             DeprecationWarning,
             stacklevel=2,
         )
+
+        import requests
+        from requests.adapters import HTTPAdapter
+        from urllib3.util.retry import Retry
+
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         self.rate_limit_delay = rate_limit_delay
@@ -113,9 +116,7 @@ class BaseClient:
                 time.sleep(self.rate_limit_delay - time_since_last)
         self._last_request_time = time.time()
 
-    def _handle_response(
-        self, response: requests.Response
-    ) -> Dict[str, Any] | List[Any]:
+    def _handle_response(self, response: Any) -> Dict[str, Any] | List[Any]:
         """Handle HTTP response and raise appropriate exceptions.
 
         Parses the response and raises specific exceptions based on the
