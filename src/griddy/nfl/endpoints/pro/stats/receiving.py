@@ -1,15 +1,14 @@
 from typing import List, Mapping, Optional
 
-from griddy.core._constants import STATS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import EndpointConfig
-from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 @sdk_endpoints
-class PlayerReceivingStats(ProSDK):
+class PlayerReceivingStats(PlayerStatsBase):
 
     def _get_season_summary_config(
         self,
@@ -47,28 +46,24 @@ class PlayerReceivingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/players-offense/receiving/season",
-            operation_id="getPlayerReceivingStatsBySeason",
-            request=models.GetPlayerReceivingStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_receiver=qualified_receiver,
-                team_offense=team_offense,
-            ),
-            response_type=models.ReceivingStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/players-offense/receiving/season",
+            "getPlayerReceivingStatsBySeason",
+            models.GetPlayerReceivingStatsBySeasonRequest,
+            models.ReceivingStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_receiver=qualified_receiver,
+            team_offense=team_offense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_weekly_summary_config(
@@ -109,27 +104,23 @@ class PlayerReceivingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/players-offense/receiving/week",
-            operation_id="getPlayerReceivingStatsByWeek",
-            request=models.GetPlayerReceivingStatsByWeekRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_receiver=qualified_receiver,
-                team_offense=team_offense,
-            ),
-            response_type=models.ReceivingStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/players-offense/receiving/week",
+            "getPlayerReceivingStatsByWeek",
+            models.GetPlayerReceivingStatsByWeekRequest,
+            models.ReceivingStatsResponse,
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_receiver=qualified_receiver,
+            team_offense=team_offense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )

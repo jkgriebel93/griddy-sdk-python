@@ -1,15 +1,14 @@
 from typing import List, Mapping, Optional
 
-from griddy.core._constants import STATS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import EndpointConfig
-from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 @sdk_endpoints
-class Fantasy(ProSDK):
+class Fantasy(PlayerStatsBase):
     r"""Fantasy football player statistics and scoring metrics"""
 
     def _get_stats_by_season_config(
@@ -60,29 +59,25 @@ class Fantasy(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/fantasy/season",
-            operation_id="getFantasyStatsBySeason",
-            request=models.GetFantasyStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                position_group=position_group,
-                team_offense=team_offense,
-                team_defense=team_defense,
-                min_offensive_snaps=min_offensive_snaps,
-                last_n_weeks=last_n_weeks,
-            ),
-            response_type=models.FantasyStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/fantasy/season",
+            "getFantasyStatsBySeason",
+            models.GetFantasyStatsBySeasonRequest,
+            models.FantasyStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            position_group=position_group,
+            team_offense=team_offense,
+            team_defense=team_defense,
+            min_offensive_snaps=min_offensive_snaps,
+            last_n_weeks=last_n_weeks,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
