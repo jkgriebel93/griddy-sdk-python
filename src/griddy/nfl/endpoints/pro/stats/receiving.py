@@ -6,8 +6,6 @@ from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
-# TODO: All the requests in this file have broken Pydantic models
-
 
 class PlayerReceivingStats(ProSDK):
 
@@ -49,7 +47,7 @@ class PlayerReceivingStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix Pydantic model - schema is broken
+            return_raw_json=False,
         )
 
     def get_season_summary(
@@ -198,7 +196,7 @@ class PlayerReceivingStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix Pydantic model - schema is broken
+            return_raw_json=False,
         )
 
     def get_weekly_summary(
