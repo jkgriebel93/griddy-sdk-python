@@ -9,6 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 # Columns that should be parsed as integers.
@@ -134,7 +136,7 @@ class CupsOfCoffeeParser:
             A dict ready for ``CupsOfCoffee.model_validate()``.
 
         Raises:
-            ValueError: If the coffee table is not found.
+            ParsingError: If the coffee table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -142,7 +144,11 @@ class CupsOfCoffeeParser:
 
         table = soup.find("table", id="coffee")
         if table is None:
-            raise ValueError("Could not find coffee table in the HTML.")
+            raise ParsingError(
+                "Could not find coffee table in the HTML.",
+                selector="coffee",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 

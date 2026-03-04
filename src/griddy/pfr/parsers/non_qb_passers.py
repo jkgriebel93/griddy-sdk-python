@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_float, safe_int
 
 # Columns that should be parsed as integers.
@@ -130,7 +132,7 @@ class NonQBPassersParser:
             A dict ready for ``NonQBPassers.model_validate()``.
 
         Raises:
-            ValueError: If the nonqb_passers table is not found.
+            ParsingError: If the nonqb_passers table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -138,7 +140,11 @@ class NonQBPassersParser:
 
         table = soup.find("table", id="nonqb_passers")
         if table is None:
-            raise ValueError("Could not find nonqb_passers table in the HTML.")
+            raise ParsingError(
+                "Could not find nonqb_passers table in the HTML.",
+                selector="nonqb_passers",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 

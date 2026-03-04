@@ -9,6 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 
@@ -148,7 +150,7 @@ class BirthdaysParser:
             A dict ready for ``Birthdays.model_validate()``.
 
         Raises:
-            ValueError: If the birthdays table is not found.
+            ParsingError: If the birthdays table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -157,7 +159,11 @@ class BirthdaysParser:
 
         table = soup.find("table", id="birthdays")
         if table is None:
-            raise ValueError("Could not find birthdays table in the HTML.")
+            raise ParsingError(
+                "Could not find birthdays table in the HTML.",
+                selector="birthdays",
+                html_sample=html[:500],
+            )
 
         players = self._parse_table(table)
 

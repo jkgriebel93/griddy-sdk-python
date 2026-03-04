@@ -10,6 +10,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int, uncomment_tables
 
 
@@ -162,7 +164,7 @@ class StatisticalMilestonesParser:
             A dict ready for ``StatisticalMilestones.model_validate()``.
 
         Raises:
-            ValueError: If the milestones table is not found.
+            ParsingError: If the milestones table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -172,7 +174,11 @@ class StatisticalMilestonesParser:
         # The milestones table is directly in the page
         milestones_table = soup.find("table", id="milestones")
         if milestones_table is None:
-            raise ValueError("Could not find milestones table in the HTML.")
+            raise ParsingError(
+                "Could not find milestones table in the HTML.",
+                selector="milestones",
+                html_sample=html[:500],
+            )
 
         milestones = self._parse_milestones_table(milestones_table)
 

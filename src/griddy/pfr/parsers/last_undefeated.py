@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 # Columns where we extract both text and an optional link.
@@ -121,7 +123,7 @@ class LastUndefeatedParser:
             A dict ready for ``LastUndefeated.model_validate()``.
 
         Raises:
-            ValueError: If the undefeated_teams table is not found.
+            ParsingError: If the undefeated_teams table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -129,7 +131,11 @@ class LastUndefeatedParser:
 
         table = soup.find("table", id="undefeated_teams")
         if table is None:
-            raise ValueError("Could not find undefeated_teams table in the HTML.")
+            raise ParsingError(
+                "Could not find undefeated_teams table in the HTML.",
+                selector="undefeated_teams",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 

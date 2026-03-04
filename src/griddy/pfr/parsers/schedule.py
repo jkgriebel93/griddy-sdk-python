@@ -7,6 +7,7 @@ from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
 from griddy.pfr.models.entities.schedule_game import ScheduleGame
 
 from ._helpers import safe_int
@@ -60,16 +61,24 @@ class ScheduleParser:
             A list of ``ScheduleGame`` models, one per game.
 
         Raises:
-            ValueError: If ``<table id="games">`` is not found in the HTML.
+            ParsingError: If ``<table id="games">`` is not found in the HTML.
         """
         soup = BeautifulSoup(html, "html.parser")
         table = soup.find("table", id="games")
         if table is None:
-            raise ValueError("Could not find <table id='games'> in the HTML.")
+            raise ParsingError(
+                "Could not find <table id='games'> in the HTML.",
+                selector="games",
+                html_sample=html[:500],
+            )
 
         tbody = table.find("tbody")
         if tbody is None:
-            raise ValueError("Could not find <tbody> inside the games table.")
+            raise ParsingError(
+                "Could not find <tbody> inside the games table.",
+                selector="games tbody",
+                html_sample=html[:500],
+            )
 
         games: List[ScheduleGame] = []
 

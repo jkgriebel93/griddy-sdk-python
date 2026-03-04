@@ -9,6 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 # Columns that should be parsed as integers.
@@ -153,7 +155,7 @@ class MultiSportPlayersParser:
             A dict ready for ``MultiSportPlayers.model_validate()``.
 
         Raises:
-            ValueError: If the multisport table is not found.
+            ParsingError: If the multisport table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -161,7 +163,11 @@ class MultiSportPlayersParser:
 
         table = soup.find("table", id="multisport")
         if table is None:
-            raise ValueError("Could not find multisport table in the HTML.")
+            raise ParsingError(
+                "Could not find multisport table in the HTML.",
+                selector="multisport",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 

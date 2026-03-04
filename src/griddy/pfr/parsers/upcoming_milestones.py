@@ -10,6 +10,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 
 class UpcomingMilestonesParser:
     """Parses the PFR upcoming milestones page."""
@@ -134,7 +136,7 @@ class UpcomingMilestonesParser:
             A dict ready for ``UpcomingMilestones.model_validate()``.
 
         Raises:
-            ValueError: If the milestones table is not found.
+            ParsingError: If the milestones table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -143,7 +145,11 @@ class UpcomingMilestonesParser:
 
         milestones_table = soup.find("table", id="upcoming_milestones")
         if milestones_table is None:
-            raise ValueError("Could not find upcoming milestones table in the HTML.")
+            raise ParsingError(
+                "Could not find upcoming milestones table in the HTML.",
+                selector="upcoming_milestones",
+                html_sample=html[:500],
+            )
 
         milestones = self._parse_table(milestones_table)
 

@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
 from . import errors, models
+from .errors import ParsingError
 from .sdkconfiguration import SDKConfiguration
 from .utils.browserless import Browserless
 
@@ -66,4 +67,8 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
             wait_for_element=config.wait_for_element,
         )
 
-        return config.parser(html)
+        try:
+            return config.parser(html)
+        except ParsingError as exc:
+            exc.url = url
+            raise

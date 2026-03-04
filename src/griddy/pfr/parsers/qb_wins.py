@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 
@@ -95,7 +97,7 @@ class QBWinsParser:
             A dict ready for ``QBWins.model_validate()``.
 
         Raises:
-            ValueError: If the qb_wins table is not found.
+            ParsingError: If the qb_wins table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -103,7 +105,11 @@ class QBWinsParser:
 
         table = soup.find("table", id="qb_wins")
         if table is None:
-            raise ValueError("Could not find qb_wins table in the HTML.")
+            raise ParsingError(
+                "Could not find qb_wins table in the HTML.",
+                selector="qb_wins",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 
