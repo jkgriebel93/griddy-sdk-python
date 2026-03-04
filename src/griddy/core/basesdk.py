@@ -17,6 +17,12 @@ from urllib.parse import parse_qs, urlparse
 import httpx
 
 from griddy.core import utils
+from griddy.core._constants import (
+    CLIENT_ERROR_PREFIX,
+    DEFAULT_RETRY_STATUS_CODES,
+    HTTP_OK,
+    SERVER_ERROR_PREFIX,
+)
 from griddy.core.hooks import (
     AfterErrorContext,
     AfterSuccessContext,
@@ -147,7 +153,7 @@ class BaseSDK(Generic[T_Config]):
         retry_status_codes: Optional[List[str]] = None,
     ) -> Optional[Tuple[RetryConfig, List[str]]]:
         if retry_status_codes is None:
-            retry_status_codes = ["429", "500", "502", "503", "504"]
+            retry_status_codes = list(DEFAULT_RETRY_STATUS_CODES)
 
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
@@ -203,15 +209,19 @@ class BaseSDK(Generic[T_Config]):
         response_type: Type[T],
         error_status_codes: List[str],
     ) -> T:
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, HTTP_OK, "application/json"):
             return unmarshal_json_response(response_type, http_res)
 
-        client_errors = [code for code in error_status_codes if code.startswith("4")]
+        client_errors = [
+            code for code in error_status_codes if code.startswith(CLIENT_ERROR_PREFIX)
+        ]
         if client_errors and utils.match_response(http_res, client_errors, "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise self._default_error_cls("API error occurred", http_res, http_res_text)
 
-        server_errors = [code for code in error_status_codes if code.startswith("5")]
+        server_errors = [
+            code for code in error_status_codes if code.startswith(SERVER_ERROR_PREFIX)
+        ]
         if server_errors and utils.match_response(http_res, server_errors, "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise self._default_error_cls("API error occurred", http_res, http_res_text)
@@ -224,15 +234,19 @@ class BaseSDK(Generic[T_Config]):
         response_type: Type[T],
         error_status_codes: List[str],
     ) -> T:
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, HTTP_OK, "application/json"):
             return unmarshal_json_response(response_type, http_res)
 
-        client_errors = [code for code in error_status_codes if code.startswith("4")]
+        client_errors = [
+            code for code in error_status_codes if code.startswith(CLIENT_ERROR_PREFIX)
+        ]
         if client_errors and utils.match_response(http_res, client_errors, "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise self._default_error_cls("API error occurred", http_res, http_res_text)
 
-        server_errors = [code for code in error_status_codes if code.startswith("5")]
+        server_errors = [
+            code for code in error_status_codes if code.startswith(SERVER_ERROR_PREFIX)
+        ]
         if server_errors and utils.match_response(http_res, server_errors, "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise self._default_error_cls("API error occurred", http_res, http_res_text)
@@ -269,7 +283,7 @@ class BaseSDK(Generic[T_Config]):
         )
 
         if config.return_raw_json:
-            if utils.match_response(http_res, "200", "application/json"):
+            if utils.match_response(http_res, HTTP_OK, "application/json"):
                 return http_res.json()
 
         return self._handle_json_response(
@@ -307,7 +321,7 @@ class BaseSDK(Generic[T_Config]):
         )
 
         if config.return_raw_json:
-            if utils.match_response(http_res, "200", "application/json"):
+            if utils.match_response(http_res, HTTP_OK, "application/json"):
                 return http_res.json()
 
         return await self._handle_json_response_async(

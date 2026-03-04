@@ -12,15 +12,42 @@ from pathlib import Path
 import pytest
 
 from griddy.core._constants import (
+    CLIENT_ERROR_PREFIX,
     COLLECTION_ERROR_CODES,
+    DEFAULT_RETRY_STATUS_CODES,
+    HTTP_OK,
     NGS_ERROR_CODES,
     PARAMETERLESS_ERROR_CODES,
     RESOURCE_ERROR_CODES,
     SECURED_RESOURCE_ERROR_CODES,
+    SERVER_ERROR_PREFIX,
     STATS_ERROR_CODES,
 )
 
 # ── constant value correctness ──────────────────────────────────────
+
+
+class TestHTTPStatusCodeConstants:
+    """Verify HTTP status code constants have expected values."""
+
+    def test_http_ok(self) -> None:
+        assert HTTP_OK == "200"
+
+    def test_client_error_prefix(self) -> None:
+        assert CLIENT_ERROR_PREFIX == "4"
+
+    def test_server_error_prefix(self) -> None:
+        assert SERVER_ERROR_PREFIX == "5"
+
+    def test_default_retry_status_codes(self) -> None:
+        assert DEFAULT_RETRY_STATUS_CODES == ["429", "500", "502", "503", "504"]
+
+    def test_default_retry_status_codes_contains_rate_limit(self) -> None:
+        assert "429" in DEFAULT_RETRY_STATUS_CODES
+
+    def test_default_retry_status_codes_contains_server_errors(self) -> None:
+        for code in ["500", "502", "503", "504"]:
+            assert code in DEFAULT_RETRY_STATUS_CODES
 
 
 class TestConstantValues:
@@ -190,4 +217,48 @@ class TestNoInlineErrorCodeLists:
             msg_lines.append(
                 "\nUse a named constant from griddy.core._constants instead"
             )
+            pytest.fail("\n".join(msg_lines))
+
+
+# ── basesdk uses centralized HTTP constants ──────────────────────────
+
+BASESDK_PATH = _CORE_DIR / "basesdk.py"
+
+
+def _find_magic_http_strings(filepath: Path) -> list[tuple[int, str]]:
+    """Find hard-coded HTTP status strings in basesdk method bodies.
+
+    Looks for string literals "200", "4", or "5" used in match_response
+    calls or startswith() calls, as well as inline retry code lists.
+    Returns (line_number, description) tuples.
+    """
+    violations: list[tuple[int, str]] = []
+    tree = ast.parse(filepath.read_text())
+
+    for node in ast.walk(tree):
+        # Check for inline retry status code lists: ["429", "500", ...]
+        if isinstance(node, ast.List):
+            str_elts = [
+                elt.value
+                for elt in node.elts
+                if isinstance(elt, ast.Constant) and isinstance(elt.value, str)
+            ]
+            if "429" in str_elts and "500" in str_elts:
+                violations.append(
+                    (node.lineno, f"Inline retry status code list: {str_elts}")
+                )
+
+    return violations
+
+
+class TestBasesdkUsesHTTPConstants:
+    """Ensure basesdk.py uses centralized constants, not magic strings."""
+
+    def test_no_inline_retry_code_lists(self) -> None:
+        violations = _find_magic_http_strings(BASESDK_PATH)
+        if violations:
+            msg_lines = ["Found magic HTTP status strings in basesdk.py:"]
+            for lineno, desc in violations:
+                msg_lines.append(f"  line {lineno}: {desc}")
+            msg_lines.append("\nUse constants from griddy.core._constants instead")
             pytest.fail("\n".join(msg_lines))

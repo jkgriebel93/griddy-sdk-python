@@ -5,6 +5,7 @@ from unittest.mock import AsyncMock, Mock, patch
 import httpx
 import pytest
 
+from griddy.core._constants import DEFAULT_RETRY_STATUS_CODES
 from griddy.core.basesdk import BaseSDK, EndpointConfig
 from griddy.core.errors.defaultsdkerror import DefaultSDKError
 from griddy.core.errors.no_response_error import NoResponseError
@@ -164,7 +165,7 @@ class TestResolveRetryConfig:
         result = base_sdk._resolve_retry_config(retry_config)
         assert result is not None
         assert result[0] == retry_config
-        assert result[1] == ["429", "500", "502", "503", "504"]
+        assert result[1] == DEFAULT_RETRY_STATUS_CODES
 
     def test_uses_custom_retry_status_codes(self, base_sdk):
         retry_config = RetryConfig(
