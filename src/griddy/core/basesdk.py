@@ -29,6 +29,8 @@ from griddy.core.utils.unmarshal_json_response import unmarshal_json_response
 
 T = TypeVar("T")
 
+_UNRESOLVED = object()
+
 # TypeVar for provider-specific SDKConfiguration subclasses.
 # Bound to the base SDKConfiguration so subclasses get full type safety.
 from griddy.core.sdkconfiguration import SDKConfiguration as BaseSDKConfig
@@ -112,6 +114,7 @@ class BaseSDK(Generic[T_Config]):
     ) -> None:
         self.sdk_configuration = sdk_config
         self.parent_ref = parent_ref
+        self._cached_env_security = _UNRESOLVED
 
     def _get_url(self, base_url, url_variables):
         sdk_url, sdk_variables = self.sdk_configuration.get_server_details()
@@ -164,6 +167,23 @@ class BaseSDK(Generic[T_Config]):
 
         return get_security_from_env(security, security_cls, env_mapping)
 
+    def _resolve_security_source(self) -> Any:
+        """Return the security source, caching env var resolution.
+
+        When ``sdk_configuration.security`` is set (e.g. by a hook), it is
+        returned directly.  Otherwise the result of ``_get_security_from_env``
+        is cached so that environment variables are only read once per SDK
+        instance.
+        """
+        security = self.sdk_configuration.security
+        if security is not None:
+            return security
+        if self._cached_env_security is not _UNRESOLVED:
+            return self._cached_env_security
+        resolved = self._get_security_from_env(None)
+        self._cached_env_security = resolved
+        return resolved
+
     def _create_hook_context(
         self,
         operation_id: str,
@@ -174,9 +194,7 @@ class BaseSDK(Generic[T_Config]):
             base_url=base_url or "",
             operation_id=operation_id,
             oauth2_scopes=[],
-            security_source=self._get_security_from_env(
-                self.sdk_configuration.security
-            ),
+            security_source=self._resolve_security_source(),
         )
 
     def _handle_json_response(
@@ -428,7 +446,8 @@ class BaseSDK(Generic[T_Config]):
         if security is not None:
             if callable(security):
                 security = security()
-        security = self._get_security_from_env(security)
+        if security is None:
+            security = self._resolve_security_source()
         if security is not None:
             security_headers, security_query_params = utils.get_security(security)
             headers = {**headers, **security_headers}

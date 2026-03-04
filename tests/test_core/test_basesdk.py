@@ -391,6 +391,70 @@ class TestGetSecurityFromEnv:
 
 
 @pytest.mark.unit
+class TestResolveSecuritySource:
+    def test_returns_config_security_when_set(self, mock_logger):
+        config = SDKConfiguration(
+            client=None,
+            client_supplied=True,
+            async_client=None,
+            async_client_supplied=True,
+            debug_logger=mock_logger,
+            security="my-token",
+        )
+        sdk = BaseSDK(sdk_config=config)
+        assert sdk._resolve_security_source() == "my-token"
+
+    def test_caches_env_resolved_security(self, mock_logger):
+        config = SDKConfiguration(
+            client=None,
+            client_supplied=True,
+            async_client=None,
+            async_client_supplied=True,
+            debug_logger=mock_logger,
+        )
+        sdk = BaseSDK(sdk_config=config)
+        sentinel = object()
+        with patch.object(sdk, "_get_security_from_env", return_value=sentinel) as m:
+            first = sdk._resolve_security_source()
+            second = sdk._resolve_security_source()
+        assert first is sentinel
+        assert second is sentinel
+        m.assert_called_once_with(None)
+
+    def test_bypasses_cache_when_config_security_set_later(self, mock_logger):
+        config = SDKConfiguration(
+            client=None,
+            client_supplied=True,
+            async_client=None,
+            async_client_supplied=True,
+            debug_logger=mock_logger,
+        )
+        sdk = BaseSDK(sdk_config=config)
+        env_sec = object()
+        with patch.object(sdk, "_get_security_from_env", return_value=env_sec):
+            sdk._resolve_security_source()
+
+        config.security = "new-token"
+        assert sdk._resolve_security_source() == "new-token"
+
+    def test_caches_none_when_env_vars_absent(self, mock_logger):
+        config = SDKConfiguration(
+            client=None,
+            client_supplied=True,
+            async_client=None,
+            async_client_supplied=True,
+            debug_logger=mock_logger,
+        )
+        sdk = BaseSDK(sdk_config=config)
+        with patch.object(sdk, "_get_security_from_env", return_value=None) as m:
+            first = sdk._resolve_security_source()
+            second = sdk._resolve_security_source()
+        assert first is None
+        assert second is None
+        m.assert_called_once_with(None)
+
+
+@pytest.mark.unit
 class TestEndpointConfig:
     def test_default_values(self):
         config = EndpointConfig(
