@@ -3,10 +3,16 @@ from typing import Optional
 
 import httpx
 
+from griddy.core.exceptions import APIError
+
 
 @dataclass(frozen=True)
-class SDKError(Exception):
-    """The base class for all SDK HTTP error responses."""
+class SDKError(APIError):
+    """The base class for all SDK HTTP error responses.
+
+    Inherits from APIError so that catching GriddyError or APIError
+    will also catch internal SDK errors.
+    """
 
     message: str
     status_code: int
@@ -24,6 +30,8 @@ class SDKError(Exception):
         )
         object.__setattr__(self, "headers", raw_response.headers)
         object.__setattr__(self, "raw_response", raw_response)
+        object.__setattr__(self, "response_data", {})
+        Exception.__init__(self, message)
 
     def __str__(self):
         return self.message

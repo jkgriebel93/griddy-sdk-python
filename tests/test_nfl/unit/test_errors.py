@@ -5,6 +5,7 @@ Unit tests for griddy.nfl.errors module
 import httpx
 import pytest
 
+from griddy.core.exceptions import APIError, GriddyError
 from griddy.nfl.errors import (
     GriddyNFLDefaultError,
     GriddyNFLError,
@@ -322,3 +323,35 @@ class TestErrorsModuleLazyLoading:
 
         with pytest.raises(AttributeError):
             _ = errors.NonExistentError
+
+
+@pytest.mark.unit
+class TestUnifiedHierarchy:
+    """Tests that NFL errors are catchable via public GriddyError/APIError."""
+
+    def test_nfl_error_is_api_error(self):
+        assert issubclass(GriddyNFLError, APIError)
+
+    def test_nfl_error_is_griddy_error(self):
+        assert issubclass(GriddyNFLError, GriddyError)
+
+    def test_nfl_default_error_is_griddy_error(self):
+        assert issubclass(GriddyNFLDefaultError, GriddyError)
+
+    def test_nfl_error_caught_by_griddy_error(self):
+        response = httpx.Response(
+            status_code=500,
+            text="error",
+            request=httpx.Request("GET", "https://api.example.com"),
+        )
+        with pytest.raises(GriddyError):
+            raise GriddyNFLError("nfl error", response)
+
+    def test_nfl_default_error_caught_by_griddy_error(self):
+        response = httpx.Response(
+            status_code=500,
+            text="error",
+            request=httpx.Request("GET", "https://api.example.com"),
+        )
+        with pytest.raises(GriddyError):
+            raise GriddyNFLDefaultError("nfl error", response)

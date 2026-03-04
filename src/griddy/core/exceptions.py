@@ -5,11 +5,19 @@ to provide specific error information for different failure scenarios.
 
 Exception Hierarchy:
     GriddyError (Base)
-    ├── APIError           - General API request failures
-    ├── RateLimitError     - Rate limit exceeded (429)
-    ├── NotFoundError      - Resource not found (404)
-    ├── AuthenticationError - Authentication failed (401)
-    └── ValidationError    - Request validation failures
+    ├── APIError              - General API request failures
+    │   └── SDKError          - Internal SDK HTTP errors (core.errors)
+    │       ├── DefaultSDKError
+    │       ├── ResponseValidationError
+    │       ├── GriddyNFLError    (nfl.errors)
+    │       └── GriddyPFRError    (pfr.errors)
+    ├── RateLimitError        - Rate limit exceeded (429)
+    ├── NotFoundError         - Resource not found (404)
+    ├── AuthenticationError   - Authentication failed (401)
+    ├── ValidationError       - Request validation failures
+    └── NoResponseError       - No HTTP response received (core.errors)
+
+Catching GriddyError will catch all SDK errors, including internal ones.
 
 Example:
     >>> from griddy import GriddyError, RateLimitError
