@@ -6,6 +6,26 @@ all SDK endpoints.
 
 from typing import List
 
+# ---------------------------------------------------------------------------
+# HTTP status code constants
+# ---------------------------------------------------------------------------
+
+# Successful response
+HTTP_OK: str = "200"
+
+# Prefix used to identify client error status codes (4xx)
+CLIENT_ERROR_PREFIX: str = "4"
+
+# Prefix used to identify server error status codes (5xx)
+SERVER_ERROR_PREFIX: str = "5"
+
+# Default status codes that trigger request retries
+DEFAULT_RETRY_STATUS_CODES: List[str] = ["429", "500", "502", "503", "504"]
+
+# ---------------------------------------------------------------------------
+# Endpoint error code sets
+# ---------------------------------------------------------------------------
+
 # Standard error codes for collection endpoints (list operations)
 # Does not include 404 since empty collections are valid responses
 COLLECTION_ERROR_CODES: List[str] = ["400", "401", "4XX", "500", "5XX"]
