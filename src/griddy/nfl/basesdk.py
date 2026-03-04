@@ -4,9 +4,10 @@ from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 from griddy.core.basesdk import EndpointConfig  # noqa: F401
 
 from . import errors, models
+from .sdkconfiguration import SDKConfiguration
 
 
-class BaseSDK(CoreBaseSDK):
+class BaseSDK(CoreBaseSDK[SDKConfiguration]):
     """NFL-specific BaseSDK with NFL error classes and security model."""
 
     @property
