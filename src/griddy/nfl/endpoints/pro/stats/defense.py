@@ -75,7 +75,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetDefensiveOverviewStatsBySeasonSortKey] = "snap",
+        sort_key: Optional[models.GetDefensiveOverviewStatsByWeekSortKey] = "snap",
         sort_value: Optional[models.SortOrderEnum] = None,
         qualified_defender: Optional[bool] = False,
         team_defense: Optional[List[str]] = None,
@@ -151,7 +151,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[models.GetDefensivePassRushStatsBySeasonSortKey] = "pr",
+        sort_key: Optional[models.GetDefensivePassRushStatsByWeekSortKey] = "pr",
         sort_value: Optional[models.SortOrderEnum] = None,
         qualified_defender: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -188,7 +188,9 @@ class PlayerDefenseStats(PlayerStatsBase):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[str] = "cov",
+        sort_key: Optional[
+            models.GetDefensiveNearestDefenderStatsBySeasonSortKey
+        ] = "cov",
         sort_value: Optional[models.SortOrderEnum] = None,
         qualified_defender: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -225,7 +227,9 @@ class PlayerDefenseStats(PlayerStatsBase):
         limit: Optional[int] = 35,
         offset: Optional[int] = 0,
         page: Optional[int] = 1,
-        sort_key: Optional[str] = "cov",
+        sort_key: Optional[
+            models.GetDefensiveNearestDefenderStatsByWeekSortKey
+        ] = "cov",
         sort_value: Optional[models.SortOrderEnum] = None,
         qualified_defender: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
