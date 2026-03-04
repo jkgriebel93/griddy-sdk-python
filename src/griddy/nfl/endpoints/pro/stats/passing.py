@@ -2,6 +2,7 @@ from typing import List, Mapping, Optional
 
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -26,7 +27,7 @@ class PlayerPassingStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Player Passing Statistics by Week
 
         Retrieves comprehensive passing statistics for NFL players during a specified week and season.
@@ -88,7 +89,7 @@ class PlayerPassingStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Player Passing Statistics by Season
 
         Retrieves comprehensive passing statistics for NFL players during a specified season.

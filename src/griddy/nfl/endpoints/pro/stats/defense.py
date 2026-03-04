@@ -2,6 +2,7 @@ from typing import List, Mapping, Optional
 
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -25,7 +26,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Defensive Player Overview Statistics by Season
 
         Retrieves comprehensive defensive overview statistics for NFL players during a specified season.
@@ -82,7 +83,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Defensive Player Overview Statistics by Week"""
         return self._make_stats_config(
             "/api/secured/stats/defense/overview/season",
@@ -120,7 +121,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Defensive Pass Rush Statistics by Season"""
         return self._make_stats_config(
             "/api/secured/stats/defense/passRush/season",
@@ -157,7 +158,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Defensive Pass Rush Statistics by Week"""
         return self._make_stats_config(
             "/api/secured/stats/defense/passRush/week",
@@ -194,7 +195,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Defensive Nearest Defender Statistics by Season"""
         return self._make_stats_config(
             "/api/secured/stats/defense/nearest/season",
@@ -231,7 +232,7 @@ class PlayerDefenseStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Defensive Nearest Defender Statistics by Week"""
         return self._make_stats_config(
             "/api/secured/stats/defense/nearest/week",

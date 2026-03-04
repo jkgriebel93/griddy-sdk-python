@@ -2,6 +2,7 @@ from typing import List, Mapping, Optional
 
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -26,7 +27,7 @@ class PlayerRushingStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Player Rushing Statistics by Week
 
         Retrieves comprehensive rushing statistics for NFL players during a specified week.
@@ -84,7 +85,7 @@ class PlayerRushingStats(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Player Rushing Statistics by Season
 
         Retrieves comprehensive rushing statistics for NFL players during a specified season.

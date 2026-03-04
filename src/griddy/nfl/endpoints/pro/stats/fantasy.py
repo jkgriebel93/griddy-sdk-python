@@ -2,6 +2,7 @@ from typing import List, Mapping, Optional
 
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
+from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
@@ -31,7 +32,7 @@ class Fantasy(PlayerStatsBase):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> EndpointConfig:
         r"""Get Fantasy Football Statistics by Season
 
         Retrieves comprehensive fantasy football statistics for NFL players during a specified season.
