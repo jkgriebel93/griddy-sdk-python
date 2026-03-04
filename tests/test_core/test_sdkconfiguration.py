@@ -95,3 +95,38 @@ class TestSDKConfiguration:
             timeout_ms=5000,
         )
         assert config.timeout_ms == 5000
+
+    def test_hooks_default_none(self, mock_logger):
+        config = SDKConfiguration(
+            client=httpx.Client(),
+            client_supplied=False,
+            async_client=None,
+            async_client_supplied=True,
+            debug_logger=mock_logger,
+        )
+        assert config.hooks is None
+
+    def test_hooks_property_returns_assigned_hooks(self, mock_logger):
+        from griddy.core.hooks.sdkhooks import SDKHooks
+
+        config = SDKConfiguration(
+            client=httpx.Client(),
+            client_supplied=False,
+            async_client=None,
+            async_client_supplied=True,
+            debug_logger=mock_logger,
+        )
+        hooks = SDKHooks()
+        config._hooks = hooks
+        assert config.hooks is hooks
+
+    def test_hooks_not_in_init(self, mock_logger):
+        with pytest.raises(TypeError):
+            SDKConfiguration(
+                client=httpx.Client(),
+                client_supplied=False,
+                async_client=None,
+                async_client_supplied=True,
+                debug_logger=mock_logger,
+                _hooks="should_fail",
+            )
