@@ -339,10 +339,10 @@ class TestGetServerDetails:
             server_idx=None,
         )
 
-        url, params = config.get_server_details()
-
-        # Should default to 0 and return regular server
+        # server_idx normalized to 0 at construction, not by get_server_details
         assert config.server_idx == 0
+
+        url, params = config.get_server_details()
         assert url == SERVERS["regular"]
 
     def test_get_server_details_empty_string_server_url_uses_default(self):

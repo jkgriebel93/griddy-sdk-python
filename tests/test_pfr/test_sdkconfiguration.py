@@ -83,9 +83,10 @@ class TestPFRSDKConfiguration:
             debug_logger=mock_logger,
             server_idx=None,
         )
+        # server_idx normalized to 0 at construction, not by get_server_details
+        assert config.server_idx == 0
         url, variables = config.get_server_details()
         assert url == "https://www.pro-football-reference.com"
-        assert config.server_idx == 0  # Should be reset to 0
 
     def test_has_version_and_user_agent(self, mock_logger):
         config = SDKConfiguration(

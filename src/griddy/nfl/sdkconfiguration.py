@@ -27,11 +27,13 @@ class SDKConfiguration(CoreSDKConfiguration):
     server_type: str = "regular"
     custom_auth_info: Optional[dict] = None
 
+    def __post_init__(self) -> None:
+        if self.server_idx is None:
+            self.server_idx = 0
+
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
         if self.server_url is not None and self.server_url:
             return remove_suffix(self.server_url, "/"), {}
-        if self.server_idx is None:
-            self.server_idx = 0
 
         server_url = SERVERS.get(self.server_type, SERVERS["regular"])
         return server_url, {}
