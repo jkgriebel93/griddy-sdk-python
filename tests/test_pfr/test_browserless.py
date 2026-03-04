@@ -4,6 +4,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 import httpx
 import pytest
+from playwright.sync_api import Error as PlaywrightError
 
 from griddy.pfr.utils.browserless import Browserless, BrowserlessError
 
@@ -272,9 +273,18 @@ class TestGetPageContent:
 
         assert mock_nav.call_args[1]["cookies"] == []
 
-    def test_raises_browserless_error_on_cdp_failure(self, browserless):
+    @pytest.mark.parametrize(
+        "exc",
+        [
+            PlaywrightError("CDP refused"),
+            ConnectionError("connection reset"),
+            httpx.HTTPError("transport error"),
+        ],
+        ids=["playwright_error", "connection_error", "httpx_error"],
+    )
+    def test_raises_browserless_error_on_cdp_failure(self, browserless, exc):
         mock_pw = MagicMock()
-        mock_pw.chromium.connect_over_cdp.side_effect = RuntimeError("CDP refused")
+        mock_pw.chromium.connect_over_cdp.side_effect = exc
 
         with (
             patch.object(
@@ -288,4 +298,22 @@ class TestGetPageContent:
             mock_sp.return_value.__exit__ = Mock(return_value=False)
 
             with pytest.raises(BrowserlessError, match="Failed to connect Playwright"):
+                browserless.get_page_content("https://pfr.com", wait_for_element="#el")
+
+    def test_does_not_catch_unrelated_exceptions(self, browserless):
+        mock_pw = MagicMock()
+        mock_pw.chromium.connect_over_cdp.side_effect = RuntimeError("unexpected")
+
+        with (
+            patch.object(
+                browserless,
+                "fetch_data",
+                return_value={"browserWSEndpoint": "ws://host"},
+            ),
+            patch("griddy.pfr.utils.browserless.sync_playwright") as mock_sp,
+        ):
+            mock_sp.return_value.__enter__ = Mock(return_value=mock_pw)
+            mock_sp.return_value.__exit__ = Mock(return_value=False)
+
+            with pytest.raises(RuntimeError, match="unexpected"):
                 browserless.get_page_content("https://pfr.com", wait_for_element="#el")
