@@ -1,15 +1,13 @@
 from typing import List, Mapping, Optional
 
-from griddy.core._constants import STATS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
-from griddy.nfl.basesdk import EndpointConfig
-from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 @sdk_endpoints
-class PlayerRushingStats(ProSDK):
+class PlayerRushingStats(PlayerStatsBase):
 
     def _get_weekly_summary_config(
         self,
@@ -28,7 +26,7 @@ class PlayerRushingStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Player Rushing Statistics by Week
 
         Retrieves comprehensive rushing statistics for NFL players during a specified week.
@@ -49,29 +47,25 @@ class PlayerRushingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/players-offense/rushing/week",
-            operation_id="getPlayerRushingStatsByWeek",
-            request=models.GetPlayerRushingStatsByWeekRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_rusher=qualified_rusher,
-                team_offense=team_offense,
-            ),
-            response_type=models.WeeklyRushingStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/players-offense/rushing/week",
+            "getPlayerRushingStatsByWeek",
+            models.GetPlayerRushingStatsByWeekRequest,
+            models.WeeklyRushingStatsResponse,
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_rusher=qualified_rusher,
+            team_offense=team_offense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_season_summary_config(
@@ -90,7 +84,7 @@ class PlayerRushingStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Player Rushing Statistics by Season
 
         Retrieves comprehensive rushing statistics for NFL players during a specified season.
@@ -110,26 +104,22 @@ class PlayerRushingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/players-offense/rushing/season",
-            operation_id="getPlayerRushingStatsBySeason",
-            request=models.GetPlayerRushingStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_rusher=qualified_rusher,
-                team_offense=team_offense,
-            ),
-            response_type=models.RushingStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/players-offense/rushing/season",
+            "getPlayerRushingStatsBySeason",
+            models.GetPlayerRushingStatsBySeasonRequest,
+            models.RushingStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_rusher=qualified_rusher,
+            team_offense=team_offense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )

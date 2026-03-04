@@ -1,15 +1,13 @@
 from typing import List, Mapping, Optional
 
-from griddy.core._constants import STATS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
-from griddy.nfl.basesdk import EndpointConfig
-from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 @sdk_endpoints
-class PlayerDefenseStats(ProSDK):
+class PlayerDefenseStats(PlayerStatsBase):
 
     def _get_season_summary_config(
         self,
@@ -27,7 +25,7 @@ class PlayerDefenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Defensive Player Overview Statistics by Season
 
         Retrieves comprehensive defensive overview statistics for NFL players during a specified season.
@@ -47,28 +45,24 @@ class PlayerDefenseStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/defense/overview/season",
-            operation_id="getDefensiveOverviewStatsBySeason",
-            request=models.GetDefensiveOverviewStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_defender=qualified_defender,
-                team_defense=team_defense,
-            ),
-            response_type=models.DefensiveOverviewStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/defense/overview/season",
+            "getDefensiveOverviewStatsBySeason",
+            models.GetDefensiveOverviewStatsBySeasonRequest,
+            models.DefensiveOverviewStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
+            team_defense=team_defense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_weekly_summary_config(
@@ -88,31 +82,27 @@ class PlayerDefenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Defensive Player Overview Statistics by Week"""
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/defense/overview/season",
-            operation_id="getDefensiveOverviewStatsBySeason",
-            request=models.GetDefensiveOverviewStatsByWeekRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_defender=qualified_defender,
-                team_defense=team_defense,
-            ),
-            response_type=models.DefensiveOverviewStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/defense/overview/season",
+            "getDefensiveOverviewStatsBySeason",
+            models.GetDefensiveOverviewStatsByWeekRequest,
+            models.DefensiveOverviewStatsResponse,
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
+            team_defense=team_defense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_season_pass_rush_summary_config(
@@ -130,29 +120,25 @@ class PlayerDefenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Defensive Pass Rush Statistics by Season"""
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/defense/passRush/season",
-            operation_id="getDefensivePassRushStatsBySeason",
-            request=models.GetDefensivePassRushStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_defender=qualified_defender,
-            ),
-            response_type=models.PassRushStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/defense/passRush/season",
+            "getDefensivePassRushStatsBySeason",
+            models.GetDefensivePassRushStatsBySeasonRequest,
+            models.PassRushStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_weekly_pass_rush_summary_config(
@@ -171,30 +157,26 @@ class PlayerDefenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Defensive Pass Rush Statistics by Week"""
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/defense/passRush/week",
-            operation_id="getDefensivePassRushStatsByWeek",
-            request=models.GetDefensivePassRushStatsByWeekRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_defender=qualified_defender,
-            ),
-            response_type=models.PassRushStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/defense/passRush/week",
+            "getDefensivePassRushStatsByWeek",
+            models.GetDefensivePassRushStatsByWeekRequest,
+            models.PassRushStatsResponse,
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_season_nearest_defender_summary_config(
@@ -212,29 +194,25 @@ class PlayerDefenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Defensive Nearest Defender Statistics by Season"""
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/defense/nearest/season",
-            operation_id="getDefensiveNearestDefenderStatsBySeason",
-            request=models.GetDefensiveNearestDefenderStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_defender=qualified_defender,
-            ),
-            response_type=models.NearestDefenderStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/defense/nearest/season",
+            "getDefensiveNearestDefenderStatsBySeason",
+            models.GetDefensiveNearestDefenderStatsBySeasonRequest,
+            models.NearestDefenderStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_weekly_nearest_defender_summary_config(
@@ -253,28 +231,24 @@ class PlayerDefenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Defensive Nearest Defender Statistics by Week"""
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/defense/nearest/week",
-            operation_id="getDefensiveNearestDefenderStatsByWeek",
-            request=models.GetDefensiveNearestDefenderStatsByWeekRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_defender=qualified_defender,
-            ),
-            response_type=models.NearestDefenderStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/defense/nearest/week",
+            "getDefensiveNearestDefenderStatsByWeek",
+            models.GetDefensiveNearestDefenderStatsByWeekRequest,
+            models.NearestDefenderStatsResponse,
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_defender=qualified_defender,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )

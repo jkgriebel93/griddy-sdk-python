@@ -1,15 +1,13 @@
 from typing import List, Mapping, Optional
 
-from griddy.core._constants import STATS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
-from griddy.nfl.basesdk import EndpointConfig
-from griddy.nfl.endpoints.pro import ProSDK
+from griddy.nfl.endpoints.pro.stats.base import PlayerStatsBase
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
 @sdk_endpoints
-class PlayerPassingStats(ProSDK):
+class PlayerPassingStats(PlayerStatsBase):
 
     def _get_weekly_summary_config(
         self,
@@ -28,7 +26,7 @@ class PlayerPassingStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Player Passing Statistics by Week
 
         Retrieves comprehensive passing statistics for NFL players during a specified week and season.
@@ -53,29 +51,25 @@ class PlayerPassingStats(ProSDK):
         """
         # TODO: It turns out the NFL includes both traditional and
         # Next Gen Stats on the same object. Pause to think about this for a minute.
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/players-offense/passing/week",
-            operation_id="getPlayerPassingStatsByWeek",
-            request=models.GetPlayerPassingStatsByWeekRequest(
-                season=season,
-                season_type=season_type,
-                week=week,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_passer=qualified_passer,
-                team_offense=team_offense,
-            ),
-            response_type=models.WeeklyPassingStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/players-offense/passing/week",
+            "getPlayerPassingStatsByWeek",
+            models.GetPlayerPassingStatsByWeekRequest,
+            models.WeeklyPassingStatsResponse,
+            season=season,
+            season_type=season_type,
+            week=week,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_passer=qualified_passer,
+            team_offense=team_offense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
 
     def _get_season_summary_config(
@@ -94,7 +88,7 @@ class PlayerPassingStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> EndpointConfig:
+    ):
         r"""Get Player Passing Statistics by Season
 
         Retrieves comprehensive passing statistics for NFL players during a specified season.
@@ -114,26 +108,22 @@ class PlayerPassingStats(ProSDK):
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param http_headers: Additional headers to set or replace on requests.
         """
-        return EndpointConfig(
-            method="GET",
-            path="/api/secured/stats/players-offense/passing/season",
-            operation_id="getPlayerPassingStatsBySeason",
-            request=models.GetPlayerPassingStatsBySeasonRequest(
-                season=season,
-                season_type=season_type,
-                limit=limit,
-                offset=offset,
-                page=page,
-                sort_key=sort_key,
-                sort_value=sort_value,
-                qualified_passer=qualified_passer,
-                team_offense=team_offense,
-            ),
-            response_type=models.PassingStatsResponse,
-            error_status_codes=STATS_ERROR_CODES,
+        return self._make_stats_config(
+            "/api/secured/stats/players-offense/passing/season",
+            "getPlayerPassingStatsBySeason",
+            models.GetPlayerPassingStatsBySeasonRequest,
+            models.PassingStatsResponse,
+            season=season,
+            season_type=season_type,
+            limit=limit,
+            offset=offset,
+            page=page,
+            sort_key=sort_key,
+            sort_value=sort_value,
+            qualified_passer=qualified_passer,
+            team_offense=team_offense,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,
         )
