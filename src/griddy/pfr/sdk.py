@@ -9,18 +9,15 @@ Example:
     >>> games = pfr.schedule.get_season_schedule(season=2015)
 """
 
-import weakref
-from typing import TYPE_CHECKING, Dict, Optional, cast
-
-import httpx
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 from griddy.core._lazy_load import LazySubSDKMixin
+from griddy.core.base_griddy_sdk import BaseGriddySDK
 from griddy.core.hooks.sdkhooks import SDKHooks
-from griddy.core.utils.logger import get_default_logger
 
 from ._hooks.registration import init_hooks
 from .basesdk import BaseSDK
-from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
+from .httpclient import AsyncHttpClient, HttpClient
 from .sdkconfiguration import SDKConfiguration
 from .types import UNSET, OptionalNullable
 from .utils import Logger, RetryConfig
@@ -46,7 +43,7 @@ if TYPE_CHECKING:
     from .endpoints.teams import Teams
 
 
-class GriddyPFR(LazySubSDKMixin, BaseSDK):
+class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
     """Main client for accessing Pro Football Reference data.
 
     Sub-SDKs are loaded lazily on first access to minimize startup time.
@@ -124,93 +121,34 @@ class GriddyPFR(LazySubSDKMixin, BaseSDK):
             timeout_ms: Request timeout in milliseconds.
             debug_logger: Custom logger for debug output.
         """
-        client_supplied = True
-        if client is None:
-            client = httpx.Client(follow_redirects=True)
-            client_supplied = False
+        self._init_sdk(
+            auth=pfr_auth,
+            server_idx=server_idx,
+            server_url=server_url,
+            url_params=url_params,
+            client=client,
+            async_client=async_client,
+            retry_config=retry_config,
+            timeout_ms=timeout_ms,
+            debug_logger=debug_logger,
+        )
 
-        if not issubclass(type(client), HttpClient):
-            raise TypeError(
-                "The provided client must implement the HttpClient protocol."
-            )
+    # ------------------------------------------------------------------
+    # BaseGriddySDK abstract method implementations
+    # ------------------------------------------------------------------
 
-        async_client_supplied = True
-        if async_client is None:
-            async_client = httpx.AsyncClient(follow_redirects=True)
-            async_client_supplied = False
+    def _get_debug_logger_env_var(self) -> str:
+        return "GRIDDY_PFR_DEBUG"
 
-        if debug_logger is None:
-            debug_logger = get_default_logger(env_var="GRIDDY_PFR_DEBUG")
-
-        if not issubclass(type(async_client), AsyncHttpClient):
-            raise TypeError(
-                "The provided async_client must implement the AsyncHttpClient protocol."
-            )
-
-        security = None
-        if pfr_auth and "accessToken" in pfr_auth:
+    def _create_security(self, auth: Any) -> Any:
+        if auth and "accessToken" in auth:
             from . import models
 
-            security = models.Security(pfr_auth=pfr_auth["accessToken"])
+            return models.Security(pfr_auth=auth["accessToken"])
+        return None
 
-        if server_url is not None:
-            if url_params is not None:
-                from griddy.core.utils import template_url
+    def _create_sdk_configuration(self, **kwargs: Any) -> Any:
+        return SDKConfiguration(**kwargs)
 
-                server_url = template_url(server_url, url_params)
-
-        BaseSDK.__init__(
-            self,
-            SDKConfiguration(
-                client=client,
-                client_supplied=client_supplied,
-                async_client=async_client,
-                async_client_supplied=async_client_supplied,
-                security=security,
-                server_url=server_url,
-                server_idx=server_idx,
-                retry_config=retry_config,
-                timeout_ms=timeout_ms,
-                debug_logger=debug_logger,
-            ),
-            parent_ref=self,
-        )
-
-        hooks = SDKHooks(init_hooks_fn=init_hooks)
-
-        # pylint: disable=protected-access
-        self.sdk_configuration.__dict__["_hooks"] = hooks
-
-        self.sdk_configuration = hooks.sdk_init(self.sdk_configuration)
-
-        weakref.finalize(
-            self,
-            close_clients,
-            cast(ClientOwner, self.sdk_configuration),
-            self.sdk_configuration.client,
-            self.sdk_configuration.client_supplied,
-            self.sdk_configuration.async_client,
-            self.sdk_configuration.async_client_supplied,
-        )
-
-    def __enter__(self):
-        return self
-
-    async def __aenter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if (
-            self.sdk_configuration.client is not None
-            and not self.sdk_configuration.client_supplied
-        ):
-            self.sdk_configuration.client.close()
-        self.sdk_configuration.client = None
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        if (
-            self.sdk_configuration.async_client is not None
-            and not self.sdk_configuration.async_client_supplied
-        ):
-            await self.sdk_configuration.async_client.aclose()
-        self.sdk_configuration.async_client = None
+    def _create_hooks(self) -> Any:
+        return SDKHooks(init_hooks_fn=init_hooks)

@@ -12,19 +12,17 @@ Example:
 
 import base64
 import json
-import weakref
-from typing import TYPE_CHECKING, Any, Dict, Optional, cast
+from typing import TYPE_CHECKING, Any, Dict, Optional
 from uuid import uuid4
-
-import httpx
 
 from griddy import settings
 from griddy.core._lazy_load import LazySubSDKMixin
+from griddy.core.base_griddy_sdk import BaseGriddySDK
 
-from ..nfl import models, utils
+from ..nfl import models
 from ._hooks import SDKHooks
 from .basesdk import BaseSDK
-from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
+from .httpclient import AsyncHttpClient, HttpClient
 from .sdkconfiguration import SDKConfiguration
 from .types import UNSET, OptionalNullable
 from .utils.logger import Logger, get_default_logger
@@ -54,7 +52,7 @@ if TYPE_CHECKING:
     from griddy.nfl.endpoints.regular.football.weeks import Weeks
 
 
-class GriddyNFL(LazySubSDKMixin, BaseSDK):
+class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
     """Main client for accessing NFL data from multiple API endpoints.
 
     GriddyNFL provides unified access to NFL data through three API categories:
@@ -235,69 +233,38 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
         Example:
             >>> nfl = GriddyNFL(nfl_auth={"accessToken": "your_token"})
         """
-        client_supplied = True
-        if client is None:
-            client = httpx.Client(follow_redirects=True)
-            client_supplied = False
-
-        if not issubclass(type(client), HttpClient):
-            raise TypeError(
-                "The provided client must implement the HttpClient protocol."
-            )
-
-        async_client_supplied = True
-        if async_client is None:
-            async_client = httpx.AsyncClient(follow_redirects=True)
-            async_client_supplied = False
-
-        if debug_logger is None:
-            debug_logger = get_default_logger()
-
-        if not issubclass(type(async_client), AsyncHttpClient):
-            raise TypeError(
-                "The provided async_client must implement the AsyncHttpClient protocol."
-            )
-
-        security = models.Security(nfl_auth=nfl_auth["accessToken"])
-
-        if server_url is not None:
-            if url_params is not None:
-                server_url = utils.template_url(server_url, url_params)
-
-        BaseSDK.__init__(
-            self,
-            SDKConfiguration(
-                client=client,
-                client_supplied=client_supplied,
-                async_client=async_client,
-                async_client_supplied=async_client_supplied,
-                security=security,
-                server_url=server_url,
-                server_idx=server_idx,
-                retry_config=retry_config,
-                timeout_ms=timeout_ms,
-                debug_logger=debug_logger,
-                custom_auth_info=nfl_auth,
-            ),
-            parent_ref=self,
+        self._init_sdk(
+            auth=nfl_auth,
+            server_idx=server_idx,
+            server_url=server_url,
+            url_params=url_params,
+            client=client,
+            async_client=async_client,
+            retry_config=retry_config,
+            timeout_ms=timeout_ms,
+            debug_logger=debug_logger,
+            custom_auth_info=nfl_auth,
         )
 
-        hooks = SDKHooks()
+    # ------------------------------------------------------------------
+    # BaseGriddySDK abstract method implementations
+    # ------------------------------------------------------------------
 
-        # pylint: disable=protected-access
-        self.sdk_configuration.__dict__["_hooks"] = hooks
+    def _get_debug_logger_env_var(self) -> str:
+        return "GRIDDY_DEBUG"
 
-        self.sdk_configuration = hooks.sdk_init(self.sdk_configuration)
+    def _create_security(self, auth: Any) -> Any:
+        return models.Security(nfl_auth=auth["accessToken"])
 
-        weakref.finalize(
-            self,
-            close_clients,
-            cast(ClientOwner, self.sdk_configuration),
-            self.sdk_configuration.client,
-            self.sdk_configuration.client_supplied,
-            self.sdk_configuration.async_client,
-            self.sdk_configuration.async_client_supplied,
-        )
+    def _create_sdk_configuration(self, **kwargs: Any) -> Any:
+        return SDKConfiguration(**kwargs)
+
+    def _create_hooks(self) -> Any:
+        return SDKHooks()
+
+    # ------------------------------------------------------------------
+    # Browser-based authentication
+    # ------------------------------------------------------------------
 
     @classmethod
     def authenticate_via_browser(
@@ -371,25 +338,3 @@ class GriddyNFL(LazySubSDKMixin, BaseSDK):
             timeout_ms=timeout_ms,
             debug_logger=debug_logger,
         )
-
-    def __enter__(self):
-        return self
-
-    async def __aenter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if (
-            self.sdk_configuration.client is not None
-            and not self.sdk_configuration.client_supplied
-        ):
-            self.sdk_configuration.client.close()
-        self.sdk_configuration.client = None
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        if (
-            self.sdk_configuration.async_client is not None
-            and not self.sdk_configuration.async_client_supplied
-        ):
-            await self.sdk_configuration.async_client.aclose()
-        self.sdk_configuration.async_client = None
