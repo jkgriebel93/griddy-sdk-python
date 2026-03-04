@@ -3,6 +3,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Generic,
     List,
     Mapping,
     Optional,
@@ -27,6 +28,12 @@ from griddy.core.utils import RetryConfig, SerializedRequestBody, get_body_conte
 from griddy.core.utils.unmarshal_json_response import unmarshal_json_response
 
 T = TypeVar("T")
+
+# TypeVar for provider-specific SDKConfiguration subclasses.
+# Bound to the base SDKConfiguration so subclasses get full type safety.
+from griddy.core.sdkconfiguration import SDKConfiguration as BaseSDKConfig
+
+T_Config = TypeVar("T_Config", bound=BaseSDKConfig)
 
 
 @dataclass
@@ -71,8 +78,8 @@ class EndpointConfig:
     accept_header_value: str = "application/json"
 
 
-class BaseSDK:
-    sdk_configuration: Any  # SDKConfiguration (provider-specific subclass)
+class BaseSDK(Generic[T_Config]):
+    sdk_configuration: T_Config
     parent_ref: Optional[object] = None
 
     # Subclasses override these to inject provider-specific error/model classes.
@@ -100,7 +107,7 @@ class BaseSDK:
 
     def __init__(
         self,
-        sdk_config: Any,
+        sdk_config: T_Config,
         parent_ref: Optional[object] = None,
     ) -> None:
         self.sdk_configuration = sdk_config

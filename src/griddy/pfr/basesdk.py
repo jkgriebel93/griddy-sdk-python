@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
 from . import errors, models
+from .sdkconfiguration import SDKConfiguration
 from .utils.browserless import Browserless
 
 
@@ -22,10 +23,12 @@ class EndpointConfig:
     timeout_ms: Optional[int] = None
 
 
-class BaseSDK(CoreBaseSDK):
+class BaseSDK(CoreBaseSDK[SDKConfiguration]):
     """PFR-specific BaseSDK with PFR error classes and security model."""
 
-    def __init__(self, sdk_config: Any, parent_ref: Optional[object] = None):
+    def __init__(
+        self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
+    ):
         super().__init__(sdk_config=sdk_config, parent_ref=parent_ref)
         self.browserless = Browserless()
 
