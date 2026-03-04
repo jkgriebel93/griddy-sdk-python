@@ -6,8 +6,6 @@ from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
-# TODO: All the requests in this file have broken Pydantic models
-
 
 class PlayerRushingStats(ProSDK):
 

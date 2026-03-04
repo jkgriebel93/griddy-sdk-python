@@ -206,7 +206,7 @@ class PlayerPassingStats(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix Pydantic model - schema is broken
+            return_raw_json=False,
         )
 
     def get_season_summary(
