@@ -24,42 +24,6 @@ The `griddy.core` module provides shared functionality used across all SDK modul
       show_root_heading: true
       show_source: false
 
-## BaseClient
-
-The `BaseClient` class provides HTTP functionality with built-in rate limiting and error handling.
-
-::: griddy.core.base_client.BaseClient
-    options:
-      show_root_heading: true
-      members:
-        - __init__
-        - get
-        - post
-        - close
-        - _enforce_rate_limit
-        - _handle_response
-
-### Usage Example
-
-```python
-from griddy.core import BaseClient
-
-# Create a client for a custom API
-client = BaseClient(
-    base_url="https://api.example.com",
-    timeout=30,
-    max_retries=3,
-    rate_limit_delay=1.0,
-    headers={"Authorization": "Bearer token"},
-)
-
-# Make requests
-response = client.get("/endpoint", params={"key": "value"})
-
-# Clean up
-client.close()
-```
-
 ## BaseModel
 
 Base Pydantic model used by all SDK data models.

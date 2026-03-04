@@ -2,8 +2,8 @@
 
 from unittest.mock import MagicMock, Mock, patch
 
+import httpx
 import pytest
-import requests
 
 from griddy.pfr.utils.browserless import Browserless, BrowserlessError
 
@@ -40,7 +40,7 @@ class TestFetchData:
         }
 
         with patch(
-            "griddy.pfr.utils.browserless.requests.post", return_value=mock_resp
+            "griddy.pfr.utils.browserless.httpx.post", return_value=mock_resp
         ) as mock_post:
             result = browserless.fetch_data("https://example.com/page")
 
@@ -55,28 +55,28 @@ class TestFetchData:
         mock_resp = Mock()
         mock_resp.json.return_value = {}
 
-        with patch(
-            "griddy.pfr.utils.browserless.requests.post", return_value=mock_resp
-        ):
+        with patch("griddy.pfr.utils.browserless.httpx.post", return_value=mock_resp):
             browserless.fetch_data("https://example.com")
 
         mock_resp.raise_for_status.assert_called_once()
 
     def test_raises_browserless_error_on_request_exception(self, browserless):
         with patch(
-            "griddy.pfr.utils.browserless.requests.post",
-            side_effect=requests.RequestException("connection refused"),
+            "griddy.pfr.utils.browserless.httpx.post",
+            side_effect=httpx.HTTPError("connection refused"),
         ):
             with pytest.raises(BrowserlessError, match="request failed"):
                 browserless.fetch_data("https://example.com")
 
     def test_raises_browserless_error_on_http_error(self, browserless):
         mock_resp = Mock()
-        mock_resp.raise_for_status.side_effect = requests.HTTPError("503 Server Error")
+        mock_resp.raise_for_status.side_effect = httpx.HTTPStatusError(
+            "503 Server Error",
+            request=httpx.Request("POST", "https://example.com"),
+            response=httpx.Response(503),
+        )
 
-        with patch(
-            "griddy.pfr.utils.browserless.requests.post", return_value=mock_resp
-        ):
+        with patch("griddy.pfr.utils.browserless.httpx.post", return_value=mock_resp):
             with pytest.raises(BrowserlessError, match="request failed"):
                 browserless.fetch_data("https://example.com")
 

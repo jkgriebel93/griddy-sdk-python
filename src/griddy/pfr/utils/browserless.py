@@ -6,10 +6,10 @@ detection.
 
 Requires:
     - BROWSERLESS_API_KEY environment variable
-    - playwright and requests packages
+    - playwright and httpx packages
 """
 
-import requests
+import httpx
 from playwright.sync_api import sync_playwright
 
 from griddy.settings import BROWSERLESS_HOST, BROWSERLESS_TOKEN
@@ -43,14 +43,14 @@ class Browserless:
         }
 
         try:
-            resp = requests.post(
+            resp = httpx.post(
                 unblock_url,
                 json=payload,
                 params=query_params,
                 headers={"Content-Type": "application/json"},
             )
             resp.raise_for_status()
-        except requests.RequestException as exc:
+        except httpx.HTTPError as exc:
             raise BrowserlessError(
                 f"Browserless /chromium/unblock request failed: {exc}"
             ) from exc

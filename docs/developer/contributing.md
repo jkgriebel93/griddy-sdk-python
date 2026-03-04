@@ -183,7 +183,6 @@ griddy-sdk-python/
 ├── src/griddy/           # Main package
 │   ├── __init__.py       # Package exports
 │   ├── core/             # Core module
-│   │   ├── base_client.py
 │   │   ├── exceptions.py
 │   │   └── models.py
 │   └── nfl/              # NFL module

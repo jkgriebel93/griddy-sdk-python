@@ -10,7 +10,6 @@ The Griddy SDK is organized into the following modules:
 
 The [`griddy.core`](core.md) module provides shared functionality:
 
-- **BaseClient** - HTTP client with rate limiting and error handling
 - **Exceptions** - Custom exception classes for error handling
 - **Models** - Base Pydantic models and utilities
 

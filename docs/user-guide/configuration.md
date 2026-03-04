@@ -187,25 +187,6 @@ nfl = GriddyNFL(
 )
 ```
 
-## Base Client Configuration
-
-The core `BaseClient` class (used by some internal modules) accepts:
-
-```python
-from griddy.core import BaseClient
-
-client = BaseClient(
-    base_url="https://api.example.com",
-    timeout=30,              # Seconds
-    max_retries=3,           # Number of retries
-    rate_limit_delay=1.0,    # Delay between requests
-    headers={                # Custom headers
-        "User-Agent": "MyApp/1.0",
-    },
-    cookies_file="cookies.txt",  # Path to cookies file
-)
-```
-
 ## Per-Request Configuration
 
 Override configuration for individual requests:

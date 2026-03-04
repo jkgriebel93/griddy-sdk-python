@@ -5,7 +5,6 @@ from typing import Union
 from uuid import uuid4
 
 import httpx
-import requests
 
 from griddy import settings
 from griddy.nfl._hooks.types import BeforeRequestContext, BeforeRequestHook
@@ -35,7 +34,7 @@ class HackAuthHook(BeforeRequestHook):
     def _do_refresh_token(self, refresh_token):
         refresh_url = f"{settings.NFL['token_url']}/refresh"
         data = {**self.refresh_req_data, "refreshToken": refresh_token}
-        response = requests.post(url=refresh_url, data=data)
+        response = httpx.post(url=refresh_url, data=data)
         response.raise_for_status()
         return response.json()
 
