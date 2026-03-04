@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from griddy.core._import import dynamic_import
 
 from .griddypfrerror import GriddyPFRError
+from .parsing_error import ParsingError
 
 if TYPE_CHECKING:
     from .griddypfrdefaulterror import GriddyPFRDefaultError
@@ -14,6 +15,7 @@ __all__ = [
     "GriddyPFRDefaultError",
     "GriddyPFRError",
     "NoResponseError",
+    "ParsingError",
     "ResponseValidationError",
 ]
 

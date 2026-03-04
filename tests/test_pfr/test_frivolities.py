@@ -41,6 +41,7 @@ from unittest.mock import patch
 
 import pytest
 
+from griddy.pfr.errors import ParsingError
 from griddy.pfr.models import (
     BirthdayPlayer,
     Birthdays,
@@ -329,7 +330,7 @@ class TestAllPlayersTable:
 @pytest.mark.unit
 class TestParserErrors:
     def test_raises_on_missing_tables(self):
-        with pytest.raises(ValueError, match="Could not find"):
+        with pytest.raises(ParsingError, match="Could not find"):
             _parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -538,7 +539,7 @@ class TestCareerLeaders:
 @pytest.mark.unit
 class TestMilestonesParserErrors:
     def test_raises_on_missing_milestones_table(self):
-        with pytest.raises(ValueError, match="Could not find milestones table"):
+        with pytest.raises(ParsingError, match="Could not find milestones table"):
             _milestones_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -746,7 +747,7 @@ class TestUpcomingLeaderboardsTable:
 class TestUpcomingParserErrors:
     def test_raises_on_missing_milestones_table(self):
         with pytest.raises(
-            ValueError, match="Could not find upcoming milestones table"
+            ParsingError, match="Could not find upcoming milestones table"
         ):
             _upcoming_parser.parse("<html><body>No tables here</body></html>")
 
@@ -915,7 +916,7 @@ class TestBirthdaysPlayers:
 @pytest.mark.unit
 class TestBirthdaysParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find birthdays table"):
+        with pytest.raises(ParsingError, match="Could not find birthdays table"):
             _birthdays_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -1104,7 +1105,7 @@ class TestBirthplacesLandingLocations:
 @pytest.mark.unit
 class TestBirthplacesLandingParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find birthplaces table"):
+        with pytest.raises(ParsingError, match="Could not find birthplaces table"):
             _birthplaces_parser.parse_landing(
                 "<html><body>No tables here</body></html>"
             )
@@ -1290,7 +1291,7 @@ class TestBirthplacesCountryStateExtraction:
 @pytest.mark.unit
 class TestBirthplacesFilteredParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find birthplaces table"):
+        with pytest.raises(ParsingError, match="Could not find birthplaces table"):
             _birthplaces_parser.parse_filtered(
                 "<html><body>No tables here</body></html>"
             )
@@ -1507,7 +1508,7 @@ class TestPlayersBornBeforeDateExtraction:
 @pytest.mark.unit
 class TestPlayersBornBeforeParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find players table"):
+        with pytest.raises(ParsingError, match="Could not find players table"):
             _born_before_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -1695,7 +1696,7 @@ class TestUniformNumbersExtraction:
 @pytest.mark.unit
 class TestUniformNumbersParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find uniform_number table"):
+        with pytest.raises(ParsingError, match="Could not find uniform_number table"):
             _uniform_numbers_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -1837,7 +1838,7 @@ class TestQBWinsEntries:
 @pytest.mark.unit
 class TestQBWinsParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find qb_wins table"):
+        with pytest.raises(ParsingError, match="Could not find qb_wins table"):
             _qb_wins_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -1998,7 +1999,7 @@ class TestNonQBPassersEntries:
 @pytest.mark.unit
 class TestNonQBPassersParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find nonqb_passers table"):
+        with pytest.raises(ParsingError, match="Could not find nonqb_passers table"):
             _non_qb_passers_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -2173,7 +2174,7 @@ class TestNonSkillPosTdEntries:
 @pytest.mark.unit
 class TestNonSkillPosTdParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find odd_scorers table"):
+        with pytest.raises(ParsingError, match="Could not find odd_scorers table"):
             _non_skill_pos_td_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -2340,7 +2341,7 @@ class TestOctopusTrackerEntries:
 @pytest.mark.unit
 class TestOctopusTrackerParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find octopus table"):
+        with pytest.raises(ParsingError, match="Could not find octopus table"):
             _octopus_tracker_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -2524,7 +2525,7 @@ class TestCupsOfCoffeeEntries:
 @pytest.mark.unit
 class TestCupsOfCoffeeParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find coffee table"):
+        with pytest.raises(ParsingError, match="Could not find coffee table"):
             _cups_of_coffee_parser.parse("<html><body>No tables here</body></html>")
 
 
@@ -2714,7 +2715,7 @@ class TestMultiSportPlayersEntries:
 @pytest.mark.unit
 class TestMultiSportPlayersParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find multisport table"):
+        with pytest.raises(ParsingError, match="Could not find multisport table"):
             _multi_sport_players_parser.parse(
                 "<html><body>No tables here</body></html>"
             )
@@ -2879,11 +2880,11 @@ class TestPronunciationGuideEntries:
 @pytest.mark.unit
 class TestPronunciationGuideParserErrors:
     def test_raises_on_missing_content_div(self):
-        with pytest.raises(ValueError, match="Could not find #content div"):
+        with pytest.raises(ParsingError, match="Could not find #content div"):
             _pronunciation_guide_parser.parse("<html><body>No content</body></html>")
 
     def test_raises_on_missing_list(self):
-        with pytest.raises(ValueError, match="Could not find pronunciation list"):
+        with pytest.raises(ParsingError, match="Could not find pronunciation list"):
             _pronunciation_guide_parser.parse(
                 '<html><body><div id="content"><h1>Title</h1></div></body></html>'
             )
@@ -3041,7 +3042,7 @@ class TestOvertimeTiesEntries:
 @pytest.mark.unit
 class TestOvertimeTiesParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find ot_ties table"):
+        with pytest.raises(ParsingError, match="Could not find ot_ties table"):
             _overtime_ties_parser.parse("<html><body>No tables</body></html>")
 
 
@@ -3216,7 +3217,7 @@ class TestLastUndefeatedEntries:
 @pytest.mark.unit
 class TestLastUndefeatedParserErrors:
     def test_raises_on_missing_table(self):
-        with pytest.raises(ValueError, match="Could not find undefeated_teams table"):
+        with pytest.raises(ParsingError, match="Could not find undefeated_teams table"):
             _last_undefeated_parser.parse("<html><body>No tables</body></html>")
 
 
@@ -3407,7 +3408,7 @@ class TestStandingsOnDateEntries:
 @pytest.mark.unit
 class TestStandingsOnDateParserErrors:
     def test_raises_on_missing_tables(self):
-        with pytest.raises(ValueError, match="Could not find AFC or NFC"):
+        with pytest.raises(ParsingError, match="Could not find AFC or NFC"):
             _standings_on_date_parser.parse("<html><body>No tables</body></html>")
 
 

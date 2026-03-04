@@ -7,7 +7,7 @@ import pytest
 
 from griddy.core.errors.sdkerror import SDKError
 from griddy.core.exceptions import APIError, GriddyError
-from griddy.pfr.errors import GriddyPFRError
+from griddy.pfr.errors import GriddyPFRError, ParsingError
 from griddy.pfr.errors.griddypfrdefaulterror import GriddyPFRDefaultError
 from griddy.pfr.errors.no_response_error import NoResponseError
 from griddy.pfr.errors.responsevalidationerror import ResponseValidationError
@@ -152,6 +152,59 @@ class TestErrorModuleLazyLoading:
         assert "GriddyPFRDefaultError" in d
         assert "NoResponseError" in d
         assert "ResponseValidationError" in d
+
+
+@pytest.mark.unit
+class TestParsingError:
+    def test_inherits_from_griddy_error(self):
+        assert issubclass(ParsingError, GriddyError)
+
+    def test_basic_creation(self):
+        err = ParsingError("Could not find table")
+        assert err.message == "Could not find table"
+        assert err.url is None
+        assert err.selector is None
+        assert err.html_sample is None
+
+    def test_with_full_context(self):
+        err = ParsingError(
+            "Could not find table",
+            url="https://www.pro-football-reference.com/years/2024/games.htm",
+            selector="games",
+            html_sample="<html><body>...</body></html>",
+        )
+        assert err.url == "https://www.pro-football-reference.com/years/2024/games.htm"
+        assert err.selector == "games"
+        assert err.html_sample == "<html><body>...</body></html>"
+
+    def test_str_message_only(self):
+        err = ParsingError("Could not find table")
+        assert str(err) == "Could not find table"
+
+    def test_str_with_url_and_selector(self):
+        err = ParsingError(
+            "Could not find table",
+            url="https://example.com/page",
+            selector="games",
+        )
+        assert (
+            str(err)
+            == "Could not find table | url=https://example.com/page | selector=games"
+        )
+
+    def test_str_with_selector_only(self):
+        err = ParsingError("Could not find table", selector="games")
+        assert str(err) == "Could not find table | selector=games"
+
+    def test_caught_by_griddy_error(self):
+        with pytest.raises(GriddyError):
+            raise ParsingError("parsing failed", selector="games")
+
+    def test_url_can_be_set_after_creation(self):
+        err = ParsingError("Could not find table", selector="games")
+        err.url = "https://example.com/page"
+        assert err.url == "https://example.com/page"
+        assert "url=https://example.com/page" in str(err)
 
 
 @pytest.mark.unit

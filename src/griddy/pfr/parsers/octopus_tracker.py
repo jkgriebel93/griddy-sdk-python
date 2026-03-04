@@ -9,6 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 # Columns that should be parsed as integers.
@@ -143,7 +145,7 @@ class OctopusTrackerParser:
             A dict ready for ``OctopusTracker.model_validate()``.
 
         Raises:
-            ValueError: If the octopus table is not found.
+            ParsingError: If the octopus table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -151,7 +153,11 @@ class OctopusTrackerParser:
 
         table = soup.find("table", id="octopus")
         if table is None:
-            raise ValueError("Could not find octopus table in the HTML.")
+            raise ParsingError(
+                "Could not find octopus table in the HTML.",
+                selector="octopus",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 

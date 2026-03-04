@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from griddy.pfr.errors import ParsingError
 from griddy.pfr.models.entities.schedule_game import ScheduleGame
 from griddy.pfr.parsers import ScheduleParser
 
@@ -121,7 +122,7 @@ class TestParseScheduleTable:
             assert game.loser, f"Game {i} missing loser"
 
     def test_raises_on_missing_table(self, parser: ScheduleParser):
-        with pytest.raises(ValueError, match="Could not find"):
+        with pytest.raises(ParsingError, match="Could not find"):
             parser.parse("<html><body>No table here</body></html>")
 
     def test_super_bowl_neutral_site(self, parser: ScheduleParser, schedule_html: str):

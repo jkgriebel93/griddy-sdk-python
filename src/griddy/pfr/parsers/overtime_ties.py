@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 # Columns that should be parsed as integers.
@@ -140,7 +142,7 @@ class OvertimeTiesParser:
             A dict ready for ``OvertimeTies.model_validate()``.
 
         Raises:
-            ValueError: If the overtime ties table is not found.
+            ParsingError: If the overtime ties table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -148,7 +150,11 @@ class OvertimeTiesParser:
 
         table = soup.find("table", id="ot_ties")
         if table is None:
-            raise ValueError("Could not find ot_ties table in the HTML.")
+            raise ParsingError(
+                "Could not find ot_ties table in the HTML.",
+                selector="ot_ties",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_table(table)
 

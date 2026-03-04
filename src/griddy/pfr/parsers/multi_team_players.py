@@ -10,6 +10,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_numeric
 
 
@@ -183,7 +185,7 @@ class MultiTeamPlayersParser:
             A dict ready for ``MultiTeamPlayers.model_validate()``.
 
         Raises:
-            ValueError: If no stats tables are found.
+            ParsingError: If no stats tables are found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -213,8 +215,10 @@ class MultiTeamPlayersParser:
             idx += 1
 
         if not stats_tables:
-            raise ValueError(
-                "Could not find any multifranchise_stats tables in the HTML."
+            raise ParsingError(
+                "Could not find any multifranchise_stats tables in the HTML.",
+                selector="multi_team_stats",
+                html_sample=html[:500],
             )
 
         return {

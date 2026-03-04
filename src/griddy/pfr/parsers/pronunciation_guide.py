@@ -10,6 +10,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 
 class PronunciationGuideParser:
     """Parses the PFR 'Pronunciation Guide' page."""
@@ -77,7 +79,7 @@ class PronunciationGuideParser:
             A dict ready for ``PronunciationGuide.model_validate()``.
 
         Raises:
-            ValueError: If the pronunciation list is not found.
+            ParsingError: If the pronunciation list is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -85,11 +87,19 @@ class PronunciationGuideParser:
 
         content = soup.find("div", id="content")
         if content is None:
-            raise ValueError("Could not find #content div in the HTML.")
+            raise ParsingError(
+                "Could not find #content div in the HTML.",
+                selector="content",
+                html_sample=html[:500],
+            )
 
         ul = content.find("ul")
         if ul is None:
-            raise ValueError("Could not find pronunciation list in the HTML.")
+            raise ParsingError(
+                "Could not find pronunciation list in the HTML.",
+                selector="content ul",
+                html_sample=html[:500],
+            )
 
         entries = self._parse_list(ul)
 

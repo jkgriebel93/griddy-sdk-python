@@ -12,6 +12,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_int
 
 
@@ -161,7 +163,7 @@ class BirthplacesParser:
             A dict ready for ``BirthplaceLanding.model_validate()``.
 
         Raises:
-            ValueError: If the birthplaces table is not found.
+            ParsingError: If the birthplaces table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -169,7 +171,11 @@ class BirthplacesParser:
 
         table = soup.find("table", id="birthplaces")
         if table is None:
-            raise ValueError("Could not find birthplaces table in the HTML.")
+            raise ParsingError(
+                "Could not find birthplaces table in the HTML.",
+                selector="birthplaces",
+                html_sample=html[:500],
+            )
 
         locations = self._parse_landing_table(table)
 
@@ -281,7 +287,7 @@ class BirthplacesParser:
             A dict ready for ``BirthplaceFiltered.model_validate()``.
 
         Raises:
-            ValueError: If the birthplaces table is not found.
+            ParsingError: If the birthplaces table is not found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -290,7 +296,11 @@ class BirthplacesParser:
 
         table = soup.find("table", id="birthplaces")
         if table is None:
-            raise ValueError("Could not find birthplaces table in the HTML.")
+            raise ParsingError(
+                "Could not find birthplaces table in the HTML.",
+                selector="birthplaces",
+                html_sample=html[:500],
+            )
 
         players = self._parse_filtered_table(table)
 

@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from griddy.pfr.errors import ParsingError
+
 from ._helpers import safe_float, safe_int
 
 # Table IDs corresponding to each conference.
@@ -130,7 +132,7 @@ class StandingsOnDateParser:
             A dict ready for ``StandingsOnDate.model_validate()``.
 
         Raises:
-            ValueError: If no conference standings tables are found.
+            ParsingError: If no conference standings tables are found.
         """
         soup = BeautifulSoup(html, "html.parser")
 
@@ -143,7 +145,11 @@ class StandingsOnDateParser:
                 teams.extend(self._parse_table(table, table_id))
 
         if not teams:
-            raise ValueError("Could not find AFC or NFC standings tables in the HTML.")
+            raise ParsingError(
+                "Could not find AFC or NFC standings tables in the HTML.",
+                selector="AFC_standings, NFC_standings",
+                html_sample=html[:500],
+            )
 
         return {
             "title": title,
