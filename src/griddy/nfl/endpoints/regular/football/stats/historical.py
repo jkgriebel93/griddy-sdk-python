@@ -1,11 +1,13 @@
 from typing import Mapping, Optional
 
 from griddy.core._constants import RESOURCE_ERROR_CODES
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
+@sdk_endpoints
 class HistoricalStats(BaseSDK):
 
     def _get_team_stats_config(
@@ -18,6 +20,20 @@ class HistoricalStats(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Historical Team Stats
+
+        Retrieves historical team statistics for a specific game and team.
+        Returns game info, team info, and deeply nested stat categories
+        (defense, passing, rushing, receiving, kicking, etc.).
+
+
+        :param game_id: Game identifier (UUID)
+        :param team_id: Team identifier (UUID)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetHistoricalTeamStatsRequest(
             game_id=game_id,
             team_id=team_id,
@@ -39,61 +55,6 @@ class HistoricalStats(BaseSDK):
             retries=retries,
         )
 
-    def get_team_stats(
-        self,
-        *,
-        game_id: str,
-        team_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.HistoricalTeamStatsResponse:
-        r"""Get Historical Team Stats
-
-        Retrieves historical team statistics for a specific game and team.
-        Returns game info, team info, and deeply nested stat categories
-        (defense, passing, rushing, receiving, kicking, etc.).
-
-
-        :param game_id: Game identifier (UUID)
-        :param team_id: Team identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_team_stats_config(
-            game_id=game_id,
-            team_id=team_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_team_stats_async(
-        self,
-        *,
-        game_id: str,
-        team_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.HistoricalTeamStatsResponse:
-        r"""Get Historical Team Stats"""
-        config = self._get_team_stats_config(
-            game_id=game_id,
-            team_id=team_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_player_stats_config(
         self,
         *,
@@ -104,6 +65,20 @@ class HistoricalStats(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Historical Player Stats
+
+        Retrieves historical player statistics for a specific game and team.
+        Returns game and team identifiers and a list of per-player stat objects
+        with nullable stat categories (defense, passing, rushing, etc.).
+
+
+        :param game_id: Game identifier (UUID)
+        :param team_id: Team identifier (UUID)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
         request = models.GetHistoricalPlayerStatsRequest(
             game_id=game_id,
             team_id=team_id,
@@ -124,58 +99,3 @@ class HistoricalStats(BaseSDK):
             http_headers=http_headers,
             retries=retries,
         )
-
-    def get_player_stats(
-        self,
-        *,
-        game_id: str,
-        team_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.HistoricalPlayerStatsResponse:
-        r"""Get Historical Player Stats
-
-        Retrieves historical player statistics for a specific game and team.
-        Returns game and team identifiers and a list of per-player stat objects
-        with nullable stat categories (defense, passing, rushing, etc.).
-
-
-        :param game_id: Game identifier (UUID)
-        :param team_id: Team identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        config = self._get_player_stats_config(
-            game_id=game_id,
-            team_id=team_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_player_stats_async(
-        self,
-        *,
-        game_id: str,
-        team_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.HistoricalPlayerStatsResponse:
-        r"""Get Historical Player Stats"""
-        config = self._get_player_stats_config(
-            game_id=game_id,
-            team_id=team_id,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)

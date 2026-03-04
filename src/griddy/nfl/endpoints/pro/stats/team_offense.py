@@ -1,12 +1,14 @@
 from typing import List, Mapping, Optional
 
 from griddy.core._constants import STATS_ERROR_CODES
+from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
+@sdk_endpoints
 class TeamOffenseStats(ProSDK):
     r"""Comprehensive team offensive overview statistics and situational analytics"""
 
@@ -27,6 +29,7 @@ class TeamOffenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Team Offense Overview Statistics by Season"""
         return EndpointConfig(
             method="GET",
             path="/api/secured/stats/team-offense/overview/season",
@@ -51,76 +54,6 @@ class TeamOffenseStats(ProSDK):
             return_raw_json=False,
         )
 
-    def get_season_overview(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseStatsResponse:
-        r"""Get Team Offense Overview Statistics by Season"""
-        config = self._get_season_overview_config(
-            season=season,
-            season_type=season_type,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            split=split,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_season_overview_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseStatsResponse:
-        r"""Get Team Offense Overview Statistics by Season"""
-        config = self._get_season_overview_config(
-            season=season,
-            season_type=season_type,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            split=split,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_weekly_overview_config(
         self,
         *,
@@ -139,6 +72,7 @@ class TeamOffenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Team Offense Overview Statistics by Week"""
         return EndpointConfig(
             method="GET",
             path="/api/secured/stats/team-offense/overview/week",
@@ -164,80 +98,6 @@ class TeamOffenseStats(ProSDK):
             return_raw_json=False,
         )
 
-    def get_weekly_overview(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: models.WeekSlugEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseStatsResponse:
-        r"""Get Team Offense Overview Statistics by Week"""
-        config = self._get_weekly_overview_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            split=split,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_weekly_overview_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: models.WeekSlugEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffenseStatsBySeasonSortKey] = "ypg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        split: Optional[List[models.GetTeamOffenseStatsBySeasonSplit]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseStatsResponse:
-        r"""Get Team Offense Overview Statistics by Week"""
-        config = self._get_weekly_overview_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            split=split,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_season_pass_stats_config(
         self,
         *,
@@ -254,6 +114,7 @@ class TeamOffenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Team Offense Pass Statistics by Season"""
         return EndpointConfig(
             method="GET",
             path="/api/secured/stats/team-offense/pass/season",
@@ -277,72 +138,6 @@ class TeamOffenseStats(ProSDK):
             return_raw_json=False,
         )
 
-    def get_season_pass_stats(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffensePassStatsBySeasonSortKey] = "passYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Pass Statistics by Season"""
-        config = self._get_season_pass_stats_config(
-            season=season,
-            season_type=season_type,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_season_pass_stats_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffensePassStatsBySeasonSortKey] = "passYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Pass Statistics by Season"""
-        config = self._get_season_pass_stats_config(
-            season=season,
-            season_type=season_type,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_weekly_pass_stats_config(
         self,
         *,
@@ -360,6 +155,7 @@ class TeamOffenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Team Offense Pass Statistics by Week"""
         return EndpointConfig(
             method="GET",
             path="/api/secured/stats/team-offense/pass/week",
@@ -384,76 +180,6 @@ class TeamOffenseStats(ProSDK):
             return_raw_json=False,
         )
 
-    def get_weekly_pass_stats(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: models.WeekSlugEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffensePassStatsBySeasonSortKey] = "passYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Pass Statistics by Week"""
-        config = self._get_weekly_pass_stats_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_weekly_pass_stats_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: models.WeekSlugEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[models.GetTeamOffensePassStatsBySeasonSortKey] = "passYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        team_defense: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Pass Statistics by Week"""
-        config = self._get_weekly_pass_stats_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            team_defense=team_defense,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_season_rush_stats_config(
         self,
         *,
@@ -469,6 +195,7 @@ class TeamOffenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Team Offense Rush Statistics by Season"""
         return EndpointConfig(
             method="GET",
             path="/api/secured/stats/team-offense/rush/season",
@@ -491,68 +218,6 @@ class TeamOffenseStats(ProSDK):
             return_raw_json=False,
         )
 
-    def get_season_rush_stats(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[str] = "rushYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffenseRushStatsResponse:
-        r"""Get Team Offense Rush Statistics by Season"""
-        config = self._get_season_rush_stats_config(
-            season=season,
-            season_type=season_type,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_season_rush_stats_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[str] = "rushYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Rush Statistics by Season"""
-        config = self._get_season_rush_stats_config(
-            season=season,
-            season_type=season_type,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
-
     def _get_weekly_rush_stats_config(
         self,
         *,
@@ -569,6 +234,7 @@ class TeamOffenseStats(ProSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
+        r"""Get Team Offense Rush Statistics by Week"""
         return EndpointConfig(
             method="GET",
             path="/api/secured/stats/team-offense/rush/week",
@@ -591,69 +257,3 @@ class TeamOffenseStats(ProSDK):
             retries=retries,
             return_raw_json=False,
         )
-
-    def get_weekly_rush_stats(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: models.WeekSlugEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[str] = "rushYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Rush Statistics by Week"""
-        config = self._get_weekly_rush_stats_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return self._execute_endpoint(config)
-
-    async def get_weekly_rush_stats_async(
-        self,
-        *,
-        season: int,
-        season_type: models.SeasonTypeEnum,
-        week: models.WeekSlugEnum,
-        limit: Optional[int] = 35,
-        offset: Optional[int] = 0,
-        page: Optional[int] = 1,
-        sort_key: Optional[str] = "rushYpg",
-        sort_value: Optional[models.SortOrderEnum] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
-        r"""Get Team Offense Rush Statistics by Week"""
-        config = self._get_weekly_rush_stats_config(
-            season=season,
-            season_type=season_type,
-            week=week,
-            limit=limit,
-            offset=offset,
-            page=page,
-            sort_key=sort_key,
-            sort_value=sort_value,
-            retries=retries,
-            server_url=server_url,
-            timeout_ms=timeout_ms,
-            http_headers=http_headers,
-        )
-        return await self._execute_endpoint_async(config)
