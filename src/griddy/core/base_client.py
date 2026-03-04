@@ -1,20 +1,12 @@
 """Base HTTP client for all Griddy SDK modules.
 
-This module provides the BaseClient class, which implements common HTTP
-functionality including rate limiting, automatic retries, and error handling.
-
-Example:
-    >>> from griddy.core import BaseClient
-    >>> client = BaseClient(
-    ...     base_url="https://api.example.com",
-    ...     timeout=30,
-    ...     rate_limit_delay=1.0,
-    ... )
-    >>> response = client.get("/endpoint", params={"key": "value"})
-    >>> client.close()
+.. deprecated::
+    ``BaseClient`` is deprecated and will be removed in a future release.
+    Use :class:`griddy.core.basesdk.BaseSDK` (backed by ``httpx``) instead.
 """
 
 import time
+import warnings
 from typing import Any, Dict, List
 from urllib.parse import urljoin
 
@@ -29,28 +21,10 @@ from .utils.retries import retry_on_rate_limit
 class BaseClient:
     """Base HTTP client with common functionality for all data source clients.
 
-    This class provides a foundation for building API clients with built-in
-    support for rate limiting, automatic retries on transient failures, and
-    consistent error handling.
-
-    Attributes:
-        base_url: The base URL for all API requests.
-        timeout: Request timeout in seconds.
-        rate_limit_delay: Minimum delay between requests in seconds.
-        session: The underlying requests Session object.
-        cookies_file: Path to a cookies file for authentication.
-
-    Example:
-        >>> client = BaseClient(
-        ...     base_url="https://api.nfl.com",
-        ...     timeout=30,
-        ...     max_retries=3,
-        ...     rate_limit_delay=1.0,
-        ... )
-        >>> try:
-        ...     data = client.get("/games", params={"season": 2024})
-        ... finally:
-        ...     client.close()
+    .. deprecated::
+        ``BaseClient`` is deprecated and will be removed in a future release.
+        Migrate to :class:`griddy.core.basesdk.BaseSDK` which uses ``httpx``
+        for both sync and async HTTP support.
     """
 
     def __init__(
@@ -89,6 +63,12 @@ class BaseClient:
             ...     headers={"Authorization": "Bearer token"},
             ... )
         """
+        warnings.warn(
+            "BaseClient is deprecated and will be removed in a future release. "
+            "Use griddy.core.basesdk.BaseSDK (backed by httpx) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         self.rate_limit_delay = rate_limit_delay

@@ -1,5 +1,6 @@
 """Tests for griddy.core.base_client."""
 
+import warnings
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -13,33 +14,45 @@ from griddy.core.exceptions import (
 )
 
 
+def _make_client(**kwargs):
+    """Create a BaseClient while suppressing the deprecation warning."""
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        return BaseClient(**kwargs)
+
+
 @pytest.mark.unit
 class TestBaseClientInit:
     def test_default_construction(self):
-        client = BaseClient(base_url="https://api.nfl.com")
+        client = _make_client(base_url="https://api.nfl.com")
         assert client.base_url == "https://api.nfl.com"
         assert client.timeout == 30
         assert client.rate_limit_delay == 1.0
         client.close()
 
     def test_trailing_slash_removed(self):
-        client = BaseClient(base_url="https://api.nfl.com/")
+        client = _make_client(base_url="https://api.nfl.com/")
         assert client.base_url == "https://api.nfl.com"
         client.close()
 
     def test_custom_headers(self):
-        client = BaseClient(
+        client = _make_client(
             base_url="https://api.nfl.com",
             headers={"X-Custom": "value"},
         )
         assert "X-Custom" in client.session.headers
         client.close()
 
+    def test_emits_deprecation_warning(self):
+        with pytest.warns(DeprecationWarning, match="BaseClient is deprecated"):
+            client = BaseClient(base_url="https://api.nfl.com")
+            client.close()
+
 
 @pytest.mark.unit
 class TestHandleResponse:
     def _make_client(self):
-        return BaseClient(base_url="https://api.nfl.com", rate_limit_delay=0)
+        return _make_client(base_url="https://api.nfl.com", rate_limit_delay=0)
 
     def _make_response(self, status_code, json_data=None, headers=None):
         resp = MagicMock()
@@ -126,7 +139,7 @@ class TestEnforceRateLimit:
     def test_rate_limit_sleeps(self, mock_time):
         mock_time.time.side_effect = [0.0, 0.5, 1.5]
         mock_time.sleep = MagicMock()
-        client = BaseClient(base_url="https://api.nfl.com", rate_limit_delay=1.0)
+        client = _make_client(base_url="https://api.nfl.com", rate_limit_delay=1.0)
         client._last_request_time = 0.0
 
         # First time.time() returns 0.5 (within rate limit window)
@@ -135,7 +148,7 @@ class TestEnforceRateLimit:
         client.close()
 
     def test_no_rate_limit_when_zero(self):
-        client = BaseClient(base_url="https://api.nfl.com", rate_limit_delay=0)
+        client = _make_client(base_url="https://api.nfl.com", rate_limit_delay=0)
         # Should not sleep
         client._enforce_rate_limit()
         client.close()

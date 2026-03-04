@@ -4,7 +4,6 @@ from uuid import uuid4
 
 import httpx
 import pytest
-import responses
 
 from griddy.nfl import GriddyNFL, models
 from griddy.nfl._hooks.hack_auth import HackAuthHook
@@ -453,7 +452,7 @@ fake_sched_resp = {
 
 @pytest.mark.unit
 class TestHackAuthHook:
-    @patch("griddy.nfl._hooks.hack_auth.requests.post")
+    @patch("griddy.nfl._hooks.hack_auth.httpx.post")
     def test_do_refresh_token_makes_correct_request(self, mock_post):
         test_refresh_token = str(uuid4())
         fake_auth_response = {
@@ -471,7 +470,7 @@ class TestHackAuthHook:
         hook = HackAuthHook()
         result = hook._do_refresh_token(refresh_token=test_refresh_token)
 
-        # Verify requests.post was called with correct parameters
+        # Verify httpx.post was called with correct parameters
         mock_post.assert_called_once()
         call_args = mock_post.call_args
 
@@ -492,21 +491,19 @@ class TestHackAuthHook:
         # Verify raise_for_status was called
         mock_response.raise_for_status.assert_called_once()
 
-    @responses.activate
-    def test_before_request_calls_refresh_when_inside_window(self, nfl_auth_info):
-
+    @patch("griddy.nfl._hooks.hack_auth.httpx.post")
+    def test_before_request_calls_refresh_when_inside_window(
+        self, mock_post, nfl_auth_info
+    ):
         fake_auth_response = {
             "expiresIn": time.time() + 3600,
             "refreshToken": str(uuid4()),
             "accessToken": "FUBAR",
         }
 
-        responses.add(
-            responses.POST,
-            "https://api.nfl.com/identity/v3/token/refresh",
-            json=fake_auth_response,
-            status=200,
-        )
+        mock_response = MagicMock()
+        mock_response.json.return_value = fake_auth_response
+        mock_post.return_value = mock_response
 
         # Use a real httpx.Request so we can verify the Authorization header is updated
         request = httpx.Request(
