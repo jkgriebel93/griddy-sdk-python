@@ -52,7 +52,7 @@ def _make_sdk_with_hooks(mock_logger, client=None, async_client=None):
         timeout_ms=30000,
     )
     hooks = SDKHooks()
-    config.__dict__["_hooks"] = hooks
+    config._hooks = hooks
     return BaseSDK(sdk_config=config), config, hooks
 
 
@@ -921,7 +921,7 @@ class TestDoRequest:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (None, None)
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         mock_request = Mock(spec=httpx.Request)
         mock_request.method = "GET"
@@ -952,7 +952,7 @@ class TestDoRequest:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (None, replacement_error)
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         hook_ctx = sdk._create_hook_context("testOp", "https://example.com")
 
@@ -982,7 +982,7 @@ class TestDoRequest:
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (fixed_response, None)
         mock_hooks.after_success.side_effect = lambda ctx, resp: resp
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         hook_ctx = sdk._create_hook_context("testOp", "https://example.com")
 
@@ -1023,7 +1023,7 @@ class TestDoRequest:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (None, None)
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         hook_ctx = sdk._create_hook_context("testOp", "https://example.com")
 
@@ -1051,7 +1051,7 @@ class TestDoRequest:
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         modified_response = _make_httpx_response(200, json_data={"modified": True})
         mock_hooks.after_success.return_value = modified_response
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         hook_ctx = sdk._create_hook_context("testOp", "https://example.com")
 
@@ -1222,7 +1222,7 @@ class TestDoRequestAsync:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (None, None)
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         mock_request = Mock(spec=httpx.Request)
         mock_request.method = "GET"
@@ -1253,7 +1253,7 @@ class TestDoRequestAsync:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (None, replacement_error)
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         mock_request = Mock(spec=httpx.Request)
         mock_request.method = "GET"
@@ -1288,7 +1288,7 @@ class TestDoRequestAsync:
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (fixed_response, None)
         mock_hooks.after_success.side_effect = lambda ctx, resp: resp
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         mock_request = Mock(spec=httpx.Request)
         mock_request.method = "GET"
@@ -1329,7 +1329,7 @@ class TestDoRequestAsync:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_error.return_value = (None, None)
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         mock_request = Mock(spec=httpx.Request)
         mock_request.method = "GET"
@@ -1363,7 +1363,7 @@ class TestDoRequestAsync:
         mock_hooks = Mock()
         mock_hooks.before_request.side_effect = lambda ctx, req: req
         mock_hooks.after_success.return_value = modified_response
-        config.__dict__["_hooks"] = mock_hooks
+        config._hooks = mock_hooks
 
         mock_request = Mock(spec=httpx.Request)
         mock_request.method = "GET"

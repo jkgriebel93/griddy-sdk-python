@@ -481,7 +481,7 @@ class BaseSDK(Generic[T_Config]):
         client = self.sdk_configuration.client
         logger = self.sdk_configuration.debug_logger
 
-        hooks = self.sdk_configuration.__dict__["_hooks"]
+        hooks = self.sdk_configuration.hooks
 
         def do():
             http_res = None
@@ -553,7 +553,7 @@ class BaseSDK(Generic[T_Config]):
         client = self.sdk_configuration.async_client
         logger = self.sdk_configuration.debug_logger
 
-        hooks = self.sdk_configuration.__dict__["_hooks"]
+        hooks = self.sdk_configuration.hooks
 
         async def do():
             http_res = None

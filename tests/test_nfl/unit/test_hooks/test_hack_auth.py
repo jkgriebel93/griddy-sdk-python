@@ -558,7 +558,7 @@ class TestHackAuthHook:
         nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
 
         # Verify the hook was registered by checking the hooks list
-        hooks = nfl.sdk_configuration.__dict__["_hooks"]
+        hooks = nfl.sdk_configuration.hooks
         assert len(hooks.before_request_hooks) > 0, "No before_request hooks registered"
 
         # Verify at least one hook is HackAuthHook

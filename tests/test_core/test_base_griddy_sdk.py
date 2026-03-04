@@ -195,5 +195,5 @@ class TestServerUrlTemplating:
 class TestHooksInitialization:
     def test_hooks_registered(self):
         sdk = ConcreteTestSDK()
-        hooks = sdk.sdk_configuration.__dict__["_hooks"]
+        hooks = sdk.sdk_configuration.hooks
         assert isinstance(hooks, SDKHooks)

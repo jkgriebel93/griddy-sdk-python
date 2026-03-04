@@ -121,8 +121,7 @@ class BaseGriddySDK:
 
         # 6. Hooks
         hooks = self._create_hooks()
-        # pylint: disable=protected-access
-        self.sdk_configuration.__dict__["_hooks"] = hooks
+        self.sdk_configuration._hooks = hooks
         self.sdk_configuration = hooks.sdk_init(self.sdk_configuration)
 
     # ------------------------------------------------------------------

@@ -23,6 +23,12 @@ class SDKConfiguration:
     user_agent: str = "griddy-sdk-python"
     retry_config: OptionalNullable[RetryConfig] = field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
+    _hooks: Optional[Any] = field(default=None, init=False, repr=False)
+
+    @property
+    def hooks(self) -> Any:
+        """Return the SDK hooks instance."""
+        return self._hooks
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
         """Return (server_url, url_variables). Subclasses should override."""
