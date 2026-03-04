@@ -9,7 +9,6 @@ The Griddy SDK is organized into a hierarchical structure:
 ```
 griddy/
 ├── core/           # Shared base functionality
-│   ├── BaseClient  # HTTP client with rate limiting
 │   ├── exceptions  # Custom exception classes
 │   └── models      # Base Pydantic models
 │
