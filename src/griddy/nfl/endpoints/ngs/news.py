@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from typing import Mapping, Optional
 
+from griddy.core._constants import NGS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
@@ -16,8 +17,6 @@ from griddy.nfl.utils import RetryConfig
 
 # NFL Content API server URL (different from NGS server)
 NFL_API_SERVER_URL = SERVERS["regular"]
-
-NGS_ERROR_CODES = ["400", "401", "403", "404", "4XX", "500", "5XX"]
 
 
 @sdk_endpoints

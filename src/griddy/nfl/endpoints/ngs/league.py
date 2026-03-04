@@ -4,15 +4,13 @@ from __future__ import annotations
 
 from typing import List, Mapping, Optional
 
+from griddy.core._constants import NGS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models
 from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.ngs import NgsBaseSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 from griddy.nfl.utils import RetryConfig
-
-# Standard error codes for NGS endpoints
-NGS_ERROR_CODES = ["400", "401", "403", "404", "4XX", "500", "5XX"]
 
 
 @sdk_endpoints
