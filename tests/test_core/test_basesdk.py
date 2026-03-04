@@ -976,8 +976,8 @@ class TestDoRequest:
                     error_status_codes=["4XX", "5XX"],
                 )
 
-    def test_no_response_raises_no_response_error(self, mock_logger):
-        """When after_error swallows the exception AND returns no response."""
+    def test_hook_discards_error_reraises_original_with_warning(self, mock_logger):
+        """When after_error returns (None, None), re-raise original error and warn."""
         sdk, config, hooks = _make_sdk_with_hooks(mock_logger)
         config.client.send.side_effect = ConnectionError("fail")
 
@@ -995,12 +995,16 @@ class TestDoRequest:
         hook_ctx = sdk._create_hook_context("testOp", "https://example.com")
 
         with patch("griddy.core.basesdk.get_body_content", return_value=""):
-            with pytest.raises(NoResponseError):
+            with pytest.raises(ConnectionError, match="fail"):
                 sdk.do_request(
                     hook_ctx=hook_ctx,
                     request=mock_request,
                     error_status_codes=["4XX", "5XX"],
                 )
+
+        mock_logger.warning.assert_called_once()
+        warning_msg = mock_logger.warning.call_args[0][0]
+        assert "after_error hook discarded error" in warning_msg
 
     def test_error_status_code_after_error_returns_err(self, mock_logger):
         sdk, config, hooks = _make_sdk_with_hooks(mock_logger)
@@ -1275,7 +1279,10 @@ class TestDoRequestAsync:
                 )
 
     @pytest.mark.asyncio
-    async def test_no_response_raises_no_response_error(self, mock_logger):
+    async def test_hook_discards_error_reraises_original_with_warning(
+        self, mock_logger
+    ):
+        """When after_error returns (None, None), re-raise original error and warn."""
         mock_async_client = Mock(spec=httpx.AsyncClient)
         mock_async_client.send = AsyncMock(side_effect=ConnectionError("fail"))
 
@@ -1296,12 +1303,16 @@ class TestDoRequestAsync:
         hook_ctx = sdk._create_hook_context("testOp", "https://example.com")
 
         with patch("griddy.core.basesdk.get_body_content", return_value=""):
-            with pytest.raises(NoResponseError):
+            with pytest.raises(ConnectionError, match="fail"):
                 await sdk.do_request_async(
                     hook_ctx=hook_ctx,
                     request=mock_request,
                     error_status_codes=["4XX"],
                 )
+
+        mock_logger.warning.assert_called_once()
+        warning_msg = mock_logger.warning.call_args[0][0]
+        assert "after_error hook discarded error" in warning_msg
 
     @pytest.mark.asyncio
     async def test_error_status_after_error_returns_err(self, mock_logger):
