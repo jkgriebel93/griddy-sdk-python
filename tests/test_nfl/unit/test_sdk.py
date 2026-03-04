@@ -1,9 +1,12 @@
 import importlib
 import json
+import warnings
 from unittest.mock import MagicMock, mock_open, patch
 
+import httpx
 import pytest
 
+from griddy.core.base_griddy_sdk import BaseGriddySDK
 from griddy.nfl import GriddyNFL
 from griddy.nfl.endpoints.ngs import NextGenStats
 from griddy.nfl.endpoints.pro.stats import StatsSDK
@@ -120,3 +123,52 @@ class TestSubSdkMapImportable:
         module = importlib.import_module(module_path)
         klass = getattr(module, class_name)
         assert callable(klass), f"{module_path}.{class_name} should be callable"
+
+
+@pytest.mark.unit
+class TestGriddyNFLBaseGriddySDK:
+    def test_isinstance_base_griddy_sdk(self, nfl_auth_info_valid):
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
+        assert isinstance(nfl, BaseGriddySDK)
+
+    def test_close_method(self, nfl_auth_info_valid):
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
+        nfl.close()
+        assert nfl.sdk_configuration.client is None
+        assert nfl.sdk_configuration.async_client is None
+
+    @pytest.mark.asyncio
+    async def test_aclose_method(self, nfl_auth_info_valid):
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
+        await nfl.aclose()
+        assert nfl.sdk_configuration.client is None
+        assert nfl.sdk_configuration.async_client is None
+
+    def test_resource_warning_when_unclosed(self, nfl_auth_info_valid):
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            nfl.__del__()
+            assert len(w) == 1
+            assert issubclass(w[0].category, ResourceWarning)
+
+    def test_no_resource_warning_after_close(self, nfl_auth_info_valid):
+        nfl = GriddyNFL(nfl_auth=nfl_auth_info_valid)
+        nfl.close()
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            nfl.__del__()
+            assert len(w) == 0
+
+    def test_no_resource_warning_for_supplied_clients(self, nfl_auth_info_valid):
+        client = httpx.Client()
+        async_client = httpx.AsyncClient()
+        nfl = GriddyNFL(
+            nfl_auth=nfl_auth_info_valid,
+            client=client,
+            async_client=async_client,
+        )
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            nfl.__del__()
+            assert len(w) == 0

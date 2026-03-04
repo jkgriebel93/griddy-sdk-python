@@ -1,8 +1,11 @@
 """Tests for griddy.pfr.sdk module."""
 
+import warnings
+
 import httpx
 import pytest
 
+from griddy.core.base_griddy_sdk import BaseGriddySDK
 from griddy.pfr import GriddyPFR
 from griddy.pfr.sdkconfiguration import SDKConfiguration
 
@@ -120,3 +123,48 @@ class TestGriddyPFRLazyLoading:
         pfr = GriddyPFR()
         d = dir(pfr)
         assert "sdk_configuration" in d
+
+
+@pytest.mark.unit
+class TestGriddyPFRBaseGriddySDK:
+    def test_isinstance_base_griddy_sdk(self):
+        pfr = GriddyPFR()
+        assert isinstance(pfr, BaseGriddySDK)
+
+    def test_close_method(self):
+        pfr = GriddyPFR()
+        pfr.close()
+        assert pfr.sdk_configuration.client is None
+        assert pfr.sdk_configuration.async_client is None
+
+    @pytest.mark.asyncio
+    async def test_aclose_method(self):
+        pfr = GriddyPFR()
+        await pfr.aclose()
+        assert pfr.sdk_configuration.client is None
+        assert pfr.sdk_configuration.async_client is None
+
+    def test_resource_warning_when_unclosed(self):
+        pfr = GriddyPFR()
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            pfr.__del__()
+            assert len(w) == 1
+            assert issubclass(w[0].category, ResourceWarning)
+
+    def test_no_resource_warning_after_close(self):
+        pfr = GriddyPFR()
+        pfr.close()
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            pfr.__del__()
+            assert len(w) == 0
+
+    def test_no_resource_warning_for_supplied_clients(self):
+        client = httpx.Client()
+        async_client = httpx.AsyncClient()
+        pfr = GriddyPFR(client=client, async_client=async_client)
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            pfr.__del__()
+            assert len(w) == 0
