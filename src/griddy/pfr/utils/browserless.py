@@ -10,6 +10,7 @@ Requires:
 """
 
 import httpx
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import sync_playwright
 
 from griddy.settings import BROWSERLESS_HOST, BROWSERLESS_TOKEN
@@ -106,7 +107,7 @@ class Browserless:
         with sync_playwright() as pw:
             try:
                 browser = pw.chromium.connect_over_cdp(ws_endpoint)
-            except Exception as exc:
+            except (PlaywrightError, ConnectionError, httpx.HTTPError) as exc:
                 raise BrowserlessError(
                     f"Failed to connect Playwright via CDP: {exc}"
                 ) from exc
