@@ -9,6 +9,7 @@ from griddy.core.errors.defaultsdkerror import DefaultSDKError
 from griddy.core.errors.no_response_error import NoResponseError
 from griddy.core.errors.responsevalidationerror import ResponseValidationError
 from griddy.core.errors.sdkerror import SDKError
+from griddy.core.exceptions import APIError, GriddyError
 
 
 def _make_response(status_code=400, content_type="application/json", text="error body"):
@@ -157,3 +158,52 @@ class TestErrorModuleLazyLoading:
         assert "DefaultSDKError" in d
         assert "NoResponseError" in d
         assert "ResponseValidationError" in d
+
+
+@pytest.mark.unit
+class TestUnifiedHierarchy:
+    """Tests that internal errors are catchable via public GriddyError/APIError."""
+
+    def test_sdk_error_is_api_error(self):
+        assert issubclass(SDKError, APIError)
+
+    def test_sdk_error_is_griddy_error(self):
+        assert issubclass(SDKError, GriddyError)
+
+    def test_default_sdk_error_is_griddy_error(self):
+        assert issubclass(DefaultSDKError, GriddyError)
+
+    def test_response_validation_error_is_griddy_error(self):
+        assert issubclass(ResponseValidationError, GriddyError)
+
+    def test_no_response_error_is_griddy_error(self):
+        assert issubclass(NoResponseError, GriddyError)
+
+    def test_sdk_error_caught_by_griddy_error(self):
+        response = _make_response()
+        with pytest.raises(GriddyError):
+            raise SDKError("test", response)
+
+    def test_sdk_error_caught_by_api_error(self):
+        response = _make_response()
+        with pytest.raises(APIError):
+            raise SDKError("test", response)
+
+    def test_default_sdk_error_caught_by_griddy_error(self):
+        response = _make_response()
+        with pytest.raises(GriddyError):
+            raise DefaultSDKError("test", response)
+
+    def test_no_response_error_caught_by_griddy_error(self):
+        with pytest.raises(GriddyError):
+            raise NoResponseError("no response")
+
+    def test_sdk_error_has_response_data_attr(self):
+        response = _make_response()
+        err = SDKError("test", response)
+        assert err.response_data == {}
+
+    def test_no_response_error_has_griddy_error_attrs(self):
+        err = NoResponseError("no response")
+        assert err.status_code is None
+        assert err.response_data == {}

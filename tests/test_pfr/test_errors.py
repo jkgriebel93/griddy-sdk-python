@@ -6,6 +6,7 @@ import httpx
 import pytest
 
 from griddy.core.errors.sdkerror import SDKError
+from griddy.core.exceptions import APIError, GriddyError
 from griddy.pfr.errors import GriddyPFRError
 from griddy.pfr.errors.griddypfrdefaulterror import GriddyPFRDefaultError
 from griddy.pfr.errors.no_response_error import NoResponseError
@@ -151,3 +152,27 @@ class TestErrorModuleLazyLoading:
         assert "GriddyPFRDefaultError" in d
         assert "NoResponseError" in d
         assert "ResponseValidationError" in d
+
+
+@pytest.mark.unit
+class TestUnifiedHierarchy:
+    """Tests that PFR errors are catchable via public GriddyError/APIError."""
+
+    def test_pfr_error_is_api_error(self):
+        assert issubclass(GriddyPFRError, APIError)
+
+    def test_pfr_error_is_griddy_error(self):
+        assert issubclass(GriddyPFRError, GriddyError)
+
+    def test_pfr_default_error_is_griddy_error(self):
+        assert issubclass(GriddyPFRDefaultError, GriddyError)
+
+    def test_pfr_error_caught_by_griddy_error(self):
+        response = _make_response()
+        with pytest.raises(GriddyError):
+            raise GriddyPFRError("pfr error", response)
+
+    def test_pfr_default_error_caught_by_griddy_error(self):
+        response = _make_response()
+        with pytest.raises(GriddyError):
+            raise GriddyPFRDefaultError("pfr error", response)
