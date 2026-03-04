@@ -505,7 +505,7 @@ class TeamOffenseStats(ProSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TeamOffensePassStatsResponse:
+    ) -> models.TeamOffenseRushStatsResponse:
         r"""Get Team Offense Rush Statistics by Season"""
         config = self._get_season_rush_stats_config(
             season=season,

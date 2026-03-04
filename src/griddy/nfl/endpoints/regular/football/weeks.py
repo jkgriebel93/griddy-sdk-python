@@ -69,7 +69,7 @@ class Weeks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WeeksResponse:
+    ) -> models.Week:
         r"""Get Week for Date"""
         config = self._get_week_of_date_config(
             date=date,
