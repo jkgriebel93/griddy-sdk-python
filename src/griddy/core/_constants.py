@@ -29,3 +29,11 @@ SECURED_RESOURCE_ERROR_CODES: List[str] = [
     "500",
     "5XX",
 ]
+
+# Error codes for Next Gen Stats (NGS) endpoints
+# Includes both 403 (forbidden) and 404 (not found)
+NGS_ERROR_CODES: List[str] = ["400", "401", "403", "404", "4XX", "500", "5XX"]
+
+# Error codes for parameterless endpoints (no query/path params to validate)
+# Excludes 400 (no params to be invalid) and 403/404
+PARAMETERLESS_ERROR_CODES: List[str] = ["401", "4XX", "500", "5XX"]

@@ -1,6 +1,11 @@
 from typing import List, Mapping, Optional
 
-from griddy.core._constants import COLLECTION_ERROR_CODES, SECURED_RESOURCE_ERROR_CODES
+from griddy.core._constants import (
+    COLLECTION_ERROR_CODES,
+    PARAMETERLESS_ERROR_CODES,
+    SECURED_RESOURCE_ERROR_CODES,
+    STATS_ERROR_CODES,
+)
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import EndpointConfig
@@ -37,7 +42,7 @@ class Content(ProSDK, GameContentMixin):
             operation_id="getHomeFilmCards",
             request=None,
             response_type=models.HomeFilmCardsResponse,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=PARAMETERLESS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
@@ -242,7 +247,7 @@ class Content(ProSDK, GameContentMixin):
                 def_coverage_type=def_coverage_type,
             ),
             response_type=models.FilmroomPlaysResponse,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=STATS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,

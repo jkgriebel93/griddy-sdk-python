@@ -1,6 +1,6 @@
 from typing import Mapping, Optional
 
-from griddy.core._constants import COLLECTION_ERROR_CODES
+from griddy.core._constants import COLLECTION_ERROR_CODES, PARAMETERLESS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import EndpointConfig
@@ -83,7 +83,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             operation_id="getCurrentWeekGames",
             request=None,
             response_type=models.CurrentGamesResponse,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=PARAMETERLESS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,
@@ -117,7 +117,7 @@ class Schedules(ProSDK, GameScheduleMixin):
             operation_id="getFutureBettingOdds",
             request=None,
             response_type=models.FuturesOddsResponse,
-            error_status_codes=["401", "4XX", "500", "5XX"],
+            error_status_codes=PARAMETERLESS_ERROR_CODES,
             server_url=server_url,
             timeout_ms=timeout_ms,
             http_headers=http_headers,

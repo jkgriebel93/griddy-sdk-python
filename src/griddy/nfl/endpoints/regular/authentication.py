@@ -1,5 +1,6 @@
 from typing import Mapping, Optional
 
+from griddy.core._constants import COLLECTION_ERROR_CODES, STATS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
 from griddy.nfl import models, utils
 from griddy.nfl.basesdk import BaseSDK, EndpointConfig
@@ -53,7 +54,7 @@ class Authentication(BaseSDK):
             operation_id="generateToken",
             request=request,
             response_type=models.TokenResponse,
-            error_status_codes=["400", "401", "4XX", "500", "5XX"],
+            error_status_codes=COLLECTION_ERROR_CODES,
             request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -122,7 +123,7 @@ class Authentication(BaseSDK):
             operation_id="refreshToken",
             request=request,
             response_type=models.TokenResponse,
-            error_status_codes=["400", "401", "403", "4XX", "500", "5XX"],
+            error_status_codes=STATS_ERROR_CODES,
             request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
