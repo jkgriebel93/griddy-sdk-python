@@ -29,7 +29,7 @@ The following environment variables are extracted from real world requests made 
 - `artifact-token` - Initializes necessary authentication info for interacting with AWS CodeArtifact. Usage: `artifact-token`
 - `griddy` - Navigates to the project directory, sets project specific env vars, and invokes `artifact-token`. Usage: `griddy`
 - `tgf-format` - Runs `isort` and `black` _in the current directory_. Usage: `tgf-format`
-- `tgf-commit` - Stages, commits (signed), and pushes changes in one step. Enforces Conventional Commit formatting derived from the current branch name. Usage: `tgf-commit [-y] [-p|--pull-request] <message>` See `tgf-commit --help` for more.
+- `tgf-commit` - Stages, commits (signed), and pushes changes in one step. Enforces Conventional Commit formatting derived from the current branch name. Usage: `tgf-commit [-a] [-p|--pull-request] <message>` See `tgf-commit --help` for more.
 
 ## Git Conventions
 
