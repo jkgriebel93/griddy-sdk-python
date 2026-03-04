@@ -519,10 +519,18 @@ class BaseSDK(Generic[T_Config]):
 
                 http_res = client.send(req, stream=stream)
             except Exception as e:
+                original_error = e
                 _, e = hooks.after_error(AfterErrorContext(hook_ctx), None, e)
                 if e is not None:
                     logger.debug("Request Exception", exc_info=True)
                     raise e
+                logger.warning(
+                    "after_error hook discarded error without providing "
+                    "a replacement response or error. "
+                    "Re-raising original error: %s",
+                    original_error,
+                )
+                raise original_error
 
             if http_res is None:
                 logger.debug("Raising no response SDK error")
@@ -591,10 +599,18 @@ class BaseSDK(Generic[T_Config]):
 
                 http_res = await client.send(req, stream=stream)
             except Exception as e:
+                original_error = e
                 _, e = hooks.after_error(AfterErrorContext(hook_ctx), None, e)
                 if e is not None:
                     logger.debug("Request Exception", exc_info=True)
                     raise e
+                logger.warning(
+                    "after_error hook discarded error without providing "
+                    "a replacement response or error. "
+                    "Re-raising original error: %s",
+                    original_error,
+                )
+                raise original_error
 
             if http_res is None:
                 logger.debug("Raising no response SDK error")

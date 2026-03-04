@@ -9,9 +9,15 @@ class Logger(Protocol):
     def debug(self, msg: str, *args: Any, **kwargs: Any) -> None:
         pass
 
+    def warning(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        pass
+
 
 class NoOpLogger:
     def debug(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        pass
+
+    def warning(self, msg: str, *args: Any, **kwargs: Any) -> None:
         pass
 
 
