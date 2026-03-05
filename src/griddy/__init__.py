@@ -27,9 +27,7 @@ https://jkgriebel93.github.io/griddy-sdk-python
 """
 
 from . import core
-
-# Version - synced with pyproject.toml
-__version__ = "0.10.0"
+from ._version import __version__
 
 # Main exports
 __all__ = [
