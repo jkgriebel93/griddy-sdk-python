@@ -3,7 +3,6 @@
 import inspect
 from unittest.mock import AsyncMock, Mock, patch
 
-import httpx
 import pytest
 
 from griddy.core.utils.logger import Logger

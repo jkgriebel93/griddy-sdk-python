@@ -1,7 +1,5 @@
 """Tests for Multi-Team Players endpoint."""
 
-from unittest.mock import patch
-
 import pytest
 
 from griddy.pfr.errors import ParsingError

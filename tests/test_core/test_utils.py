@@ -1,9 +1,7 @@
 """Tests for griddy.core.utils."""
 
-import tempfile
 import time
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import timezone
 
 import pytest
 

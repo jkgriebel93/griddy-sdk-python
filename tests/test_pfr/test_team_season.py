@@ -9,7 +9,6 @@ from griddy.pfr import GriddyPFR
 from griddy.pfr.models.entities.team_season import (
     SeasonGame,
     TeamSeason,
-    TeamSeasonMeta,
 )
 from griddy.pfr.parsers.team_season import TeamSeasonParser
 from griddy.settings import FIXTURE_DIR

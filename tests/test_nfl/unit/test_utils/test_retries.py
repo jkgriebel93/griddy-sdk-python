@@ -1,6 +1,6 @@
 """Tests for griddy.nfl.utils.retries."""
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock, patch
 
 import httpx
 import pytest

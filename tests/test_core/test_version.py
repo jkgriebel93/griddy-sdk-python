@@ -2,8 +2,6 @@
 
 import importlib.metadata
 
-import pytest
-
 
 class TestUnifiedVersion:
     """All version references should resolve to the same value from pyproject.toml."""

@@ -13,7 +13,6 @@ from griddy.nfl.utils.metadata import FieldMetadata, SecurityMetadata
 from griddy.nfl.utils.security import (
     _apply_bearer,
     _parse_basic_auth_scheme,
-    _parse_security_option,
     _parse_security_scheme_value,
     do_browser_auth,
     get_security,

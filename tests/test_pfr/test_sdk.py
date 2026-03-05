@@ -7,7 +7,6 @@ import pytest
 
 from griddy.core.base_griddy_sdk import BaseGriddySDK
 from griddy.pfr import GriddyPFR
-from griddy.pfr.sdkconfiguration import SDKConfiguration
 
 
 @pytest.mark.unit

@@ -2,7 +2,7 @@
 
 import json
 from decimal import Decimal
-from typing import Dict, List, Optional, Union
+from typing import List, Optional, Union
 
 import pytest
 

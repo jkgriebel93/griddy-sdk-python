@@ -1,6 +1,6 @@
 """Tests for griddy.core.utils.headers."""
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 import pytest
 from httpx import Headers

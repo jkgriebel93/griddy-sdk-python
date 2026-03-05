@@ -6,11 +6,8 @@ the serialize_model wrap method and its branching logic.
 
 import importlib
 from datetime import date, datetime, timezone
-from typing import Any, Dict, get_type_hints
 
 import pytest
-
-from griddy.nfl.types.basemodel import BaseModel
 
 # Models that can be instantiated with no arguments (all fields optional)
 _OPTIONAL_MODELS = [

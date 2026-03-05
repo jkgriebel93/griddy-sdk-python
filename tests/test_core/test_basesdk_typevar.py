@@ -5,7 +5,7 @@ subclasses correctly bind their provider-specific SDKConfiguration.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Optional, Tuple, get_type_hints
+from typing import Dict, Tuple
 from unittest.mock import Mock
 
 import httpx
@@ -53,7 +53,6 @@ class TestNFLBaseSDKBinding:
 
     def test_nfl_basesdk_inherits_from_generic_basesdk(self):
         from griddy.nfl.basesdk import BaseSDK as NFLBaseSDK
-        from griddy.nfl.sdkconfiguration import SDKConfiguration as NFLSDKConfiguration
 
         # Check NFL BaseSDK is a subclass of core BaseSDK
         assert issubclass(NFLBaseSDK, BaseSDK)
