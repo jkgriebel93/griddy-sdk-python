@@ -1,6 +1,6 @@
 """Tests for griddy.core.utils.forms."""
 
-from typing import Annotated, List, Optional
+from typing import Annotated
 
 import pytest
 from pydantic import BaseModel, Field
