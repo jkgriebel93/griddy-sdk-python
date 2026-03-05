@@ -1,4 +1,4 @@
-"""Tests for griddy.nfl._lazy_load and griddy.nfl._import."""
+"""Tests for griddy.core._lazy_load and griddy.core._import."""
 
 from unittest.mock import patch
 
@@ -6,6 +6,7 @@ import pytest
 
 from griddy.core._import import dynamic_import
 from griddy.core._lazy_load import LazySubSDKMixin
+from griddy.nfl.endpoints.ngs import NextGenStats
 
 
 @pytest.mark.unit
@@ -90,3 +91,19 @@ class TestLazySubSDKMixin:
         sdk = TestSDK()
         with pytest.raises(AttributeError, match="Failed to find class"):
             _ = sdk.bad
+
+
+@pytest.mark.unit
+class TestNextGenStatsUsesMixin:
+    def test_inherits_lazy_sub_sdk_mixin(self):
+        assert issubclass(NextGenStats, LazySubSDKMixin)
+
+    def test_does_not_define_own_getattr(self):
+        assert "__getattr__" not in NextGenStats.__dict__
+
+    def test_does_not_define_own_dir(self):
+        assert "__dir__" not in NextGenStats.__dict__
+
+    def test_sub_sdk_map_has_expected_keys(self):
+        expected = {"league", "games", "stats", "leaders", "content", "news"}
+        assert set(NextGenStats._sub_sdk_map.keys()) == expected
