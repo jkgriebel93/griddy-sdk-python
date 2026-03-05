@@ -124,26 +124,9 @@ branch = true
 omit = [
     # Single-line re-export stubs — tested via their core originals
     "src/griddy/pfr/_constants.py",
-    "src/griddy/pfr/_import.py",
-    "src/griddy/pfr/_lazy_load.py",
-    # Old pre-refactor utility module — functionality lives in core/utils/*
-    "src/griddy/core/utils.py",
+    "src/griddy/core/base_utils.py",
     # Event streaming utilities — not used by any current SDK endpoints
     "src/griddy/core/utils/eventstreaming.py",
-    # Canonical core utils — lacking dedicated unit tests; covered indirectly
-    # via endpoint tests. TODO: add dedicated tests and remove exclusions.
-    "src/griddy/core/utils/annotations.py",
-    "src/griddy/core/utils/datetimes.py",
-    "src/griddy/core/utils/enums.py",
-    "src/griddy/core/utils/forms.py",
-    "src/griddy/core/utils/requestbodies.py",
-    # NFL-specific overrides — differ from core; lack dedicated tests
-    "src/griddy/core/utils/retries.py",
-    "src/griddy/core/utils/security.py",
-    "src/griddy/core/utils/serializers.py",
-    "src/griddy/core/utils/url.py",
-    "src/griddy/core/utils/values.py",
-    "src/griddy/core/base_utils.py",
 ]
 
 [tool.coverage.report]
