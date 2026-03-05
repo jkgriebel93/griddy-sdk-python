@@ -5,7 +5,7 @@ schedule page (``/years/{season}/games.htm``).
 """
 
 from functools import cached_property
-from typing import List, Optional
+from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import ScheduleParser

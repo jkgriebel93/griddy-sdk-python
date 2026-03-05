@@ -1,7 +1,5 @@
 """Tests for Birthplaces endpoints (landing and filtered)."""
 
-from unittest.mock import patch
-
 import pytest
 
 from griddy.pfr.errors import ParsingError

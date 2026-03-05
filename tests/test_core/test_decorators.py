@@ -1,6 +1,5 @@
 """Unit tests for the sdk_endpoints class decorator."""
 
-import asyncio
 import inspect
 from dataclasses import dataclass
 

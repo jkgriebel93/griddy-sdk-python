@@ -1,7 +1,6 @@
 """Unit tests for the PlayerStatsBase._make_stats_config helper."""
 
 from dataclasses import dataclass
-from typing import Mapping, Optional
 
 import pytest
 

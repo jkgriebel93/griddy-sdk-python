@@ -1,4 +1,4 @@
-from griddy._version import __version__
+from griddy._version import __version__  # noqa: F401
 
 __title__: str = "griddy-nfl"
 __user_agent__: str = (

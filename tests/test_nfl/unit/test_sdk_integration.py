@@ -425,7 +425,6 @@ class TestSubSDKInheritance:
     def test_pro_sdk_inherits_from_base_sdk(self, nfl_sdk):
         """Verify ProSDK itself inherits from BaseSDK."""
         from griddy.nfl.basesdk import BaseSDK
-        from griddy.nfl.endpoints.pro import ProSDK
 
         content = nfl_sdk.content
         assert isinstance(content, BaseSDK), "ProSDK should inherit from BaseSDK"

@@ -1,6 +1,5 @@
 """Tests for griddy.nfl.utils.values."""
 
-import os
 from datetime import datetime, timezone
 from enum import Enum
 from unittest.mock import MagicMock

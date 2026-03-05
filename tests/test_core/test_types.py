@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import pytest
 
-from griddy.core.types import UNSET, BaseModel, Nullable, OptionalNullable
+from griddy.core.types import UNSET, BaseModel
 from griddy.core.types.basemodel import UNSET_SENTINEL, Unset
 
 
