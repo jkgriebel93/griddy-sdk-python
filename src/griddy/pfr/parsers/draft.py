@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int, uncomment_tables
+from ._helpers import safe_int
 
 # Columns whose text should be cast to int
 _INT_COLUMNS = {
@@ -73,7 +73,6 @@ class DraftParser:
             A dict with keys ``year``, ``picks``.
         """
         soup = BeautifulSoup(html, "html.parser")
-        uncomment_tables(soup)
 
         table = soup.find("table", id="drafts")
         if table is None:
@@ -152,7 +151,6 @@ class DraftParser:
             A dict with keys ``year``, ``entries``.
         """
         soup = BeautifulSoup(html, "html.parser")
-        uncomment_tables(soup)
 
         table = soup.find("table", id="combine")
         if table is None:
@@ -242,7 +240,6 @@ class DraftParser:
             A dict with keys ``team``, ``picks``.
         """
         soup = BeautifulSoup(html, "html.parser")
-        uncomment_tables(soup)
 
         table = soup.find("table", id="draft")
         if table is None:

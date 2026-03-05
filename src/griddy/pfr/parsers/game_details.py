@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int, safe_numeric, uncomment_tables
+from ._helpers import safe_int, safe_numeric
 
 
 class GameDetailsParser:
@@ -38,8 +38,8 @@ class GameDetailsParser:
         * Home/visitor drives
 
         Many tables on PFR boxscore pages are hidden inside HTML comments
-        as an anti-scraping measure.  This parser extracts and parses those
-        commented-out tables as well.
+        as an anti-scraping measure.  The BaseSDK pre-processes the HTML to
+        uncomment these tables before this parser runs.
 
         Args:
             html: Raw HTML string of a PFR boxscore page.
@@ -53,9 +53,6 @@ class GameDetailsParser:
 
         result["scorebox"] = self._parse_scorebox(soup)
         result["linescore"] = self._parse_linescore(soup)
-
-        # Uncomment hidden HTML so all tables become visible to BS4.
-        uncomment_tables(soup)
 
         result["scoring"] = self._parse_table_rows(soup, "scoring")
         result["game_info"] = self._parse_kv_table(soup, "game_info")

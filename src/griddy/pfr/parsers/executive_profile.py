@@ -7,7 +7,7 @@ from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int, uncomment_tables
+from ._helpers import safe_int
 
 
 class ExecutiveProfileParser:
@@ -21,7 +21,6 @@ class ExecutiveProfileParser:
             ``exec_results_totals``.
         """
         soup = BeautifulSoup(html, "html.parser")
-        uncomment_tables(soup)
 
         bio = self._parse_bio(soup)
 

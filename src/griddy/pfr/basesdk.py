@@ -2,10 +2,13 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Protocol, Type, Union
 from urllib.parse import urlencode
 
+from bs4 import BeautifulSoup
+
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
 from . import errors, models
 from .errors import ParsingError
+from .parsers._helpers import uncomment_tables
 from .sdkconfiguration import SDKConfiguration
 from .utils.browserless import AsyncBrowserless, Browserless
 
@@ -69,7 +72,19 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
             url = f"{url}?{urlencode(config.query_params)}"
         return url
 
+    @staticmethod
+    def _preprocess_html(html: str) -> str:
+        """Pre-process raw HTML before passing it to a parser.
+
+        Uncomments hidden ``<table>`` elements that PFR wraps in HTML
+        comments so they are visible to downstream BeautifulSoup queries.
+        """
+        soup = BeautifulSoup(html, "html.parser")
+        uncomment_tables(soup)
+        return str(soup)
+
     def _parse_and_validate(self, config: EndpointConfig, html: str) -> Any:
+        html = self._preprocess_html(html)
         try:
             result = config.parser(html)
         except ParsingError:
