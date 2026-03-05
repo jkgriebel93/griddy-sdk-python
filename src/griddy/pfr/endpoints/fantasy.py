@@ -14,6 +14,7 @@ Provides:
   (``/years/{year}/redzone-rushing.htm``)
 """
 
+from functools import cached_property
 from typing import Literal, Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -29,14 +30,16 @@ from ..models import (
     TopFantasyPlayers,
 )
 
-_parser = FantasyParser()
-
 PositionLiteral = Literal["qb", "wr", "rb", "te"]
 
 
 @sdk_endpoints
 class Fantasy(BaseSDK):
     """Sub-SDK for PFR Fantasy Rankings pages."""
+
+    @cached_property
+    def _parser(self) -> FantasyParser:
+        return FantasyParser()
 
     # ── Top Players ──────────────────────────────────────────────────
 
@@ -61,11 +64,12 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.TopFantasyPlayers` instance containing
             all player entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/fantasy.htm",
             operation_id="getTopFantasyPlayers",
             wait_for_element="#fantasy",
-            parser=lambda html: _parser.parse_top_players(html),
+            parser=lambda html: parser.parse_top_players(html),
             response_type=TopFantasyPlayers,
             path_params={"year": year},
             timeout_ms=timeout_ms,
@@ -95,11 +99,12 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.FantasyMatchups` instance containing
             all player matchup entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/fantasy/{position}-fantasy-matchups.htm",
             operation_id="getFantasyMatchups",
             wait_for_element="#fantasy_stats",
-            parser=lambda html: _parser.parse_matchups(html),
+            parser=lambda html: parser.parse_matchups(html),
             response_type=FantasyMatchups,
             path_params={"position": position},
             timeout_ms=timeout_ms,
@@ -131,11 +136,12 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.FantasyPointsAllowed` instance
             containing all team entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/fantasy-points-against-{position}.htm",
             operation_id="getFantasyPointsAllowed",
             wait_for_element="#fantasy_def",
-            parser=lambda html: _parser.parse_points_allowed(html),
+            parser=lambda html: parser.parse_points_allowed(html),
             response_type=FantasyPointsAllowed,
             path_params={"year": year, "position": position},
             timeout_ms=timeout_ms,
@@ -165,11 +171,12 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.RedZonePassing` instance containing
             all player entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/redzone-passing.htm",
             operation_id="getRedZonePassing",
             wait_for_element="#fantasy_rz",
-            parser=lambda html: _parser.parse_redzone_passing(html),
+            parser=lambda html: parser.parse_redzone_passing(html),
             response_type=RedZonePassing,
             path_params={"year": year},
             timeout_ms=timeout_ms,
@@ -199,11 +206,12 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.RedZoneReceiving` instance containing
             all player entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/redzone-receiving.htm",
             operation_id="getRedZoneReceiving",
             wait_for_element="#fantasy_rz",
-            parser=lambda html: _parser.parse_redzone_receiving(html),
+            parser=lambda html: parser.parse_redzone_receiving(html),
             response_type=RedZoneReceiving,
             path_params={"year": year},
             timeout_ms=timeout_ms,
@@ -233,11 +241,12 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.RedZoneRushing` instance containing
             all player entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/redzone-rushing.htm",
             operation_id="getRedZoneRushing",
             wait_for_element="#fantasy_rz",
-            parser=lambda html: _parser.parse_redzone_rushing(html),
+            parser=lambda html: parser.parse_redzone_rushing(html),
             response_type=RedZoneRushing,
             path_params={"year": year},
             timeout_ms=timeout_ms,

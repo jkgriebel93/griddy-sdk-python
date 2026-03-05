@@ -4,6 +4,7 @@ Provides ``get_player_profile()`` to fetch and parse a PFR player profile page
 (``/players/{letter}/{player_id}.htm``) and return structured player data.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models import PlayerProfile
 @sdk_endpoints
 class Players(BaseSDK):
     """Sub-SDK for PFR player profile data."""
+
+    @cached_property
+    def _parser(self) -> PlayerProfileParser:
+        return PlayerProfileParser()
 
     def _get_player_profile_config(
         self,
@@ -47,7 +52,7 @@ class Players(BaseSDK):
             path_template="/players/{letter}/{player_id}.htm",
             operation_id="getPlayerProfile",
             wait_for_element="#meta",
-            parser=PlayerProfileParser().parse,
+            parser=self._parser.parse,
             response_type=PlayerProfile,
             path_params={"letter": first_letter, "player_id": player_id},
             timeout_ms=timeout_ms,

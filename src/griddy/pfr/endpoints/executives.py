@@ -4,6 +4,7 @@ Provides ``get()`` to fetch and parse a PFR executive profile page
 (``/executives/{executive_id}.htm``) and return structured executive data.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models import ExecutiveProfile
 @sdk_endpoints
 class Executives(BaseSDK):
     """Sub-SDK for PFR executive profile data."""
+
+    @cached_property
+    def _parser(self) -> ExecutiveProfileParser:
+        return ExecutiveProfileParser()
 
     def _get_config(
         self,
@@ -46,7 +51,7 @@ class Executives(BaseSDK):
             path_template="/executives/{executive_id}.htm",
             operation_id="getExecutiveProfile",
             wait_for_element="#exec_results",
-            parser=ExecutiveProfileParser().parse,
+            parser=self._parser.parse,
             response_type=ExecutiveProfile,
             path_params={"executive_id": executive_id},
             timeout_ms=timeout_ms,

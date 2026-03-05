@@ -5,6 +5,7 @@ to fetch and parse PFR season overview, stat category, and weekly
 summary pages.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -13,12 +14,14 @@ from griddy.pfr.parsers import SeasonOverviewParser
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import SeasonOverview, SeasonStats, WeekSummary
 
-_parser = SeasonOverviewParser()
-
 
 @sdk_endpoints
 class Seasons(BaseSDK):
     """Sub-SDK for PFR season data."""
+
+    @cached_property
+    def _parser(self) -> SeasonOverviewParser:
+        return SeasonOverviewParser()
 
     def _get_season_config(
         self,
@@ -45,7 +48,7 @@ class Seasons(BaseSDK):
             path_template="/years/{year}/",
             operation_id="getSeason",
             wait_for_element="#AFC",
-            parser=_parser.parse,
+            parser=self._parser.parse,
             response_type=SeasonOverview,
             path_params={"year": year},
             timeout_ms=timeout_ms,
@@ -79,7 +82,7 @@ class Seasons(BaseSDK):
             path_template="/years/{year}/{category}.htm",
             operation_id="getSeasonStats",
             wait_for_element="table",
-            parser=_parser.parse_stats,
+            parser=self._parser.parse_stats,
             response_type=SeasonStats,
             path_params={"year": year, "category": category},
             timeout_ms=timeout_ms,
@@ -111,7 +114,7 @@ class Seasons(BaseSDK):
             path_template="/years/{year}/week_{week}.htm",
             operation_id="getWeek",
             wait_for_element="div.game_summaries",
-            parser=_parser.parse_week,
+            parser=self._parser.parse_week,
             response_type=WeekSummary,
             path_params={"year": year, "week": week},
             timeout_ms=timeout_ms,

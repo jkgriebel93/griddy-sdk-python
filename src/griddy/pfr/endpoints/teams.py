@@ -5,6 +5,7 @@ Provides ``get_team_season()`` to fetch and parse a PFR team season page
 and parse a PFR team franchise page (``/teams/{team_abbrev}/``).
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -17,6 +18,14 @@ from ..models import Franchise, TeamSeason
 @sdk_endpoints
 class Teams(BaseSDK):
     """Sub-SDK for PFR team data (season and franchise pages)."""
+
+    @cached_property
+    def _team_season_parser(self) -> TeamSeasonParser:
+        return TeamSeasonParser()
+
+    @cached_property
+    def _franchise_parser(self) -> FranchiseParser:
+        return FranchiseParser()
 
     # ------------------------------------------------------------------
     # Team Season
@@ -53,7 +62,7 @@ class Teams(BaseSDK):
             path_template="/teams/{team}/{year}.htm",
             operation_id="getTeamSeason",
             wait_for_element="#games",
-            parser=TeamSeasonParser().parse,
+            parser=self._team_season_parser.parse,
             response_type=TeamSeason,
             path_params={"team": team.lower(), "year": year},
             timeout_ms=timeout_ms,
@@ -91,7 +100,7 @@ class Teams(BaseSDK):
             path_template="/teams/{team}/",
             operation_id="getFranchise",
             wait_for_element="#team_index",
-            parser=FranchiseParser().parse,
+            parser=self._franchise_parser.parse,
             response_type=Franchise,
             path_params={"team": team.lower()},
             timeout_ms=timeout_ms,

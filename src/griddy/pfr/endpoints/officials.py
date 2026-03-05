@@ -4,6 +4,7 @@ Provides ``get_official_profile()`` to fetch and parse a PFR official profile
 page (``/officials/{official_id}.htm``) and return structured officiating data.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models import OfficialProfile
 @sdk_endpoints
 class Officials(BaseSDK):
     """Sub-SDK for PFR game official profile data."""
+
+    @cached_property
+    def _parser(self) -> OfficialProfileParser:
+        return OfficialProfileParser()
 
     def _get_official_profile_config(
         self,
@@ -45,7 +50,7 @@ class Officials(BaseSDK):
             path_template="/officials/{official_id}.htm",
             operation_id="getOfficialProfile",
             wait_for_element="#official_stats",
-            parser=OfficialProfileParser().parse,
+            parser=self._parser.parse,
             response_type=OfficialProfile,
             path_params={"official_id": official_id},
             timeout_ms=timeout_ms,

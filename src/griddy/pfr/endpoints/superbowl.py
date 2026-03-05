@@ -4,6 +4,7 @@ Provides ``history()``, ``leaders()``, and ``standings()`` to fetch and parse
 PFR Super Bowl pages.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -12,12 +13,14 @@ from griddy.pfr.parsers.superbowl import SuperBowlParser
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import SuperBowlHistory, SuperBowlLeaders, SuperBowlStandings
 
-_parser = SuperBowlParser()
-
 
 @sdk_endpoints
 class SuperBowl(BaseSDK):
     """Sub-SDK for PFR Super Bowl pages."""
+
+    @cached_property
+    def _parser(self) -> SuperBowlParser:
+        return SuperBowlParser()
 
     def _history_config(
         self,
@@ -38,11 +41,12 @@ class SuperBowl(BaseSDK):
             A :class:`~griddy.pfr.models.SuperBowlHistory` instance containing
             all Super Bowl game entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/super-bowl/",
             operation_id="getSuperBowlHistory",
             wait_for_element="#super_bowls",
-            parser=lambda html: _parser.parse_history(html),
+            parser=lambda html: parser.parse_history(html),
             response_type=SuperBowlHistory,
             path_params={},
             timeout_ms=timeout_ms,
@@ -67,11 +71,12 @@ class SuperBowl(BaseSDK):
             A :class:`~griddy.pfr.models.SuperBowlLeaders` instance containing
             all leaderboard tables.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/super-bowl/leaders.htm",
             operation_id="getSuperBowlLeaders",
             wait_for_element="table",
-            parser=lambda html: _parser.parse_leaders(html),
+            parser=lambda html: parser.parse_leaders(html),
             response_type=SuperBowlLeaders,
             path_params={},
             timeout_ms=timeout_ms,
@@ -96,11 +101,12 @@ class SuperBowl(BaseSDK):
             A :class:`~griddy.pfr.models.SuperBowlStandings` instance
             containing all franchise standings entries.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/super-bowl/standings.htm",
             operation_id="getSuperBowlStandings",
             wait_for_element="#standings",
-            parser=lambda html: _parser.parse_standings(html),
+            parser=lambda html: parser.parse_standings(html),
             response_type=SuperBowlStandings,
             path_params={},
             timeout_ms=timeout_ms,

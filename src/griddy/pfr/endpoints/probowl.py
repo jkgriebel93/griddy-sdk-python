@@ -3,6 +3,7 @@
 Provides ``year()`` to fetch and parse PFR Pro Bowl roster pages.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -11,12 +12,14 @@ from griddy.pfr.parsers import AwardsParser
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import ProBowlRoster
 
-_parser = AwardsParser()
-
 
 @sdk_endpoints
 class ProBowl(BaseSDK):
     """Sub-SDK for PFR Pro Bowl roster pages."""
+
+    @cached_property
+    def _parser(self) -> AwardsParser:
+        return AwardsParser()
 
     def _year_config(
         self,
@@ -39,11 +42,12 @@ class ProBowl(BaseSDK):
             A :class:`~griddy.pfr.models.ProBowlRoster` instance containing
             all Pro Bowl player entries for the given year.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/probowl.htm",
             operation_id="getProBowlRoster",
             wait_for_element="#pro_bowl",
-            parser=lambda html: _parser.parse_probowl(html, year=year),
+            parser=lambda html: parser.parse_probowl(html, year=year),
             response_type=ProBowlRoster,
             path_params={"year": year},
             timeout_ms=timeout_ms,

@@ -4,6 +4,7 @@ Provides ``get()`` to fetch and parse PFR career, single-season, and
 single-game statistical leaderboard pages.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -12,12 +13,14 @@ from griddy.pfr.parsers import LeadersParser
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import Leaderboard
 
-_parser = LeadersParser()
-
 
 @sdk_endpoints
 class Leaders(BaseSDK):
     """Sub-SDK for PFR statistical leaders pages."""
+
+    @cached_property
+    def _parser(self) -> LeadersParser:
+        return LeadersParser()
 
     def _get_config(
         self,
@@ -43,11 +46,12 @@ class Leaders(BaseSDK):
         Returns:
             A :class:`~griddy.pfr.models.Leaderboard` instance.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/leaders/{stat}_{scope}.htm",
             operation_id="getLeaders",
             wait_for_element="table.stats_table",
-            parser=lambda html: _parser.parse(html, stat=stat, scope=scope),
+            parser=lambda html: parser.parse(html, stat=stat, scope=scope),
             response_type=Leaderboard,
             path_params={"stat": stat, "scope": scope},
             timeout_ms=timeout_ms,
