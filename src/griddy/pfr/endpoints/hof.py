@@ -45,5 +45,4 @@ class Hof(BaseSDK):
             response_type=HallOfFame,
             path_params={},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

@@ -57,7 +57,6 @@ class Teams(BaseSDK):
             response_type=TeamSeason,
             path_params={"team": team.lower(), "year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ------------------------------------------------------------------
@@ -96,5 +95,4 @@ class Teams(BaseSDK):
             response_type=Franchise,
             path_params={"team": team.lower()},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

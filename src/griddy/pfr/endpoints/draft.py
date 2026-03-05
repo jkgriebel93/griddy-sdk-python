@@ -52,7 +52,6 @@ class Draft(BaseSDK):
             response_type=YearDraft,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ------------------------------------------------------------------
@@ -88,7 +87,6 @@ class Draft(BaseSDK):
             response_type=CombineResults,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ------------------------------------------------------------------
@@ -125,5 +123,4 @@ class Draft(BaseSDK):
             response_type=TeamDraft,
             path_params={"team": team.lower()},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

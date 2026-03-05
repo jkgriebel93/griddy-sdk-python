@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 from bs4.element import ResultSet, Tag
 
 from griddy.core.utils.converters import multi_replace, safe_numberify, snakify
-from griddy.pfr.models.entities.player_profile import PlayerProfile
 
 logger = logging.getLogger(__name__)
 
@@ -417,14 +416,12 @@ class PlayerProfileParser:
             self._parse_leader_boards(tag=leaderboard_div) if leaderboard_div else {}
         )
 
-        return PlayerProfile.model_validate(
-            {
-                "bio": bio,
-                "jersey_numbers": jersey_numbers,
-                "summary_stats": summary_stats,
-                "statistics": full_stats,
-                "transactions": transactions,
-                "links": player_links,
-                "leader_boards": leader_boards,
-            }
-        )
+        return {
+            "bio": bio,
+            "jersey_numbers": jersey_numbers,
+            "summary_stats": summary_stats,
+            "statistics": full_stats,
+            "transactions": transactions,
+            "links": player_links,
+            "leader_boards": leader_boards,
+        }

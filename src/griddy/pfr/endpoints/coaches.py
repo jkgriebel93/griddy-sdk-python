@@ -50,5 +50,4 @@ class Coaches(BaseSDK):
             response_type=CoachProfile,
             path_params={"coach_id": coach_id},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

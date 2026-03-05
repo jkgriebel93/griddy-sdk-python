@@ -47,5 +47,4 @@ class Awards(BaseSDK):
             response_type=AwardHistory,
             path_params={"award": award},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

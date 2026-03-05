@@ -173,16 +173,24 @@ class TestAsyncEndpointExecution:
         )
 
         # Mock the parser to return a simple result
+        mock_data = {
+            "week_num": "1",
+            "game_day_of_week": "Thu",
+            "game_date": "2024-09-05",
+            "game_location": "",
+            "winner": "PHI",
+            "loser": "GB",
+        }
         with patch("griddy.pfr.endpoints.schedule.ScheduleParser") as MockParser:
-            MockParser.return_value.parse.return_value = [
-                {"week": "1", "winner": "PHI"}
-            ]
+            MockParser.return_value.parse.return_value = [mock_data]
             result = await pfr.schedule.get_season_schedule_async(season=2024)
 
         pfr.schedule.async_browserless.get_page_content.assert_awaited_once()
         call_url = pfr.schedule.async_browserless.get_page_content.call_args[0][0]
         assert "/years/2024/games.htm" in call_url
-        assert result == [{"week": "1", "winner": "PHI"}]
+        assert len(result) == 1
+        assert result[0].week_num == "1"
+        assert result[0].winner == "PHI"
 
     @pytest.mark.asyncio
     async def test_games_async_returns_validated_model(self):
@@ -195,9 +203,9 @@ class TestAsyncEndpointExecution:
                 "scorebox": {},
                 "linescore": {},
             }
-            # The async method should call model_validate via validate_model=True
+            # The async method should call model_validate automatically.
             # We can't easily test the full model here, so just verify it doesn't
-            # return a raw dict when validate_model is True
+            # return a raw dict
             # (actual validation may fail without full data — that's OK)
             with pytest.raises(Exception):
                 # GameDetails model_validate will fail with incomplete data,

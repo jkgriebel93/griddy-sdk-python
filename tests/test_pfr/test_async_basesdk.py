@@ -4,11 +4,17 @@ from unittest.mock import AsyncMock, Mock
 
 import httpx
 import pytest
+from pydantic import BaseModel
 
 from griddy.core.utils.logger import Logger
 from griddy.pfr.basesdk import BaseSDK, EndpointConfig
 from griddy.pfr.errors import ParsingError
 from griddy.pfr.sdkconfiguration import SDKConfiguration
+
+
+class FakeModel(BaseModel):
+    name: str
+    value: int
 
 
 @pytest.fixture
@@ -41,8 +47,8 @@ class TestPFRBaseSDKAsync:
             path_template="/years/{season}/games.htm",
             operation_id="getSeasonSchedule",
             wait_for_element="#games",
-            parser=lambda html: [{"game": "data"}],
-            response_type=dict,
+            parser=lambda html: [{"name": "test", "value": 1}],
+            response_type=FakeModel,
             path_params={"season": 2024},
         )
 
@@ -57,7 +63,9 @@ class TestPFRBaseSDKAsync:
             "https://www.pro-football-reference.com/years/2024/games.htm",
             wait_for_element="#games",
         )
-        assert result == [{"game": "data"}]
+        assert isinstance(result, list)
+        assert len(result) == 1
+        assert isinstance(result[0], FakeModel)
 
     @pytest.mark.asyncio
     async def test_execute_endpoint_async_enriches_parsing_error_with_url(
@@ -73,7 +81,7 @@ class TestPFRBaseSDKAsync:
             operation_id="get_schedule",
             wait_for_element="table#games",
             parser=bad_parser,
-            response_type=dict,
+            response_type=FakeModel,
             path_params={"season": 2024},
         )
 
@@ -92,13 +100,7 @@ class TestPFRBaseSDKAsync:
         assert err.html_sample == "<html></html>"
 
     @pytest.mark.asyncio
-    async def test_execute_endpoint_async_with_validate_model(self, pfr_base_sdk):
-        from pydantic import BaseModel
-
-        class FakeModel(BaseModel):
-            name: str
-            value: int
-
+    async def test_execute_endpoint_async_validates_dict_result(self, pfr_base_sdk):
         config = EndpointConfig(
             path_template="/test/{id}",
             operation_id="test",
@@ -106,7 +108,6 @@ class TestPFRBaseSDKAsync:
             parser=lambda html: {"name": "test", "value": 42},
             response_type=FakeModel,
             path_params={"id": "1"},
-            validate_model=True,
         )
 
         pfr_base_sdk.async_browserless = Mock()
@@ -121,15 +122,17 @@ class TestPFRBaseSDKAsync:
         assert result.value == 42
 
     @pytest.mark.asyncio
-    async def test_execute_endpoint_async_without_validate_model(self, pfr_base_sdk):
+    async def test_execute_endpoint_async_validates_list_result(self, pfr_base_sdk):
         config = EndpointConfig(
             path_template="/test/{id}",
             operation_id="test",
             wait_for_element="#el",
-            parser=lambda html: {"raw": "data"},
-            response_type=dict,
+            parser=lambda html: [
+                {"name": "a", "value": 1},
+                {"name": "b", "value": 2},
+            ],
+            response_type=FakeModel,
             path_params={"id": "1"},
-            validate_model=False,
         )
 
         pfr_base_sdk.async_browserless = Mock()
@@ -139,8 +142,11 @@ class TestPFRBaseSDKAsync:
 
         result = await pfr_base_sdk._execute_endpoint_async(config)
 
-        assert result == {"raw": "data"}
-        assert isinstance(result, dict)
+        assert isinstance(result, list)
+        assert len(result) == 2
+        assert all(isinstance(item, FakeModel) for item in result)
+        assert result[0].name == "a"
+        assert result[1].name == "b"
 
     @pytest.mark.asyncio
     async def test_execute_endpoint_async_with_query_params(self, pfr_base_sdk):
@@ -148,8 +154,8 @@ class TestPFRBaseSDKAsync:
             path_template="/test",
             operation_id="test",
             wait_for_element="#el",
-            parser=lambda html: "ok",
-            response_type=str,
+            parser=lambda html: {"name": "ok", "value": 0},
+            response_type=FakeModel,
             query_params={"foo": "bar", "baz": "qux"},
         )
 
@@ -168,13 +174,7 @@ class TestPFRBaseSDKAsync:
 
 @pytest.mark.unit
 class TestPFRBaseSDKValidateModel:
-    def test_execute_endpoint_with_validate_model(self, pfr_base_sdk):
-        from pydantic import BaseModel
-
-        class FakeModel(BaseModel):
-            name: str
-            value: int
-
+    def test_execute_endpoint_validates_dict_result(self, pfr_base_sdk):
         config = EndpointConfig(
             path_template="/test/{id}",
             operation_id="test",
@@ -182,7 +182,6 @@ class TestPFRBaseSDKValidateModel:
             parser=lambda html: {"name": "test", "value": 42},
             response_type=FakeModel,
             path_params={"id": "1"},
-            validate_model=True,
         )
 
         pfr_base_sdk.browserless = Mock()
@@ -194,15 +193,17 @@ class TestPFRBaseSDKValidateModel:
         assert result.name == "test"
         assert result.value == 42
 
-    def test_execute_endpoint_without_validate_model(self, pfr_base_sdk):
+    def test_execute_endpoint_validates_list_result(self, pfr_base_sdk):
         config = EndpointConfig(
             path_template="/test/{id}",
             operation_id="test",
             wait_for_element="#el",
-            parser=lambda html: {"raw": "data"},
-            response_type=dict,
+            parser=lambda html: [
+                {"name": "a", "value": 1},
+                {"name": "b", "value": 2},
+            ],
+            response_type=FakeModel,
             path_params={"id": "1"},
-            validate_model=False,
         )
 
         pfr_base_sdk.browserless = Mock()
@@ -210,4 +211,6 @@ class TestPFRBaseSDKValidateModel:
 
         result = pfr_base_sdk._execute_endpoint(config)
 
-        assert result == {"raw": "data"}
+        assert isinstance(result, list)
+        assert len(result) == 2
+        assert all(isinstance(item, FakeModel) for item in result)

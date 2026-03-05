@@ -49,7 +49,6 @@ class Seasons(BaseSDK):
             response_type=SeasonOverview,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     def _get_season_stats_config(
@@ -84,7 +83,6 @@ class Seasons(BaseSDK):
             response_type=SeasonStats,
             path_params={"year": year, "category": category},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     def _get_week_config(
@@ -117,5 +115,4 @@ class Seasons(BaseSDK):
             response_type=WeekSummary,
             path_params={"year": year, "week": week},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

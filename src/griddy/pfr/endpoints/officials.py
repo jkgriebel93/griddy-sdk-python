@@ -49,5 +49,4 @@ class Officials(BaseSDK):
             response_type=OfficialProfile,
             path_params={"official_id": official_id},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
