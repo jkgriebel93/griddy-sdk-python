@@ -6,7 +6,7 @@ import httpx
 import pytest
 
 from griddy.core._constants import DEFAULT_RETRY_STATUS_CODES
-from griddy.core.basesdk import BaseSDK, EndpointConfig
+from griddy.core.basesdk import BaseEndpointConfig, BaseSDK, EndpointConfig
 from griddy.core.errors.defaultsdkerror import DefaultSDKError
 from griddy.core.errors.no_response_error import NoResponseError
 from griddy.core.hooks.sdkhooks import SDKHooks
@@ -558,6 +558,64 @@ class TestResolveSecuritySource:
 
 
 @pytest.mark.unit
+class TestBaseEndpointConfig:
+    def test_shared_fields(self):
+        config = BaseEndpointConfig(
+            operation_id="testOp",
+            response_type=dict,
+            timeout_ms=5000,
+        )
+        assert config.operation_id == "testOp"
+        assert config.response_type is dict
+        assert config.timeout_ms == 5000
+
+    def test_timeout_defaults_to_none(self):
+        config = BaseEndpointConfig(
+            operation_id="testOp",
+            response_type=dict,
+        )
+        assert config.timeout_ms is None
+
+    def test_nfl_endpoint_config_inherits(self):
+        assert issubclass(EndpointConfig, BaseEndpointConfig)
+
+    def test_pfr_endpoint_config_inherits(self):
+        from griddy.pfr.basesdk import EndpointConfig as PfrEndpointConfig
+
+        assert issubclass(PfrEndpointConfig, BaseEndpointConfig)
+
+    def test_shared_fields_accessible_on_nfl_config(self):
+        config = EndpointConfig(
+            method="GET",
+            path="/test",
+            operation_id="testOp",
+            request=None,
+            response_type=dict,
+            error_status_codes=["400"],
+            timeout_ms=3000,
+        )
+        assert isinstance(config, BaseEndpointConfig)
+        assert config.operation_id == "testOp"
+        assert config.response_type is dict
+        assert config.timeout_ms == 3000
+
+    def test_shared_fields_accessible_on_pfr_config(self):
+        from griddy.pfr.basesdk import EndpointConfig as PfrEndpointConfig
+
+        config = PfrEndpointConfig(
+            path_template="/boxscores/{game_id}.htm",
+            operation_id="getGameDetails",
+            wait_for_element="#scoring",
+            parser=lambda html: {},
+            response_type=dict,
+            timeout_ms=7000,
+        )
+        assert isinstance(config, BaseEndpointConfig)
+        assert config.operation_id == "getGameDetails"
+        assert config.response_type is dict
+        assert config.timeout_ms == 7000
+
+
 class TestEndpointConfig:
     def test_default_values(self):
         config = EndpointConfig(

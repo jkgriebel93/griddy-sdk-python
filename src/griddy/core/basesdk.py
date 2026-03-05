@@ -44,7 +44,16 @@ T_Config = TypeVar("T_Config", bound=BaseSDKConfig)
 
 
 @dataclass
-class EndpointConfig:
+class BaseEndpointConfig:
+    """Shared fields for all endpoint configurations (NFL, PFR, etc.)."""
+
+    operation_id: str
+    response_type: Type[T]
+    timeout_ms: Optional[int] = None
+
+
+@dataclass
+class EndpointConfig(BaseEndpointConfig):
     """Configuration for an API endpoint, enabling sync/async factory pattern.
 
     This dataclass captures all the configuration needed to execute an endpoint,
@@ -52,16 +61,14 @@ class EndpointConfig:
     """
 
     # HTTP method and path
-    method: str
-    path: str
-    operation_id: str
+    method: str = ""
+    path: str = ""
 
     # Request model instance (already constructed with parameters)
-    request: Any
+    request: Any = None
 
     # Response configuration
-    response_type: Type[T]
-    error_status_codes: List[str]
+    error_status_codes: List[str] = field(default_factory=list)
 
     # Request configuration flags
     request_body_required: bool = False
@@ -70,7 +77,6 @@ class EndpointConfig:
 
     # Optional overrides
     server_url: Optional[str] = None
-    timeout_ms: Optional[int] = None
     http_headers: Optional[Mapping[str, str]] = None
     retries: Any = field(default_factory=lambda: UNSET)  # OptionalNullable[RetryConfig]
 

@@ -1,9 +1,10 @@
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Protocol, Type, Union
+from typing import Any, Dict, List, Optional, Protocol, Type, Union
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
 
+from griddy.core.basesdk import BaseEndpointConfig
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
 from . import errors, models
@@ -25,17 +26,14 @@ class PfrParser(Protocol):
 
 
 @dataclass
-class EndpointConfig:
+class EndpointConfig(BaseEndpointConfig):
     """Configuration for a PFR HTML-scraping endpoint."""
 
-    path_template: str
-    operation_id: str
-    wait_for_element: str
-    parser: PfrParser
-    response_type: Type
+    path_template: str = ""
+    wait_for_element: str = ""
+    parser: PfrParser = None  # type: ignore[assignment]
     path_params: Dict[str, Any] = field(default_factory=dict)
     query_params: Dict[str, str] = field(default_factory=dict)
-    timeout_ms: Optional[int] = None
 
 
 class BaseSDK(CoreBaseSDK[SDKConfiguration]):
