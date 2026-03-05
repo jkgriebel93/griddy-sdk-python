@@ -172,6 +172,90 @@ class TestModelsWithRequiredFields:
 
 
 @pytest.mark.unit
+class TestBaseModelSerializerConsolidation:
+    """Test that BaseModel.serialize_model correctly drives serialization
+    without per-model overrides."""
+
+    def test_required_field_always_included(self):
+        """Required fields always appear in output, even if value is None."""
+        from griddy.nfl.types.basemodel import BaseModel, Nullable
+
+        class M(BaseModel):
+            name: Nullable[str]
+
+        result = M(name=None).model_dump()
+        assert "name" in result
+        assert result["name"] is None
+
+    def test_optional_none_omitted(self):
+        """Optional[T] = None fields are omitted when still None."""
+        from typing import Optional
+
+        from griddy.nfl.types.basemodel import BaseModel
+
+        class M(BaseModel):
+            tag: Optional[str] = None
+
+        result = M().model_dump()
+        assert "tag" not in result
+
+    def test_optional_set_included(self):
+        """Optional[T] fields are included when given a value."""
+        from typing import Optional
+
+        from griddy.nfl.types.basemodel import BaseModel
+
+        class M(BaseModel):
+            tag: Optional[str] = None
+
+        result = M(tag="hello").model_dump()
+        assert result["tag"] == "hello"
+
+    def test_optional_nullable_unset_omitted(self):
+        """OptionalNullable[T] = UNSET is omitted when not set."""
+        from griddy.nfl.types.basemodel import UNSET, BaseModel, OptionalNullable
+
+        class M(BaseModel):
+            val: OptionalNullable[str] = UNSET
+
+        result = M().model_dump()
+        assert "val" not in result
+
+    def test_optional_nullable_set_to_none_included(self):
+        """OptionalNullable[T] explicitly set to None appears in output."""
+        from griddy.nfl.types.basemodel import UNSET, BaseModel, OptionalNullable
+
+        class M(BaseModel):
+            val: OptionalNullable[str] = UNSET
+
+        result = M(val=None).model_dump()
+        assert "val" in result
+        assert result["val"] is None
+
+    def test_alias_used_as_key(self):
+        """Serialized dict keys should use the field alias."""
+        from typing import Optional
+
+        import pydantic
+        from typing_extensions import Annotated
+
+        from griddy.nfl.types.basemodel import BaseModel
+
+        class M(BaseModel):
+            my_field: Annotated[Optional[str], pydantic.Field(alias="myField")] = None
+
+        result = M(my_field="x").model_dump()
+        assert "myField" in result
+        assert result["myField"] == "x"
+
+    def test_unset_class_still_serializes_to_sentinel(self):
+        """The Unset singleton itself serializes to the sentinel string."""
+        from griddy.nfl.types.basemodel import UNSET, UNSET_SENTINEL
+
+        assert UNSET.model_dump() == UNSET_SENTINEL
+
+
+@pytest.mark.unit
 class TestSerializerBranchCoverage:
     """Test specific branches of the serialize_model method."""
 

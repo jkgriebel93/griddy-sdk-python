@@ -4,10 +4,9 @@ from datetime import datetime
 from typing import List, Literal, Optional
 
 import pydantic
-from pydantic import model_serializer
 from typing_extensions import Annotated
 
-from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, Nullable, OptionalNullable
 from .video_authorizations import VideoAuthorizations
 from .video_game_play_ids import VideoGamePlayIds
 from .video_tag import VideoTag
@@ -264,111 +263,3 @@ class CoachesFilmVideo(BaseModel):
 
     web_link: Annotated[OptionalNullable[str], pydantic.Field(alias="webLink")] = UNSET
     r"""Web-specific link"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "advertiserId",
-            "author",
-            "authorizations",
-            "background",
-            "clipType",
-            "ctaLink",
-            "ctaTarget",
-            "ctaText",
-            "ctas",
-            "displayTitle",
-            "endDate",
-            "entitlement",
-            "episodeNumber",
-            "expirationDate",
-            "fantasyLink",
-            "hostNetwork",
-            "id",
-            "images",
-            "intendedAudience",
-            "introEnd",
-            "language",
-            "lastUpdated",
-            "mcpPlaybackId",
-            "mobileLink",
-            "mobileTitle",
-            "originalAirDate",
-            "outroStart",
-            "playIds",
-            "preRollDisabled",
-            "promoAssets",
-            "promoLink",
-            "promoTarget",
-            "promoText",
-            "publishDate",
-            "radioStation",
-            "series",
-            "seriesSeason",
-            "seriesTitle",
-            "slug",
-            "startDate",
-            "subType",
-            "summary",
-            "tags",
-            "thumbnail",
-            "videos",
-            "webLink",
-        ]
-        nullable_fields = [
-            "advertiserId",
-            "author",
-            "clipType",
-            "ctaLink",
-            "ctaTarget",
-            "ctaText",
-            "displayTitle",
-            "endDate",
-            "entitlement",
-            "episodeNumber",
-            "fantasyLink",
-            "hostNetwork",
-            "id",
-            "intendedAudience",
-            "introEnd",
-            "language",
-            "lastUpdated",
-            "mobileLink",
-            "mobileTitle",
-            "outroStart",
-            "promoLink",
-            "promoText",
-            "radioStation",
-            "series",
-            "seriesSeason",
-            "seriesTitle",
-            "slug",
-            "startDate",
-            "summary",
-            "webLink",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(n)  # FIX: Use field name, not alias
-            serialized.pop(n, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

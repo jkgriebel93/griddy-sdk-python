@@ -3,10 +3,9 @@ from __future__ import annotations
 from typing import Literal
 
 import pydantic
-from pydantic import model_serializer
 from typing_extensions import Annotated
 
-from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, Nullable, OptionalNullable
 
 
 class PlayerWeekProjectedStatsAttributes(BaseModel):
@@ -167,118 +166,6 @@ class PlayerWeekProjectedStatsAttributes(BaseModel):
     sacks: OptionalNullable[float] = UNSET
 
     tackles: OptionalNullable[float] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "assistedTackles",
-            "defenseInterceptions",
-            "dtBlockedKicks",
-            "dtFumblesForced",
-            "dtFumblesRecovered",
-            "dtInterceptions",
-            "dtKickoffReturnYards",
-            "dtPointsAllowed",
-            "dtSacks",
-            "dtSafeties",
-            "dtTouchdowns",
-            "dtYardsAllowed",
-            "fgAttempts",
-            "fgMade20to29",
-            "fgMade30to39",
-            "fgMade40to49",
-            "fgMade50",
-            "forcedFumbles",
-            "fumbles",
-            "fumblesLost",
-            "fumblesRecovered",
-            "gamesPlayed",
-            "interceptionsThrown",
-            "kickoffReturnTouchdowns",
-            "kickoffReturnYards",
-            "passDefended",
-            "passingAttempts",
-            "passingCompletions",
-            "passingTouchdowns",
-            "passingYards",
-            "patMade",
-            "patMissed",
-            "receivingTouchdowns",
-            "receivingYards",
-            "receptions",
-            "rushingAttempts",
-            "rushingTouchdowns",
-            "rushingYards",
-            "sacks",
-            "tackles",
-        ]
-        nullable_fields = [
-            "assistedTackles",
-            "defenseInterceptions",
-            "dtBlockedKicks",
-            "dtFumblesForced",
-            "dtFumblesRecovered",
-            "dtInterceptions",
-            "dtKickoffReturnYards",
-            "dtPointsAllowed",
-            "dtSacks",
-            "dtSafeties",
-            "dtTouchdowns",
-            "dtYardsAllowed",
-            "fgAttempts",
-            "fgMade20to29",
-            "fgMade30to39",
-            "fgMade40to49",
-            "fgMade50",
-            "forcedFumbles",
-            "fumbles",
-            "fumblesLost",
-            "fumblesRecovered",
-            "gamesPlayed",
-            "interceptionsThrown",
-            "kickoffReturnTouchdowns",
-            "kickoffReturnYards",
-            "passDefended",
-            "passingAttempts",
-            "passingCompletions",
-            "passingTouchdowns",
-            "passingYards",
-            "patMade",
-            "patMissed",
-            "receivingTouchdowns",
-            "receivingYards",
-            "receptions",
-            "rushingAttempts",
-            "rushingTouchdowns",
-            "rushingYards",
-            "sacks",
-            "tackles",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(n)  # FIX: Use field name, not alias
-            serialized.pop(n, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 PlayerWeekProjectedStatsType = Literal["player-week-projected-stats",]
