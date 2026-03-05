@@ -1,7 +1,6 @@
-import builtins
-import sys
-from importlib import import_module
 from typing import TYPE_CHECKING
+
+from griddy.core._lazy import dynamic_dir, dynamic_getattr
 
 if TYPE_CHECKING:
     from .annotations import get_discriminator
@@ -228,38 +227,9 @@ _dynamic_imports: dict[str, str] = {
 }
 
 
-def dynamic_import(modname, retries=3):
-    for attempt in range(retries):
-        try:
-            return import_module(modname, __package__)
-        except KeyError:
-            # Clear any half-initialized module and retry
-            sys.modules.pop(modname, None)
-            if attempt == retries - 1:
-                break
-    raise KeyError(f"Failed to import module '{modname}' after {retries} attempts")
-
-
 def __getattr__(attr_name: str) -> object:
-    module_name = _dynamic_imports.get(attr_name)
-    if module_name is None:
-        raise AttributeError(
-            f"no {attr_name} found in _dynamic_imports, module name -> {__name__} "
-        )
-
-    try:
-        module = dynamic_import(module_name)
-        return getattr(module, attr_name)
-    except ImportError as e:
-        raise ImportError(
-            f"Failed to import {attr_name} from {module_name}: {e}"
-        ) from e
-    except AttributeError as e:
-        raise AttributeError(
-            f"Failed to get {attr_name} from {module_name}: {e}"
-        ) from e
+    return dynamic_getattr(attr_name, _dynamic_imports, __package__, __name__)
 
 
 def __dir__():
-    lazy_attrs = builtins.list(_dynamic_imports.keys())
-    return builtins.sorted(lazy_attrs)
+    return dynamic_dir(_dynamic_imports)

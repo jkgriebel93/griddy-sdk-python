@@ -201,9 +201,8 @@ class TestGenerateInit:
             """))
         result = generate_init(tmp_models_dir, "griddy.nfl.models", ["entities"])
         assert "# This file is auto-generated" in result
-        assert "import builtins" in result
         assert "from typing import TYPE_CHECKING" in result
-        assert "from griddy.core._import import dynamic_import" in result
+        assert "from griddy.core._lazy import dynamic_dir, dynamic_getattr" in result
         assert "from griddy.nfl.models.entities.game import Game" in result
         assert '"Game"' in result
         assert '".entities.game"' in result
