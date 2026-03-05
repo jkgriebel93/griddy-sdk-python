@@ -62,17 +62,19 @@ class TestGetHeaders:
 
 @pytest.mark.unit
 class TestSerializeHeader:
-    def test_scalar_value(self):
-        result = _serialize_header(False, "hello")
-        assert result == "hello"
-
-    def test_none_returns_empty(self):
-        result = _serialize_header(False, None)
-        assert result == ""
-
-    def test_list_value(self):
-        result = _serialize_header(False, ["a", "b", "c"])
-        assert result == "a,b,c"
+    @pytest.mark.parametrize(
+        "explode,value,expected",
+        [
+            pytest.param(False, "hello", "hello", id="scalar_str"),
+            pytest.param(False, None, "", id="none_empty"),
+            pytest.param(False, ["a", "b", "c"], "a,b,c", id="list"),
+            pytest.param(False, 42, "42", id="int"),
+            pytest.param(False, True, "true", id="bool"),
+        ],
+    )
+    def test_serialize_scalar_types(self, explode, value, expected):
+        result = _serialize_header(explode, value)
+        assert result == expected
 
     def test_dict_non_explode(self):
         result = _serialize_header(False, {"key1": "val1", "key2": "val2"})
@@ -83,14 +85,6 @@ class TestSerializeHeader:
         result = _serialize_header(True, {"key1": "val1", "key2": "val2"})
         assert "key1=val1" in result
         assert "key2=val2" in result
-
-    def test_int_value(self):
-        result = _serialize_header(False, 42)
-        assert result == "42"
-
-    def test_bool_value(self):
-        result = _serialize_header(False, True)
-        assert result == "true"
 
 
 @pytest.mark.unit
