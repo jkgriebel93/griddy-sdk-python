@@ -10,7 +10,6 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-    Union,
 )
 from urllib.parse import parse_qs, urlparse
 

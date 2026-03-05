@@ -4,8 +4,7 @@ Handles ``/leaders/{stat}_{scope}.htm`` pages, extracting the leaders
 table into a list of entry dicts suitable for Pydantic validation.
 """
 
-import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 

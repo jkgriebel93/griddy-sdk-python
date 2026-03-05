@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Optional
 
 from griddy.core._lazy_load import LazySubSDKMixin
 from griddy.nfl.basesdk import BaseSDK
-from griddy.nfl.sdkconfiguration import SERVERS, SDKConfiguration
+from griddy.nfl.sdkconfiguration import SERVERS, SDKConfiguration  # noqa: F401
 
 # NGS server URL (also available in SERVERS dict)
 NGS_SERVER_URL = SERVERS["ngs"]

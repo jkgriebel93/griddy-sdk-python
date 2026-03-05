@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 
 from griddy.core.httpclient import AsyncHttpClient, HttpClient
 from griddy.core.types import UNSET, OptionalNullable

@@ -6,7 +6,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 from .award import Award
 from .career_stats import CareerStats
 from .contract_info import ContractInfo

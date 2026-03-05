@@ -1,12 +1,11 @@
 """Base class for player stats endpoints."""
 
-from typing import Mapping, Optional, Type
+from typing import Type
 
 from griddy.core._constants import STATS_ERROR_CODES
-from griddy.nfl import utils
 from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.pro import ProSDK
-from griddy.nfl.types import UNSET, OptionalNullable
+from griddy.nfl.types import UNSET
 
 
 class PlayerStatsBase(ProSDK):

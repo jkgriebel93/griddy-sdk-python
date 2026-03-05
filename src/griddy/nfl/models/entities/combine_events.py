@@ -1,8 +1,3 @@
-from typing import List
-
-import pydantic
-from typing_extensions import Annotated
-
 from griddy.nfl.models.enums.combine_enums import DesignationEnum
 from griddy.nfl.types import BaseModel
 

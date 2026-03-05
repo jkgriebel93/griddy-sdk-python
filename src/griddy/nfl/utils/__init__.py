@@ -6,8 +6,6 @@ NFL-specific overrides:
 - unmarshal_json_response: Passes NFL error class
 """
 
-from typing import TYPE_CHECKING
-
 # Re-export everything from core
 from griddy.core.utils import *  # noqa: F401,F403
 from griddy.core.utils import __all__ as _core_all

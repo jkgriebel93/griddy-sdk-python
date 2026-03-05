@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 from .broadcast_info import BroadcastInfo
 from .external_id import ExternalID
 from .pro_team import ProTeam

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class Pagination(BaseModel):

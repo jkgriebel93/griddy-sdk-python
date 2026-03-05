@@ -5,11 +5,11 @@ containing franchise metadata and year-by-year season records.
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup
 
-from ._helpers import safe_int, safe_numeric
+from ._helpers import safe_int
 
 # Columns in the team_index table that should be cast to int.
 _INT_COLUMNS = {

@@ -1,6 +1,5 @@
 import os
 import sys
-from pathlib import Path
 
 from griddy.core.utils.yaml_consolidator import YAMLConsolidator
 

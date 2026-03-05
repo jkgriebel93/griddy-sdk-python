@@ -5,7 +5,7 @@ from typing import Literal
 import pydantic
 from typing_extensions import Annotated
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class PlayerWeekProjectedPointsAttributes(BaseModel):

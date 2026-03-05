@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from datetime import date, datetime
 from typing import List, Literal, Optional
 
 import pydantic
@@ -9,7 +8,7 @@ from typing_extensions import Annotated
 from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import BaseModel
 from .broadcast_info import BroadcastInfo
 from .external_id import ExternalID
 from .standings import Standings

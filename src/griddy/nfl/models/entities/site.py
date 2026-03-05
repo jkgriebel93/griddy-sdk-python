@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Literal, Optional
+from typing import Optional
 
 import pydantic
 from typing_extensions import Annotated
@@ -9,7 +9,6 @@ from griddy.nfl.models import SiteRoofTypeEnum
 from griddy.nfl.types import (
     UNSET,
     BaseModel,
-    Nullable,
     OptionalNullable,
 )
 

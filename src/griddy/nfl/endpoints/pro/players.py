@@ -1,4 +1,4 @@
-from typing import List, Mapping, Optional
+from typing import Mapping, Optional
 
 from griddy.core._constants import COLLECTION_ERROR_CODES, RESOURCE_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints

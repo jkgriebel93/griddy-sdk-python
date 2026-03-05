@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date, datetime  # noqa: F401 — date used in Transaction annotation
 from typing import Any, Dict, List, Optional, Union
 
 from ..base import PFRBaseModel

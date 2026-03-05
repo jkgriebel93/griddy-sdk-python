@@ -1,4 +1,4 @@
-from ._version import __title__, __user_agent__, __version__
+from ._version import __user_agent__, __version__
 from .sdk import *  # noqa: F401,F403
 from .sdkconfiguration import *  # noqa: F401,F403
 

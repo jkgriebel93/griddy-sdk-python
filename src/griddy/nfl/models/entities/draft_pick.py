@@ -5,9 +5,6 @@ from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 
-from .player import Player
-from .team import Team
-
 
 class Tweet(BaseModel):
     account: str

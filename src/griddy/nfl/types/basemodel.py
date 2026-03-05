@@ -1,5 +1,5 @@
 from griddy.core.types.basemodel import *  # noqa: F401,F403
-from griddy.core.types.basemodel import (
+from griddy.core.types.basemodel import (  # noqa: F401
     UNSET,
     UNSET_SENTINEL,
     BaseModel,

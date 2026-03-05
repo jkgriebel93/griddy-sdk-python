@@ -4,9 +4,6 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-import pydantic
-from typing_extensions import Annotated
-
 from griddy.nfl.models.entities.ngs_news import (
     NgsContentItem,
     NgsContentMetadata,
