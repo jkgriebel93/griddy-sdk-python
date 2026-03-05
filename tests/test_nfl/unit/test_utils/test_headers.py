@@ -1,4 +1,4 @@
-"""Tests for griddy.nfl.utils.headers."""
+"""Tests for griddy.core.utils.headers."""
 
 from typing import Dict, List, Optional
 
@@ -7,13 +7,13 @@ from httpx import Headers
 from pydantic import Field
 from typing_extensions import Annotated
 
-from griddy.nfl.types.basemodel import BaseModel
-from griddy.nfl.utils.headers import (
+from griddy.core.utils.headers import (
     _serialize_header,
     get_headers,
     get_response_headers,
 )
-from griddy.nfl.utils.metadata import FieldMetadata, HeaderMetadata
+from griddy.core.utils.metadata import FieldMetadata, HeaderMetadata
+from griddy.nfl.types.basemodel import BaseModel
 
 
 class SimpleHeaderParams(BaseModel):

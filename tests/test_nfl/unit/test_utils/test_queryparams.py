@@ -1,4 +1,4 @@
-"""Tests for griddy.nfl.utils.queryparams."""
+"""Tests for griddy.core.utils.queryparams."""
 
 from typing import Dict, List, Optional
 
@@ -6,9 +6,9 @@ import pytest
 from pydantic import Field
 from typing_extensions import Annotated
 
+from griddy.core.utils.metadata import FieldMetadata, QueryParamMetadata
+from griddy.core.utils.queryparams import get_query_params
 from griddy.nfl.types.basemodel import BaseModel
-from griddy.nfl.utils.metadata import FieldMetadata, QueryParamMetadata
-from griddy.nfl.utils.queryparams import get_query_params
 
 
 class SimpleQueryParams(BaseModel):
