@@ -6,6 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from griddy.pfr import GriddyPFR
+from griddy.pfr.basesdk import BaseSDK as PfrBaseSDK
 from griddy.pfr.models.entities.draft import (
     CombineEntry,
     CombineResults,
@@ -37,7 +38,8 @@ def year_draft_html() -> str:
 
 @pytest.fixture(scope="module")
 def year_draft_parsed(year_draft_html: str) -> dict:
-    return DraftParser().parse_year_draft(year_draft_html, year=2024)
+    preprocessed = PfrBaseSDK._preprocess_html(year_draft_html)
+    return DraftParser().parse_year_draft(preprocessed, year=2024)
 
 
 @pytest.fixture(scope="module")
@@ -57,7 +59,8 @@ def combine_html() -> str:
 
 @pytest.fixture(scope="module")
 def combine_parsed(combine_html: str) -> dict:
-    return DraftParser().parse_combine(combine_html, year=2024)
+    preprocessed = PfrBaseSDK._preprocess_html(combine_html)
+    return DraftParser().parse_combine(preprocessed, year=2024)
 
 
 @pytest.fixture(scope="module")
@@ -77,7 +80,8 @@ def team_draft_html() -> str:
 
 @pytest.fixture(scope="module")
 def team_draft_parsed(team_draft_html: str) -> dict:
-    return DraftParser().parse_team_draft(team_draft_html, team="phi")
+    preprocessed = PfrBaseSDK._preprocess_html(team_draft_html)
+    return DraftParser().parse_team_draft(preprocessed, team="phi")
 
 
 @pytest.fixture(scope="module")

@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 import pytest
 
+from griddy.pfr.basesdk import BaseSDK as PfrBaseSDK
 from griddy.pfr.models import (
     ExecutiveBio,
     ExecutiveProfile,
@@ -41,7 +42,8 @@ def adams_html() -> str:
 
 @pytest.fixture(scope="module")
 def adams_parsed(adams_html: str) -> dict:
-    return _parser.parse(adams_html)
+    preprocessed = PfrBaseSDK._preprocess_html(adams_html)
+    return _parser.parse(preprocessed)
 
 
 @pytest.fixture(scope="module")
@@ -61,7 +63,8 @@ def pioli_html() -> str:
 
 @pytest.fixture(scope="module")
 def pioli_parsed(pioli_html: str) -> dict:
-    return _parser.parse(pioli_html)
+    preprocessed = PfrBaseSDK._preprocess_html(pioli_html)
+    return _parser.parse(preprocessed)
 
 
 @pytest.fixture(scope="module")

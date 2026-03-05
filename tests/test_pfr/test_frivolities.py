@@ -41,6 +41,7 @@ from unittest.mock import patch
 
 import pytest
 
+from griddy.pfr.basesdk import BaseSDK as PfrBaseSDK
 from griddy.pfr.errors import ParsingError
 from griddy.pfr.models import (
     BirthdayPlayer,
@@ -396,7 +397,8 @@ def milestones_html() -> str:
 
 @pytest.fixture(scope="module")
 def milestones_parsed(milestones_html: str) -> dict:
-    return _milestones_parser.parse(milestones_html)
+    preprocessed = PfrBaseSDK._preprocess_html(milestones_html)
+    return _milestones_parser.parse(preprocessed)
 
 
 @pytest.fixture(scope="module")

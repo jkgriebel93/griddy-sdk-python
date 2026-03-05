@@ -6,6 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from griddy.pfr import GriddyPFR
+from griddy.pfr.basesdk import BaseSDK as PfrBaseSDK
 from griddy.pfr.models import GameDetails
 from griddy.pfr.parsers import GameDetailsParser
 
@@ -26,7 +27,8 @@ def parser() -> GameDetailsParser:
 @pytest.fixture
 def game_data(parser: GameDetailsParser, boxscore_html: str) -> dict:
     """Parsed game details dict for reuse across tests."""
-    return parser.parse(boxscore_html)
+    preprocessed = PfrBaseSDK._preprocess_html(boxscore_html)
+    return parser.parse(preprocessed)
 
 
 # ------------------------------------------------------------------

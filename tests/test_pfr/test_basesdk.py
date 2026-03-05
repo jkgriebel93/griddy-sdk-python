@@ -79,6 +79,70 @@ class TestPFRBaseSDK:
 
 
 @pytest.mark.unit
+class TestPreprocessHtml:
+    """Tests for BaseSDK._preprocess_html static method."""
+
+    def test_uncomments_table_in_html_comment(self):
+        html = (
+            "<html><body>"
+            '<!--<table id="hidden"><tr><td>data</td></tr></table>-->'
+            "</body></html>"
+        )
+        result = BaseSDK._preprocess_html(html)
+        assert '<table id="hidden">' in result
+        assert "<!--" not in result
+
+    def test_leaves_html_without_comments_unchanged(self):
+        html = '<html><body><table id="visible"><tr><td>data</td></tr></table></body></html>'
+        result = BaseSDK._preprocess_html(html)
+        assert '<table id="visible">' in result
+
+    def test_preserves_non_table_comments(self):
+        html = "<html><body><!-- just a comment --><p>text</p></body></html>"
+        result = BaseSDK._preprocess_html(html)
+        assert "<!-- just a comment -->" in result
+
+    def test_uncomments_multiple_tables(self):
+        html = (
+            "<html><body>"
+            '<!--<table id="t1"><tr><td>a</td></tr></table>-->'
+            '<!--<table id="t2"><tr><td>b</td></tr></table>-->'
+            "</body></html>"
+        )
+        result = BaseSDK._preprocess_html(html)
+        assert '<table id="t1">' in result
+        assert '<table id="t2">' in result
+
+    def test_execute_endpoint_preprocesses_before_parsing(self, pfr_base_sdk):
+        """Verify _execute_endpoint passes preprocessed HTML to the parser."""
+        received_html = []
+
+        def capturing_parser(html):
+            received_html.append(html)
+            return {"ok": True}
+
+        config = EndpointConfig(
+            path_template="/test.htm",
+            operation_id="test_op",
+            wait_for_element="table#hidden",
+            parser=capturing_parser,
+            response_type=Mock(),
+        )
+        config.response_type.model_validate = lambda d: d
+
+        pfr_base_sdk.browserless = Mock()
+        pfr_base_sdk.browserless.get_page_content.return_value = (
+            '<html><!--<table id="hidden"><tr><td>x</td></tr></table>--></html>'
+        )
+
+        pfr_base_sdk._execute_endpoint(config)
+
+        assert len(received_html) == 1
+        assert '<table id="hidden">' in received_html[0]
+        assert "<!--" not in received_html[0]
+
+
+@pytest.mark.unit
 class TestPfrParserProtocol:
     def test_lambda_returning_dict_satisfies_protocol(self):
         parser: PfrParser = lambda html: {"key": "value"}

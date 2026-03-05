@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup, Tag
 
 from griddy.pfr.errors import ParsingError
 
-from ._helpers import safe_int, uncomment_tables
+from ._helpers import safe_int
 
 
 class StatisticalMilestonesParser:
@@ -182,8 +182,6 @@ class StatisticalMilestonesParser:
 
         milestones = self._parse_milestones_table(milestones_table)
 
-        # The leaders table is wrapped in an HTML comment
-        uncomment_tables(soup)
         leaders_table = soup.find("table", id="leaders")
         career_leaders = (
             self._parse_leaders_table(leaders_table) if leaders_table else []
