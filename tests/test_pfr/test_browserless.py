@@ -11,15 +11,6 @@ from griddy.pfr.utils.browserless import Browserless, BrowserlessError
 _SETTINGS = "griddy.pfr.utils.browserless"
 
 
-@pytest.fixture(autouse=True)
-def _mock_browserless_settings():
-    with (
-        patch(f"{_SETTINGS}.BROWSERLESS_HOST", "fake-host.example.com"),
-        patch(f"{_SETTINGS}.BROWSERLESS_TOKEN", "fake-token"),
-    ):
-        yield
-
-
 @pytest.fixture
 def browserless():
     return Browserless()
