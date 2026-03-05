@@ -6,38 +6,24 @@ Provides ``get()`` to fetch and parse a PFR executive profile page
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import ExecutiveProfileParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import ExecutiveProfile
 
 
+@sdk_endpoints
 class Executives(BaseSDK):
     """Sub-SDK for PFR executive profile data."""
 
-    def _get_executive_profile_config(
+    def _get_config(
         self,
         *,
         executive_id: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/executives/{executive_id}.htm",
-            operation_id="getExecutiveProfile",
-            wait_for_element="#exec_results",
-            parser=ExecutiveProfileParser().parse,
-            response_type=ExecutiveProfile,
-            path_params={"executive_id": executive_id},
-            timeout_ms=timeout_ms,
-        )
-
-    def get(
-        self,
-        *,
-        executive_id: str,
-        timeout_ms: Optional[int] = None,
-    ) -> ExecutiveProfile:
-        """Fetch and parse an executive profile page from Pro Football Reference.
+        r"""Fetch and parse an executive profile page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/executives/{executive_id}.htm``
@@ -56,8 +42,13 @@ class Executives(BaseSDK):
             the executive's bio, career team results, and per-team summary
             totals.
         """
-        config = self._get_executive_profile_config(
-            executive_id=executive_id, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/executives/{executive_id}.htm",
+            operation_id="getExecutiveProfile",
+            wait_for_element="#exec_results",
+            parser=ExecutiveProfileParser().parse,
+            response_type=ExecutiveProfile,
+            path_params={"executive_id": executive_id},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return ExecutiveProfile.model_validate(data)

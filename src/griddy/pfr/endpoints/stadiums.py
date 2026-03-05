@@ -6,12 +6,14 @@ Provides ``get_stadium()`` to fetch and parse a PFR stadium page
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import StadiumParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import StadiumProfile
 
 
+@sdk_endpoints
 class Stadiums(BaseSDK):
     """Sub-SDK for PFR stadium data."""
 
@@ -21,23 +23,7 @@ class Stadiums(BaseSDK):
         stadium_id: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/stadiums/{stadium_id}.htm",
-            operation_id="getStadium",
-            wait_for_element="#leaders",
-            parser=StadiumParser().parse,
-            response_type=StadiumProfile,
-            path_params={"stadium_id": stadium_id},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_stadium(
-        self,
-        *,
-        stadium_id: str,
-        timeout_ms: Optional[int] = None,
-    ) -> StadiumProfile:
-        """Fetch and parse a stadium page from Pro Football Reference.
+        r"""Fetch and parse a stadium page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/stadiums/{stadium_id}.htm``
@@ -56,6 +42,13 @@ class Stadiums(BaseSDK):
             the stadium's bio, career leaders, best games, and notable game
             summaries.
         """
-        config = self._get_stadium_config(stadium_id=stadium_id, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return StadiumProfile.model_validate(data)
+        return EndpointConfig(
+            path_template="/stadiums/{stadium_id}.htm",
+            operation_id="getStadium",
+            wait_for_element="#leaders",
+            parser=StadiumParser().parse,
+            response_type=StadiumProfile,
+            path_params={"stadium_id": stadium_id},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )

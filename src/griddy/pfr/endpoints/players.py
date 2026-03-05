@@ -6,12 +6,14 @@ Provides ``get_player_profile()`` to fetch and parse a PFR player profile page
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import PlayerProfileParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import PlayerProfile
 
 
+@sdk_endpoints
 class Players(BaseSDK):
     """Sub-SDK for PFR player profile data."""
 
@@ -21,24 +23,7 @@ class Players(BaseSDK):
         player_id: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        first_letter = player_id[0].upper()
-        return EndpointConfig(
-            path_template="/players/{letter}/{player_id}.htm",
-            operation_id="getPlayerProfile",
-            wait_for_element="#meta",
-            parser=PlayerProfileParser().parse,
-            response_type=PlayerProfile,
-            path_params={"letter": first_letter, "player_id": player_id},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_player_profile(
-        self,
-        *,
-        player_id: str,
-        timeout_ms: Optional[int] = None,
-    ) -> PlayerProfile:
-        """Fetch and parse a player profile page from Pro Football Reference.
+        r"""Fetch and parse a player profile page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/players/{letter}/{player_id}.htm``
@@ -57,7 +42,13 @@ class Players(BaseSDK):
             the player's bio, jersey numbers, summary stats, full statistics,
             transactions, links, and leaderboard data.
         """
-        config = self._get_player_profile_config(
-            player_id=player_id, timeout_ms=timeout_ms
+        first_letter = player_id[0].upper()
+        return EndpointConfig(
+            path_template="/players/{letter}/{player_id}.htm",
+            operation_id="getPlayerProfile",
+            wait_for_element="#meta",
+            parser=PlayerProfileParser().parse,
+            response_type=PlayerProfile,
+            path_params={"letter": first_letter, "player_id": player_id},
+            timeout_ms=timeout_ms,
         )
-        return self._execute_endpoint(config)

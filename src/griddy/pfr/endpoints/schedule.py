@@ -6,12 +6,14 @@ schedule page (``/years/{season}/games.htm``).
 
 from typing import List, Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import ScheduleParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models.entities.schedule_game import ScheduleGame
 
 
+@sdk_endpoints
 class Schedule(BaseSDK):
     """Sub-SDK for PFR season schedule data."""
 
@@ -21,23 +23,7 @@ class Schedule(BaseSDK):
         season: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{season}/games.htm",
-            operation_id="getSeasonSchedule",
-            wait_for_element="#games",
-            parser=ScheduleParser().parse,
-            response_type=ScheduleGame,
-            path_params={"season": season},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_season_schedule(
-        self,
-        *,
-        season: int,
-        timeout_ms: Optional[int] = None,
-    ) -> List[ScheduleGame]:
-        """Fetch and parse the season schedule from Pro Football Reference.
+        r"""Fetch and parse the season schedule from Pro Football Reference.
 
         Scrapes ``https://www.pro-football-reference.com/years/{season}/games.htm``
         using Browserless + Playwright, then parses the HTML table into
@@ -50,5 +36,12 @@ class Schedule(BaseSDK):
         Returns:
             A list of ``ScheduleGame`` models, one per game.
         """
-        config = self._get_season_schedule_config(season=season, timeout_ms=timeout_ms)
-        return self._execute_endpoint(config)
+        return EndpointConfig(
+            path_template="/years/{season}/games.htm",
+            operation_id="getSeasonSchedule",
+            wait_for_element="#games",
+            parser=ScheduleParser().parse,
+            response_type=ScheduleGame,
+            path_params={"season": season},
+            timeout_ms=timeout_ms,
+        )

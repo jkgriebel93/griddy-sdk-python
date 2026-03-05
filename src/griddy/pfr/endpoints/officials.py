@@ -6,12 +6,14 @@ page (``/officials/{official_id}.htm``) and return structured officiating data.
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import OfficialProfileParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import OfficialProfile
 
 
+@sdk_endpoints
 class Officials(BaseSDK):
     """Sub-SDK for PFR game official profile data."""
 
@@ -21,23 +23,7 @@ class Officials(BaseSDK):
         official_id: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/officials/{official_id}.htm",
-            operation_id="getOfficialProfile",
-            wait_for_element="#official_stats",
-            parser=OfficialProfileParser().parse,
-            response_type=OfficialProfile,
-            path_params={"official_id": official_id},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_official_profile(
-        self,
-        *,
-        official_id: str,
-        timeout_ms: Optional[int] = None,
-    ) -> OfficialProfile:
-        """Fetch and parse an official profile page from Pro Football Reference.
+        r"""Fetch and parse an official profile page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/officials/{official_id}.htm``
@@ -55,8 +41,13 @@ class Officials(BaseSDK):
             A :class:`~griddy.pfr.models.OfficialProfile` instance containing
             the official's bio, season penalty stats, and game logs.
         """
-        config = self._get_official_profile_config(
-            official_id=official_id, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/officials/{official_id}.htm",
+            operation_id="getOfficialProfile",
+            wait_for_element="#official_stats",
+            parser=OfficialProfileParser().parse,
+            response_type=OfficialProfile,
+            path_params={"official_id": official_id},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return OfficialProfile.model_validate(data)

@@ -7,6 +7,7 @@ summary pages.
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import SeasonOverviewParser
 
 from ..basesdk import BaseSDK, EndpointConfig
@@ -15,6 +16,7 @@ from ..models import SeasonOverview, SeasonStats, WeekSummary
 _parser = SeasonOverviewParser()
 
 
+@sdk_endpoints
 class Seasons(BaseSDK):
     """Sub-SDK for PFR season data."""
 
@@ -24,23 +26,7 @@ class Seasons(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/",
-            operation_id="getSeason",
-            wait_for_element="#AFC",
-            parser=_parser.parse,
-            response_type=SeasonOverview,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_season(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> SeasonOverview:
-        """Fetch and parse a season overview page from Pro Football Reference.
+        r"""Fetch and parse a season overview page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/``
@@ -55,9 +41,16 @@ class Seasons(BaseSDK):
         Returns:
             A :class:`~griddy.pfr.models.SeasonOverview` instance.
         """
-        config = self._get_season_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return SeasonOverview.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/",
+            operation_id="getSeason",
+            wait_for_element="#AFC",
+            parser=_parser.parse,
+            response_type=SeasonOverview,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     def _get_season_stats_config(
         self,
@@ -66,24 +59,7 @@ class Seasons(BaseSDK):
         category: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/{category}.htm",
-            operation_id="getSeasonStats",
-            wait_for_element="table",
-            parser=_parser.parse_stats,
-            response_type=SeasonStats,
-            path_params={"year": year, "category": category},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_season_stats(
-        self,
-        *,
-        year: int,
-        category: str,
-        timeout_ms: Optional[int] = None,
-    ) -> SeasonStats:
-        """Fetch and parse a season stat category page from Pro Football Reference.
+        r"""Fetch and parse a season stat category page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/{category}.htm``
@@ -100,11 +76,16 @@ class Seasons(BaseSDK):
         Returns:
             A :class:`~griddy.pfr.models.SeasonStats` instance.
         """
-        config = self._get_season_stats_config(
-            year=year, category=category, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/years/{year}/{category}.htm",
+            operation_id="getSeasonStats",
+            wait_for_element="table",
+            parser=_parser.parse_stats,
+            response_type=SeasonStats,
+            path_params={"year": year, "category": category},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return SeasonStats.model_validate(data)
 
     def _get_week_config(
         self,
@@ -113,24 +94,7 @@ class Seasons(BaseSDK):
         week: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/week_{week}.htm",
-            operation_id="getWeek",
-            wait_for_element="div.game_summaries",
-            parser=_parser.parse_week,
-            response_type=WeekSummary,
-            path_params={"year": year, "week": week},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_week(
-        self,
-        *,
-        year: int,
-        week: int,
-        timeout_ms: Optional[int] = None,
-    ) -> WeekSummary:
-        """Fetch and parse a week summary page from Pro Football Reference.
+        r"""Fetch and parse a week summary page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/week_{week}.htm``
@@ -145,6 +109,13 @@ class Seasons(BaseSDK):
         Returns:
             A :class:`~griddy.pfr.models.WeekSummary` instance.
         """
-        config = self._get_week_config(year=year, week=week, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return WeekSummary.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/week_{week}.htm",
+            operation_id="getWeek",
+            wait_for_element="div.game_summaries",
+            parser=_parser.parse_week,
+            response_type=WeekSummary,
+            path_params={"year": year, "week": week},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )

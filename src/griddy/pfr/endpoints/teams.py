@@ -7,12 +7,14 @@ and parse a PFR team franchise page (``/teams/{team_abbrev}/``).
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import FranchiseParser, TeamSeasonParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import Franchise, TeamSeason
 
 
+@sdk_endpoints
 class Teams(BaseSDK):
     """Sub-SDK for PFR team data (season and franchise pages)."""
 
@@ -27,24 +29,7 @@ class Teams(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/teams/{team}/{year}.htm",
-            operation_id="getTeamSeason",
-            wait_for_element="#games",
-            parser=TeamSeasonParser().parse,
-            response_type=TeamSeason,
-            path_params={"team": team.lower(), "year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_team_season(
-        self,
-        *,
-        team: str,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> TeamSeason:
-        """Fetch and parse a team season page from Pro Football Reference.
+        r"""Fetch and parse a team season page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/teams/{team}/{year}.htm``
@@ -64,11 +49,16 @@ class Teams(BaseSDK):
             the team's metadata, stats, game results, conversions,
             and player statistics.
         """
-        config = self._get_team_season_config(
-            team=team, year=year, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/teams/{team}/{year}.htm",
+            operation_id="getTeamSeason",
+            wait_for_element="#games",
+            parser=TeamSeasonParser().parse,
+            response_type=TeamSeason,
+            path_params={"team": team.lower(), "year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return TeamSeason.model_validate(data)
 
     # ------------------------------------------------------------------
     # Team Franchise
@@ -80,23 +70,7 @@ class Teams(BaseSDK):
         team: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/teams/{team}/",
-            operation_id="getFranchise",
-            wait_for_element="#team_index",
-            parser=FranchiseParser().parse,
-            response_type=Franchise,
-            path_params={"team": team.lower()},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_team_franchise(
-        self,
-        *,
-        team: str,
-        timeout_ms: Optional[int] = None,
-    ) -> Franchise:
-        """Fetch and parse a team franchise page from Pro Football Reference.
+        r"""Fetch and parse a team franchise page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/teams/{team}/``
@@ -114,6 +88,13 @@ class Teams(BaseSDK):
             A :class:`~griddy.pfr.models.Franchise` instance containing
             the franchise metadata and year-by-year season records.
         """
-        config = self._get_team_franchise_config(team=team, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return Franchise.model_validate(data)
+        return EndpointConfig(
+            path_template="/teams/{team}/",
+            operation_id="getFranchise",
+            wait_for_element="#team_index",
+            parser=FranchiseParser().parse,
+            response_type=Franchise,
+            path_params={"team": team.lower()},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
