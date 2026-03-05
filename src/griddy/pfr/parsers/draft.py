@@ -6,12 +6,11 @@ Handles three page types:
 - ``/teams/{team}/draft.htm`` — team-specific draft history (table ``#draft``)
 """
 
-import re
 from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int, safe_numeric, uncomment_tables
+from ._helpers import safe_int, uncomment_tables
 
 # Columns whose text should be cast to int
 _INT_COLUMNS = {

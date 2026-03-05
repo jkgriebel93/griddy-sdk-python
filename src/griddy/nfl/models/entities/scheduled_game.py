@@ -8,7 +8,7 @@ from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 from .game_score import GameScore
 from .game_site import GameSite
 from .schedule_team import ScheduleTeam

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 from griddy.core.sdkconfiguration import SDKConfiguration as CoreSDKConfiguration
 

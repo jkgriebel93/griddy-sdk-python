@@ -7,9 +7,9 @@ containing team metadata, stats, game results, conversions, and player stats.
 import re
 from typing import Any, Dict, List, Optional, Union
 
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup
 
-from ._helpers import safe_int, safe_numeric, uncomment_tables
+from ._helpers import safe_int, safe_numeric
 
 # Columns in the games table that should be cast to int.
 _GAME_INT_COLUMNS = {

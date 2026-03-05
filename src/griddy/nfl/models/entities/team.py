@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 from .social_media import SocialMedia
 from .team_venue import TeamVenue
 

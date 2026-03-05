@@ -5,7 +5,7 @@ Handles two page types:
 - ``/schools/high_schools.cgi`` — High Schools (table ``#high_schools``)
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup, Tag
 

@@ -9,7 +9,6 @@ from griddy.nfl.models import SiteRoofTypeEnum
 from griddy.nfl.types import (
     UNSET,
     BaseModel,
-    Nullable,
     OptionalNullable,
 )
 

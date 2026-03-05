@@ -3,7 +3,6 @@ from __future__ import annotations
 from griddy.nfl.types import (
     UNSET,
     BaseModel,
-    Nullable,
     OptionalNullable,
 )
 

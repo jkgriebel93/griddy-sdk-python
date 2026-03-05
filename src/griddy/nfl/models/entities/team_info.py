@@ -8,7 +8,7 @@ from typing_extensions import Annotated
 from griddy.nfl.models.enums.conference_enum import ConferenceEnum
 from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
 
-from ...types import UNSET, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, OptionalNullable
 from .conference import Conference
 from .division import Division
 

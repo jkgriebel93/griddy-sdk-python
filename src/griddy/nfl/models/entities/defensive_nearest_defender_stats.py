@@ -7,7 +7,6 @@ from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.position_enums import (
     DefenseNGSPositionEnum,
-    DefenseNGSPositionGroupEnum,
     DefensePositionEnum,
     DefensePositionGroupEnum,
 )

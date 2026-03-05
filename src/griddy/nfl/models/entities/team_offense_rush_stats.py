@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pydantic
 from typing_extensions import Annotated
 

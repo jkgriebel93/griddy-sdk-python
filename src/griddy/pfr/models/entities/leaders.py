@@ -6,7 +6,7 @@ e.g. ``/leaders/pass_yds_career.htm`` or ``/leaders/rush_td_single_season.htm``.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from ..base import PFRBaseModel
 

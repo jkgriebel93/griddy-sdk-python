@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 import pydantic
 from typing_extensions import Annotated

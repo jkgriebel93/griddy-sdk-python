@@ -7,7 +7,6 @@ from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
-from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
