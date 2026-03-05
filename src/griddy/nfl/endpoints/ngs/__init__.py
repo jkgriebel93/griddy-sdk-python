@@ -4,10 +4,9 @@ This module provides access to NFL Next Gen Stats data from nextgenstats.nfl.com
 including player statistics, game information, charts, highlights, and leaderboards.
 """
 
-import importlib
-import sys
 from typing import TYPE_CHECKING, Optional
 
+from griddy.core._lazy_load import LazySubSDKMixin
 from griddy.nfl.basesdk import BaseSDK
 from griddy.nfl.sdkconfiguration import SERVERS, SDKConfiguration
 
@@ -41,7 +40,7 @@ class NgsBaseSDK(BaseSDK):
         return NGS_SERVER_URL
 
 
-class NextGenStats(NgsBaseSDK):
+class NextGenStats(LazySubSDKMixin, NgsBaseSDK):
     """Next Gen Stats SDK providing access to NGS data.
 
     This SDK provides access to NFL Next Gen Stats data including:
@@ -105,42 +104,3 @@ class NextGenStats(NgsBaseSDK):
             "NgsNews",
         ),
     }
-
-    def __getattr__(self, name: str):
-        """Lazily load sub-SDKs on first access."""
-        if name in self._sub_sdk_map:
-            module_path, class_name = self._sub_sdk_map[name]
-            try:
-                # Dynamic import with retry logic (handles occasional KeyError)
-                module = None
-                for attempt in range(3):
-                    try:
-                        module = importlib.import_module(module_path)
-                        break
-                    except KeyError:
-                        sys.modules.pop(module_path, None)
-                if module is None:
-                    raise ImportError(f"Failed to import {module_path}")
-
-                klass = getattr(module, class_name)
-                instance = klass(self.sdk_configuration, parent_ref=self.parent_ref)
-                setattr(self, name, instance)
-                return instance
-            except ImportError as e:
-                raise AttributeError(
-                    f"Failed to import module {module_path} for attribute {name}: {e}"
-                ) from e
-            except AttributeError as e:
-                raise AttributeError(
-                    f"Failed to find class {class_name} in module {module_path}: {e}"
-                ) from e
-
-        raise AttributeError(
-            f"'{type(self).__name__}' object has no attribute '{name}'"
-        )
-
-    def __dir__(self):
-        """Include lazy-loaded sub-SDKs in dir() output."""
-        default_attrs = list(super().__dir__())
-        lazy_attrs = list(self._sub_sdk_map.keys())
-        return sorted(list(set(default_attrs + lazy_attrs)))
