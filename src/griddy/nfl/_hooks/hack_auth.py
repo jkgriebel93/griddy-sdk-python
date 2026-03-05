@@ -13,8 +13,8 @@ from griddy.nfl.models import NFLAuth, Security
 
 class HackAuthHook(BeforeRequestHook):
     refresh_req_data = {
-        "clientKey": settings.NFL["clientKey"],
-        "clientSecret": settings.NFL["clientSecret"],
+        "clientKey": settings.NFL.client_key,
+        "clientSecret": settings.NFL.client_secret,
         "deviceId": str(uuid4()),
         "deviceInfo": base64.b64encode(
             json.dumps(
@@ -32,7 +32,7 @@ class HackAuthHook(BeforeRequestHook):
     }
 
     def _do_refresh_token(self, refresh_token):
-        refresh_url = f"{settings.NFL['token_url']}/refresh"
+        refresh_url = f"{settings.NFL.token_url}/refresh"
         data = {**self.refresh_req_data, "refreshToken": refresh_token}
         response = httpx.post(url=refresh_url, data=data)
         response.raise_for_status()
