@@ -9,17 +9,17 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class OtherSportLink(BaseModel):
+class OtherSportLink(PFRBaseModel):
     """A link to another sports reference site for a multi-sport athlete."""
 
     text: str
     href: str
 
 
-class MultiSportPlayer(BaseModel):
+class MultiSportPlayer(PFRBaseModel):
     """A single athlete who played multiple sports professionally."""
 
     player: str
@@ -52,7 +52,7 @@ class MultiSportPlayer(BaseModel):
     other_links: List[OtherSportLink] = []
 
 
-class MultiSportPlayers(BaseModel):
+class MultiSportPlayers(PFRBaseModel):
     """Parsed result of the PFR 'Multisport Athletes' page."""
 
     title: str

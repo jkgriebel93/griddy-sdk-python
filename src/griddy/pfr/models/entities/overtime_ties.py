@@ -7,10 +7,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class OvertimeTieEntry(BaseModel):
+class OvertimeTieEntry(PFRBaseModel):
     """A single overtime tie game."""
 
     year: int
@@ -24,7 +24,7 @@ class OvertimeTieEntry(BaseModel):
     boxscore_href: Optional[str] = None
 
 
-class OvertimeTies(BaseModel):
+class OvertimeTies(PFRBaseModel):
     """Parsed result of the PFR overtime ties page."""
 
     title: str

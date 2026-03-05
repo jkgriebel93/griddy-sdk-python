@@ -11,12 +11,12 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # ── Landing page ─────────────────────────────────────────────────────────
 
 
-class BirthplaceLocation(BaseModel):
+class BirthplaceLocation(PFRBaseModel):
     rank: int
     birth_country: str
     birth_country_href: Optional[str] = None
@@ -36,7 +36,7 @@ class BirthplaceLocation(BaseModel):
     most_g: Optional[int] = None
 
 
-class BirthplaceLanding(BaseModel):
+class BirthplaceLanding(PFRBaseModel):
     title: str
     locations: List[BirthplaceLocation]
 
@@ -44,7 +44,7 @@ class BirthplaceLanding(BaseModel):
 # ── Filtered page ────────────────────────────────────────────────────────
 
 
-class BirthplacePlayer(BaseModel):
+class BirthplacePlayer(PFRBaseModel):
     rank: int
     player: str
     player_href: Optional[str] = None
@@ -76,7 +76,7 @@ class BirthplacePlayer(BaseModel):
     rec_long: Optional[int] = None
 
 
-class BirthplaceFiltered(BaseModel):
+class BirthplaceFiltered(PFRBaseModel):
     title: str
     country: str
     state: str

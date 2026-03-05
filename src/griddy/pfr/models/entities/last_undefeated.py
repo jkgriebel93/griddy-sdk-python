@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class LastUndefeatedEntry(BaseModel):
+class LastUndefeatedEntry(PFRBaseModel):
     """A single last-undefeated-team row."""
 
     year: Optional[int] = None
@@ -27,7 +27,7 @@ class LastUndefeatedEntry(BaseModel):
     playoff_result_href: Optional[str] = None
 
 
-class LastUndefeated(BaseModel):
+class LastUndefeated(PFRBaseModel):
     """Parsed result of the PFR last-undefeated-team page."""
 
     title: str

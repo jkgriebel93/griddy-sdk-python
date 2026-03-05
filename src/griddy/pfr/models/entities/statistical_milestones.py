@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class MilestoneEntry(BaseModel):
+class MilestoneEntry(PFRBaseModel):
     milestone: str
     player: str
     player_href: Optional[str] = None
@@ -14,7 +14,7 @@ class MilestoneEntry(BaseModel):
     needed: Optional[str] = None
 
 
-class CareerLeader(BaseModel):
+class CareerLeader(PFRBaseModel):
     rank: Optional[int] = None
     player: str
     player_href: Optional[str] = None
@@ -24,7 +24,7 @@ class CareerLeader(BaseModel):
     is_active: bool = False
 
 
-class StatisticalMilestones(BaseModel):
+class StatisticalMilestones(PFRBaseModel):
     title: str
     stat: str
     milestones: List[MilestoneEntry]

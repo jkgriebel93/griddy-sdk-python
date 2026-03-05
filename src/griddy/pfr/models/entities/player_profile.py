@@ -3,14 +3,12 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import field_validator
-
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Player Names ---
 
 
-class PlayerNames(BaseModel):
+class PlayerNames(PFRBaseModel):
     first_name: str
     middle_name: str
     last_name: str
@@ -22,7 +20,7 @@ class PlayerNames(BaseModel):
 # --- Birth Place ---
 
 
-class BirthPlace(BaseModel):
+class BirthPlace(PFRBaseModel):
     city: str
     state: str
 
@@ -30,12 +28,12 @@ class BirthPlace(BaseModel):
 # --- Draft Info ---
 
 
-class RoundAndOverall(BaseModel):
+class RoundAndOverall(PFRBaseModel):
     round: int
     overall: int
 
 
-class DraftInfo(BaseModel):
+class DraftInfo(PFRBaseModel):
     team: str
     rd_and_ovr: RoundAndOverall
     year: int
@@ -44,7 +42,7 @@ class DraftInfo(BaseModel):
 # --- Player Bio ---
 
 
-class PlayerBio(BaseModel):
+class PlayerBio(PFRBaseModel):
     photo_url: str
     names: PlayerNames
     position: str
@@ -57,18 +55,11 @@ class PlayerBio(BaseModel):
     draft: Optional[DraftInfo] = None
     throws: Optional[str] = None
 
-    @field_validator("draft", mode="before")
-    @classmethod
-    def _empty_dict_to_none(cls, v: Any) -> Any:
-        if isinstance(v, dict) and not v:
-            return None
-        return v
-
 
 # --- Jersey Number ---
 
 
-class JerseyNumber(BaseModel):
+class JerseyNumber(PFRBaseModel):
     number: str
     team: str
     start_year: int
@@ -78,7 +69,7 @@ class JerseyNumber(BaseModel):
 # --- Transaction ---
 
 
-class Transaction(BaseModel):
+class Transaction(PFRBaseModel):
     date: date
     description: str
 
@@ -86,7 +77,7 @@ class Transaction(BaseModel):
 # --- Player Statistics ---
 
 
-class PlayerStatistics(BaseModel):
+class PlayerStatistics(PFRBaseModel):
     regular_season: Dict[str, List[Dict[str, Any]]] = {}
     post_season: Dict[str, List[Dict[str, Any]]] = {}
 
@@ -94,7 +85,7 @@ class PlayerStatistics(BaseModel):
 # --- Player Profile (top-level) ---
 
 
-class PlayerProfile(BaseModel):
+class PlayerProfile(PFRBaseModel):
     bio: PlayerBio
     jersey_numbers: List[JerseyNumber]
     summary_stats: Dict[str, Union[int, float, str]]

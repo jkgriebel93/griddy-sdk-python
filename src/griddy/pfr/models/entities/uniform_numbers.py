@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class UniformNumberPlayer(BaseModel):
+class UniformNumberPlayer(PFRBaseModel):
     player: str
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -14,7 +14,7 @@ class UniformNumberPlayer(BaseModel):
     av: Optional[int] = None
 
 
-class UniformNumbers(BaseModel):
+class UniformNumbers(PFRBaseModel):
     title: str
     number: int
     team: Optional[str] = None

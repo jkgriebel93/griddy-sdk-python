@@ -10,14 +10,14 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # ---------------------------------------------------------------------------
 # Super Bowl Game (one row in /super-bowl/)
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlGame(BaseModel):
+class SuperBowlGame(PFRBaseModel):
     game_date: Optional[str] = None
     superbowl: Optional[str] = None
     superbowl_number: Optional[int] = None
@@ -41,7 +41,7 @@ class SuperBowlGame(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlHistory(BaseModel):
+class SuperBowlHistory(PFRBaseModel):
     games: List[SuperBowlGame] = []
 
 
@@ -50,7 +50,7 @@ class SuperBowlHistory(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlLeaderEntry(BaseModel):
+class SuperBowlLeaderEntry(PFRBaseModel):
     rank: Optional[int] = None
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -63,7 +63,7 @@ class SuperBowlLeaderEntry(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlLeaderTable(BaseModel):
+class SuperBowlLeaderTable(PFRBaseModel):
     category: Optional[str] = None
     entries: List[SuperBowlLeaderEntry] = []
 
@@ -73,7 +73,7 @@ class SuperBowlLeaderTable(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlLeaders(BaseModel):
+class SuperBowlLeaders(PFRBaseModel):
     tables: List[SuperBowlLeaderTable] = []
 
 
@@ -82,7 +82,7 @@ class SuperBowlLeaders(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlQB(BaseModel):
+class SuperBowlQB(PFRBaseModel):
     player: Optional[str] = None
     player_href: Optional[str] = None
     record: Optional[str] = None
@@ -93,7 +93,7 @@ class SuperBowlQB(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlStanding(BaseModel):
+class SuperBowlStanding(PFRBaseModel):
     rank: Optional[int] = None
     team: Optional[str] = None
     team_href: Optional[str] = None
@@ -112,5 +112,5 @@ class SuperBowlStanding(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlStandings(BaseModel):
+class SuperBowlStandings(PFRBaseModel):
     teams: List[SuperBowlStanding] = []

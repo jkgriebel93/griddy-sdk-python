@@ -10,14 +10,14 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # ---------------------------------------------------------------------------
 # Award Winner (one row in /awards/{award}.htm)
 # ---------------------------------------------------------------------------
 
 
-class AwardWinner(BaseModel):
+class AwardWinner(PFRBaseModel):
     year: Optional[int] = None
     year_href: Optional[str] = None
     league: Optional[str] = None
@@ -35,7 +35,7 @@ class AwardWinner(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class AwardHistory(BaseModel):
+class AwardHistory(PFRBaseModel):
     award: Optional[str] = None
     winners: List[AwardWinner] = []
 
@@ -45,7 +45,7 @@ class AwardHistory(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HofPlayer(BaseModel):
+class HofPlayer(PFRBaseModel):
     rank: Optional[int] = None
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -88,7 +88,7 @@ class HofPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HallOfFame(BaseModel):
+class HallOfFame(PFRBaseModel):
     players: List[HofPlayer] = []
 
 
@@ -97,7 +97,7 @@ class HallOfFame(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class ProBowlPlayer(BaseModel):
+class ProBowlPlayer(PFRBaseModel):
     pos: Optional[str] = None
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -134,6 +134,6 @@ class ProBowlPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class ProBowlRoster(BaseModel):
+class ProBowlRoster(PFRBaseModel):
     year: Optional[int] = None
     players: List[ProBowlPlayer] = []

@@ -2,18 +2,18 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Union
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Franchise Metadata ---
 
 
-class FranchiseLeader(BaseModel):
+class FranchiseLeader(PFRBaseModel):
     name: Optional[str] = None
     href: Optional[str] = None
     stats: Optional[str] = None
 
 
-class FranchiseMeta(BaseModel):
+class FranchiseMeta(PFRBaseModel):
     team_names: Optional[str] = None
     seasons: Optional[str] = None
     record: Optional[str] = None
@@ -31,7 +31,7 @@ class FranchiseMeta(BaseModel):
 # --- Franchise Season Record (one row of team_index table) ---
 
 
-class FranchiseSeasonRecord(BaseModel):
+class FranchiseSeasonRecord(PFRBaseModel):
     year_id: str
     year_href: Optional[str] = None
     league_id: Optional[str] = None
@@ -79,6 +79,6 @@ class FranchiseSeasonRecord(BaseModel):
 # --- Top-level Team Franchise ---
 
 
-class Franchise(BaseModel):
+class Franchise(PFRBaseModel):
     meta: FranchiseMeta
     team_index: List[FranchiseSeasonRecord]

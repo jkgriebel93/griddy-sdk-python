@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class StandingsTeamEntry(BaseModel):
+class StandingsTeamEntry(PFRBaseModel):
     """A single team's standing on the queried date."""
 
     conference: Optional[str] = None
@@ -29,7 +29,7 @@ class StandingsTeamEntry(BaseModel):
     margin_of_victory: Optional[float] = None
 
 
-class StandingsOnDate(BaseModel):
+class StandingsOnDate(PFRBaseModel):
     """Parsed result of the PFR standings-on-date page."""
 
     title: str

@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class OctopusEntry(BaseModel):
+class OctopusEntry(PFRBaseModel):
     """A single game instance of an octopus (TD + 2pt conversion)."""
 
     player: str
@@ -31,7 +31,7 @@ class OctopusEntry(BaseModel):
     xpa_type: Optional[str] = None
 
 
-class OctopusTracker(BaseModel):
+class OctopusTracker(PFRBaseModel):
     """Parsed result of the PFR octopus tracker page."""
 
     title: str

@@ -8,12 +8,12 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Individual leader entry (one row in the leaders table) ---
 
 
-class LeaderEntry(BaseModel):
+class LeaderEntry(PFRBaseModel):
     rank: Optional[int] = None
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -31,7 +31,7 @@ class LeaderEntry(BaseModel):
 # --- Top-level leaderboard page ---
 
 
-class Leaderboard(BaseModel):
+class Leaderboard(PFRBaseModel):
     stat: Optional[str] = None
     scope: Optional[str] = None
     title: Optional[str] = None

@@ -8,12 +8,12 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Stadium Team (from #meta teams list) ---
 
 
-class StadiumTeam(BaseModel):
+class StadiumTeam(PFRBaseModel):
     name: str
     team_href: Optional[str] = None
     years: Optional[str] = None
@@ -26,7 +26,7 @@ class StadiumTeam(BaseModel):
 # --- Stadium Bio (from #meta div) ---
 
 
-class StadiumBio(BaseModel):
+class StadiumBio(PFRBaseModel):
     name: str
     address: Optional[str] = None
     years_active: Optional[str] = None
@@ -38,7 +38,7 @@ class StadiumBio(BaseModel):
 # --- Stadium Leader (from leaders table) ---
 
 
-class StadiumLeader(BaseModel):
+class StadiumLeader(PFRBaseModel):
     player: Optional[str] = None
     player_id: Optional[str] = None
     player_href: Optional[str] = None
@@ -49,7 +49,7 @@ class StadiumLeader(BaseModel):
 # --- Stadium Best Game (from games and playoff_games tables) ---
 
 
-class StadiumBestGame(BaseModel):
+class StadiumBestGame(PFRBaseModel):
     player: Optional[str] = None
     player_id: Optional[str] = None
     player_href: Optional[str] = None
@@ -63,7 +63,7 @@ class StadiumBestGame(BaseModel):
 # --- Stadium Game Leader (stat leader in a game summary) ---
 
 
-class StadiumGameLeader(BaseModel):
+class StadiumGameLeader(PFRBaseModel):
     stat_name: Optional[str] = None
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -73,7 +73,7 @@ class StadiumGameLeader(BaseModel):
 # --- Stadium Game Summary (notable game from game_summaries section) ---
 
 
-class StadiumGameSummary(BaseModel):
+class StadiumGameSummary(PFRBaseModel):
     label: Optional[str] = None
     date: Optional[str] = None
     team_1: Optional[str] = None
@@ -89,7 +89,7 @@ class StadiumGameSummary(BaseModel):
 # --- Stadium Profile (top-level model) ---
 
 
-class StadiumProfile(BaseModel):
+class StadiumProfile(PFRBaseModel):
     bio: StadiumBio
     leaders: List[StadiumLeader]
     best_games: List[StadiumBestGame]

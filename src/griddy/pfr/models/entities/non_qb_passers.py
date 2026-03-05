@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class NonQBPasserEntry(BaseModel):
+class NonQBPasserEntry(PFRBaseModel):
     """A single non-QB passer entry with passing statistics."""
 
     player: str
@@ -42,7 +42,7 @@ class NonQBPasserEntry(BaseModel):
     pass_adj_net_yds_per_att: Optional[float] = None
 
 
-class NonQBPassers(BaseModel):
+class NonQBPassers(PFRBaseModel):
     """Parsed result of the PFR non-QB passers page."""
 
     title: str

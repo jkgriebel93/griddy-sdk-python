@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class PlayerBornBefore(BaseModel):
+class PlayerBornBefore(PFRBaseModel):
     rank: int
     player: str
     player_href: Optional[str] = None
@@ -44,7 +44,7 @@ class PlayerBornBefore(BaseModel):
     rec_long: Optional[int] = None
 
 
-class PlayersBornBefore(BaseModel):
+class PlayersBornBefore(PFRBaseModel):
     title: str
     month: int
     day: int

@@ -4,11 +4,11 @@ from typing import Optional
 
 from typing_extensions import Annotated
 
-from ...types import BaseModel
 from ...utils import FieldMetadata, SecurityMetadata
+from ..base import PFRBaseModel
 
 
-class Security(BaseModel):
+class Security(PFRBaseModel):
     pfr_auth: Annotated[
         Optional[str],
         FieldMetadata(

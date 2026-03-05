@@ -8,19 +8,19 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Executive Bio (from #meta div) ---
 
 
-class ExecutiveBio(BaseModel):
+class ExecutiveBio(PFRBaseModel):
     name: str
 
 
 # --- Executive Result (from exec_results table body) ---
 
 
-class ExecutiveResult(BaseModel):
+class ExecutiveResult(PFRBaseModel):
     year: Optional[str] = None
     year_href: Optional[str] = None
     team: Optional[str] = None
@@ -40,7 +40,7 @@ class ExecutiveResult(BaseModel):
 # --- Executive Results Total (from exec_results table footer) ---
 
 
-class ExecutiveResultsTotal(BaseModel):
+class ExecutiveResultsTotal(PFRBaseModel):
     label: Optional[str] = None
     tenure: Optional[str] = None
     wins: Optional[int] = None
@@ -53,7 +53,7 @@ class ExecutiveResultsTotal(BaseModel):
 # --- Executive Profile (top-level model) ---
 
 
-class ExecutiveProfile(BaseModel):
+class ExecutiveProfile(PFRBaseModel):
     bio: ExecutiveBio
     exec_results: List[ExecutiveResult]
     exec_results_totals: List[ExecutiveResultsTotal]

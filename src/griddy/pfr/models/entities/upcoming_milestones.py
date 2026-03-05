@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class UpcomingMilestoneEntry(BaseModel):
+class UpcomingMilestoneEntry(PFRBaseModel):
     category: str
     player: str
     player_href: Optional[str] = None
@@ -14,7 +14,7 @@ class UpcomingMilestoneEntry(BaseModel):
     needed: Optional[str] = None
 
 
-class UpcomingLeaderboardEntry(BaseModel):
+class UpcomingLeaderboardEntry(PFRBaseModel):
     category: str
     player: str
     player_href: Optional[str] = None
@@ -24,7 +24,7 @@ class UpcomingLeaderboardEntry(BaseModel):
     leader_href: Optional[str] = None
 
 
-class UpcomingMilestones(BaseModel):
+class UpcomingMilestones(PFRBaseModel):
     title: str
     description: str
     milestones: List[UpcomingMilestoneEntry]

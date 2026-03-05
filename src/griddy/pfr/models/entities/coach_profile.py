@@ -9,12 +9,12 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Coach Bio (from #meta div) ---
 
 
-class CoachBio(BaseModel):
+class CoachBio(PFRBaseModel):
     name: str
     full_name: Optional[str] = None
     nicknames: List[str] = []
@@ -35,7 +35,7 @@ class CoachBio(BaseModel):
 # --- Coaching Result (from coaching_results table body) ---
 
 
-class CoachingResult(BaseModel):
+class CoachingResult(PFRBaseModel):
     year_id: str
     year_href: Optional[str] = None
     age: Optional[int] = None
@@ -64,7 +64,7 @@ class CoachingResult(BaseModel):
 # --- Coaching Result Total (from coaching_results table footer) ---
 
 
-class CoachingResultTotal(BaseModel):
+class CoachingResultTotal(PFRBaseModel):
     label: str
     team: Optional[str] = None
     g: Optional[int] = None
@@ -84,7 +84,7 @@ class CoachingResultTotal(BaseModel):
 # --- Coaching Rank (from coaching_ranks table) ---
 
 
-class CoachingRank(BaseModel):
+class CoachingRank(PFRBaseModel):
     year_id: str
     team: Optional[str] = None
     coordinator_type: Optional[str] = None
@@ -124,7 +124,7 @@ class CoachingRank(BaseModel):
 # --- Coaching History Entry (from coaching_history table) ---
 
 
-class CoachingHistoryEntry(BaseModel):
+class CoachingHistoryEntry(PFRBaseModel):
     year_id: str
     coach_age: Optional[int] = None
     coach_level: Optional[str] = None
@@ -136,7 +136,7 @@ class CoachingHistoryEntry(BaseModel):
 # --- Coaching Tree Entry (for worked_for and employed tables) ---
 
 
-class CoachingTreeEntry(BaseModel):
+class CoachingTreeEntry(PFRBaseModel):
     coach_name: str
     coach_href: Optional[str] = None
     roles: Optional[str] = None
@@ -145,7 +145,7 @@ class CoachingTreeEntry(BaseModel):
 # --- Challenge Result (from challenge_results table) ---
 
 
-class ChallengeResult(BaseModel):
+class ChallengeResult(PFRBaseModel):
     game_date: Optional[str] = None
     game_date_href: Optional[str] = None
     down: Optional[int] = None
@@ -158,7 +158,7 @@ class ChallengeResult(BaseModel):
 # --- Coach Profile (top-level model) ---
 
 
-class CoachProfile(BaseModel):
+class CoachProfile(PFRBaseModel):
     bio: CoachBio
     coaching_results: List[CoachingResult]
     coaching_results_totals: List[CoachingResultTotal]

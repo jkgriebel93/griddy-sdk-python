@@ -9,14 +9,14 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # ---------------------------------------------------------------------------
 # College (one row in /schools/)
 # ---------------------------------------------------------------------------
 
 
-class College(BaseModel):
+class College(PFRBaseModel):
     rank: Optional[int] = None
     college_name: Optional[str] = None
     college_href: Optional[str] = None
@@ -43,7 +43,7 @@ class College(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class CollegeList(BaseModel):
+class CollegeList(PFRBaseModel):
     colleges: List[College] = []
 
 
@@ -52,7 +52,7 @@ class CollegeList(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HighSchool(BaseModel):
+class HighSchool(PFRBaseModel):
     name: Optional[str] = None
     name_href: Optional[str] = None
     city: Optional[str] = None
@@ -66,5 +66,5 @@ class HighSchool(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HighSchoolList(BaseModel):
+class HighSchoolList(PFRBaseModel):
     schools: List[HighSchool] = []

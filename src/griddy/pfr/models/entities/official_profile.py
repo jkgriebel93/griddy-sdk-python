@@ -8,12 +8,12 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Official Bio (from #meta div) ---
 
 
-class OfficialBio(BaseModel):
+class OfficialBio(PFRBaseModel):
     name: str
     position: Optional[str] = None
 
@@ -21,7 +21,7 @@ class OfficialBio(BaseModel):
 # --- Official Season Stat (from official_stats table body) ---
 
 
-class OfficialSeasonStat(BaseModel):
+class OfficialSeasonStat(PFRBaseModel):
     year: str
     g: Optional[int] = None
     g_playoffs: Optional[int] = None
@@ -47,7 +47,7 @@ class OfficialSeasonStat(BaseModel):
 # --- Official Game (from games table body) ---
 
 
-class OfficialGame(BaseModel):
+class OfficialGame(PFRBaseModel):
     game_date: Optional[str] = None
     game_date_href: Optional[str] = None
     team: Optional[str] = None
@@ -66,7 +66,7 @@ class OfficialGame(BaseModel):
 # --- Official Profile (top-level model) ---
 
 
-class OfficialProfile(BaseModel):
+class OfficialProfile(PFRBaseModel):
     bio: OfficialBio
     official_stats: List[OfficialSeasonStat]
     games: List[OfficialGame]

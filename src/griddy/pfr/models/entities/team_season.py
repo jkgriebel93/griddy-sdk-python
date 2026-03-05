@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Union
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Team Season Metadata ---
 
 
-class TeamSeasonMeta(BaseModel):
+class TeamSeasonMeta(PFRBaseModel):
     record: Optional[str] = None
     division: Optional[str] = None
     division_href: Optional[str] = None
@@ -34,7 +34,7 @@ class TeamSeasonMeta(BaseModel):
 # --- Season Game (from games table) ---
 
 
-class SeasonGame(BaseModel):
+class SeasonGame(PFRBaseModel):
     week_num: str
     game_day_of_week: Optional[str] = None
     game_date: Optional[str] = None
@@ -67,7 +67,7 @@ class SeasonGame(BaseModel):
 # --- Top-level Team Season ---
 
 
-class TeamSeason(BaseModel):
+class TeamSeason(PFRBaseModel):
     meta: TeamSeasonMeta
     team_stats: Dict[str, Dict[str, Union[str, int, float, None]]]
     games: List[SeasonGame]
