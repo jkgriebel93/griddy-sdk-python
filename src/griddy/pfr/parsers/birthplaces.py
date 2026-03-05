@@ -14,49 +14,12 @@ from bs4 import BeautifulSoup, Tag
 
 from griddy.pfr.errors import ParsingError
 
+from ._column_registry import BIRTHPLACES_FILTERED, BIRTHPLACES_LANDING
 from ._helpers import safe_int
 
 
 class BirthplacesParser:
     """Parses the PFR birthplaces pages (landing and filtered)."""
-
-    # Integer columns for the landing page.
-    _LANDING_INT_COLUMNS: List[str] = [
-        "players",
-        "players_active",
-        "hofers",
-        "g",
-        "td",
-        "most_td",
-        "most_g",
-    ]
-
-    # Integer stat columns for the filtered (player-level) page.
-    _FILTERED_STAT_COLUMNS: List[str] = [
-        "year_min",
-        "year_max",
-        "all_pros_first_team",
-        "pro_bowls",
-        "years_as_primary_starter",
-        "career_av",
-        "g",
-        "pass_cmp",
-        "pass_att",
-        "pass_yds",
-        "pass_td",
-        "pass_long",
-        "pass_int",
-        "pass_sacked",
-        "pass_sacked_yds",
-        "rush_att",
-        "rush_yds",
-        "rush_td",
-        "rush_long",
-        "rec",
-        "rec_yds",
-        "rec_td",
-        "rec_long",
-    ]
 
     # ── Landing page helpers ─────────────────────────────────────────
 
@@ -115,7 +78,7 @@ class BirthplacesParser:
             }
 
             # Integer columns
-            for col in self._LANDING_INT_COLUMNS:
+            for col in BIRTHPLACES_LANDING.int_columns:
                 cell = row.find(["th", "td"], {"data-stat": col})
                 entry[col] = safe_int(cell.get_text(strip=True)) if cell else None
 
@@ -269,7 +232,7 @@ class BirthplacesParser:
             }
 
             # Integer stat columns
-            for col in self._FILTERED_STAT_COLUMNS:
+            for col in BIRTHPLACES_FILTERED.int_columns:
                 cell = row.find(["th", "td"], {"data-stat": col})
                 entry[col] = safe_int(cell.get_text(strip=True)) if cell else None
 

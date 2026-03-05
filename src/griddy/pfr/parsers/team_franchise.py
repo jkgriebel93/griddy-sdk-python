@@ -9,28 +9,8 @@ from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 
-from ._helpers import safe_int
-
-# Columns in the team_index table that should be cast to int.
-_INT_COLUMNS = {
-    "wins",
-    "losses",
-    "ties",
-    "points",
-    "points_opp",
-    "points_diff",
-    "rank_off_pts",
-    "rank_off_yds",
-    "rank_def_pts",
-    "rank_def_yds",
-    "rank_takeaway_giveaway",
-    "rank_points_diff",
-    "rank_yds_diff",
-    "teams_in_league",
-}
-
-# Columns in the team_index table that should be cast to float.
-_FLOAT_COLUMNS = {"mov", "sos_total", "srs_total", "srs_offense", "srs_defense"}
+from ._column_registry import TEAM_FRANCHISE
+from ._helpers import safe_float, safe_int
 
 # Columns where we extract hrefs from links.
 _LINK_COLUMNS = {
@@ -165,13 +145,10 @@ class FranchiseParser:
                 text = cell.get_text(strip=True)
 
                 # Cast numeric columns.
-                if stat in _INT_COLUMNS:
+                if stat in TEAM_FRANCHISE.int_columns:
                     row_data[stat] = safe_int(text)
-                elif stat in _FLOAT_COLUMNS:
-                    try:
-                        row_data[stat] = float(text) if text else None
-                    except (ValueError, TypeError):
-                        row_data[stat] = None
+                elif stat in TEAM_FRANCHISE.float_columns:
+                    row_data[stat] = safe_float(text)
                 else:
                     row_data[stat] = text
 

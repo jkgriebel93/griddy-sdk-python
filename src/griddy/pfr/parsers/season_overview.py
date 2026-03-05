@@ -13,16 +13,12 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
+from ._column_registry import (
+    SEASON_PLAYOFF_RESULTS,
+    SEASON_PLAYOFF_STANDINGS,
+    SEASON_STANDINGS,
+)
 from ._helpers import safe_int
-
-# Columns in standings tables that should be cast to int.
-_STANDINGS_INT_COLS = {"wins", "losses", "points", "points_opp", "points_diff"}
-
-# Columns in playoff standings tables that should be cast to int.
-_PLAYOFF_STANDINGS_INT_COLS = {"wins", "losses", "ties"}
-
-# Columns in playoff results tables that should be cast to int.
-_PLAYOFF_RESULTS_INT_COLS = {"pts_win", "pts_lose"}
 
 # Columns in playoff results with hrefs to extract.
 _PLAYOFF_RESULTS_LINK_COLS = {"winner", "loser", "boxscore_word"}
@@ -171,7 +167,7 @@ class SeasonOverviewParser:
                     a = cell.find("a")
                     if a and a.get("href"):
                         row["team_href"] = a["href"]
-                elif stat in _STANDINGS_INT_COLS:
+                elif stat in SEASON_STANDINGS.int_columns:
                     row[stat] = safe_int(text)
                 else:
                     row[stat] = text
@@ -212,7 +208,7 @@ class SeasonOverviewParser:
 
                 text = cell.get_text(strip=True)
 
-                if stat in _PLAYOFF_RESULTS_INT_COLS:
+                if stat in SEASON_PLAYOFF_RESULTS.int_columns:
                     row[stat] = safe_int(text)
                 else:
                     row[stat] = text
@@ -269,7 +265,7 @@ class SeasonOverviewParser:
                     a = cell.find("a")
                     if a and a.get("href"):
                         row["team_href"] = a["href"]
-                elif stat in _PLAYOFF_STANDINGS_INT_COLS:
+                elif stat in SEASON_PLAYOFF_STANDINGS.int_columns:
                     row[stat] = safe_int(text)
                 else:
                     row[stat] = text

@@ -6,58 +6,12 @@ Handles three page types:
 - ``/years/{year}/probowl.htm`` — Pro Bowl roster (table ``#pro_bowl``)
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int
-
-# Columns whose text should be cast to int
-_INT_COLUMNS = {
-    "all_pros_first_team",
-    "pro_bowls",
-    "years_as_primary_starter",
-    "career_av",
-    "g",
-    "gs",
-    "pass_cmp",
-    "pass_att",
-    "pass_yds",
-    "pass_td",
-    "pass_long",
-    "pass_int",
-    "pass_sacked",
-    "pass_sacked_yds",
-    "rush_att",
-    "rush_yds",
-    "rush_td",
-    "rush_long",
-    "rec",
-    "rec_yds",
-    "rec_td",
-    "rec_long",
-    "all_purpose_yds",
-    "all_td",
-    "tackles_combined",
-    "tackles_solo",
-    "def_int",
-    "age",
-    "experience",
-    "year_min",
-    "year_max",
-}
-
-_FLOAT_COLUMNS = {
-    "sacks",
-}
-
-
-def _safe_float(value: str) -> Optional[float]:
-    """Convert a string to float, returning None for empty/non-numeric."""
-    try:
-        return float(value)
-    except (ValueError, TypeError):
-        return None
+from ._column_registry import AWARDS
+from ._helpers import safe_float, safe_int
 
 
 class AwardsParser:
@@ -200,10 +154,10 @@ class AwardsParser:
                     link = cell.find("a")
                     if link:
                         row["year_induction_href"] = link.get("href")
-                elif stat in _INT_COLUMNS:
+                elif stat in AWARDS.int_columns:
                     row[stat] = safe_int(text)
-                elif stat in _FLOAT_COLUMNS:
-                    row[stat] = _safe_float(text)
+                elif stat in AWARDS.float_columns:
+                    row[stat] = safe_float(text)
 
             if not all_empty:
                 players.append(row)
@@ -287,10 +241,10 @@ class AwardsParser:
                         row["team_href"] = link.get("href")
                 elif stat == "all_pro_string":
                     row["all_pro_string"] = text or None
-                elif stat in _INT_COLUMNS:
+                elif stat in AWARDS.int_columns:
                     row[stat] = safe_int(text)
-                elif stat in _FLOAT_COLUMNS:
-                    row[stat] = _safe_float(text)
+                elif stat in AWARDS.float_columns:
+                    row[stat] = safe_float(text)
 
             if not all_empty:
                 players.append(row)
