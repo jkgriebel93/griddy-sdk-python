@@ -31,52 +31,62 @@ class TestGriddyError:
 
 
 @pytest.mark.unit
-class TestAPIError:
-    def test_inherits_from_griddy_error(self):
-        assert issubclass(APIError, GriddyError)
+class TestExceptionSubclasses:
+    @pytest.mark.parametrize(
+        "exc_class",
+        [
+            pytest.param(APIError, id="APIError"),
+            pytest.param(RateLimitError, id="RateLimitError"),
+            pytest.param(NotFoundError, id="NotFoundError"),
+            pytest.param(AuthenticationError, id="AuthenticationError"),
+            pytest.param(ValidationError, id="ValidationError"),
+        ],
+    )
+    def test_inherits_from_griddy_error(self, exc_class):
+        assert issubclass(exc_class, GriddyError)
 
-    def test_construction(self):
-        err = APIError("api failed", status_code=503)
-        assert err.message == "api failed"
-        assert err.status_code == 503
+    @pytest.mark.parametrize(
+        "exc_class,kwargs,expected_status",
+        [
+            pytest.param(
+                APIError,
+                {"message": "api failed", "status_code": 503},
+                503,
+                id="APIError",
+            ),
+            pytest.param(
+                NotFoundError,
+                {"message": "not found", "status_code": 404},
+                404,
+                id="NotFoundError",
+            ),
+            pytest.param(
+                ValidationError,
+                {"message": "bad input", "status_code": 400},
+                400,
+                id="ValidationError",
+            ),
+        ],
+    )
+    def test_construction_with_status_code(self, exc_class, kwargs, expected_status):
+        err = exc_class(**kwargs)
+        assert err.message == kwargs["message"]
+        assert err.status_code == expected_status
 
 
 @pytest.mark.unit
 class TestRateLimitError:
-    def test_inherits_from_griddy_error(self):
-        assert issubclass(RateLimitError, GriddyError)
-
-    def test_retry_after(self):
-        err = RateLimitError("rate limited", retry_after=60)
-        assert err.retry_after == 60
+    @pytest.mark.parametrize(
+        "retry_after,expected",
+        [
+            pytest.param(60, 60, id="with_retry_after"),
+            pytest.param(None, None, id="without_retry_after"),
+        ],
+    )
+    def test_retry_after(self, retry_after, expected):
+        kwargs = {"message": "rate limited"}
+        if retry_after is not None:
+            kwargs["retry_after"] = retry_after
+        err = RateLimitError(**kwargs)
+        assert err.retry_after == expected
         assert err.message == "rate limited"
-
-    def test_retry_after_none(self):
-        err = RateLimitError("rate limited")
-        assert err.retry_after is None
-
-
-@pytest.mark.unit
-class TestNotFoundError:
-    def test_inherits(self):
-        assert issubclass(NotFoundError, GriddyError)
-
-    def test_construction(self):
-        err = NotFoundError("not found", status_code=404)
-        assert err.status_code == 404
-
-
-@pytest.mark.unit
-class TestAuthenticationError:
-    def test_inherits(self):
-        assert issubclass(AuthenticationError, GriddyError)
-
-
-@pytest.mark.unit
-class TestValidationError:
-    def test_inherits(self):
-        assert issubclass(ValidationError, GriddyError)
-
-    def test_construction(self):
-        err = ValidationError("bad input", status_code=400)
-        assert err.status_code == 400

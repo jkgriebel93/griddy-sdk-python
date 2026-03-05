@@ -14,79 +14,58 @@ from griddy.nfl.errors import (
 )
 
 
+def _make_response(status_code=400, method="GET", text="Bad Request", headers=None):
+    return httpx.Response(
+        status_code=status_code,
+        text=text,
+        headers=headers or {},
+        request=httpx.Request(method, "https://api.example.com"),
+    )
+
+
 @pytest.mark.unit
 class TestGriddyNFLError:
     """Test cases for GriddyNFLError base class"""
 
-    def test_error_initialization(self):
-        """Test GriddyNFLError initialization with response"""
-        response = httpx.Response(
-            status_code=404,
-            text="Not Found",
-            headers={"content-type": "application/json"},
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
+    @pytest.mark.parametrize(
+        "status_code,text,method,message",
+        [
+            pytest.param(404, "Not Found", "GET", "Resource not found", id="404_GET"),
+            pytest.param(
+                500, "Server Error", "POST", "Server error occurred", id="500_POST"
+            ),
+            pytest.param(400, "Bad Request", "PUT", "Invalid request", id="400_PUT"),
+            pytest.param(403, "Forbidden", "GET", "Access denied", id="403_GET"),
+            pytest.param(401, "Unauthorized", "GET", "Auth error", id="401_GET"),
+        ],
+    )
+    def test_error_initialization(self, status_code, text, method, message):
+        response = _make_response(status_code=status_code, text=text, method=method)
+        error = GriddyNFLError(message, response)
 
-        error = GriddyNFLError("Resource not found", response)
-
-        assert error.message == "Resource not found"
-        assert error.status_code == 404
-        assert error.body == "Not Found"
+        assert error.message == message
+        assert error.status_code == status_code
+        assert error.body == text
         assert isinstance(error.headers, httpx.Headers)
         assert error.raw_response == response
+        assert isinstance(error, Exception)
 
     def test_error_initialization_with_custom_body(self):
-        """Test GriddyNFLError initialization with custom body"""
-        response = httpx.Response(
-            status_code=500,
-            text="Server Error",
-            headers={"content-type": "text/plain"},
-            request=httpx.Request("POST", "https://api.example.com"),
-        )
-
+        response = _make_response(status_code=500, text="Server Error")
         custom_body = "Custom error body"
         error = GriddyNFLError("Server error occurred", response, body=custom_body)
 
-        assert error.message == "Server error occurred"
-        assert error.status_code == 500
         assert error.body == custom_body
         assert error.body != response.text
 
     def test_error_str_representation(self):
-        """Test GriddyNFLError string representation"""
-        response = httpx.Response(
-            status_code=400,
-            text="Bad Request",
-            request=httpx.Request("PUT", "https://api.example.com"),
-        )
-
+        response = _make_response(status_code=400, text="Bad Request")
         error = GriddyNFLError("Invalid request", response)
-
         assert str(error) == "Invalid request"
 
-    def test_error_is_exception(self):
-        """Test that GriddyNFLError is an Exception"""
-        response = httpx.Response(
-            status_code=403,
-            text="Forbidden",
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
-
-        error = GriddyNFLError("Access denied", response)
-
-        assert isinstance(error, Exception)
-
     def test_error_is_frozen_dataclass(self):
-        """Test that GriddyNFLError is a frozen dataclass"""
-        response = httpx.Response(
-            status_code=401,
-            text="Unauthorized",
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
-
+        response = _make_response(status_code=401, text="Unauthorized")
         error = GriddyNFLError("Auth error", response)
-
-        # Should not be able to modify frozen dataclass
         with pytest.raises(AttributeError):
             error.message = "New message"
 
@@ -95,93 +74,73 @@ class TestGriddyNFLError:
 class TestGriddyNFLDefaultError:
     """Test cases for GriddyNFLDefaultError"""
 
-    def test_default_error_with_json_content_type(self):
-        """Test default error formatting with JSON content type"""
-        response = httpx.Response(
-            status_code=404,
-            text='{"error": "not found"}',
-            headers={"content-type": "application/json"},
-            request=httpx.Request("GET", "https://api.example.com/resource"),
+    @pytest.mark.parametrize(
+        "status_code,content_type,text,should_include_ct",
+        [
+            pytest.param(
+                404,
+                "application/json",
+                '{"error": "not found"}',
+                False,
+                id="json_excludes_content_type",
+            ),
+            pytest.param(
+                500,
+                "text/html",
+                "<html>Server Error</html>",
+                True,
+                id="html_includes_content_type",
+            ),
+            pytest.param(
+                415,
+                "text/plain; charset=utf-8",
+                "Unsupported",
+                True,
+                id="charset_content_type_quoted",
+            ),
+        ],
+    )
+    def test_content_type_handling(
+        self, status_code, content_type, text, should_include_ct
+    ):
+        response = _make_response(
+            status_code=status_code,
+            text=text,
+            headers={"content-type": content_type},
         )
+        error = GriddyNFLDefaultError("API error", response)
 
-        error = GriddyNFLDefaultError("API error occurred", response)
-
-        assert "API error occurred:" in error.message
-        assert "Status 404" in error.message
-        assert '{"error": "not found"}' in error.message
-        # Content-Type should not be included for application/json
-        assert "Content-Type" not in error.message
-
-    def test_default_error_with_non_json_content_type(self):
-        """Test default error formatting with non-JSON content type"""
-        response = httpx.Response(
-            status_code=500,
-            text="<html>Server Error</html>",
-            headers={"content-type": "text/html"},
-            request=httpx.Request("POST", "https://api.example.com"),
-        )
-
-        error = GriddyNFLDefaultError("Server error", response)
-
-        assert "Server error:" in error.message
-        assert "Status 500" in error.message
-        assert "Content-Type text/html" in error.message
-        assert "<html>Server Error</html>" in error.message
-
-    def test_default_error_with_content_type_with_spaces(self):
-        """Test default error formatting with content type containing spaces"""
-        response = httpx.Response(
-            status_code=415,
-            text="Unsupported",
-            headers={"content-type": "text/plain; charset=utf-8"},
-            request=httpx.Request("PUT", "https://api.example.com"),
-        )
-
-        error = GriddyNFLDefaultError("Unsupported media type", response)
-
-        assert "Status 415" in error.message
-        assert 'Content-Type "text/plain; charset=utf-8"' in error.message
+        assert f"Status {status_code}" in error.message
+        assert text in error.message
+        if should_include_ct:
+            assert content_type in error.message
+        else:
+            assert "Content-Type" not in error.message
 
     def test_default_error_truncates_long_body(self):
-        """Test that default error truncates very long response bodies"""
-        long_body = "x" * 15000  # More than MAX_MESSAGE_LEN (10000)
-        response = httpx.Response(
-            status_code=400,
+        long_body = "x" * 15000
+        response = _make_response(
             text=long_body,
             headers={"content-type": "text/plain"},
-            request=httpx.Request("GET", "https://api.example.com"),
         )
-
         error = GriddyNFLDefaultError("Long error", response)
 
         assert "...and 5000 more chars" in error.message
-        assert long_body not in error.message  # Full body should not be included
+        assert long_body not in error.message
 
     def test_default_error_with_empty_message(self):
-        """Test default error with empty message string"""
-        response = httpx.Response(
+        response = _make_response(
             status_code=503,
             text="Service Unavailable",
             headers={"content-type": "text/plain"},
-            request=httpx.Request("GET", "https://api.example.com"),
         )
-
         error = GriddyNFLDefaultError("", response)
-
-        # Should still contain status and body
         assert "Status 503" in error.message
         assert "Service Unavailable" in error.message
 
     def test_default_error_inherits_from_base_error(self):
-        """Test that GriddyNFLDefaultError inherits from GriddyNFLError"""
-        response = httpx.Response(
-            status_code=400,
-            text="Bad Request",
-            request=httpx.Request("POST", "https://api.example.com"),
-        )
-
+        response = _make_response()
         error = GriddyNFLDefaultError("Error", response)
-
         assert isinstance(error, GriddyNFLError)
         assert isinstance(error, Exception)
 
@@ -190,40 +149,33 @@ class TestGriddyNFLDefaultError:
 class TestNoResponseError:
     """Test cases for NoResponseError"""
 
-    def test_no_response_error_default_message(self):
-        """Test NoResponseError with default message"""
-        error = NoResponseError()
-
-        assert error.message == "No response received"
-        assert str(error) == "No response received"
-
-    def test_no_response_error_custom_message(self):
-        """Test NoResponseError with custom message"""
-        custom_message = "Connection timeout - no response"
-        error = NoResponseError(custom_message)
-
-        assert error.message == custom_message
-        assert str(error) == custom_message
+    @pytest.mark.parametrize(
+        "message,expected",
+        [
+            pytest.param(None, "No response received", id="default_message"),
+            pytest.param(
+                "Connection timeout - no response",
+                "Connection timeout - no response",
+                id="custom_message",
+            ),
+        ],
+    )
+    def test_message(self, message, expected):
+        error = NoResponseError() if message is None else NoResponseError(message)
+        assert error.message == expected
+        assert str(error) == expected
 
     def test_no_response_error_is_exception(self):
-        """Test that NoResponseError is an Exception"""
-        error = NoResponseError()
-
-        assert isinstance(error, Exception)
+        assert isinstance(NoResponseError(), Exception)
 
     def test_no_response_error_is_frozen(self):
-        """Test that NoResponseError is a frozen dataclass"""
         error = NoResponseError("Test message")
-
-        # Should not be able to modify frozen dataclass
         with pytest.raises(AttributeError):
             error.message = "New message"
 
     def test_no_response_error_can_be_raised(self):
-        """Test that NoResponseError can be raised and caught"""
         with pytest.raises(NoResponseError) as exc_info:
             raise NoResponseError("Test error")
-
         assert exc_info.value.message == "Test error"
 
 
@@ -231,67 +183,38 @@ class TestNoResponseError:
 class TestResponseValidationError:
     """Test cases for ResponseValidationError"""
 
-    def test_response_validation_error_initialization(self):
-        """Test ResponseValidationError initialization"""
-        response = httpx.Response(
-            status_code=200,
-            text='{"invalid": "data"}',
-            headers={"content-type": "application/json"},
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
-
-        cause = ValueError("Field 'required_field' is missing")
-        error = ResponseValidationError(
-            "Response validation failed", response, cause=cause
-        )
-
-        assert "Response validation failed:" in error.message
-        assert "Field 'required_field' is missing" in error.message
-        assert error.status_code == 200
-
-    def test_response_validation_error_message_includes_cause(self):
-        """Test ResponseValidationError message includes cause"""
-        response = httpx.Response(
-            status_code=200,
-            text="{}",
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
-
-        cause = TypeError("Invalid type")
+    @pytest.mark.parametrize(
+        "cause_class,cause_msg",
+        [
+            pytest.param(
+                ValueError, "Field 'required_field' is missing", id="value_error"
+            ),
+            pytest.param(TypeError, "Invalid type", id="type_error"),
+        ],
+    )
+    def test_message_includes_cause(self, cause_class, cause_msg):
+        response = _make_response(status_code=200, text="{}")
+        cause = cause_class(cause_msg)
         error = ResponseValidationError("Validation error", response, cause=cause)
 
-        # The message should include both the main message and the cause
         assert "Validation error:" in error.message
-        assert "Invalid type" in error.message
+        assert cause_msg in error.message
 
     def test_response_validation_error_with_custom_body(self):
-        """Test ResponseValidationError with custom body"""
-        response = httpx.Response(
-            status_code=200,
-            text='{"data": "original"}',
-            request=httpx.Request("POST", "https://api.example.com"),
-        )
-
-        cause = ValueError("Validation failed")
+        response = _make_response(status_code=200, text='{"data": "original"}')
         custom_body = '{"data": "custom"}'
         error = ResponseValidationError(
-            "Custom validation error", response, cause=cause, body=custom_body
+            "Custom validation error",
+            response,
+            cause=ValueError("Validation failed"),
+            body=custom_body,
         )
-
         assert error.body == custom_body
         assert error.body != response.text
 
     def test_response_validation_error_inherits_from_base_error(self):
-        """Test that ResponseValidationError inherits from GriddyNFLError"""
-        response = httpx.Response(
-            status_code=200,
-            text="data",
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
-
-        cause = Exception("Test cause")
-        error = ResponseValidationError("Test", response, cause=cause)
-
+        response = _make_response(status_code=200, text="data")
+        error = ResponseValidationError("Test", response, cause=Exception("Test cause"))
         assert isinstance(error, GriddyNFLError)
         assert isinstance(error, Exception)
 
@@ -300,25 +223,27 @@ class TestResponseValidationError:
 class TestErrorsModuleLazyLoading:
     """Test the lazy loading mechanism in errors module"""
 
-    def test_can_import_all_errors_from_module(self):
-        """Test that all error classes can be imported from the module"""
+    @pytest.mark.parametrize(
+        "attr_name",
+        [
+            pytest.param("GriddyNFLError", id="GriddyNFLError"),
+            pytest.param("GriddyNFLDefaultError", id="GriddyNFLDefaultError"),
+            pytest.param("NoResponseError", id="NoResponseError"),
+            pytest.param("ResponseValidationError", id="ResponseValidationError"),
+        ],
+    )
+    def test_can_import_error_from_module(self, attr_name):
         from griddy.nfl import errors
 
-        assert hasattr(errors, "GriddyNFLError")
-        assert hasattr(errors, "GriddyNFLDefaultError")
-        assert hasattr(errors, "NoResponseError")
-        assert hasattr(errors, "ResponseValidationError")
+        assert hasattr(errors, attr_name)
 
     def test_dynamic_import_returns_error_classes(self):
-        """Test that __getattr__ returns the correct error classes"""
         from griddy.nfl import errors
 
-        # Access via __getattr__
         GriddyNFLDefaultError = errors.GriddyNFLDefaultError
         assert GriddyNFLDefaultError.__name__ == "GriddyNFLDefaultError"
 
     def test_invalid_attribute_raises_error(self):
-        """Test that accessing invalid attribute raises AttributeError"""
         from griddy.nfl import errors
 
         with pytest.raises(AttributeError):
@@ -329,29 +254,29 @@ class TestErrorsModuleLazyLoading:
 class TestUnifiedHierarchy:
     """Tests that NFL errors are catchable via public GriddyError/APIError."""
 
-    def test_nfl_error_is_api_error(self):
-        assert issubclass(GriddyNFLError, APIError)
+    @pytest.mark.parametrize(
+        "child,parent",
+        [
+            pytest.param(GriddyNFLError, APIError, id="NFLError_is_APIError"),
+            pytest.param(GriddyNFLError, GriddyError, id="NFLError_is_GriddyError"),
+            pytest.param(
+                GriddyNFLDefaultError,
+                GriddyError,
+                id="NFLDefaultError_is_GriddyError",
+            ),
+        ],
+    )
+    def test_inheritance(self, child, parent):
+        assert issubclass(child, parent)
 
-    def test_nfl_error_is_griddy_error(self):
-        assert issubclass(GriddyNFLError, GriddyError)
-
-    def test_nfl_default_error_is_griddy_error(self):
-        assert issubclass(GriddyNFLDefaultError, GriddyError)
-
-    def test_nfl_error_caught_by_griddy_error(self):
-        response = httpx.Response(
-            status_code=500,
-            text="error",
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
+    @pytest.mark.parametrize(
+        "error_class",
+        [
+            pytest.param(GriddyNFLError, id="GriddyNFLError"),
+            pytest.param(GriddyNFLDefaultError, id="GriddyNFLDefaultError"),
+        ],
+    )
+    def test_caught_by_griddy_error(self, error_class):
+        response = _make_response(status_code=500, text="error")
         with pytest.raises(GriddyError):
-            raise GriddyNFLError("nfl error", response)
-
-    def test_nfl_default_error_caught_by_griddy_error(self):
-        response = httpx.Response(
-            status_code=500,
-            text="error",
-            request=httpx.Request("GET", "https://api.example.com"),
-        )
-        with pytest.raises(GriddyError):
-            raise GriddyNFLDefaultError("nfl error", response)
+            raise error_class("nfl error", response)

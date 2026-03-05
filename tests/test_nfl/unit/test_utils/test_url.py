@@ -36,32 +36,32 @@ class TestTemplateUrl:
 
 @pytest.mark.unit
 class TestRemoveSuffix:
-    def test_suffix_present(self):
-        assert remove_suffix("hello_world", "_world") == "hello"
-
-    def test_suffix_not_present(self):
-        assert remove_suffix("hello", "_world") == "hello"
-
-    def test_empty_suffix(self):
-        assert remove_suffix("hello", "") == "hello"
-
-    def test_empty_string(self):
-        assert remove_suffix("", "suffix") == ""
+    @pytest.mark.parametrize(
+        "string,suffix,expected",
+        [
+            pytest.param("hello_world", "_world", "hello", id="suffix_present"),
+            pytest.param("hello", "_world", "hello", id="suffix_absent"),
+            pytest.param("hello", "", "hello", id="empty_suffix"),
+            pytest.param("", "suffix", "", id="empty_string"),
+        ],
+    )
+    def test_remove_suffix(self, string, suffix, expected):
+        assert remove_suffix(string, suffix) == expected
 
 
 @pytest.mark.unit
 class TestIsOptional:
-    def test_optional_type(self):
-        assert is_optional(Optional[str]) is True
-
-    def test_non_optional_type(self):
-        assert is_optional(str) is False
-
-    def test_union_with_none(self):
-        assert is_optional(Union[str, None]) is True
-
-    def test_union_without_none(self):
-        assert is_optional(Union[str, int]) is False
+    @pytest.mark.parametrize(
+        "type_hint,expected",
+        [
+            pytest.param(Optional[str], True, id="Optional_str"),
+            pytest.param(str, False, id="plain_str"),
+            pytest.param(Union[str, None], True, id="Union_str_None"),
+            pytest.param(Union[str, int], False, id="Union_str_int"),
+        ],
+    )
+    def test_is_optional(self, type_hint, expected):
+        assert is_optional(type_hint) is expected
 
 
 @pytest.mark.unit

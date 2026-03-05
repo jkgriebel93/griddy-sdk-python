@@ -23,11 +23,15 @@ def _make_response(status_code=400, content_type="application/json", text="error
 
 @pytest.mark.unit
 class TestGriddyPFRError:
-    def test_inherits_from_sdk_error(self):
-        assert issubclass(GriddyPFRError, SDKError)
-
-    def test_inherits_from_exception(self):
-        assert issubclass(GriddyPFRError, Exception)
+    @pytest.mark.parametrize(
+        "parent_class",
+        [
+            pytest.param(SDKError, id="SDKError"),
+            pytest.param(Exception, id="Exception"),
+        ],
+    )
+    def test_inherits_from(self, parent_class):
+        assert issubclass(GriddyPFRError, parent_class)
 
     def test_basic_creation(self):
         response = _make_response()
@@ -48,35 +52,51 @@ class TestGriddyPFRDefaultError:
     def test_inherits_from_pfr_error(self):
         assert issubclass(GriddyPFRDefaultError, GriddyPFRError)
 
-    def test_message_includes_status_code(self):
-        response = _make_response(status_code=500)
-        err = GriddyPFRDefaultError("API error occurred", response)
-        assert "Status 500" in str(err)
-
-    def test_message_includes_body(self):
-        response = _make_response(text="Internal Server Error")
-        err = GriddyPFRDefaultError("API error occurred", response)
-        assert "Internal Server Error" in str(err)
-
-    def test_message_includes_content_type_for_non_json(self):
-        response = _make_response(content_type="text/html")
+    @pytest.mark.parametrize(
+        "content_type,should_include_ct",
+        [
+            pytest.param("text/html", True, id="html_includes_ct"),
+            pytest.param("application/json", False, id="json_excludes_ct"),
+            pytest.param("text/html; charset=utf-8", True, id="charset_ct_quoted"),
+        ],
+    )
+    def test_content_type_handling(self, content_type, should_include_ct):
+        response = _make_response(content_type=content_type)
         err = GriddyPFRDefaultError("error", response)
-        assert "text/html" in str(err)
+        msg = str(err)
+        if should_include_ct:
+            assert content_type in msg
+        else:
+            assert "Content-Type" not in msg
 
-    def test_message_excludes_content_type_for_json(self):
-        response = _make_response(content_type="application/json")
-        err = GriddyPFRDefaultError("error", response)
-        assert "Content-Type" not in str(err)
+    @pytest.mark.parametrize(
+        "status_code,text,check_field,check_value",
+        [
+            pytest.param(
+                500,
+                "Internal Server Error",
+                "status",
+                "Status 500",
+                id="includes_status_code",
+            ),
+            pytest.param(
+                400,
+                "Internal Server Error",
+                "body",
+                "Internal Server Error",
+                id="includes_body",
+            ),
+        ],
+    )
+    def test_message_contents(self, status_code, text, check_field, check_value):
+        response = _make_response(status_code=status_code, text=text)
+        err = GriddyPFRDefaultError("API error occurred", response)
+        assert check_value in str(err)
 
     def test_long_body_truncated(self):
         response = _make_response(text="x" * 20000)
         err = GriddyPFRDefaultError("error", response)
         assert "more chars" in str(err)
-
-    def test_content_type_with_spaces_quoted(self):
-        response = _make_response(content_type="text/html; charset=utf-8")
-        err = GriddyPFRDefaultError("error", response)
-        assert '"text/html; charset=utf-8"' in str(err)
 
     def test_empty_message_prefix(self):
         response = _make_response()
@@ -92,13 +112,16 @@ class TestGriddyPFRDefaultError:
 
 @pytest.mark.unit
 class TestNoResponseError:
-    def test_default_message(self):
-        err = NoResponseError()
-        assert str(err) == "No response received"
-
-    def test_custom_message(self):
-        err = NoResponseError("Server timed out")
-        assert str(err) == "Server timed out"
+    @pytest.mark.parametrize(
+        "message,expected",
+        [
+            pytest.param(None, "No response received", id="default_message"),
+            pytest.param("Server timed out", "Server timed out", id="custom_message"),
+        ],
+    )
+    def test_message(self, message, expected):
+        err = NoResponseError() if message is None else NoResponseError(message)
+        assert str(err) == expected
 
     def test_is_exception(self):
         assert issubclass(NoResponseError, Exception)
@@ -124,20 +147,18 @@ class TestResponseValidationError:
 
 @pytest.mark.unit
 class TestErrorModuleLazyLoading:
-    def test_lazy_import_default_error(self):
+    @pytest.mark.parametrize(
+        "attr_name",
+        [
+            pytest.param("GriddyPFRDefaultError", id="GriddyPFRDefaultError"),
+            pytest.param("NoResponseError", id="NoResponseError"),
+            pytest.param("ResponseValidationError", id="ResponseValidationError"),
+        ],
+    )
+    def test_lazy_import(self, attr_name):
         from griddy.pfr import errors
 
-        assert hasattr(errors, "GriddyPFRDefaultError")
-
-    def test_lazy_import_no_response_error(self):
-        from griddy.pfr import errors
-
-        assert hasattr(errors, "NoResponseError")
-
-    def test_lazy_import_response_validation_error(self):
-        from griddy.pfr import errors
-
-        assert hasattr(errors, "ResponseValidationError")
+        assert hasattr(errors, attr_name)
 
     def test_unknown_attr_raises(self):
         from griddy.pfr import errors
@@ -177,24 +198,33 @@ class TestParsingError:
         assert err.selector == "games"
         assert err.html_sample == "<html><body>...</body></html>"
 
-    def test_str_message_only(self):
-        err = ParsingError("Could not find table")
-        assert str(err) == "Could not find table"
-
-    def test_str_with_url_and_selector(self):
-        err = ParsingError(
-            "Could not find table",
-            url="https://example.com/page",
-            selector="games",
-        )
-        assert (
-            str(err)
-            == "Could not find table | url=https://example.com/page | selector=games"
-        )
-
-    def test_str_with_selector_only(self):
-        err = ParsingError("Could not find table", selector="games")
-        assert str(err) == "Could not find table | selector=games"
+    @pytest.mark.parametrize(
+        "kwargs,expected_str",
+        [
+            pytest.param(
+                {"message": "Could not find table"},
+                "Could not find table",
+                id="message_only",
+            ),
+            pytest.param(
+                {
+                    "message": "Could not find table",
+                    "url": "https://example.com/page",
+                    "selector": "games",
+                },
+                "Could not find table | url=https://example.com/page | selector=games",
+                id="url_and_selector",
+            ),
+            pytest.param(
+                {"message": "Could not find table", "selector": "games"},
+                "Could not find table | selector=games",
+                id="selector_only",
+            ),
+        ],
+    )
+    def test_str_representation(self, kwargs, expected_str):
+        err = ParsingError(**kwargs)
+        assert str(err) == expected_str
 
     def test_caught_by_griddy_error(self):
         with pytest.raises(GriddyError):
@@ -211,21 +241,29 @@ class TestParsingError:
 class TestUnifiedHierarchy:
     """Tests that PFR errors are catchable via public GriddyError/APIError."""
 
-    def test_pfr_error_is_api_error(self):
-        assert issubclass(GriddyPFRError, APIError)
+    @pytest.mark.parametrize(
+        "child,parent",
+        [
+            pytest.param(GriddyPFRError, APIError, id="PFRError_is_APIError"),
+            pytest.param(GriddyPFRError, GriddyError, id="PFRError_is_GriddyError"),
+            pytest.param(
+                GriddyPFRDefaultError,
+                GriddyError,
+                id="PFRDefaultError_is_GriddyError",
+            ),
+        ],
+    )
+    def test_inheritance(self, child, parent):
+        assert issubclass(child, parent)
 
-    def test_pfr_error_is_griddy_error(self):
-        assert issubclass(GriddyPFRError, GriddyError)
-
-    def test_pfr_default_error_is_griddy_error(self):
-        assert issubclass(GriddyPFRDefaultError, GriddyError)
-
-    def test_pfr_error_caught_by_griddy_error(self):
+    @pytest.mark.parametrize(
+        "error_class",
+        [
+            pytest.param(GriddyPFRError, id="GriddyPFRError"),
+            pytest.param(GriddyPFRDefaultError, id="GriddyPFRDefaultError"),
+        ],
+    )
+    def test_caught_by_griddy_error(self, error_class):
         response = _make_response()
         with pytest.raises(GriddyError):
-            raise GriddyPFRError("pfr error", response)
-
-    def test_pfr_default_error_caught_by_griddy_error(self):
-        response = _make_response()
-        with pytest.raises(GriddyError):
-            raise GriddyPFRDefaultError("pfr error", response)
+            raise error_class("pfr error", response)
