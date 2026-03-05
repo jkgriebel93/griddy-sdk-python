@@ -9,10 +9,8 @@ from bs4 import BeautifulSoup, Tag
 
 from griddy.pfr.errors import ParsingError
 
+from ._column_registry import SCHEDULE
 from ._helpers import safe_int
-
-# Columns in the PFR schedule table where the cell value should be cast to int.
-_INT_COLUMNS = {"pts_win", "pts_lose", "yards_win", "to_win", "yards_lose", "to_lose"}
 
 # Columns where we also want to extract the ``href`` from a child ``<a>`` tag.
 _LINK_COLUMNS = {"winner", "loser", "boxscore_word"}
@@ -33,7 +31,7 @@ class ScheduleParser:
         text = cell.get_text(strip=True)
         result: Dict[str, Any] = {}
 
-        if stat in _INT_COLUMNS:
+        if stat in SCHEDULE.int_columns:
             result[stat] = safe_int(text)
         else:
             result[stat] = text

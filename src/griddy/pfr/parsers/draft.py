@@ -6,57 +6,12 @@ Handles three page types:
 - ``/teams/{team}/draft.htm`` — team-specific draft history (table ``#draft``)
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int
-
-# Columns whose text should be cast to int
-_INT_COLUMNS = {
-    "draft_round",
-    "draft_pick",
-    "age",
-    "year_max",
-    "all_pros_first_team",
-    "pro_bowls",
-    "years_as_primary_starter",
-    "career_av",
-    "draft_av",
-    "g",
-    "pass_cmp",
-    "pass_att",
-    "pass_yds",
-    "pass_td",
-    "pass_int",
-    "rush_att",
-    "rush_yds",
-    "rush_td",
-    "rec",
-    "rec_yds",
-    "rec_td",
-    "tackles_solo",
-    "def_int",
-    "weight",
-    "bench_reps",
-    "broad_jump",
-}
-
-_FLOAT_COLUMNS = {
-    "sacks",
-    "forty_yd",
-    "vertical",
-    "cone",
-    "shuttle",
-}
-
-
-def _safe_float(value: str) -> Optional[float]:
-    """Convert a string to float, returning None for empty/non-numeric."""
-    try:
-        return float(value)
-    except (ValueError, TypeError):
-        return None
+from ._column_registry import DRAFT
+from ._helpers import safe_float, safe_int
 
 
 class DraftParser:
@@ -128,10 +83,10 @@ class DraftParser:
                     link = cell.find("a")
                     if link:
                         row["college_stats_href"] = link.get("href")
-                elif stat in _INT_COLUMNS:
+                elif stat in DRAFT.int_columns:
                     row[stat] = safe_int(text)
-                elif stat in _FLOAT_COLUMNS:
-                    row[stat] = _safe_float(text)
+                elif stat in DRAFT.float_columns:
+                    row[stat] = safe_float(text)
                 elif stat == "pos":
                     row["pos"] = text or None
 
@@ -219,10 +174,10 @@ class DraftParser:
                             row["drafted_year"] = safe_int(year_text)
                 elif stat == "pos":
                     row["pos"] = text or None
-                elif stat in _INT_COLUMNS:
+                elif stat in DRAFT.int_columns:
                     row[stat] = safe_int(text)
-                elif stat in _FLOAT_COLUMNS:
-                    row[stat] = _safe_float(text)
+                elif stat in DRAFT.float_columns:
+                    row[stat] = safe_float(text)
 
             if not all_empty:
                 entries.append(row)
@@ -291,10 +246,10 @@ class DraftParser:
                     link = cell.find("a")
                     if link:
                         row["college_href"] = link.get("href")
-                elif stat in _INT_COLUMNS:
+                elif stat in DRAFT.int_columns:
                     row[stat] = safe_int(text)
-                elif stat in _FLOAT_COLUMNS:
-                    row[stat] = _safe_float(text)
+                elif stat in DRAFT.float_columns:
+                    row[stat] = safe_float(text)
                 elif stat == "pos":
                     row["pos"] = text or None
 

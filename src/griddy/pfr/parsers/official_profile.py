@@ -9,43 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int
-
-# Columns in official_stats that should be cast to int.
-_STATS_INT_COLUMNS = {
-    "g",
-    "g_playoffs",
-    "home",
-    "visitor",
-    "pen_total",
-    "pen_yds",
-}
-
-# Columns in official_stats that should be cast to float (values may have %).
-_STATS_FLOAT_COLUMNS = {
-    "home_pct",
-    "home_wpct",
-    "pen_per_g",
-    "pen_yds_per_g",
-    "lg_home_pct",
-    "lg_home_wpct",
-    "lg_pen_per_g",
-    "lg_pen_yds_per_g",
-    "rel_home_pct",
-    "rel_home_wpct",
-    "rel_pen_per_g",
-    "rel_pen_yds_per_g",
-}
-
-# Columns in games that should be cast to int.
-_GAMES_INT_COLUMNS = {
-    "points_opp",
-    "penalties_opp",
-    "penalties_yds_opp",
-    "points",
-    "penalties",
-    "penalties_yds",
-}
+from ._column_registry import OFFICIAL_GAMES, OFFICIAL_STATS
+from ._helpers import safe_int, safe_pct
 
 # Columns in games where we extract hrefs.
 _GAMES_LINK_COLUMNS = {
@@ -53,17 +18,6 @@ _GAMES_LINK_COLUMNS = {
     "team": "team_href",
     "opp": "opp_href",
 }
-
-
-def _safe_float(value: str) -> Optional[float]:
-    """Convert a string to float, stripping trailing ``%`` if present."""
-    if not value:
-        return None
-    cleaned = value.rstrip("%")
-    try:
-        return float(cleaned)
-    except (ValueError, TypeError):
-        return None
 
 
 class OfficialProfileParser:
@@ -139,8 +93,8 @@ class OfficialProfileParser:
 
         return self._parse_table_body(
             table,
-            int_columns=_STATS_INT_COLUMNS,
-            float_columns=_STATS_FLOAT_COLUMNS,
+            int_columns=OFFICIAL_STATS.int_columns,
+            float_columns=OFFICIAL_STATS.float_columns,
         )
 
     # ------------------------------------------------------------------
@@ -155,7 +109,7 @@ class OfficialProfileParser:
 
         return self._parse_table_body(
             table,
-            int_columns=_GAMES_INT_COLUMNS,
+            int_columns=OFFICIAL_GAMES.int_columns,
             link_columns=_GAMES_LINK_COLUMNS,
         )
 
@@ -199,7 +153,7 @@ class OfficialProfileParser:
                 if stat in int_columns:
                     row_data[stat] = safe_int(text)
                 elif stat in float_columns:
-                    row_data[stat] = _safe_float(text)
+                    row_data[stat] = safe_pct(text)
                 else:
                     row_data[stat] = text
 

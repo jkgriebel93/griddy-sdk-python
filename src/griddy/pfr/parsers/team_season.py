@@ -9,26 +9,8 @@ from typing import Any, Dict, List, Optional, Union
 
 from bs4 import BeautifulSoup
 
-from ._helpers import safe_int, safe_numeric
-
-# Columns in the games table that should be cast to int.
-_GAME_INT_COLUMNS = {
-    "pts_off",
-    "pts_def",
-    "first_down_off",
-    "yards_off",
-    "pass_yds_off",
-    "rush_yds_off",
-    "to_off",
-    "first_down_def",
-    "yards_def",
-    "pass_yds_def",
-    "rush_yds_def",
-    "to_def",
-}
-
-# Columns in the games table that should be cast to float.
-_GAME_FLOAT_COLUMNS = {"exp_pts_off", "exp_pts_def", "exp_pts_st"}
+from ._column_registry import TEAM_SEASON_GAMES
+from ._helpers import safe_float, safe_int, safe_numeric
 
 # Columns where we extract hrefs.
 _GAME_LINK_COLUMNS = {"opp", "boxscore_word"}
@@ -234,10 +216,10 @@ class TeamSeasonParser:
                     all_empty = False
 
                 # Cast numeric columns.
-                if stat in _GAME_INT_COLUMNS:
+                if stat in TEAM_SEASON_GAMES.int_columns:
                     row_data[stat] = safe_int(text)
-                elif stat in _GAME_FLOAT_COLUMNS:
-                    row_data[stat] = float(text) if text else None
+                elif stat in TEAM_SEASON_GAMES.float_columns:
+                    row_data[stat] = safe_float(text)
                 else:
                     row_data[stat] = text
 

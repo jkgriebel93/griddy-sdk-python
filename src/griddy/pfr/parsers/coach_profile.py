@@ -9,25 +9,14 @@ from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup, Tag
 
-from ._helpers import safe_int
-
-# Columns in coaching_results that should be cast to int.
-_RESULTS_INT_COLUMNS = {
-    "age",
-    "g",
-    "wins",
-    "losses",
-    "ties",
-    "g_playoffs",
-    "wins_playoffs",
-    "losses_playoffs",
-    "rank_team",
-    "chall_num",
-    "chall_won",
-}
-
-# Columns in coaching_results that should be cast to float.
-_RESULTS_FLOAT_COLUMNS = {"srs_total", "srs_offense", "srs_defense"}
+from ._column_registry import (
+    COACH_CHALLENGES,
+    COACH_HISTORY,
+    COACH_RANKS,
+    COACH_RESULTS,
+    COACH_RESULTS_FOOTER,
+)
+from ._helpers import safe_float, safe_int
 
 # Columns in coaching_results where we extract hrefs.
 _RESULTS_LINK_COLUMNS = {
@@ -35,63 +24,6 @@ _RESULTS_LINK_COLUMNS = {
     "team": "team_href",
     "g": "g_href",
 }
-
-# Columns in coaching_results footer that should be cast to int.
-_RESULTS_FOOTER_INT_COLUMNS = {
-    "g",
-    "wins",
-    "losses",
-    "ties",
-    "g_playoffs",
-    "wins_playoffs",
-    "losses_playoffs",
-    "chall_num",
-    "chall_won",
-}
-
-# Columns in coaching_results footer that should be cast to float.
-_RESULTS_FOOTER_FLOAT_COLUMNS = {"rank_avg"}
-
-# All rank columns in coaching_ranks (all int).
-_RANKS_INT_COLUMNS = {
-    "teams_in_league",
-    "rank_win_percentage",
-    "rank_takeaway_giveaway",
-    "rank_points_diff",
-    "rank_yds_diff",
-    "rank_off_yds",
-    "rank_off_pts",
-    "rank_off_turnovers",
-    "rank_off_rush_att",
-    "rank_off_rush_yds",
-    "rank_off_rush_td",
-    "rank_off_rush_yds_per_att",
-    "rank_off_fumbles_lost",
-    "rank_off_pass_att",
-    "rank_off_pass_yds",
-    "rank_off_pass_td",
-    "rank_off_pass_int",
-    "rank_off_pass_net_yds_per_att",
-    "rank_def_yds",
-    "rank_def_pts",
-    "rank_def_turnovers",
-    "rank_def_rush_att",
-    "rank_def_rush_yds",
-    "rank_def_rush_td",
-    "rank_def_rush_yds_per_att",
-    "rank_def_fumbles_rec",
-    "rank_def_pass_att",
-    "rank_def_pass_yds",
-    "rank_def_pass_td",
-    "rank_def_pass_int",
-    "rank_def_pass_net_yds_per_att",
-}
-
-# Columns in coaching_history that should be cast to int.
-_HISTORY_INT_COLUMNS = {"coach_age"}
-
-# Columns in challenge_results that should be cast to int.
-_CHALLENGE_INT_COLUMNS = {"down", "yds_to_go"}
 
 # Meta label -> field name mapping for simple text fields.
 _META_LABEL_MAP: Dict[str, str] = {
@@ -287,8 +219,8 @@ class CoachProfileParser:
 
         rows = self._parse_table_body(
             table,
-            int_columns=_RESULTS_INT_COLUMNS,
-            float_columns=_RESULTS_FLOAT_COLUMNS,
+            int_columns=COACH_RESULTS.int_columns,
+            float_columns=COACH_RESULTS.float_columns,
             link_columns=_RESULTS_LINK_COLUMNS,
         )
 
@@ -318,13 +250,10 @@ class CoachProfileParser:
                 # The year_id cell in the footer contains the label (e.g. "29 yrs")
                 if stat == "year_id":
                     row_data["label"] = text
-                elif stat in _RESULTS_FOOTER_INT_COLUMNS:
+                elif stat in COACH_RESULTS_FOOTER.int_columns:
                     row_data[stat] = safe_int(text)
-                elif stat in _RESULTS_FOOTER_FLOAT_COLUMNS:
-                    try:
-                        row_data[stat] = float(text) if text else None
-                    except (ValueError, TypeError):
-                        row_data[stat] = None
+                elif stat in COACH_RESULTS_FOOTER.float_columns:
+                    row_data[stat] = safe_float(text)
                 elif stat == "team":
                     row_data[stat] = text if text else None
                 else:
@@ -348,7 +277,7 @@ class CoachProfileParser:
 
         return self._parse_table_body(
             table,
-            int_columns=_RANKS_INT_COLUMNS,
+            int_columns=COACH_RANKS.int_columns,
         )
 
     # ------------------------------------------------------------------
@@ -363,7 +292,7 @@ class CoachProfileParser:
 
         return self._parse_table_body(
             table,
-            int_columns=_HISTORY_INT_COLUMNS,
+            int_columns=COACH_HISTORY.int_columns,
             link_columns={"coach_employer": "coach_employer_href"},
         )
 
@@ -379,7 +308,7 @@ class CoachProfileParser:
 
         return self._parse_table_body(
             table,
-            int_columns=_CHALLENGE_INT_COLUMNS,
+            int_columns=COACH_CHALLENGES.int_columns,
             link_columns={"game_date": "game_date_href"},
         )
 
@@ -474,10 +403,7 @@ class CoachProfileParser:
                 if stat in int_columns:
                     row_data[stat] = safe_int(text)
                 elif stat in float_columns:
-                    try:
-                        row_data[stat] = float(text) if text else None
-                    except (ValueError, TypeError):
-                        row_data[stat] = None
+                    row_data[stat] = safe_float(text)
                 else:
                     row_data[stat] = text
 
