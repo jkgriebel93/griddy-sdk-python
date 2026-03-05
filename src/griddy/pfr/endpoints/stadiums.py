@@ -4,6 +4,7 @@ Provides ``get_stadium()`` to fetch and parse a PFR stadium page
 (``/stadiums/{stadium_id}.htm``) and return structured stadium data.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models import StadiumProfile
 @sdk_endpoints
 class Stadiums(BaseSDK):
     """Sub-SDK for PFR stadium data."""
+
+    @cached_property
+    def _parser(self) -> StadiumParser:
+        return StadiumParser()
 
     def _get_stadium_config(
         self,
@@ -46,7 +51,7 @@ class Stadiums(BaseSDK):
             path_template="/stadiums/{stadium_id}.htm",
             operation_id="getStadium",
             wait_for_element="#leaders",
-            parser=StadiumParser().parse,
+            parser=self._parser.parse,
             response_type=StadiumProfile,
             path_params={"stadium_id": stadium_id},
             timeout_ms=timeout_ms,

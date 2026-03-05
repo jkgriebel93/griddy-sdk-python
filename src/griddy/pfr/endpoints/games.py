@@ -4,6 +4,7 @@ Provides ``get_game_details()`` to fetch and parse a PFR boxscore page
 (``/boxscores/{game_id}.htm``) and return all game-specific data as JSON.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models import GameDetails
 @sdk_endpoints
 class Games(BaseSDK):
     """Sub-SDK for PFR boxscore / game detail data."""
+
+    @cached_property
+    def _parser(self) -> GameDetailsParser:
+        return GameDetailsParser()
 
     def _get_game_details_config(
         self,
@@ -45,7 +50,7 @@ class Games(BaseSDK):
             path_template="/boxscores/{game_id}.htm",
             operation_id="getGameDetails",
             wait_for_element="#scoring",
-            parser=GameDetailsParser().parse,
+            parser=self._parser.parse,
             response_type=GameDetails,
             path_params={"game_id": game_id},
             timeout_ms=timeout_ms,

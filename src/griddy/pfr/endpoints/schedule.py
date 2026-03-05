@@ -4,6 +4,7 @@ Provides ``get_season_schedule()`` to fetch and parse the PFR season
 schedule page (``/years/{season}/games.htm``).
 """
 
+from functools import cached_property
 from typing import List, Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models.entities.schedule_game import ScheduleGame
 @sdk_endpoints
 class Schedule(BaseSDK):
     """Sub-SDK for PFR season schedule data."""
+
+    @cached_property
+    def _parser(self) -> ScheduleParser:
+        return ScheduleParser()
 
     def _get_season_schedule_config(
         self,
@@ -40,7 +45,7 @@ class Schedule(BaseSDK):
             path_template="/years/{season}/games.htm",
             operation_id="getSeasonSchedule",
             wait_for_element="#games",
-            parser=ScheduleParser().parse,
+            parser=self._parser.parse,
             response_type=ScheduleGame,
             path_params={"season": season},
             timeout_ms=timeout_ms,

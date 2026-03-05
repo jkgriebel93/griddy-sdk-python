@@ -4,6 +4,7 @@ Provides ``year()``, ``combine()``, and ``team()`` to fetch and parse
 PFR draft-related pages.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -12,12 +13,14 @@ from griddy.pfr.parsers import DraftParser
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import CombineResults, TeamDraft, YearDraft
 
-_parser = DraftParser()
-
 
 @sdk_endpoints
 class Draft(BaseSDK):
     """Sub-SDK for PFR NFL Draft pages."""
+
+    @cached_property
+    def _parser(self) -> DraftParser:
+        return DraftParser()
 
     # ------------------------------------------------------------------
     # Year Draft — /years/{year}/draft.htm
@@ -44,11 +47,12 @@ class Draft(BaseSDK):
             A :class:`~griddy.pfr.models.YearDraft` instance containing
             all draft picks for the given year.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/years/{year}/draft.htm",
             operation_id="getYearDraft",
             wait_for_element="#drafts",
-            parser=lambda html: _parser.parse_year_draft(html, year=year),
+            parser=lambda html: parser.parse_year_draft(html, year=year),
             response_type=YearDraft,
             path_params={"year": year},
             timeout_ms=timeout_ms,
@@ -79,11 +83,12 @@ class Draft(BaseSDK):
             A :class:`~griddy.pfr.models.CombineResults` instance
             containing all combine entries for the given year.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/draft/{year}-combine.htm",
             operation_id="getCombine",
             wait_for_element="#combine",
-            parser=lambda html: _parser.parse_combine(html, year=year),
+            parser=lambda html: parser.parse_combine(html, year=year),
             response_type=CombineResults,
             path_params={"year": year},
             timeout_ms=timeout_ms,
@@ -115,11 +120,12 @@ class Draft(BaseSDK):
             A :class:`~griddy.pfr.models.TeamDraft` instance containing
             all draft picks for the given team.
         """
+        parser = self._parser
         return EndpointConfig(
             path_template="/teams/{team}/draft.htm",
             operation_id="getTeamDraft",
             wait_for_element="#draft",
-            parser=lambda html: _parser.parse_team_draft(html, team=team),
+            parser=lambda html: parser.parse_team_draft(html, team=team),
             response_type=TeamDraft,
             path_params={"team": team.lower()},
             timeout_ms=timeout_ms,

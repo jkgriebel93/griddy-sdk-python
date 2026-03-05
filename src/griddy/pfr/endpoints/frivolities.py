@@ -39,6 +39,7 @@ Provides:
   (``/boxscores/standings.cgi``)
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -82,28 +83,78 @@ from ..models import (
     UpcomingMilestones,
 )
 
-_multi_team_parser = MultiTeamPlayersParser()
-_milestones_parser = StatisticalMilestonesParser()
-_upcoming_parser = UpcomingMilestonesParser()
-_birthdays_parser = BirthdaysParser()
-_birthplaces_parser = BirthplacesParser()
-_born_before_parser = PlayersBornBeforeParser()
-_uniform_numbers_parser = UniformNumbersParser()
-_qb_wins_parser = QBWinsParser()
-_non_qb_passers_parser = NonQBPassersParser()
-_non_skill_pos_td_parser = NonSkillPosTdParser()
-_octopus_tracker_parser = OctopusTrackerParser()
-_overtime_ties_parser = OvertimeTiesParser()
-_cups_of_coffee_parser = CupsOfCoffeeParser()
-_multi_sport_players_parser = MultiSportPlayersParser()
-_pronunciation_guide_parser = PronunciationGuideParser()
-_last_undefeated_parser = LastUndefeatedParser()
-_standings_on_date_parser = StandingsOnDateParser()
-
 
 @sdk_endpoints
 class Frivolities(BaseSDK):
     """Sub-SDK for PFR Frivolities & Fun Stuff pages."""
+
+    @cached_property
+    def _multi_team_parser(self) -> MultiTeamPlayersParser:
+        return MultiTeamPlayersParser()
+
+    @cached_property
+    def _milestones_parser(self) -> StatisticalMilestonesParser:
+        return StatisticalMilestonesParser()
+
+    @cached_property
+    def _upcoming_parser(self) -> UpcomingMilestonesParser:
+        return UpcomingMilestonesParser()
+
+    @cached_property
+    def _birthdays_parser(self) -> BirthdaysParser:
+        return BirthdaysParser()
+
+    @cached_property
+    def _birthplaces_parser(self) -> BirthplacesParser:
+        return BirthplacesParser()
+
+    @cached_property
+    def _born_before_parser(self) -> PlayersBornBeforeParser:
+        return PlayersBornBeforeParser()
+
+    @cached_property
+    def _uniform_numbers_parser(self) -> UniformNumbersParser:
+        return UniformNumbersParser()
+
+    @cached_property
+    def _qb_wins_parser(self) -> QBWinsParser:
+        return QBWinsParser()
+
+    @cached_property
+    def _non_qb_passers_parser(self) -> NonQBPassersParser:
+        return NonQBPassersParser()
+
+    @cached_property
+    def _non_skill_pos_td_parser(self) -> NonSkillPosTdParser:
+        return NonSkillPosTdParser()
+
+    @cached_property
+    def _octopus_tracker_parser(self) -> OctopusTrackerParser:
+        return OctopusTrackerParser()
+
+    @cached_property
+    def _overtime_ties_parser(self) -> OvertimeTiesParser:
+        return OvertimeTiesParser()
+
+    @cached_property
+    def _cups_of_coffee_parser(self) -> CupsOfCoffeeParser:
+        return CupsOfCoffeeParser()
+
+    @cached_property
+    def _multi_sport_players_parser(self) -> MultiSportPlayersParser:
+        return MultiSportPlayersParser()
+
+    @cached_property
+    def _pronunciation_guide_parser(self) -> PronunciationGuideParser:
+        return PronunciationGuideParser()
+
+    @cached_property
+    def _last_undefeated_parser(self) -> LastUndefeatedParser:
+        return LastUndefeatedParser()
+
+    @cached_property
+    def _standings_on_date_parser(self) -> StandingsOnDateParser:
+        return StandingsOnDateParser()
 
     # ── Players Who Played for Multiple Teams ─────────────────────────
 
@@ -151,7 +202,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/players-who-played-for-multiple-teams-franchises.fcgi",
             operation_id="getMultiTeamPlayers",
             wait_for_element="#multifranchise_stats_0",
-            parser=_multi_team_parser.parse,
+            parser=self._multi_team_parser.parse,
             response_type=MultiTeamPlayers,
             query_params=query,
             timeout_ms=timeout_ms,
@@ -189,7 +240,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/milestones.cgi",
             operation_id="getStatisticalMilestones",
             wait_for_element="#milestones",
-            parser=_milestones_parser.parse,
+            parser=self._milestones_parser.parse,
             response_type=StatisticalMilestones,
             query_params={"stat": stat},
             timeout_ms=timeout_ms,
@@ -220,7 +271,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/upcoming-milestones.htm",
             operation_id="getUpcomingMilestones",
             wait_for_element="#upcoming_milestones",
-            parser=_upcoming_parser.parse,
+            parser=self._upcoming_parser.parse,
             response_type=UpcomingMilestones,
             timeout_ms=timeout_ms,
         )
@@ -253,7 +304,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/birthdays.cgi",
             operation_id="getBirthdays",
             wait_for_element="#birthdays",
-            parser=_birthdays_parser.parse,
+            parser=self._birthdays_parser.parse,
             response_type=Birthdays,
             query_params={"month": str(month), "day": str(day)},
             timeout_ms=timeout_ms,
@@ -284,7 +335,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/birthplaces.htm",
             operation_id="getBirthplaces",
             wait_for_element="#birthplaces",
-            parser=_birthplaces_parser.parse_landing,
+            parser=self._birthplaces_parser.parse_landing,
             response_type=BirthplaceLanding,
             timeout_ms=timeout_ms,
         )
@@ -317,7 +368,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/birthplaces.cgi",
             operation_id="getBirthplacePlayers",
             wait_for_element="#birthplaces",
-            parser=_birthplaces_parser.parse_filtered,
+            parser=self._birthplaces_parser.parse_filtered,
             response_type=BirthplaceFiltered,
             query_params={"country": country, "state": state},
             timeout_ms=timeout_ms,
@@ -354,7 +405,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/age.cgi",
             operation_id="getPlayersBornBefore",
             wait_for_element="#players",
-            parser=_born_before_parser.parse,
+            parser=self._born_before_parser.parse,
             response_type=PlayersBornBefore,
             query_params={
                 "month": str(month),
@@ -398,7 +449,7 @@ class Frivolities(BaseSDK):
             path_template="/players/uniform.cgi",
             operation_id="getUniformNumbers",
             wait_for_element="#uniform_number",
-            parser=_uniform_numbers_parser.parse,
+            parser=self._uniform_numbers_parser.parse,
             response_type=UniformNumbers,
             query_params=query,
             timeout_ms=timeout_ms,
@@ -429,7 +480,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/qb-wins.htm",
             operation_id="getQBWinsVsFranchises",
             wait_for_element="#qb_wins",
-            parser=_qb_wins_parser.parse,
+            parser=self._qb_wins_parser.parse,
             response_type=QBWins,
             timeout_ms=timeout_ms,
         )
@@ -458,7 +509,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/nonqb.htm",
             operation_id="getNonQBPassers",
             wait_for_element="#nonqb_passers",
-            parser=_non_qb_passers_parser.parse,
+            parser=self._non_qb_passers_parser.parse,
             response_type=NonQBPassers,
             timeout_ms=timeout_ms,
         )
@@ -488,7 +539,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/odd_td.htm",
             operation_id="getNonSkillPosTdScorers",
             wait_for_element="#odd_scorers",
-            parser=_non_skill_pos_td_parser.parse,
+            parser=self._non_skill_pos_td_parser.parse,
             response_type=NonSkillPosTdScorers,
             timeout_ms=timeout_ms,
         )
@@ -518,7 +569,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/octopus-tracker.htm",
             operation_id="getOctopusTracker",
             wait_for_element="#octopus",
-            parser=_octopus_tracker_parser.parse,
+            parser=self._octopus_tracker_parser.parse,
             response_type=OctopusTracker,
             timeout_ms=timeout_ms,
         )
@@ -548,7 +599,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/coffee.htm",
             operation_id="getCupsOfCoffee",
             wait_for_element="#coffee",
-            parser=_cups_of_coffee_parser.parse,
+            parser=self._cups_of_coffee_parser.parse,
             response_type=CupsOfCoffee,
             timeout_ms=timeout_ms,
         )
@@ -580,7 +631,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/multisport.htm",
             operation_id="getMultiSportPlayers",
             wait_for_element="#multisport",
-            parser=_multi_sport_players_parser.parse,
+            parser=self._multi_sport_players_parser.parse,
             response_type=MultiSportPlayers,
             timeout_ms=timeout_ms,
         )
@@ -610,7 +661,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/pronunciation-guide.htm",
             operation_id="getPronunciationGuide",
             wait_for_element="#content ul",
-            parser=_pronunciation_guide_parser.parse,
+            parser=self._pronunciation_guide_parser.parse,
             response_type=PronunciationGuide,
             timeout_ms=timeout_ms,
         )
@@ -640,7 +691,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/nfl-ties.htm",
             operation_id="getOvertimeTies",
             wait_for_element="#ot_ties",
-            parser=_overtime_ties_parser.parse,
+            parser=self._overtime_ties_parser.parse,
             response_type=OvertimeTies,
             timeout_ms=timeout_ms,
         )
@@ -670,7 +721,7 @@ class Frivolities(BaseSDK):
             path_template="/friv/last-undefeated.htm",
             operation_id="getLastUndefeated",
             wait_for_element="#undefeated_teams",
-            parser=_last_undefeated_parser.parse,
+            parser=self._last_undefeated_parser.parse,
             response_type=LastUndefeated,
             timeout_ms=timeout_ms,
         )
@@ -726,7 +777,7 @@ class Frivolities(BaseSDK):
             path_template="/boxscores/standings.cgi",
             operation_id="getStandingsOnDate",
             wait_for_element="#AFC",
-            parser=_standings_on_date_parser.parse,
+            parser=self._standings_on_date_parser.parse,
             response_type=StandingsOnDate,
             query_params=query,
             timeout_ms=timeout_ms,

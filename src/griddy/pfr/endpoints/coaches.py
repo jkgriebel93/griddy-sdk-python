@@ -4,6 +4,7 @@ Provides ``get_coach_profile()`` to fetch and parse a PFR coach profile page
 (``/coaches/{coach_id}.htm``) and return structured coaching data.
 """
 
+from functools import cached_property
 from typing import Optional
 
 from griddy.core.decorators import sdk_endpoints
@@ -16,6 +17,10 @@ from ..models import CoachProfile
 @sdk_endpoints
 class Coaches(BaseSDK):
     """Sub-SDK for PFR coach profile data."""
+
+    @cached_property
+    def _parser(self) -> CoachProfileParser:
+        return CoachProfileParser()
 
     def _get_coach_profile_config(
         self,
@@ -46,7 +51,7 @@ class Coaches(BaseSDK):
             path_template="/coaches/{coach_id}.htm",
             operation_id="getCoachProfile",
             wait_for_element="#coaching_results",
-            parser=CoachProfileParser().parse,
+            parser=self._parser.parse,
             response_type=CoachProfile,
             path_params={"coach_id": coach_id},
             timeout_ms=timeout_ms,
