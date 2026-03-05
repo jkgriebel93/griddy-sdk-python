@@ -102,8 +102,6 @@ addopts = [
     "--verbose",
     "--cov=src/griddy",
     "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-report=xml",
     "-m",
     "not integration",
     "--numprocesses=auto"
