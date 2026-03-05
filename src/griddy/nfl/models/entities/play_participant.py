@@ -2,10 +2,8 @@ from __future__ import annotations
 
 from typing import Literal, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-from .player import Player, PlayerTypedDict
+from .player import Player
 
 Role = Literal[
     "PASSER",
@@ -18,18 +16,7 @@ Role = Literal[
 ]
 
 
-class PlayParticipantStatsTypedDict(TypedDict):
-    r"""Play-specific statistics"""
-
-
 class PlayParticipantStats(BaseModel):
-    r"""Play-specific statistics"""
-
-
-class PlayParticipantTypedDict(TypedDict):
-    player: NotRequired[PlayerTypedDict]
-    role: NotRequired[Role]
-    stats: NotRequired[PlayParticipantStatsTypedDict]
     r"""Play-specific statistics"""
 
 

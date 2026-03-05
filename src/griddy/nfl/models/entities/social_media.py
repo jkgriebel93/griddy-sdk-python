@@ -2,16 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-
-
-class SocialMediaTypedDict(TypedDict):
-    link: NotRequired[str]
-    r"""URL to social media profile"""
-    platform: NotRequired[str]
-    r"""Social media platform name"""
 
 
 class SocialMedia(BaseModel):

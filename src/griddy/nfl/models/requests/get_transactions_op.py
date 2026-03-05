@@ -4,7 +4,7 @@ from datetime import date
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
@@ -19,17 +19,6 @@ GetTransactionsTransactionType = Literal[
     "SUSPENDED",
 ]
 r"""Type of transaction"""
-
-
-class GetTransactionsRequestTypedDict(TypedDict):
-    month: int
-    r"""Month (number) to fetch transactions for"""
-    year: int
-    r"""Year (all four digits, as int) to fetch transactions for"""
-    team_id: str
-    r"""Team UUID string"""
-    limit: NotRequired[int]
-    r"""Maximum number of results"""
 
 
 class GetTransactionsRequest(BaseModel):

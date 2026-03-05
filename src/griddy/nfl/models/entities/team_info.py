@@ -4,38 +4,14 @@ from typing import Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.conference_enum import ConferenceEnum
 from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .conference import Conference, ConferenceTypedDict
-from .division import Division, DivisionTypedDict
-
-
-class TeamInfoTypedDict(TypedDict):
-    r"""Basic team information included in roster responses"""
-
-    abbr: NotRequired[str]
-    city_state: NotRequired[str]
-    conference: NotRequired[ConferenceTypedDict]
-    conference_abbr: NotRequired[ConferenceEnum]
-    r"""NFL conference"""
-    division: NotRequired[DivisionTypedDict]
-    full_name: NotRequired[str]
-    logo: NotRequired[str]
-    nick: NotRequired[str]
-    season: NotRequired[int]
-    smart_id: NotRequired[str]
-    stadium_name: NotRequired[str]
-    team_id: NotRequired[str]
-    team_site_ticket_url: NotRequired[Nullable[str]]
-    team_site_url: NotRequired[Nullable[str]]
-    team_type: NotRequired[TeamTypeEnum]
-    r"""Team type classification"""
-    ticket_phone_number: NotRequired[Nullable[str]]
-    year_found: NotRequired[int]
+from .conference import Conference
+from .division import Division
 
 
 class TeamInfo(BaseModel):

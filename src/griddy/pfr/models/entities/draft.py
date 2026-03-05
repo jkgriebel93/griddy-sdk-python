@@ -10,49 +10,11 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # ---------------------------------------------------------------------------
 # Year Draft Pick (one row in /years/{year}/draft.htm)
 # ---------------------------------------------------------------------------
-
-
-class DraftPickTypedDict(TypedDict):
-    draft_round: NotRequired[int]
-    draft_pick: NotRequired[int]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    player: NotRequired[str]
-    player_id: NotRequired[str]
-    player_href: NotRequired[str]
-    pos: NotRequired[str]
-    age: NotRequired[int]
-    year_max: NotRequired[int]
-    all_pros_first_team: NotRequired[int]
-    pro_bowls: NotRequired[int]
-    years_as_primary_starter: NotRequired[int]
-    career_av: NotRequired[int]
-    draft_av: NotRequired[int]
-    g: NotRequired[int]
-    pass_cmp: NotRequired[int]
-    pass_att: NotRequired[int]
-    pass_yds: NotRequired[int]
-    pass_td: NotRequired[int]
-    pass_int: NotRequired[int]
-    rush_att: NotRequired[int]
-    rush_yds: NotRequired[int]
-    rush_td: NotRequired[int]
-    rec: NotRequired[int]
-    rec_yds: NotRequired[int]
-    rec_td: NotRequired[int]
-    tackles_solo: NotRequired[int]
-    def_int: NotRequired[int]
-    sacks: NotRequired[float]
-    college: NotRequired[str]
-    college_href: NotRequired[str]
-    college_stats_href: NotRequired[str]
 
 
 class DraftPick(BaseModel):
@@ -96,11 +58,6 @@ class DraftPick(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class YearDraftTypedDict(TypedDict):
-    year: NotRequired[int]
-    picks: NotRequired[List[DraftPickTypedDict]]
-
-
 class YearDraft(BaseModel):
     year: Optional[int] = None
     picks: List[DraftPick] = []
@@ -109,29 +66,6 @@ class YearDraft(BaseModel):
 # ---------------------------------------------------------------------------
 # Combine Entry (one row in /draft/{year}-combine.htm)
 # ---------------------------------------------------------------------------
-
-
-class CombineEntryTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_id: NotRequired[str]
-    player_href: NotRequired[str]
-    pos: NotRequired[str]
-    school: NotRequired[str]
-    school_href: NotRequired[str]
-    college_stats_href: NotRequired[str]
-    height: NotRequired[str]
-    weight: NotRequired[int]
-    forty_yd: NotRequired[float]
-    vertical: NotRequired[float]
-    bench_reps: NotRequired[int]
-    broad_jump: NotRequired[int]
-    cone: NotRequired[float]
-    shuttle: NotRequired[float]
-    draft_info: NotRequired[str]
-    drafted_team: NotRequired[str]
-    drafted_round: NotRequired[str]
-    drafted_pick: NotRequired[str]
-    drafted_year: NotRequired[int]
 
 
 class CombineEntry(BaseModel):
@@ -162,11 +96,6 @@ class CombineEntry(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class CombineResultsTypedDict(TypedDict):
-    year: NotRequired[int]
-    entries: NotRequired[List[CombineEntryTypedDict]]
-
-
 class CombineResults(BaseModel):
     year: Optional[int] = None
     entries: List[CombineEntry] = []
@@ -175,38 +104,6 @@ class CombineResults(BaseModel):
 # ---------------------------------------------------------------------------
 # Team Draft Pick (one row in /teams/{team}/draft.htm)
 # ---------------------------------------------------------------------------
-
-
-class TeamDraftPickTypedDict(TypedDict):
-    year: NotRequired[int]
-    year_href: NotRequired[str]
-    draft_round: NotRequired[int]
-    player: NotRequired[str]
-    player_id: NotRequired[str]
-    player_href: NotRequired[str]
-    draft_pick: NotRequired[int]
-    pos: NotRequired[str]
-    year_max: NotRequired[int]
-    all_pros_first_team: NotRequired[int]
-    pro_bowls: NotRequired[int]
-    years_as_primary_starter: NotRequired[int]
-    career_av: NotRequired[int]
-    g: NotRequired[int]
-    pass_cmp: NotRequired[int]
-    pass_att: NotRequired[int]
-    pass_yds: NotRequired[int]
-    pass_td: NotRequired[int]
-    pass_int: NotRequired[int]
-    rush_att: NotRequired[int]
-    rush_yds: NotRequired[int]
-    rush_td: NotRequired[int]
-    rec: NotRequired[int]
-    rec_yds: NotRequired[int]
-    rec_td: NotRequired[int]
-    def_int: NotRequired[int]
-    sacks: NotRequired[float]
-    college: NotRequired[str]
-    college_href: NotRequired[str]
 
 
 class TeamDraftPick(BaseModel):
@@ -244,11 +141,6 @@ class TeamDraftPick(BaseModel):
 # ---------------------------------------------------------------------------
 # Team Draft (top-level for /teams/{team}/draft.htm)
 # ---------------------------------------------------------------------------
-
-
-class TeamDraftTypedDict(TypedDict):
-    team: NotRequired[str]
-    picks: NotRequired[List[TeamDraftPickTypedDict]]
 
 
 class TeamDraft(BaseModel):

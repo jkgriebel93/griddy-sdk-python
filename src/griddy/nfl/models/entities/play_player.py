@@ -3,28 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class PlayPlayerTypedDict(TypedDict):
-    first_name: str
-    gsis_id: str
-    r"""GSIS player ID"""
-    last_name: str
-    nfl_id: int
-    r"""NFL player ID"""
-    player_name: str
-    r"""Full player name"""
-    position: str
-    r"""Player position"""
-    position_group: str
-    r"""Position group"""
-    team_id: str
-    r"""Team ID"""
-    uniform_number: NotRequired[str]
-    r"""Jersey number"""
 
 
 class PlayPlayer(BaseModel):

@@ -3,20 +3,12 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.entities.live_stat_entries import (
     LivePlayerTeamEntry,
-    LivePlayerTeamEntryTypedDict,
 )
 from griddy.nfl.types import BaseModel
-
-
-class LivePlayerStatisticsResponseTypedDict(TypedDict):
-    game_id: NotRequired[Optional[str]]
-    offset: NotRequired[Optional[int]]
-    away_team: NotRequired[Optional[LivePlayerTeamEntryTypedDict]]
-    home_team: NotRequired[Optional[LivePlayerTeamEntryTypedDict]]
 
 
 class LivePlayerStatisticsResponse(BaseModel):

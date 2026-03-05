@@ -5,23 +5,10 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.game_schedule import GameSchedule, GameScheduleTypedDict
+from griddy.nfl.models.entities.game_schedule import GameSchedule
 from griddy.nfl.types import BaseModel
-
-
-class NgsCurrentScheduleResponseTypedDict(TypedDict):
-    """Response from the NGS current schedule endpoint."""
-
-    season: NotRequired[int]
-    r"""Season year"""
-    season_type: NotRequired[str]
-    r"""Season type (REG, PRE, POST)"""
-    week: NotRequired[int]
-    r"""Current week number"""
-    games: NotRequired[List[GameScheduleTypedDict]]
-    r"""List of games in the current week"""
 
 
 class NgsCurrentScheduleResponse(BaseModel):

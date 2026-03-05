@@ -3,25 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .team import Team, TeamTypedDict
-
-
-class TeamGameStatsTypedDict(TypedDict):
-    first_downs: NotRequired[int]
-    fourth_down_conversions: NotRequired[str]
-    passing_yards: NotRequired[int]
-    penalties: NotRequired[int]
-    penalty_yards: NotRequired[int]
-    rushing_yards: NotRequired[int]
-    score: NotRequired[int]
-    team: NotRequired[TeamTypedDict]
-    third_down_conversions: NotRequired[str]
-    time_of_possession: NotRequired[str]
-    total_yards: NotRequired[int]
-    turnovers: NotRequired[int]
+from .team import Team
 
 
 class TeamGameStats(BaseModel):

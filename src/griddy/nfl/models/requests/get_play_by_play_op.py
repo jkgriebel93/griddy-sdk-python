@@ -3,19 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-
-
-class GetPlayByPlayRequestTypedDict(TypedDict):
-    game_id: str
-    r"""Game identifier (UUID)"""
-    include_penalties: NotRequired[bool]
-    r"""Include penalty details"""
-    include_formations: NotRequired[bool]
-    r"""Include offensive/defensive formations"""
 
 
 class GetPlayByPlayRequest(BaseModel):

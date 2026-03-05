@@ -8,40 +8,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-
-
-class NonQBPasserEntryTypedDict(TypedDict):
-    """TypedDict for a single non-QB passer entry."""
-
-    player: str
-    player_href: NotRequired[Optional[str]]
-    player_id: NotRequired[Optional[str]]
-    pos: str
-    year_min: NotRequired[Optional[int]]
-    year_max: NotRequired[Optional[int]]
-    pass_cmp: NotRequired[Optional[int]]
-    pass_att: NotRequired[Optional[int]]
-    pass_cmp_perc: NotRequired[Optional[float]]
-    pass_yds: NotRequired[Optional[int]]
-    pass_td: NotRequired[Optional[int]]
-    pass_td_perc: NotRequired[Optional[float]]
-    pass_int: NotRequired[Optional[int]]
-    pass_int_perc: NotRequired[Optional[float]]
-    pass_long: NotRequired[Optional[int]]
-    pass_yds_per_att: NotRequired[Optional[float]]
-    pass_adj_yds_per_att: NotRequired[Optional[float]]
-    pass_yds_per_cmp: NotRequired[Optional[float]]
-    pass_yds_per_g: NotRequired[Optional[float]]
-    pass_rating: NotRequired[Optional[float]]
-    qbr: NotRequired[Optional[float]]
-    pass_sacked: NotRequired[Optional[int]]
-    pass_sacked_yds: NotRequired[Optional[int]]
-    pass_sacked_perc: NotRequired[Optional[float]]
-    pass_net_yds_per_att: NotRequired[Optional[float]]
-    pass_adj_net_yds_per_att: NotRequired[Optional[float]]
 
 
 class NonQBPasserEntry(BaseModel):
@@ -73,13 +40,6 @@ class NonQBPasserEntry(BaseModel):
     pass_sacked_perc: Optional[float] = None
     pass_net_yds_per_att: Optional[float] = None
     pass_adj_net_yds_per_att: Optional[float] = None
-
-
-class NonQBPassersTypedDict(TypedDict):
-    """TypedDict for the full non-QB passers page."""
-
-    title: str
-    entries: List[NonQBPasserEntryTypedDict]
 
 
 class NonQBPassers(BaseModel):

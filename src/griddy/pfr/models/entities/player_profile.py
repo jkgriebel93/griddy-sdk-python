@@ -4,20 +4,10 @@ from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import field_validator
-from typing_extensions import NotRequired, TypedDict
 
 from ...types import BaseModel
 
 # --- Player Names ---
-
-
-class PlayerNamesTypedDict(TypedDict):
-    first_name: str
-    middle_name: str
-    last_name: str
-    suffix: str
-    nicknames: List[str]
-    pretty_name: str
 
 
 class PlayerNames(BaseModel):
@@ -32,11 +22,6 @@ class PlayerNames(BaseModel):
 # --- Birth Place ---
 
 
-class BirthPlaceTypedDict(TypedDict):
-    city: str
-    state: str
-
-
 class BirthPlace(BaseModel):
     city: str
     state: str
@@ -45,20 +30,9 @@ class BirthPlace(BaseModel):
 # --- Draft Info ---
 
 
-class RoundAndOverallTypedDict(TypedDict):
-    round: int
-    overall: int
-
-
 class RoundAndOverall(BaseModel):
     round: int
     overall: int
-
-
-class DraftInfoTypedDict(TypedDict, total=False):
-    team: str
-    rd_and_ovr: RoundAndOverallTypedDict
-    year: int
 
 
 class DraftInfo(BaseModel):
@@ -68,20 +42,6 @@ class DraftInfo(BaseModel):
 
 
 # --- Player Bio ---
-
-
-class PlayerBioTypedDict(TypedDict):
-    photo_url: str
-    names: PlayerNamesTypedDict
-    position: str
-    height: int
-    weight: str
-    birth_date: datetime
-    birth_place: BirthPlaceTypedDict
-    college: str
-    high_school: str
-    draft: DraftInfoTypedDict
-    throws: NotRequired[str]
 
 
 class PlayerBio(BaseModel):
@@ -108,13 +68,6 @@ class PlayerBio(BaseModel):
 # --- Jersey Number ---
 
 
-class JerseyNumberTypedDict(TypedDict):
-    number: str
-    team: str
-    start_year: int
-    end_year: int
-
-
 class JerseyNumber(BaseModel):
     number: str
     team: str
@@ -125,11 +78,6 @@ class JerseyNumber(BaseModel):
 # --- Transaction ---
 
 
-class TransactionTypedDict(TypedDict):
-    date: date
-    description: str
-
-
 class Transaction(BaseModel):
     date: date
     description: str
@@ -138,27 +86,12 @@ class Transaction(BaseModel):
 # --- Player Statistics ---
 
 
-class PlayerStatisticsTypedDict(TypedDict, total=False):
-    regular_season: Dict[str, List[Dict[str, Any]]]
-    post_season: Dict[str, List[Dict[str, Any]]]
-
-
 class PlayerStatistics(BaseModel):
     regular_season: Dict[str, List[Dict[str, Any]]] = {}
     post_season: Dict[str, List[Dict[str, Any]]] = {}
 
 
 # --- Player Profile (top-level) ---
-
-
-class PlayerProfileTypedDict(TypedDict):
-    bio: PlayerBioTypedDict
-    jersey_numbers: List[JerseyNumberTypedDict]
-    summary_stats: Dict[str, Union[int, float, str]]
-    statistics: PlayerStatisticsTypedDict
-    transactions: List[TransactionTypedDict]
-    links: Dict[str, Dict[str, str]]
-    leader_boards: Dict[str, List[str]]
 
 
 class PlayerProfile(BaseModel):

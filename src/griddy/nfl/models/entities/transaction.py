@@ -4,11 +4,11 @@ from datetime import datetime
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .player import Player, PlayerTypedDict
-from .team import Team, TeamTypedDict
+from .player import Player
+from .team import Team
 
 TransactionType = Literal[
     "TRADE",
@@ -20,19 +20,6 @@ TransactionType = Literal[
     "SUSPENDED",
     "ACTIVATED",
 ]
-
-
-class TransactionTypedDict(TypedDict):
-    compensation_details: NotRequired[str]
-    r"""Trade compensation or contract details"""
-    date_: NotRequired[datetime]
-    details: NotRequired[str]
-    r"""Transaction details"""
-    id: NotRequired[str]
-    player: NotRequired[PlayerTypedDict]
-    related_team: NotRequired[TeamTypedDict]
-    team: NotRequired[TeamTypedDict]
-    type: NotRequired[TransactionType]
 
 
 class Transaction(BaseModel):

@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .play import Play, PlayTypedDict
-from .team import Team, TeamTypedDict
+from .play import Play
+from .team import Team
 
 Result = Literal[
     "TOUCHDOWN",
@@ -20,26 +20,6 @@ Result = Literal[
     "END_OF_HALF",
     "END_OF_GAME",
 ]
-
-
-class DriveTypedDict(TypedDict):
-    drive_number: NotRequired[int]
-    end_time: NotRequired[str]
-    r"""Game clock at drive end"""
-    end_yard_line: NotRequired[str]
-    r"""Ending field position"""
-    plays: NotRequired[List[PlayTypedDict]]
-    quarter: NotRequired[int]
-    result: NotRequired[Result]
-    start_time: NotRequired[str]
-    r"""Game clock at drive start"""
-    start_yard_line: NotRequired[str]
-    r"""Starting field position"""
-    team: NotRequired[TeamTypedDict]
-    time_of_possession: NotRequired[str]
-    r"""Drive duration (MM:SS)"""
-    total_plays: NotRequired[int]
-    total_yards: NotRequired[int]
 
 
 class Drive(BaseModel):

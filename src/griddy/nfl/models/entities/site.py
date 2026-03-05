@@ -4,7 +4,7 @@ from typing import Literal, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models import SiteRoofTypeEnum
 from griddy.nfl.types import (
@@ -14,16 +14,6 @@ from griddy.nfl.types import (
     Nullable,
     OptionalNullable,
 )
-
-
-class SiteTypedDict(TypedDict):
-    postal_code: NotRequired[Nullable[str]]
-    roof_type: NotRequired[SiteRoofTypeEnum]
-    site_city: NotRequired[str]
-    site_full_name: NotRequired[str]
-    site_id: NotRequired[int]
-    site_state: NotRequired[Nullable[str]]
-    smart_id: NotRequired[str]
 
 
 class Site(BaseModel):

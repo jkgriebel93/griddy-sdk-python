@@ -3,15 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
-
-
-class NFLAuthTypedDict(TypedDict):
-    access_token: str
-    refresh_token: NotRequired[Optional[str]]
-    expires_in: NotRequired[Optional[float]]
 
 
 class NFLAuth(BaseModel):

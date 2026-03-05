@@ -3,24 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class ClinchedTypedDict(TypedDict):
-    bye: NotRequired[bool]
-    r"""Clinched first-round bye"""
-    division: NotRequired[bool]
-    r"""Clinched division title"""
-    eliminated: NotRequired[bool]
-    r"""Eliminated from playoff contention"""
-    home_field: NotRequired[bool]
-    r"""Clinched home field advantage"""
-    playoff: NotRequired[bool]
-    r"""Clinched playoff berth"""
-    wild_card: NotRequired[bool]
-    r"""Clinched wild card berth"""
 
 
 class Clinched(BaseModel):

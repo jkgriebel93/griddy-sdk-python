@@ -4,55 +4,9 @@ from typing import Literal
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-
-
-class PlayerWeekProjectedStatsAttributesTypedDict(TypedDict):
-    player_id: str
-    season: int
-    week: int
-    assisted_tackles: NotRequired[Nullable[float]]
-    defense_interceptions: NotRequired[Nullable[float]]
-    dt_blocked_kicks: NotRequired[Nullable[float]]
-    dt_fumbles_forced: NotRequired[Nullable[float]]
-    dt_fumbles_recovered: NotRequired[Nullable[float]]
-    dt_interceptions: NotRequired[Nullable[float]]
-    dt_kickoff_return_yards: NotRequired[Nullable[float]]
-    dt_points_allowed: NotRequired[Nullable[float]]
-    dt_sacks: NotRequired[Nullable[float]]
-    dt_safeties: NotRequired[Nullable[float]]
-    dt_touchdowns: NotRequired[Nullable[float]]
-    dt_yards_allowed: NotRequired[Nullable[float]]
-    fg_attempts: NotRequired[Nullable[float]]
-    fg_made20to29: NotRequired[Nullable[float]]
-    fg_made30to39: NotRequired[Nullable[float]]
-    fg_made40to49: NotRequired[Nullable[float]]
-    fg_made50: NotRequired[Nullable[float]]
-    forced_fumbles: NotRequired[Nullable[float]]
-    fumbles: NotRequired[Nullable[float]]
-    fumbles_lost: NotRequired[Nullable[float]]
-    fumbles_recovered: NotRequired[Nullable[float]]
-    games_played: NotRequired[Nullable[int]]
-    interceptions_thrown: NotRequired[Nullable[float]]
-    kickoff_return_touchdowns: NotRequired[Nullable[float]]
-    kickoff_return_yards: NotRequired[Nullable[float]]
-    pass_defended: NotRequired[Nullable[float]]
-    passing_attempts: NotRequired[Nullable[float]]
-    passing_completions: NotRequired[Nullable[float]]
-    passing_touchdowns: NotRequired[Nullable[float]]
-    passing_yards: NotRequired[Nullable[float]]
-    pat_made: NotRequired[Nullable[float]]
-    pat_missed: NotRequired[Nullable[float]]
-    receiving_touchdowns: NotRequired[Nullable[float]]
-    receiving_yards: NotRequired[Nullable[float]]
-    receptions: NotRequired[Nullable[float]]
-    rushing_attempts: NotRequired[Nullable[float]]
-    rushing_touchdowns: NotRequired[Nullable[float]]
-    rushing_yards: NotRequired[Nullable[float]]
-    sacks: NotRequired[Nullable[float]]
-    tackles: NotRequired[Nullable[float]]
 
 
 class PlayerWeekProjectedStatsAttributes(BaseModel):
@@ -328,13 +282,6 @@ class PlayerWeekProjectedStatsAttributes(BaseModel):
 
 
 PlayerWeekProjectedStatsType = Literal["player-week-projected-stats",]
-
-
-class PlayerWeekProjectedStatsTypedDict(TypedDict):
-    attributes: PlayerWeekProjectedStatsAttributesTypedDict
-    id: str
-    r"""Unique identifier for these stats"""
-    type: PlayerWeekProjectedStatsType
 
 
 class PlayerWeekProjectedStats(BaseModel):

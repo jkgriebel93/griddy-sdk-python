@@ -3,20 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models import SiteRoofTypeEnum
 from griddy.nfl.types import BaseModel
-
-
-class VenueInfoTypedDict(TypedDict):
-    postal_code: NotRequired[str]
-    roof_type: NotRequired[SiteRoofTypeEnum]
-    site_city: NotRequired[str]
-    site_full_name: NotRequired[str]
-    site_id: NotRequired[int]
-    site_state: NotRequired[str]
-    smart_id: NotRequired[str]
 
 
 class VenueInfo(BaseModel):

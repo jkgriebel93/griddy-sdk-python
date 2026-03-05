@@ -3,68 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class TeamOffenseStatsTypedDict(TypedDict):
-    gp: int
-    r"""Games played"""
-    pass_: int
-    r"""Pass attempts (including sacks)"""
-    run: int
-    r"""Rush attempts"""
-    team_id: str
-    r"""Team identifier"""
-    total: int
-    r"""Total offensive plays"""
-    yds: int
-    r"""Total offensive yards"""
-    epa: NotRequired[float]
-    r"""Total EPA (positive is better for offense)"""
-    epa_pp: NotRequired[float]
-    r"""EPA per play"""
-    epa_pass: NotRequired[float]
-    r"""EPA on passing plays"""
-    epa_pass_pp: NotRequired[float]
-    r"""EPA per pass play"""
-    epa_rush: NotRequired[float]
-    r"""EPA on rushing plays"""
-    epa_rush_pp: NotRequired[float]
-    r"""EPA per rush play"""
-    pass_pct: NotRequired[float]
-    r"""Percentage of plays that were passes (0-1)"""
-    pass_td: NotRequired[int]
-    r"""Passing touchdowns"""
-    pass_yds: NotRequired[int]
-    r"""Passing yards"""
-    pass_ypg: NotRequired[float]
-    r"""Pass yards per game"""
-    pass_ypp: NotRequired[float]
-    r"""Passing yards per pass attempt"""
-    ppg: NotRequired[float]
-    r"""Points per game"""
-    red_zone_pct: NotRequired[float]
-    r"""Red zone touchdown percentage (0-1)"""
-    rush_td: NotRequired[int]
-    r"""Rushing touchdowns"""
-    rush_yds: NotRequired[int]
-    r"""Rushing yards"""
-    rush_ypg: NotRequired[float]
-    r"""Rush yards per game"""
-    rush_ypp: NotRequired[float]
-    r"""Rushing yards per rush attempt"""
-    td: NotRequired[int]
-    r"""Total touchdowns"""
-    third_down_pct: NotRequired[float]
-    r"""Third down conversion percentage (0-1)"""
-    to: NotRequired[int]
-    r"""Turnovers"""
-    ypg: NotRequired[float]
-    r"""Yards per game"""
-    ypp: NotRequired[float]
-    r"""Yards per play"""
 
 
 class TeamOffenseStats(BaseModel):

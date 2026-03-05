@@ -3,17 +3,11 @@ from __future__ import annotations
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
 
 RelationshipsTypePlayerWeekProjectedPoints = Literal["player-week-projected-points",]
-
-
-class WeekPointTypedDict(TypedDict):
-    id: NotRequired[str]
-    r"""Reference to projected points"""
-    type: NotRequired[RelationshipsTypePlayerWeekProjectedPoints]
 
 
 class WeekPoint(BaseModel):
@@ -26,22 +20,11 @@ class WeekPoint(BaseModel):
 RelationshipsTypePlayerWeekProjectedStats = Literal["player-week-projected-stats",]
 
 
-class WeekStatTypedDict(TypedDict):
-    id: NotRequired[str]
-    r"""Reference to projected stats"""
-    type: NotRequired[RelationshipsTypePlayerWeekProjectedStats]
-
-
 class WeekStat(BaseModel):
     id: Optional[str] = None
     r"""Reference to projected stats"""
 
     type: Optional[RelationshipsTypePlayerWeekProjectedStats] = None
-
-
-class RelationshipsTypedDict(TypedDict):
-    week_points: NotRequired[List[WeekPointTypedDict]]
-    week_stats: NotRequired[List[WeekStatTypedDict]]
 
 
 class Relationships(BaseModel):
@@ -56,14 +39,6 @@ class Relationships(BaseModel):
 
 TypePlayer = Literal["player",]
 r"""Resource type"""
-
-
-class PlayerProjectionTypedDict(TypedDict):
-    id: str
-    r"""Player SMART ID"""
-    relationships: RelationshipsTypedDict
-    type: TypePlayer
-    r"""Resource type"""
 
 
 class PlayerProjection(BaseModel):

@@ -3,19 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-
-
-class GetPlayersTeamRosterRequestTypedDict(TypedDict):
-    team_id: str
-    r"""Team identifier (UUID)"""
-    season: int
-    r"""Season year"""
-    include_stats: NotRequired[bool]
-    r"""Include current season statistics"""
 
 
 class GetPlayersTeamRosterRequest(BaseModel):

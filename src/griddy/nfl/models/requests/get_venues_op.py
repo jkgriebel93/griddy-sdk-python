@@ -2,17 +2,10 @@ from __future__ import annotations
 
 from typing import Optional
 
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetVenuesRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    limit: NotRequired[int]
-    r"""Maximum number of venues to return"""
 
 
 class GetVenuesRequest(BaseModel):

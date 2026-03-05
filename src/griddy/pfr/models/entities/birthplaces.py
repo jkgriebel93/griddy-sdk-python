@@ -11,31 +11,9 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # ── Landing page ─────────────────────────────────────────────────────────
-
-
-class BirthplaceLocationTypedDict(TypedDict):
-    rank: int
-    birth_country: str
-    birth_country_href: NotRequired[Optional[str]]
-    birth_state: NotRequired[Optional[str]]
-    players: NotRequired[Optional[int]]
-    players_active: NotRequired[Optional[int]]
-    hofers: NotRequired[Optional[int]]
-    g: NotRequired[Optional[int]]
-    td: NotRequired[Optional[int]]
-    player_most_td: NotRequired[Optional[str]]
-    player_most_td_href: NotRequired[Optional[str]]
-    player_most_td_id: NotRequired[Optional[str]]
-    most_td: NotRequired[Optional[int]]
-    player_most_g: NotRequired[Optional[str]]
-    player_most_g_href: NotRequired[Optional[str]]
-    player_most_g_id: NotRequired[Optional[str]]
-    most_g: NotRequired[Optional[int]]
 
 
 class BirthplaceLocation(BaseModel):
@@ -58,49 +36,12 @@ class BirthplaceLocation(BaseModel):
     most_g: Optional[int] = None
 
 
-class BirthplaceLandingTypedDict(TypedDict):
-    title: str
-    locations: List[BirthplaceLocationTypedDict]
-
-
 class BirthplaceLanding(BaseModel):
     title: str
     locations: List[BirthplaceLocation]
 
 
 # ── Filtered page ────────────────────────────────────────────────────────
-
-
-class BirthplacePlayerTypedDict(TypedDict):
-    rank: int
-    player: str
-    player_href: NotRequired[Optional[str]]
-    player_id: NotRequired[Optional[str]]
-    pos: NotRequired[Optional[str]]
-    birth_city: NotRequired[Optional[str]]
-    year_min: NotRequired[Optional[int]]
-    year_max: NotRequired[Optional[int]]
-    all_pros_first_team: NotRequired[Optional[int]]
-    pro_bowls: NotRequired[Optional[int]]
-    years_as_primary_starter: NotRequired[Optional[int]]
-    career_av: NotRequired[Optional[int]]
-    g: NotRequired[Optional[int]]
-    pass_cmp: NotRequired[Optional[int]]
-    pass_att: NotRequired[Optional[int]]
-    pass_yds: NotRequired[Optional[int]]
-    pass_td: NotRequired[Optional[int]]
-    pass_long: NotRequired[Optional[int]]
-    pass_int: NotRequired[Optional[int]]
-    pass_sacked: NotRequired[Optional[int]]
-    pass_sacked_yds: NotRequired[Optional[int]]
-    rush_att: NotRequired[Optional[int]]
-    rush_yds: NotRequired[Optional[int]]
-    rush_td: NotRequired[Optional[int]]
-    rush_long: NotRequired[Optional[int]]
-    rec: NotRequired[Optional[int]]
-    rec_yds: NotRequired[Optional[int]]
-    rec_td: NotRequired[Optional[int]]
-    rec_long: NotRequired[Optional[int]]
 
 
 class BirthplacePlayer(BaseModel):
@@ -133,13 +74,6 @@ class BirthplacePlayer(BaseModel):
     rec_yds: Optional[int] = None
     rec_td: Optional[int] = None
     rec_long: Optional[int] = None
-
-
-class BirthplaceFilteredTypedDict(TypedDict):
-    title: str
-    country: str
-    state: str
-    players: List[BirthplacePlayerTypedDict]
 
 
 class BirthplaceFiltered(BaseModel):

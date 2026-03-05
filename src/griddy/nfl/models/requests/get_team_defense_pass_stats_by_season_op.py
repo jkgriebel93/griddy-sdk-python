@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
@@ -35,23 +35,6 @@ GetTeamDefensePassStatsBySeasonSortKey = Literal[
     "sackedYpg",
 ]
 r"""Field to sort by"""
-
-
-class GetTeamDefensePassStatsBySeasonRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    limit: NotRequired[int]
-    r"""Maximum number of teams to return"""
-    offset: NotRequired[int]
-    r"""Number of records to skip for pagination"""
-    page: NotRequired[int]
-    r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamDefensePassStatsBySeasonSortKey]
-    r"""Field to sort by"""
-    sort_value: NotRequired[SortOrderEnum]
-    r"""Sort direction"""
 
 
 class GetTeamDefensePassStatsBySeasonRequest(BaseModel):

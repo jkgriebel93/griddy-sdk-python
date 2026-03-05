@@ -5,69 +5,14 @@ from typing import Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .game_score import GameScore, GameScoreTypedDict
-from .game_site import GameSite, GameSiteTypedDict
-from .schedule_team import ScheduleTeam, ScheduleTeamTypedDict
-
-
-class ScheduledGameTypedDict(TypedDict):
-    game_date: NotRequired[Nullable[date]]
-    r"""Game date (YYYY-MM-DD format)"""
-    game_id: NotRequired[int]
-    r"""Game identifier (format is YYYYMMDDNN)"""
-    game_key: NotRequired[int]
-    r"""Unique game key"""
-    game_time: NotRequired[Nullable[datetime]]
-    r"""Game time in UTC"""
-    game_time_eastern: NotRequired[Nullable[str]]
-    r"""Game time in Eastern timezone (HH:MM:SS)"""
-    game_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    home_display_name: NotRequired[str]
-    r"""Home team display name"""
-    home_nickname: NotRequired[str]
-    r"""Home team nickname"""
-    home_team: NotRequired[ScheduleTeamTypedDict]
-    home_team_abbr: NotRequired[str]
-    r"""Home team abbreviation"""
-    home_team_id: NotRequired[str]
-    r"""Home team identifier"""
-    iso_time: NotRequired[Nullable[int]]
-    r"""Unix timestamp in milliseconds"""
-    network_channel: NotRequired[Nullable[str]]
-    r"""Broadcast network"""
-    ngs_game: NotRequired[bool]
-    r"""Whether Next Gen Stats are available"""
-    released_to_clubs: NotRequired[bool]
-    r"""Whether game info is released to clubs"""
-    score: NotRequired[GameScoreTypedDict]
-    season: NotRequired[int]
-    r"""Season year"""
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    site: NotRequired[GameSiteTypedDict]
-    smart_id: NotRequired[str]
-    r"""Smart identifier for the game"""
-    validated: NotRequired[bool]
-    r"""Whether game info is validated"""
-    visitor_display_name: NotRequired[str]
-    r"""Visitor team display name"""
-    visitor_nickname: NotRequired[str]
-    r"""Visitor team nickname"""
-    visitor_team: NotRequired[ScheduleTeamTypedDict]
-    visitor_team_abbr: NotRequired[str]
-    r"""Visitor team abbreviation"""
-    visitor_team_id: NotRequired[str]
-    r"""Visitor team identifier"""
-    week: NotRequired[int]
-    r"""Week number"""
-    week_name_abbr: NotRequired[str]
-    r"""Week name abbreviation"""
+from .game_score import GameScore
+from .game_site import GameSite
+from .schedule_team import ScheduleTeam
 
 
 class ScheduledGame(BaseModel):

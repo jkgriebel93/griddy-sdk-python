@@ -3,23 +3,14 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.entities.historical_stat_categories import (
     HistoricalStatCategories,
-    HistoricalStatCategoriesTypedDict,
 )
-from griddy.nfl.models.entities.team import Team, TeamTypedDict
-from griddy.nfl.models.entities.venue import Venue, VenueTypedDict
+from griddy.nfl.models.entities.team import Team
+from griddy.nfl.models.entities.venue import Venue
 from griddy.nfl.types import BaseModel
-
-
-class HistoricalGameInfoTypedDict(TypedDict):
-    id: str
-    home_team: NotRequired[Optional[TeamTypedDict]]
-    away_team: NotRequired[Optional[TeamTypedDict]]
-    game_time: NotRequired[Optional[str]]
-    venue: NotRequired[Optional[VenueTypedDict]]
 
 
 class HistoricalGameInfo(BaseModel):
@@ -32,12 +23,6 @@ class HistoricalGameInfo(BaseModel):
     game_time: Annotated[Optional[str], pydantic.Field(alias="gameTime")] = None
 
     venue: Optional[Venue] = None
-
-
-class HistoricalTeamStatsResponseTypedDict(TypedDict):
-    game: NotRequired[Optional[HistoricalGameInfoTypedDict]]
-    team: NotRequired[Optional[TeamTypedDict]]
-    stats: NotRequired[Optional[HistoricalStatCategoriesTypedDict]]
 
 
 class HistoricalTeamStatsResponse(BaseModel):

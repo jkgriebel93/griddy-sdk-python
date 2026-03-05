@@ -3,29 +3,15 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 from ...types import BaseModel
 
 
-class ZoneTypedDict(TypedDict):
-    pass
-
-
 class Zone(BaseModel):
     pass
-
-
-class PasserStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    completions: NotRequired[int]
-    game_id: NotRequired[str]
-    interceptions: NotRequired[int]
-    pass_yards: NotRequired[int]
-    touchdowns: NotRequired[int]
-    zones: NotRequired[List[ZoneTypedDict]]
 
 
 class PasserStats(BaseModel):

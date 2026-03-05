@@ -1,16 +1,9 @@
-from typing import Optional, TypedDict
+from typing import Optional
 
-from typing_extensions import Annotated, NotRequired
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetCombineProfilesRequestTypedDict(TypedDict):
-    year: int
-    r"""Draft year"""
-    limit: int
-    r"""Maximum number of profiles to fetch"""
 
 
 class GetCombineProfilesRequest(BaseModel):

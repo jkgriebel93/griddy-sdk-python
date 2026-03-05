@@ -1,4 +1,4 @@
-from typing import List, Mapping, Optional, Union
+from typing import List, Mapping, Optional
 
 from griddy.core._constants import RESOURCE_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
@@ -118,7 +118,7 @@ class GameResultsDataMixin:
     def _get_plays_win_probability_config(
         self,
         *,
-        game_id: Union[models.GameID, models.GameIDTypedDict],
+        game_id: models.GameID,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,

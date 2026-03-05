@@ -1,5 +1,7 @@
 # Griddy SDK
 
+[![codecov](https://codecov.io/gh/Thistle-Grow-Software/griddy-sdk-python/graph/badge.svg?token=WEUUCIGCRZ)](https://codecov.io/gh/Thistle-Grow-Software/griddy-sdk-python)
+
 A Python SDK for accessing NFL data from multiple sources including NFL.com, with other sources to come.
 
 See the full documentation [here](https://jkgriebel93.github.io/griddy-docs/).

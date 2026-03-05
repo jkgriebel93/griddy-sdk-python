@@ -3,22 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class ContractInfoTypedDict(TypedDict):
-    expiration_year: NotRequired[int]
-    r"""Contract expiration year"""
-    guaranteed: NotRequired[float]
-    r"""Guaranteed money"""
-    signing_bonus: NotRequired[float]
-    r"""Signing bonus"""
-    total_value: NotRequired[float]
-    r"""Total contract value"""
-    years: NotRequired[int]
-    r"""Contract length in years"""
 
 
 class ContractInfo(BaseModel):

@@ -3,19 +3,11 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.player import Player, PlayerTypedDict
-from griddy.nfl.models.entities.team import Team, TeamTypedDict
+from griddy.nfl.models.entities.player import Player
+from griddy.nfl.models.entities.team import Team
 from griddy.nfl.types import BaseModel
-
-
-class RosterTypedDict(TypedDict):
-    defense: NotRequired[List[PlayerTypedDict]]
-    injured_reserve: NotRequired[List[PlayerTypedDict]]
-    offense: NotRequired[List[PlayerTypedDict]]
-    practice_squad: NotRequired[List[PlayerTypedDict]]
-    special_teams: NotRequired[List[PlayerTypedDict]]
 
 
 class Roster(BaseModel):
@@ -34,12 +26,6 @@ class Roster(BaseModel):
     special_teams: Annotated[
         Optional[List[Player]], pydantic.Field(alias="specialTeams")
     ] = None
-
-
-class RosterResponseTypedDict(TypedDict):
-    roster: NotRequired[RosterTypedDict]
-    season: NotRequired[int]
-    team: NotRequired[TeamTypedDict]
 
 
 class RosterResponse(BaseModel):

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.binary_flag_enum import BinaryFlagEnum
 from griddy.nfl.models.enums.play_type_enum import PlayTypeEnum
@@ -85,83 +85,6 @@ DefCoverageType = Literal[
     "MAN",
     "ZONE",
 ]
-
-
-class GetFilmroomPlaysRequestTypedDict(TypedDict):
-    game_id: NotRequired[List[str]]
-    r"""Filter by specific game IDs (supports multiple values)"""
-    week_slug: NotRequired[List[WeekSlugEnum]]
-    r"""Filter by week identifier (supports multiple values)"""
-    season: NotRequired[List[int]]
-    r"""Filter by season year (supports multiple values)"""
-    season_type: NotRequired[List[SeasonTypeEnum]]
-    r"""Filter by season type"""
-    nfl_id: NotRequired[List[str]]
-    r"""Filter by player NFL ID"""
-    quarter: NotRequired[List[int]]
-    r"""Filter by quarter"""
-    down: NotRequired[List[int]]
-    r"""Filter by down"""
-    yards_to_go_type: NotRequired[List[YardsToGoType]]
-    r"""Filter by yards to go category"""
-    touchdown: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for touchdown plays (1 = yes, 0 = no)"""
-    rush10_plus_yards: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for rushing plays of 10+ yards"""
-    fumble_lost: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for plays with fumbles lost"""
-    fumble: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for plays with fumbles"""
-    qb_alignment: NotRequired[List[QbAlignment]]
-    r"""Filter by quarterback alignment"""
-    redzone: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for red zone plays"""
-    goal_to_go: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for goal-to-go situations"""
-    pass_play: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for passing plays"""
-    run_play: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for running plays"""
-    play_type: NotRequired[List[PlayTypeEnum]]
-    r"""Filter by specific play types"""
-    attempt: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for passing attempts"""
-    completion: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for completed passes"""
-    interception: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for interceptions"""
-    reception: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for receptions"""
-    sack: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for sacks"""
-    rec_motion: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter by receiver motion"""
-    target_location: NotRequired[List[TargetLocation]]
-    r"""Filter by target location on field"""
-    air_yard_type: NotRequired[List[AirYardType]]
-    r"""Filter by air yards category"""
-    dropback_time_type: NotRequired[List[DropbackTimeType]]
-    r"""Filter by dropback time"""
-    pressure: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter by quarterback pressure"""
-    blitz: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter by defensive blitz"""
-    play_action: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter by play action usage"""
-    rush_direction: NotRequired[List[RushDirection]]
-    r"""Filter by rush direction"""
-    run_stuff: NotRequired[List[BinaryFlagEnum]]
-    r"""Filter for stuffed runs"""
-    receiver_alignment: NotRequired[List[ReceiverAlignment]]
-    r"""Filter by receiver alignment"""
-    separation_type: NotRequired[List[SeparationType]]
-    r"""Filter by receiver separation"""
-    personnel: NotRequired[List[Personnel]]
-    r"""Filter by defensive personnel package"""
-    defenders_in_the_box_type: NotRequired[List[DefendersInTheBoxType]]
-    r"""Filter by defenders in the box"""
-    def_coverage_type: NotRequired[List[DefCoverageType]]
-    r"""Filter by defensive coverage type"""
 
 
 class GetFilmroomPlaysRequest(BaseModel):

@@ -3,16 +3,10 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.game_phase_enum import GamePhaseEnum
 from griddy.nfl.types import BaseModel
-
-
-class AwayTeamTypedDict(TypedDict):
-    abbreviation: NotRequired[str]
-    score: NotRequired[int]
-    team_id: NotRequired[str]
 
 
 class AwayTeam(BaseModel):
@@ -23,38 +17,12 @@ class AwayTeam(BaseModel):
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
 
 
-class HomeTeamTypedDict(TypedDict):
-    abbreviation: NotRequired[str]
-    score: NotRequired[int]
-    team_id: NotRequired[str]
-
-
 class HomeTeam(BaseModel):
     abbreviation: Optional[str] = None
 
     score: Optional[int] = None
 
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
-
-
-class LiveGameTypedDict(TypedDict):
-    r"""Live game scoring and status information"""
-
-    away_team: NotRequired[AwayTeamTypedDict]
-    game_id: NotRequired[str]
-    r"""Game identifier"""
-    home_team: NotRequired[HomeTeamTypedDict]
-    last_play: NotRequired[str]
-    r"""Description of last play"""
-    possession: NotRequired[str]
-    r"""Team abbreviation with current possession"""
-    quarter: NotRequired[str]
-    r"""Current quarter/period"""
-    red_zone: NotRequired[bool]
-    r"""Whether team is in red zone"""
-    status: NotRequired[GamePhaseEnum]
-    time_remaining: NotRequired[str]
-    r"""Time remaining in current period"""
 
 
 class LiveGame(BaseModel):

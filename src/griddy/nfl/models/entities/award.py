@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
 
@@ -17,12 +17,6 @@ AwardType = Literal[
     "ALL_PRO",
     "SUPER_BOWL_MVP",
 ]
-
-
-class AwardTypedDict(TypedDict):
-    award_type: NotRequired[AwardType]
-    description: NotRequired[str]
-    year: NotRequired[int]
 
 
 class Award(BaseModel):

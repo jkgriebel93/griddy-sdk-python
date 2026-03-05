@@ -18,59 +18,11 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # ---------------------------------------------------------------------------
 # FantasyPlayer (one row in /years/{year}/fantasy.htm)
 # ---------------------------------------------------------------------------
-
-
-class FantasyPlayerTypedDict(TypedDict):
-    rank: NotRequired[int]
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    player_id: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    fantasy_pos: NotRequired[str]
-    age: NotRequired[int]
-    # Games
-    g: NotRequired[int]
-    gs: NotRequired[int]
-    # Passing
-    pass_cmp: NotRequired[int]
-    pass_att: NotRequired[int]
-    pass_yds: NotRequired[int]
-    pass_td: NotRequired[int]
-    pass_int: NotRequired[int]
-    # Rushing
-    rush_att: NotRequired[int]
-    rush_yds: NotRequired[int]
-    rush_yds_per_att: NotRequired[Any]
-    rush_td: NotRequired[int]
-    # Receiving
-    targets: NotRequired[int]
-    rec: NotRequired[int]
-    rec_yds: NotRequired[int]
-    rec_yds_per_rec: NotRequired[Any]
-    rec_td: NotRequired[int]
-    # Fumbles
-    fumbles: NotRequired[int]
-    fumbles_lost: NotRequired[int]
-    # Scoring
-    all_td: NotRequired[int]
-    two_pt_md: NotRequired[int]
-    two_pt_pass: NotRequired[int]
-    # Fantasy
-    fantasy_points: NotRequired[Any]
-    fantasy_points_ppr: NotRequired[Any]
-    draftkings_points: NotRequired[Any]
-    fanduel_points: NotRequired[Any]
-    vbd: NotRequired[int]
-    fantasy_rank_pos: NotRequired[int]
-    fantasy_rank_overall: NotRequired[int]
 
 
 class FantasyPlayer(BaseModel):
@@ -124,10 +76,6 @@ class FantasyPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class TopFantasyPlayersTypedDict(TypedDict):
-    players: NotRequired[List[FantasyPlayerTypedDict]]
-
-
 class TopFantasyPlayers(BaseModel):
     players: List[FantasyPlayer] = []
 
@@ -135,52 +83,6 @@ class TopFantasyPlayers(BaseModel):
 # ---------------------------------------------------------------------------
 # FantasyMatchupPlayer (one row in /fantasy/{position}-fantasy-matchups.htm)
 # ---------------------------------------------------------------------------
-
-
-class FantasyMatchupPlayerTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    player_id: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    injury: NotRequired[str]
-    # Games
-    g: NotRequired[int]
-    gs: NotRequired[int]
-    snaps: NotRequired[str]
-    # Passing (QB only)
-    pass_cmp: NotRequired[Any]
-    pass_att: NotRequired[Any]
-    pass_yds: NotRequired[Any]
-    pass_td: NotRequired[Any]
-    pass_int: NotRequired[Any]
-    pass_sacked: NotRequired[Any]
-    # Rushing (QB / RB)
-    rush_att: NotRequired[Any]
-    rush_yds: NotRequired[Any]
-    rush_td: NotRequired[Any]
-    # Receiving (WR / RB / TE)
-    targets: NotRequired[Any]
-    rec: NotRequired[Any]
-    rec_yds: NotRequired[Any]
-    rec_td: NotRequired[Any]
-    # Fantasy per game
-    fantasy_points_per_game: NotRequired[Any]
-    draftkings_points_per_game: NotRequired[Any]
-    fanduel_points_per_game: NotRequired[Any]
-    # Matchup
-    at_or_vs: NotRequired[str]
-    opp: NotRequired[str]
-    opp_href: NotRequired[str]
-    rank: NotRequired[int]
-    # Opponent fantasy allowed per game
-    opp_fantasy_points_per_game: NotRequired[Any]
-    opp_draftkings_points_per_game: NotRequired[Any]
-    opp_fanduel_points_per_game: NotRequired[Any]
-    # Projected ranks
-    fantasy_points_proj_rank: NotRequired[int]
-    draftkings_points_proj_rank: NotRequired[int]
-    fanduel_points_proj_rank: NotRequired[int]
 
 
 class FantasyMatchupPlayer(BaseModel):
@@ -234,10 +136,6 @@ class FantasyMatchupPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class FantasyMatchupsTypedDict(TypedDict):
-    players: NotRequired[List[FantasyMatchupPlayerTypedDict]]
-
-
 class FantasyMatchups(BaseModel):
     players: List[FantasyMatchupPlayer] = []
 
@@ -246,41 +144,6 @@ class FantasyMatchups(BaseModel):
 # FantasyPointsAllowedTeam
 # (one row in /years/{year}/fantasy-points-against-{position}.htm)
 # ---------------------------------------------------------------------------
-
-
-class FantasyPointsAllowedTeamTypedDict(TypedDict):
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    g: NotRequired[int]
-    # Passing (QB only)
-    pass_cmp: NotRequired[int]
-    pass_att: NotRequired[int]
-    pass_yds: NotRequired[int]
-    pass_td: NotRequired[int]
-    pass_int: NotRequired[int]
-    two_pt_pass: NotRequired[int]
-    pass_sacked: NotRequired[int]
-    # Rushing (QB / RB)
-    rush_att: NotRequired[int]
-    rush_yds: NotRequired[int]
-    rush_td: NotRequired[int]
-    # Receiving (WR / RB / TE)
-    targets: NotRequired[int]
-    rec: NotRequired[int]
-    rec_yds: NotRequired[int]
-    rec_td: NotRequired[int]
-    # Scoring (WR / RB / TE)
-    two_pt_md: NotRequired[int]
-    # Fumbles (WR / RB / TE)
-    fumbles_lost: NotRequired[int]
-    # Fantasy totals
-    fantasy_points: NotRequired[Any]
-    draftkings_points: NotRequired[Any]
-    fanduel_points: NotRequired[Any]
-    # Fantasy per game
-    fantasy_points_per_game: NotRequired[Any]
-    draftkings_points_per_game: NotRequired[Any]
-    fanduel_points_per_game: NotRequired[Any]
 
 
 class FantasyPointsAllowedTeam(BaseModel):
@@ -324,10 +187,6 @@ class FantasyPointsAllowedTeam(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class FantasyPointsAllowedTypedDict(TypedDict):
-    teams: NotRequired[List[FantasyPointsAllowedTeamTypedDict]]
-
-
 class FantasyPointsAllowed(BaseModel):
     teams: List[FantasyPointsAllowedTeam] = []
 
@@ -335,30 +194,6 @@ class FantasyPointsAllowed(BaseModel):
 # ---------------------------------------------------------------------------
 # RedZonePassingPlayer (one row in /years/{year}/redzone-passing.htm)
 # ---------------------------------------------------------------------------
-
-
-class RedZonePassingPlayerTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    player_id: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    # Inside 20
-    pass_cmp: NotRequired[int]
-    pass_att: NotRequired[int]
-    pass_cmp_perc: NotRequired[Any]
-    pass_yds: NotRequired[int]
-    pass_td: NotRequired[int]
-    pass_int: NotRequired[int]
-    # Inside 10
-    pass_cmp_in_10: NotRequired[int]
-    pass_att_in_10: NotRequired[int]
-    pass_cmp_perc_in_10: NotRequired[Any]
-    pass_yds_in_10: NotRequired[int]
-    pass_td_in_10: NotRequired[int]
-    pass_int_in_10: NotRequired[int]
-    # Link
-    link_href: NotRequired[str]
 
 
 class RedZonePassingPlayer(BaseModel):
@@ -390,10 +225,6 @@ class RedZonePassingPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZonePassingTypedDict(TypedDict):
-    players: NotRequired[List[RedZonePassingPlayerTypedDict]]
-
-
 class RedZonePassing(BaseModel):
     players: List[RedZonePassingPlayer] = []
 
@@ -401,30 +232,6 @@ class RedZonePassing(BaseModel):
 # ---------------------------------------------------------------------------
 # RedZoneReceivingPlayer (one row in /years/{year}/redzone-receiving.htm)
 # ---------------------------------------------------------------------------
-
-
-class RedZoneReceivingPlayerTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    player_id: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    # Inside 20
-    targets: NotRequired[int]
-    rec: NotRequired[int]
-    catch_pct: NotRequired[Any]
-    rec_yds: NotRequired[int]
-    rec_td: NotRequired[int]
-    targets_pct: NotRequired[Any]
-    # Inside 10
-    targets_in_10: NotRequired[int]
-    rec_in_10: NotRequired[int]
-    catch_pct_in_10: NotRequired[Any]
-    rec_yds_in_10: NotRequired[int]
-    rec_td_in_10: NotRequired[int]
-    targets_in_10_pct: NotRequired[Any]
-    # Link
-    link_href: NotRequired[str]
 
 
 class RedZoneReceivingPlayer(BaseModel):
@@ -456,10 +263,6 @@ class RedZoneReceivingPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZoneReceivingTypedDict(TypedDict):
-    players: NotRequired[List[RedZoneReceivingPlayerTypedDict]]
-
-
 class RedZoneReceiving(BaseModel):
     players: List[RedZoneReceivingPlayer] = []
 
@@ -467,31 +270,6 @@ class RedZoneReceiving(BaseModel):
 # ---------------------------------------------------------------------------
 # RedZoneRushingPlayer (one row in /years/{year}/redzone-rushing.htm)
 # ---------------------------------------------------------------------------
-
-
-class RedZoneRushingPlayerTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    player_id: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    # Inside 20
-    rush_att: NotRequired[int]
-    rush_yds: NotRequired[int]
-    rush_td: NotRequired[int]
-    rush_att_pct: NotRequired[Any]
-    # Inside 10
-    rush_att_in_10: NotRequired[int]
-    rush_yds_in_10: NotRequired[int]
-    rush_td_in_10: NotRequired[int]
-    rush_att_in_10_pct: NotRequired[Any]
-    # Inside 5
-    rush_att_in_5: NotRequired[int]
-    rush_yds_in_5: NotRequired[int]
-    rush_td_in_5: NotRequired[int]
-    rush_att_in_5_pct: NotRequired[Any]
-    # Link
-    link_href: NotRequired[str]
 
 
 class RedZoneRushingPlayer(BaseModel):
@@ -522,10 +300,6 @@ class RedZoneRushingPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 # RedZoneRushing (top-level for /years/{year}/redzone-rushing.htm)
 # ---------------------------------------------------------------------------
-
-
-class RedZoneRushingTypedDict(TypedDict):
-    players: NotRequired[List[RedZoneRushingPlayerTypedDict]]
 
 
 class RedZoneRushing(BaseModel):

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pydantic import model_serializer
-from typing_extensions import NotRequired, TypedDict
 
 from griddy.nfl.types import (
     UNSET,
@@ -12,18 +11,7 @@ from griddy.nfl.types import (
 )
 
 
-class PreviewTypedDict(TypedDict):
-    r"""Preview content and analysis"""
-
-
 class Preview(BaseModel):
-    r"""Preview content and analysis"""
-
-
-class GamePreviewResponseTypedDict(TypedDict):
-    r"""Game preview content (may be empty if no preview available)"""
-
-    preview: NotRequired[Nullable[PreviewTypedDict]]
     r"""Preview content and analysis"""
 
 

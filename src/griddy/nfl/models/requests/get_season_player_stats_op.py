@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
@@ -35,25 +35,6 @@ StatCategory = Literal[
     "returning",
 ]
 r"""Statistical category to retrieve"""
-
-
-class GetSeasonPlayerStatsRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    position: NotRequired[GetSeasonPlayerStatsPosition]
-    r"""Filter by position group"""
-    team_id: NotRequired[str]
-    r"""Filter by team"""
-    stat_category: NotRequired[StatCategory]
-    r"""Statistical category to retrieve"""
-    sort: NotRequired[str]
-    r"""Sort field and order"""
-    limit: NotRequired[int]
-    r"""Maximum number of results"""
-    offset: NotRequired[int]
-    r"""Offset for pagination"""
 
 
 class GetSeasonPlayerStatsRequest(BaseModel):

@@ -3,24 +3,11 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.team_score import TeamScore, TeamScoreTypedDict
+from griddy.nfl.models.entities.team_score import TeamScore
 from griddy.nfl.models.enums.game_phase_enum import GamePhaseEnum
 from griddy.nfl.types import BaseModel
-
-
-class GameScoreTypedDict(TypedDict):
-    away_score: NotRequired[int]
-    r"""Away team current score"""
-    home_score: NotRequired[int]
-    r"""Home team current score"""
-    home_team_score: NotRequired[TeamScoreTypedDict]
-    phase: NotRequired[GamePhaseEnum]
-    r"""Game phase (P=Pregame, 1-4=Quarter, FINAL=Final)"""
-    time: NotRequired[str]
-    r"""Game clock time or status"""
-    visitor_team_score: NotRequired[TeamScoreTypedDict]
 
 
 class GameScore(BaseModel):

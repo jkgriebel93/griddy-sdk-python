@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
@@ -65,27 +65,6 @@ GetTeamDefenseStatsByWeekSplit = Literal[
     "TEAM_DEFENSE_PISTOL",
     "TEAM_DEFENSE_MOTION",
 ]
-
-
-class GetTeamDefenseStatsByWeekRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    week: WeekSlugEnum
-    r"""Week number"""
-    limit: NotRequired[int]
-    r"""Maximum number of teams to return"""
-    offset: NotRequired[int]
-    r"""Number of records to skip for pagination"""
-    page: NotRequired[int]
-    r"""Page number for pagination"""
-    sort_key: NotRequired[GetTeamDefenseStatsByWeekSortKey]
-    r"""Field to sort by"""
-    sort_value: NotRequired[SortOrderEnum]
-    r"""Sort direction"""
-    split: NotRequired[List[GetTeamDefenseStatsByWeekSplit]]
-    r"""Defensive situation splits to filter by (supports multiple values)"""
 
 
 class GetTeamDefenseStatsByWeekRequest(BaseModel):

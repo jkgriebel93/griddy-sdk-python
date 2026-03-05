@@ -3,48 +3,13 @@ from __future__ import annotations
 from typing import Any, Dict, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
 
 # ---------------------------------------------------------------------------
 # Defense
 # ---------------------------------------------------------------------------
-
-
-class HistoricalDefenseStatsTypedDict(TypedDict):
-    assists: NotRequired[int]
-    all_kick_blocked: NotRequired[int]
-    batted_down: NotRequired[int]
-    combine_tackles: NotRequired[int]
-    fg_blocked: NotRequired[int]
-    forced_fumble: NotRequired[int]
-    misc_assists: NotRequired[int]
-    misc_ffum: NotRequired[int]
-    misc_tackles: NotRequired[float]
-    passes_defensed: NotRequired[int]
-    punt_blocked: NotRequired[int]
-    qb_hits: NotRequired[int]
-    reg_assists: NotRequired[int]
-    reg_combined: NotRequired[float]
-    reg_ffum: NotRequired[int]
-    reg_tackles: NotRequired[float]
-    sack_yards: NotRequired[float]
-    sacks: NotRequired[float]
-    safeties: NotRequired[int]
-    solo_tackles: NotRequired[int]
-    spec_assists: NotRequired[int]
-    spec_ffum: NotRequired[int]
-    spec_tackles: NotRequired[float]
-    stuff: NotRequired[float]
-    stuff_yards: NotRequired[int]
-    tackles: NotRequired[float]
-    tfl: NotRequired[float]
-    tfl_yards: NotRequired[float]
-    total_assists: NotRequired[int]
-    total_combined: NotRequired[float]
-    total_tackles: NotRequired[float]
-    xp_blocked: NotRequired[int]
 
 
 class HistoricalDefenseStats(BaseModel):
@@ -126,35 +91,6 @@ class HistoricalDefenseStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Passing
 # ---------------------------------------------------------------------------
-
-
-class HistoricalPassingStatsTypedDict(TypedDict):
-    distance_20_plus: NotRequired[int]
-    distance_40_plus: NotRequired[int]
-    attempts: NotRequired[int]
-    attempts_per_game: NotRequired[Optional[float]]
-    average_yards: NotRequired[float]
-    completion_percentage: NotRequired[float]
-    completions: NotRequired[int]
-    extra_point_attempts: NotRequired[int]
-    extra_point_good: NotRequired[int]
-    first_down_percentage: NotRequired[float]
-    first_downs: NotRequired[int]
-    fumbles: NotRequired[int]
-    fumbles_lost: NotRequired[int]
-    interception_percentage: NotRequired[float]
-    interceptions: NotRequired[int]
-    lgtd: NotRequired[bool]
-    long: NotRequired[int]
-    net_yards: NotRequired[int]
-    passer_rating: NotRequired[float]
-    sacked: NotRequired[int]
-    sacked_yards_lost: NotRequired[int]
-    touchdown_percentage: NotRequired[float]
-    touchdowns: NotRequired[int]
-    touchdowns_per_game: NotRequired[Optional[float]]
-    yards: NotRequired[int]
-    yards_after_catch: NotRequired[int]
 
 
 class HistoricalPassingStats(BaseModel):
@@ -244,27 +180,6 @@ class HistoricalPassingStats(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HistoricalRushingStatsTypedDict(TypedDict):
-    distance_20_plus: NotRequired[int]
-    distance_40_plus: NotRequired[int]
-    attempts: NotRequired[int]
-    attempts_per_game: NotRequired[Optional[float]]
-    average_yards: NotRequired[float]
-    extra_point_attempts: NotRequired[int]
-    extra_point_good: NotRequired[int]
-    first_down_percentage: NotRequired[float]
-    first_downs: NotRequired[int]
-    fumbles: NotRequired[int]
-    fumbles_lost: NotRequired[int]
-    lgtd: NotRequired[bool]
-    long: NotRequired[int]
-    stuff: NotRequired[int]
-    stuff_yards: NotRequired[int]
-    touchdowns: NotRequired[int]
-    touchdowns_per_game: NotRequired[Optional[float]]
-    yards: NotRequired[int]
-
-
 class HistoricalRushingStats(BaseModel):
     distance_20_plus: Annotated[
         Optional[int], pydantic.Field(alias="distance20Plus")
@@ -322,28 +237,6 @@ class HistoricalRushingStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Receiving
 # ---------------------------------------------------------------------------
-
-
-class HistoricalReceivingStatsTypedDict(TypedDict):
-    average_yards: NotRequired[float]
-    distance_20_plus: NotRequired[int]
-    distance_40_plus: NotRequired[int]
-    extra_point_attempts: NotRequired[int]
-    extra_point_good: NotRequired[int]
-    first_down_percentage: NotRequired[float]
-    first_downs: NotRequired[int]
-    fumbles: NotRequired[int]
-    fumbles_lost: NotRequired[int]
-    lgtd: NotRequired[bool]
-    long: NotRequired[int]
-    receptions: NotRequired[int]
-    receptions_per_game: NotRequired[Optional[float]]
-    target: NotRequired[int]
-    touchdowns: NotRequired[int]
-    touchdowns_per_game: NotRequired[Optional[float]]
-    yards: NotRequired[int]
-    yards_after_catch: NotRequired[int]
-    yards_per_game: NotRequired[Optional[float]]
 
 
 class HistoricalReceivingStats(BaseModel):
@@ -411,20 +304,6 @@ class HistoricalReceivingStats(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HistoricalKickReturnsStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    average_yards: NotRequired[float]
-    distance_20_plus: NotRequired[int]
-    distance_40_plus: NotRequired[int]
-    fair_catches: NotRequired[int]
-    fumbles: NotRequired[int]
-    fumbles_lost: NotRequired[int]
-    lgtd: NotRequired[bool]
-    long: NotRequired[int]
-    touchdowns: NotRequired[int]
-    yards: NotRequired[int]
-
-
 class HistoricalKickReturnsStats(BaseModel):
     attempts: Optional[int] = None
 
@@ -458,22 +337,6 @@ class HistoricalKickReturnsStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Punt Returns
 # ---------------------------------------------------------------------------
-
-
-class HistoricalPuntReturnsStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    average_yards: NotRequired[float]
-    distance_20_plus: NotRequired[int]
-    distance_40_plus: NotRequired[int]
-    fair_catches: NotRequired[int]
-    fumbles: NotRequired[int]
-    fumbles_lost: NotRequired[int]
-    lgtd: NotRequired[bool]
-    long: NotRequired[int]
-    start_in_10: NotRequired[int]
-    start_in_20: NotRequired[int]
-    touchdowns: NotRequired[int]
-    yards: NotRequired[int]
 
 
 class HistoricalPuntReturnsStats(BaseModel):
@@ -532,17 +395,6 @@ class KickingDetails(BaseModel):
     )
 
 
-class HistoricalKickingStatsTypedDict(TypedDict):
-    attempts_1_to_19: NotRequired[int]
-    attempts_20_to_29: NotRequired[int]
-    attempts_30_to_39: NotRequired[int]
-    attempts_40_to_49: NotRequired[int]
-    attempts_50_to_59: NotRequired[int]
-    attempts_60_plus: NotRequired[int]
-    extra_points: NotRequired[Dict[str, Any]]
-    field_goals: NotRequired[Dict[str, Any]]
-
-
 class HistoricalKickingStats(BaseModel):
     attempts_1_to_19: Annotated[
         Optional[KickingDetails], pydantic.Field(alias="attempts1To19")
@@ -580,23 +432,6 @@ class HistoricalKickingStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Kickoffs
 # ---------------------------------------------------------------------------
-
-
-class HistoricalKickoffsStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    average_yards: NotRequired[float]
-    endzone: NotRequired[int]
-    fair_caught: NotRequired[int]
-    onside: NotRequired[int]
-    onside_recovered: NotRequired[int]
-    out_of_bounds: NotRequired[int]
-    return_average_yards: NotRequired[float]
-    return_touchdowns: NotRequired[int]
-    return_yards: NotRequired[int]
-    returns: NotRequired[int]
-    touchbacks: NotRequired[int]
-    touchbacks_percentage: NotRequired[float]
-    yards: NotRequired[int]
 
 
 class HistoricalKickoffsStats(BaseModel):
@@ -642,26 +477,6 @@ class HistoricalKickoffsStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Punting
 # ---------------------------------------------------------------------------
-
-
-class HistoricalPuntingStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    average_yards: NotRequired[float]
-    blocked: NotRequired[int]
-    downed: NotRequired[int]
-    fair_caught: NotRequired[int]
-    inside_10: NotRequired[int]
-    inside_20: NotRequired[int]
-    long: NotRequired[int]
-    net_average: NotRequired[float]
-    net_yardage: NotRequired[int]
-    out_of_bounds: NotRequired[int]
-    punts_and_blocked: NotRequired[int]
-    return_touchdowns: NotRequired[int]
-    return_yards: NotRequired[int]
-    returns: NotRequired[int]
-    touchbacks: NotRequired[int]
-    yards: NotRequired[int]
 
 
 class HistoricalPuntingStats(BaseModel):
@@ -711,11 +526,6 @@ class HistoricalPuntingStats(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HistoricalPenaltiesStatsTypedDict(TypedDict):
-    total: NotRequired[int]
-    yards: NotRequired[int]
-
-
 class HistoricalPenaltiesStats(BaseModel):
     total: Optional[int] = None
 
@@ -725,17 +535,6 @@ class HistoricalPenaltiesStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Scoring
 # ---------------------------------------------------------------------------
-
-
-class HistoricalScoringStatsTypedDict(TypedDict):
-    average_margin_of_victory: NotRequired[Optional[float]]
-    average_points_scored: NotRequired[Optional[float]]
-    defensive_touchdowns: NotRequired[int]
-    offensive_touchdowns: NotRequired[int]
-    return_touchdowns: NotRequired[int]
-    special_teams_touchdowns: NotRequired[int]
-    total_points_scored: NotRequired[int]
-    total_touchdowns: NotRequired[int]
 
 
 class HistoricalScoringStats(BaseModel):
@@ -775,21 +574,6 @@ class HistoricalScoringStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Down and Distance
 # ---------------------------------------------------------------------------
-
-
-class HistoricalDownAndDistanceStatsTypedDict(TypedDict):
-    downs_1st_attempts: NotRequired[int]
-    downs_1st_made: NotRequired[int]
-    downs_2nd_attempts: NotRequired[int]
-    downs_2nd_made: NotRequired[int]
-    downs_3rd_attempts: NotRequired[int]
-    downs_3rd_made: NotRequired[int]
-    downs_4th_attempts: NotRequired[int]
-    downs_4th_made: NotRequired[int]
-    passing: NotRequired[int]
-    penalty: NotRequired[int]
-    rushing: NotRequired[int]
-    total: NotRequired[int]
 
 
 class HistoricalDownAndDistanceStats(BaseModel):
@@ -839,12 +623,6 @@ class HistoricalDownAndDistanceStats(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HistoricalRedzoneStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    field_goals: NotRequired[int]
-    good: NotRequired[int]
-
-
 class HistoricalRedzoneStats(BaseModel):
     attempts: Optional[int] = None
 
@@ -858,11 +636,6 @@ class HistoricalRedzoneStats(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class HistoricalGoalToGoStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    good: NotRequired[int]
-
-
 class HistoricalGoalToGoStats(BaseModel):
     attempts: Optional[int] = None
 
@@ -872,13 +645,6 @@ class HistoricalGoalToGoStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Time of Possession
 # ---------------------------------------------------------------------------
-
-
-class HistoricalTimeOfPossessionStatsTypedDict(TypedDict):
-    display: NotRequired[str]
-    seconds_per_game: NotRequired[Optional[float]]
-    seconds_per_game_display: NotRequired[Optional[str]]
-    total_seconds: NotRequired[int]
 
 
 class HistoricalTimeOfPossessionStats(BaseModel):
@@ -898,30 +664,6 @@ class HistoricalTimeOfPossessionStats(BaseModel):
 # ---------------------------------------------------------------------------
 # Container: HistoricalStatCategories
 # ---------------------------------------------------------------------------
-
-
-class HistoricalStatCategoriesTypedDict(TypedDict):
-    defense: NotRequired[HistoricalDefenseStatsTypedDict]
-    passing: NotRequired[HistoricalPassingStatsTypedDict]
-    rushing: NotRequired[HistoricalRushingStatsTypedDict]
-    receiving: NotRequired[HistoricalReceivingStatsTypedDict]
-    kick_returns: NotRequired[HistoricalKickReturnsStatsTypedDict]
-    punt_returns: NotRequired[HistoricalPuntReturnsStatsTypedDict]
-    kicking: NotRequired[HistoricalKickingStatsTypedDict]
-    kickoffs: NotRequired[HistoricalKickoffsStatsTypedDict]
-    punting: NotRequired[HistoricalPuntingStatsTypedDict]
-    penalties: NotRequired[HistoricalPenaltiesStatsTypedDict]
-    scoring: NotRequired[HistoricalScoringStatsTypedDict]
-    down_and_distance: NotRequired[HistoricalDownAndDistanceStatsTypedDict]
-    redzone: NotRequired[HistoricalRedzoneStatsTypedDict]
-    goal_to_go: NotRequired[HistoricalGoalToGoStatsTypedDict]
-    time_of_possession: NotRequired[HistoricalTimeOfPossessionStatsTypedDict]
-    fumbles: NotRequired[Optional[Dict[str, Any]]]
-    interceptions: NotRequired[Optional[Dict[str, Any]]]
-    misc: NotRequired[Optional[Dict[str, Any]]]
-    offense: NotRequired[Optional[Dict[str, Any]]]
-    opponent_fumble_recoveries: NotRequired[Optional[Dict[str, Any]]]
-    own_fumble_recoveries: NotRequired[Optional[Dict[str, Any]]]
 
 
 class HistoricalStatCategories(BaseModel):

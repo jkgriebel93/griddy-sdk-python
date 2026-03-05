@@ -5,34 +5,12 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 
-from .ngs_play import NgsPlay, NgsPlayTypedDict
-from .player import Player, PlayerTypedDict
-
-
-class NgsSpeedLeaderTypedDict(TypedDict):
-    """Leader info for speed leaderboards."""
-
-    nfl_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    yards: NotRequired[int]
-    in_play_dist: NotRequired[float]
-    max_speed: NotRequired[float]
-    headshot: NotRequired[str]
+from .ngs_play import NgsPlay
+from .player import Player
 
 
 class NgsSpeedLeader(BaseModel):
@@ -59,40 +37,11 @@ class NgsSpeedLeader(BaseModel):
     headshot: Optional[str] = None
 
 
-class NgsSpeedLeaderEntryTypedDict(TypedDict):
-    """Entry in speed leaderboards."""
-
-    leader: NotRequired[NgsSpeedLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
-
-
 class NgsSpeedLeaderEntry(BaseModel):
     """Entry in speed leaderboards."""
 
     leader: Optional[NgsSpeedLeader] = None
     play: Optional[NgsPlay] = None
-
-
-class NgsSackLeaderTypedDict(TypedDict):
-    """Leader info for sack leaderboards."""
-
-    nfl_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    time: NotRequired[float]
-    season_avg: NotRequired[float]
-    team_avg: NotRequired[float]
-    headshot: NotRequired[str]
 
 
 class NgsSackLeader(BaseModel):
@@ -119,40 +68,11 @@ class NgsSackLeader(BaseModel):
     headshot: Optional[str] = None
 
 
-class NgsSackLeaderEntryTypedDict(TypedDict):
-    """Entry in sack leaderboards."""
-
-    leader: NotRequired[NgsSackLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
-
-
 class NgsSackLeaderEntry(BaseModel):
     """Entry in sack leaderboards."""
 
     leader: Optional[NgsSackLeader] = None
     play: Optional[NgsPlay] = None
-
-
-class NgsCompletionLeaderTypedDict(TypedDict):
-    """Leader info for completion probability leaderboards."""
-
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    pass_yards: NotRequired[int]
-    air_yards: NotRequired[float]
-    completion_probability: NotRequired[float]
-    headshot: NotRequired[str]
-    receiver: NotRequired[PlayerTypedDict]
 
 
 class NgsCompletionLeader(BaseModel):
@@ -181,42 +101,11 @@ class NgsCompletionLeader(BaseModel):
     receiver: Optional[Player] = None
 
 
-class NgsCompletionLeaderEntryTypedDict(TypedDict):
-    """Entry in completion probability leaderboards."""
-
-    leader: NotRequired[NgsCompletionLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
-
-
 class NgsCompletionLeaderEntry(BaseModel):
     """Entry in completion probability leaderboards."""
 
     leader: Optional[NgsCompletionLeader] = None
     play: Optional[NgsPlay] = None
-
-
-class NgsYACLeaderTypedDict(TypedDict):
-    """Leader info for YAC (yards after catch) leaderboards."""
-
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    rec_yards: NotRequired[int]
-    air_yards: NotRequired[float]
-    yards_after_catch: NotRequired[float]
-    expected_yards_after_catch: NotRequired[float]
-    yards_after_catch_over_expectation: NotRequired[float]
-    is_touchdown: NotRequired[bool]
-    headshot: NotRequired[str]
 
 
 class NgsYACLeader(BaseModel):
@@ -251,39 +140,11 @@ class NgsYACLeader(BaseModel):
     headshot: Optional[str] = None
 
 
-class NgsYACLeaderEntryTypedDict(TypedDict):
-    """Entry in YAC leaderboards."""
-
-    leader: NotRequired[NgsYACLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
-
-
 class NgsYACLeaderEntry(BaseModel):
     """Entry in YAC leaderboards."""
 
     leader: Optional[NgsYACLeader] = None
     play: Optional[NgsPlay] = None
-
-
-class NgsDistanceLeaderTypedDict(TypedDict):
-    """Leader info for distance leaderboards."""
-
-    nfl_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    yards: NotRequired[int]
-    in_play_dist: NotRequired[float]
-    headshot: NotRequired[str]
 
 
 class NgsDistanceLeader(BaseModel):
@@ -309,38 +170,11 @@ class NgsDistanceLeader(BaseModel):
     headshot: Optional[str] = None
 
 
-class NgsDistanceLeaderEntryTypedDict(TypedDict):
-    """Entry in distance leaderboards."""
-
-    leader: NotRequired[NgsDistanceLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
-
-
 class NgsDistanceLeaderEntry(BaseModel):
     """Entry in distance leaderboards."""
 
     leader: Optional[NgsDistanceLeader] = None
     play: Optional[NgsPlay] = None
-
-
-class NgsTackleLeaderTypedDict(TypedDict):
-    """Leader info for tackle distance leaderboards."""
-
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    in_play_dist: NotRequired[float]
-    distance_covered: NotRequired[float]
-    headshot: NotRequired[str]
 
 
 class NgsTackleLeader(BaseModel):
@@ -367,40 +201,11 @@ class NgsTackleLeader(BaseModel):
     headshot: Optional[str] = None
 
 
-class NgsTackleLeaderEntryTypedDict(TypedDict):
-    """Entry in tackle distance leaderboards."""
-
-    leader: NotRequired[NgsTackleLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
-
-
 class NgsTackleLeaderEntry(BaseModel):
     """Entry in tackle distance leaderboards."""
 
     leader: Optional[NgsTackleLeader] = None
     play: Optional[NgsPlay] = None
-
-
-class NgsERYLeaderTypedDict(TypedDict):
-    """Leader info for expected rush yards (ERY) leaderboards."""
-
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    first_name: NotRequired[str]
-    last_name: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    position_group: NotRequired[str]
-    team_abbr: NotRequired[str]
-    team_id: NotRequired[str]
-    week: NotRequired[int]
-    rush_yards: NotRequired[int]
-    expected_rush_yards: NotRequired[float]
-    rush_yards_over_expected: NotRequired[float]
-    is_touchdown: NotRequired[bool]
-    headshot: NotRequired[str]
 
 
 class NgsERYLeader(BaseModel):
@@ -429,13 +234,6 @@ class NgsERYLeader(BaseModel):
     ] = None
     is_touchdown: Annotated[Optional[bool], pydantic.Field(alias="isTouchdown")] = None
     headshot: Optional[str] = None
-
-
-class NgsERYLeaderEntryTypedDict(TypedDict):
-    """Entry in ERY leaderboards."""
-
-    leader: NotRequired[NgsERYLeaderTypedDict]
-    play: NotRequired[NgsPlayTypedDict]
 
 
 class NgsERYLeaderEntry(BaseModel):

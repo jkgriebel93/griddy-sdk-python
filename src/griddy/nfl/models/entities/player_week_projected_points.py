@@ -4,22 +4,9 @@ from typing import Literal
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-
-
-class PlayerWeekProjectedPointsAttributesTypedDict(TypedDict):
-    player_id: str
-    r"""Player SMART ID"""
-    season: int
-    r"""Season year"""
-    settings_code: str
-    r"""Fantasy settings code"""
-    week: int
-    r"""Week number"""
-    points: NotRequired[Nullable[float]]
-    r"""Projected fantasy points"""
 
 
 class PlayerWeekProjectedPointsAttributes(BaseModel):
@@ -70,13 +57,6 @@ class PlayerWeekProjectedPointsAttributes(BaseModel):
 
 
 PlayerWeekProjectedPointsType = Literal["player-week-projected-points",]
-
-
-class PlayerWeekProjectedPointsTypedDict(TypedDict):
-    attributes: PlayerWeekProjectedPointsAttributesTypedDict
-    id: str
-    r"""Unique identifier for this projection"""
-    type: PlayerWeekProjectedPointsType
 
 
 class PlayerWeekProjectedPoints(BaseModel):

@@ -3,17 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-
-
-class GetPlayerDetailsRequestTypedDict(TypedDict):
-    player_id: str
-    r"""Player identifier"""
-    season: NotRequired[int]
-    r"""Season for statistics (defaults to current)"""
 
 
 class GetPlayerDetailsRequest(BaseModel):

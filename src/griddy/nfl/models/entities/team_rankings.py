@@ -3,20 +3,12 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 from ...types import BaseModel
-from .statistic_ranking import StatisticRanking, StatisticRankingTypedDict
-
-
-class TeamRankingsTypedDict(TypedDict):
-    season: NotRequired[int]
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    statistics: NotRequired[List[StatisticRankingTypedDict]]
-    team_id: NotRequired[str]
+from .statistic_ranking import StatisticRanking
 
 
 class TeamRankings(BaseModel):

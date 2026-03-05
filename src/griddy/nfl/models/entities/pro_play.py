@@ -1,40 +1,10 @@
-from typing import Annotated, List, NotRequired, Optional, TypedDict
+from typing import Annotated, List, Optional
 
 import pydantic
 
 from griddy.core import BaseModel
-from griddy.nfl.models import PlayStat, PlayStatTypedDict
+from griddy.nfl.models import PlayStat
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
-
-# --- Nested TypedDicts ---
-
-
-class UnofficialPlayTypedDict(TypedDict):
-    date_time_stamp_utc: NotRequired[str]
-
-
-class OffenseInfoTypedDict(TypedDict):
-    offense_formation: NotRequired[str]
-    personnel: NotRequired[str]
-
-
-class DefenseInfoTypedDict(TypedDict):
-    defenders_in_the_box: NotRequired[int]
-    personnel: NotRequired[str]
-    number_of_pass_rushers: NotRequired[int]
-    man_zone_type: NotRequired[str]
-    coverage_type: NotRequired[str]
-
-
-class PassInfoTypedDict(TypedDict):
-    air_yards: NotRequired[float]
-    time_to_throw: NotRequired[float]
-    was_pressure: NotRequired[bool]
-
-
-class RecInfoTypedDict(TypedDict):
-    route: NotRequired[str]
-
 
 # --- Nested Pydantic Models ---
 
@@ -74,45 +44,6 @@ class PassInfo(BaseModel):
 
 class RecInfo(BaseModel):
     route: Optional[str] = None
-
-
-# --- Main TypedDict ---
-
-
-class ProPlayTypedDict(TypedDict):
-    game_id: NotRequired[int]
-    play_id: NotRequired[int]
-    down: NotRequired[int]
-    home_score: NotRequired[int]
-    is_big_play: NotRequired[bool]
-    is_stp_play: NotRequired[bool]
-    is_scoring: NotRequired[bool]
-    play_description: NotRequired[str]
-    # TODO: This should probably be an enum
-    play_state: NotRequired[str]
-    play_stats: NotRequired[List[PlayStatTypedDict]]
-    play_type: NotRequired[str]
-    possession_team: NotRequired[str]
-    possession_team_id: NotRequired[str]
-    quarter: NotRequired[int]
-    season: NotRequired[int]
-    season_type: NotRequired[SeasonTypeEnum]
-    sequence: NotRequired[float]
-    unofficial_play: NotRequired[Optional[UnofficialPlayTypedDict]]
-    visitor_score: NotRequired[int]
-    week: NotRequired[int]
-    yard_line_number: NotRequired[Optional[int]]
-    yard_line_side: NotRequired[Optional[str]]
-    yards_to_go: NotRequired[int]
-    nfl_ids: NotRequired[List[int]]
-    is_marker_play: NotRequired[bool]
-    end_game_clock: NotRequired[Optional[str]]
-    start_game_clock: NotRequired[Optional[str]]
-    is_red_zone_play: NotRequired[bool]
-    offense: NotRequired[OffenseInfoTypedDict]
-    defense: NotRequired[DefenseInfoTypedDict]
-    pass_info: NotRequired[PassInfoTypedDict]
-    rec_info: NotRequired[RecInfoTypedDict]
 
 
 # --- Main Pydantic Model ---

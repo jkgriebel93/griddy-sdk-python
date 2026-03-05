@@ -5,34 +5,17 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.entities.ngs_game_overview import (
     NgsGameLeaders,
-    NgsGameLeadersTypedDict,
     NgsGameScheduleInfo,
-    NgsGameScheduleInfoTypedDict,
     NgsPassersOverview,
-    NgsPassersOverviewTypedDict,
     NgsPassRushersOverview,
-    NgsPassRushersOverviewTypedDict,
     NgsReceiversOverview,
-    NgsReceiversOverviewTypedDict,
     NgsRushersOverview,
-    NgsRushersOverviewTypedDict,
 )
 from griddy.nfl.types import BaseModel
-
-
-class NgsGameCenterOverviewResponseTypedDict(TypedDict):
-    """Response from the NGS game center overview endpoint."""
-
-    schedule: NotRequired[NgsGameScheduleInfoTypedDict]
-    passers: NotRequired[NgsPassersOverviewTypedDict]
-    rushers: NotRequired[NgsRushersOverviewTypedDict]
-    receivers: NotRequired[NgsReceiversOverviewTypedDict]
-    pass_rushers: NotRequired[NgsPassRushersOverviewTypedDict]
-    leaders: NotRequired[NgsGameLeadersTypedDict]
 
 
 class NgsGameCenterOverviewResponse(BaseModel):

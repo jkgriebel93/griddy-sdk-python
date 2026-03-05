@@ -2,18 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
-
 from griddy.nfl.types import BaseModel
-
-
-class GetNgsCurrentScheduleRequestTypedDict(TypedDict):
-    """Request parameters for getting the current NGS schedule.
-
-    This endpoint takes no parameters.
-    """
-
-    pass
 
 
 class GetNgsCurrentScheduleRequest(BaseModel):

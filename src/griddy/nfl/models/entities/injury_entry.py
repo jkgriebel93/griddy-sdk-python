@@ -3,12 +3,12 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.practice_status_enum import PracticeStatusEnum
 
 from ...types import BaseModel
-from .player import Player, PlayerTypedDict
+from .player import Player
 
 InjuryEntryGameStatus = Literal[
     "QUESTIONABLE",
@@ -17,15 +17,6 @@ InjuryEntryGameStatus = Literal[
     "IR",
 ]
 r"""Game status designation"""
-
-
-class PracticeStatusTypedDict(TypedDict):
-    friday: NotRequired[PracticeStatusEnum]
-    r"""Player practice participation status"""
-    thursday: NotRequired[PracticeStatusEnum]
-    r"""Player practice participation status"""
-    wednesday: NotRequired[PracticeStatusEnum]
-    r"""Player practice participation status"""
 
 
 class PracticeStatus(BaseModel):
@@ -37,15 +28,6 @@ class PracticeStatus(BaseModel):
 
     wednesday: Optional[PracticeStatusEnum] = None
     r"""Player practice participation status"""
-
-
-class InjuryEntryTypedDict(TypedDict):
-    game_status: NotRequired[InjuryEntryGameStatus]
-    r"""Game status designation"""
-    injury: NotRequired[str]
-    r"""Injury description"""
-    player: NotRequired[PlayerTypedDict]
-    practice_status: NotRequired[PracticeStatusTypedDict]
 
 
 class InjuryEntry(BaseModel):

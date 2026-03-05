@@ -8,21 +8,9 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # --- Stadium Team (from #meta teams list) ---
-
-
-class StadiumTeamTypedDict(TypedDict):
-    name: str
-    team_href: NotRequired[str]
-    years: NotRequired[str]
-    regular_season_record: NotRequired[str]
-    regular_season_href: NotRequired[str]
-    playoff_record: NotRequired[str]
-    playoff_href: NotRequired[str]
 
 
 class StadiumTeam(BaseModel):
@@ -38,15 +26,6 @@ class StadiumTeam(BaseModel):
 # --- Stadium Bio (from #meta div) ---
 
 
-class StadiumBioTypedDict(TypedDict):
-    name: str
-    address: NotRequired[str]
-    years_active: NotRequired[str]
-    total_games: NotRequired[int]
-    surfaces: NotRequired[str]
-    teams: List[StadiumTeamTypedDict]
-
-
 class StadiumBio(BaseModel):
     name: str
     address: Optional[str] = None
@@ -59,14 +38,6 @@ class StadiumBio(BaseModel):
 # --- Stadium Leader (from leaders table) ---
 
 
-class StadiumLeaderTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_id: NotRequired[str]
-    player_href: NotRequired[str]
-    g: NotRequired[int]
-    stats: NotRequired[str]
-
-
 class StadiumLeader(BaseModel):
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -76,17 +47,6 @@ class StadiumLeader(BaseModel):
 
 
 # --- Stadium Best Game (from games and playoff_games tables) ---
-
-
-class StadiumBestGameTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_id: NotRequired[str]
-    player_href: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    stats: NotRequired[str]
-    boxscore_word: NotRequired[str]
-    boxscore_href: NotRequired[str]
 
 
 class StadiumBestGame(BaseModel):
@@ -103,13 +63,6 @@ class StadiumBestGame(BaseModel):
 # --- Stadium Game Leader (stat leader in a game summary) ---
 
 
-class StadiumGameLeaderTypedDict(TypedDict):
-    stat_name: NotRequired[str]
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    value: NotRequired[str]
-
-
 class StadiumGameLeader(BaseModel):
     stat_name: Optional[str] = None
     player: Optional[str] = None
@@ -118,19 +71,6 @@ class StadiumGameLeader(BaseModel):
 
 
 # --- Stadium Game Summary (notable game from game_summaries section) ---
-
-
-class StadiumGameSummaryTypedDict(TypedDict):
-    label: NotRequired[str]
-    date: NotRequired[str]
-    team_1: NotRequired[str]
-    team_1_href: NotRequired[str]
-    team_1_score: NotRequired[int]
-    team_2: NotRequired[str]
-    team_2_href: NotRequired[str]
-    team_2_score: NotRequired[int]
-    boxscore_href: NotRequired[str]
-    leaders: List[StadiumGameLeaderTypedDict]
 
 
 class StadiumGameSummary(BaseModel):
@@ -147,14 +87,6 @@ class StadiumGameSummary(BaseModel):
 
 
 # --- Stadium Profile (top-level model) ---
-
-
-class StadiumProfileTypedDict(TypedDict):
-    bio: StadiumBioTypedDict
-    leaders: List[StadiumLeaderTypedDict]
-    best_games: List[StadiumBestGameTypedDict]
-    best_playoff_games: List[StadiumBestGameTypedDict]
-    game_summaries: List[StadiumGameSummaryTypedDict]
 
 
 class StadiumProfile(BaseModel):

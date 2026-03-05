@@ -8,15 +8,9 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # --- Executive Bio (from #meta div) ---
-
-
-class ExecutiveBioTypedDict(TypedDict):
-    name: str
 
 
 class ExecutiveBio(BaseModel):
@@ -24,23 +18,6 @@ class ExecutiveBio(BaseModel):
 
 
 # --- Executive Result (from exec_results table body) ---
-
-
-class ExecutiveResultTypedDict(TypedDict):
-    year: NotRequired[str]
-    year_href: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    league: NotRequired[str]
-    job_title: NotRequired[str]
-    wins: NotRequired[int]
-    losses: NotRequired[int]
-    ties: NotRequired[int]
-    win_loss_pct: NotRequired[str]
-    playoff_wins: NotRequired[int]
-    playoff_losses: NotRequired[int]
-    playoff_result: NotRequired[str]
-    playoff_result_href: NotRequired[str]
 
 
 class ExecutiveResult(BaseModel):
@@ -63,16 +40,6 @@ class ExecutiveResult(BaseModel):
 # --- Executive Results Total (from exec_results table footer) ---
 
 
-class ExecutiveResultsTotalTypedDict(TypedDict):
-    label: NotRequired[str]
-    tenure: NotRequired[str]
-    wins: NotRequired[int]
-    losses: NotRequired[int]
-    ties: NotRequired[int]
-    playoff_wins: NotRequired[int]
-    playoff_losses: NotRequired[int]
-
-
 class ExecutiveResultsTotal(BaseModel):
     label: Optional[str] = None
     tenure: Optional[str] = None
@@ -84,12 +51,6 @@ class ExecutiveResultsTotal(BaseModel):
 
 
 # --- Executive Profile (top-level model) ---
-
-
-class ExecutiveProfileTypedDict(TypedDict):
-    bio: ExecutiveBioTypedDict
-    exec_results: List[ExecutiveResultTypedDict]
-    exec_results_totals: List[ExecutiveResultsTotalTypedDict]
 
 
 class ExecutiveProfile(BaseModel):

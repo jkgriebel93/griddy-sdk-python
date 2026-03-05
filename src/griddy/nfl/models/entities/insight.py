@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
@@ -31,65 +31,6 @@ SecondTeamType = Literal[
     "defense",
 ]
 r"""Context of the second team (typically \"defense\" for opponent)"""
-
-
-class InsightTypedDict(TypedDict):
-    created_at: datetime
-    r"""Content creation timestamp"""
-    created_by: str
-    r"""Content creator identifier"""
-    date_: date
-    r"""Content publication date"""
-    id: str
-    r"""Unique content identifier"""
-    nfl_id: int
-    r"""NFL player identifier"""
-    player_name: str
-    r"""Player's full name"""
-    position: InsightPosition
-    r"""Player position"""
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of NFL season"""
-    tags: List[str]
-    r"""Content classification tags"""
-    team_abbr: str
-    r"""Player's team abbreviation"""
-    team_id: str
-    r"""Player's team identifier"""
-    title: str
-    r"""Main insight headline or title"""
-    updated_at: datetime
-    r"""Last update timestamp"""
-    updated_by: str
-    r"""Last editor identifier"""
-    week: int
-    r"""Week number (if applicable)"""
-    esb_id: NotRequired[str]
-    r"""ESB player identifier"""
-    evergreen: NotRequired[bool]
-    r"""Whether content is evergreen (timeless) or time-sensitive"""
-    game_id: NotRequired[Nullable[int]]
-    r"""Game identifier (10-digit format YYYYMMDDNN)"""
-    gsis_id: NotRequired[str]
-    r"""GSIS player identifier"""
-    headshot: NotRequired[str]
-    r"""URL to player headshot image (contains formatInstructions placeholder)"""
-    image_url: NotRequired[Nullable[str]]
-    r"""Associated image or chart URL (optional)"""
-    jersey_number: NotRequired[int]
-    r"""Player's jersey number"""
-    second_team_abbr: NotRequired[Nullable[str]]
-    r"""Opponent or related team abbreviation"""
-    second_team_id: NotRequired[Nullable[str]]
-    r"""Opponent or related team identifier"""
-    second_team_type: NotRequired[Nullable[SecondTeamType]]
-    r"""Context of the second team (typically \"defense\" for opponent)"""
-    smart_id: NotRequired[str]
-    r"""Smart player identifier"""
-    sub_note1: NotRequired[str]
-    r"""Detailed insight content and analysis"""
 
 
 class Insight(BaseModel):

@@ -5,17 +5,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetNgsMixedContentRequestTypedDict(TypedDict):
-    """Request parameters for getting NGS mixed content."""
-
-    limit: NotRequired[int]
-    offset: NotRequired[int]
 
 
 class GetNgsMixedContentRequest(BaseModel):
@@ -30,14 +23,6 @@ class GetNgsMixedContentRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 0
-
-
-class GetNgsArticlesRequestTypedDict(TypedDict):
-    """Request parameters for getting NGS articles."""
-
-    category: str
-    limit: NotRequired[int]
-    offset: NotRequired[int]
 
 
 class GetNgsArticlesRequest(BaseModel):
@@ -57,14 +42,6 @@ class GetNgsArticlesRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 0
-
-
-class GetNgsVideoClipsRequestTypedDict(TypedDict):
-    """Request parameters for getting NGS video clips."""
-
-    video_channel: str
-    limit: NotRequired[int]
-    offset: NotRequired[int]
 
 
 class GetNgsVideoClipsRequest(BaseModel):

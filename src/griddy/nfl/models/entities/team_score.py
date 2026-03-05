@@ -3,26 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class TeamScoreTypedDict(TypedDict):
-    point_ot: NotRequired[int]
-    r"""Overtime points"""
-    point_q1: NotRequired[int]
-    r"""First quarter points"""
-    point_q2: NotRequired[int]
-    r"""Second quarter points"""
-    point_q3: NotRequired[int]
-    r"""Third quarter points"""
-    point_q4: NotRequired[int]
-    r"""Fourth quarter points"""
-    point_total: NotRequired[int]
-    r"""Total points scored"""
-    timeouts_remaining: NotRequired[int]
-    r"""Timeouts left"""
 
 
 class TeamScore(BaseModel):

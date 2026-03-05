@@ -3,30 +3,13 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
 
 
-class ContentTypedDict(TypedDict):
-    r"""Insight content and analysis"""
-
-
 class Content(BaseModel):
     r"""Insight content and analysis"""
-
-
-class GameInsightTypedDict(TypedDict):
-    r"""Game-specific analytical insight"""
-
-    content: NotRequired[ContentTypedDict]
-    r"""Insight content and analysis"""
-    game_id: NotRequired[str]
-    r"""Game identifier"""
-    id: NotRequired[str]
-    r"""Insight identifier"""
-    type: NotRequired[str]
-    r"""Type of insight"""
 
 
 class GameInsight(BaseModel):

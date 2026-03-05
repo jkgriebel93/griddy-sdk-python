@@ -3,21 +3,11 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.game_odds import GameOdds, GameOddsTypedDict
+from griddy.nfl.models.entities.game_odds import GameOdds
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
-
-
-class WeeklyOddsResponseTypedDict(TypedDict):
-    games: NotRequired[List[GameOddsTypedDict]]
-    season: NotRequired[str]
-    r"""Season year"""
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    week: NotRequired[str]
-    r"""Week number"""
 
 
 class WeeklyOddsResponse(BaseModel):

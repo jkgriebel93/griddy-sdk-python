@@ -5,25 +5,9 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
-
-
-class NgsPassingZoneTypedDict(TypedDict):
-    """Passing zone statistics."""
-
-    type: NotRequired[str]
-    line_of_scrimmage_distance: NotRequired[str]
-    section: NotRequired[str]
-    attempts: NotRequired[int]
-    completions: NotRequired[int]
-    completion_pct: NotRequired[float]
-    interceptions: NotRequired[int]
-    touchdowns: NotRequired[int]
-    yards: NotRequired[int]
-    qb_rating: NotRequired[float]
-    qb_rating_success_level: NotRequired[str]
 
 
 class NgsPassingZone(BaseModel):
@@ -48,26 +32,6 @@ class NgsPassingZone(BaseModel):
     ] = None
 
 
-class NgsPasserInfoTypedDict(TypedDict):
-    """Passer information in game overview."""
-
-    game_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    team_id: NotRequired[str]
-    team_abbr: NotRequired[str]
-    short_name: NotRequired[str]
-    position: NotRequired[str]
-    jersey_number: NotRequired[int]
-    player_name: NotRequired[str]
-    pass_yards: NotRequired[int]
-    touchdowns: NotRequired[int]
-    interceptions: NotRequired[int]
-    attempts: NotRequired[int]
-    completions: NotRequired[int]
-    headshot: NotRequired[str]
-    zones: NotRequired[List[NgsPassingZoneTypedDict]]
-
-
 class NgsPasserInfo(BaseModel):
     """Passer information in game overview."""
 
@@ -88,30 +52,11 @@ class NgsPasserInfo(BaseModel):
     zones: Optional[List[NgsPassingZone]] = None
 
 
-class NgsPassersOverviewTypedDict(TypedDict):
-    """Passers overview for home and visitor teams."""
-
-    home: NotRequired[NgsPasserInfoTypedDict]
-    visitor: NotRequired[NgsPasserInfoTypedDict]
-
-
 class NgsPassersOverview(BaseModel):
     """Passers overview for home and visitor teams."""
 
     home: Optional[NgsPasserInfo] = None
     visitor: Optional[NgsPasserInfo] = None
-
-
-class NgsRushLocationStatsTypedDict(TypedDict):
-    """Rush location statistics."""
-
-    yards: NotRequired[int]
-    attempts: NotRequired[int]
-    touchdowns: NotRequired[int]
-    distance: NotRequired[float]
-    avg_yards: NotRequired[float]
-    avg_distance: NotRequired[float]
-    avg_time_to_los: NotRequired[float]
 
 
 class NgsRushLocationStats(BaseModel):
@@ -126,20 +71,6 @@ class NgsRushLocationStats(BaseModel):
     avg_time_to_los: Annotated[
         Optional[float], pydantic.Field(alias="avgTimeToLos")
     ] = None
-
-
-class NgsRushInfoTypedDict(TypedDict):
-    """Rush info for a rusher."""
-
-    yards: NotRequired[int]
-    attempts: NotRequired[int]
-    touchdowns: NotRequired[int]
-    distance: NotRequired[float]
-    avg_yards: NotRequired[float]
-    avg_distance: NotRequired[float]
-    avg_time_to_los: NotRequired[float]
-    rush_location_map: NotRequired[Dict[str, NgsRushLocationStatsTypedDict]]
-    pre_snap_rush_location_map: NotRequired[Dict[str, NgsRushLocationStatsTypedDict]]
 
 
 class NgsRushInfo(BaseModel):
@@ -164,23 +95,6 @@ class NgsRushInfo(BaseModel):
     ] = None
 
 
-class NgsRusherInfoTypedDict(TypedDict):
-    """Rusher information in game overview."""
-
-    esb_id: NotRequired[str]
-    jersey_number: NotRequired[int]
-    player_name: NotRequired[str]
-    position: NotRequired[str]
-    rush_yards: NotRequired[int]
-    short_name: NotRequired[str]
-    team_id: NotRequired[str]
-    yards: NotRequired[int]
-    attempts: NotRequired[int]
-    touchdowns: NotRequired[int]
-    headshot: NotRequired[str]
-    rush_info: NotRequired[NgsRushInfoTypedDict]
-
-
 class NgsRusherInfo(BaseModel):
     """Rusher information in game overview."""
 
@@ -198,29 +112,11 @@ class NgsRusherInfo(BaseModel):
     rush_info: Annotated[Optional[NgsRushInfo], pydantic.Field(alias="rushInfo")] = None
 
 
-class NgsRushersOverviewTypedDict(TypedDict):
-    """Rushers overview for home and visitor teams."""
-
-    home: NotRequired[List[NgsRusherInfoTypedDict]]
-    visitor: NotRequired[List[NgsRusherInfoTypedDict]]
-
-
 class NgsRushersOverview(BaseModel):
     """Rushers overview for home and visitor teams."""
 
     home: Optional[List[NgsRusherInfo]] = None
     visitor: Optional[List[NgsRusherInfo]] = None
-
-
-class NgsReceptionInfoTypedDict(TypedDict):
-    """Reception info for a receiver."""
-
-    avg_air_yards: NotRequired[float]
-    avg_cushion: NotRequired[float]
-    avg_separation: NotRequired[float]
-    targets: NotRequired[int]
-    receptions: NotRequired[int]
-    touchdowns: NotRequired[int]
 
 
 class NgsReceptionInfo(BaseModel):
@@ -236,23 +132,6 @@ class NgsReceptionInfo(BaseModel):
     targets: Optional[int] = None
     receptions: Optional[int] = None
     touchdowns: Optional[int] = None
-
-
-class NgsReceiverInfoTypedDict(TypedDict):
-    """Receiver information in game overview."""
-
-    esb_id: NotRequired[str]
-    jersey_number: NotRequired[int]
-    player_name: NotRequired[str]
-    position: NotRequired[str]
-    rec_yards: NotRequired[int]
-    short_name: NotRequired[str]
-    team_id: NotRequired[str]
-    targets: NotRequired[int]
-    receptions: NotRequired[int]
-    touchdowns: NotRequired[int]
-    headshot: NotRequired[str]
-    reception_info: NotRequired[NgsReceptionInfoTypedDict]
 
 
 class NgsReceiverInfo(BaseModel):
@@ -274,24 +153,10 @@ class NgsReceiverInfo(BaseModel):
     ] = None
 
 
-class NgsLeagueAverageTypedDict(TypedDict):
-    """League average value."""
-
-    avg: NotRequired[float]
-
-
 class NgsLeagueAverage(BaseModel):
     """League average value."""
 
     avg: Optional[float] = None
-
-
-class NgsReceiversOverviewTypedDict(TypedDict):
-    """Receivers overview for home and visitor teams."""
-
-    league_average_receiver_separation: NotRequired[NgsLeagueAverageTypedDict]
-    home: NotRequired[List[NgsReceiverInfoTypedDict]]
-    visitor: NotRequired[List[NgsReceiverInfoTypedDict]]
 
 
 class NgsReceiversOverview(BaseModel):
@@ -303,25 +168,6 @@ class NgsReceiversOverview(BaseModel):
     ] = None
     home: Optional[List[NgsReceiverInfo]] = None
     visitor: Optional[List[NgsReceiverInfo]] = None
-
-
-class NgsPassRusherInfoTypedDict(TypedDict):
-    """Pass rusher information in game overview."""
-
-    esb_id: NotRequired[str]
-    gsis_id: NotRequired[str]
-    team_id: NotRequired[str]
-    player_name: NotRequired[str]
-    short_name: NotRequired[str]
-    jersey_number: NotRequired[int]
-    position: NotRequired[str]
-    blitz_count: NotRequired[int]
-    avg_separation_to_qb: NotRequired[float]
-    headshot: NotRequired[str]
-    tackles: NotRequired[int]
-    assists: NotRequired[int]
-    sacks: NotRequired[float]
-    forced_fumbles: NotRequired[int]
 
 
 class NgsPassRusherInfo(BaseModel):
@@ -347,14 +193,6 @@ class NgsPassRusherInfo(BaseModel):
     )
 
 
-class NgsPassRushersOverviewTypedDict(TypedDict):
-    """Pass rushers overview for home and visitor teams."""
-
-    league_average_separation_to_qb: NotRequired[NgsLeagueAverageTypedDict]
-    home: NotRequired[List[NgsPassRusherInfoTypedDict]]
-    visitor: NotRequired[List[NgsPassRusherInfoTypedDict]]
-
-
 class NgsPassRushersOverview(BaseModel):
     """Pass rushers overview for home and visitor teams."""
 
@@ -363,20 +201,6 @@ class NgsPassRushersOverview(BaseModel):
     ] = None
     home: Optional[List[NgsPassRusherInfo]] = None
     visitor: Optional[List[NgsPassRusherInfo]] = None
-
-
-class NgsGameSpeedLeaderTypedDict(TypedDict):
-    """Speed leader for a game."""
-
-    gsis_play_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    jersey_number: NotRequired[int]
-    player_name: NotRequired[str]
-    position: NotRequired[str]
-    short_name: NotRequired[str]
-    team_id: NotRequired[str]
-    max_speed: NotRequired[float]
-    headshot: NotRequired[str]
 
 
 class NgsGameSpeedLeader(BaseModel):
@@ -393,32 +217,12 @@ class NgsGameSpeedLeader(BaseModel):
     headshot: Optional[str] = None
 
 
-class NgsTackleInfoTypedDict(TypedDict):
-    """Tackle info with time to tackle."""
-
-    time_to_tackle: NotRequired[float]
-
-
 class NgsTackleInfo(BaseModel):
     """Tackle info with time to tackle."""
 
     time_to_tackle: Annotated[Optional[float], pydantic.Field(alias="timeToTackle")] = (
         None
     )
-
-
-class NgsGameSackLeaderTypedDict(TypedDict):
-    """Sack leader for a game."""
-
-    gsis_play_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    jersey_number: NotRequired[int]
-    player_name: NotRequired[str]
-    position: NotRequired[str]
-    short_name: NotRequired[str]
-    team_id: NotRequired[str]
-    headshot: NotRequired[str]
-    tackle_info: NotRequired[NgsTackleInfoTypedDict]
 
 
 class NgsGameSackLeader(BaseModel):
@@ -437,30 +241,10 @@ class NgsGameSackLeader(BaseModel):
     ] = None
 
 
-class NgsPassInfoTypedDict(TypedDict):
-    """Pass info with air distance."""
-
-    air_distance: NotRequired[float]
-
-
 class NgsPassInfo(BaseModel):
     """Pass info with air distance."""
 
     air_distance: Annotated[Optional[float], pydantic.Field(alias="airDistance")] = None
-
-
-class NgsGamePassDistanceLeaderTypedDict(TypedDict):
-    """Pass distance leader for a game."""
-
-    gsis_play_id: NotRequired[int]
-    esb_id: NotRequired[str]
-    jersey_number: NotRequired[int]
-    player_name: NotRequired[str]
-    position: NotRequired[str]
-    short_name: NotRequired[str]
-    team_id: NotRequired[str]
-    headshot: NotRequired[str]
-    pass_info: NotRequired[NgsPassInfoTypedDict]
 
 
 class NgsGamePassDistanceLeader(BaseModel):
@@ -477,25 +261,11 @@ class NgsGamePassDistanceLeader(BaseModel):
     pass_info: Annotated[Optional[NgsPassInfo], pydantic.Field(alias="passInfo")] = None
 
 
-class NgsSpeedLeadersMapTypedDict(TypedDict):
-    """Speed leaders for home and visitor."""
-
-    home: NotRequired[NgsGameSpeedLeaderTypedDict]
-    visitor: NotRequired[NgsGameSpeedLeaderTypedDict]
-
-
 class NgsSpeedLeadersMap(BaseModel):
     """Speed leaders for home and visitor."""
 
     home: Optional[NgsGameSpeedLeader] = None
     visitor: Optional[NgsGameSpeedLeader] = None
-
-
-class NgsSackLeadersMapTypedDict(TypedDict):
-    """Sack leaders for home and visitor."""
-
-    home: NotRequired[NgsGameSackLeaderTypedDict]
-    visitor: NotRequired[NgsGameSackLeaderTypedDict]
 
 
 class NgsSackLeadersMap(BaseModel):
@@ -505,26 +275,11 @@ class NgsSackLeadersMap(BaseModel):
     visitor: Optional[NgsGameSackLeader] = None
 
 
-class NgsPassDistanceLeadersMapTypedDict(TypedDict):
-    """Pass distance leaders for home and visitor."""
-
-    home: NotRequired[NgsGamePassDistanceLeaderTypedDict]
-    visitor: NotRequired[NgsGamePassDistanceLeaderTypedDict]
-
-
 class NgsPassDistanceLeadersMap(BaseModel):
     """Pass distance leaders for home and visitor."""
 
     home: Optional[NgsGamePassDistanceLeader] = None
     visitor: Optional[NgsGamePassDistanceLeader] = None
-
-
-class NgsGameLeadersTypedDict(TypedDict):
-    """Game leaders for speed, sacks, and pass distance."""
-
-    speed_leaders: NotRequired[NgsSpeedLeadersMapTypedDict]
-    time_to_sack_leaders: NotRequired[NgsSackLeadersMapTypedDict]
-    pass_distance_leaders: NotRequired[NgsPassDistanceLeadersMapTypedDict]
 
 
 class NgsGameLeaders(BaseModel):
@@ -539,22 +294,6 @@ class NgsGameLeaders(BaseModel):
     pass_distance_leaders: Annotated[
         Optional[NgsPassDistanceLeadersMap], pydantic.Field(alias="passDistanceLeaders")
     ] = None
-
-
-class NgsGameScheduleInfoTypedDict(TypedDict):
-    """Game schedule information in overview."""
-
-    game_key: NotRequired[int]
-    game_date: NotRequired[str]
-    game_id: NotRequired[int]
-    game_time_eastern: NotRequired[str]
-    home_team_abbr: NotRequired[str]
-    home_team_id: NotRequired[str]
-    season: NotRequired[int]
-    season_type: NotRequired[str]
-    visitor_team_abbr: NotRequired[str]
-    visitor_team_id: NotRequired[str]
-    week: NotRequired[int]
 
 
 class NgsGameScheduleInfo(BaseModel):

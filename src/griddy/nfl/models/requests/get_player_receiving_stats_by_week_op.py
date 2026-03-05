@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.receiving_stats_category_enum import (
     ReceivingStatsCategoryEnum,
@@ -13,29 +13,6 @@ from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetPlayerReceivingStatsByWeekRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    week: WeekSlugEnum
-    r"""Week identifier"""
-    limit: NotRequired[int]
-    r"""Maximum number of players to return"""
-    offset: NotRequired[int]
-    r"""Number of records to skip for pagination"""
-    page: NotRequired[int]
-    r"""Page number for pagination"""
-    sort_key: NotRequired[ReceivingStatsCategoryEnum]
-    r"""Field to sort by"""
-    sort_value: NotRequired[SortOrderEnum]
-    r"""Sort direction"""
-    qualified_receiver: NotRequired[bool]
-    r"""Filter to only qualified receivers (minimum target threshold)"""
-    team_offense: NotRequired[List[str]]
-    r"""Filter by specific team IDs (supports multiple teams)"""
 
 
 class GetPlayerReceivingStatsByWeekRequest(BaseModel):

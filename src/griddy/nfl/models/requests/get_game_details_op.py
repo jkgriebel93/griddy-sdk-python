@@ -3,25 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-
-
-class GetGameDetailsRequestTypedDict(TypedDict):
-    game_id: str
-    r"""Game identifier (UUID)"""
-    include_drive_chart: NotRequired[bool]
-    r"""Include drive chart data in response"""
-    include_replays: NotRequired[bool]
-    r"""Include replay videos in response"""
-    include_standings: NotRequired[bool]
-    r"""Include standings data in response"""
-    include_tagged_videos: NotRequired[bool]
-    r"""Include tagged videos in response"""
-    include_summary: NotRequired[bool]
-    r"""Include summary information in response"""
 
 
 class GetGameDetailsRequest(BaseModel):

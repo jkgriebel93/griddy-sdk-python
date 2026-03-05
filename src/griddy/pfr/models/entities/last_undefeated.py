@@ -8,25 +8,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-
-
-class LastUndefeatedEntryTypedDict(TypedDict):
-    """TypedDict for a single last-undefeated-team row."""
-
-    year: NotRequired[Optional[int]]
-    year_href: NotRequired[Optional[str]]
-    league_id: NotRequired[Optional[str]]
-    team: NotRequired[Optional[str]]
-    team_href: NotRequired[Optional[str]]
-    record: NotRequired[Optional[str]]
-    first_loss: NotRequired[Optional[str]]
-    first_loss_href: NotRequired[Optional[str]]
-    final_record: NotRequired[Optional[str]]
-    playoff_result: NotRequired[Optional[str]]
-    playoff_result_href: NotRequired[Optional[str]]
 
 
 class LastUndefeatedEntry(BaseModel):
@@ -43,13 +25,6 @@ class LastUndefeatedEntry(BaseModel):
     final_record: Optional[str] = None
     playoff_result: Optional[str] = None
     playoff_result_href: Optional[str] = None
-
-
-class LastUndefeatedTypedDict(TypedDict):
-    """TypedDict for the full last-undefeated page."""
-
-    title: str
-    entries: List[LastUndefeatedEntryTypedDict]
 
 
 class LastUndefeated(BaseModel):

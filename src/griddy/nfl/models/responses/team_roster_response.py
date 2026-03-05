@@ -3,19 +3,11 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.player import Player, PlayerTypedDict
-from griddy.nfl.models.entities.team_info import TeamInfo, TeamInfoTypedDict
+from griddy.nfl.models.entities.player import Player
+from griddy.nfl.models.entities.team_info import TeamInfo
 from griddy.nfl.types import BaseModel
-
-
-class TeamRosterResponseTypedDict(TypedDict):
-    season: NotRequired[int]
-    r"""Season year"""
-    team: NotRequired[TeamInfoTypedDict]
-    r"""Basic team information included in roster responses"""
-    team_players: NotRequired[List[PlayerTypedDict]]
 
 
 class TeamRosterResponse(BaseModel):

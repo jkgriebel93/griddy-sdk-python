@@ -5,21 +5,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetNgsChartsRequestTypedDict(TypedDict):
-    """Request parameters for getting NGS charts."""
-
-    season: int
-    count: NotRequired[int]
-    week: NotRequired[str]
-    chart_type: NotRequired[str]
-    team_id: NotRequired[str]
-    esb_id: NotRequired[str]
 
 
 class GetNgsChartsRequest(BaseModel):
@@ -56,13 +45,6 @@ class GetNgsChartsRequest(BaseModel):
         pydantic.Field(alias="esbId"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = "all"
-
-
-class GetNgsHighlightsRequestTypedDict(TypedDict):
-    """Request parameters for getting NGS highlights."""
-
-    season: int
-    limit: NotRequired[int]
 
 
 class GetNgsHighlightsRequest(BaseModel):

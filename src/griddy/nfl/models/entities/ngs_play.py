@@ -6,20 +6,9 @@ from datetime import datetime
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
-
-
-class NgsPlayStatTypedDict(TypedDict):
-    """Statistics for a single play."""
-
-    play_id: NotRequired[int]
-    club_code: NotRequired[str]
-    player_name: NotRequired[str]
-    stat_id: NotRequired[int]
-    yards: NotRequired[int]
-    gsis_id: NotRequired[str]
 
 
 class NgsPlayStat(BaseModel):
@@ -31,46 +20,6 @@ class NgsPlayStat(BaseModel):
     stat_id: Annotated[Optional[int], pydantic.Field(alias="statId")] = None
     yards: Optional[int] = None
     gsis_id: Annotated[Optional[str], pydantic.Field(alias="gsisId")] = None
-
-
-class NgsPlayTypedDict(TypedDict):
-    """Detailed play information from NGS endpoints."""
-
-    game_id: NotRequired[int]
-    play_id: NotRequired[int]
-    sequence: NotRequired[int]
-    game_key: NotRequired[int]
-    play_type: NotRequired[str]
-    play_type_code: NotRequired[int]
-    play_description: NotRequired[str]
-    play_state: NotRequired[str]
-    quarter: NotRequired[int]
-    down: NotRequired[int]
-    yards_to_go: NotRequired[int]
-    actual_yards_to_go: NotRequired[float]
-    yardline: NotRequired[str]
-    yardline_number: NotRequired[int]
-    yardline_side: NotRequired[str]
-    absolute_yardline_number: NotRequired[int]
-    actual_yardline_for_first_down: NotRequired[float]
-    game_clock: NotRequired[str]
-    start_game_clock: NotRequired[str]
-    end_game_clock: NotRequired[str]
-    time_of_day_utc: NotRequired[datetime]
-    home_score: NotRequired[int]
-    visitor_score: NotRequired[int]
-    pre_snap_home_score: NotRequired[int]
-    pre_snap_visitor_score: NotRequired[int]
-    possession_team_id: NotRequired[str]
-    is_penalty: NotRequired[bool]
-    is_big_play: NotRequired[bool]
-    is_scoring: NotRequired[bool]
-    is_st_play: NotRequired[bool]
-    is_goal_to_go: NotRequired[bool]
-    is_end_quarter: NotRequired[bool]
-    is_change_of_possession: NotRequired[bool]
-    play_direction: NotRequired[str]
-    play_stats: NotRequired[List[NgsPlayStatTypedDict]]
 
 
 class NgsPlay(BaseModel):

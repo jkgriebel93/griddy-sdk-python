@@ -3,28 +3,14 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class ScoreTypedDict(TypedDict):
-    total: NotRequired[str]
-    r"""Total score (empty string for future games)"""
 
 
 class Score(BaseModel):
     total: Optional[str] = None
     r"""Total score (empty string for future games)"""
-
-
-class GameTeamTypedDict(TypedDict):
-    current_logo: NotRequired[str]
-    r"""URL to team logo (may contain formatInstructions placeholder)"""
-    full_name: NotRequired[str]
-    id: NotRequired[str]
-    score: NotRequired[ScoreTypedDict]
-    team_id: NotRequired[str]
 
 
 class GameTeam(BaseModel):

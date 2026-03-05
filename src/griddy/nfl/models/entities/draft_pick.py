@@ -1,30 +1,12 @@
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 
-from .player import Player, PlayerTypedDict
-from .team import Team, TeamTypedDict
-
-
-class TweetTypedDict(TypedDict):
-    account: str
-    sent: bool
-
-
-class DraftPickTypedDict(TypedDict):
-    year: int
-    draft_round: int
-    draft_position: int
-    draft_number_overall: int
-    person_id: str
-    pick_is_in: bool
-    team_id: str
-    trade_note: NotRequired[str]
-    tweet_sent: bool
-    tweets_sent: List[TweetTypedDict]
+from .player import Player
+from .team import Team
 
 
 class Tweet(BaseModel):

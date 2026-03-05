@@ -9,16 +9,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-
-
-class OtherSportLinkTypedDict(TypedDict):
-    """TypedDict for a link to another sports reference site."""
-
-    text: str
-    href: str
 
 
 class OtherSportLink(BaseModel):
@@ -26,39 +17,6 @@ class OtherSportLink(BaseModel):
 
     text: str
     href: str
-
-
-class MultiSportPlayerTypedDict(TypedDict):
-    """TypedDict for a single multi-sport athlete."""
-
-    player: str
-    player_href: NotRequired[Optional[str]]
-    player_id: NotRequired[Optional[str]]
-    pos: NotRequired[Optional[str]]
-    year_min: NotRequired[Optional[int]]
-    year_max: NotRequired[Optional[int]]
-    all_pros_first_team: NotRequired[Optional[int]]
-    pro_bowls: NotRequired[Optional[int]]
-    years_as_primary_starter: NotRequired[Optional[int]]
-    career_av: NotRequired[Optional[int]]
-    g: NotRequired[Optional[int]]
-    pass_cmp: NotRequired[Optional[int]]
-    pass_att: NotRequired[Optional[int]]
-    pass_yds: NotRequired[Optional[int]]
-    pass_td: NotRequired[Optional[int]]
-    pass_long: NotRequired[Optional[int]]
-    pass_int: NotRequired[Optional[int]]
-    pass_sacked: NotRequired[Optional[int]]
-    pass_sacked_yds: NotRequired[Optional[int]]
-    rush_att: NotRequired[Optional[int]]
-    rush_yds: NotRequired[Optional[int]]
-    rush_td: NotRequired[Optional[int]]
-    rush_long: NotRequired[Optional[int]]
-    rec: NotRequired[Optional[int]]
-    rec_yds: NotRequired[Optional[int]]
-    rec_td: NotRequired[Optional[int]]
-    rec_long: NotRequired[Optional[int]]
-    other_links: NotRequired[List[OtherSportLinkTypedDict]]
 
 
 class MultiSportPlayer(BaseModel):
@@ -92,13 +50,6 @@ class MultiSportPlayer(BaseModel):
     rec_td: Optional[int] = None
     rec_long: Optional[int] = None
     other_links: List[OtherSportLink] = []
-
-
-class MultiSportPlayersTypedDict(TypedDict):
-    """TypedDict for the full multi-sport athletes page."""
-
-    title: str
-    entries: List[MultiSportPlayerTypedDict]
 
 
 class MultiSportPlayers(BaseModel):

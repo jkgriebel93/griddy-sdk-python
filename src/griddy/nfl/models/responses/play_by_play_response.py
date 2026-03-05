@@ -3,21 +3,13 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.drive import Drive, DriveTypedDict
-from griddy.nfl.models.entities.play import Play, PlayTypedDict
-from griddy.nfl.models.entities.pro_game import ProGame, ProGameTypedDict
-from griddy.nfl.models.entities.scoring_play import ScoringPlay, ScoringPlayTypedDict
+from griddy.nfl.models.entities.drive import Drive
+from griddy.nfl.models.entities.play import Play
+from griddy.nfl.models.entities.pro_game import ProGame
+from griddy.nfl.models.entities.scoring_play import ScoringPlay
 from griddy.nfl.types import BaseModel
-
-
-class PlayByPlayResponseTypedDict(TypedDict):
-    current_drive: NotRequired[DriveTypedDict]
-    drives: NotRequired[List[DriveTypedDict]]
-    game: NotRequired[ProGameTypedDict]
-    last_play: NotRequired[PlayTypedDict]
-    scoring_summary: NotRequired[List[ScoringPlayTypedDict]]
 
 
 class PlayByPlayResponse(BaseModel):

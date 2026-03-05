@@ -3,10 +3,10 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .team import Team, TeamTypedDict
+from .team import Team
 
 ScoreType = Literal[
     "TOUCHDOWN",
@@ -15,16 +15,6 @@ ScoreType = Literal[
     "EXTRA_POINT",
     "TWO_POINT_CONVERSION",
 ]
-
-
-class ScoringPlayTypedDict(TypedDict):
-    away_score: NotRequired[int]
-    description: NotRequired[str]
-    game_clock: NotRequired[str]
-    home_score: NotRequired[int]
-    quarter: NotRequired[int]
-    score_type: NotRequired[ScoreType]
-    team: NotRequired[TeamTypedDict]
 
 
 class ScoringPlay(BaseModel):

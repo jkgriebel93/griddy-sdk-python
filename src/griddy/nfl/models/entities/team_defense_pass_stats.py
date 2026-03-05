@@ -3,60 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class TeamDefensePassStatsTypedDict(TypedDict):
-    gp: int
-    r"""Games played"""
-    pass_: int
-    r"""Pass attempts faced"""
-    pass_pct: float
-    r"""Percentage of plays that were passes (0-1)"""
-    pass_yds: int
-    r"""Passing yards allowed"""
-    pass_ypp: float
-    r"""Passing yards allowed per pass attempt"""
-    team_id: str
-    r"""Team identifier"""
-    total: int
-    r"""Total defensive plays"""
-    blitz_pct: NotRequired[float]
-    r"""Blitz percentage (0-1)"""
-    epa_pass: NotRequired[float]
-    r"""EPA allowed on passing plays (negative is better for defense)"""
-    epa_pass_pp: NotRequired[float]
-    r"""EPA allowed per pass play"""
-    go: NotRequired[float]
-    r"""Get-off metric (coverage disruption)"""
-    pass_td: NotRequired[int]
-    r"""Passing touchdowns allowed"""
-    pass_ypg: NotRequired[float]
-    r"""Pass yards allowed per game"""
-    qbp: NotRequired[int]
-    r"""Quarterback pressures generated"""
-    qbp_pct: NotRequired[float]
-    r"""Quarterback pressure rate (0-1)"""
-    sack: NotRequired[int]
-    r"""Sacks"""
-    sack_pct: NotRequired[float]
-    r"""Sack rate (0-1)"""
-    sacked_yds: NotRequired[int]
-    r"""Sack yards generated"""
-    sacked_ypg: NotRequired[float]
-    r"""Sack yards generated per game"""
-    sep: NotRequired[float]
-    r"""Average receiver separation allowed at target (yards)"""
-    ttp: NotRequired[float]
-    r"""Time to pressure (seconds)"""
-    ttt: NotRequired[float]
-    r"""Average time to throw allowed (seconds)"""
-    yac: NotRequired[int]
-    r"""Yards after catch allowed"""
-    yacoe: NotRequired[int]
-    r"""Yards after catch over expected allowed (negative is better)"""
 
 
 class TeamDefensePassStats(BaseModel):

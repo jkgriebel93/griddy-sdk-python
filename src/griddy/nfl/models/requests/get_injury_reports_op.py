@@ -3,19 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetInjuryReportsRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    week: int
-    r"""Week number"""
-    team_id: NotRequired[str]
-    r"""Filter by specific team"""
 
 
 class GetInjuryReportsRequest(BaseModel):

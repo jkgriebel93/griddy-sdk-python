@@ -3,20 +3,14 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .clinched import Clinched, ClinchedTypedDict
-from .overall_record import OverallRecord, OverallRecordTypedDict
-from .points_record import PointsRecord, PointsRecordTypedDict
-from .record import Record, RecordTypedDict
-from .standings_record import StandingsRecord, StandingsRecordTypedDict
-
-
-class StandingsTeamTypedDict(TypedDict):
-    current_logo: NotRequired[str]
-    full_name: NotRequired[str]
-    id: NotRequired[str]
+from .clinched import Clinched
+from .overall_record import OverallRecord
+from .points_record import PointsRecord
+from .record import Record
+from .standings_record import StandingsRecord
 
 
 class StandingsTeam(BaseModel):
@@ -25,18 +19,6 @@ class StandingsTeam(BaseModel):
     full_name: Annotated[Optional[str], pydantic.Field(alias="fullName")] = None
 
     id: Optional[str] = None
-
-
-class StandingsTypedDict(TypedDict):
-    clinched: NotRequired[ClinchedTypedDict]
-    close_games: NotRequired[RecordTypedDict]
-    conference: NotRequired[StandingsRecordTypedDict]
-    division: NotRequired[StandingsRecordTypedDict]
-    home: NotRequired[PointsRecordTypedDict]
-    last5: NotRequired[PointsRecordTypedDict]
-    overall: NotRequired[OverallRecordTypedDict]
-    road: NotRequired[PointsRecordTypedDict]
-    team: NotRequired[StandingsTeamTypedDict]
 
 
 class Standings(BaseModel):

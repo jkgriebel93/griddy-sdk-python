@@ -1,19 +1,11 @@
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.pro_play import ProPlay, ProPlayTypedDict
+from griddy.nfl.models.entities.pro_play import ProPlay
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
-
-
-class PlaylistResponseTypedDict(TypedDict):
-    game_id: str
-    r"""Ten digit game ID"""
-    game_key: int
-    r"""Another ID looking value, not sure what it is."""
-    plays: List[ProPlayTypedDict]
 
 
 class PlaylistResponse(BaseModel):

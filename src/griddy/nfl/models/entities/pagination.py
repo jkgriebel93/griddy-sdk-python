@@ -3,16 +3,8 @@ from __future__ import annotations
 from typing import Optional
 
 from pydantic import model_serializer
-from typing_extensions import NotRequired, TypedDict
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-
-
-class PaginationTypedDict(TypedDict):
-    limit: NotRequired[int]
-    r"""Maximum items per page"""
-    token: NotRequired[Nullable[str]]
-    r"""Token for next page of results"""
 
 
 class Pagination(BaseModel):

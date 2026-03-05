@@ -3,20 +3,11 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .player import Player, PlayerTypedDict
-from .team import Team, TeamTypedDict
-
-
-class PenaltyTypedDict(TypedDict):
-    accepted: NotRequired[bool]
-    no_play: NotRequired[bool]
-    player: NotRequired[PlayerTypedDict]
-    team: NotRequired[TeamTypedDict]
-    type: NotRequired[str]
-    yards: NotRequired[int]
+from .player import Player
+from .team import Team
 
 
 class Penalty(BaseModel):
