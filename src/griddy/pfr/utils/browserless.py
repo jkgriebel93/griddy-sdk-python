@@ -5,7 +5,8 @@ HTML content from Pro Football Reference pages that are protected by bot
 detection.
 
 Requires:
-    - BROWSERLESS_API_KEY environment variable
+    - BROWSERLESS_TOKEN environment variable
+    - BROWSERLESS_HOST environment variable
     - playwright and httpx packages
 """
 
@@ -24,15 +25,19 @@ class BrowserlessError(Exception):
 
 class Browserless:
     def __init__(self, default_timeout_ms: int = 60000):
+        if not BROWSERLESS_HOST:
+            raise BrowserlessError("BROWSERLESS_HOST environment variable is not set.")
+        if not BROWSERLESS_TOKEN:
+            raise BrowserlessError("BROWSERLESS_TOKEN environment variable is not set.")
         self.host = BROWSERLESS_HOST
         self.token = BROWSERLESS_TOKEN
         self.data: dict | None = None
         self.timeout = default_timeout_ms
 
     def fetch_data(self, url: str):
-        unblock_url = f"https://{BROWSERLESS_HOST}/chromium/unblock"
+        unblock_url = f"https://{self.host}/chromium/unblock"
         query_params = {
-            "token": BROWSERLESS_TOKEN,
+            "token": self.token,
             "proxy": "residential",
             "timeout": 60_000,
         }
@@ -130,15 +135,19 @@ class AsyncBrowserless:
     """
 
     def __init__(self, default_timeout_ms: int = 60000):
+        if not BROWSERLESS_HOST:
+            raise BrowserlessError("BROWSERLESS_HOST environment variable is not set.")
+        if not BROWSERLESS_TOKEN:
+            raise BrowserlessError("BROWSERLESS_TOKEN environment variable is not set.")
         self.host = BROWSERLESS_HOST
         self.token = BROWSERLESS_TOKEN
         self.data: dict | None = None
         self.timeout = default_timeout_ms
 
     async def fetch_data(self, url: str):
-        unblock_url = f"https://{BROWSERLESS_HOST}/chromium/unblock"
+        unblock_url = f"https://{self.host}/chromium/unblock"
         query_params = {
-            "token": BROWSERLESS_TOKEN,
+            "token": self.token,
             "proxy": "residential",
             "timeout": 60_000,
         }

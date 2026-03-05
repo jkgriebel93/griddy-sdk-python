@@ -8,6 +8,8 @@ from playwright.async_api import Error as AsyncPlaywrightError
 
 from griddy.pfr.utils.browserless import AsyncBrowserless, BrowserlessError
 
+_SETTINGS = "griddy.pfr.utils.browserless"
+
 
 @pytest.fixture
 def async_browserless():
@@ -29,6 +31,20 @@ class TestAsyncBrowserlessInit:
 
     def test_data_initially_none(self, async_browserless):
         assert async_browserless.data is None
+
+    def test_stores_host_and_token(self, async_browserless):
+        assert async_browserless.host == "fake-host.example.com"
+        assert async_browserless.token == "fake-token"
+
+    def test_raises_when_host_missing(self):
+        with patch(f"{_SETTINGS}.BROWSERLESS_HOST", None):
+            with pytest.raises(BrowserlessError, match="BROWSERLESS_HOST"):
+                AsyncBrowserless()
+
+    def test_raises_when_token_missing(self):
+        with patch(f"{_SETTINGS}.BROWSERLESS_TOKEN", None):
+            with pytest.raises(BrowserlessError, match="BROWSERLESS_TOKEN"):
+                AsyncBrowserless()
 
 
 @pytest.mark.unit
@@ -58,6 +74,26 @@ class TestAsyncFetchData:
         assert call_kwargs[1]["json"]["browserWSEndpoint"] is True
         assert call_kwargs[1]["params"]["proxy"] == "residential"
         assert result["browserWSEndpoint"] == "ws://localhost:3000"
+
+    @pytest.mark.asyncio
+    async def test_uses_instance_host_and_token(self, async_browserless):
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        mock_client = AsyncMock()
+        mock_client.post.return_value = mock_resp
+        mock_client.__aenter__ = AsyncMock(return_value=mock_client)
+        mock_client.__aexit__ = AsyncMock(return_value=False)
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.AsyncClient",
+            return_value=mock_client,
+        ):
+            await async_browserless.fetch_data("https://example.com")
+
+        call_kwargs = mock_client.post.call_args
+        assert "fake-host.example.com" in call_kwargs[0][0]
+        assert call_kwargs[1]["params"]["token"] == "fake-token"
 
     @pytest.mark.asyncio
     async def test_calls_raise_for_status(self, async_browserless):
