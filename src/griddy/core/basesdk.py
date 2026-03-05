@@ -202,6 +202,28 @@ class BaseSDK(Generic[T_Config]):
             security_source=self._resolve_security_source(),
         )
 
+    def _process_json_error_response(
+        self,
+        http_res: httpx.Response,
+        error_status_codes: List[str],
+        stream_to_text: Callable[[httpx.Response], str],
+    ) -> None:
+        client_errors = [
+            code for code in error_status_codes if code.startswith(CLIENT_ERROR_PREFIX)
+        ]
+        if client_errors and utils.match_response(http_res, client_errors, "*"):
+            http_res_text = stream_to_text(http_res)
+            raise self._default_error_cls("API error occurred", http_res, http_res_text)
+
+        server_errors = [
+            code for code in error_status_codes if code.startswith(SERVER_ERROR_PREFIX)
+        ]
+        if server_errors and utils.match_response(http_res, server_errors, "*"):
+            http_res_text = stream_to_text(http_res)
+            raise self._default_error_cls("API error occurred", http_res, http_res_text)
+
+        raise self._default_error_cls("Unexpected response received", http_res)
+
     def _handle_json_response(
         self,
         http_res: httpx.Response,
@@ -211,21 +233,9 @@ class BaseSDK(Generic[T_Config]):
         if utils.match_response(http_res, HTTP_OK, "application/json"):
             return unmarshal_json_response(response_type, http_res)
 
-        client_errors = [
-            code for code in error_status_codes if code.startswith(CLIENT_ERROR_PREFIX)
-        ]
-        if client_errors and utils.match_response(http_res, client_errors, "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise self._default_error_cls("API error occurred", http_res, http_res_text)
-
-        server_errors = [
-            code for code in error_status_codes if code.startswith(SERVER_ERROR_PREFIX)
-        ]
-        if server_errors and utils.match_response(http_res, server_errors, "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise self._default_error_cls("API error occurred", http_res, http_res_text)
-
-        raise self._default_error_cls("Unexpected response received", http_res)
+        self._process_json_error_response(
+            http_res, error_status_codes, utils.stream_to_text
+        )
 
     async def _handle_json_response_async(
         self,
@@ -236,21 +246,10 @@ class BaseSDK(Generic[T_Config]):
         if utils.match_response(http_res, HTTP_OK, "application/json"):
             return unmarshal_json_response(response_type, http_res)
 
-        client_errors = [
-            code for code in error_status_codes if code.startswith(CLIENT_ERROR_PREFIX)
-        ]
-        if client_errors and utils.match_response(http_res, client_errors, "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise self._default_error_cls("API error occurred", http_res, http_res_text)
-
-        server_errors = [
-            code for code in error_status_codes if code.startswith(SERVER_ERROR_PREFIX)
-        ]
-        if server_errors and utils.match_response(http_res, server_errors, "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise self._default_error_cls("API error occurred", http_res, http_res_text)
-
-        raise self._default_error_cls("Unexpected response received", http_res)
+        http_res_text = await utils.stream_to_text_async(http_res)
+        self._process_json_error_response(
+            http_res, error_status_codes, lambda _: http_res_text
+        )
 
     def _execute_endpoint(self, config: EndpointConfig) -> T:
         base_url = self._resolve_base_url(config.server_url)

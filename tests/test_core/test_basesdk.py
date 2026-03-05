@@ -371,11 +371,113 @@ class TestHandleJsonResponseAsync:
         mock_response.text = "Redirect"
 
         with patch("griddy.core.basesdk.utils.match_response", return_value=False):
+            with patch(
+                "griddy.core.basesdk.utils.stream_to_text_async",
+                new_callable=AsyncMock,
+                return_value="Redirect",
+            ):
+                with pytest.raises(DefaultSDKError) as exc_info:
+                    await base_sdk._handle_json_response_async(
+                        mock_response, dict, ["400", "4XX", "500", "5XX"]
+                    )
+                assert "Unexpected response received" in str(exc_info.value)
+
+
+@pytest.mark.unit
+class TestProcessJsonErrorResponse:
+    def test_raises_on_client_error(self, base_sdk):
+        mock_response = Mock(spec=httpx.Response)
+        mock_response.status_code = 400
+        mock_response.headers = {"content-type": "application/json"}
+        mock_response.url = "https://example.com/test"
+
+        def match_side_effect(response, status, content_type):
+            if isinstance(status, list) and "4XX" in status:
+                return True
+            return False
+
+        mock_stream_to_text = Mock(return_value="Bad Request")
+
+        with patch(
+            "griddy.core.basesdk.utils.match_response", side_effect=match_side_effect
+        ):
             with pytest.raises(DefaultSDKError) as exc_info:
-                await base_sdk._handle_json_response_async(
-                    mock_response, dict, ["400", "4XX", "500", "5XX"]
+                base_sdk._process_json_error_response(
+                    mock_response,
+                    ["400", "4XX", "500", "5XX"],
+                    mock_stream_to_text,
+                )
+            assert "API error occurred" in str(exc_info.value)
+            mock_stream_to_text.assert_called_once_with(mock_response)
+
+    def test_raises_on_server_error(self, base_sdk):
+        mock_response = Mock(spec=httpx.Response)
+        mock_response.status_code = 500
+        mock_response.headers = {"content-type": "application/json"}
+        mock_response.url = "https://example.com/test"
+
+        def match_side_effect(response, status, content_type):
+            if isinstance(status, list) and "5XX" in status and "4XX" not in status:
+                return True
+            return False
+
+        mock_stream_to_text = Mock(return_value="Internal Server Error")
+
+        with patch(
+            "griddy.core.basesdk.utils.match_response", side_effect=match_side_effect
+        ):
+            with pytest.raises(DefaultSDKError) as exc_info:
+                base_sdk._process_json_error_response(
+                    mock_response,
+                    ["400", "4XX", "500", "5XX"],
+                    mock_stream_to_text,
+                )
+            assert "API error occurred" in str(exc_info.value)
+            mock_stream_to_text.assert_called_once_with(mock_response)
+
+    def test_raises_unexpected_when_no_match(self, base_sdk):
+        mock_response = Mock(spec=httpx.Response)
+        mock_response.status_code = 302
+        mock_response.headers = {"content-type": "text/html"}
+        mock_response.url = "https://example.com/test"
+        mock_response.text = "Redirect"
+
+        mock_stream_to_text = Mock(return_value="Redirect")
+
+        with patch("griddy.core.basesdk.utils.match_response", return_value=False):
+            with pytest.raises(DefaultSDKError) as exc_info:
+                base_sdk._process_json_error_response(
+                    mock_response,
+                    ["400", "4XX", "500", "5XX"],
+                    mock_stream_to_text,
                 )
             assert "Unexpected response received" in str(exc_info.value)
+            mock_stream_to_text.assert_not_called()
+
+    def test_uses_provided_stream_to_text_callable(self, base_sdk):
+        mock_response = Mock(spec=httpx.Response)
+        mock_response.status_code = 422
+        mock_response.headers = {"content-type": "application/json"}
+        mock_response.url = "https://example.com/test"
+
+        custom_text = "Custom error text"
+        custom_stream_to_text = Mock(return_value=custom_text)
+
+        def match_side_effect(response, status, content_type):
+            if isinstance(status, list) and "4XX" in status:
+                return True
+            return False
+
+        with patch(
+            "griddy.core.basesdk.utils.match_response", side_effect=match_side_effect
+        ):
+            with pytest.raises(DefaultSDKError):
+                base_sdk._process_json_error_response(
+                    mock_response,
+                    ["4XX"],
+                    custom_stream_to_text,
+                )
+            custom_stream_to_text.assert_called_once_with(mock_response)
 
 
 @pytest.mark.unit
