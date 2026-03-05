@@ -1,24 +1,11 @@
 from __future__ import annotations
 
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetGamePreviewRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    week: int
-    r"""Week number"""
-    visitor_display_name: str
-    r"""Visiting team display name"""
-    home_display_name: str
-    r"""Home team display name"""
 
 
 class GetGamePreviewRequest(BaseModel):

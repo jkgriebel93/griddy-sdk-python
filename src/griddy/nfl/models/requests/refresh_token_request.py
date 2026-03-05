@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal
 
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 
@@ -14,30 +14,6 @@ RefreshTokenRequestNetworkType = Literal[
     "ethernet",
 ]
 r"""Type of network connection"""
-
-
-class RefreshTokenRequestTypedDict(TypedDict):
-    client_key: str
-    r"""Client application identifier key"""
-    client_secret: str
-    r"""Client application secret for authentication"""
-    device_id: str
-    r"""Unique device identifier (UUID format)"""
-    device_info: str
-    r"""Base64-encoded JSON containing device information such as:
-    {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
-
-    """
-    network_type: RefreshTokenRequestNetworkType
-    r"""Type of network connection"""
-    refresh_token: str
-    r"""Valid refresh token from previous authentication"""
-    signature_timestamp: str
-    r"""Unix timestamp for signature verification"""
-    uid: str
-    r"""User identifier hash"""
-    uid_signature: str
-    r"""HMAC signature for request verification"""
 
 
 class RefreshTokenRequest(BaseModel):

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
 
@@ -26,69 +26,6 @@ PositionGroup = Literal[
     "SPEC",
 ]
 r"""Position group"""
-
-
-class FantasyPlayerStatsTypedDict(TypedDict):
-    display_name: str
-    r"""Player's full name"""
-    fp_std: float
-    r"""Fantasy points (standard scoring)"""
-    gp: int
-    r"""Games played"""
-    nfl_id: str
-    r"""NFL player identifier"""
-    position: FantasyPlayerStatsPosition
-    r"""Player position"""
-    team_id: str
-    r"""Team identifier"""
-    fp_half_ppr: NotRequired[float]
-    r"""Fantasy points (half-PPR scoring)"""
-    fp_ppr: NotRequired[float]
-    r"""Fantasy points (PPR scoring)"""
-    fp_ppr_pg: NotRequired[float]
-    r"""Fantasy points per game (PPR)"""
-    fp_std_pg: NotRequired[float]
-    r"""Fantasy points per game (standard)"""
-    gs: NotRequired[int]
-    r"""Games started"""
-    headshot: NotRequired[str]
-    r"""URL to player headshot image"""
-    jersey_number: NotRequired[int]
-    r"""Player's jersey number"""
-    pass_int: NotRequired[int]
-    r"""Passing interceptions"""
-    pass_td: NotRequired[int]
-    r"""Passing touchdowns"""
-    pass_yds: NotRequired[int]
-    r"""Passing yards"""
-    pass_yds_pg: NotRequired[float]
-    r"""Passing yards per game"""
-    position_group: NotRequired[PositionGroup]
-    r"""Position group"""
-    rec: NotRequired[int]
-    r"""Receptions"""
-    rec_pg: NotRequired[float]
-    r"""Receptions per game"""
-    rec_td: NotRequired[int]
-    r"""Receiving touchdowns"""
-    rec_yds: NotRequired[int]
-    r"""Receiving yards"""
-    red_zone_targets: NotRequired[int]
-    r"""Targets inside the red zone"""
-    rush_td: NotRequired[int]
-    r"""Rushing touchdowns"""
-    rush_yds: NotRequired[int]
-    r"""Rushing yards"""
-    rush_yds_pg: NotRequired[float]
-    r"""Rushing yards per game"""
-    short_name: NotRequired[str]
-    r"""Abbreviated player name"""
-    snap_pct: NotRequired[float]
-    r"""Percentage of offensive snaps played (0-1)"""
-    target_share: NotRequired[float]
-    r"""Percentage of team targets (0-1)"""
-    tgt: NotRequired[int]
-    r"""Targets"""
 
 
 class FantasyPlayerStats(BaseModel):

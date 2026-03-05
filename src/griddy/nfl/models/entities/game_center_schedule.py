@@ -3,25 +3,11 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 from ...types import BaseModel
-
-
-class GamecenterScheduleTypedDict(TypedDict):
-    game_date: NotRequired[str]
-    game_id: NotRequired[str]
-    game_key: NotRequired[int]
-    game_time_eastern: NotRequired[str]
-    home_team_abbr: NotRequired[str]
-    home_team_id: NotRequired[str]
-    season: NotRequired[int]
-    season_type: NotRequired[str]
-    visitor_team_abbr: NotRequired[str]
-    visitor_team_id: NotRequired[str]
-    week: NotRequired[int]
 
 
 class GamecenterSchedule(BaseModel):

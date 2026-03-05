@@ -1,14 +1,9 @@
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetScheduleSeasonWeeksRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
 
 
 class GetScheduleSeasonWeeksRequest(BaseModel):

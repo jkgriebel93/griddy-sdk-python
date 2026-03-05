@@ -10,11 +10,6 @@ class TestModelsLazyLoading:
 
         assert hasattr(models, "Security")
 
-    def test_import_security_typed_dict(self):
-        from griddy.pfr import models
-
-        assert hasattr(models, "SecurityTypedDict")
-
     def test_unknown_attr_raises(self):
         from griddy.pfr import models
 
@@ -26,7 +21,6 @@ class TestModelsLazyLoading:
 
         d = dir(models)
         assert "Security" in d
-        assert "SecurityTypedDict" in d
 
     def test_security_model_instantiation(self):
         from griddy.pfr.models.entities.security import Security

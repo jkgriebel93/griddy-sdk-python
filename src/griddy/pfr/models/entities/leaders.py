@@ -8,26 +8,9 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # --- Individual leader entry (one row in the leaders table) ---
-
-
-class LeaderEntryTypedDict(TypedDict):
-    rank: NotRequired[int]
-    player: NotRequired[str]
-    player_id: NotRequired[str]
-    player_href: NotRequired[str]
-    is_active: NotRequired[bool]
-    is_hof: NotRequired[bool]
-    stat_value: NotRequired[str]
-    year: NotRequired[str]
-    year_href: NotRequired[str]
-    years: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
 
 
 class LeaderEntry(BaseModel):
@@ -46,13 +29,6 @@ class LeaderEntry(BaseModel):
 
 
 # --- Top-level leaderboard page ---
-
-
-class LeaderboardTypedDict(TypedDict):
-    stat: NotRequired[str]
-    scope: NotRequired[str]
-    title: NotRequired[str]
-    entries: NotRequired[List[LeaderEntryTypedDict]]
 
 
 class Leaderboard(BaseModel):

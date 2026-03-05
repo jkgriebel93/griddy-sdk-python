@@ -3,22 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class TotalsTypedDict(TypedDict):
-    r"""Over/Under (totals) betting odds"""
-
-    over_handicap: NotRequired[float]
-    r"""Total points line for over"""
-    over_price: NotRequired[int]
-    r"""Over odds (American format)"""
-    under_handicap: NotRequired[float]
-    r"""Total points line for under"""
-    under_price: NotRequired[int]
-    r"""Under odds (American format)"""
 
 
 class Totals(BaseModel):

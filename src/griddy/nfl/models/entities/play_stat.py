@@ -3,23 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class PlayStatTypedDict(TypedDict):
-    club_code: str
-    r"""Team abbreviation"""
-    gsis_id: NotRequired[str]
-    r"""Player GSIS ID. Absent on team-level stats."""
-    play_id: int
-    player_name: NotRequired[str]
-    r"""Player name. Absent on team-level stats."""
-    stat_id: int
-    r"""Type of statistic"""
-    yards: int
-    r"""Yards gained/lost"""
 
 
 class PlayStat(BaseModel):

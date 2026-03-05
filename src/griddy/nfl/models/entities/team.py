@@ -4,11 +4,11 @@ from typing import List, Literal, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .social_media import SocialMedia, SocialMediaTypedDict
-from .team_venue import TeamVenue, TeamVenueTypedDict
+from .social_media import SocialMedia
+from .team_venue import TeamVenue
 
 TeamConferenceAbbr = Literal[
     "AFC",
@@ -22,47 +22,6 @@ TeamTeamType = Literal[
     "PRO",
 ]
 r"""Type of team (regular or Pro Bowl)"""
-
-
-class TeamTypedDict(TypedDict):
-    abbreviation: NotRequired[str]
-    r"""Three-letter team abbreviation"""
-    conference_abbr: NotRequired[TeamConferenceAbbr]
-    r"""Conference abbreviation"""
-    conference_full_name: NotRequired[str]
-    r"""Full conference name"""
-    current_logo: NotRequired[str]
-    r"""URL to team logo (may contain {formatInstructions} placeholder)"""
-    division_full_name: NotRequired[str]
-    r"""Full division name"""
-    full_name: NotRequired[str]
-    r"""Full team name"""
-    id: NotRequired[str]
-    r"""Unique team identifier"""
-    league: NotRequired[str]
-    r"""League name"""
-    location: NotRequired[str]
-    r"""Team location/city"""
-    nfl_shop_url: NotRequired[Nullable[str]]
-    r"""URL to team's NFL shop"""
-    nick_name: NotRequired[str]
-    r"""Team nickname"""
-    official_website_url: NotRequired[Nullable[str]]
-    r"""Team's official website"""
-    owners: NotRequired[Nullable[str]]
-    r"""Team ownership information"""
-    primary_color: NotRequired[str]
-    r"""Primary team color (hex)"""
-    season: NotRequired[str]
-    r"""Current season"""
-    secondary_color: NotRequired[str]
-    r"""Secondary team color (hex)"""
-    socials: NotRequired[List[SocialMediaTypedDict]]
-    team_type: NotRequired[TeamTeamType]
-    r"""Type of team (regular or Pro Bowl)"""
-    venues: NotRequired[List[TeamVenueTypedDict]]
-    year_established: NotRequired[int]
-    r"""Year team was established"""
 
 
 class Team(BaseModel):

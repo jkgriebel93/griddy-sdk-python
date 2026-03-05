@@ -4,35 +4,12 @@ from datetime import datetime
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .moneyline import MoneyLine, MoneyLineTypedDict
-from .point_spread import PointSpread, PointSpreadTypedDict
-from .totals import Totals, TotalsTypedDict
-
-
-class GameOddsTypedDict(TypedDict):
-    game_id: NotRequired[int]
-    r"""Game identifier (10-digit format YYYYMMDDNN)"""
-    game_key: NotRequired[int]
-    r"""Unique game key identifier"""
-    home_team_abbr: NotRequired[str]
-    r"""Home team abbreviation"""
-    home_team_id: NotRequired[str]
-    r"""Home team identifier"""
-    moneyline: NotRequired[MoneyLineTypedDict]
-    r"""Money line betting odds"""
-    spread: NotRequired[PointSpreadTypedDict]
-    r"""Point spread betting odds"""
-    totals: NotRequired[TotalsTypedDict]
-    r"""Over/Under (totals) betting odds"""
-    updated_at: NotRequired[datetime]
-    r"""Timestamp of last odds update"""
-    visitor_team_abbr: NotRequired[str]
-    r"""Visitor team abbreviation"""
-    visitor_team_id: NotRequired[str]
-    r"""Visitor team identifier"""
+from .moneyline import MoneyLine
+from .point_spread import PointSpread
+from .totals import Totals
 
 
 class GameOdds(BaseModel):

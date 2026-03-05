@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
@@ -26,27 +26,6 @@ GetDefensivePassRushStatsByWeekSortKey = Literal[
     "gameSnap",
 ]
 r"""Field to sort by"""
-
-
-class GetDefensivePassRushStatsByWeekRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    week: WeekSlugEnum
-    r"""Week identifier"""
-    limit: NotRequired[int]
-    r"""Maximum number of players to return"""
-    offset: NotRequired[int]
-    r"""Number of records to skip for pagination"""
-    page: NotRequired[int]
-    r"""Page number for pagination"""
-    sort_key: NotRequired[GetDefensivePassRushStatsByWeekSortKey]
-    r"""Field to sort by"""
-    sort_value: NotRequired[SortOrderEnum]
-    r"""Sort direction"""
-    qualified_defender: NotRequired[bool]
-    r"""Filter to only qualified defenders (minimum snap threshold)"""
 
 
 class GetDefensivePassRushStatsByWeekRequest(BaseModel):

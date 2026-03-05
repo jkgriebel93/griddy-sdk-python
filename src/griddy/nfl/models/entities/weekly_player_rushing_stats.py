@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.game_result_enum import GameResultEnum
 from griddy.nfl.models.enums.offensive_player_position_enum import (
@@ -11,125 +11,6 @@ from griddy.nfl.models.enums.offensive_player_position_enum import (
 )
 
 from ...types import BaseModel
-
-
-class WeeklyPlayerRushingStatsTypedDict(TypedDict):
-    att: int
-    r"""Rushing attempts"""
-    display_name: str
-    r"""Player's full name"""
-    gp: int
-    r"""Games played"""
-    gs: int
-    r"""Games started"""
-    nfl_id: str
-    r"""NFL player identifier"""
-    position: OffensivePlayerPositionEnum
-    r"""Offensive player position"""
-    td: int
-    r"""Rushing touchdowns"""
-    team_id: str
-    r"""Team identifier"""
-    yds: int
-    r"""Rushing yards"""
-    ypc: float
-    r"""Yards per carry"""
-    att_pg: NotRequired[float]
-    r"""Attempts per game"""
-    eff: NotRequired[float]
-    r"""Efficiency rating"""
-    epa: NotRequired[float]
-    r"""Expected Points Added"""
-    epa_att: NotRequired[float]
-    r"""EPA per attempt"""
-    epa_pg: NotRequired[float]
-    r"""EPA per game"""
-    fapi_game_id: NotRequired[str]
-    r"""Football API game identifier"""
-    final_score: NotRequired[str]
-    r"""Final score of the game"""
-    fum: NotRequired[int]
-    r"""Fumbles"""
-    fum_pg: NotRequired[float]
-    r"""Fumbles per game"""
-    game_id: NotRequired[int]
-    r"""Game identifier (10-digit format YYYYMMDDNN)"""
-    game_result: NotRequired[GameResultEnum]
-    r"""Game result (Win/Loss/Tie)"""
-    headshot: NotRequired[str]
-    r"""URL to player headshot image (contains formatInstructions placeholder)"""
-    in_t_pct: NotRequired[float]
-    r"""Inside tackles percentage (0-1)"""
-    is_home: NotRequired[bool]
-    r"""Whether player's team was at home"""
-    jersey_number: NotRequired[int]
-    r"""Player's jersey number"""
-    lost: NotRequired[int]
-    r"""Fumbles lost"""
-    lost_pg: NotRequired[float]
-    r"""Fumbles lost per game"""
-    ngs_position: NotRequired[OffensivePlayerPositionEnum]
-    r"""Offensive player position"""
-    ngs_position_group: NotRequired[OffensivePlayerPositionEnum]
-    r"""Offensive player position"""
-    opponent_team_id: NotRequired[str]
-    r"""Opponent team identifier"""
-    position_group: NotRequired[OffensivePlayerPositionEnum]
-    r"""Offensive player position"""
-    qr: NotRequired[bool]
-    r"""Qualified rusher status"""
-    rush10_p_yds: NotRequired[int]
-    r"""Rushes of 10+ yards"""
-    rush10_p_yds_pg: NotRequired[float]
-    r"""10+ yard rushes per game"""
-    rush15_p_mph: NotRequired[int]
-    r"""Rushes of 15+ mph"""
-    rush15_p_mph_pg: NotRequired[float]
-    r"""15+ mph rushes per game"""
-    rush20_p_mph: NotRequired[int]
-    r"""Rushes of 20+ mph"""
-    rush20_p_mph_pg: NotRequired[float]
-    r"""20+ mph rushes per game"""
-    ryoe: NotRequired[float]
-    r"""Rush Yards Over Expected"""
-    ryoe_att: NotRequired[float]
-    r"""RYOE per attempt"""
-    ryoe_pg: NotRequired[float]
-    r"""RYOE per game"""
-    short_name: NotRequired[str]
-    r"""Abbreviated player name"""
-    st_box_pct: NotRequired[float]
-    r"""Stacked box percentage (0-1)"""
-    success: NotRequired[float]
-    r"""Success rate (0-1)"""
-    td_pg: NotRequired[float]
-    r"""Touchdowns per game"""
-    tg: NotRequired[int]
-    r"""Team games for player"""
-    total_tg: NotRequired[int]
-    r"""Total team games in period"""
-    under_pct: NotRequired[float]
-    r"""Under center percentage (0-1)"""
-    week_slug: NotRequired[str]
-    r"""Week identifier slug"""
-    x_ry: NotRequired[float]
-    r"""Expected rushing yards"""
-    x_ry_pg: NotRequired[float]
-    r"""Expected rushing yards per game"""
-    x_ypc: NotRequired[float]
-    r"""Expected yards per carry"""
-    yaco: NotRequired[float]
-    r"""Yards after contact"""
-    yaco_att: NotRequired[float]
-    r"""Yards after contact per attempt"""
-    yaco_pg: NotRequired[float]
-    r"""Yards after contact per game"""
-    ybco: NotRequired[float]
-    r"""Yards before contact"""
-    ybco_pg: NotRequired[float]
-    r"""Yards before contact per game"""
-    yds_pg: NotRequired[float]
-    r"""Yards per game"""
 
 
 class WeeklyPlayerRushingStats(BaseModel):

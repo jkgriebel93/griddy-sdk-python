@@ -3,18 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class DivisionTypedDict(TypedDict):
-    abbr: NotRequired[str]
-    r"""Division abbreviation"""
-    full_name: NotRequired[str]
-    r"""Full division name"""
-    id: NotRequired[str]
-    r"""Division identifier"""
 
 
 class Division(BaseModel):

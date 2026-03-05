@@ -3,21 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class PassingStatsTypedDict(TypedDict):
-    attempts: NotRequired[int]
-    completion_pct: NotRequired[float]
-    completions: NotRequired[int]
-    interceptions: NotRequired[int]
-    rating: NotRequired[float]
-    sack_yards: NotRequired[int]
-    sacks: NotRequired[int]
-    touchdowns: NotRequired[int]
-    yards: NotRequired[int]
 
 
 class PassingStats(BaseModel):

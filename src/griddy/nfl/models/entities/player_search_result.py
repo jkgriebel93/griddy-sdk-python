@@ -5,92 +5,13 @@ from typing import List, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .award import Award, AwardTypedDict
-from .career_stats import CareerStats, CareerStatsTypedDict
-from .contract_info import ContractInfo, ContractInfoTypedDict
-from .season_stats import SeasonStats, SeasonStatsTypedDict
-
-
-class PlayerSearchResultTypedDict(TypedDict):
-    r"""Player data returned in search results (may have nullable fields for retired players)"""
-
-    birth_date: NotRequired[date]
-    r"""Player's birth date"""
-    college_conference: NotRequired[str]
-    r"""Player's college conference"""
-    college_name: NotRequired[str]
-    r"""Player's college"""
-    current_team_id: NotRequired[str]
-    r"""Current team identifier"""
-    display_name: NotRequired[str]
-    r"""Player's display name"""
-    draft_club: NotRequired[Nullable[str]]
-    r"""Team that drafted the player"""
-    draft_number: NotRequired[Nullable[int]]
-    r"""Overall draft pick number"""
-    draftround: NotRequired[Nullable[int]]
-    r"""Draft round"""
-    entry_year: NotRequired[int]
-    r"""Year player entered the league"""
-    esb_id: NotRequired[str]
-    r"""ESB identifier"""
-    first_name: NotRequired[str]
-    r"""Player's first name"""
-    football_name: NotRequired[str]
-    r"""Player's football name (nickname)"""
-    gsis_id: NotRequired[str]
-    r"""GSIS identifier"""
-    gsis_it_id: NotRequired[int]
-    r"""GSIS IT identifier"""
-    headshot: NotRequired[str]
-    r"""URL to player headshot image"""
-    height: NotRequired[str]
-    r"""Player height (format is feet-inches)"""
-    jersey_number: NotRequired[int]
-    r"""Player's jersey number"""
-    last_name: NotRequired[str]
-    r"""Player's last name"""
-    nfl_id: NotRequired[int]
-    r"""NFL player identifier"""
-    ngs_position: NotRequired[Nullable[str]]
-    r"""Next Gen Stats position"""
-    ngs_position_group: NotRequired[Nullable[str]]
-    r"""Next Gen Stats position group"""
-    position: NotRequired[str]
-    r"""Player's position"""
-    position_group: NotRequired[str]
-    r"""Player's position group"""
-    rookie_year: NotRequired[int]
-    r"""Player's rookie year"""
-    season: NotRequired[int]
-    r"""Current season"""
-    short_name: NotRequired[str]
-    r"""Shortened player name"""
-    smart_id: NotRequired[str]
-    r"""Smart identifier for the player"""
-    status: NotRequired[str]
-    r"""Player status code"""
-    status_description_abbr: NotRequired[str]
-    r"""Abbreviated status description"""
-    status_short_description: NotRequired[str]
-    r"""Short status description"""
-    team_abbr: NotRequired[str]
-    r"""Current team abbreviation"""
-    uniform_number: NotRequired[str]
-    r"""Player's uniform number (formatted)"""
-    weight: NotRequired[int]
-    r"""Player weight in pounds"""
-    years_of_experience: NotRequired[int]
-    r"""Years of NFL experience"""
-    awards: NotRequired[List[AwardTypedDict]]
-    biography: NotRequired[str]
-    r"""Player biography"""
-    career_stats: NotRequired[CareerStatsTypedDict]
-    contract_info: NotRequired[ContractInfoTypedDict]
-    current_season_stats: NotRequired[SeasonStatsTypedDict]
+from .award import Award
+from .career_stats import CareerStats
+from .contract_info import ContractInfo
+from .season_stats import SeasonStats
 
 
 class PlayerSearchResult(BaseModel):

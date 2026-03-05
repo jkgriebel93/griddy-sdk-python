@@ -4,56 +4,9 @@ from typing import Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-
-
-class PlayWinProbabilityTypedDict(TypedDict):
-    down: int
-    r"""Down number (0 for kickoffs and special plays, 1-4 for regular plays)"""
-    home_score: int
-    r"""Home team score after the play"""
-    home_timeouts_left: NotRequired[int]
-    r"""Number of timeouts remaining for home team"""
-    play_description: str
-    r"""Detailed description of the play or game event"""
-    play_id: int
-    r"""Unique play identifier"""
-    possession_team_id: str
-    r"""Team ID with possession (4-digit string)"""
-    pre_snap_home_score: int
-    r"""Home team score before the play"""
-    pre_snap_visitor_score: int
-    r"""Visitor team score before the play"""
-    quarter: int
-    r"""Quarter number (1-4, or 5 for overtime)"""
-    sequence: float
-    r"""Play sequence number (can be decimal for special plays)"""
-    visitor_score: int
-    r"""Visitor team score after the play"""
-    visitor_timeouts_left: NotRequired[int]
-    r"""Number of timeouts remaining for visitor team"""
-    yards_to_go: int
-    r"""Yards needed for first down"""
-    home_team_win_probability_added: NotRequired[Nullable[float]]
-    r"""Win Probability Added (WPA) for home team on this play"""
-    post_play_home_team_win_probability: NotRequired[Nullable[float]]
-    r"""Home team win probability after the play (0-1)"""
-    post_play_visitor_team_win_probability: NotRequired[Nullable[float]]
-    r"""Visiting team win probability after the play (0-1)"""
-    pre_snap_home_team_win_probability: NotRequired[Nullable[float]]
-    r"""Home team win probability before the play (0-1, null for game start)"""
-    pre_snap_visitor_team_win_probability: NotRequired[Nullable[float]]
-    r"""Visitor team win probability before the play (0-1, null for game start)"""
-    visitor_team_win_probability_added: NotRequired[Nullable[float]]
-    r"""Win Probability Added (WPA) for visitor team on this play (negative of home WPA)"""
-    yardline: NotRequired[str]
-    r"""Field position description (e.g., \"NE 27\" or empty for special plays)"""
-    yardline_number: NotRequired[Nullable[int]]
-    r"""Yard line number (null for special plays)"""
-    yardline_side: NotRequired[Nullable[str]]
-    r"""Side of field (team abbreviation or null for midfield/special plays)"""
 
 
 class PlayWinProbability(BaseModel):

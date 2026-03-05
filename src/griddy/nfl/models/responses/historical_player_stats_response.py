@@ -3,17 +3,9 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
-
-
-class PersonStatLineupTypedDict(TypedDict):
-    games_dnp: NotRequired[Optional[int]]
-    games_ina: NotRequired[Optional[int]]
-    games_played: NotRequired[Optional[int]]
-    games_started: NotRequired[Optional[int]]
-    games_sub: NotRequired[Optional[int]]
 
 
 class PersonStatLineup(BaseModel):
@@ -22,13 +14,6 @@ class PersonStatLineup(BaseModel):
     games_played: Annotated[Optional[int], pydantic.Field(alias="gamesPlayed")] = None
     games_started: Annotated[Optional[int], pydantic.Field(alias="gamesStarted")] = None
     games_sub: Annotated[Optional[int], pydantic.Field(alias="gamesSub")] = None
-
-
-class PersonStatTypedDict(TypedDict):
-    person: NotRequired[Optional[str]]
-    role: NotRequired[Optional[str]]
-    lineup: NotRequired[Optional[PersonStatLineupTypedDict]]
-    stats: NotRequired[Optional[Dict[str, Any]]]
 
 
 class PersonStat(BaseModel):
@@ -46,12 +31,6 @@ class PersonStat(BaseModel):
 
     # TODO: Fill this in with a real type
     stats: Optional[Dict[str, Any]] = None
-
-
-class HistoricalPlayerStatsResponseTypedDict(TypedDict):
-    game: NotRequired[Optional[str]]
-    team: NotRequired[Optional[str]]
-    person_stats: NotRequired[Optional[List[PersonStatTypedDict]]]
 
 
 class HistoricalPlayerStatsResponse(BaseModel):

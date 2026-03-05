@@ -1,14 +1,9 @@
 from __future__ import annotations
 
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class VideoThumbnailTypedDict(TypedDict):
-    thumbnail_url: str
-    r"""Video thumbnail image URL"""
 
 
 class VideoThumbnail(BaseModel):

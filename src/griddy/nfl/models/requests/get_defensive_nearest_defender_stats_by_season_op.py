@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
@@ -14,41 +14,6 @@ GetDefensiveNearestDefenderStatsBySeasonSortKey = Literal[
     "cov"
     # TODO: Add the rest of these
 ]
-
-
-class GetDefensiveNearestDefenderStatsBySeasonRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    season_type: SeasonTypeEnum
-    r"""Type of season"""
-    limit: NotRequired[int]
-    r"""Maximum number of players to return"""
-    offset: NotRequired[int]
-    r"""Number of players to skip"""
-    page: NotRequired[int]
-    r"""Page number for pagination"""
-    sort_key: NotRequired[GetDefensiveNearestDefenderStatsBySeasonSortKey]
-    r"""Field to sort by"""
-    sort_value: NotRequired[SortOrderEnum]
-    r"""Sort direction"""
-    qualified_defender: NotRequired[bool]
-    r"""Filter to only qualified defenders (minimum snap threshold)"""
-    # game_location: GameLocationEnum
-    # r"""Where the game was played"""
-    # quarter: NotRequired[QuarterEnum]
-    # r"""Period of the game"""
-    # down: NotRequired[DownEnum]
-    # r"""Down of the snap"""
-    # yards_to_go: NotRequired[YardsToGoEnum]
-    # r"""Yards required to gain first down"""
-    # position_group: NotRequired[DefenseNGSPositionGroupEnum]
-    # r"""Restrict to a specific position group"""
-    # team_defense: NotRequired[int]
-    # r"""Integer team ID"""
-    # team_offense: NotRequired[int]
-    # r"""Integer team ID of defender's opponent"""
-    # split: NotRequired[DefenseNGSSplitEnum]
-    # r"""Various situational/alignment splits offered by the NFL"""
 
 
 class GetDefensiveNearestDefenderStatsBySeasonRequest(BaseModel):

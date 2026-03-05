@@ -1,14 +1,7 @@
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
-
-
-class DraftDayTypedDict(TypedDict):
-    year: int
-    day: int
-    first_pick: int
-    last_pick: int
 
 
 class DraftDay(BaseModel):

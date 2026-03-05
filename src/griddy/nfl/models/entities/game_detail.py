@@ -4,50 +4,14 @@ from datetime import datetime
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 from ...types import BaseModel
-from .game_score import GameScore, GameScoreTypedDict
-from .site import Site, SiteTypedDict
-from .team_info import TeamInfo, TeamInfoTypedDict
-
-
-class GameDetailTypedDict(TypedDict):
-    game_date: NotRequired[str]
-    game_id: NotRequired[int]
-    game_key: NotRequired[int]
-    game_time: NotRequired[datetime]
-    game_time_eastern: NotRequired[str]
-    game_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    home_display_name: NotRequired[str]
-    home_nickname: NotRequired[str]
-    home_team: NotRequired[TeamInfoTypedDict]
-    r"""Basic team information included in roster responses"""
-    home_team_abbr: NotRequired[str]
-    home_team_id: NotRequired[str]
-    iso_time: NotRequired[int]
-    r"""Unix timestamp in milliseconds"""
-    network_channel: NotRequired[str]
-    ngs_game: NotRequired[bool]
-    released_to_clubs: NotRequired[bool]
-    score: NotRequired[GameScoreTypedDict]
-    season: NotRequired[int]
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    site: NotRequired[SiteTypedDict]
-    smart_id: NotRequired[str]
-    validated: NotRequired[bool]
-    visitor_display_name: NotRequired[str]
-    visitor_nickname: NotRequired[str]
-    visitor_team: NotRequired[TeamInfoTypedDict]
-    r"""Basic team information included in roster responses"""
-    visitor_team_abbr: NotRequired[str]
-    visitor_team_id: NotRequired[str]
-    week: NotRequired[int]
-    week_name_abbr: NotRequired[str]
+from .game_score import GameScore
+from .site import Site
+from .team_info import TeamInfo
 
 
 class GameDetail(BaseModel):

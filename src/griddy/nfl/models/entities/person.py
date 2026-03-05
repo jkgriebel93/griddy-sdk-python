@@ -1,53 +1,11 @@
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl import models
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
-
-
-class PersonTypedDict(TypedDict):
-    id_: str
-    r"""UUUID assigned by the NFL"""
-    college_names: NotRequired[List[str]]
-    r"""Colleges the person attended"""
-    display_name: str
-    r"""First and last name"""
-    birth_date: NotRequired[str]
-    r"""Person's date of birth as YYYY-MM-DD"""
-    first_name: str
-    r"""Person's formal first name"""
-    common_first_name: str
-    r"""e.g. Mike instead of Michael"""
-    esb_id: str
-    r"""Another form of ID tracked by the NFL"""
-    gsis_id: NotRequired[str]
-    r"""Yet another ID"""
-    headshot: NotRequired[str]
-    r"""A URL for the person's headshot used in Media"""
-    height: int
-    r"""Person's height rounded to nearest whole inch"""
-    internation_exempt: bool
-    r"""Not sure what this is"""
-    jersey_number: NotRequired[str]
-    r"""Number the player wears on the field."""
-    last_name: str
-    r"""Person's surname"""
-    nfl_experience: int
-    r"""Number of years the person has been a part of the NFL"""
-    position: str
-    # TODO: Make an enum for this
-    r"""Player's position on the field"""
-    position_group: str
-    # TODO: Make an enum for this
-    r"""Player's position group"""
-    status: str
-    # TODO: Make an enum
-    r"""Whether the player is active or retired"""
-    weight: int
-    r"""Player's weight rounded to the nearest pound"""
 
 
 class Person(BaseModel):

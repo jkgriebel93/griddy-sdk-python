@@ -4,26 +4,9 @@ from typing import Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-
-
-class VenueTypedDict(TypedDict):
-    address: NotRequired[Nullable[str]]
-    r"""Street address"""
-    city: NotRequired[str]
-    r"""City name"""
-    country: NotRequired[str]
-    r"""Country name"""
-    id: NotRequired[str]
-    r"""Unique venue identifier"""
-    name: NotRequired[str]
-    r"""Venue name"""
-    postal_code: NotRequired[Nullable[str]]
-    r"""Postal/ZIP code"""
-    territory: NotRequired[Nullable[str]]
-    r"""State or territory code"""
 
 
 class Venue(BaseModel):

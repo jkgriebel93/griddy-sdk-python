@@ -4,17 +4,11 @@ from datetime import datetime
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .injury_entry import InjuryEntry, InjuryEntryTypedDict
-from .team import Team, TeamTypedDict
-
-
-class TeamInjuryReportTypedDict(TypedDict):
-    injuries: NotRequired[List[InjuryEntryTypedDict]]
-    last_updated: NotRequired[datetime]
-    team: NotRequired[TeamTypedDict]
+from .injury_entry import InjuryEntry
+from .team import Team
 
 
 class TeamInjuryReport(BaseModel):

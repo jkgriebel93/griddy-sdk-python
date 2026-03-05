@@ -3,21 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetProjectedStatsRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    week: int
-    r"""Week number within the season"""
-    filter_nfl_team_id: NotRequired[str]
-    r"""Filter by NFL team ID (UUID format)"""
-    page_size: NotRequired[int]
-    r"""Number of results per page"""
 
 
 class GetProjectedStatsRequest(BaseModel):

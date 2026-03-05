@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
@@ -19,19 +19,6 @@ Tag = Literal[
     "pro-matchup",
     "evergreen",
 ]
-
-
-class GetSeasonContentInsightsRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    limit: NotRequired[int]
-    r"""Maximum number of insights to return"""
-    tags: NotRequired[List[Tag]]
-    r"""Content tags to filter by (supports multiple comma-separated tags)"""
-    team_id: NotRequired[str]
-    r"""Filter by specific team identifier"""
-    nfl_id: NotRequired[str]
-    r"""Filter by specific player NFL identifier"""
 
 
 class GetSeasonContentInsightsRequest(BaseModel):

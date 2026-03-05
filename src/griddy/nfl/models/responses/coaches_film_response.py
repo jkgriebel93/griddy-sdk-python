@@ -2,22 +2,13 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from griddy.nfl.models.entities.coaches_film_video import (
     CoachesFilmVideo,
-    CoachesFilmVideoTypedDict,
 )
-from griddy.nfl.models.entities.pagination import Pagination, PaginationTypedDict
+from griddy.nfl.models.entities.pagination import Pagination
 from griddy.nfl.types import BaseModel
 
-from ..response_metadata import ResponseMetadata, ResponseMetadataTypedDict
-
-
-class CoachesFilmResponseTypedDict(TypedDict):
-    items: List[CoachesFilmVideoTypedDict]
-    metadata: ResponseMetadataTypedDict
-    pagination: NotRequired[PaginationTypedDict]
+from ..response_metadata import ResponseMetadata
 
 
 class CoachesFilmResponse(BaseModel):

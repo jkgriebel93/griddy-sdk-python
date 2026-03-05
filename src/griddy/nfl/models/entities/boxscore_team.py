@@ -3,27 +3,12 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.conference_enum import ConferenceEnum
 from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
 
 from ...types import BaseModel
-
-
-class BoxscoreTeamTypedDict(TypedDict):
-    abbr: NotRequired[str]
-    city_state: NotRequired[str]
-    conference_abbr: NotRequired[ConferenceEnum]
-    r"""NFL conference"""
-    division_abbr: NotRequired[str]
-    full_name: NotRequired[str]
-    logo: NotRequired[str]
-    nick: NotRequired[str]
-    smart_id: NotRequired[str]
-    team_id: NotRequired[str]
-    team_type: NotRequired[TeamTypeEnum]
-    r"""Team type classification"""
 
 
 class BoxscoreTeam(BaseModel):

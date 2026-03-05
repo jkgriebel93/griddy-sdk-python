@@ -3,84 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class TeamDefenseStatsTypedDict(TypedDict):
-    gp: int
-    r"""Games played"""
-    pass_: int
-    r"""Pass attempts faced"""
-    run: int
-    r"""Rush attempts faced"""
-    team_id: str
-    r"""Team identifier"""
-    total: int
-    r"""Total defensive plays"""
-    yds: int
-    r"""Total yards allowed"""
-    defensive_touchdown: NotRequired[int]
-    r"""Defensive touchdowns scored"""
-    epa: NotRequired[float]
-    r"""Total EPA allowed (negative is better for defense)"""
-    epa_pp: NotRequired[float]
-    r"""EPA allowed per play"""
-    epa_pass: NotRequired[float]
-    r"""EPA allowed on passing plays"""
-    epa_pass_pp: NotRequired[float]
-    r"""EPA allowed per pass play"""
-    epa_rush: NotRequired[float]
-    r"""EPA allowed on rushing plays"""
-    epa_rush_pp: NotRequired[float]
-    r"""EPA allowed per rush play"""
-    forced_fumble: NotRequired[int]
-    r"""Forced fumbles"""
-    fumble_recovered: NotRequired[int]
-    r"""Fumble recoveries"""
-    interception: NotRequired[int]
-    r"""Interceptions"""
-    pass_pct: NotRequired[float]
-    r"""Percentage of plays that were passes (0-1)"""
-    pass_td: NotRequired[int]
-    r"""Passing touchdowns allowed"""
-    pass_yds: NotRequired[int]
-    r"""Passing yards allowed"""
-    pass_ypg: NotRequired[float]
-    r"""Pass yards allowed per game"""
-    pass_ypp: NotRequired[float]
-    r"""Passing yards allowed per pass attempt"""
-    ppg: NotRequired[float]
-    r"""Points allowed per game"""
-    qbp: NotRequired[int]
-    r"""Quarterback pressures generated"""
-    qbp_pct: NotRequired[float]
-    r"""Quarterback pressure rate (0-1)"""
-    rush_td: NotRequired[int]
-    r"""Rushing touchdowns allowed"""
-    rush_yds: NotRequired[int]
-    r"""Rushing yards allowed"""
-    rush_ypg: NotRequired[float]
-    r"""Rush yards allowed per game"""
-    rush_ypp: NotRequired[float]
-    r"""Rushing yards allowed per rush attempt"""
-    ryoe: NotRequired[float]
-    r"""Rush Yards Over Expected allowed (negative is better for defense)"""
-    sacked_yds: NotRequired[int]
-    r"""Sack yards generated"""
-    sacked_ypg: NotRequired[float]
-    r"""Sack yards generated per game"""
-    td: NotRequired[int]
-    r"""Total touchdowns allowed"""
-    total_takeaways: NotRequired[int]
-    r"""Total takeaways (interceptions + fumble recoveries)"""
-    ttt: NotRequired[float]
-    r"""Average time to throw allowed (seconds)"""
-    ypg: NotRequired[float]
-    r"""Yards allowed per game"""
-    ypp: NotRequired[float]
-    r"""Yards allowed per play"""
 
 
 class TeamDefenseStats(BaseModel):

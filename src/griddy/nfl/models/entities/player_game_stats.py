@@ -2,24 +2,13 @@ from __future__ import annotations
 
 from typing import Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-from .defensive_stats import DefensiveStats, DefensiveStatsTypedDict
-from .kicking_stats import KickingStats, KickingStatsTypedDict
-from .passing_stats import PassingStats, PassingStatsTypedDict
-from .player import Player, PlayerTypedDict
-from .receiving_stats import ReceivingStats, ReceivingStatsTypedDict
-from .rushing_stats import RushingStats, RushingStatsTypedDict
-
-
-class PlayerGameStatsTypedDict(TypedDict):
-    defensive: NotRequired[DefensiveStatsTypedDict]
-    kicking: NotRequired[KickingStatsTypedDict]
-    passing: NotRequired[PassingStatsTypedDict]
-    player: NotRequired[PlayerTypedDict]
-    receiving: NotRequired[ReceivingStatsTypedDict]
-    rushing: NotRequired[RushingStatsTypedDict]
+from .defensive_stats import DefensiveStats
+from .kicking_stats import KickingStats
+from .passing_stats import PassingStats
+from .player import Player
+from .receiving_stats import ReceivingStats
+from .rushing_stats import RushingStats
 
 
 class PlayerGameStats(BaseModel):

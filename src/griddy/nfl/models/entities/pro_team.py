@@ -4,11 +4,11 @@ from typing import Literal, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .conference import Conference, ConferenceTypedDict
-from .division import Division, DivisionTypedDict
+from .conference import Conference
+from .division import Division
 
 ProTeamConferenceAbbr = Literal[
     "AFC",
@@ -22,63 +22,6 @@ ProTeamTeamType = Literal[
     "PRO",
 ]
 r"""Type of team (regular or Pro Bowl)"""
-
-
-class ProTeamTypedDict(TypedDict):
-    abbr: NotRequired[str]
-    r"""Three-letter team abbreviation"""
-    alt_color: NotRequired[str]
-    r"""Alternate team color in hex format"""
-    city: NotRequired[str]
-    r"""Team city/location"""
-    city_state: NotRequired[str]
-    r"""Team city and state"""
-    conference: NotRequired[ConferenceTypedDict]
-    conference_abbr: NotRequired[ProTeamConferenceAbbr]
-    r"""Conference abbreviation"""
-    dark_color: NotRequired[str]
-    r"""Dark team color in hex format"""
-    division: NotRequired[DivisionTypedDict]
-    domain: NotRequired[str]
-    r"""Team website domain prefix"""
-    full_name: NotRequired[str]
-    r"""Full team name"""
-    is_pro_bowl: NotRequired[bool]
-    r"""Whether this is a Pro Bowl team"""
-    logo: NotRequired[str]
-    r"""URL to team logo (may contain formatInstructions placeholder)"""
-    name: NotRequired[str]
-    r"""Team name"""
-    nick: NotRequired[str]
-    r"""Team nickname (short form)"""
-    nickname: NotRequired[str]
-    r"""Team nickname"""
-    primary_color: NotRequired[str]
-    r"""Primary team color in hex format"""
-    season: NotRequired[int]
-    r"""Current season year"""
-    secondary_color: NotRequired[str]
-    r"""Secondary team color in hex format"""
-    slug: NotRequired[str]
-    r"""URL-friendly team identifier"""
-    smart_id: NotRequired[str]
-    r"""Unique smart identifier for the team"""
-    stadium_name: NotRequired[str]
-    r"""Name of the team's home stadium"""
-    team_id: NotRequired[str]
-    r"""Team identifier (4-digit string)"""
-    team_site_ticket_url: NotRequired[Nullable[str]]
-    r"""URL to team's ticket purchase page"""
-    team_site_url: NotRequired[Nullable[str]]
-    r"""Team's official website URL"""
-    team_type: NotRequired[ProTeamTeamType]
-    r"""Type of team (regular or Pro Bowl)"""
-    tertiary_color: NotRequired[str]
-    r"""Tertiary team color in hex format"""
-    ticket_phone_number: NotRequired[Nullable[str]]
-    r"""Phone number for ticket purchases"""
-    year_found: NotRequired[int]
-    r"""Year the team was founded"""
 
 
 class ProTeam(BaseModel):

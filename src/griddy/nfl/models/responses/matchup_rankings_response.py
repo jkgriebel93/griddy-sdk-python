@@ -3,27 +3,13 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.entities.team_matchup_rankings import (
     TeamMatchupRankings,
-    TeamMatchupRankingsTypedDict,
 )
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
-
-
-class MatchupRankingsResponseTypedDict(TypedDict):
-    game_id: NotRequired[int]
-    game_key: NotRequired[int]
-    home_team_matchup_rankings: NotRequired[TeamMatchupRankingsTypedDict]
-    r"""Comprehensive team rankings across multiple statistical categories"""
-    season: NotRequired[int]
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    visitor_team_matchup_rankings: NotRequired[TeamMatchupRankingsTypedDict]
-    r"""Comprehensive team rankings across multiple statistical categories"""
-    week: NotRequired[int]
 
 
 class MatchupRankingsResponse(BaseModel):

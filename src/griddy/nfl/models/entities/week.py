@@ -4,12 +4,12 @@ from datetime import date
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 from ...types import BaseModel
-from .pro_team import ProTeam, ProTeamTypedDict
+from .pro_team import ProTeam
 
 WeekWeekType = Literal[
     "HOF",
@@ -17,29 +17,6 @@ WeekWeekType = Literal[
     "REG",
 ]
 r"""Type of week"""
-
-
-class WeekTypedDict(TypedDict):
-    bye_teams: NotRequired[List[ProTeamTypedDict]]
-    r"""Teams on bye this week (empty array if no bye teams)"""
-    date_begin: NotRequired[date]
-    r"""First day of the week"""
-    date_end: NotRequired[date]
-    r"""Last day of the week"""
-    season: NotRequired[int]
-    r"""Season year"""
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    season_type_week: NotRequired[str]
-    r"""Combined season type and week identifier"""
-    text: NotRequired[str]
-    r"""Human-readable week description"""
-    week: NotRequired[int]
-    r"""Week number (0 for Hall of Fame game)"""
-    week_slug: NotRequired[str]
-    r"""Week identifier slug"""
-    week_type: NotRequired[WeekWeekType]
-    r"""Type of week"""
 
 
 class Week(BaseModel):

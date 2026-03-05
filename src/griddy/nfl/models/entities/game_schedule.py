@@ -4,54 +4,14 @@ from datetime import datetime
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 from ...types import BaseModel
-from .game_score import GameScore, GameScoreTypedDict
-from .team_info import TeamInfo, TeamInfoTypedDict
-from .venue_info import VenueInfo, VenueInfoTypedDict
-
-
-class GameScheduleTypedDict(TypedDict):
-    game_date: NotRequired[str]
-    r"""Game date MM/DD/YYYY"""
-    game_id: NotRequired[int]
-    game_key: NotRequired[int]
-    game_time: NotRequired[datetime]
-    game_time_eastern: NotRequired[str]
-    r"""Eastern time"""
-    game_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    home_display_name: NotRequired[str]
-    home_nickname: NotRequired[str]
-    home_team: NotRequired[TeamInfoTypedDict]
-    r"""Basic team information included in roster responses"""
-    home_team_abbr: NotRequired[str]
-    home_team_id: NotRequired[str]
-    iso_time: NotRequired[int]
-    r"""ISO timestamp in milliseconds"""
-    network_channel: NotRequired[str]
-    r"""Broadcast network"""
-    ngs_game: NotRequired[bool]
-    r"""Next Gen Stats available"""
-    released_to_clubs: NotRequired[bool]
-    score: NotRequired[GameScoreTypedDict]
-    season: NotRequired[int]
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    site: NotRequired[VenueInfoTypedDict]
-    smart_id: NotRequired[str]
-    validated: NotRequired[bool]
-    visitor_display_name: NotRequired[str]
-    visitor_nickname: NotRequired[str]
-    visitor_team: NotRequired[TeamInfoTypedDict]
-    r"""Basic team information included in roster responses"""
-    visitor_team_abbr: NotRequired[str]
-    visitor_team_id: NotRequired[str]
-    week: NotRequired[int]
-    week_name_abbr: NotRequired[str]
+from .game_score import GameScore
+from .team_info import TeamInfo
+from .venue_info import VenueInfo
 
 
 class GameSchedule(BaseModel):

@@ -3,22 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class PointSpreadTypedDict(TypedDict):
-    r"""Point spread betting odds"""
-
-    away_handicap: NotRequired[str]
-    r"""Away team point spread"""
-    away_price: NotRequired[str]
-    r"""Away team spread odds (American format)"""
-    home_handicap: NotRequired[str]
-    r"""Home team point spread"""
-    home_price: NotRequired[str]
-    r"""Home team spread odds (American format)"""
 
 
 class PointSpread(BaseModel):

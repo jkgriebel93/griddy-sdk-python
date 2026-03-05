@@ -9,35 +9,11 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # ---------------------------------------------------------------------------
 # College (one row in /schools/)
 # ---------------------------------------------------------------------------
-
-
-class CollegeTypedDict(TypedDict):
-    rank: NotRequired[int]
-    college_name: NotRequired[str]
-    college_href: NotRequired[str]
-    state: NotRequired[str]
-    players: NotRequired[int]
-    players_active: NotRequired[int]
-    hofers: NotRequired[int]
-    pro_bowls: NotRequired[int]
-    games: NotRequired[int]
-    touchdowns: NotRequired[int]
-    best_career_av_player: NotRequired[str]
-    best_career_av_player_href: NotRequired[str]
-    best_career_av: NotRequired[int]
-    most_td_player: NotRequired[str]
-    most_td_player_href: NotRequired[str]
-    most_td: NotRequired[int]
-    most_games_player: NotRequired[str]
-    most_games_player_href: NotRequired[str]
-    most_games: NotRequired[int]
 
 
 class College(BaseModel):
@@ -67,10 +43,6 @@ class College(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class CollegeListTypedDict(TypedDict):
-    colleges: NotRequired[List[CollegeTypedDict]]
-
-
 class CollegeList(BaseModel):
     colleges: List[College] = []
 
@@ -78,15 +50,6 @@ class CollegeList(BaseModel):
 # ---------------------------------------------------------------------------
 # HighSchool (one row in /schools/high_schools.cgi)
 # ---------------------------------------------------------------------------
-
-
-class HighSchoolTypedDict(TypedDict):
-    name: NotRequired[str]
-    name_href: NotRequired[str]
-    city: NotRequired[str]
-    state: NotRequired[str]
-    num_players: NotRequired[int]
-    num_active: NotRequired[int]
 
 
 class HighSchool(BaseModel):
@@ -101,10 +64,6 @@ class HighSchool(BaseModel):
 # ---------------------------------------------------------------------------
 # HighSchoolList (top-level for /schools/high_schools.cgi)
 # ---------------------------------------------------------------------------
-
-
-class HighSchoolListTypedDict(TypedDict):
-    schools: NotRequired[List[HighSchoolTypedDict]]
 
 
 class HighSchoolList(BaseModel):

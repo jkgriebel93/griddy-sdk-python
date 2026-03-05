@@ -3,19 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class ReceivingStatsTypedDict(TypedDict):
-    drops: NotRequired[int]
-    long_reception: NotRequired[int]
-    receptions: NotRequired[int]
-    targets: NotRequired[int]
-    touchdowns: NotRequired[int]
-    yards: NotRequired[int]
-    yards_per_reception: NotRequired[float]
 
 
 class ReceivingStats(BaseModel):

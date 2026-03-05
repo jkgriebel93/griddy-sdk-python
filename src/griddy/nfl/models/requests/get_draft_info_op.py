@@ -3,19 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-
-
-class GetDraftInfoRequestTypedDict(TypedDict):
-    year: int
-    r"""Draft year"""
-    round: NotRequired[int]
-    r"""Filter by round"""
-    team_id: NotRequired[str]
-    r"""Filter by team"""
 
 
 class GetDraftInfoRequest(BaseModel):

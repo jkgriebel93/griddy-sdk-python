@@ -3,13 +3,9 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class NflPlusPlusRequirementsTypedDict(TypedDict):
-    country_code: NotRequired[List[str]]
 
 
 class NflPlusPlusRequirements(BaseModel):
@@ -18,16 +14,8 @@ class NflPlusPlusRequirements(BaseModel):
     ] = None
 
 
-class NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict(TypedDict):
-    requirements: NotRequired[NflPlusPlusRequirementsTypedDict]
-
-
 class NFLPLUSPLUSNFLPLUSCOACHESFILM(BaseModel):
     requirements: Optional[NflPlusPlusRequirements] = None
-
-
-class NflPlusPlusTypedDict(TypedDict):
-    nfl_plus_coaches_film: NotRequired[NFLPLUSPLUSNFLPLUSCOACHESFILMTypedDict]
 
 
 class NflPlusPlus(BaseModel):
@@ -37,26 +25,14 @@ class NflPlusPlus(BaseModel):
     ] = None
 
 
-class NflPlusPremiumRequirementsTypedDict(TypedDict):
-    country_code: NotRequired[List[str]]
-
-
 class NflPlusPremiumRequirements(BaseModel):
     country_code: Annotated[
         Optional[List[str]], pydantic.Field(alias="countryCode")
     ] = None
 
 
-class NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict(TypedDict):
-    requirements: NotRequired[NflPlusPremiumRequirementsTypedDict]
-
-
 class NFLPLUSPremiumNFLPLUSCOACHESFILM(BaseModel):
     requirements: Optional[NflPlusPremiumRequirements] = None
-
-
-class NflPlusPremiumTypedDict(TypedDict):
-    nfl_plus_coaches_film: NotRequired[NFLPLUSPremiumNFLPLUSCOACHESFILMTypedDict]
 
 
 class NflPlusPremium(BaseModel):
@@ -66,26 +42,14 @@ class NflPlusPremium(BaseModel):
     ] = None
 
 
-class ProPremiumRequirementsTypedDict(TypedDict):
-    country_code: NotRequired[List[str]]
-
-
 class ProPremiumRequirements(BaseModel):
     country_code: Annotated[
         Optional[List[str]], pydantic.Field(alias="countryCode")
     ] = None
 
 
-class ProPremiumNFLPLUSCOACHESFILMTypedDict(TypedDict):
-    requirements: NotRequired[ProPremiumRequirementsTypedDict]
-
-
 class ProPremiumNFLPLUSCOACHESFILM(BaseModel):
     requirements: Optional[ProPremiumRequirements] = None
-
-
-class ProPremiumTypedDict(TypedDict):
-    nfl_plus_coaches_film: NotRequired[ProPremiumNFLPLUSCOACHESFILMTypedDict]
 
 
 class ProPremium(BaseModel):
@@ -93,14 +57,6 @@ class ProPremium(BaseModel):
         Optional[ProPremiumNFLPLUSCOACHESFILM],
         pydantic.Field(alias="NFL PLUS - COACHES FILM"),
     ] = None
-
-
-class VideoAuthorizationsTypedDict(TypedDict):
-    r"""Authorization requirements for video access"""
-
-    nfl_plus_plus: NotRequired[List[NflPlusPlusTypedDict]]
-    nfl_plus_premium: NotRequired[List[NflPlusPremiumTypedDict]]
-    pro_premium: NotRequired[List[ProPremiumTypedDict]]
 
 
 class VideoAuthorizations(BaseModel):

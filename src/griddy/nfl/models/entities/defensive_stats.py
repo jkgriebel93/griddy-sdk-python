@@ -3,23 +3,9 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class DefensiveStatsTypedDict(TypedDict):
-    assisted_tackles: NotRequired[int]
-    forced_fumbles: NotRequired[int]
-    fumble_recoveries: NotRequired[int]
-    interceptions: NotRequired[int]
-    passes_defended: NotRequired[int]
-    qb_hits: NotRequired[int]
-    sacks: NotRequired[float]
-    safeties: NotRequired[int]
-    solo_tackles: NotRequired[int]
-    tackles: NotRequired[int]
-    tackles_for_loss: NotRequired[int]
 
 
 class DefensiveStats(BaseModel):

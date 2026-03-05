@@ -2,16 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
-
-
-class StatisticTypedDict(TypedDict):
-    type: NotRequired[str]
-    r"""Statistical category name"""
-    value: NotRequired[float]
-    r"""Statistical value"""
 
 
 class Statistic(BaseModel):
@@ -20,12 +11,6 @@ class Statistic(BaseModel):
 
     value: Optional[float] = None
     r"""Statistical value"""
-
-
-class StatisticRankingTypedDict(TypedDict):
-    rank: NotRequired[int]
-    r"""Team's rank in this category (1-32)"""
-    statistic: NotRequired[StatisticTypedDict]
 
 
 class StatisticRanking(BaseModel):

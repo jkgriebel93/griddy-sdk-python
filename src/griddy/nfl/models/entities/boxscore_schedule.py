@@ -4,48 +4,15 @@ from datetime import datetime
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 from ...types import BaseModel
-from .boxscore_score import BoxscoreScore, BoxscoreScoreTypedDict
-from .boxscore_site import BoxscoreSite, BoxscoreSiteTypedDict
-from .boxscore_team import BoxscoreTeam, BoxscoreTeamTypedDict
-
-
-class BoxscoreScheduleTypedDict(TypedDict):
-    game_date: NotRequired[str]
-    game_id: NotRequired[str]
-    game_key: NotRequired[int]
-    game_time: NotRequired[datetime]
-    game_time_eastern: NotRequired[str]
-    game_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    home_display_name: NotRequired[str]
-    home_nickname: NotRequired[str]
-    home_team: NotRequired[BoxscoreTeamTypedDict]
-    home_team_abbr: NotRequired[str]
-    home_team_id: NotRequired[str]
-    iso_time: NotRequired[int]
-    r"""Unix timestamp in milliseconds"""
-    network_channel: NotRequired[str]
-    ngs_game: NotRequired[bool]
-    r"""Whether Next Gen Stats are available"""
-    score: NotRequired[BoxscoreScoreTypedDict]
-    season: NotRequired[int]
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    site: NotRequired[BoxscoreSiteTypedDict]
-    smart_id: NotRequired[str]
-    visitor_display_name: NotRequired[str]
-    visitor_nickname: NotRequired[str]
-    visitor_team: NotRequired[BoxscoreTeamTypedDict]
-    visitor_team_abbr: NotRequired[str]
-    visitor_team_id: NotRequired[str]
-    week: NotRequired[int]
-    week_name_abbr: NotRequired[str]
+from .boxscore_score import BoxscoreScore
+from .boxscore_site import BoxscoreSite
+from .boxscore_team import BoxscoreTeam
 
 
 class BoxscoreSchedule(BaseModel):

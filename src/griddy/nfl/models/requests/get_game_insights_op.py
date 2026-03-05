@@ -3,27 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-
-class GetGameInsightsRequestTypedDict(TypedDict):
-    season: int
-    r"""Season year"""
-    fapi_game_id: str
-    r"""FAPI Game identifier (UUID)"""
-    away_team_id: str
-    r"""Away team identifier"""
-    home_team_id: str
-    r"""Home team identifier"""
-    limit: NotRequired[int]
-    r"""Maximum number of insights to return"""
-    tags: NotRequired[str]
-    r"""Comma-separated list of tags to filter by"""
-    exclude_tags: NotRequired[str]
-    r"""Comma-separated list of tags to exclude"""
 
 
 class GetGameInsightsRequest(BaseModel):

@@ -1,20 +1,9 @@
 from __future__ import annotations
 
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class VideoGamePlayIdsTypedDict(TypedDict):
-    away_team_id: str
-    r"""Away team UUID"""
-    game_id: str
-    r"""Game UUID"""
-    home_team_id: str
-    r"""Home team UUID"""
-    play_id: str
-    r"""Play identifier"""
 
 
 class VideoGamePlayIds(BaseModel):

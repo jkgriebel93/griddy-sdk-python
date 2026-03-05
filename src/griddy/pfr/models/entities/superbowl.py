@@ -10,32 +10,11 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # ---------------------------------------------------------------------------
 # Super Bowl Game (one row in /super-bowl/)
 # ---------------------------------------------------------------------------
-
-
-class SuperBowlGameTypedDict(TypedDict):
-    game_date: NotRequired[str]
-    superbowl: NotRequired[str]
-    superbowl_number: NotRequired[int]
-    boxscore_href: NotRequired[str]
-    winner: NotRequired[str]
-    winner_href: NotRequired[str]
-    winner_points: NotRequired[int]
-    loser: NotRequired[str]
-    loser_href: NotRequired[str]
-    loser_points: NotRequired[int]
-    mvp: NotRequired[str]
-    mvp_href: NotRequired[str]
-    stadium: NotRequired[str]
-    stadium_href: NotRequired[str]
-    city: NotRequired[str]
-    state: NotRequired[str]
 
 
 class SuperBowlGame(BaseModel):
@@ -62,10 +41,6 @@ class SuperBowlGame(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlHistoryTypedDict(TypedDict):
-    games: NotRequired[List[SuperBowlGameTypedDict]]
-
-
 class SuperBowlHistory(BaseModel):
     games: List[SuperBowlGame] = []
 
@@ -73,14 +48,6 @@ class SuperBowlHistory(BaseModel):
 # ---------------------------------------------------------------------------
 # Super Bowl Leader Entry (one row in a leader table)
 # ---------------------------------------------------------------------------
-
-
-class SuperBowlLeaderEntryTypedDict(TypedDict):
-    rank: NotRequired[int]
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    description: NotRequired[str]
-    value: NotRequired[str]
 
 
 class SuperBowlLeaderEntry(BaseModel):
@@ -96,11 +63,6 @@ class SuperBowlLeaderEntry(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlLeaderTableTypedDict(TypedDict):
-    category: NotRequired[str]
-    entries: NotRequired[List[SuperBowlLeaderEntryTypedDict]]
-
-
 class SuperBowlLeaderTable(BaseModel):
     category: Optional[str] = None
     entries: List[SuperBowlLeaderEntry] = []
@@ -109,10 +71,6 @@ class SuperBowlLeaderTable(BaseModel):
 # ---------------------------------------------------------------------------
 # Super Bowl Leaders (top-level for /super-bowl/leaders.htm)
 # ---------------------------------------------------------------------------
-
-
-class SuperBowlLeadersTypedDict(TypedDict):
-    tables: NotRequired[List[SuperBowlLeaderTableTypedDict]]
 
 
 class SuperBowlLeaders(BaseModel):
@@ -124,12 +82,6 @@ class SuperBowlLeaders(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class SuperBowlQBTypedDict(TypedDict):
-    player: NotRequired[str]
-    player_href: NotRequired[str]
-    record: NotRequired[str]
-
-
 class SuperBowlQB(BaseModel):
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -139,20 +91,6 @@ class SuperBowlQB(BaseModel):
 # ---------------------------------------------------------------------------
 # Super Bowl Standing (one row in /super-bowl/standings.htm)
 # ---------------------------------------------------------------------------
-
-
-class SuperBowlStandingTypedDict(TypedDict):
-    rank: NotRequired[int]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    games: NotRequired[int]
-    wins: NotRequired[int]
-    losses: NotRequired[int]
-    win_loss_pct: NotRequired[str]
-    points: NotRequired[int]
-    points_opp: NotRequired[int]
-    points_diff: NotRequired[str]
-    qbs: NotRequired[List[SuperBowlQBTypedDict]]
 
 
 class SuperBowlStanding(BaseModel):
@@ -172,10 +110,6 @@ class SuperBowlStanding(BaseModel):
 # ---------------------------------------------------------------------------
 # Super Bowl Standings (top-level for /super-bowl/standings.htm)
 # ---------------------------------------------------------------------------
-
-
-class SuperBowlStandingsTypedDict(TypedDict):
-    teams: NotRequired[List[SuperBowlStandingTypedDict]]
 
 
 class SuperBowlStandings(BaseModel):

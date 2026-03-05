@@ -3,23 +3,14 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.entities.boxscore_schedule import (
     BoxscoreSchedule,
-    BoxscoreScheduleTypedDict,
 )
-from griddy.nfl.models.entities.team_boxscore import TeamBoxscore, TeamBoxscoreTypedDict
+from griddy.nfl.models.entities.team_boxscore import TeamBoxscore
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
-
-
-class BoxscoreResponseTypedDict(TypedDict):
-    away: NotRequired[TeamBoxscoreTypedDict]
-    game_id: NotRequired[str]
-    r"""Game identifier"""
-    home: NotRequired[TeamBoxscoreTypedDict]
-    schedule: NotRequired[BoxscoreScheduleTypedDict]
 
 
 class BoxscoreResponse(BaseModel):

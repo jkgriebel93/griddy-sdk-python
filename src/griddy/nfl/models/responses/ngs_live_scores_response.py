@@ -5,21 +5,9 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
-
-
-class NgsTeamScoreTypedDict(TypedDict):
-    """Score breakdown by quarter for a team."""
-
-    point_total: NotRequired[int]
-    point_q1: NotRequired[int]
-    point_q2: NotRequired[int]
-    point_q3: NotRequired[int]
-    point_q4: NotRequired[int]
-    point_ot: NotRequired[int]
-    timeouts_remaining: NotRequired[int]
 
 
 class NgsTeamScore(BaseModel):
@@ -36,15 +24,6 @@ class NgsTeamScore(BaseModel):
     ] = None
 
 
-class NgsGameScoreDetailTypedDict(TypedDict):
-    """Detailed score information for a game."""
-
-    time: NotRequired[str]
-    phase: NotRequired[str | int]
-    visitor_team_score: NotRequired[NgsTeamScoreTypedDict]
-    home_team_score: NotRequired[NgsTeamScoreTypedDict]
-
-
 class NgsGameScoreDetail(BaseModel):
     """Detailed score information for a game."""
 
@@ -56,21 +35,6 @@ class NgsGameScoreDetail(BaseModel):
     home_team_score: Annotated[
         Optional[NgsTeamScore], pydantic.Field(alias="homeTeamScore")
     ] = None
-
-
-class NgsTeamInfoTypedDict(TypedDict):
-    """Team information in NGS responses."""
-
-    team_id: NotRequired[str]
-    smart_id: NotRequired[str]
-    logo: NotRequired[str]
-    abbr: NotRequired[str]
-    city_state: NotRequired[str]
-    full_name: NotRequired[str]
-    nick: NotRequired[str]
-    team_type: NotRequired[str]
-    conference_abbr: NotRequired[str]
-    division_abbr: NotRequired[str]
 
 
 class NgsTeamInfo(BaseModel):
@@ -88,28 +52,6 @@ class NgsTeamInfo(BaseModel):
         Optional[str], pydantic.Field(alias="conferenceAbbr")
     ] = None
     division_abbr: Annotated[Optional[str], pydantic.Field(alias="divisionAbbr")] = None
-
-
-class NgsLiveGameScoreTypedDict(TypedDict):
-    """A single game score entry in the live scores response."""
-
-    game_id: NotRequired[int]
-    game_key: NotRequired[int]
-    game_smart_id: NotRequired[str]
-    home_team_id: NotRequired[str]
-    home_team_abbr: NotRequired[str]
-    home_score: NotRequired[int]
-    away_team_id: NotRequired[str]
-    away_team_abbr: NotRequired[str]
-    away_score: NotRequired[int]
-    game_clock: NotRequired[str]
-    game_status: NotRequired[str]
-    game_date: NotRequired[str]
-    game_time_eastern: NotRequired[str]
-    game_time: NotRequired[str]
-    score: NotRequired[NgsGameScoreDetailTypedDict]
-    visitor_team: NotRequired[NgsTeamInfoTypedDict]
-    home_team: NotRequired[NgsTeamInfoTypedDict]
 
 
 class NgsLiveGameScore(BaseModel):
@@ -140,15 +82,6 @@ class NgsLiveGameScore(BaseModel):
         Optional[NgsTeamInfo], pydantic.Field(alias="visitorTeam")
     ] = None
     home_team: Annotated[Optional[NgsTeamInfo], pydantic.Field(alias="homeTeam")] = None
-
-
-class NgsLiveScoresResponseTypedDict(TypedDict):
-    """Response from the NGS live scores endpoint."""
-
-    season: NotRequired[int]
-    season_type: NotRequired[str]
-    week: NotRequired[int]
-    scores: NotRequired[List[NgsLiveGameScoreTypedDict]]
 
 
 class NgsLiveScoresResponse(BaseModel):

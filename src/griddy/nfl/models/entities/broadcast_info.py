@@ -3,27 +3,15 @@ from __future__ import annotations
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-
-
-class InternationalWatchOptionTypedDict(TypedDict):
-    broadcasters: NotRequired[List[str]]
-    country_code: NotRequired[str]
 
 
 class InternationalWatchOption(BaseModel):
     broadcasters: Optional[List[str]] = None
 
     country_code: Annotated[Optional[str], pydantic.Field(alias="countryCode")] = None
-
-
-class StreamingNetworkTypedDict(TypedDict):
-    host_network: NotRequired[str]
-    r"""Primary streaming network"""
-    networks: NotRequired[List[str]]
-    r"""Available streaming networks"""
 
 
 class StreamingNetwork(BaseModel):
@@ -39,18 +27,6 @@ Territory = Literal[
     "REGIONAL",
 ]
 r"""Broadcast territory scope"""
-
-
-class BroadcastInfoTypedDict(TypedDict):
-    away_network_channels: NotRequired[List[str]]
-    r"""Networks broadcasting in away market"""
-    home_network_channels: NotRequired[List[str]]
-    r"""Networks broadcasting in home market"""
-    international_watch_options: NotRequired[List[InternationalWatchOptionTypedDict]]
-    r"""International viewing options"""
-    streaming_networks: NotRequired[List[StreamingNetworkTypedDict]]
-    territory: NotRequired[Territory]
-    r"""Broadcast territory scope"""
 
 
 class BroadcastInfo(BaseModel):

@@ -3,17 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
-
-
-class GetGameDetailsBySlugRequestTypedDict(TypedDict):
-    slug: str
-    r"""Game slug identifier"""
-    include_replays: NotRequired[bool]
-    r"""Include replay videos in response"""
 
 
 class GetGameDetailsBySlugRequest(BaseModel):

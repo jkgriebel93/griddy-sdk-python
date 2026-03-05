@@ -2,35 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Union
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # --- Team Season Metadata ---
-
-
-class TeamSeasonMetaTypedDict(TypedDict, total=False):
-    record: str
-    division: str
-    division_href: str
-    coach: str
-    coach_href: str
-    points_for: str
-    points_against: str
-    expected_wl: str
-    srs: str
-    sos: str
-    playoffs: str
-    offensive_coordinator: str
-    offensive_coordinator_href: str
-    defensive_coordinator: str
-    defensive_coordinator_href: str
-    stadium: str
-    stadium_href: str
-    offensive_scheme: str
-    defensive_alignment: str
-    preseason_odds: str
-    training_camp: str
 
 
 class TeamSeasonMeta(BaseModel):
@@ -58,36 +32,6 @@ class TeamSeasonMeta(BaseModel):
 
 
 # --- Season Game (from games table) ---
-
-
-class SeasonGameTypedDict(TypedDict):
-    week_num: str
-    game_day_of_week: NotRequired[Optional[str]]
-    game_date: NotRequired[Optional[str]]
-    game_time: NotRequired[Optional[str]]
-    boxscore_word: NotRequired[Optional[str]]
-    boxscore_word_href: NotRequired[Optional[str]]
-    game_outcome: NotRequired[Optional[str]]
-    overtime: NotRequired[Optional[str]]
-    team_record: NotRequired[Optional[str]]
-    game_location: NotRequired[Optional[str]]
-    opp: str
-    opp_href: NotRequired[Optional[str]]
-    pts_off: NotRequired[Optional[int]]
-    pts_def: NotRequired[Optional[int]]
-    first_down_off: NotRequired[Optional[int]]
-    yards_off: NotRequired[Optional[int]]
-    pass_yds_off: NotRequired[Optional[int]]
-    rush_yds_off: NotRequired[Optional[int]]
-    to_off: NotRequired[Optional[int]]
-    first_down_def: NotRequired[Optional[int]]
-    yards_def: NotRequired[Optional[int]]
-    pass_yds_def: NotRequired[Optional[int]]
-    rush_yds_def: NotRequired[Optional[int]]
-    to_def: NotRequired[Optional[int]]
-    exp_pts_off: NotRequired[Optional[float]]
-    exp_pts_def: NotRequired[Optional[float]]
-    exp_pts_st: NotRequired[Optional[float]]
 
 
 class SeasonGame(BaseModel):
@@ -121,16 +65,6 @@ class SeasonGame(BaseModel):
 
 
 # --- Top-level Team Season ---
-
-
-class TeamSeasonTypedDict(TypedDict):
-    meta: TeamSeasonMetaTypedDict
-    team_stats: Dict[str, Dict[str, Union[str, int, float, None]]]
-    games: List[SeasonGameTypedDict]
-    team_conversions: Dict[str, Dict[str, Union[str, int, float, None]]]
-    passing: List[Dict[str, Any]]
-    passing_post: List[Dict[str, Any]]
-    rushing_and_receiving: List[Dict[str, Any]]
 
 
 class TeamSeason(BaseModel):

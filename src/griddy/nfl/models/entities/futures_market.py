@@ -4,36 +4,14 @@ from typing import List, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .odds_selection import OddsSelection, OddsSelectionTypedDict
-
-
-class FixtureTypedDict(TypedDict):
-    r"""Associated fixture information"""
+from .odds_selection import OddsSelection
 
 
 class Fixture(BaseModel):
     r"""Associated fixture information"""
-
-
-class FuturesMarketTypedDict(TypedDict):
-    fixture: NotRequired[Nullable[FixtureTypedDict]]
-    r"""Associated fixture information"""
-    fixture_id: NotRequired[Nullable[str]]
-    r"""Associated fixture ID if applicable"""
-    hierarchy: NotRequired[str]
-    r"""Full betting hierarchy path"""
-    is_available: NotRequired[bool]
-    r"""Whether market is currently available"""
-    is_suspended: NotRequired[bool]
-    r"""Whether market is currently suspended"""
-    name: NotRequired[str]
-    r"""Market name (e.g., \"Winner\", \"Division Winner\")"""
-    selections: NotRequired[List[OddsSelectionTypedDict]]
-    source_id: NotRequired[str]
-    r"""Source identifier for the market"""
 
 
 class FuturesMarket(BaseModel):

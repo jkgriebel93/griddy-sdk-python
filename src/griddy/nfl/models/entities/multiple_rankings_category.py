@@ -4,15 +4,10 @@ from typing import List, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .team_ranking_entry import TeamRankingEntry, TeamRankingEntryTypedDict
-
-
-class MultipleRankingsCategoryPaginationTypedDict(TypedDict):
-    limit: NotRequired[int]
-    token: NotRequired[Nullable[str]]
+from .team_ranking_entry import TeamRankingEntry
 
 
 class MultipleRankingsCategoryPagination(BaseModel):
@@ -49,15 +44,6 @@ class MultipleRankingsCategoryPagination(BaseModel):
                 m[k] = val
 
         return m
-
-
-class MultipleRankingsCategoryTypedDict(TypedDict):
-    pagination: NotRequired[MultipleRankingsCategoryPaginationTypedDict]
-    stat_category: NotRequired[str]
-    r"""Category of statistic"""
-    stat_name: NotRequired[str]
-    r"""Name of specific statistic"""
-    teams: NotRequired[List[TeamRankingEntryTypedDict]]
 
 
 class MultipleRankingsCategory(BaseModel):

@@ -5,17 +5,13 @@ from typing import List, Literal, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .video_authorizations import VideoAuthorizations, VideoAuthorizationsTypedDict
-from .video_game_play_ids import VideoGamePlayIds, VideoGamePlayIdsTypedDict
-from .video_tag import VideoTag, VideoTagTypedDict
-from .video_thumbnail import VideoThumbnail, VideoThumbnailTypedDict
-
-
-class BackgroundTypedDict(TypedDict):
-    r"""Background configuration"""
+from .video_authorizations import VideoAuthorizations
+from .video_game_play_ids import VideoGamePlayIds
+from .video_tag import VideoTag
+from .video_thumbnail import VideoThumbnail
 
 
 class Background(BaseModel):
@@ -30,23 +26,11 @@ CameraSource = Literal[
 r"""Camera angle/source for the video"""
 
 
-class CtaTypedDict(TypedDict):
-    pass
-
-
 class Cta(BaseModel):
     pass
 
 
-class ImageTypedDict(TypedDict):
-    pass
-
-
 class Image(BaseModel):
-    pass
-
-
-class PromoAssetTypedDict(TypedDict):
     pass
 
 
@@ -65,119 +49,8 @@ CoachesFilmVideoType = Literal["video",]
 r"""Content type (always \"video\")"""
 
 
-class VideoTypedDict(TypedDict):
-    pass
-
-
 class Video(BaseModel):
     pass
-
-
-class CoachesFilmVideoTypedDict(TypedDict):
-    camera_source: CameraSource
-    r"""Camera angle/source for the video"""
-    description: str
-    r"""Play description"""
-    duration: str
-    r"""Video duration in seconds"""
-    external_id: str
-    r"""External video identifier"""
-    ids: VideoGamePlayIdsTypedDict
-    title: str
-    r"""Video title"""
-    type: CoachesFilmVideoType
-    r"""Content type (always \"video\")"""
-    advertiser_id: NotRequired[Nullable[str]]
-    r"""Associated advertiser ID"""
-    author: NotRequired[Nullable[str]]
-    r"""Content author"""
-    authorizations: NotRequired[VideoAuthorizationsTypedDict]
-    r"""Authorization requirements for video access"""
-    background: NotRequired[BackgroundTypedDict]
-    r"""Background configuration"""
-    clip_type: NotRequired[Nullable[str]]
-    r"""Type of video clip"""
-    cta_link: NotRequired[Nullable[str]]
-    r"""Call-to-action link"""
-    cta_target: NotRequired[Nullable[str]]
-    r"""Call-to-action target"""
-    cta_text: NotRequired[Nullable[str]]
-    r"""Call-to-action text"""
-    ctas: NotRequired[List[CtaTypedDict]]
-    r"""Call-to-action elements"""
-    display_title: NotRequired[Nullable[str]]
-    r"""Display title override"""
-    end_date: NotRequired[Nullable[datetime]]
-    r"""Content end date"""
-    entitlement: NotRequired[Nullable[str]]
-    r"""Entitlement information"""
-    episode_number: NotRequired[Nullable[int]]
-    r"""Episode number if part of series"""
-    expiration_date: NotRequired[datetime]
-    r"""Content expiration date"""
-    fantasy_link: NotRequired[Nullable[str]]
-    r"""Related fantasy content link"""
-    host_network: NotRequired[Nullable[str]]
-    r"""Broadcasting network"""
-    id: NotRequired[Nullable[str]]
-    r"""Internal content ID"""
-    images: NotRequired[List[ImageTypedDict]]
-    r"""Associated images"""
-    intended_audience: NotRequired[Nullable[str]]
-    r"""Target audience"""
-    intro_end: NotRequired[Nullable[str]]
-    r"""Introduction end timestamp"""
-    language: NotRequired[Nullable[str]]
-    r"""Content language"""
-    last_updated: NotRequired[Nullable[datetime]]
-    r"""Last update timestamp"""
-    mcp_playback_id: NotRequired[str]
-    r"""Media control platform playback ID"""
-    mobile_link: NotRequired[Nullable[str]]
-    r"""Mobile-specific link"""
-    mobile_title: NotRequired[Nullable[str]]
-    r"""Mobile-specific title"""
-    original_air_date: NotRequired[datetime]
-    r"""Original broadcast air date"""
-    outro_start: NotRequired[Nullable[str]]
-    r"""Outro start timestamp"""
-    play_ids: NotRequired[List[str]]
-    r"""Play identifiers associated with this video"""
-    pre_roll_disabled: NotRequired[bool]
-    r"""Whether pre-roll ads are disabled"""
-    promo_assets: NotRequired[List[PromoAssetTypedDict]]
-    r"""Promotional assets"""
-    promo_link: NotRequired[Nullable[str]]
-    r"""Promotional link"""
-    promo_target: NotRequired[str]
-    r"""Promotional link target"""
-    promo_text: NotRequired[Nullable[str]]
-    r"""Promotional text"""
-    publish_date: NotRequired[datetime]
-    r"""Content publish date"""
-    radio_station: NotRequired[Nullable[str]]
-    r"""Associated radio station"""
-    series: NotRequired[Nullable[str]]
-    r"""Series information"""
-    series_season: NotRequired[Nullable[str]]
-    r"""Series season if applicable"""
-    series_title: NotRequired[Nullable[str]]
-    r"""Series title if part of series"""
-    slug: NotRequired[Nullable[str]]
-    r"""URL slug"""
-    start_date: NotRequired[Nullable[datetime]]
-    r"""Content start date"""
-    sub_type: NotRequired[SubType]
-    r"""Video subtype classification"""
-    summary: NotRequired[Nullable[str]]
-    r"""Content summary"""
-    tags: NotRequired[List[VideoTagTypedDict]]
-    r"""Content tags and metadata"""
-    thumbnail: NotRequired[VideoThumbnailTypedDict]
-    videos: NotRequired[List[VideoTypedDict]]
-    r"""Additional video information"""
-    web_link: NotRequired[Nullable[str]]
-    r"""Web-specific link"""
 
 
 class CoachesFilmVideo(BaseModel):

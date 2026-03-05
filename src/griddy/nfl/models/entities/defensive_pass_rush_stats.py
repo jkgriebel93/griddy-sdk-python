@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.position_enums import (
     DefenseNGSPositionEnum,
@@ -12,65 +12,6 @@ from griddy.nfl.models.enums.position_enums import (
     DefensePositionGroupEnum,
 )
 from griddy.nfl.types import BaseModel
-
-
-class DefensivePassRushStatsTypedDict(TypedDict):
-    display_name: str
-    r"""Player's full name"""
-    gp: int
-    r"""Games played"""
-    gs: int
-    r"""Games started"""
-    nfl_id: str
-    r"""NFL player identifier"""
-    position: DefensePositionEnum
-    r"""Player position"""
-    pr: int
-    r"""Pass rush grade/rating"""
-    pr_r: float
-    r"""Pass rush rate (0-1)"""
-    qbp: int
-    r"""Quarterback pressures"""
-    qbp_r: float
-    r"""Quarterback pressure rate (0-1)"""
-    sack: float
-    r"""Sacks (can be fractional for shared sacks)"""
-    sack_r: float
-    r"""Sack rate (0-1)"""
-    team_id: str
-    r"""Team identifier"""
-    game_snap: NotRequired[int]
-    r"""Defensive snaps played"""
-    headshot: NotRequired[str]
-    r"""URL to player headshot image (contains formatInstructions placeholder)"""
-    jersey_number: NotRequired[int]
-    r"""Player's jersey number"""
-    ngs_position: NotRequired[DefenseNGSPositionEnum]
-    r"""Next Gen Stats position"""
-    ngs_position_group: NotRequired[DefenseNGSPositionGroupEnum]
-    r"""Defensive position group"""
-    position_group: NotRequired[DefensePositionGroupEnum]
-    r"""Defensive position group"""
-    pr_go: NotRequired[float]
-    r"""Pass rush get-off metric"""
-    qd: NotRequired[bool]
-    r"""Qualified defender status"""
-    qp: NotRequired[int]
-    r"""Quarterback hits"""
-    short_name: NotRequired[str]
-    r"""Abbreviated player name"""
-    team_snap: NotRequired[int]
-    r"""Total team defensive snaps"""
-    tg: NotRequired[int]
-    r"""Team games for player"""
-    total_tg: NotRequired[int]
-    r"""Total team games in period"""
-    ttp: NotRequired[float]
-    r"""Time to pressure (seconds)"""
-    tts: NotRequired[float]
-    r"""Time to sack (seconds)"""
-    turn_qbp: NotRequired[int]
-    r"""Quarterback pressures that resulted in turnovers"""
 
 
 class DefensivePassRushStats(BaseModel):

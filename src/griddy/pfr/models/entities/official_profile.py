@@ -8,16 +8,9 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from typing_extensions import NotRequired, TypedDict
-
 from ...types import BaseModel
 
 # --- Official Bio (from #meta div) ---
-
-
-class OfficialBioTypedDict(TypedDict):
-    name: str
-    position: NotRequired[str]
 
 
 class OfficialBio(BaseModel):
@@ -26,29 +19,6 @@ class OfficialBio(BaseModel):
 
 
 # --- Official Season Stat (from official_stats table body) ---
-
-
-class OfficialSeasonStatTypedDict(TypedDict):
-    year: str
-    g: NotRequired[int]
-    g_playoffs: NotRequired[int]
-    pos: NotRequired[str]
-    home: NotRequired[int]
-    visitor: NotRequired[int]
-    home_pct: NotRequired[float]
-    home_wpct: NotRequired[float]
-    pen_total: NotRequired[int]
-    pen_yds: NotRequired[int]
-    pen_per_g: NotRequired[float]
-    pen_yds_per_g: NotRequired[float]
-    lg_home_pct: NotRequired[float]
-    lg_home_wpct: NotRequired[float]
-    lg_pen_per_g: NotRequired[float]
-    lg_pen_yds_per_g: NotRequired[float]
-    rel_home_pct: NotRequired[float]
-    rel_home_wpct: NotRequired[float]
-    rel_pen_per_g: NotRequired[float]
-    rel_pen_yds_per_g: NotRequired[float]
 
 
 class OfficialSeasonStat(BaseModel):
@@ -77,22 +47,6 @@ class OfficialSeasonStat(BaseModel):
 # --- Official Game (from games table body) ---
 
 
-class OfficialGameTypedDict(TypedDict):
-    game_date: NotRequired[str]
-    game_date_href: NotRequired[str]
-    team: NotRequired[str]
-    team_href: NotRequired[str]
-    opp: NotRequired[str]
-    opp_href: NotRequired[str]
-    pos: NotRequired[str]
-    points_opp: NotRequired[int]
-    penalties_opp: NotRequired[int]
-    penalties_yds_opp: NotRequired[int]
-    points: NotRequired[int]
-    penalties: NotRequired[int]
-    penalties_yds: NotRequired[int]
-
-
 class OfficialGame(BaseModel):
     game_date: Optional[str] = None
     game_date_href: Optional[str] = None
@@ -110,12 +64,6 @@ class OfficialGame(BaseModel):
 
 
 # --- Official Profile (top-level model) ---
-
-
-class OfficialProfileTypedDict(TypedDict):
-    bio: OfficialBioTypedDict
-    official_stats: List[OfficialSeasonStatTypedDict]
-    games: List[OfficialGameTypedDict]
 
 
 class OfficialProfile(BaseModel):

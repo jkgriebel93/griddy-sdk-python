@@ -5,25 +5,21 @@ from typing import List, Literal, Optional
 
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
-from .broadcast_info import BroadcastInfo, BroadcastInfoTypedDict
-from .external_id import ExternalID, ExternalIDTypedDict
-from .standings import Standings, StandingsTypedDict
-from .team import Team, TeamTypedDict
-from .ticket_vendor import TicketVendor, TicketVendorTypedDict
-from .venue import Venue, VenueTypedDict
+from .broadcast_info import BroadcastInfo
+from .external_id import ExternalID
+from .standings import Standings
+from .team import Team
+from .ticket_vendor import TicketVendor
+from .venue import Venue
 
 WeeklyGameDetailCategory = Literal["MNF", "SNF", "TNF", "OTHER"]
 r"""Prime time game designation"""
-
-
-class WeeklyGameDetailExtensionTypedDict(TypedDict):
-    pass
 
 
 class WeeklyGameDetailExtension(BaseModel):
@@ -34,17 +30,6 @@ WeeklyGameDetailStatus = Literal[
     "SCHEDULED", "IN_PROGRESS", "FINAL", "POSTPONED", "CANCELLED", "FINAL_OVERTIME"
 ]
 r"""Game status"""
-
-
-class DriveChartPlayStatTypedDict(TypedDict):
-    play_stat_id: NotRequired[str]
-    gsis_player_id: NotRequired[Optional[str]]
-    gsis_player_name: NotRequired[Optional[str]]
-    gsis_player_jersey_number: NotRequired[Optional[str]]
-    person_id: NotRequired[Optional[str]]
-    stat_type: NotRequired[int]
-    team_id: NotRequired[str]
-    yards: NotRequired[Optional[int]]
 
 
 class DriveChartPlayStat(BaseModel):
@@ -62,37 +47,6 @@ class DriveChartPlayStat(BaseModel):
     stat_type: Annotated[Optional[int], pydantic.Field(alias="statType")] = None
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
     yards: Optional[int] = None
-
-
-class DriveChartPlayTypedDict(TypedDict):
-    play_id: NotRequired[int]
-    clock_time: NotRequired[Optional[str]]
-    down: NotRequired[int]
-    drive_net_yards: NotRequired[int]
-    drive_play_count: NotRequired[int]
-    drive_sequence: NotRequired[int]
-    drive_time_of_possession: NotRequired[Optional[str]]
-    next_play_type: NotRequired[str]
-    next_play_is_goal_to_go: NotRequired[bool]
-    pre_play_by_play: NotRequired[Optional[str]]
-    play_deleted: NotRequired[bool]
-    play_description: NotRequired[Optional[str]]
-    play_description_with_jersey_numbers: NotRequired[Optional[str]]
-    play_end_time: NotRequired[Optional[str]]
-    play_is_end_of_quarter: NotRequired[bool]
-    play_is_goal_to_go: NotRequired[bool]
-    play_scored: NotRequired[bool]
-    play_sequence_number: NotRequired[float]
-    play_start_time: NotRequired[Optional[str]]
-    play_type: NotRequired[str]
-    quarter: NotRequired[int]
-    scoring_play_type: NotRequired[str]
-    scoring_team_id: NotRequired[Optional[str]]
-    special_teams_play_type: NotRequired[str]
-    yard_line: NotRequired[Optional[str]]
-    yards_gained: NotRequired[int]
-    yards_remaining: NotRequired[int]
-    stats: NotRequired[List[DriveChartPlayStatTypedDict]]
 
 
 class DriveChartPlay(BaseModel):
@@ -160,34 +114,6 @@ class DriveChartPlay(BaseModel):
     stats: Optional[List[DriveChartPlayStat]] = None
 
 
-class DriveTypedDict(TypedDict):
-    sequence: NotRequired[int]
-    team_id: NotRequired[str]
-    started_clock: NotRequired[str]
-    started_description: NotRequired[str]
-    started_play_id: NotRequired[int]
-    started_play_sequence_number: NotRequired[float]
-    started_quarter: NotRequired[int]
-    started_time: NotRequired[str]
-    started_yard_line: NotRequired[str]
-    ended_clock: NotRequired[str]
-    ended_description: NotRequired[str]
-    ended_play_id: NotRequired[int]
-    ended_play_sequence_number: NotRequired[float]
-    ended_quarter: NotRequired[int]
-    ended_time: NotRequired[Optional[str]]
-    ended_with_score: NotRequired[bool]
-    ended_yard_line: NotRequired[str]
-    first_downs: NotRequired[int]
-    inside_20: NotRequired[bool]
-    plays: NotRequired[int]
-    time_of_possession: NotRequired[str]
-    total_ended_with_score: NotRequired[bool]
-    yards_gained: NotRequired[int]
-    yards_gained_by_penalty: NotRequired[int]
-    yards_gained_net: NotRequired[int]
-
-
 class Drive(BaseModel):
     sequence: Optional[int] = None
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
@@ -242,15 +168,6 @@ class Drive(BaseModel):
     ] = None
 
 
-class DriveChartTypedDict(TypedDict):
-    r"""Drive-by-drive data"""
-
-    game_id: NotRequired[str]
-    offset: NotRequired[int]
-    drives: NotRequired[List[DriveTypedDict]]
-    plays: NotRequired[List[DriveChartPlayTypedDict]]
-
-
 class DriveChart(BaseModel):
     r"""Drive-by-drive data"""
 
@@ -258,10 +175,6 @@ class DriveChart(BaseModel):
     offset: Optional[int] = None
     drives: Optional[List[Drive]] = None
     plays: Optional[List[DriveChartPlay]] = None
-
-
-class ReplayTypedDict(TypedDict):
-    pass
 
 
 class Replay(BaseModel):
@@ -284,81 +197,11 @@ class Replay(BaseModel):
     videos: Optional[list] = None
 
 
-class SummaryTypedDict(TypedDict):
-    r"""Game summary information"""
-
-
 class Summary(BaseModel):
     r"""Game summary information"""
 
 
-class TaggedVideosTypedDict(TypedDict):
-    r"""Tagged video content"""
-
-
 class TaggedVideos(BaseModel):
-    r"""Tagged video content"""
-
-
-class WeeklyGameDetailTypedDict(TypedDict):
-    away_team: NotRequired[TeamTypedDict]
-    broadcast_info: NotRequired[BroadcastInfoTypedDict]
-    category: NotRequired[Nullable[WeeklyGameDetailCategory]]
-    date_: NotRequired[date]
-    r"""Game date (YYYY-MM-DD)"""
-    date_am_pm: NotRequired[MeridiemEnum]
-    r"""Time of day indicator"""
-    date_day: NotRequired[str]
-    r"""Day of week (full)"""
-    date_day_month: NotRequired[str]
-    r"""Date in M/D format"""
-    date_day_short: NotRequired[str]
-    r"""Day of week (abbreviated)"""
-    date_time: NotRequired[str]
-    r"""Time without AM/PM"""
-    date_time_am_pm: NotRequired[str]
-    r"""Time with AM/PM"""
-    extensions: NotRequired[List[WeeklyGameDetailExtensionTypedDict]]
-    r"""Additional game data extensions"""
-    external_ids: NotRequired[List[ExternalIDTypedDict]]
-    game_type: NotRequired[str]
-    r"""Type of game"""
-    home_team: NotRequired[TeamTypedDict]
-    id: NotRequired[str]
-    r"""Unique game identifier"""
-    international: NotRequired[bool]
-    r"""Whether game is played internationally"""
-    neutral_site: NotRequired[bool]
-    r"""Whether game is at neutral venue"""
-    phase: NotRequired[str | int]
-    r"""Game phase"""
-    season: NotRequired[int]
-    r"""Season year"""
-    season_type: NotRequired[SeasonTypeEnum]
-    r"""Type of NFL season"""
-    status: NotRequired[WeeklyGameDetailStatus]
-    r"""Game status"""
-    ticket_url: NotRequired[Nullable[str]]
-    r"""Primary ticket purchase URL"""
-    ticket_vendors: NotRequired[List[TicketVendorTypedDict]]
-    time: NotRequired[datetime]
-    r"""Game time in UTC"""
-    venue: NotRequired[VenueTypedDict]
-    version: NotRequired[int]
-    r"""Data version number"""
-    week: NotRequired[int]
-    r"""Week number"""
-    week_type: NotRequired[str]
-    r"""Week type (e.g., REG, HOF)"""
-    away_team_standings: NotRequired[StandingsTypedDict]
-    drive_chart: NotRequired[Nullable[DriveChartTypedDict]]
-    r"""Drive-by-drive data"""
-    home_team_standings: NotRequired[StandingsTypedDict]
-    replays: NotRequired[List[ReplayTypedDict]]
-    r"""Replay video links"""
-    summary: NotRequired[Nullable[SummaryTypedDict]]
-    r"""Game summary information"""
-    tagged_videos: NotRequired[Nullable[List[TaggedVideosTypedDict]]]
     r"""Tagged video content"""
 
 

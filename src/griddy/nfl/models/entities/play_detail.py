@@ -4,10 +4,10 @@ from datetime import datetime
 from typing import List, Literal, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from ...types import BaseModel
-from .play_stat import PlayStat, PlayStatTypedDict
+from .play_stat import PlayStat
 
 PlayDirection = Literal[
     "left",
@@ -23,83 +23,6 @@ PlayState = Literal[
     "REVIEWED",
 ]
 r"""Review state of play"""
-
-
-class PlayDetailTypedDict(TypedDict):
-    absolute_yardline_number: NotRequired[int]
-    r"""Absolute position on 100-yard field"""
-    down: NotRequired[int]
-    r"""Current down (0 for kickoff)"""
-    end_game_clock: NotRequired[str]
-    r"""Game clock at play end"""
-    expected_points: NotRequired[float]
-    r"""Expected points value"""
-    expected_points_added: NotRequired[float]
-    r"""Expected points added on this play"""
-    game_clock: NotRequired[str]
-    r"""Time on game clock"""
-    game_id: NotRequired[int]
-    home_score: NotRequired[int]
-    home_timeouts_left: NotRequired[int]
-    r"""Home team timeouts remaining"""
-    is_big_play: NotRequired[bool]
-    is_change_of_possession: NotRequired[bool]
-    is_end_quarter: NotRequired[bool]
-    is_goal_to_go: NotRequired[bool]
-    is_no_play: NotRequired[bool]
-    is_penalty: NotRequired[bool]
-    is_played_out_play: NotRequired[bool]
-    is_playtime_play: NotRequired[bool]
-    is_redzone_play: NotRequired[bool]
-    is_st_play: NotRequired[bool]
-    r"""Special teams play"""
-    is_scoring: NotRequired[bool]
-    play_description: NotRequired[str]
-    r"""Play description without jersey numbers"""
-    play_description_with_jersey_numbers: NotRequired[str]
-    r"""Play description including jersey numbers"""
-    play_direction: NotRequired[PlayDirection]
-    r"""Direction of play"""
-    play_id: NotRequired[int]
-    play_state: NotRequired[PlayState]
-    r"""Review state of play"""
-    play_stats: NotRequired[List[PlayStatTypedDict]]
-    r"""Individual player statistics for this play"""
-    play_type: NotRequired[str]
-    r"""Type of play"""
-    play_type_code: NotRequired[int]
-    r"""Numeric code for play type"""
-    possession_team_id: NotRequired[str]
-    r"""Team ID with possession"""
-    post_play_home_team_win_probability: NotRequired[float]
-    r"""Home team win probability after play"""
-    post_play_visitor_team_win_probability: NotRequired[float]
-    r"""Visitor team win probability after play"""
-    pre_snap_home_score: NotRequired[int]
-    pre_snap_home_team_win_probability: NotRequired[float]
-    r"""Home team win probability before play"""
-    pre_snap_visitor_score: NotRequired[int]
-    pre_snap_visitor_team_win_probability: NotRequired[float]
-    r"""Visitor team win probability before play"""
-    quarter: NotRequired[int]
-    r"""Current quarter"""
-    sequence: NotRequired[int]
-    r"""Play sequence number"""
-    start_game_clock: NotRequired[str]
-    r"""Game clock at play start"""
-    time_of_day_utc: NotRequired[datetime]
-    r"""UTC timestamp of play"""
-    visitor_score: NotRequired[int]
-    visitor_timeouts_left: NotRequired[int]
-    r"""Visitor team timeouts remaining"""
-    yardline: NotRequired[str]
-    r"""Field position"""
-    yardline_number: NotRequired[int]
-    r"""Yard line number"""
-    yardline_side: NotRequired[str]
-    r"""Side of field"""
-    yards_to_go: NotRequired[int]
-    r"""Yards needed for first down"""
 
 
 class PlayDetail(BaseModel):

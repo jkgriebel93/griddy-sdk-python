@@ -1,21 +1,13 @@
 from typing import List, Optional
 
 import pydantic
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated
 
 from griddy.nfl.models.entities.combine_profile import (
     CombineProfile,
-    CombineProfileTypedDict,
 )
-from griddy.nfl.models.entities.pagination import Pagination, PaginationTypedDict
+from griddy.nfl.models.entities.pagination import Pagination
 from griddy.nfl.types import BaseModel
-
-
-class CombineRankingsResponseTypedDict(TypedDict):
-    combine_profiles: List[CombineProfileTypedDict]
-    r"""List of combine profiles"""
-    pagination: PaginationTypedDict
-    r"""Pagination information"""
 
 
 class CombineRankingsResponse(BaseModel):
