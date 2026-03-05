@@ -6,7 +6,11 @@ import httpx
 import pytest
 from playwright.sync_api import Error as PlaywrightError
 
-from griddy.pfr.utils.browserless import Browserless, BrowserlessError
+from griddy.pfr.utils.browserless import (
+    Browserless,
+    BrowserlessConfig,
+    BrowserlessError,
+)
 
 _SETTINGS = "griddy.pfr.utils.browserless"
 
@@ -17,8 +21,30 @@ def browserless():
 
 
 @pytest.fixture
-def browserless_custom_timeout():
-    return Browserless(default_timeout_ms=30000)
+def browserless_custom_config():
+    return Browserless(config=BrowserlessConfig(default_timeout_ms=30000))
+
+
+@pytest.mark.unit
+class TestBrowserlessConfig:
+    def test_defaults(self):
+        config = BrowserlessConfig()
+        assert config.proxy == "residential"
+        assert config.request_timeout == 60_000
+        assert config.ttl == 30_000
+        assert config.default_timeout_ms == 60_000
+
+    def test_custom_values(self):
+        config = BrowserlessConfig(
+            proxy="datacenter",
+            request_timeout=90_000,
+            ttl=15_000,
+            default_timeout_ms=45_000,
+        )
+        assert config.proxy == "datacenter"
+        assert config.request_timeout == 90_000
+        assert config.ttl == 15_000
+        assert config.default_timeout_ms == 45_000
 
 
 @pytest.mark.unit
@@ -26,8 +52,8 @@ class TestBrowserlessInit:
     def test_default_timeout(self, browserless):
         assert browserless.timeout == 60000
 
-    def test_custom_timeout(self, browserless_custom_timeout):
-        assert browserless_custom_timeout.timeout == 30000
+    def test_custom_timeout(self, browserless_custom_config):
+        assert browserless_custom_config.timeout == 30000
 
     def test_data_initially_none(self, browserless):
         assert browserless.data is None
@@ -35,6 +61,14 @@ class TestBrowserlessInit:
     def test_stores_host_and_token(self, browserless):
         assert browserless.host == "fake-host.example.com"
         assert browserless.token == "fake-token"
+
+    def test_stores_config(self, browserless):
+        assert isinstance(browserless.config, BrowserlessConfig)
+
+    def test_uses_default_config_when_none(self, browserless):
+        assert browserless.config.proxy == "residential"
+        assert browserless.config.request_timeout == 60_000
+        assert browserless.config.ttl == 30_000
 
     def test_raises_when_host_missing(self):
         with patch(f"{_SETTINGS}.BROWSERLESS_HOST", None):
@@ -80,6 +114,24 @@ class TestFetchData:
         call_kwargs = mock_post.call_args
         assert "fake-host.example.com" in call_kwargs[0][0]
         assert call_kwargs[1]["params"]["token"] == "fake-token"
+
+    def test_uses_config_values_in_request(self):
+        config = BrowserlessConfig(
+            proxy="datacenter", request_timeout=90_000, ttl=15_000
+        )
+        b = Browserless(config=config)
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.post", return_value=mock_resp
+        ) as mock_post:
+            b.fetch_data("https://example.com")
+
+        call_kwargs = mock_post.call_args
+        assert call_kwargs[1]["params"]["proxy"] == "datacenter"
+        assert call_kwargs[1]["params"]["timeout"] == 90_000
+        assert call_kwargs[1]["json"]["ttl"] == 15_000
 
     def test_calls_raise_for_status(self, browserless):
         mock_resp = Mock()
@@ -205,11 +257,11 @@ class TestHandlePageNavigation:
 
         new_context.add_cookies.assert_not_called()
 
-    def test_uses_custom_timeout(self, browserless_custom_timeout):
+    def test_uses_custom_timeout(self, browserless_custom_config):
         page = self._make_page("https://example.com/page", "<html/>")
         browser = self._make_browser(pages=[page])
 
-        browserless_custom_timeout._handle_page_navigation(
+        browserless_custom_config._handle_page_navigation(
             browser, "https://example.com/page", cookies={}, element="#tbl"
         )
 

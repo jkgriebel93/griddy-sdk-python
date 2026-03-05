@@ -10,6 +10,8 @@ Requires:
     - playwright and httpx packages
 """
 
+from dataclasses import dataclass
+
 import httpx
 from playwright.async_api import Error as AsyncPlaywrightError
 from playwright.async_api import async_playwright
@@ -19,27 +21,41 @@ from playwright.sync_api import sync_playwright
 from griddy.settings import BROWSERLESS_HOST, BROWSERLESS_TOKEN
 
 
+@dataclass
+class BrowserlessConfig:
+    """Configuration for Browserless API requests.
+
+    Extracts previously hardcoded values so they can be overridden per instance.
+    """
+
+    proxy: str = "residential"
+    request_timeout: int = 60_000
+    ttl: int = 30_000
+    default_timeout_ms: int = 60_000
+
+
 class BrowserlessError(Exception):
     """Raised when a Browserless API call or browser interaction fails."""
 
 
 class Browserless:
-    def __init__(self, default_timeout_ms: int = 60000):
+    def __init__(self, config: BrowserlessConfig | None = None):
         if not BROWSERLESS_HOST:
             raise BrowserlessError("BROWSERLESS_HOST environment variable is not set.")
         if not BROWSERLESS_TOKEN:
             raise BrowserlessError("BROWSERLESS_TOKEN environment variable is not set.")
+        self.config = config or BrowserlessConfig()
         self.host = BROWSERLESS_HOST
         self.token = BROWSERLESS_TOKEN
         self.data: dict | None = None
-        self.timeout = default_timeout_ms
+        self.timeout = self.config.default_timeout_ms
 
     def fetch_data(self, url: str):
         unblock_url = f"https://{self.host}/chromium/unblock"
         query_params = {
             "token": self.token,
-            "proxy": "residential",
-            "timeout": 60_000,
+            "proxy": self.config.proxy,
+            "timeout": self.config.request_timeout,
         }
         payload = {
             "url": url,
@@ -47,7 +63,7 @@ class Browserless:
             "cookies": True,
             "content": False,
             "screenshot": False,
-            "ttl": 30_000,
+            "ttl": self.config.ttl,
         }
 
         try:
@@ -134,22 +150,23 @@ class AsyncBrowserless:
     ``playwright.async_api`` for CDP browser interaction.
     """
 
-    def __init__(self, default_timeout_ms: int = 60000):
+    def __init__(self, config: BrowserlessConfig | None = None):
         if not BROWSERLESS_HOST:
             raise BrowserlessError("BROWSERLESS_HOST environment variable is not set.")
         if not BROWSERLESS_TOKEN:
             raise BrowserlessError("BROWSERLESS_TOKEN environment variable is not set.")
+        self.config = config or BrowserlessConfig()
         self.host = BROWSERLESS_HOST
         self.token = BROWSERLESS_TOKEN
         self.data: dict | None = None
-        self.timeout = default_timeout_ms
+        self.timeout = self.config.default_timeout_ms
 
     async def fetch_data(self, url: str):
         unblock_url = f"https://{self.host}/chromium/unblock"
         query_params = {
             "token": self.token,
-            "proxy": "residential",
-            "timeout": 60_000,
+            "proxy": self.config.proxy,
+            "timeout": self.config.request_timeout,
         }
         payload = {
             "url": url,
@@ -157,7 +174,7 @@ class AsyncBrowserless:
             "cookies": True,
             "content": False,
             "screenshot": False,
-            "ttl": 30_000,
+            "ttl": self.config.ttl,
         }
 
         try:

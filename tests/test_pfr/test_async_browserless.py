@@ -6,7 +6,11 @@ import httpx
 import pytest
 from playwright.async_api import Error as AsyncPlaywrightError
 
-from griddy.pfr.utils.browserless import AsyncBrowserless, BrowserlessError
+from griddy.pfr.utils.browserless import (
+    AsyncBrowserless,
+    BrowserlessConfig,
+    BrowserlessError,
+)
 
 _SETTINGS = "griddy.pfr.utils.browserless"
 
@@ -17,8 +21,8 @@ def async_browserless():
 
 
 @pytest.fixture
-def async_browserless_custom_timeout():
-    return AsyncBrowserless(default_timeout_ms=30000)
+def async_browserless_custom_config():
+    return AsyncBrowserless(config=BrowserlessConfig(default_timeout_ms=30000))
 
 
 @pytest.mark.unit
@@ -26,8 +30,8 @@ class TestAsyncBrowserlessInit:
     def test_default_timeout(self, async_browserless):
         assert async_browserless.timeout == 60000
 
-    def test_custom_timeout(self, async_browserless_custom_timeout):
-        assert async_browserless_custom_timeout.timeout == 30000
+    def test_custom_timeout(self, async_browserless_custom_config):
+        assert async_browserless_custom_config.timeout == 30000
 
     def test_data_initially_none(self, async_browserless):
         assert async_browserless.data is None
@@ -35,6 +39,9 @@ class TestAsyncBrowserlessInit:
     def test_stores_host_and_token(self, async_browserless):
         assert async_browserless.host == "fake-host.example.com"
         assert async_browserless.token == "fake-token"
+
+    def test_stores_config(self, async_browserless):
+        assert isinstance(async_browserless.config, BrowserlessConfig)
 
     def test_raises_when_host_missing(self):
         with patch(f"{_SETTINGS}.BROWSERLESS_HOST", None):
@@ -94,6 +101,31 @@ class TestAsyncFetchData:
         call_kwargs = mock_client.post.call_args
         assert "fake-host.example.com" in call_kwargs[0][0]
         assert call_kwargs[1]["params"]["token"] == "fake-token"
+
+    @pytest.mark.asyncio
+    async def test_uses_config_values_in_request(self):
+        config = BrowserlessConfig(
+            proxy="datacenter", request_timeout=90_000, ttl=15_000
+        )
+        b = AsyncBrowserless(config=config)
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        mock_client = AsyncMock()
+        mock_client.post.return_value = mock_resp
+        mock_client.__aenter__ = AsyncMock(return_value=mock_client)
+        mock_client.__aexit__ = AsyncMock(return_value=False)
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.AsyncClient",
+            return_value=mock_client,
+        ):
+            await b.fetch_data("https://example.com")
+
+        call_kwargs = mock_client.post.call_args
+        assert call_kwargs[1]["params"]["proxy"] == "datacenter"
+        assert call_kwargs[1]["params"]["timeout"] == 90_000
+        assert call_kwargs[1]["json"]["ttl"] == 15_000
 
     @pytest.mark.asyncio
     async def test_calls_raise_for_status(self, async_browserless):
