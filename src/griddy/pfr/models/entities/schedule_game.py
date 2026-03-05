@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class ScheduleGame(BaseModel):
+class ScheduleGame(PFRBaseModel):
     week_num: str
     game_day_of_week: str
     game_date: str

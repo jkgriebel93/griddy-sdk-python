@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class QBWinEntry(BaseModel):
+class QBWinEntry(PFRBaseModel):
     player: str
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -15,6 +15,6 @@ class QBWinEntry(BaseModel):
     teams_not_beat: List[str]
 
 
-class QBWins(BaseModel):
+class QBWins(PFRBaseModel):
     title: str
     entries: List[QBWinEntry]

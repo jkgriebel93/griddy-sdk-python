@@ -18,14 +18,14 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # ---------------------------------------------------------------------------
 # FantasyPlayer (one row in /years/{year}/fantasy.htm)
 # ---------------------------------------------------------------------------
 
 
-class FantasyPlayer(BaseModel):
+class FantasyPlayer(PFRBaseModel):
     rank: Optional[int] = None
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -76,7 +76,7 @@ class FantasyPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class TopFantasyPlayers(BaseModel):
+class TopFantasyPlayers(PFRBaseModel):
     players: List[FantasyPlayer] = []
 
 
@@ -85,7 +85,7 @@ class TopFantasyPlayers(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class FantasyMatchupPlayer(BaseModel):
+class FantasyMatchupPlayer(PFRBaseModel):
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -136,7 +136,7 @@ class FantasyMatchupPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class FantasyMatchups(BaseModel):
+class FantasyMatchups(PFRBaseModel):
     players: List[FantasyMatchupPlayer] = []
 
 
@@ -146,7 +146,7 @@ class FantasyMatchups(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class FantasyPointsAllowedTeam(BaseModel):
+class FantasyPointsAllowedTeam(PFRBaseModel):
     team: Optional[str] = None
     team_href: Optional[str] = None
     g: Optional[int] = None
@@ -187,7 +187,7 @@ class FantasyPointsAllowedTeam(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class FantasyPointsAllowed(BaseModel):
+class FantasyPointsAllowed(PFRBaseModel):
     teams: List[FantasyPointsAllowedTeam] = []
 
 
@@ -196,7 +196,7 @@ class FantasyPointsAllowed(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZonePassingPlayer(BaseModel):
+class RedZonePassingPlayer(PFRBaseModel):
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -225,7 +225,7 @@ class RedZonePassingPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZonePassing(BaseModel):
+class RedZonePassing(PFRBaseModel):
     players: List[RedZonePassingPlayer] = []
 
 
@@ -234,7 +234,7 @@ class RedZonePassing(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZoneReceivingPlayer(BaseModel):
+class RedZoneReceivingPlayer(PFRBaseModel):
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -263,7 +263,7 @@ class RedZoneReceivingPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZoneReceiving(BaseModel):
+class RedZoneReceiving(PFRBaseModel):
     players: List[RedZoneReceivingPlayer] = []
 
 
@@ -272,7 +272,7 @@ class RedZoneReceiving(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZoneRushingPlayer(BaseModel):
+class RedZoneRushingPlayer(PFRBaseModel):
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -302,5 +302,5 @@ class RedZoneRushingPlayer(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class RedZoneRushing(BaseModel):
+class RedZoneRushing(PFRBaseModel):
     players: List[RedZoneRushingPlayer] = []

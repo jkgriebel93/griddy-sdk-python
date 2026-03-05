@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from griddy.core._import import dynamic_import
 
 if TYPE_CHECKING:
+    from griddy.pfr.models.base import PFRBaseModel
     from griddy.pfr.models.entities.awards import (
         AwardHistory,
         AwardWinner,
@@ -213,6 +214,7 @@ if TYPE_CHECKING:
     )
 
 __all__ = [
+    "PFRBaseModel",
     "BirthdayPlayer",
     "Birthdays",
     "BirthplaceFiltered",
@@ -357,6 +359,7 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "PFRBaseModel": ".base",
     "BirthdayPlayer": ".entities.birthdays",
     "Birthdays": ".entities.birthdays",
     "BirthplaceFiltered": ".entities.birthplaces",

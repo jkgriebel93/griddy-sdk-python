@@ -10,14 +10,14 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # ---------------------------------------------------------------------------
 # Year Draft Pick (one row in /years/{year}/draft.htm)
 # ---------------------------------------------------------------------------
 
 
-class DraftPick(BaseModel):
+class DraftPick(PFRBaseModel):
     draft_round: Optional[int] = None
     draft_pick: Optional[int] = None
     team: Optional[str] = None
@@ -58,7 +58,7 @@ class DraftPick(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class YearDraft(BaseModel):
+class YearDraft(PFRBaseModel):
     year: Optional[int] = None
     picks: List[DraftPick] = []
 
@@ -68,7 +68,7 @@ class YearDraft(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class CombineEntry(BaseModel):
+class CombineEntry(PFRBaseModel):
     player: Optional[str] = None
     player_id: Optional[str] = None
     player_href: Optional[str] = None
@@ -96,7 +96,7 @@ class CombineEntry(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class CombineResults(BaseModel):
+class CombineResults(PFRBaseModel):
     year: Optional[int] = None
     entries: List[CombineEntry] = []
 
@@ -106,7 +106,7 @@ class CombineResults(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class TeamDraftPick(BaseModel):
+class TeamDraftPick(PFRBaseModel):
     year: Optional[int] = None
     year_href: Optional[str] = None
     draft_round: Optional[int] = None
@@ -143,6 +143,6 @@ class TeamDraftPick(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class TeamDraft(BaseModel):
+class TeamDraft(PFRBaseModel):
     team: Optional[str] = None
     picks: List[TeamDraftPick] = []

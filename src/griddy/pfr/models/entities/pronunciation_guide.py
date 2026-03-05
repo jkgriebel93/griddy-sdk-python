@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class PronunciationEntry(BaseModel):
+class PronunciationEntry(PFRBaseModel):
     """A single player name with its phonetic pronunciation."""
 
     player: str
@@ -20,7 +20,7 @@ class PronunciationEntry(BaseModel):
     pronunciation: str
 
 
-class PronunciationGuide(BaseModel):
+class PronunciationGuide(PFRBaseModel):
     """Parsed result of the PFR 'Pronunciation Guide' page."""
 
     title: str

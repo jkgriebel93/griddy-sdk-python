@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class CoffeeEntry(BaseModel):
+class CoffeeEntry(PFRBaseModel):
     """A single player who played only one NFL game."""
 
     player: str
@@ -42,7 +42,7 @@ class CoffeeEntry(BaseModel):
     rec_long: Optional[int] = None
 
 
-class CupsOfCoffee(BaseModel):
+class CupsOfCoffee(PFRBaseModel):
     """Parsed result of the PFR 'Cups of Coffee' page."""
 
     title: str

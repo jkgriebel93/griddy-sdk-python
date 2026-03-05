@@ -8,12 +8,12 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Conference Standing (AFC / NFC standings tables) ---
 
 
-class ConferenceStanding(BaseModel):
+class ConferenceStanding(PFRBaseModel):
     division: Optional[str] = None
     team: Optional[str] = None
     team_href: Optional[str] = None
@@ -33,7 +33,7 @@ class ConferenceStanding(BaseModel):
 # --- Playoff Game (playoff_results table) ---
 
 
-class PlayoffGame(BaseModel):
+class PlayoffGame(PFRBaseModel):
     week_num: Optional[str] = None
     game_day_of_week: Optional[str] = None
     game_date: Optional[str] = None
@@ -51,7 +51,7 @@ class PlayoffGame(BaseModel):
 # --- Playoff Standing (afc/nfc_playoff_standings tables) ---
 
 
-class PlayoffStanding(BaseModel):
+class PlayoffStanding(PFRBaseModel):
     team: Optional[str] = None
     team_href: Optional[str] = None
     wins: Optional[int] = None
@@ -64,7 +64,7 @@ class PlayoffStanding(BaseModel):
 # --- Season Overview (top-level for /years/{year}/) ---
 
 
-class SeasonOverview(BaseModel):
+class SeasonOverview(PFRBaseModel):
     afc_standings: List[ConferenceStanding] = []
     nfc_standings: List[ConferenceStanding] = []
     playoff_results: List[PlayoffGame] = []
@@ -84,7 +84,7 @@ class SeasonOverview(BaseModel):
 # --- Season Stats (top-level for /years/{year}/{category}.htm) ---
 
 
-class SeasonStats(BaseModel):
+class SeasonStats(PFRBaseModel):
     regular_season: List[Dict[str, Any]] = []
     postseason: List[Dict[str, Any]] = []
 
@@ -92,7 +92,7 @@ class SeasonStats(BaseModel):
 # --- Week Game (individual game from /years/{year}/week_{number}.htm) ---
 
 
-class WeekGame(BaseModel):
+class WeekGame(PFRBaseModel):
     game_date: Optional[str] = None
     away_team: Optional[str] = None
     away_team_href: Optional[str] = None
@@ -116,7 +116,7 @@ class WeekGame(BaseModel):
 # --- Week Summary (top-level for /years/{year}/week_{number}.htm) ---
 
 
-class WeekSummary(BaseModel):
+class WeekSummary(PFRBaseModel):
     games: List[WeekGame] = []
     players_of_the_week: List[Dict[str, Any]] = []
     top_passers: List[Dict[str, Any]] = []

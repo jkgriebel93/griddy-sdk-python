@@ -4,12 +4,12 @@ from typing import Dict, List, Optional
 
 from pydantic import Field
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 # --- Scorebox ---
 
 
-class ScoreboxTeam(BaseModel):
+class ScoreboxTeam(PFRBaseModel):
     name: str
     href: str
     score: int
@@ -18,7 +18,7 @@ class ScoreboxTeam(BaseModel):
     coach_href: str
 
 
-class ScoreboxMeta(BaseModel):
+class ScoreboxMeta(PFRBaseModel):
     date: Optional[str] = None
     start_time: Optional[str] = Field(default=None, alias="Start Time")
     stadium: Optional[str] = Field(default=None, alias="Stadium")
@@ -26,7 +26,7 @@ class ScoreboxMeta(BaseModel):
     time_of_game: Optional[str] = Field(default=None, alias="Time of Game")
 
 
-class Scorebox(BaseModel):
+class Scorebox(PFRBaseModel):
     away: ScoreboxTeam
     home: ScoreboxTeam
     meta: ScoreboxMeta
@@ -35,7 +35,7 @@ class Scorebox(BaseModel):
 # --- Linescore ---
 
 
-class LinescoreEntry(BaseModel):
+class LinescoreEntry(PFRBaseModel):
     team: str
     team_href: str
     quarters: Dict[str, int]
@@ -44,7 +44,7 @@ class LinescoreEntry(BaseModel):
 # --- Scoring ---
 
 
-class ScoringPlay(BaseModel):
+class ScoringPlay(PFRBaseModel):
     quarter: Optional[int] = None
     time: str
     team: str
@@ -57,7 +57,7 @@ class ScoringPlay(BaseModel):
 # --- Expected Points ---
 
 
-class ExpectedPoints(BaseModel):
+class ExpectedPoints(PFRBaseModel):
     team_name: str
     pbp_exp_points_tot: float
     pbp_exp_points_off_tot: float
@@ -79,7 +79,7 @@ class ExpectedPoints(BaseModel):
 # --- Player Offense ---
 
 
-class PlayerOffense(BaseModel):
+class PlayerOffense(PFRBaseModel):
     player: str
     player_href: str
     player_id: str
@@ -109,7 +109,7 @@ class PlayerOffense(BaseModel):
 # --- Player Defense ---
 
 
-class PlayerDefense(BaseModel):
+class PlayerDefense(PFRBaseModel):
     player: str
     player_href: str
     player_id: str
@@ -134,7 +134,7 @@ class PlayerDefense(BaseModel):
 # --- Returns ---
 
 
-class PlayerReturn(BaseModel):
+class PlayerReturn(PFRBaseModel):
     player: str
     player_href: str
     player_id: str
@@ -154,7 +154,7 @@ class PlayerReturn(BaseModel):
 # --- Kicking ---
 
 
-class PlayerKicking(BaseModel):
+class PlayerKicking(PFRBaseModel):
     player: str
     player_href: str
     player_id: str
@@ -172,7 +172,7 @@ class PlayerKicking(BaseModel):
 # --- Starters ---
 
 
-class Starter(BaseModel):
+class Starter(PFRBaseModel):
     player: str
     player_href: str
     player_id: str
@@ -182,7 +182,7 @@ class Starter(BaseModel):
 # --- Snap Counts ---
 
 
-class SnapCount(BaseModel):
+class SnapCount(PFRBaseModel):
     player: str
     player_href: str
     player_id: str
@@ -198,7 +198,7 @@ class SnapCount(BaseModel):
 # --- Drives ---
 
 
-class Drive(BaseModel):
+class Drive(PFRBaseModel):
     drive_num: int
     quarter: int
     time_start: str
@@ -212,7 +212,7 @@ class Drive(BaseModel):
 # --- Top-level Game Details ---
 
 
-class GameDetails(BaseModel):
+class GameDetails(PFRBaseModel):
     scorebox: Scorebox
     linescore: List[LinescoreEntry]
     scoring: List[ScoringPlay]

@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class BirthdayPlayer(BaseModel):
+class BirthdayPlayer(PFRBaseModel):
     rank: int
     player: str
     player_href: Optional[str] = None
@@ -37,7 +37,7 @@ class BirthdayPlayer(BaseModel):
     rec_long: Optional[int] = None
 
 
-class Birthdays(BaseModel):
+class Birthdays(PFRBaseModel):
     title: str
     month: int
     day: int

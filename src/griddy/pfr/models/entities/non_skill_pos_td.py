@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ...types import BaseModel
+from ..base import PFRBaseModel
 
 
-class NonSkillPosTdEntry(BaseModel):
+class NonSkillPosTdEntry(PFRBaseModel):
     """A single game instance of a non-skill position player scoring a TD."""
 
     player: str
@@ -42,7 +42,7 @@ class NonSkillPosTdEntry(BaseModel):
     rec_td: Optional[int] = None
 
 
-class NonSkillPosTdScorers(BaseModel):
+class NonSkillPosTdScorers(PFRBaseModel):
     """Parsed result of the PFR non-skill position TD scorers page."""
 
     title: str
