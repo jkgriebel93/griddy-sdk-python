@@ -4,14 +4,13 @@ from datetime import date, datetime
 from typing import List, Literal, Optional
 
 import pydantic
-from pydantic import model_serializer
 from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.game_status_enum import GameStatusEnum
 from griddy.nfl.models.enums.meridiem_enum import MeridiemEnum
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
-from ...types import UNSET, UNSET_SENTINEL, BaseModel, Nullable, OptionalNullable
+from ...types import UNSET, BaseModel, Nullable, OptionalNullable
 from .broadcast_info import BroadcastInfo
 from .external_id import ExternalID
 from .game_team import GameTeam
@@ -115,62 +114,3 @@ class CurrentGame(BaseModel):
     week: Optional[int] = None
 
     week_type: Annotated[Optional[str], pydantic.Field(alias="weekType")] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "awayTeam",
-            "broadcastInfo",
-            "category",
-            "date",
-            "dateAmPm",
-            "dateDay",
-            "dateDayMonth",
-            "dateDayShort",
-            "dateTime",
-            "dateTimeAmPm",
-            "extensions",
-            "externalIds",
-            "gameType",
-            "homeTeam",
-            "id",
-            "international",
-            "neutralSite",
-            "phase",
-            "season",
-            "seasonType",
-            "status",
-            "ticketUrl",
-            "ticketVendors",
-            "time",
-            "venue",
-            "version",
-            "week",
-            "weekType",
-        ]
-        nullable_fields = ["category", "ticketUrl"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(n)  # FIX: Use field name, not alias
-            serialized.pop(n, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

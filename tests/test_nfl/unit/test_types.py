@@ -185,15 +185,15 @@ class TestNullableTypes:
         assert instance3.value is None
 
     def test_optional_nullable_serialization(self):
-        """Test OptionalNullable serialization"""
+        """Test OptionalNullable serialization — UNSET fields are omitted."""
 
         class TestModel(BaseModel):
             value: OptionalNullable[str] = field(default_factory=lambda: UNSET)
 
-        # UNSET should serialize to sentinel
+        # UNSET fields should be omitted from serialized output
         instance = TestModel()
         data = instance.model_dump(mode="python")
-        assert data["value"] == UNSET_SENTINEL
+        assert "value" not in data
 
     def test_nullable_with_different_types(self):
         """Test Nullable with various types"""
@@ -321,7 +321,7 @@ class TestComplexTypeScenarios:
         assert instance3.inner is None
 
     def test_serialization_with_unset_fields(self):
-        """Test serialization behavior with UNSET fields"""
+        """Test serialization behavior with UNSET fields — unset are omitted."""
 
         class TestModel(BaseModel):
             required: str
@@ -334,4 +334,4 @@ class TestComplexTypeScenarios:
 
         assert data["required"] == "test"
         assert data["optional1"] == "value"
-        assert data["optional2"] == UNSET_SENTINEL
+        assert "optional2" not in data
