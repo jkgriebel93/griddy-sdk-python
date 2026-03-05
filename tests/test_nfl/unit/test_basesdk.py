@@ -409,9 +409,16 @@ class TestHandleJsonResponseAsync:
         mock_response.text = "Redirect"
 
         with patch("griddy.core.basesdk.utils.match_response", return_value=False):
-            with pytest.raises(errors.GriddyNFLDefaultError) as exc_info:
-                await base_sdk._handle_json_response_async(
-                    mock_response, models.Security, ["400", "401", "4XX", "500", "5XX"]
-                )
+            with patch(
+                "griddy.core.basesdk.utils.stream_to_text_async",
+                new_callable=AsyncMock,
+                return_value="Redirect",
+            ):
+                with pytest.raises(errors.GriddyNFLDefaultError) as exc_info:
+                    await base_sdk._handle_json_response_async(
+                        mock_response,
+                        models.Security,
+                        ["400", "401", "4XX", "500", "5XX"],
+                    )
 
-            assert "Unexpected response received" in str(exc_info.value)
+                assert "Unexpected response received" in str(exc_info.value)
