@@ -236,6 +236,24 @@ class BaseSDK(Generic[T_Config]):
         response_type: Type[T],
         error_status_codes: List[str],
     ) -> T:
+        """Unmarshal a successful JSON response or raise on error status codes.
+
+        On a 2XX ``application/json`` response, deserialises the body into
+        ``response_type`` via ``unmarshal_json_response``. Otherwise delegates
+        to ``_process_json_error_response`` which raises the appropriate SDK
+        error.
+
+        Args:
+            http_res: The raw ``httpx.Response``.
+            response_type: The Pydantic model (or type) to deserialise into.
+            error_status_codes: Status code patterns that indicate an error.
+
+        Returns:
+            An instance of ``response_type`` on success.
+
+        Raises:
+            DefaultSDKError: When the response matches an error status code.
+        """
         if utils.match_response(http_res, HTTP_OK, "application/json"):
             return unmarshal_json_response(response_type, http_res)
 
@@ -249,6 +267,11 @@ class BaseSDK(Generic[T_Config]):
         response_type: Type[T],
         error_status_codes: List[str],
     ) -> T:
+        """Async variant of :meth:`_handle_json_response`.
+
+        Identical behaviour except the error-path response body is read
+        asynchronously via ``stream_to_text_async``.
+        """
         if utils.match_response(http_res, HTTP_OK, "application/json"):
             return unmarshal_json_response(response_type, http_res)
 
@@ -438,6 +461,46 @@ class BaseSDK(Generic[T_Config]):
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> httpx.Request:
+        """Build an ``httpx.Request`` from endpoint configuration.
+
+        Assembles the full URL (with path and query parameters), resolves
+        security credentials, serializes the request body, and merges all
+        headers before delegating to ``client.build_request()``.
+
+        Args:
+            client: The ``httpx.Client`` or ``httpx.AsyncClient`` used to
+                build the request object.
+            method: HTTP method (e.g. ``"GET"``, ``"POST"``).
+            path: URL path template (e.g. ``"/v1/games/{gameId}"``).
+            base_url: Base server URL resolved from ``SDKConfiguration``.
+            url_variables: Optional template variables for the base URL.
+            request: Pydantic request model containing path/query parameters.
+            request_body_required: If ``True``, raise ``ValueError`` when the
+                serialized body is ``None``.
+            request_has_path_params: Whether ``request`` contains path params
+                to interpolate into ``path``.
+            request_has_query_params: Whether ``request`` contains query
+                params to append to the URL.
+            user_agent_header: Header name for the user-agent string.
+            accept_header_value: Value for the ``Accept`` header.
+            _globals: Optional global parameter overrides.
+            security: Security credentials (model instance, callable, or
+                ``None`` to resolve from env/config).
+            timeout_ms: Request timeout in milliseconds, converted to seconds
+                for httpx.
+            get_serialized_body: Optional callable returning a
+                ``SerializedRequestBody`` for POST/PUT requests.
+            url_override: If provided, skip URL generation and use this URL
+                directly (query params are parsed from it).
+            http_headers: Extra headers that override all others.
+
+        Returns:
+            A fully constructed ``httpx.Request`` ready for sending.
+
+        Raises:
+            ValueError: If ``request_body_required`` is ``True`` and the
+                serialized body is ``None``.
+        """
         query_params = {}
 
         url = url_override
@@ -515,6 +578,33 @@ class BaseSDK(Generic[T_Config]):
         stream=False,
         retry_config: Optional[Tuple[RetryConfig, List[str]]] = None,
     ) -> httpx.Response:
+        """Send an HTTP request through the hook lifecycle with optional retries.
+
+        Executes the full request pipeline: ``before_request`` hook, HTTP send
+        via the sync client, error handling with ``after_error`` hook, and
+        finally the ``after_success`` hook. When ``retry_config`` is provided,
+        the entire pipeline is wrapped in a retry loop that re-attempts on
+        matching status codes.
+
+        Args:
+            hook_ctx: ``HookContext`` passed to each lifecycle hook, carrying
+                the operation ID, base URL, and security source.
+            request: The ``httpx.Request`` to send.
+            error_status_codes: Status code patterns (e.g. ``["4XX", "5XX"]``)
+                that should trigger the ``after_error`` hook.
+            stream: If ``True``, the response body is streamed rather than
+                read immediately.
+            retry_config: Optional tuple of ``(RetryConfig, status_codes)``
+                controlling automatic retries on transient failures.
+
+        Returns:
+            The ``httpx.Response`` (possibly modified by hooks).
+
+        Raises:
+            NoResponseError: If the server returns no response.
+            DefaultSDKError: If an error status code is matched and the
+                ``after_error`` hook does not recover.
+        """
         client = self.sdk_configuration.client
         logger = self.sdk_configuration.debug_logger
 
@@ -595,6 +685,12 @@ class BaseSDK(Generic[T_Config]):
         stream=False,
         retry_config: Optional[Tuple[RetryConfig, List[str]]] = None,
     ) -> httpx.Response:
+        """Async variant of :meth:`do_request`.
+
+        Runs the same hook lifecycle (``before_request`` → send →
+        ``after_error`` / ``after_success``) using the async HTTP client.
+        See :meth:`do_request` for full parameter and behaviour details.
+        """
         client = self.sdk_configuration.async_client
         logger = self.sdk_configuration.debug_logger
 
