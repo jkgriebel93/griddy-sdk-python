@@ -51,5 +51,4 @@ class Leaders(BaseSDK):
             response_type=Leaderboard,
             path_params={"stat": stat, "scope": scope},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

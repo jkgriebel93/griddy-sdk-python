@@ -69,7 +69,6 @@ class Fantasy(BaseSDK):
             response_type=TopFantasyPlayers,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Matchups ─────────────────────────────────────────────────────
@@ -104,7 +103,6 @@ class Fantasy(BaseSDK):
             response_type=FantasyMatchups,
             path_params={"position": position},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Points Allowed ────────────────────────────────────────────────
@@ -141,7 +139,6 @@ class Fantasy(BaseSDK):
             response_type=FantasyPointsAllowed,
             path_params={"year": year, "position": position},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Red Zone Passing ──────────────────────────────────────────────
@@ -176,7 +173,6 @@ class Fantasy(BaseSDK):
             response_type=RedZonePassing,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Red Zone Receiving ────────────────────────────────────────────
@@ -211,7 +207,6 @@ class Fantasy(BaseSDK):
             response_type=RedZoneReceiving,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Red Zone Rushing ──────────────────────────────────────────────
@@ -246,5 +241,4 @@ class Fantasy(BaseSDK):
             response_type=RedZoneRushing,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

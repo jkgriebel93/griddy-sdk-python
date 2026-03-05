@@ -46,7 +46,6 @@ class SuperBowl(BaseSDK):
             response_type=SuperBowlHistory,
             path_params={},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     def _leaders_config(
@@ -76,7 +75,6 @@ class SuperBowl(BaseSDK):
             response_type=SuperBowlLeaders,
             path_params={},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     def _standings_config(
@@ -106,5 +104,4 @@ class SuperBowl(BaseSDK):
             response_type=SuperBowlStandings,
             path_params={},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

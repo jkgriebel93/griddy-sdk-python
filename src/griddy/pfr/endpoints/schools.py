@@ -45,7 +45,6 @@ class Schools(BaseSDK):
             response_type=CollegeList,
             path_params={},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     def _high_schools_config(
@@ -75,5 +74,4 @@ class Schools(BaseSDK):
             response_type=HighSchoolList,
             path_params={},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

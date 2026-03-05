@@ -50,5 +50,4 @@ class Executives(BaseSDK):
             response_type=ExecutiveProfile,
             path_params={"executive_id": executive_id},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

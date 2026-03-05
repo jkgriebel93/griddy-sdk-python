@@ -25,42 +25,41 @@ def parser() -> PlayerProfileParser:
 # ---------------------------------------------------------------------------
 
 
+def _parse_and_validate(filename: str) -> PlayerProfile:
+    html = (FIXTURE_DIR / filename).read_text()
+    return PlayerProfile.model_validate(PlayerProfileParser().parse(html))
+
+
 @pytest.fixture(scope="module")
 def brady_data() -> PlayerProfile:
-    html = (FIXTURE_DIR / "BradTo00_QB.htm").read_text()
-    return PlayerProfileParser().parse(html)
+    return _parse_and_validate("BradTo00_QB.htm")
 
 
 @pytest.fixture(scope="module")
 def warner_data() -> PlayerProfile:
-    html = (FIXTURE_DIR / "WarnFr00_LB.htm").read_text()
-    return PlayerProfileParser().parse(html)
+    return _parse_and_validate("WarnFr00_LB.htm")
 
 
 @pytest.fixture(scope="module")
 def pitts_data() -> PlayerProfile:
-    html = (FIXTURE_DIR / "PittKy00_TE.htm").read_text()
-    return PlayerProfileParser().parse(html)
+    return _parse_and_validate("PittKy00_TE.htm")
 
 
 @pytest.fixture(scope="module")
 def jones_data() -> PlayerProfile:
     """Broderick Jones — OL with no transactions/leaderboards/bottom_nav."""
-    html = (FIXTURE_DIR / "JoneBr09_OL.htm").read_text()
-    return PlayerProfileParser().parse(html)
+    return _parse_and_validate("JoneBr09_OL.htm")
 
 
 @pytest.fixture(scope="module")
 def boswell_data() -> PlayerProfile:
     """Chris Boswell — K, undrafted, has a nickname."""
-    html = (FIXTURE_DIR / "BoswCh00_K.htm").read_text()
-    return PlayerProfileParser().parse(html)
+    return _parse_and_validate("BoswCh00_K.htm")
 
 
 @pytest.fixture(scope="module")
 def williams_data() -> PlayerProfile:
-    html = (FIXTURE_DIR / "WillJa10_RB.htm").read_text()
-    return PlayerProfileParser().parse(html)
+    return _parse_and_validate("WillJa10_RB.htm")
 
 
 # ---------------------------------------------------------------------------
@@ -79,7 +78,7 @@ class TestParseAllFixtures:
     def test_fixture_parses_successfully(self, parser, filename):
         html = (FIXTURE_DIR / filename).read_text()
         result = parser.parse(html)
-        assert isinstance(result, PlayerProfile)
+        assert isinstance(result, dict)
 
     @pytest.mark.parametrize(
         "filename",
@@ -97,7 +96,7 @@ class TestParseAllFixtures:
             "links",
             "leader_boards",
         }
-        assert set(result.model_fields.keys()) == expected_keys
+        assert set(result.keys()) == expected_keys
 
 
 # ---------------------------------------------------------------------------
@@ -542,7 +541,7 @@ class TestEdgeCases:
         for htm in list(FIXTURE_DIR.glob("*.htm"))[:3]:
             html = htm.read_text()
             result = parser.parse(html)
-            assert result.bio
+            assert result["bio"]
 
     def test_parse_clears_previous_soup(self, parser):
         """Each call to parse() should set a fresh soup."""
@@ -552,5 +551,5 @@ class TestEdgeCases:
         result1 = parser.parse(html1)
         result2 = parser.parse(html2)
 
-        assert result1.bio.names.last_name == "Brady"
-        assert result2.bio.names.last_name == "Warner"
+        assert result1["bio"]["names"]["last_name"] == "Brady"
+        assert result2["bio"]["names"]["last_name"] == "Warner"

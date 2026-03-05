@@ -49,5 +49,4 @@ class Games(BaseSDK):
             response_type=GameDetails,
             path_params={"game_id": game_id},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

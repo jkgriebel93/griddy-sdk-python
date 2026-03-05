@@ -155,7 +155,6 @@ class Frivolities(BaseSDK):
             response_type=MultiTeamPlayers,
             query_params=query,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Statistical Milestones ──────────────────────────────────────
@@ -194,7 +193,6 @@ class Frivolities(BaseSDK):
             response_type=StatisticalMilestones,
             query_params={"stat": stat},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Upcoming Milestones ───────────────────────────────────────
@@ -225,7 +223,6 @@ class Frivolities(BaseSDK):
             parser=_upcoming_parser.parse,
             response_type=UpcomingMilestones,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Birthdays ──────────────────────────────────────────────────
@@ -260,7 +257,6 @@ class Frivolities(BaseSDK):
             response_type=Birthdays,
             query_params={"month": str(month), "day": str(day)},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Birthplaces ───────────────────────────────────────────────────
@@ -291,7 +287,6 @@ class Frivolities(BaseSDK):
             parser=_birthplaces_parser.parse_landing,
             response_type=BirthplaceLanding,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     def _get_birthplace_players_config(
@@ -326,7 +321,6 @@ class Frivolities(BaseSDK):
             response_type=BirthplaceFiltered,
             query_params={"country": country, "state": state},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Players Born Before a Date ────────────────────────────────────
@@ -368,7 +362,6 @@ class Frivolities(BaseSDK):
                 "year": str(year),
             },
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Players By Uniform Number ──────────────────────────────────────
@@ -409,7 +402,6 @@ class Frivolities(BaseSDK):
             response_type=UniformNumbers,
             query_params=query,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Quarterback Wins vs. Each Franchise ──────────────────────────────
@@ -440,7 +432,6 @@ class Frivolities(BaseSDK):
             parser=_qb_wins_parser.parse,
             response_type=QBWins,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Non-Quarterback Passers ──────────────────────────────────────────
@@ -470,7 +461,6 @@ class Frivolities(BaseSDK):
             parser=_non_qb_passers_parser.parse,
             response_type=NonQBPassers,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Non-Skill Position TD Scorers ─────────────────────────────────────
@@ -501,7 +491,6 @@ class Frivolities(BaseSDK):
             parser=_non_skill_pos_td_parser.parse,
             response_type=NonSkillPosTdScorers,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Octopus Tracker ────────────────────────────────────────────────────
@@ -532,7 +521,6 @@ class Frivolities(BaseSDK):
             parser=_octopus_tracker_parser.parse,
             response_type=OctopusTracker,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Cups of Coffee ──────────────────────────────────────────────────────
@@ -563,7 +551,6 @@ class Frivolities(BaseSDK):
             parser=_cups_of_coffee_parser.parse,
             response_type=CupsOfCoffee,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Multi-Sport Players ──────────────────────────────────────────────────
@@ -596,7 +583,6 @@ class Frivolities(BaseSDK):
             parser=_multi_sport_players_parser.parse,
             response_type=MultiSportPlayers,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Pronunciation Guide ──────────────────────────────────────────────────
@@ -627,7 +613,6 @@ class Frivolities(BaseSDK):
             parser=_pronunciation_guide_parser.parse,
             response_type=PronunciationGuide,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Overtime Ties ──────────────────────────────────────────────────────
@@ -658,7 +643,6 @@ class Frivolities(BaseSDK):
             parser=_overtime_ties_parser.parse,
             response_type=OvertimeTies,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Last Undefeated Team ────────────────────────────────────────────────
@@ -689,7 +673,6 @@ class Frivolities(BaseSDK):
             parser=_last_undefeated_parser.parse,
             response_type=LastUndefeated,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
 
     # ── Standings on Any Date ────────────────────────────────────────────────
@@ -747,5 +730,4 @@ class Frivolities(BaseSDK):
             response_type=StandingsOnDate,
             query_params=query,
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

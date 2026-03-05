@@ -50,5 +50,4 @@ class Stadiums(BaseSDK):
             response_type=StadiumProfile,
             path_params={"stadium_id": stadium_id},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )

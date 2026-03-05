@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, Optional, Type
+from typing import Any, Callable, Dict, List, Optional, Protocol, Type, Union
 from urllib.parse import urlencode
 
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
@@ -10,6 +10,17 @@ from .sdkconfiguration import SDKConfiguration
 from .utils.browserless import AsyncBrowserless, Browserless
 
 
+class PfrParser(Protocol):
+    """Protocol that all PFR parsers must satisfy.
+
+    Parse methods must accept an HTML string and return a plain ``dict``
+    (for single-model endpoints) or a ``list[dict]`` (for list endpoints).
+    Pydantic model construction is handled by the base SDK, not the parser.
+    """
+
+    def __call__(self, html: str) -> Union[Dict[str, Any], List[Dict[str, Any]]]: ...
+
+
 @dataclass
 class EndpointConfig:
     """Configuration for a PFR HTML-scraping endpoint."""
@@ -17,12 +28,11 @@ class EndpointConfig:
     path_template: str
     operation_id: str
     wait_for_element: str
-    parser: Callable[[str], Any]
+    parser: PfrParser
     response_type: Type
     path_params: Dict[str, Any] = field(default_factory=dict)
     query_params: Dict[str, str] = field(default_factory=dict)
     timeout_ms: Optional[int] = None
-    validate_model: bool = False
 
 
 class BaseSDK(CoreBaseSDK[SDKConfiguration]):
@@ -62,12 +72,12 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
     def _parse_and_validate(self, config: EndpointConfig, html: str) -> Any:
         try:
             result = config.parser(html)
-        except ParsingError as exc:
+        except ParsingError:
             raise
 
-        if config.validate_model:
-            return config.response_type.model_validate(result)
-        return result
+        if isinstance(result, list):
+            return [config.response_type.model_validate(item) for item in result]
+        return config.response_type.model_validate(result)
 
     def _execute_endpoint(self, config: EndpointConfig) -> Any:
         """Execute a PFR scraping endpoint using its configuration.

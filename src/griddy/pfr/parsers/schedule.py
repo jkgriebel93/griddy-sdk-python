@@ -8,7 +8,6 @@ from typing import Any, Dict, List
 from bs4 import BeautifulSoup, Tag
 
 from griddy.pfr.errors import ParsingError
-from griddy.pfr.models.entities.schedule_game import ScheduleGame
 
 from ._helpers import safe_int
 
@@ -106,6 +105,6 @@ class ScheduleParser:
             if all_empty:
                 continue
 
-            games.append(ScheduleGame(**game_data))
+            games.append(game_data)
 
         return games

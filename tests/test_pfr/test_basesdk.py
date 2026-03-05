@@ -1,5 +1,6 @@
 """Tests for griddy.pfr.basesdk module."""
 
+from typing import Any, Dict, List, Union
 from unittest.mock import Mock
 
 import httpx
@@ -7,7 +8,7 @@ import pytest
 
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 from griddy.core.utils.logger import Logger
-from griddy.pfr.basesdk import BaseSDK, EndpointConfig
+from griddy.pfr.basesdk import BaseSDK, EndpointConfig, PfrParser
 from griddy.pfr.errors import ParsingError
 from griddy.pfr.errors.griddypfrdefaulterror import GriddyPFRDefaultError
 from griddy.pfr.errors.no_response_error import NoResponseError
@@ -75,3 +76,27 @@ class TestPFRBaseSDK:
         assert err.url is not None
         assert "/years/2024/games.htm" in err.url
         assert err.html_sample == "<html></html>"
+
+
+@pytest.mark.unit
+class TestPfrParserProtocol:
+    def test_lambda_returning_dict_satisfies_protocol(self):
+        parser: PfrParser = lambda html: {"key": "value"}
+        result = parser("<html/>")
+        assert isinstance(result, dict)
+
+    def test_lambda_returning_list_satisfies_protocol(self):
+        parser: PfrParser = lambda html: [{"key": "value"}]
+        result = parser("<html/>")
+        assert isinstance(result, list)
+
+    def test_callable_class_satisfies_protocol(self):
+        class MyParser:
+            def __call__(
+                self, html: str
+            ) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
+                return {"parsed": True}
+
+        parser: PfrParser = MyParser()
+        result = parser("<html/>")
+        assert result == {"parsed": True}

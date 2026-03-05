@@ -47,5 +47,4 @@ class ProBowl(BaseSDK):
             response_type=ProBowlRoster,
             path_params={"year": year},
             timeout_ms=timeout_ms,
-            validate_model=True,
         )
