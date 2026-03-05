@@ -48,7 +48,7 @@ class UpcomingMilestonesParser:
         cleaned = text.replace(",", "").strip()
         try:
             return int(cleaned)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             return None
 
     @staticmethod

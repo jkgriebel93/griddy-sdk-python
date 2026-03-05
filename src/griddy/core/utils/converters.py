@@ -57,7 +57,7 @@ def safe_int(value: Any) -> int | None:
 
     try:
         return int(value)
-    except (ValueError, TypeError):
+    except ValueError, TypeError:
         return None
 
 
@@ -76,7 +76,7 @@ def safe_float(value: Any) -> float | None:
 
     try:
         return float(value)
-    except (ValueError, TypeError):
+    except ValueError, TypeError:
         return None
 
 
@@ -97,7 +97,7 @@ def safe_numberify(value: str | None) -> int | float | str | None:
     for convert in (int, float):
         try:
             return convert(value)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             continue
 
     return value
