@@ -404,7 +404,7 @@ class TestYearEndpoint:
             "get_page_content",
             return_value=year_draft_html,
         ) as mock_fetch:
-            result = pfr.draft.year(year=2024)
+            result = pfr.draft.get_year_draft(year=2024)
 
         mock_fetch.assert_called_once()
         assert isinstance(result, YearDraft)
@@ -417,7 +417,7 @@ class TestYearEndpoint:
             "get_page_content",
             return_value=year_draft_html,
         ) as mock_fetch:
-            pfr.draft.year(year=2024)
+            pfr.draft.get_year_draft(year=2024)
 
         url = mock_fetch.call_args[0][0]
         assert url == "https://www.pro-football-reference.com/years/2024/draft.htm"
@@ -429,7 +429,7 @@ class TestYearEndpoint:
             "get_page_content",
             return_value=year_draft_html,
         ) as mock_fetch:
-            pfr.draft.year(year=2024)
+            pfr.draft.get_year_draft(year=2024)
 
         assert mock_fetch.call_args[1]["wait_for_element"] == "#drafts"
 
@@ -443,7 +443,7 @@ class TestCombineEndpoint:
             "get_page_content",
             return_value=combine_html,
         ) as mock_fetch:
-            result = pfr.draft.combine(year=2024)
+            result = pfr.draft.get_combine(year=2024)
 
         mock_fetch.assert_called_once()
         assert isinstance(result, CombineResults)
@@ -456,7 +456,7 @@ class TestCombineEndpoint:
             "get_page_content",
             return_value=combine_html,
         ) as mock_fetch:
-            pfr.draft.combine(year=2024)
+            pfr.draft.get_combine(year=2024)
 
         url = mock_fetch.call_args[0][0]
         assert url == "https://www.pro-football-reference.com/draft/2024-combine.htm"
@@ -468,7 +468,7 @@ class TestCombineEndpoint:
             "get_page_content",
             return_value=combine_html,
         ) as mock_fetch:
-            pfr.draft.combine(year=2024)
+            pfr.draft.get_combine(year=2024)
 
         assert mock_fetch.call_args[1]["wait_for_element"] == "#combine"
 
@@ -482,7 +482,7 @@ class TestTeamEndpoint:
             "get_page_content",
             return_value=team_draft_html,
         ) as mock_fetch:
-            result = pfr.draft.team(team="phi")
+            result = pfr.draft.get_team_draft(team="phi")
 
         mock_fetch.assert_called_once()
         assert isinstance(result, TeamDraft)
@@ -495,7 +495,7 @@ class TestTeamEndpoint:
             "get_page_content",
             return_value=team_draft_html,
         ) as mock_fetch:
-            pfr.draft.team(team="PHI")
+            pfr.draft.get_team_draft(team="PHI")
 
         url = mock_fetch.call_args[0][0]
         assert url == "https://www.pro-football-reference.com/teams/phi/draft.htm"
@@ -507,7 +507,7 @@ class TestTeamEndpoint:
             "get_page_content",
             return_value=team_draft_html,
         ) as mock_fetch:
-            pfr.draft.team(team="phi")
+            pfr.draft.get_team_draft(team="phi")
 
         assert mock_fetch.call_args[1]["wait_for_element"] == "#draft"
 

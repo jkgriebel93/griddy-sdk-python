@@ -73,9 +73,9 @@ class TestAsyncMethodsExist:
     def test_draft_has_async(self):
         from griddy.pfr.endpoints.draft import Draft
 
-        assert hasattr(Draft, "year_async")
-        assert hasattr(Draft, "combine_async")
-        assert hasattr(Draft, "team_async")
+        assert hasattr(Draft, "get_year_draft_async")
+        assert hasattr(Draft, "get_combine_async")
+        assert hasattr(Draft, "get_team_draft_async")
 
     def test_awards_has_async(self):
         from griddy.pfr.endpoints.awards import Awards
@@ -251,10 +251,10 @@ class TestSyncMethodsStillWork:
     def test_draft_sync_methods_exist(self):
         from griddy.pfr.endpoints.draft import Draft
 
-        assert hasattr(Draft, "year")
-        assert hasattr(Draft, "combine")
-        assert hasattr(Draft, "team")
-        assert not inspect.iscoroutinefunction(Draft.year)
+        assert hasattr(Draft, "get_year_draft")
+        assert hasattr(Draft, "get_combine")
+        assert hasattr(Draft, "get_team_draft")
+        assert not inspect.iscoroutinefunction(Draft.get_year_draft)
 
     def test_awards_sync_get_exists(self):
         from griddy.pfr.endpoints.awards import Awards
