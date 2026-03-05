@@ -138,8 +138,7 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
     """Matchup rankings and injury reports."""
     transactions: "Transactions"
     """Player transactions and roster moves."""
-    fantasy_statistics: "FantasyStatistics"
-    """Fantasy football statistics and scoring metrics."""
+
     teams: "Teams"
     """Pro team information, rosters, and schedules."""
 

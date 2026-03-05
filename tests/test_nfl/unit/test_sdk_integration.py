@@ -458,48 +458,6 @@ class TestMixinMethods:
 
 
 @pytest.mark.unit
-@pytest.mark.skip
-class TestDirectChildSubSDKAccess:
-    """Test that direct child sub-SDKs (not in endpoints/) can be accessed from GriddyNFL."""
-
-    # Map of attribute name to expected module and class for direct child modules
-    DIRECT_CHILD_SUB_SDKS = {
-        "fantasy_statistics": ("griddy.nfl.fantasy_statistics", "FantasyStatistics"),
-    }
-
-    @pytest.mark.parametrize("attr_name,module_info", DIRECT_CHILD_SUB_SDKS.items())
-    def test_sub_sdk_accessible(self, nfl_sdk, attr_name, module_info):
-        """Test that each direct child sub-SDK can be accessed as an attribute."""
-        module_path, class_name = module_info
-
-        # Access the sub-SDK
-        sub_sdk = getattr(nfl_sdk, attr_name)
-
-        # Verify it's not None
-        assert sub_sdk is not None, f"Sub-SDK '{attr_name}' should not be None"
-
-        # Verify it has the expected class name
-        assert (
-            sub_sdk.__class__.__name__ == class_name
-        ), f"Sub-SDK '{attr_name}' should be instance of {class_name}, got {sub_sdk.__class__.__name__}"
-
-        # Verify it has the expected module
-        assert (
-            sub_sdk.__class__.__module__ == module_path
-        ), f"Sub-SDK '{attr_name}' should be from module {module_path}, got {sub_sdk.__class__.__module__}"
-
-    @pytest.mark.parametrize("attr_name", DIRECT_CHILD_SUB_SDKS.keys())
-    def test_sub_sdk_can_be_accessed_multiple_times(self, nfl_sdk, attr_name):
-        """Test that accessing sub-SDK multiple times returns the same instance."""
-        first_access = getattr(nfl_sdk, attr_name)
-        second_access = getattr(nfl_sdk, attr_name)
-
-        assert (
-            first_access is second_access
-        ), f"Sub-SDK '{attr_name}' should return same instance on multiple accesses"
-
-
-@pytest.mark.unit
 class TestDirectChildMethodAccessibility:
     """Test that methods on direct child sub-SDKs are accessible and callable."""
 
