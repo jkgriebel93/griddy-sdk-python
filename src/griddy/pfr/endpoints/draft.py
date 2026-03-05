@@ -1,7 +1,7 @@
 """Draft endpoints for Pro Football Reference.
 
-Provides ``year()``, ``combine()``, and ``team()`` to fetch and parse
-PFR draft-related pages.
+Provides ``get_year_draft()``, ``get_combine()``, and ``get_team_draft()``
+to fetch and parse PFR draft-related pages.
 """
 
 from functools import cached_property
@@ -26,7 +26,7 @@ class Draft(BaseSDK):
     # Year Draft — /years/{year}/draft.htm
     # ------------------------------------------------------------------
 
-    def _year_config(
+    def _get_year_draft_config(
         self,
         *,
         year: int,
@@ -62,7 +62,7 @@ class Draft(BaseSDK):
     # Combine — /draft/{year}-combine.htm
     # ------------------------------------------------------------------
 
-    def _combine_config(
+    def _get_combine_config(
         self,
         *,
         year: int,
@@ -98,7 +98,7 @@ class Draft(BaseSDK):
     # Team Draft — /teams/{team}/draft.htm
     # ------------------------------------------------------------------
 
-    def _team_config(
+    def _get_team_draft_config(
         self,
         *,
         team: str,
