@@ -30,6 +30,7 @@ from griddy.pfr.parsers._column_registry import (
 )
 
 
+@pytest.mark.unit
 class TestColumnMetadata:
     """Tests for the ColumnMetadata dataclass."""
 
@@ -90,6 +91,7 @@ class TestColumnMetadata:
             assert not overlap_fp, f"{instance} has float/pct overlap: {overlap_fp}"
 
 
+@pytest.mark.unit
 class TestRegistryInstances:
     """Verify specific registry instances have expected columns."""
 
