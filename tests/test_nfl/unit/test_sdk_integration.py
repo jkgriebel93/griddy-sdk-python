@@ -14,6 +14,7 @@ import pytest
 
 from griddy.nfl import GriddyNFL
 from griddy.nfl.sdkconfiguration import SDKConfiguration
+from griddy.settings import NFLSettings
 
 
 @pytest.fixture
@@ -41,7 +42,7 @@ def nfl_sdk():
     # Mock the settings to provide required credentials
     with patch(
         "griddy.nfl.sdk.settings.NFL",
-        {"clientKey": "test_key", "clientSecret": "test_secret"},
+        NFLSettings(client_key="test_key", client_secret="test_secret"),
     ):
         # Create mock NFLAuth dictionary
         mock_nfl_auth = {

@@ -13,8 +13,8 @@ class TestProAPI:
     @pytest.fixture(scope="class")
     def nfl(self):
         return GriddyNFL.authenticate_via_browser(
-            login_email=NFL["login_email"],
-            login_password=NFL["login_password"],
+            login_email=NFL.login_email,
+            login_password=NFL.login_password,
             headless=True,
         )
 

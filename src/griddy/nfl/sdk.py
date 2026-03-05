@@ -185,8 +185,8 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
     }
 
     _client_data = {
-        "clientKey": settings.NFL["clientKey"],
-        "clientSecret": settings.NFL["clientSecret"],
+        "clientKey": settings.NFL.client_key,
+        "clientSecret": settings.NFL.client_secret,
         "deviceId": str(uuid4()),
         "deviceInfo": base64.b64encode(
             json.dumps(
