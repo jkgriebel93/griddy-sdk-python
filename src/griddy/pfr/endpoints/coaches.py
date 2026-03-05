@@ -6,12 +6,14 @@ Provides ``get_coach_profile()`` to fetch and parse a PFR coach profile page
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import CoachProfileParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import CoachProfile
 
 
+@sdk_endpoints
 class Coaches(BaseSDK):
     """Sub-SDK for PFR coach profile data."""
 
@@ -21,23 +23,7 @@ class Coaches(BaseSDK):
         coach_id: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/coaches/{coach_id}.htm",
-            operation_id="getCoachProfile",
-            wait_for_element="#coaching_results",
-            parser=CoachProfileParser().parse,
-            response_type=CoachProfile,
-            path_params={"coach_id": coach_id},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_coach_profile(
-        self,
-        *,
-        coach_id: str,
-        timeout_ms: Optional[int] = None,
-    ) -> CoachProfile:
-        """Fetch and parse a coach profile page from Pro Football Reference.
+        r"""Fetch and parse a coach profile page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/coaches/{coach_id}.htm``
@@ -56,8 +42,13 @@ class Coaches(BaseSDK):
             the coach's bio, coaching results, ranks, history, coaching tree,
             and challenge results.
         """
-        config = self._get_coach_profile_config(
-            coach_id=coach_id, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/coaches/{coach_id}.htm",
+            operation_id="getCoachProfile",
+            wait_for_element="#coaching_results",
+            parser=CoachProfileParser().parse,
+            response_type=CoachProfile,
+            path_params={"coach_id": coach_id},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return CoachProfile.model_validate(data)

@@ -6,6 +6,7 @@ single-game statistical leaderboard pages.
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import LeadersParser
 
 from ..basesdk import BaseSDK, EndpointConfig
@@ -14,34 +15,18 @@ from ..models import Leaderboard
 _parser = LeadersParser()
 
 
+@sdk_endpoints
 class Leaders(BaseSDK):
     """Sub-SDK for PFR statistical leaders pages."""
 
-    def _get_leaders_config(
+    def _get_config(
         self,
         *,
         stat: str,
         scope: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/leaders/{stat}_{scope}.htm",
-            operation_id="getLeaders",
-            wait_for_element="table.stats_table",
-            parser=lambda html: _parser.parse(html, stat=stat, scope=scope),
-            response_type=Leaderboard,
-            path_params={"stat": stat, "scope": scope},
-            timeout_ms=timeout_ms,
-        )
-
-    def get(
-        self,
-        *,
-        stat: str,
-        scope: str,
-        timeout_ms: Optional[int] = None,
-    ) -> Leaderboard:
-        """Fetch and parse a leaders page from Pro Football Reference.
+        r"""Fetch and parse a leaders page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/leaders/{stat}_{scope}.htm``
@@ -58,6 +43,13 @@ class Leaders(BaseSDK):
         Returns:
             A :class:`~griddy.pfr.models.Leaderboard` instance.
         """
-        config = self._get_leaders_config(stat=stat, scope=scope, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return Leaderboard.model_validate(data)
+        return EndpointConfig(
+            path_template="/leaders/{stat}_{scope}.htm",
+            operation_id="getLeaders",
+            wait_for_element="table.stats_table",
+            parser=lambda html: _parser.parse(html, stat=stat, scope=scope),
+            response_type=Leaderboard,
+            path_params={"stat": stat, "scope": scope},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )

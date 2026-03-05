@@ -10,6 +10,8 @@ Requires:
 """
 
 import httpx
+from playwright.async_api import Error as AsyncPlaywrightError
+from playwright.async_api import async_playwright
 from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import sync_playwright
 
@@ -116,5 +118,111 @@ class Browserless:
                 browser=browser, url=url, cookies=cookies, element=wait_for_element
             )
             browser.close()
+
+        return html
+
+
+class AsyncBrowserless:
+    """Async variant of :class:`Browserless`.
+
+    Uses ``httpx.AsyncClient`` for the unblock API call and
+    ``playwright.async_api`` for CDP browser interaction.
+    """
+
+    def __init__(self, default_timeout_ms: int = 60000):
+        self.host = BROWSERLESS_HOST
+        self.token = BROWSERLESS_TOKEN
+        self.data: dict | None = None
+        self.timeout = default_timeout_ms
+
+    async def fetch_data(self, url: str):
+        unblock_url = f"https://{BROWSERLESS_HOST}/chromium/unblock"
+        query_params = {
+            "token": BROWSERLESS_TOKEN,
+            "proxy": "residential",
+            "timeout": 60_000,
+        }
+        payload = {
+            "url": url,
+            "browserWSEndpoint": True,
+            "cookies": True,
+            "content": False,
+            "screenshot": False,
+            "ttl": 30_000,
+        }
+
+        try:
+            async with httpx.AsyncClient() as client:
+                resp = await client.post(
+                    unblock_url,
+                    json=payload,
+                    params=query_params,
+                    headers={"Content-Type": "application/json"},
+                )
+                resp.raise_for_status()
+        except httpx.HTTPError as exc:
+            raise BrowserlessError(
+                f"Browserless /chromium/unblock request failed: {exc}"
+            ) from exc
+
+        return resp.json()
+
+    async def _handle_page_navigation(
+        self, browser, url: str, cookies: dict, element: str
+    ):
+        page = None
+        for ctx in browser.contexts:
+            for p in ctx.pages:
+                if url in p.url:
+                    page = p
+                    break
+            if page:
+                break
+
+        if page is None:
+            context = await browser.new_context()
+            page = await context.new_page()
+            if cookies:
+                await context.add_cookies(cookies)
+            await page.goto(url, wait_until="domcontentloaded", timeout=self.timeout)
+
+        await page.locator(element).wait_for(timeout=self.timeout)
+
+        return await page.content()
+
+    async def get_page_content(self, url: str, wait_for_element: str):
+        """Async version of :meth:`Browserless.get_page_content`.
+
+        Args:
+            url: The full URL to fetch.
+            wait_for_element: CSS selector to wait for before extracting HTML.
+
+        Returns:
+            The page's outer HTML as a string.
+
+        Raises:
+            BrowserlessError: On API or browser connection failure.
+        """
+        browserless_data = await self.fetch_data(url=url)
+
+        ws_endpoint = browserless_data.get("browserWSEndpoint")
+        cookies = browserless_data.get("cookies", [])
+
+        async with async_playwright() as pw:
+            try:
+                browser = await pw.chromium.connect_over_cdp(ws_endpoint)
+            except (
+                AsyncPlaywrightError,
+                ConnectionError,
+                httpx.HTTPError,
+            ) as exc:
+                raise BrowserlessError(
+                    f"Failed to connect Playwright via CDP: {exc}"
+                ) from exc
+
+            html = await self._handle_page_navigation(
+                browser=browser, url=url, cookies=cookies, element=wait_for_element
+            )
+            await browser.close()
 
         return html

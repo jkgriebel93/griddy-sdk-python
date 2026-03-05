@@ -41,6 +41,7 @@ Provides:
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers.birthdays import BirthdaysParser
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.parsers.cups_of_coffee import CupsOfCoffeeParser
@@ -100,6 +101,7 @@ _last_undefeated_parser = LastUndefeatedParser()
 _standings_on_date_parser = StandingsOnDateParser()
 
 
+@sdk_endpoints
 class Frivolities(BaseSDK):
     """Sub-SDK for PFR Frivolities & Fun Stuff pages."""
 
@@ -115,35 +117,7 @@ class Frivolities(BaseSDK):
         exclusively: bool = False,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        query: dict[str, str] = {"level": "franch", "t1": t1, "t2": t2}
-        if t3:
-            query["t3"] = t3
-        if t4:
-            query["t4"] = t4
-        if exclusively:
-            query["exclusively"] = "1"
-
-        return EndpointConfig(
-            path_template="/friv/players-who-played-for-multiple-teams-franchises.fcgi",
-            operation_id="getMultiTeamPlayers",
-            wait_for_element="#multifranchise_stats_0",
-            parser=_multi_team_parser.parse,
-            response_type=MultiTeamPlayers,
-            query_params=query,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_multi_team_players(
-        self,
-        *,
-        t1: str,
-        t2: str,
-        t3: Optional[str] = None,
-        t4: Optional[str] = None,
-        exclusively: bool = False,
-        timeout_ms: Optional[int] = None,
-    ) -> MultiTeamPlayers:
-        """Fetch players who played for multiple teams/franchises.
+        r"""Fetch players who played for multiple teams/franchises.
 
         Scrapes the PFR page at
         ``/friv/players-who-played-for-multiple-teams-franchises.fcgi``
@@ -165,16 +139,24 @@ class Frivolities(BaseSDK):
             containing top player summaries, stat tables, and the full
             player listing.
         """
-        config = self._get_multi_team_players_config(
-            t1=t1,
-            t2=t2,
-            t3=t3,
-            t4=t4,
-            exclusively=exclusively,
+        query: dict[str, str] = {"level": "franch", "t1": t1, "t2": t2}
+        if t3:
+            query["t3"] = t3
+        if t4:
+            query["t4"] = t4
+        if exclusively:
+            query["exclusively"] = "1"
+
+        return EndpointConfig(
+            path_template="/friv/players-who-played-for-multiple-teams-franchises.fcgi",
+            operation_id="getMultiTeamPlayers",
+            wait_for_element="#multifranchise_stats_0",
+            parser=_multi_team_parser.parse,
+            response_type=MultiTeamPlayers,
+            query_params=query,
             timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return MultiTeamPlayers.model_validate(data)
 
     # ── Statistical Milestones ──────────────────────────────────────
 
@@ -184,23 +166,7 @@ class Frivolities(BaseSDK):
         stat: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/milestones.cgi",
-            operation_id="getStatisticalMilestones",
-            wait_for_element="#milestones",
-            parser=_milestones_parser.parse,
-            response_type=StatisticalMilestones,
-            query_params={"stat": stat},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_statistical_milestones(
-        self,
-        *,
-        stat: str,
-        timeout_ms: Optional[int] = None,
-    ) -> StatisticalMilestones:
-        """Fetch statistical milestones and career leaders for a stat.
+        r"""Fetch statistical milestones and career leaders for a stat.
 
         Scrapes the PFR page at ``/friv/milestones.cgi`` and returns
         active players approaching milestone thresholds and the top-25
@@ -220,12 +186,16 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.StatisticalMilestones` instance
             containing milestone watch entries and career leaders.
         """
-        config = self._get_statistical_milestones_config(
-            stat=stat,
+        return EndpointConfig(
+            path_template="/friv/milestones.cgi",
+            operation_id="getStatisticalMilestones",
+            wait_for_element="#milestones",
+            parser=_milestones_parser.parse,
+            response_type=StatisticalMilestones,
+            query_params={"stat": stat},
             timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return StatisticalMilestones.model_validate(data)
 
     # ── Upcoming Milestones ───────────────────────────────────────
 
@@ -234,21 +204,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/upcoming-milestones.htm",
-            operation_id="getUpcomingMilestones",
-            wait_for_element="#upcoming_milestones",
-            parser=_upcoming_parser.parse,
-            response_type=UpcomingMilestones,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_upcoming_milestones(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> UpcomingMilestones:
-        """Fetch upcoming milestones and leaderboard movements.
+        r"""Fetch upcoming milestones and leaderboard movements.
 
         Scrapes the PFR page at ``/friv/upcoming-milestones.htm`` and
         returns players who may hit a milestone or move up the career
@@ -262,9 +218,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.UpcomingMilestones` instance
             containing milestone entries and leaderboard entries.
         """
-        config = self._get_upcoming_milestones_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return UpcomingMilestones.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/upcoming-milestones.htm",
+            operation_id="getUpcomingMilestones",
+            wait_for_element="#upcoming_milestones",
+            parser=_upcoming_parser.parse,
+            response_type=UpcomingMilestones,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Birthdays ──────────────────────────────────────────────────
 
@@ -275,24 +237,7 @@ class Frivolities(BaseSDK):
         day: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/birthdays.cgi",
-            operation_id="getBirthdays",
-            wait_for_element="#birthdays",
-            parser=_birthdays_parser.parse,
-            response_type=Birthdays,
-            query_params={"month": str(month), "day": str(day)},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_birthdays(
-        self,
-        *,
-        month: int,
-        day: int,
-        timeout_ms: Optional[int] = None,
-    ) -> Birthdays:
-        """Fetch NFL players born on a given month and day.
+        r"""Fetch NFL players born on a given month and day.
 
         Scrapes the PFR page at ``/friv/birthdays.cgi`` and returns
         a list of players with their career statistics.
@@ -307,9 +252,16 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.Birthdays` instance
             containing the player listing with career stats.
         """
-        config = self._get_birthdays_config(month=month, day=day, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return Birthdays.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/birthdays.cgi",
+            operation_id="getBirthdays",
+            wait_for_element="#birthdays",
+            parser=_birthdays_parser.parse,
+            response_type=Birthdays,
+            query_params={"month": str(month), "day": str(day)},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Birthplaces ───────────────────────────────────────────────────
 
@@ -318,21 +270,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/birthplaces.htm",
-            operation_id="getBirthplaces",
-            wait_for_element="#birthplaces",
-            parser=_birthplaces_parser.parse_landing,
-            response_type=BirthplaceLanding,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_birthplaces(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> BirthplaceLanding:
-        """Fetch the birthplaces landing page with location summaries.
+        r"""Fetch the birthplaces landing page with location summaries.
 
         Scrapes the PFR page at ``/friv/birthplaces.htm`` and returns
         a table of countries and states with player counts, hall of
@@ -346,9 +284,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.BirthplaceLanding` instance
             containing the location summary table.
         """
-        config = self._get_birthplaces_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return BirthplaceLanding.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/birthplaces.htm",
+            operation_id="getBirthplaces",
+            wait_for_element="#birthplaces",
+            parser=_birthplaces_parser.parse_landing,
+            response_type=BirthplaceLanding,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     def _get_birthplace_players_config(
         self,
@@ -357,24 +301,7 @@ class Frivolities(BaseSDK):
         state: str = "",
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/birthplaces.cgi",
-            operation_id="getBirthplacePlayers",
-            wait_for_element="#birthplaces",
-            parser=_birthplaces_parser.parse_filtered,
-            response_type=BirthplaceFiltered,
-            query_params={"country": country, "state": state},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_birthplace_players(
-        self,
-        *,
-        country: str,
-        state: str = "",
-        timeout_ms: Optional[int] = None,
-    ) -> BirthplaceFiltered:
-        """Fetch NFL players born in a specific country/state.
+        r"""Fetch NFL players born in a specific country/state.
 
         Scrapes the PFR page at ``/friv/birthplaces.cgi`` and returns
         a list of players born in the given location with their career
@@ -391,11 +318,16 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.BirthplaceFiltered` instance
             containing the player listing with career stats.
         """
-        config = self._get_birthplace_players_config(
-            country=country, state=state, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/friv/birthplaces.cgi",
+            operation_id="getBirthplacePlayers",
+            wait_for_element="#birthplaces",
+            parser=_birthplaces_parser.parse_filtered,
+            response_type=BirthplaceFiltered,
+            query_params={"country": country, "state": state},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return BirthplaceFiltered.model_validate(data)
 
     # ── Players Born Before a Date ────────────────────────────────────
 
@@ -407,29 +339,7 @@ class Frivolities(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/age.cgi",
-            operation_id="getPlayersBornBefore",
-            wait_for_element="#players",
-            parser=_born_before_parser.parse,
-            response_type=PlayersBornBefore,
-            query_params={
-                "month": str(month),
-                "day": str(day),
-                "year": str(year),
-            },
-            timeout_ms=timeout_ms,
-        )
-
-    def get_players_born_before(
-        self,
-        *,
-        month: int,
-        day: int,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> PlayersBornBefore:
-        """Fetch active players born on or before a given date.
+        r"""Fetch active players born on or before a given date.
 
         Scrapes the PFR page at ``/friv/age.cgi`` and returns a list of
         active players born on or before the specified date with their
@@ -446,11 +356,20 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.PlayersBornBefore` instance
             containing the player listing with career stats.
         """
-        config = self._get_players_born_before_config(
-            month=month, day=day, year=year, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/friv/age.cgi",
+            operation_id="getPlayersBornBefore",
+            wait_for_element="#players",
+            parser=_born_before_parser.parse,
+            response_type=PlayersBornBefore,
+            query_params={
+                "month": str(month),
+                "day": str(day),
+                "year": str(year),
+            },
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return PlayersBornBefore.model_validate(data)
 
     # ── Players By Uniform Number ──────────────────────────────────────
 
@@ -461,28 +380,7 @@ class Frivolities(BaseSDK):
         team: Optional[str] = None,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        query: dict[str, str] = {"number": str(number)}
-        if team:
-            query["team"] = team
-
-        return EndpointConfig(
-            path_template="/players/uniform.cgi",
-            operation_id="getUniformNumbers",
-            wait_for_element="#uniform_number",
-            parser=_uniform_numbers_parser.parse,
-            response_type=UniformNumbers,
-            query_params=query,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_uniform_numbers(
-        self,
-        *,
-        number: int,
-        team: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-    ) -> UniformNumbers:
-        """Fetch players who wore a specific uniform number.
+        r"""Fetch players who wore a specific uniform number.
 
         Scrapes the PFR page at ``/players/uniform.cgi`` and returns
         a list of players who wore the specified number, optionally
@@ -499,11 +397,20 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.UniformNumbers` instance
             containing the player listing.
         """
-        config = self._get_uniform_numbers_config(
-            number=number, team=team, timeout_ms=timeout_ms
+        query: dict[str, str] = {"number": str(number)}
+        if team:
+            query["team"] = team
+
+        return EndpointConfig(
+            path_template="/players/uniform.cgi",
+            operation_id="getUniformNumbers",
+            wait_for_element="#uniform_number",
+            parser=_uniform_numbers_parser.parse,
+            response_type=UniformNumbers,
+            query_params=query,
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return UniformNumbers.model_validate(data)
 
     # ── Quarterback Wins vs. Each Franchise ──────────────────────────────
 
@@ -512,21 +419,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/qb-wins.htm",
-            operation_id="getQBWinsVsFranchises",
-            wait_for_element="#qb_wins",
-            parser=_qb_wins_parser.parse,
-            response_type=QBWins,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_qb_wins_vs_franchises(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> QBWins:
-        """Fetch quarterbacks who beat every (or nearly every) franchise.
+        r"""Fetch quarterbacks who beat every (or nearly every) franchise.
 
         Scrapes the PFR page at ``/friv/qb-wins.htm`` and returns a list
         of quarterbacks with the number of franchises they beat and the
@@ -540,9 +433,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.QBWins` instance containing
             the quarterback entries.
         """
-        config = self._get_qb_wins_vs_franchises_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return QBWins.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/qb-wins.htm",
+            operation_id="getQBWinsVsFranchises",
+            wait_for_element="#qb_wins",
+            parser=_qb_wins_parser.parse,
+            response_type=QBWins,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Non-Quarterback Passers ──────────────────────────────────────────
 
@@ -551,21 +450,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/nonqb.htm",
-            operation_id="getNonQBPassers",
-            wait_for_element="#nonqb_passers",
-            parser=_non_qb_passers_parser.parse,
-            response_type=NonQBPassers,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_non_qb_passers(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> NonQBPassers:
-        """Fetch non-quarterback players who have thrown a pass.
+        r"""Fetch non-quarterback players who have thrown a pass.
 
         Scrapes the PFR page at ``/friv/nonqb.htm`` and returns a list
         of non-QB players with their passing statistics.
@@ -578,9 +463,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.NonQBPassers` instance
             containing the player entries with passing stats.
         """
-        config = self._get_non_qb_passers_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return NonQBPassers.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/nonqb.htm",
+            operation_id="getNonQBPassers",
+            wait_for_element="#nonqb_passers",
+            parser=_non_qb_passers_parser.parse,
+            response_type=NonQBPassers,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Non-Skill Position TD Scorers ─────────────────────────────────────
 
@@ -589,21 +480,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/odd_td.htm",
-            operation_id="getNonSkillPosTdScorers",
-            wait_for_element="#odd_scorers",
-            parser=_non_skill_pos_td_parser.parse,
-            response_type=NonSkillPosTdScorers,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_non_skill_pos_td_scorers(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> NonSkillPosTdScorers:
-        """Fetch non-skill position players who scored an offensive TD.
+        r"""Fetch non-skill position players who scored an offensive TD.
 
         Scrapes the PFR page at ``/friv/odd_td.htm`` and returns a list
         of game-level instances where non-skill position players scored
@@ -617,9 +494,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.NonSkillPosTdScorers` instance
             containing the scoring entries.
         """
-        config = self._get_non_skill_pos_td_scorers_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return NonSkillPosTdScorers.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/odd_td.htm",
+            operation_id="getNonSkillPosTdScorers",
+            wait_for_element="#odd_scorers",
+            parser=_non_skill_pos_td_parser.parse,
+            response_type=NonSkillPosTdScorers,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Octopus Tracker ────────────────────────────────────────────────────
 
@@ -628,21 +511,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/octopus-tracker.htm",
-            operation_id="getOctopusTracker",
-            wait_for_element="#octopus",
-            parser=_octopus_tracker_parser.parse,
-            response_type=OctopusTracker,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_octopus_tracker(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> OctopusTracker:
-        """Fetch octopus TD + 2pt conversion scorers since 1994.
+        r"""Fetch octopus TD + 2pt conversion scorers since 1994.
 
         Scrapes the PFR page at ``/friv/octopus-tracker.htm`` and returns
         a list of game-level instances where a player scored both the
@@ -656,9 +525,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.OctopusTracker` instance
             containing the scoring entries.
         """
-        config = self._get_octopus_tracker_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return OctopusTracker.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/octopus-tracker.htm",
+            operation_id="getOctopusTracker",
+            wait_for_element="#octopus",
+            parser=_octopus_tracker_parser.parse,
+            response_type=OctopusTracker,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Cups of Coffee ──────────────────────────────────────────────────────
 
@@ -667,21 +542,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/coffee.htm",
-            operation_id="getCupsOfCoffee",
-            wait_for_element="#coffee",
-            parser=_cups_of_coffee_parser.parse,
-            response_type=CupsOfCoffee,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_cups_of_coffee(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> CupsOfCoffee:
-        """Fetch players who played only a single game in the NFL.
+        r"""Fetch players who played only a single game in the NFL.
 
         Scrapes the PFR page at ``/friv/coffee.htm`` and returns a list
         of players who had only one NFL game appearance, with their
@@ -695,9 +556,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.CupsOfCoffee` instance
             containing the player entries with career stats.
         """
-        config = self._get_cups_of_coffee_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return CupsOfCoffee.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/coffee.htm",
+            operation_id="getCupsOfCoffee",
+            wait_for_element="#coffee",
+            parser=_cups_of_coffee_parser.parse,
+            response_type=CupsOfCoffee,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Multi-Sport Players ──────────────────────────────────────────────────
 
@@ -706,21 +573,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/multisport.htm",
-            operation_id="getMultiSportPlayers",
-            wait_for_element="#multisport",
-            parser=_multi_sport_players_parser.parse,
-            response_type=MultiSportPlayers,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_multi_sport_players(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> MultiSportPlayers:
-        """Fetch athletes who played multiple sports professionally.
+        r"""Fetch athletes who played multiple sports professionally.
 
         Scrapes the PFR page at ``/friv/multisport.htm`` and returns a
         list of athletes who played in the NFL and at least one other
@@ -736,9 +589,15 @@ class Frivolities(BaseSDK):
             containing the player entries with career stats and other
             sport links.
         """
-        config = self._get_multi_sport_players_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return MultiSportPlayers.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/multisport.htm",
+            operation_id="getMultiSportPlayers",
+            wait_for_element="#multisport",
+            parser=_multi_sport_players_parser.parse,
+            response_type=MultiSportPlayers,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Pronunciation Guide ──────────────────────────────────────────────────
 
@@ -747,21 +606,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/pronunciation-guide.htm",
-            operation_id="getPronunciationGuide",
-            wait_for_element="#content ul",
-            parser=_pronunciation_guide_parser.parse,
-            response_type=PronunciationGuide,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_pronunciation_guide(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> PronunciationGuide:
-        """Fetch the player name pronunciation guide.
+        r"""Fetch the player name pronunciation guide.
 
         Scrapes the PFR page at ``/friv/pronunciation-guide.htm`` and
         returns a list of player names with their phonetic pronunciations,
@@ -775,9 +620,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.PronunciationGuide` instance
             containing the pronunciation entries.
         """
-        config = self._get_pronunciation_guide_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return PronunciationGuide.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/pronunciation-guide.htm",
+            operation_id="getPronunciationGuide",
+            wait_for_element="#content ul",
+            parser=_pronunciation_guide_parser.parse,
+            response_type=PronunciationGuide,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Overtime Ties ──────────────────────────────────────────────────────
 
@@ -786,21 +637,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/nfl-ties.htm",
-            operation_id="getOvertimeTies",
-            wait_for_element="#ot_ties",
-            parser=_overtime_ties_parser.parse,
-            response_type=OvertimeTies,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_overtime_ties(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> OvertimeTies:
-        """Fetch all tied games since sudden-death overtime (1974).
+        r"""Fetch all tied games since sudden-death overtime (1974).
 
         Scrapes the PFR page at ``/friv/nfl-ties.htm`` and returns a list
         of all games that ended in a tie since sudden-death overtime was
@@ -814,9 +651,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.OvertimeTies` instance
             containing the tie game entries.
         """
-        config = self._get_overtime_ties_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return OvertimeTies.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/nfl-ties.htm",
+            operation_id="getOvertimeTies",
+            wait_for_element="#ot_ties",
+            parser=_overtime_ties_parser.parse,
+            response_type=OvertimeTies,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Last Undefeated Team ────────────────────────────────────────────────
 
@@ -825,21 +668,7 @@ class Frivolities(BaseSDK):
         *,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/friv/last-undefeated.htm",
-            operation_id="getLastUndefeated",
-            wait_for_element="#undefeated_teams",
-            parser=_last_undefeated_parser.parse,
-            response_type=LastUndefeated,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_last_undefeated(
-        self,
-        *,
-        timeout_ms: Optional[int] = None,
-    ) -> LastUndefeated:
-        """Fetch the last undefeated team(s) in every season.
+        r"""Fetch the last undefeated team(s) in every season.
 
         Scrapes the PFR page at ``/friv/last-undefeated.htm`` and returns
         a season-by-season breakdown of the last undefeated team (or teams)
@@ -853,9 +682,15 @@ class Frivolities(BaseSDK):
             A :class:`~griddy.pfr.models.LastUndefeated` instance
             containing the undefeated team entries.
         """
-        config = self._get_last_undefeated_config(timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return LastUndefeated.model_validate(data)
+        return EndpointConfig(
+            path_template="/friv/last-undefeated.htm",
+            operation_id="getLastUndefeated",
+            wait_for_element="#undefeated_teams",
+            parser=_last_undefeated_parser.parse,
+            response_type=LastUndefeated,
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Standings on Any Date ────────────────────────────────────────────────
 
@@ -868,37 +703,7 @@ class Frivolities(BaseSDK):
         week: Optional[int] = None,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        if week is not None:
-            query: dict[str, str] = {"week": str(week), "year": str(year)}
-        elif month is not None and day is not None:
-            query = {
-                "month": str(month),
-                "day": str(day),
-                "year": str(year),
-            }
-        else:
-            raise ValueError("Provide either 'week' or both 'month' and 'day'.")
-
-        return EndpointConfig(
-            path_template="/boxscores/standings.cgi",
-            operation_id="getStandingsOnDate",
-            wait_for_element="#AFC",
-            parser=_standings_on_date_parser.parse,
-            response_type=StandingsOnDate,
-            query_params=query,
-            timeout_ms=timeout_ms,
-        )
-
-    def get_standings_on_date(
-        self,
-        *,
-        year: int,
-        month: Optional[int] = None,
-        day: Optional[int] = None,
-        week: Optional[int] = None,
-        timeout_ms: Optional[int] = None,
-    ) -> StandingsOnDate:
-        """Fetch NFL standings as of a specific date or week.
+        r"""Fetch NFL standings as of a specific date or week.
 
         Scrapes the PFR page at ``/boxscores/standings.cgi`` and returns
         conference standings broken out by division, including win-loss
@@ -923,12 +728,24 @@ class Frivolities(BaseSDK):
             ValueError: If neither ``week`` nor ``month``/``day`` are
                 provided.
         """
-        config = self._get_standings_on_date_config(
-            year=year,
-            month=month,
-            day=day,
-            week=week,
+        if week is not None:
+            query: dict[str, str] = {"week": str(week), "year": str(year)}
+        elif month is not None and day is not None:
+            query = {
+                "month": str(month),
+                "day": str(day),
+                "year": str(year),
+            }
+        else:
+            raise ValueError("Provide either 'week' or both 'month' and 'day'.")
+
+        return EndpointConfig(
+            path_template="/boxscores/standings.cgi",
+            operation_id="getStandingsOnDate",
+            wait_for_element="#AFC",
+            parser=_standings_on_date_parser.parse,
+            response_type=StandingsOnDate,
+            query_params=query,
             timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return StandingsOnDate.model_validate(data)

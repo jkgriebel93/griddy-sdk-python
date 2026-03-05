@@ -16,6 +16,7 @@ Provides:
 
 from typing import Literal, Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers.fantasy import FantasyParser
 
 from ..basesdk import BaseSDK, EndpointConfig
@@ -33,6 +34,7 @@ _parser = FantasyParser()
 PositionLiteral = Literal["qb", "wr", "rb", "te"]
 
 
+@sdk_endpoints
 class Fantasy(BaseSDK):
     """Sub-SDK for PFR Fantasy Rankings pages."""
 
@@ -44,23 +46,7 @@ class Fantasy(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/fantasy.htm",
-            operation_id="getTopFantasyPlayers",
-            wait_for_element="#fantasy",
-            parser=lambda html: _parser.parse_top_players(html),
-            response_type=TopFantasyPlayers,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_top_players(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> TopFantasyPlayers:
-        """Fetch and parse the Top Fantasy Players page from Pro Football Reference.
+        r"""Fetch and parse the Top Fantasy Players page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/fantasy.htm``
@@ -75,9 +61,16 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.TopFantasyPlayers` instance containing
             all player entries.
         """
-        config = self._get_top_players_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return TopFantasyPlayers.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/fantasy.htm",
+            operation_id="getTopFantasyPlayers",
+            wait_for_element="#fantasy",
+            parser=lambda html: _parser.parse_top_players(html),
+            response_type=TopFantasyPlayers,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Matchups ─────────────────────────────────────────────────────
 
@@ -87,23 +80,7 @@ class Fantasy(BaseSDK):
         position: PositionLiteral,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/fantasy/{position}-fantasy-matchups.htm",
-            operation_id="getFantasyMatchups",
-            wait_for_element="#fantasy_stats",
-            parser=lambda html: _parser.parse_matchups(html),
-            response_type=FantasyMatchups,
-            path_params={"position": position},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_matchups(
-        self,
-        *,
-        position: PositionLiteral,
-        timeout_ms: Optional[int] = None,
-    ) -> FantasyMatchups:
-        """Fetch and parse a Fantasy Matchups page from Pro Football Reference.
+        r"""Fetch and parse a Fantasy Matchups page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/fantasy/{position}-fantasy-matchups.htm``
@@ -119,9 +96,16 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.FantasyMatchups` instance containing
             all player matchup entries.
         """
-        config = self._get_matchups_config(position=position, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return FantasyMatchups.model_validate(data)
+        return EndpointConfig(
+            path_template="/fantasy/{position}-fantasy-matchups.htm",
+            operation_id="getFantasyMatchups",
+            wait_for_element="#fantasy_stats",
+            parser=lambda html: _parser.parse_matchups(html),
+            response_type=FantasyMatchups,
+            path_params={"position": position},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Points Allowed ────────────────────────────────────────────────
 
@@ -132,24 +116,7 @@ class Fantasy(BaseSDK):
         position: PositionLiteral,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/fantasy-points-against-{position}.htm",
-            operation_id="getFantasyPointsAllowed",
-            wait_for_element="#fantasy_def",
-            parser=lambda html: _parser.parse_points_allowed(html),
-            response_type=FantasyPointsAllowed,
-            path_params={"year": year, "position": position},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_points_allowed(
-        self,
-        *,
-        year: int,
-        position: PositionLiteral,
-        timeout_ms: Optional[int] = None,
-    ) -> FantasyPointsAllowed:
-        """Fetch and parse a Fantasy Points Allowed page from Pro Football Reference.
+        r"""Fetch and parse a Fantasy Points Allowed page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/fantasy-points-against-{position}.htm``
@@ -166,11 +133,16 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.FantasyPointsAllowed` instance
             containing all team entries.
         """
-        config = self._get_points_allowed_config(
-            year=year, position=position, timeout_ms=timeout_ms
+        return EndpointConfig(
+            path_template="/years/{year}/fantasy-points-against-{position}.htm",
+            operation_id="getFantasyPointsAllowed",
+            wait_for_element="#fantasy_def",
+            parser=lambda html: _parser.parse_points_allowed(html),
+            response_type=FantasyPointsAllowed,
+            path_params={"year": year, "position": position},
+            timeout_ms=timeout_ms,
+            validate_model=True,
         )
-        data = self._execute_endpoint(config)
-        return FantasyPointsAllowed.model_validate(data)
 
     # ── Red Zone Passing ──────────────────────────────────────────────
 
@@ -180,23 +152,7 @@ class Fantasy(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/redzone-passing.htm",
-            operation_id="getRedZonePassing",
-            wait_for_element="#fantasy_rz",
-            parser=lambda html: _parser.parse_redzone_passing(html),
-            response_type=RedZonePassing,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_redzone_passing(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> RedZonePassing:
-        """Fetch and parse the Red Zone Passing page from Pro Football Reference.
+        r"""Fetch and parse the Red Zone Passing page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/redzone-passing.htm``
@@ -212,9 +168,16 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.RedZonePassing` instance containing
             all player entries.
         """
-        config = self._get_redzone_passing_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return RedZonePassing.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/redzone-passing.htm",
+            operation_id="getRedZonePassing",
+            wait_for_element="#fantasy_rz",
+            parser=lambda html: _parser.parse_redzone_passing(html),
+            response_type=RedZonePassing,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Red Zone Receiving ────────────────────────────────────────────
 
@@ -224,23 +187,7 @@ class Fantasy(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/redzone-receiving.htm",
-            operation_id="getRedZoneReceiving",
-            wait_for_element="#fantasy_rz",
-            parser=lambda html: _parser.parse_redzone_receiving(html),
-            response_type=RedZoneReceiving,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_redzone_receiving(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> RedZoneReceiving:
-        """Fetch and parse the Red Zone Receiving page from Pro Football Reference.
+        r"""Fetch and parse the Red Zone Receiving page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/redzone-receiving.htm``
@@ -256,9 +203,16 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.RedZoneReceiving` instance containing
             all player entries.
         """
-        config = self._get_redzone_receiving_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return RedZoneReceiving.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/redzone-receiving.htm",
+            operation_id="getRedZoneReceiving",
+            wait_for_element="#fantasy_rz",
+            parser=lambda html: _parser.parse_redzone_receiving(html),
+            response_type=RedZoneReceiving,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ── Red Zone Rushing ──────────────────────────────────────────────
 
@@ -268,23 +222,7 @@ class Fantasy(BaseSDK):
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/redzone-rushing.htm",
-            operation_id="getRedZoneRushing",
-            wait_for_element="#fantasy_rz",
-            parser=lambda html: _parser.parse_redzone_rushing(html),
-            response_type=RedZoneRushing,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_redzone_rushing(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> RedZoneRushing:
-        """Fetch and parse the Red Zone Rushing page from Pro Football Reference.
+        r"""Fetch and parse the Red Zone Rushing page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/redzone-rushing.htm``
@@ -300,6 +238,13 @@ class Fantasy(BaseSDK):
             A :class:`~griddy.pfr.models.RedZoneRushing` instance containing
             all player entries.
         """
-        config = self._get_redzone_rushing_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return RedZoneRushing.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/redzone-rushing.htm",
+            operation_id="getRedZoneRushing",
+            wait_for_element="#fantasy_rz",
+            parser=lambda html: _parser.parse_redzone_rushing(html),
+            response_type=RedZoneRushing,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )

@@ -6,12 +6,14 @@ Provides ``get_game_details()`` to fetch and parse a PFR boxscore page
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import GameDetailsParser
 
 from ..basesdk import BaseSDK, EndpointConfig
 from ..models import GameDetails
 
 
+@sdk_endpoints
 class Games(BaseSDK):
     """Sub-SDK for PFR boxscore / game detail data."""
 
@@ -21,23 +23,7 @@ class Games(BaseSDK):
         game_id: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/boxscores/{game_id}.htm",
-            operation_id="getGameDetails",
-            wait_for_element="#scoring",
-            parser=GameDetailsParser().parse,
-            response_type=GameDetails,
-            path_params={"game_id": game_id},
-            timeout_ms=timeout_ms,
-        )
-
-    def get_game_details(
-        self,
-        *,
-        game_id: str,
-        timeout_ms: Optional[int] = None,
-    ) -> GameDetails:
-        """Fetch and parse a boxscore page from Pro Football Reference.
+        r"""Fetch and parse a boxscore page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/boxscores/{game_id}.htm``
@@ -55,6 +41,13 @@ class Games(BaseSDK):
             all extracted game data (scorebox, linescore, scoring plays,
             team stats, player stats, drives, etc.).
         """
-        config = self._get_game_details_config(game_id=game_id, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return GameDetails.model_validate(data)
+        return EndpointConfig(
+            path_template="/boxscores/{game_id}.htm",
+            operation_id="getGameDetails",
+            wait_for_element="#scoring",
+            parser=GameDetailsParser().parse,
+            response_type=GameDetails,
+            path_params={"game_id": game_id},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )

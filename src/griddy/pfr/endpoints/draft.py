@@ -6,6 +6,7 @@ PFR draft-related pages.
 
 from typing import Optional
 
+from griddy.core.decorators import sdk_endpoints
 from griddy.pfr.parsers import DraftParser
 
 from ..basesdk import BaseSDK, EndpointConfig
@@ -14,6 +15,7 @@ from ..models import CombineResults, TeamDraft, YearDraft
 _parser = DraftParser()
 
 
+@sdk_endpoints
 class Draft(BaseSDK):
     """Sub-SDK for PFR NFL Draft pages."""
 
@@ -21,29 +23,13 @@ class Draft(BaseSDK):
     # Year Draft — /years/{year}/draft.htm
     # ------------------------------------------------------------------
 
-    def _get_year_config(
+    def _year_config(
         self,
         *,
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/years/{year}/draft.htm",
-            operation_id="getYearDraft",
-            wait_for_element="#drafts",
-            parser=lambda html: _parser.parse_year_draft(html, year=year),
-            response_type=YearDraft,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def year(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> YearDraft:
-        """Fetch and parse a draft year page from Pro Football Reference.
+        r"""Fetch and parse a draft year page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/years/{year}/draft.htm``
@@ -58,37 +44,28 @@ class Draft(BaseSDK):
             A :class:`~griddy.pfr.models.YearDraft` instance containing
             all draft picks for the given year.
         """
-        config = self._get_year_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return YearDraft.model_validate(data)
+        return EndpointConfig(
+            path_template="/years/{year}/draft.htm",
+            operation_id="getYearDraft",
+            wait_for_element="#drafts",
+            parser=lambda html: _parser.parse_year_draft(html, year=year),
+            response_type=YearDraft,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ------------------------------------------------------------------
     # Combine — /draft/{year}-combine.htm
     # ------------------------------------------------------------------
 
-    def _get_combine_config(
+    def _combine_config(
         self,
         *,
         year: int,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/draft/{year}-combine.htm",
-            operation_id="getCombine",
-            wait_for_element="#combine",
-            parser=lambda html: _parser.parse_combine(html, year=year),
-            response_type=CombineResults,
-            path_params={"year": year},
-            timeout_ms=timeout_ms,
-        )
-
-    def combine(
-        self,
-        *,
-        year: int,
-        timeout_ms: Optional[int] = None,
-    ) -> CombineResults:
-        """Fetch and parse a combine page from Pro Football Reference.
+        r"""Fetch and parse a combine page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/draft/{year}-combine.htm``
@@ -103,37 +80,28 @@ class Draft(BaseSDK):
             A :class:`~griddy.pfr.models.CombineResults` instance
             containing all combine entries for the given year.
         """
-        config = self._get_combine_config(year=year, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return CombineResults.model_validate(data)
+        return EndpointConfig(
+            path_template="/draft/{year}-combine.htm",
+            operation_id="getCombine",
+            wait_for_element="#combine",
+            parser=lambda html: _parser.parse_combine(html, year=year),
+            response_type=CombineResults,
+            path_params={"year": year},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
 
     # ------------------------------------------------------------------
     # Team Draft — /teams/{team}/draft.htm
     # ------------------------------------------------------------------
 
-    def _get_team_config(
+    def _team_config(
         self,
         *,
         team: str,
         timeout_ms: Optional[int] = None,
     ) -> EndpointConfig:
-        return EndpointConfig(
-            path_template="/teams/{team}/draft.htm",
-            operation_id="getTeamDraft",
-            wait_for_element="#draft",
-            parser=lambda html: _parser.parse_team_draft(html, team=team),
-            response_type=TeamDraft,
-            path_params={"team": team.lower()},
-            timeout_ms=timeout_ms,
-        )
-
-    def team(
-        self,
-        *,
-        team: str,
-        timeout_ms: Optional[int] = None,
-    ) -> TeamDraft:
-        """Fetch and parse a team draft history page from Pro Football Reference.
+        r"""Fetch and parse a team draft history page from Pro Football Reference.
 
         Scrapes
         ``https://www.pro-football-reference.com/teams/{team}/draft.htm``
@@ -149,6 +117,13 @@ class Draft(BaseSDK):
             A :class:`~griddy.pfr.models.TeamDraft` instance containing
             all draft picks for the given team.
         """
-        config = self._get_team_config(team=team, timeout_ms=timeout_ms)
-        data = self._execute_endpoint(config)
-        return TeamDraft.model_validate(data)
+        return EndpointConfig(
+            path_template="/teams/{team}/draft.htm",
+            operation_id="getTeamDraft",
+            wait_for_element="#draft",
+            parser=lambda html: _parser.parse_team_draft(html, team=team),
+            response_type=TeamDraft,
+            path_params={"team": team.lower()},
+            timeout_ms=timeout_ms,
+            validate_model=True,
+        )
