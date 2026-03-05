@@ -21,6 +21,7 @@ from .httpclient import AsyncHttpClient, HttpClient
 from .sdkconfiguration import SDKConfiguration
 from .types import UNSET, OptionalNullable
 from .utils import Logger, RetryConfig
+from .utils.browserless import BrowserlessConfig
 
 if TYPE_CHECKING:
     from .endpoints.awards import Awards
@@ -105,6 +106,7 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         retry_config: OptionalNullable[RetryConfig] = UNSET,
         timeout_ms: Optional[int] = None,
         debug_logger: Optional[Logger] = None,
+        browserless_config: Optional[BrowserlessConfig] = None,
     ) -> None:
         """Initialize the GriddyPFR client.
 
@@ -120,7 +122,12 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
             retry_config: Configuration for automatic request retries.
             timeout_ms: Request timeout in milliseconds.
             debug_logger: Custom logger for debug output.
+            browserless_config: Configuration for Browserless API requests.
+                Overrides default proxy, timeout, and TTL values.
         """
+        # Pre-set so PFR BaseSDK.__init__ can pick it up via getattr
+        # (MRO super().__init__ doesn't forward extra kwargs).
+        self._browserless_config = browserless_config
         self._init_sdk(
             auth=pfr_auth,
             server_idx=server_idx,

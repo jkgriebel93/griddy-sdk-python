@@ -11,7 +11,7 @@ from . import errors, models
 from .errors import ParsingError
 from .parsers._helpers import uncomment_tables
 from .sdkconfiguration import SDKConfiguration
-from .utils.browserless import AsyncBrowserless, Browserless
+from .utils.browserless import AsyncBrowserless, Browserless, BrowserlessConfig
 
 
 class PfrParser(Protocol):
@@ -40,11 +40,19 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
     """PFR-specific BaseSDK with PFR error classes and security model."""
 
     def __init__(
-        self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
+        self,
+        sdk_config: SDKConfiguration,
+        parent_ref: Optional[object] = None,
+        browserless_config: Optional[BrowserlessConfig] = None,
     ):
         super().__init__(sdk_config=sdk_config, parent_ref=parent_ref)
-        self.browserless = Browserless()
-        self.async_browserless = AsyncBrowserless()
+        # When called via BaseGriddySDK._init_sdk (MRO super().__init__),
+        # browserless_config won't be passed. Fall back to the attribute
+        # that GriddyPFR pre-sets before _init_sdk runs.
+        if browserless_config is None:
+            browserless_config = getattr(self, "_browserless_config", None)
+        self.browserless = Browserless(config=browserless_config)
+        self.async_browserless = AsyncBrowserless(config=browserless_config)
 
     @property
     def _default_error_cls(self) -> Type[Exception]:
