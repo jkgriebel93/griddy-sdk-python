@@ -14,6 +14,8 @@ from ..base import PFRBaseModel
 
 
 class ExecutiveBio(PFRBaseModel):
+    """Biographical info from the executive profile meta panel."""
+
     name: str
 
 
@@ -21,6 +23,8 @@ class ExecutiveBio(PFRBaseModel):
 
 
 class ExecutiveResult(PFRBaseModel):
+    """A single season row from the exec_results table."""
+
     year: Optional[str] = None
     year_href: Optional[str] = None
     team: Optional[str] = None
@@ -41,6 +45,8 @@ class ExecutiveResult(PFRBaseModel):
 
 
 class ExecutiveResultsTotal(PFRBaseModel):
+    """A summary total row from the exec_results table footer."""
+
     label: Optional[str] = None
     tenure: Optional[str] = None
     wins: Optional[int] = None
@@ -54,6 +60,8 @@ class ExecutiveResultsTotal(PFRBaseModel):
 
 
 class ExecutiveProfile(PFRBaseModel):
+    """Top-level model for a PFR executive profile page."""
+
     bio: ExecutiveBio
     exec_results: List[ExecutiveResult]
     exec_results_totals: List[ExecutiveResultsTotal]

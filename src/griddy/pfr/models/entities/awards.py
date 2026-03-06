@@ -18,6 +18,8 @@ from ..base import PFRBaseModel
 
 
 class AwardWinner(PFRBaseModel):
+    """A single award winner row from an award history page."""
+
     year: Optional[int] = None
     year_href: Optional[str] = None
     league: Optional[str] = None
@@ -36,6 +38,8 @@ class AwardWinner(PFRBaseModel):
 
 
 class AwardHistory(PFRBaseModel):
+    """Top-level result for a PFR award history page."""
+
     award: Optional[str] = None
     winners: List[AwardWinner] = []
 
@@ -46,6 +50,8 @@ class AwardHistory(PFRBaseModel):
 
 
 class HofPlayer(PFRBaseModel):
+    """A single Hall of Fame inductee with career statistics."""
+
     rank: Optional[int] = None
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -89,6 +95,8 @@ class HofPlayer(PFRBaseModel):
 
 
 class HallOfFame(PFRBaseModel):
+    """Top-level result for the PFR Hall of Fame page."""
+
     players: List[HofPlayer] = []
 
 
@@ -98,6 +106,8 @@ class HallOfFame(PFRBaseModel):
 
 
 class ProBowlPlayer(PFRBaseModel):
+    """A single Pro Bowl roster entry with season statistics."""
+
     pos: Optional[str] = None
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -135,5 +145,7 @@ class ProBowlPlayer(PFRBaseModel):
 
 
 class ProBowlRoster(PFRBaseModel):
+    """Top-level result for a PFR Pro Bowl roster page."""
+
     year: Optional[int] = None
     players: List[ProBowlPlayer] = []

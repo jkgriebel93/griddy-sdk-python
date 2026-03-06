@@ -1,3 +1,11 @@
+"""Pydantic models for a PFR game boxscore page.
+
+Covers ``/boxscores/{game_id}.htm`` pages on Pro Football Reference,
+including scorebox, linescore, scoring plays, expected points, player
+stats (offense, defense, returns, kicking), starters, snap counts,
+and drive summaries.
+"""
+
 from __future__ import annotations
 
 from typing import Dict, List, Optional
@@ -10,6 +18,8 @@ from ..base import PFRBaseModel
 
 
 class ScoreboxTeam(PFRBaseModel):
+    """Team info within the scorebox header (name, score, record, coach)."""
+
     name: str
     href: str
     score: int
@@ -19,6 +29,8 @@ class ScoreboxTeam(PFRBaseModel):
 
 
 class ScoreboxMeta(PFRBaseModel):
+    """Game metadata from the scorebox (date, stadium, attendance, duration)."""
+
     date: Optional[str] = None
     start_time: Optional[str] = Field(default=None, alias="Start Time")
     stadium: Optional[str] = Field(default=None, alias="Stadium")
@@ -27,6 +39,8 @@ class ScoreboxMeta(PFRBaseModel):
 
 
 class Scorebox(PFRBaseModel):
+    """Combined scorebox with away team, home team, and game metadata."""
+
     away: ScoreboxTeam
     home: ScoreboxTeam
     meta: ScoreboxMeta
@@ -36,6 +50,8 @@ class Scorebox(PFRBaseModel):
 
 
 class LinescoreEntry(PFRBaseModel):
+    """A single team's quarter-by-quarter scoring line."""
+
     team: str
     team_href: str
     quarters: Dict[str, int]
@@ -45,6 +61,8 @@ class LinescoreEntry(PFRBaseModel):
 
 
 class ScoringPlay(PFRBaseModel):
+    """A single scoring play with quarter, time, and description."""
+
     quarter: Optional[int] = None
     time: str
     team: str
@@ -58,6 +76,8 @@ class ScoringPlay(PFRBaseModel):
 
 
 class ExpectedPoints(PFRBaseModel):
+    """Expected points added breakdown for a team in a game."""
+
     team_name: str
     pbp_exp_points_tot: float
     pbp_exp_points_off_tot: float
@@ -80,6 +100,8 @@ class ExpectedPoints(PFRBaseModel):
 
 
 class PlayerOffense(PFRBaseModel):
+    """Individual player offensive stats from a game boxscore."""
+
     player: str
     player_href: str
     player_id: str
@@ -110,6 +132,8 @@ class PlayerOffense(PFRBaseModel):
 
 
 class PlayerDefense(PFRBaseModel):
+    """Individual player defensive stats from a game boxscore."""
+
     player: str
     player_href: str
     player_id: str
@@ -135,6 +159,8 @@ class PlayerDefense(PFRBaseModel):
 
 
 class PlayerReturn(PFRBaseModel):
+    """Individual player kick and punt return stats from a game boxscore."""
+
     player: str
     player_href: str
     player_id: str
@@ -155,6 +181,8 @@ class PlayerReturn(PFRBaseModel):
 
 
 class PlayerKicking(PFRBaseModel):
+    """Individual player kicking and punting stats from a game boxscore."""
+
     player: str
     player_href: str
     player_id: str
@@ -173,6 +201,8 @@ class PlayerKicking(PFRBaseModel):
 
 
 class Starter(PFRBaseModel):
+    """A starting player entry with position."""
+
     player: str
     player_href: str
     player_id: str
@@ -183,6 +213,8 @@ class Starter(PFRBaseModel):
 
 
 class SnapCount(PFRBaseModel):
+    """Snap count totals and percentages for a player by phase of play."""
+
     player: str
     player_href: str
     player_id: str
@@ -199,6 +231,8 @@ class SnapCount(PFRBaseModel):
 
 
 class Drive(PFRBaseModel):
+    """A single drive summary with start time, plays, yards, and result."""
+
     drive_num: int
     quarter: int
     time_start: str
@@ -213,6 +247,8 @@ class Drive(PFRBaseModel):
 
 
 class GameDetails(PFRBaseModel):
+    """Top-level model for a full PFR game boxscore page."""
+
     scorebox: Scorebox
     linescore: List[LinescoreEntry]
     scoring: List[ScoringPlay]

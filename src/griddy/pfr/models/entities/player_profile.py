@@ -1,3 +1,9 @@
+"""Pydantic models for a PFR player profile page.
+
+Covers ``/players/{letter}/{player_id}.htm`` pages on Pro Football Reference,
+including biographical info, jersey numbers, career statistics, and transactions.
+"""
+
 from __future__ import annotations
 
 from datetime import date, datetime  # noqa: F401 — date used in Transaction annotation
@@ -9,6 +15,8 @@ from ..base import PFRBaseModel
 
 
 class PlayerNames(PFRBaseModel):
+    """Parsed player name components (first, middle, last, suffix, nicknames)."""
+
     first_name: str
     middle_name: str
     last_name: str
@@ -21,6 +29,8 @@ class PlayerNames(PFRBaseModel):
 
 
 class BirthPlace(PFRBaseModel):
+    """City and state of a player's birth."""
+
     city: str
     state: str
 
@@ -29,11 +39,15 @@ class BirthPlace(PFRBaseModel):
 
 
 class RoundAndOverall(PFRBaseModel):
+    """Draft round and overall pick number."""
+
     round: int
     overall: int
 
 
 class DraftInfo(PFRBaseModel):
+    """Draft selection details (team, round/overall, and year)."""
+
     team: str
     rd_and_ovr: RoundAndOverall
     year: int
@@ -43,6 +57,8 @@ class DraftInfo(PFRBaseModel):
 
 
 class PlayerBio(PFRBaseModel):
+    """Biographical information from the player profile meta panel."""
+
     photo_url: str
     names: PlayerNames
     position: str
@@ -60,6 +76,8 @@ class PlayerBio(PFRBaseModel):
 
 
 class JerseyNumber(PFRBaseModel):
+    """A jersey number worn by the player for a team and year range."""
+
     number: str
     team: str
     start_year: int
@@ -70,6 +88,8 @@ class JerseyNumber(PFRBaseModel):
 
 
 class Transaction(PFRBaseModel):
+    """A roster transaction (signing, trade, release, etc.) with date."""
+
     date: date
     description: str
 
@@ -78,6 +98,8 @@ class Transaction(PFRBaseModel):
 
 
 class PlayerStatistics(PFRBaseModel):
+    """Regular-season and post-season stat tables keyed by category."""
+
     regular_season: Dict[str, List[Dict[str, Any]]] = {}
     post_season: Dict[str, List[Dict[str, Any]]] = {}
 
@@ -86,6 +108,8 @@ class PlayerStatistics(PFRBaseModel):
 
 
 class PlayerProfile(PFRBaseModel):
+    """Top-level model for a full PFR player profile page."""
+
     bio: PlayerBio
     jersey_numbers: List[JerseyNumber]
     summary_stats: Dict[str, Union[int, float, str]]

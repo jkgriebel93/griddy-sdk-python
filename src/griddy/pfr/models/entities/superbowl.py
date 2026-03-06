@@ -18,6 +18,8 @@ from ..base import PFRBaseModel
 
 
 class SuperBowlGame(PFRBaseModel):
+    """A single Super Bowl game entry from the history table."""
+
     game_date: Optional[str] = None
     superbowl: Optional[str] = None
     superbowl_number: Optional[int] = None
@@ -42,6 +44,8 @@ class SuperBowlGame(PFRBaseModel):
 
 
 class SuperBowlHistory(PFRBaseModel):
+    """Top-level result for the PFR Super Bowl history page."""
+
     games: List[SuperBowlGame] = []
 
 
@@ -51,6 +55,8 @@ class SuperBowlHistory(PFRBaseModel):
 
 
 class SuperBowlLeaderEntry(PFRBaseModel):
+    """A single player row from a Super Bowl leader table."""
+
     rank: Optional[int] = None
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -64,6 +70,8 @@ class SuperBowlLeaderEntry(PFRBaseModel):
 
 
 class SuperBowlLeaderTable(PFRBaseModel):
+    """A single leaderboard table for a Super Bowl stat category."""
+
     category: Optional[str] = None
     entries: List[SuperBowlLeaderEntry] = []
 
@@ -74,6 +82,8 @@ class SuperBowlLeaderTable(PFRBaseModel):
 
 
 class SuperBowlLeaders(PFRBaseModel):
+    """Top-level result for the PFR Super Bowl leaders page."""
+
     tables: List[SuperBowlLeaderTable] = []
 
 
@@ -83,6 +93,8 @@ class SuperBowlLeaders(PFRBaseModel):
 
 
 class SuperBowlQB(PFRBaseModel):
+    """A quarterback's Super Bowl record within a franchise standing."""
+
     player: Optional[str] = None
     player_href: Optional[str] = None
     record: Optional[str] = None
@@ -94,6 +106,8 @@ class SuperBowlQB(PFRBaseModel):
 
 
 class SuperBowlStanding(PFRBaseModel):
+    """A single franchise row from the Super Bowl standings table."""
+
     rank: Optional[int] = None
     team: Optional[str] = None
     team_href: Optional[str] = None
@@ -113,4 +127,6 @@ class SuperBowlStanding(PFRBaseModel):
 
 
 class SuperBowlStandings(PFRBaseModel):
+    """Top-level result for the PFR Super Bowl standings page."""
+
     teams: List[SuperBowlStanding] = []

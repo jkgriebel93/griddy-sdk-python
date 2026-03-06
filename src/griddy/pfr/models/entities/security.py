@@ -1,3 +1,9 @@
+"""Security model for PFR SDK authentication.
+
+Carries bearer-token credentials used by the SDK when making
+authenticated requests.
+"""
+
 from __future__ import annotations
 
 from typing import Optional
@@ -9,6 +15,8 @@ from ..base import PFRBaseModel
 
 
 class Security(PFRBaseModel):
+    """Bearer-token authentication model for the PFR SDK."""
+
     pfr_auth: Annotated[
         Optional[str],
         FieldMetadata(

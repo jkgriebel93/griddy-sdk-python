@@ -15,6 +15,8 @@ from ..base import PFRBaseModel
 
 
 class CoachBio(PFRBaseModel):
+    """Biographical info from the coach profile meta panel."""
+
     name: str
     full_name: Optional[str] = None
     nicknames: List[str] = []
@@ -36,6 +38,8 @@ class CoachBio(PFRBaseModel):
 
 
 class CoachingResult(PFRBaseModel):
+    """A single season row from the coaching_results table."""
+
     year_id: str
     year_href: Optional[str] = None
     age: Optional[int] = None
@@ -65,6 +69,8 @@ class CoachingResult(PFRBaseModel):
 
 
 class CoachingResultTotal(PFRBaseModel):
+    """A summary total row from the coaching_results table footer."""
+
     label: str
     team: Optional[str] = None
     g: Optional[int] = None
@@ -85,6 +91,8 @@ class CoachingResultTotal(PFRBaseModel):
 
 
 class CoachingRank(PFRBaseModel):
+    """A single season row from the coaching_ranks table."""
+
     year_id: str
     team: Optional[str] = None
     coordinator_type: Optional[str] = None
@@ -125,6 +133,8 @@ class CoachingRank(PFRBaseModel):
 
 
 class CoachingHistoryEntry(PFRBaseModel):
+    """A single row from the coaching_history table."""
+
     year_id: str
     coach_age: Optional[int] = None
     coach_level: Optional[str] = None
@@ -137,6 +147,8 @@ class CoachingHistoryEntry(PFRBaseModel):
 
 
 class CoachingTreeEntry(PFRBaseModel):
+    """A coaching tree entry (worked-for or employed relationship)."""
+
     coach_name: str
     coach_href: Optional[str] = None
     roles: Optional[str] = None
@@ -146,6 +158,8 @@ class CoachingTreeEntry(PFRBaseModel):
 
 
 class ChallengeResult(PFRBaseModel):
+    """A single challenge result from the challenge_results table."""
+
     game_date: Optional[str] = None
     game_date_href: Optional[str] = None
     down: Optional[int] = None
@@ -159,6 +173,8 @@ class ChallengeResult(PFRBaseModel):
 
 
 class CoachProfile(PFRBaseModel):
+    """Top-level model for a PFR coach profile page."""
+
     bio: CoachBio
     coaching_results: List[CoachingResult]
     coaching_results_totals: List[CoachingResultTotal]

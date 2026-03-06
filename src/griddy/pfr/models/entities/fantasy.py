@@ -26,6 +26,8 @@ from ..base import PFRBaseModel
 
 
 class FantasyPlayer(PFRBaseModel):
+    """A single player row from the top fantasy players table."""
+
     rank: Optional[int] = None
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -77,6 +79,8 @@ class FantasyPlayer(PFRBaseModel):
 
 
 class TopFantasyPlayers(PFRBaseModel):
+    """Top-level result for the PFR top fantasy players page."""
+
     players: List[FantasyPlayer] = []
 
 
@@ -86,6 +90,8 @@ class TopFantasyPlayers(PFRBaseModel):
 
 
 class FantasyMatchupPlayer(PFRBaseModel):
+    """A single player row from a fantasy matchups page."""
+
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -137,6 +143,8 @@ class FantasyMatchupPlayer(PFRBaseModel):
 
 
 class FantasyMatchups(PFRBaseModel):
+    """Top-level result for a PFR fantasy matchups page."""
+
     players: List[FantasyMatchupPlayer] = []
 
 
@@ -147,6 +155,8 @@ class FantasyMatchups(PFRBaseModel):
 
 
 class FantasyPointsAllowedTeam(PFRBaseModel):
+    """A single team row from the fantasy points allowed page."""
+
     team: Optional[str] = None
     team_href: Optional[str] = None
     g: Optional[int] = None
@@ -188,6 +198,8 @@ class FantasyPointsAllowedTeam(PFRBaseModel):
 
 
 class FantasyPointsAllowed(PFRBaseModel):
+    """Top-level result for a PFR fantasy points allowed page."""
+
     teams: List[FantasyPointsAllowedTeam] = []
 
 
@@ -197,6 +209,8 @@ class FantasyPointsAllowed(PFRBaseModel):
 
 
 class RedZonePassingPlayer(PFRBaseModel):
+    """A single player row from the red zone passing stats page."""
+
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -226,6 +240,8 @@ class RedZonePassingPlayer(PFRBaseModel):
 
 
 class RedZonePassing(PFRBaseModel):
+    """Top-level result for the PFR red zone passing page."""
+
     players: List[RedZonePassingPlayer] = []
 
 
@@ -235,6 +251,8 @@ class RedZonePassing(PFRBaseModel):
 
 
 class RedZoneReceivingPlayer(PFRBaseModel):
+    """A single player row from the red zone receiving stats page."""
+
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -264,6 +282,8 @@ class RedZoneReceivingPlayer(PFRBaseModel):
 
 
 class RedZoneReceiving(PFRBaseModel):
+    """Top-level result for the PFR red zone receiving page."""
+
     players: List[RedZoneReceivingPlayer] = []
 
 
@@ -273,6 +293,8 @@ class RedZoneReceiving(PFRBaseModel):
 
 
 class RedZoneRushingPlayer(PFRBaseModel):
+    """A single player row from the red zone rushing stats page."""
+
     player: Optional[str] = None
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -303,4 +325,6 @@ class RedZoneRushingPlayer(PFRBaseModel):
 
 
 class RedZoneRushing(PFRBaseModel):
+    """Top-level result for the PFR red zone rushing page."""
+
     players: List[RedZoneRushingPlayer] = []

@@ -17,6 +17,8 @@ from ..base import PFRBaseModel
 
 
 class BirthplaceLocation(PFRBaseModel):
+    """A country/state row from the birthplaces landing page."""
+
     rank: int
     birth_country: str
     birth_country_href: Optional[str] = None
@@ -37,6 +39,8 @@ class BirthplaceLocation(PFRBaseModel):
 
 
 class BirthplaceLanding(PFRBaseModel):
+    """Top-level result for the birthplaces landing page."""
+
     title: str
     locations: List[BirthplaceLocation]
 
@@ -45,6 +49,8 @@ class BirthplaceLanding(PFRBaseModel):
 
 
 class BirthplacePlayer(PFRBaseModel):
+    """A player born in the filtered location with career statistics."""
+
     rank: int
     player: str
     player_href: Optional[str] = None
@@ -77,6 +83,8 @@ class BirthplacePlayer(PFRBaseModel):
 
 
 class BirthplaceFiltered(PFRBaseModel):
+    """Top-level result for a filtered birthplaces page."""
+
     title: str
     country: str
     state: str

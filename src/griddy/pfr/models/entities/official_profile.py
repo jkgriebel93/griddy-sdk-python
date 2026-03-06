@@ -14,6 +14,8 @@ from ..base import PFRBaseModel
 
 
 class OfficialBio(PFRBaseModel):
+    """Biographical info from the official profile meta panel."""
+
     name: str
     position: Optional[str] = None
 
@@ -22,6 +24,8 @@ class OfficialBio(PFRBaseModel):
 
 
 class OfficialSeasonStat(PFRBaseModel):
+    """A single season row from the official_stats table."""
+
     year: str
     g: Optional[int] = None
     g_playoffs: Optional[int] = None
@@ -48,6 +52,8 @@ class OfficialSeasonStat(PFRBaseModel):
 
 
 class OfficialGame(PFRBaseModel):
+    """A single game row from the official's game log."""
+
     game_date: Optional[str] = None
     game_date_href: Optional[str] = None
     team: Optional[str] = None
@@ -67,6 +73,8 @@ class OfficialGame(PFRBaseModel):
 
 
 class OfficialProfile(PFRBaseModel):
+    """Top-level model for a PFR game official profile page."""
+
     bio: OfficialBio
     official_stats: List[OfficialSeasonStat]
     games: List[OfficialGame]
