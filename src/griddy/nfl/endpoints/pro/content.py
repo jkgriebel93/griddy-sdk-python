@@ -16,6 +16,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Content(ProSDK, GameContentMixin):
+    r"""Film room content, editorial insights, and coaches film video endpoints."""
+
     def _get_home_film_cards_config(
         self,
         *,

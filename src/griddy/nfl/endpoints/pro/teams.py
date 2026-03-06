@@ -10,6 +10,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Teams(ProSDK):
+    r"""Team information, rosters, schedules, and ranking endpoints."""
+
     def _get_all_teams_config(
         self,
         *,

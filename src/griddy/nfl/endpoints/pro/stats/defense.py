@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class PlayerDefenseStats(PlayerStatsBase):
+    r"""Individual defensive player statistics (overview, pass rush, nearest defender)."""
+
     def _get_season_summary_config(
         self,
         *,

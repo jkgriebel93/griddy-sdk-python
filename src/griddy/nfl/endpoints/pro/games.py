@@ -15,6 +15,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin):
+    r"""Game-centric Pro endpoints including gamecenter stats, live scores, schedules, and results."""
+
     def _get_gamecenter_config(
         self,
         *,

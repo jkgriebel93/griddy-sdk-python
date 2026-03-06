@@ -64,4 +64,5 @@ class StatsSDK(LazySubSDKMixin, ProSDK):
     }
 
     def __init__(self, sdk_config: SDKConfiguration, parent_ref: Optional[object]):
+        """Initialise the StatsSDK and register lazy-loaded stat sub-SDKs."""
         super().__init__(sdk_config=sdk_config, parent_ref=parent_ref)
