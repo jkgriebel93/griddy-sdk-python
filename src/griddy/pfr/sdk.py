@@ -145,9 +145,11 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
     # ------------------------------------------------------------------
 
     def _get_debug_logger_env_var(self) -> str:
+        """Return the environment variable name that enables debug logging."""
         return "GRIDDY_PFR_DEBUG"
 
     def _create_security(self, auth: Any) -> Any:
+        """Create a Security model from the PFR auth token, if provided."""
         if auth and "accessToken" in auth:
             from . import models
 
@@ -155,7 +157,9 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         return None
 
     def _create_sdk_configuration(self, **kwargs: Any) -> Any:
+        """Create a PFR-specific SDKConfiguration instance."""
         return SDKConfiguration(**kwargs)
 
     def _create_hooks(self) -> Any:
+        """Create and return the PFR SDK hooks instance."""
         return SDKHooks(init_hooks_fn=init_hooks)
