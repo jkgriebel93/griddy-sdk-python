@@ -9,7 +9,8 @@ from griddy.core.utils.unmarshal_json_response import (
 from .. import errors
 
 
-def int_to_str(value):
+def int_to_str(value: Any) -> str:
+    """Convert an int value to str, passing other types through unchanged."""
     if isinstance(value, int):
         return str(value)
     return value
@@ -18,6 +19,7 @@ def int_to_str(value):
 def unmarshal_json_response(
     typ: Any, http_res: httpx.Response, body: Optional[str] = None
 ) -> Any:
+    """Unmarshal a JSON HTTP response using the NFL-specific validation error class."""
     return _core_unmarshal(
         typ, http_res, validation_error_cls=errors.ResponseValidationError, body=body
     )

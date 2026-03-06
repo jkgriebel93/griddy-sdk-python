@@ -41,6 +41,7 @@ def do_browser_auth(
     headless: bool = False,
     logger: Optional[Logger] = None,
 ) -> Dict:
+    """Authenticate via browser automation and return the token response dict."""
     if logger is None:
         logger = NoOpLogger()
 

@@ -2,7 +2,7 @@ import functools
 import json
 import typing
 from decimal import Decimal
-from typing import Any, Dict, List, Tuple, Union, get_args
+from typing import Any, Callable, Dict, List, Tuple, Union, get_args
 
 import httpx
 import typing_extensions
@@ -13,7 +13,9 @@ from typing_extensions import get_origin
 from ..types.basemodel import BaseModel, Nullable, OptionalNullable, Unset
 
 
-def serialize_decimal(as_str: bool):
+def serialize_decimal(as_str: bool) -> Callable:
+    """Return a Pydantic serializer for Decimal values."""
+
     def serialize(d):
         # Optional[T] is a Union[T, None]
         if is_union(type(d)) and type(None) in get_args(type(d)) and d is None:
@@ -29,7 +31,8 @@ def serialize_decimal(as_str: bool):
     return serialize
 
 
-def validate_decimal(d):
+def validate_decimal(d: Any) -> Decimal | None:
+    """Validate and coerce a value to Decimal."""
     if d is None:
         return None
 
@@ -42,7 +45,9 @@ def validate_decimal(d):
     return Decimal(str(d))
 
 
-def serialize_float(as_str: bool):
+def serialize_float(as_str: bool) -> Callable:
+    """Return a Pydantic serializer for float values."""
+
     def serialize(f):
         # Optional[T] is a Union[T, None]
         if is_union(type(f)) and type(None) in get_args(type(f)) and f is None:
@@ -58,7 +63,8 @@ def serialize_float(as_str: bool):
     return serialize
 
 
-def validate_float(f):
+def validate_float(f: Any) -> float | None:
+    """Validate and coerce a value to float."""
     if f is None:
         return None
 
@@ -71,7 +77,9 @@ def validate_float(f):
     return float(f)
 
 
-def serialize_int(as_str: bool):
+def serialize_int(as_str: bool) -> Callable:
+    """Return a Pydantic serializer for int values."""
+
     def serialize(i):
         # Optional[T] is a Union[T, None]
         if is_union(type(i)) and type(None) in get_args(type(i)) and i is None:
@@ -87,7 +95,8 @@ def serialize_int(as_str: bool):
     return serialize
 
 
-def validate_int(b):
+def validate_int(b: Any) -> int | None:
+    """Validate and coerce a value to int."""
     if b is None:
         return None
 
@@ -100,7 +109,9 @@ def validate_int(b):
     return int(b)
 
 
-def validate_open_enum(is_int: bool):
+def validate_open_enum(is_int: bool) -> Callable:
+    """Return a validator that accepts int or str enum values."""
+
     def validate(e):
         if e is None:
             return None
@@ -120,7 +131,9 @@ def validate_open_enum(is_int: bool):
     return validate
 
 
-def validate_const(v):
+def validate_const(v: Any) -> Callable:
+    """Return a validator that enforces a constant value."""
+
     def validate(c):
         # Optional[T] is a Union[T, None]
         if is_union(type(c)) and type(None) in get_args(type(c)) and c is None:
@@ -134,11 +147,13 @@ def validate_const(v):
     return validate
 
 
-def unmarshal_json(raw, typ: Any) -> Any:
+def unmarshal_json(raw: bytes | str, typ: Any) -> Any:
+    """Deserialize a raw JSON bytes/string into the given type."""
     return unmarshal(from_json(raw), typ)
 
 
-def unmarshal(val, typ: Any) -> Any:
+def unmarshal(val: Any, typ: Any) -> Any:
+    """Coerce a parsed value into the given Pydantic-compatible type."""
     unmarshaller = create_model(
         "Unmarshaller",
         body=(typ, ...),
@@ -151,7 +166,8 @@ def unmarshal(val, typ: Any) -> Any:
     return m.body  # type: ignore
 
 
-def marshal_json(val, typ):
+def marshal_json(val: Any, typ: Any) -> str:
+    """Serialize a value to a JSON string using a Pydantic model wrapper."""
     if is_nullable(typ) and val is None:
         return "null"
 
@@ -171,7 +187,8 @@ def marshal_json(val, typ):
     return json.dumps(d[next(iter(d))], separators=(",", ":"))
 
 
-def is_nullable(field):
+def is_nullable(field: Any) -> bool:
+    """Check if a type annotation represents a nullable type."""
     origin = get_origin(field)
     if origin is Nullable or origin is OptionalNullable:
         return True
@@ -196,22 +213,27 @@ def is_union(obj: object) -> bool:
 
 
 def stream_to_text(stream: httpx.Response) -> str:
+    """Read a streaming HTTP response into a single text string."""
     return "".join(stream.iter_text())
 
 
 async def stream_to_text_async(stream: httpx.Response) -> str:
+    """Async read a streaming HTTP response into a single text string."""
     return "".join([chunk async for chunk in stream.aiter_text()])
 
 
 def stream_to_bytes(stream: httpx.Response) -> bytes:
+    """Read a streaming HTTP response into bytes."""
     return stream.content
 
 
 async def stream_to_bytes_async(stream: httpx.Response) -> bytes:
+    """Async read a streaming HTTP response into bytes."""
     return await stream.aread()
 
 
 def get_pydantic_model(data: Any, typ: Any) -> Any:
+    """Return data as-is if it already contains Pydantic models, otherwise unmarshal."""
     if not _contains_pydantic_model(data):
         return unmarshal(data, typ)
 
@@ -219,6 +241,7 @@ def get_pydantic_model(data: Any, typ: Any) -> Any:
 
 
 def _contains_pydantic_model(data: Any) -> bool:
+    """Recursively check if data contains any Pydantic model instances."""
     if isinstance(data, BaseModel):
         return True
     if isinstance(data, List):

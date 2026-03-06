@@ -15,18 +15,22 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
 
     @property
     def _default_error_cls(self) -> Type[Exception]:
+        """Return the default error class for NFL API response errors."""
         return errors.GriddyNFLDefaultError
 
     @property
     def _no_response_error_cls(self) -> Type[Exception]:
+        """Return the error class raised when the NFL API returns no response body."""
         return errors.NoResponseError
 
     @property
     def _security_model_cls(self) -> Any:
+        """Return the Pydantic security model class for NFL authentication."""
         return models.Security
 
     @property
     def _security_env_mapping(self) -> Optional[Dict[str, str]]:
+        """Return the mapping of security fields to environment variable names."""
         return {"nfl_auth": "GRIDDY_NFL_NFL_AUTH"}
 
     def _get_security_from_env(self, security: Any) -> Any:
