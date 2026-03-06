@@ -23,6 +23,8 @@ TransactionType = Literal[
 
 
 class Transaction(BaseModel):
+    """NFL player transaction such as a trade, signing, or release."""
+
     compensation_details: Annotated[
         Optional[str], pydantic.Field(alias="compensationDetails")
     ] = None

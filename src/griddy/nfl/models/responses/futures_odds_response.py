@@ -10,6 +10,8 @@ from griddy.nfl.types import BaseModel
 
 
 class FuturesOddsResponseData(BaseModel):
+    """Futures odds data grouped by market."""
+
     conference: Optional[List[FuturesMarket]] = None
 
     division: Optional[List[FuturesMarket]] = None
@@ -20,4 +22,6 @@ class FuturesOddsResponseData(BaseModel):
 
 
 class FuturesOddsResponse(BaseModel):
+    """Response containing futures betting odds."""
+
     data: Optional[FuturesOddsResponseData] = None

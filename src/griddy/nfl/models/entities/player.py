@@ -8,6 +8,8 @@ from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class Player(BaseModel):
+    """NFL player profile."""
+
     birth_date: Annotated[Optional[date], pydantic.Field(alias="birthDate")] = None
     r"""Player's birth date"""
 

@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetWinProbabilityMinRequest(BaseModel):
+    """Request parameters for fetching minute-level win probability."""
+
     fapi_game_id: Annotated[
         List[str],
         pydantic.Field(alias="fapiGameId"),

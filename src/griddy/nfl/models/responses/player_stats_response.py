@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class PlayerStatsResponsePagination(BaseModel):
+    """Pagination details for player stats responses."""
+
     limit: Optional[int] = None
 
     offset: Optional[int] = None
@@ -23,6 +25,8 @@ class PlayerStatsResponseStats(BaseModel):
 
 
 class PlayerStatsResponsePlayer(BaseModel):
+    """Player entry within a stats response."""
+
     player: Optional[Player] = None
 
     stats: Optional[PlayerStatsResponseStats] = None
@@ -32,6 +36,8 @@ class PlayerStatsResponsePlayer(BaseModel):
 
 
 class PlayerStatsResponse(BaseModel):
+    """Response containing player statistics."""
+
     pagination: Optional[PlayerStatsResponsePagination] = None
 
     players: Optional[List[PlayerStatsResponsePlayer]] = None

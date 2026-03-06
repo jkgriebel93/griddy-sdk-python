@@ -7,5 +7,7 @@ from ...types import BaseModel
 
 
 class VideoThumbnail(BaseModel):
+    """Thumbnail image for a video."""
+
     thumbnail_url: Annotated[str, pydantic.Field(alias="thumbnailUrl")]
     r"""Video thumbnail image URL"""

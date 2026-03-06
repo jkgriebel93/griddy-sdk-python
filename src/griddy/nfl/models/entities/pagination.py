@@ -6,6 +6,8 @@ from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class Pagination(BaseModel):
+    """Pagination metadata for paginated API responses."""
+
     limit: Optional[int] = None
     r"""Maximum items per page"""
 

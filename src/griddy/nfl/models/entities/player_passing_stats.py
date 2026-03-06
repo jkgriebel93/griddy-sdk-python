@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class PlayerPassingStats(BaseModel):
+    """Player-level passing statistics."""
+
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
     r"""Player's full name"""
 

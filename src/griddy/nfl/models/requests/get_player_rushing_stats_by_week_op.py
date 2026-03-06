@@ -40,6 +40,8 @@ r"""Field to sort by"""
 
 
 class GetPlayerRushingStatsByWeekRequest(BaseModel):
+    """Request parameters for fetching weekly player rushing stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

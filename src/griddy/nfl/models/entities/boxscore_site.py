@@ -10,6 +10,8 @@ from griddy.nfl.types import UNSET, BaseModel, OptionalNullable
 
 
 class BoxscoreSite(BaseModel):
+    """Venue and site details for a boxscore game."""
+
     postal_code: Annotated[Optional[str], pydantic.Field(alias="postalCode")] = None
 
     roof_type: Annotated[

@@ -12,6 +12,8 @@ from .statistic_ranking import StatisticRanking
 
 
 class TeamRankings(BaseModel):
+    """Collection of team rankings across statistical categories."""
+
     season: Optional[int] = None
 
     season_type: Annotated[

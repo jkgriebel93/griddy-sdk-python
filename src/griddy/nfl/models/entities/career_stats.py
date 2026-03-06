@@ -10,6 +10,8 @@ from .season_stats import SeasonStats
 
 
 class CareerStats(BaseModel):
+    """Aggregated career statistics for a player."""
+
     season_stats: Annotated[
         Optional[List[SeasonStats]], pydantic.Field(alias="seasonStats")
     ] = None

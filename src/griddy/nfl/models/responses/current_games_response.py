@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class CurrentGamesResponse(BaseModel):
+    """Response containing currently active games."""
+
     games: Optional[List[CurrentGame]] = None
 
     games_played_smart_ids: Annotated[

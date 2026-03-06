@@ -11,6 +11,8 @@ from ...types import BaseModel
 
 
 class WeeklyPlayerPassingStats(BaseModel):
+    """Player passing statistics for a specific week."""
+
     att: int
     r"""Attempts"""
 

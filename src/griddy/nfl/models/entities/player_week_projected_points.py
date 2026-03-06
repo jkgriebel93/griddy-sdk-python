@@ -9,6 +9,8 @@ from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class PlayerWeekProjectedPointsAttributes(BaseModel):
+    """Projected fantasy point attributes for a player-week."""
+
     player_id: Annotated[str, pydantic.Field(alias="playerId")]
     r"""Player SMART ID"""
 
@@ -29,6 +31,8 @@ PlayerWeekProjectedPointsType = Literal["player-week-projected-points",]
 
 
 class PlayerWeekProjectedPoints(BaseModel):
+    """Weekly projected fantasy points for a player."""
+
     attributes: PlayerWeekProjectedPointsAttributes
 
     id: str

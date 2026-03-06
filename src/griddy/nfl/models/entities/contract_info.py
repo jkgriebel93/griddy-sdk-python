@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class ContractInfo(BaseModel):
+    """Player contract details."""
+
     expiration_year: Annotated[
         Optional[int], pydantic.Field(alias="expirationYear")
     ] = None

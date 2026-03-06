@@ -20,6 +20,8 @@ AwardType = Literal[
 
 
 class Award(BaseModel):
+    """NFL player award information such as MVP, All-Pro, or Pro Bowl."""
+
     award_type: Annotated[Optional[AwardType], pydantic.Field(alias="awardType")] = None
 
     description: Optional[str] = None

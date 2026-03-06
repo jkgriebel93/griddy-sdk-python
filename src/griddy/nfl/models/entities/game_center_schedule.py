@@ -11,6 +11,8 @@ from ...types import BaseModel
 
 
 class GamecenterSchedule(BaseModel):
+    """Game schedule entry for the NFL Game Center."""
+
     game_date: Annotated[Optional[str], pydantic.Field(alias="gameDate")] = None
 
     game_id: Annotated[

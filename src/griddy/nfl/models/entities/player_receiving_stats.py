@@ -13,6 +13,8 @@ from griddy.nfl.types import BaseModel
 
 
 class PlayerReceivingStats(BaseModel):
+    """Player-level receiving statistics."""
+
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
     r"""Player's full name"""
 

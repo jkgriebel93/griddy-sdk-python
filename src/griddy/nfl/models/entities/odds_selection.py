@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class OddsSelection(BaseModel):
+    """Individual betting odds selection option."""
+
     decimal: Optional[float] = None
     r"""Decimal odds for this selection"""
 

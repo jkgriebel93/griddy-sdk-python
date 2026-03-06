@@ -18,6 +18,8 @@ ScoreType = Literal[
 
 
 class ScoringPlay(BaseModel):
+    """Scoring play within a game."""
+
     away_score: Annotated[Optional[int], pydantic.Field(alias="awayScore")] = None
 
     description: Optional[str] = None

@@ -9,6 +9,8 @@ from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 
 class PlaylistResponse(BaseModel):
+    """Response containing a playlist of plays."""
+
     game_id: Annotated[
         Optional[str],
         pydantic.Field(alias="gameId"),

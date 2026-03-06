@@ -11,6 +11,8 @@ from ...types import BaseModel
 
 
 class Conference(BaseModel):
+    """NFL conference (AFC or NFC) with its divisions."""
+
     abbr: Optional[ConferenceEnum] = None
     r"""NFL conference"""
 

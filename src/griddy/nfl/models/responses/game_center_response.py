@@ -11,18 +11,26 @@ from griddy.nfl.types import BaseModel
 
 
 class PassDistanceLeaders(BaseModel):
+    """Next Gen Stats pass distance leaders."""
+
     pass
 
 
 class SpeedLeaders(BaseModel):
+    """Next Gen Stats speed leaders."""
+
     pass
 
 
 class TimeToSackLeaders(BaseModel):
+    """Next Gen Stats time-to-sack leaders."""
+
     pass
 
 
 class Leaders(BaseModel):
+    """Aggregated NGS leaders across categories."""
+
     pass_distance_leaders: Annotated[
         Optional[PassDistanceLeaders], pydantic.Field(alias="passDistanceLeaders")
     ] = None
@@ -37,10 +45,14 @@ class Leaders(BaseModel):
 
 
 class LeagueAverageSeparationToQb(BaseModel):
+    """League-average separation to quarterback metrics."""
+
     avg: Optional[float] = None
 
 
 class PassRushers(BaseModel):
+    """NGS pass rusher statistics for a game."""
+
     home: Optional[List[Dict[str, Any]]] = None
 
     league_average_separation_to_qb: Annotated[
@@ -52,16 +64,22 @@ class PassRushers(BaseModel):
 
 
 class Passers(BaseModel):
+    """NGS passer statistics for a game."""
+
     home: Optional[PasserStats] = None
 
     visitor: Optional[PasserStats] = None
 
 
 class LeagueAverageReceiverSeparation(BaseModel):
+    """League-average receiver separation metrics."""
+
     avg: Optional[float] = None
 
 
 class Receivers(BaseModel):
+    """NGS receiver statistics for a game."""
+
     home: Optional[List[Dict[str, Any]]] = None
 
     league_average_receiver_separation: Annotated[
@@ -73,12 +91,16 @@ class Receivers(BaseModel):
 
 
 class Rushers(BaseModel):
+    """NGS rusher statistics for a game."""
+
     home: Optional[List[Dict[str, Any]]] = None
 
     visitor: Optional[List[Dict[str, Any]]] = None
 
 
 class GamecenterResponse(BaseModel):
+    """Response containing Game Center data with NGS stats."""
+
     leaders: Optional[Leaders] = None
 
     pass_rushers: Annotated[

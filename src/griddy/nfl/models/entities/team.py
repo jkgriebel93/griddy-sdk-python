@@ -24,6 +24,8 @@ r"""Type of team (regular or Pro Bowl)"""
 
 
 class Team(BaseModel):
+    """NFL team profile."""
+
     abbreviation: Optional[str] = None
     r"""Three-letter team abbreviation"""
 

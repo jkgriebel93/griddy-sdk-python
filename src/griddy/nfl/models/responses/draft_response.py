@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class DraftResponse(BaseModel):
+    """Response containing NFL Draft data."""
+
     year: int
     current_day: Annotated[int, pydantic.Field(alias="currentDay")]
     current_overall: Annotated[int, pydantic.Field(alias="currentOverall")]

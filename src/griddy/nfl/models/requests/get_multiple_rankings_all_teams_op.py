@@ -11,6 +11,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetMultipleRankingsAllTeamsRequest(BaseModel):
+    """Request parameters for fetching multiple rankings for all teams."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

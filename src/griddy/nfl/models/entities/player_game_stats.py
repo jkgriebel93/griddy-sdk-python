@@ -12,6 +12,8 @@ from .rushing_stats import RushingStats
 
 
 class PlayerGameStats(BaseModel):
+    """Player statistics for a single game."""
+
     defensive: Optional[DefensiveStats] = None
 
     kicking: Optional[KickingStats] = None

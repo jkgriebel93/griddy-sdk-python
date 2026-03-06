@@ -7,6 +7,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetDraftPicksReportRequest(BaseModel):
+    """Request parameters for fetching a draft picks report."""
+
     year: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

@@ -19,6 +19,8 @@ Included = TypeAliasType(
 
 
 class Page(BaseModel):
+    """Page navigation details."""
+
     number: Optional[int] = None
     r"""Current page number"""
 
@@ -27,10 +29,14 @@ class Page(BaseModel):
 
 
 class Meta(BaseModel):
+    """Response metadata."""
+
     page: Optional[Page] = None
 
 
 class ProjectedStatsResponsePagination(BaseModel):
+    """Pagination details for projected stats responses."""
+
     token: Optional[str] = None
     r"""Token for next page of results"""
 

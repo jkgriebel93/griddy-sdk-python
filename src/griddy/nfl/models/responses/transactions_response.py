@@ -8,6 +8,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TransactionsResponse(BaseModel):
+    """Response containing player transactions."""
+
     pagination: Optional[Pagination] = None
 
     transactions: Optional[List[Transaction]] = None

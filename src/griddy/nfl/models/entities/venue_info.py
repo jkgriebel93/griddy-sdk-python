@@ -10,6 +10,8 @@ from griddy.nfl.types import BaseModel
 
 
 class VenueInfo(BaseModel):
+    """Extended venue information."""
+
     postal_code: Annotated[Optional[str], pydantic.Field(alias="postalCode")] = None
 
     roof_type: Annotated[

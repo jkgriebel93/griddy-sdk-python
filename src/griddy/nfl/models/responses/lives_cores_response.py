@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class LiveScoresResponse(BaseModel):
+    """Response containing live game scores."""
+
     games: List[LiveGame]
     r"""Array of live game data (empty when no games are active)"""
 

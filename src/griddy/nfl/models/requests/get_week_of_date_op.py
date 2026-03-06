@@ -5,6 +5,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata
 
 
 class GetWeekOfDateRequest(BaseModel):
+    """Request parameters for fetching the NFL week for a given date."""
+
     date: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]

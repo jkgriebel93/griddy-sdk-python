@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class TeamRankingEntry(BaseModel):
+    """Team ranking entry for a statistical category."""
+
     rank: Optional[int] = None
     r"""Team's rank (1-32)"""
 

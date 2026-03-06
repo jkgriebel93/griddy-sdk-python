@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class WeeklyOddsResponse(BaseModel):
+    """Response containing weekly betting odds."""
+
     games: Optional[List[GameOdds]] = None
 
     season: Optional[str] = None

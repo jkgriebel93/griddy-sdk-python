@@ -17,6 +17,8 @@ r"""Type of network connection"""
 
 
 class TokenRequest(BaseModel):
+    """Request parameters for obtaining an authentication token."""
+
     client_key: Annotated[str, pydantic.Field(alias="clientKey")]
     r"""Client application identifier key"""
 

@@ -2088,8 +2088,10 @@ _dynamic_imports: dict[str, str] = {
 
 
 def __getattr__(attr_name: str) -> object:
+    """Lazily import a model class by name from its submodule."""
     return dynamic_getattr(attr_name, _dynamic_imports, __package__, __name__)
 
 
-def __dir__():
+def __dir__() -> list[str]:
+    """Return the list of all publicly importable model names."""
     return dynamic_dir(_dynamic_imports)

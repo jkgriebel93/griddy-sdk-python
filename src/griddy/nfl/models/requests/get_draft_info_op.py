@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadat
 
 
 class GetDraftInfoRequest(BaseModel):
+    """Request parameters for fetching NFL Draft information."""
+
     year: Annotated[
         int, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]

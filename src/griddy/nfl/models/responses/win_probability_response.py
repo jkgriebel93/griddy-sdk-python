@@ -10,6 +10,8 @@ from griddy.nfl.types import BaseModel
 
 
 class WinProbabilityResponse(BaseModel):
+    """Response containing win probability data."""
+
     game_id: Annotated[int, pydantic.Field(alias="gameId")]
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
 

@@ -9,11 +9,15 @@ from ...types import BaseModel
 
 
 class Score(BaseModel):
+    """Quarterly score breakdown for a team."""
+
     total: Optional[str] = None
     r"""Total score (empty string for future games)"""
 
 
 class GameTeam(BaseModel):
+    """Team entry within a game with score and record."""
+
     current_logo: Annotated[Optional[str], pydantic.Field(alias="currentLogo")] = None
     r"""URL to team logo (may contain formatInstructions placeholder)"""
 

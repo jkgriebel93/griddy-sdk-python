@@ -21,6 +21,8 @@ from griddy.nfl.types import BaseModel
 
 
 class CombinePerson(BaseModel):
+    """Biographical details for an NFL Combine participant."""
+
     id_: Annotated[str, pydantic.Field(alias="id")]
     r"""UUID assigned to the prospect by the NFL"""
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
@@ -38,6 +40,8 @@ class CombinePerson(BaseModel):
 
 
 class CombineProfile(BaseModel):
+    """Full NFL Combine profile including measurements and drill results."""
+
     id_: Annotated[str, pydantic.Field(alias="id")]
     r"""UUID assigned by the NFL"""
     year: int

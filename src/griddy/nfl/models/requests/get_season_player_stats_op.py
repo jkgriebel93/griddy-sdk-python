@@ -38,6 +38,8 @@ r"""Statistical category to retrieve"""
 
 
 class GetSeasonPlayerStatsRequest(BaseModel):
+    """Request parameters for fetching season player stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

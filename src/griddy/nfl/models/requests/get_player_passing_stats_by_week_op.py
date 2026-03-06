@@ -14,6 +14,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetPlayerPassingStatsByWeekRequest(BaseModel):
+    """Request parameters for fetching weekly player passing stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

@@ -26,6 +26,8 @@ r"""Review state of play"""
 
 
 class PlayDetail(BaseModel):
+    """Detailed play information including formation and result."""
+
     absolute_yardline_number: Annotated[
         Optional[int], pydantic.Field(alias="absoluteYardlineNumber")
     ] = None

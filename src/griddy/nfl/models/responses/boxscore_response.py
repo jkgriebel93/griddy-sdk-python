@@ -12,6 +12,8 @@ from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 
 class BoxscoreResponse(BaseModel):
+    """Response containing boxscore data for a game."""
+
     away: Optional[TeamBoxscore] = None
 
     game_id: Annotated[

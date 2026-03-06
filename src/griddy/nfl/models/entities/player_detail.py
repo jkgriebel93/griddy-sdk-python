@@ -12,6 +12,8 @@ from .season_stats import SeasonStats
 
 
 class PlayerDetail(BaseModel):
+    """Extended player profile with biographical and career details."""
+
     birth_date: Annotated[Optional[date], pydantic.Field(alias="birthDate")] = None
     r"""Player's birth date"""
 

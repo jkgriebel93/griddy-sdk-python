@@ -29,6 +29,8 @@ r"""Position group"""
 
 
 class FantasyPlayerStats(BaseModel):
+    """Fantasy football statistics for a player."""
+
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
     r"""Player's full name"""
 

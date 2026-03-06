@@ -11,6 +11,8 @@ RelationshipsTypePlayerWeekProjectedPoints = Literal["player-week-projected-poin
 
 
 class WeekPoint(BaseModel):
+    """Projected fantasy points for a single week."""
+
     id: Optional[str] = None
     r"""Reference to projected points"""
 
@@ -21,6 +23,8 @@ RelationshipsTypePlayerWeekProjectedStats = Literal["player-week-projected-stats
 
 
 class WeekStat(BaseModel):
+    """Projected statistical output for a single week."""
+
     id: Optional[str] = None
     r"""Reference to projected stats"""
 
@@ -28,6 +32,8 @@ class WeekStat(BaseModel):
 
 
 class Relationships(BaseModel):
+    """Related entities for a player projection."""
+
     week_points: Annotated[
         Optional[List[WeekPoint]], pydantic.Field(alias="weekPoints")
     ] = None
@@ -42,6 +48,8 @@ r"""Resource type"""
 
 
 class PlayerProjection(BaseModel):
+    """Fantasy projection data for a player."""
+
     id: str
     r"""Player SMART ID"""
 

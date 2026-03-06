@@ -16,6 +16,8 @@ from .boxscore_team import BoxscoreTeam
 
 
 class BoxscoreSchedule(BaseModel):
+    """Schedule information associated with a boxscore."""
+
     game_date: Annotated[Optional[str], pydantic.Field(alias="gameDate")] = None
 
     game_id: Annotated[

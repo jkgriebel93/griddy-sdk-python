@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class StandingsRecordPoints(BaseModel):
+    """Points for and against in standings."""
+
     against: Optional[int] = None
     r"""Points allowed"""
 
@@ -17,6 +19,8 @@ class StandingsRecordPoints(BaseModel):
 
 
 class StandingsRecord(BaseModel):
+    """Team standings record with wins, losses, and ties."""
+
     losses: Optional[int] = None
 
     ties: Optional[int] = None

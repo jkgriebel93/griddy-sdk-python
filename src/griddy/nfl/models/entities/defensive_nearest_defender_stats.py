@@ -15,6 +15,8 @@ from ...types import BaseModel
 
 
 class DefensiveNearestDefenderStats(BaseModel):
+    """Next Gen Stats nearest-defender metrics for a defensive player."""
+
     cov: int
     r"""Total coverage snaps"""
 

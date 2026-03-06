@@ -11,6 +11,8 @@ from .team import Team
 
 
 class Penalty(BaseModel):
+    """Penalty details within a game."""
+
     accepted: Optional[bool] = None
 
     no_play: Annotated[Optional[bool], pydantic.Field(alias="noPlay")] = None

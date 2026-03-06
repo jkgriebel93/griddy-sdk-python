@@ -26,14 +26,20 @@ r"""Camera angle/source for the video"""
 
 
 class Cta(BaseModel):
+    """Call-to-action element for coaches film content."""
+
     pass
 
 
 class Image(BaseModel):
+    """Image asset for coaches film content."""
+
     pass
 
 
 class PromoAsset(BaseModel):
+    """Promotional asset for coaches film content."""
+
     pass
 
 
@@ -49,10 +55,14 @@ r"""Content type (always \"video\")"""
 
 
 class Video(BaseModel):
+    """Video asset for coaches film content."""
+
     pass
 
 
 class CoachesFilmVideo(BaseModel):
+    """Coaches film video entry with metadata and assets."""
+
     camera_source: Annotated[CameraSource, pydantic.Field(alias="cameraSource")]
     r"""Camera angle/source for the video"""
 

@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class PlayStat(BaseModel):
+    """Individual statistic recorded on a play."""
+
     club_code: Annotated[str, pydantic.Field(alias="clubCode")]
     r"""Team abbreviation"""
 

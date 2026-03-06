@@ -21,6 +21,8 @@ r"""Type of transaction"""
 
 
 class GetTransactionsRequest(BaseModel):
+    """Request parameters for fetching player transactions."""
+
     month: Annotated[
         int,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),

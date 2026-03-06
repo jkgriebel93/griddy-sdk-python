@@ -55,6 +55,8 @@ GetTeamOffenseStatsByWeekSplit = Literal[
 
 
 class GetTeamOffenseStatsByWeekRequest(BaseModel):
+    """Request parameters for fetching weekly team offense stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

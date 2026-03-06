@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class PassingStats(BaseModel):
+    """Passing statistics for a player."""
+
     attempts: Optional[int] = None
 
     completion_pct: Annotated[

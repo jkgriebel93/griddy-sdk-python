@@ -13,6 +13,8 @@ from ...types import BaseModel
 
 
 class PlayerRushingStats(BaseModel):
+    """Player-level rushing statistics."""
+
     att: int
     r"""Rushing attempts"""
 

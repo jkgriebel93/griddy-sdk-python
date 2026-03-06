@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class WeeklyRosterResponse(BaseModel):
+    """Response containing a weekly roster."""
+
     season: Optional[int] = None
     r"""Season year"""
 

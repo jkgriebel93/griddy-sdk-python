@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class PlayPlayer(BaseModel):
+    """Player involved in a play with statistical contribution."""
+
     first_name: Annotated[str, pydantic.Field(alias="firstName")]
 
     gsis_id: Annotated[str, pydantic.Field(alias="gsisId")]

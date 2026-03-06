@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TeamOffenseStatsResponse(BaseModel):
+    """Response containing team offense stats."""
+
     limit: int
     r"""Maximum number of results returned"""
 

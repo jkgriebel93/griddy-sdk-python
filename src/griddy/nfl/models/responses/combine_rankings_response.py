@@ -9,6 +9,8 @@ from griddy.nfl.types import BaseModel
 
 
 class CombineRankingsResponse(BaseModel):
+    """Response containing NFL Combine rankings."""
+
     combine_profiles: Annotated[
         List[CombineProfile], pydantic.Field(alias="combineProfiles")
     ]

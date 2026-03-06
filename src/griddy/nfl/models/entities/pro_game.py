@@ -21,6 +21,8 @@ r"""Prime time game designation"""
 
 
 class ProGameExtension(BaseModel):
+    """Extended metadata for a Pro API game."""
+
     pass
 
 
@@ -31,6 +33,8 @@ r"""Game status"""
 
 
 class ProGame(BaseModel):
+    """Game data from the NFL Pro API."""
+
     away_team: Annotated[Optional[Team], pydantic.Field(alias="awayTeam")] = None
 
     broadcast_info: Annotated[

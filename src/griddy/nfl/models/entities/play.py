@@ -14,6 +14,8 @@ from .play_participant import PlayParticipant
 
 
 class Play(BaseModel):
+    """Individual play within a game."""
+
     description: Optional[str] = None
 
     distance: Optional[int] = None

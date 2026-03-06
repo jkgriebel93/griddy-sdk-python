@@ -13,6 +13,8 @@ from ...types import BaseModel
 
 
 class HistoricalDefenseStats(BaseModel):
+    """Historical defensive statistics for a player or team."""
+
     assists: Optional[int] = None
 
     all_kick_blocked: Annotated[
@@ -94,6 +96,8 @@ class HistoricalDefenseStats(BaseModel):
 
 
 class HistoricalPassingStats(BaseModel):
+    """Historical passing statistics for a player or team."""
+
     distance_20_plus: Annotated[
         Optional[int], pydantic.Field(alias="distance20Plus")
     ] = None
@@ -181,6 +185,8 @@ class HistoricalPassingStats(BaseModel):
 
 
 class HistoricalRushingStats(BaseModel):
+    """Historical rushing statistics for a player or team."""
+
     distance_20_plus: Annotated[
         Optional[int], pydantic.Field(alias="distance20Plus")
     ] = None
@@ -240,6 +246,8 @@ class HistoricalRushingStats(BaseModel):
 
 
 class HistoricalReceivingStats(BaseModel):
+    """Historical receiving statistics for a player or team."""
+
     average_yards: Annotated[Optional[float], pydantic.Field(alias="averageYards")] = (
         None
     )
@@ -305,6 +313,8 @@ class HistoricalReceivingStats(BaseModel):
 
 
 class HistoricalKickReturnsStats(BaseModel):
+    """Historical kick return statistics."""
+
     attempts: Optional[int] = None
 
     average_yards: Annotated[Optional[float], pydantic.Field(alias="averageYards")] = (
@@ -340,6 +350,8 @@ class HistoricalKickReturnsStats(BaseModel):
 
 
 class HistoricalPuntReturnsStats(BaseModel):
+    """Historical punt return statistics."""
+
     attempts: Optional[int] = None
 
     average_yards: Annotated[Optional[float], pydantic.Field(alias="averageYards")] = (
@@ -379,6 +391,8 @@ class HistoricalPuntReturnsStats(BaseModel):
 
 
 class KickingDetails(BaseModel):
+    """Detailed kicking breakdown by distance range."""
+
     # These are provided for each range
     attempts: Optional[int] = None
     made: Optional[int] = None
@@ -396,6 +410,8 @@ class KickingDetails(BaseModel):
 
 
 class HistoricalKickingStats(BaseModel):
+    """Historical kicking statistics."""
+
     attempts_1_to_19: Annotated[
         Optional[KickingDetails], pydantic.Field(alias="attempts1To19")
     ] = None
@@ -435,6 +451,8 @@ class HistoricalKickingStats(BaseModel):
 
 
 class HistoricalKickoffsStats(BaseModel):
+    """Historical kickoff statistics."""
+
     attempts: Optional[int] = None
 
     average_yards: Annotated[Optional[float], pydantic.Field(alias="averageYards")] = (
@@ -480,6 +498,8 @@ class HistoricalKickoffsStats(BaseModel):
 
 
 class HistoricalPuntingStats(BaseModel):
+    """Historical punting statistics."""
+
     attempts: Optional[int] = None
 
     average_yards: Annotated[Optional[float], pydantic.Field(alias="averageYards")] = (
@@ -527,6 +547,8 @@ class HistoricalPuntingStats(BaseModel):
 
 
 class HistoricalPenaltiesStats(BaseModel):
+    """Historical penalty statistics."""
+
     total: Optional[int] = None
 
     yards: Optional[int] = None
@@ -538,6 +560,8 @@ class HistoricalPenaltiesStats(BaseModel):
 
 
 class HistoricalScoringStats(BaseModel):
+    """Historical scoring statistics."""
+
     average_margin_of_victory: Annotated[
         Optional[float], pydantic.Field(alias="averageMarginOfVictory")
     ] = None
@@ -577,6 +601,8 @@ class HistoricalScoringStats(BaseModel):
 
 
 class HistoricalDownAndDistanceStats(BaseModel):
+    """Historical down-and-distance conversion statistics."""
+
     downs_1st_attempts: Annotated[
         Optional[int], pydantic.Field(alias="downs1stAttempts")
     ] = None
@@ -624,6 +650,8 @@ class HistoricalDownAndDistanceStats(BaseModel):
 
 
 class HistoricalRedzoneStats(BaseModel):
+    """Historical red zone statistics."""
+
     attempts: Optional[int] = None
 
     field_goals: Annotated[Optional[int], pydantic.Field(alias="fieldGoals")] = None
@@ -637,6 +665,8 @@ class HistoricalRedzoneStats(BaseModel):
 
 
 class HistoricalGoalToGoStats(BaseModel):
+    """Historical goal-to-go statistics."""
+
     attempts: Optional[int] = None
 
     good: Optional[int] = None
@@ -648,6 +678,8 @@ class HistoricalGoalToGoStats(BaseModel):
 
 
 class HistoricalTimeOfPossessionStats(BaseModel):
+    """Historical time of possession statistics."""
+
     display: Optional[str] = None
 
     seconds_per_game: Annotated[
@@ -667,6 +699,8 @@ class HistoricalTimeOfPossessionStats(BaseModel):
 
 
 class HistoricalStatCategories(BaseModel):
+    """Container for all historical stat categories."""
+
     defense: Optional[HistoricalDefenseStats] = None
 
     passing: Optional[HistoricalPassingStats] = None

@@ -14,6 +14,8 @@ from .standings_record import StandingsRecord
 
 
 class StandingsTeam(BaseModel):
+    """Team entry within standings."""
+
     current_logo: Annotated[Optional[str], pydantic.Field(alias="currentLogo")] = None
 
     full_name: Annotated[Optional[str], pydantic.Field(alias="fullName")] = None
@@ -22,6 +24,8 @@ class StandingsTeam(BaseModel):
 
 
 class Standings(BaseModel):
+    """Division standings with team records."""
+
     clinched: Optional[Clinched] = None
 
     close_games: Annotated[Optional[Record], pydantic.Field(alias="closeGames")] = None

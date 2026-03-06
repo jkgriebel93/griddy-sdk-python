@@ -10,12 +10,16 @@ from .team_ranking_entry import TeamRankingEntry
 
 
 class MultipleRankingsCategoryPagination(BaseModel):
+    """Pagination details for multiple rankings queries."""
+
     limit: Optional[int] = None
 
     token: OptionalNullable[str] = UNSET
 
 
 class MultipleRankingsCategory(BaseModel):
+    """Category grouping for multiple team or player rankings."""
+
     pagination: Optional[MultipleRankingsCategoryPagination] = None
 
     stat_category: Annotated[Optional[str], pydantic.Field(alias="statCategory")] = None

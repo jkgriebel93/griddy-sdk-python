@@ -13,30 +13,40 @@ from griddy.nfl.types import BaseModel
 
 
 class Away(BaseModel):
+    """Away team player statistics breakdown."""
+
     defense: Optional[List[PlayerGameStats]] = None
 
     offense: Optional[List[PlayerGameStats]] = None
 
 
 class Home(BaseModel):
+    """Home team player statistics breakdown."""
+
     defense: Optional[List[PlayerGameStats]] = None
 
     offense: Optional[List[PlayerGameStats]] = None
 
 
 class PlayerStats(BaseModel):
+    """Player statistics grouped by team."""
+
     away: Optional[Away] = None
 
     home: Optional[Home] = None
 
 
 class TeamStats(BaseModel):
+    """Team statistics grouped by team."""
+
     away: Optional[TeamGameStats] = None
 
     home: Optional[TeamGameStats] = None
 
 
 class BoxScoreResponse2(BaseModel):
+    """Detailed boxscore response with player and team stats."""
+
     game: Optional[ProGame] = None
 
     player_stats: Annotated[

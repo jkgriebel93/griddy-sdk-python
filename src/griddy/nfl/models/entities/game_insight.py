@@ -13,7 +13,7 @@ class Content(BaseModel):
 
 
 class GameInsight(BaseModel):
-    r"""Game-specific analytical insight"""
+    """Pre-game or in-game insight and analysis."""
 
     content: Optional[Content] = None
     r"""Insight content and analysis"""

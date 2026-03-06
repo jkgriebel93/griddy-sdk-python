@@ -6,6 +6,8 @@ from ...types import BaseModel
 
 
 class ExternalID(BaseModel):
+    """External identifier mapping for an NFL entity."""
+
     id: Optional[str] = None
     r"""ID in external system"""
 

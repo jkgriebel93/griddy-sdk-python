@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadat
 
 
 class GetGameDetailsRequest(BaseModel):
+    """Request parameters for fetching game details."""
+
     game_id: Annotated[
         str,
         pydantic.Field(alias="gameId"),

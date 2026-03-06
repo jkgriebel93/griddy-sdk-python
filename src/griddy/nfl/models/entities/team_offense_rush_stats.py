@@ -5,6 +5,8 @@ from ...types import BaseModel
 
 
 class TeamOffenseRushStats(BaseModel):
+    """Team offensive rushing statistics."""
+
     gp: int
     r"""Games played"""
     total: int

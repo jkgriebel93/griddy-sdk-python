@@ -40,6 +40,8 @@ GetFantasyStatsBySeasonPositionGroup = Literal[
 
 
 class GetFantasyStatsBySeasonRequest(BaseModel):
+    """Request parameters for fetching seasonal fantasy stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

@@ -12,6 +12,8 @@ from .team import Team
 
 
 class TeamInjuryReport(BaseModel):
+    """Injury report for a team."""
+
     injuries: Optional[List[InjuryEntry]] = None
 
     last_updated: Annotated[Optional[datetime], pydantic.Field(alias="lastUpdated")] = (

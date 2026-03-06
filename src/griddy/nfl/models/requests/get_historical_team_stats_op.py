@@ -8,6 +8,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata
 
 
 class GetHistoricalTeamStatsRequest(BaseModel):
+    """Request parameters for fetching historical team stats."""
+
     game_id: Annotated[
         str,
         pydantic.Field(alias="gameId"),

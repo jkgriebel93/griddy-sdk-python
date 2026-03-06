@@ -9,6 +9,8 @@ from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 
 class PlayWinProbabilityResponse(BaseModel):
+    """Response containing play win probabilities."""
+
     game_id: Annotated[
         Optional[str],
         pydantic.Field(alias="gameId"),

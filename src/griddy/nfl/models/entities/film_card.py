@@ -34,6 +34,8 @@ class LinkParams(BaseModel):
 
 
 class FilmCard(BaseModel):
+    """Film card entry for coaches film content."""
+
     link_params: Annotated[LinkParams, pydantic.Field(alias="linkParams")]
     r"""Parameters for constructing film room link"""
 

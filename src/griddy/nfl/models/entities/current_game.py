@@ -22,10 +22,14 @@ r"""Prime time game designation"""
 
 
 class CurrentGameExtension(BaseModel):
+    """Extended metadata for a current in-progress game."""
+
     pass
 
 
 class CurrentGame(BaseModel):
+    """Currently active or recently completed NFL game."""
+
     away_team: Annotated[Optional[GameTeam], pydantic.Field(alias="awayTeam")] = None
 
     broadcast_info: Annotated[

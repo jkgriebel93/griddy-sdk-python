@@ -9,6 +9,8 @@ from ...utils import FieldMetadata, SecurityMetadata
 
 
 class Security(BaseModel):
+    """Security credentials for NFL API authentication."""
+
     nfl_auth: Annotated[
         Optional[str],
         FieldMetadata(

@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetCoachesFilmVideosRequest(BaseModel):
+    """Request parameters for fetching coaches film videos."""
+
     game_id: Annotated[
         List[str],
         pydantic.Field(alias="gameId"),

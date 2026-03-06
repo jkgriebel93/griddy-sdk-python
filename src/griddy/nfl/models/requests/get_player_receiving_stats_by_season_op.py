@@ -15,6 +15,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetPlayerReceivingStatsBySeasonRequest(BaseModel):
+    """Request parameters for fetching seasonal player receiving stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

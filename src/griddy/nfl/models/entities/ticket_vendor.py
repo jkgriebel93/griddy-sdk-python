@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class TicketVendor(BaseModel):
+    """Ticket vendor information for a game."""
+
     ticket_url: Annotated[Optional[str], pydantic.Field(alias="ticketUrl")] = None
     r"""Vendor-specific ticket URL"""
 

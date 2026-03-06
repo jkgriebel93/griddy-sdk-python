@@ -15,6 +15,8 @@ from griddy.nfl.types import BaseModel
 
 
 class DefensivePassRushStats(BaseModel):
+    """Next Gen Stats pass rush metrics for a defensive player."""
+
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
     r"""Player's full name"""
 

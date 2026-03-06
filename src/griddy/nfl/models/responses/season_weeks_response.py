@@ -8,6 +8,8 @@ from griddy.nfl.types import BaseModel
 
 
 class SeasonWeeksResponse(BaseModel):
+    """Response containing season week data."""
+
     pagination: Optional[Pagination] = None
 
     season: Optional[str] = None

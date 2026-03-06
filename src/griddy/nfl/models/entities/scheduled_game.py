@@ -15,6 +15,8 @@ from .schedule_team import ScheduleTeam
 
 
 class ScheduledGame(BaseModel):
+    """Scheduled NFL game with matchup and timing details."""
+
     game_date: Annotated[OptionalNullable[date], pydantic.Field(alias="gameDate")] = (
         UNSET
     )

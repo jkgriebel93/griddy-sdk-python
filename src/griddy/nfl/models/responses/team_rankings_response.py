@@ -10,6 +10,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TeamRankingsResponse(BaseModel):
+    """Response containing team rankings."""
+
     away_rankings: Annotated[
         Optional[TeamRankings], pydantic.Field(alias="awayRankings")
     ] = None

@@ -10,6 +10,8 @@ from griddy.nfl.types import UNSET, BaseModel, OptionalNullable
 
 
 class Site(BaseModel):
+    """Venue site details."""
+
     postal_code: Annotated[
         OptionalNullable[str], pydantic.Field(alias="postalCode")
     ] = UNSET

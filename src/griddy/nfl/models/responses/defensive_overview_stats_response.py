@@ -14,6 +14,8 @@ from griddy.nfl.types import BaseModel
 
 
 class DefensiveOverviewStatsResponse(BaseModel):
+    """Response containing defensive overview statistics."""
+
     defenders: List[DefensivePlayerOverviewStats]
 
     limit: int

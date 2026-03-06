@@ -7,6 +7,8 @@ from griddy.nfl.types import BaseModel
 
 
 class HomeFilmCardsResponse(BaseModel):
+    """Response containing home page film cards."""
+
     cards: List[FilmCard]
 
     title: str

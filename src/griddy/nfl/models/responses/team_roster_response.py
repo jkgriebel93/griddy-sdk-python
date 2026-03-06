@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TeamRosterResponse(BaseModel):
+    """Response containing a team roster."""
+
     season: Optional[int] = None
     r"""Season year"""
 

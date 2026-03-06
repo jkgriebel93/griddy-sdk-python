@@ -21,6 +21,8 @@ class PlayParticipantStats(BaseModel):
 
 
 class PlayParticipant(BaseModel):
+    """Player participation record for a single play."""
+
     player: Optional[Player] = None
 
     role: Optional[Role] = None

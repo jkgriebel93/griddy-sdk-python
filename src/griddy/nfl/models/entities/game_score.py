@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class GameScore(BaseModel):
+    """Score details for a game."""
+
     away_score: Annotated[Optional[int], pydantic.Field(alias="awayScore")] = None
     r"""Away team current score"""
 

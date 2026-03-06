@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class RushingStats(BaseModel):
+    """Team or player rushing statistics."""
+
     carries: Optional[int] = None
 
     fumbles: Optional[int] = None

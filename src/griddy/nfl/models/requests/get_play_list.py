@@ -14,6 +14,8 @@ Can be a single game ID or multiple game IDs for batch retrieval.
 
 
 class GetPlayListRequest(BaseModel):
+    """Request parameters for fetching a play list."""
+
     game_id: Annotated[
         GameID,
         pydantic.Field(alias="gameId"),
