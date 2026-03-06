@@ -6,11 +6,10 @@ from typing import Mapping, Optional
 
 from griddy.core._constants import NGS_ERROR_CODES
 from griddy.core.decorators import sdk_endpoints
-from griddy.nfl import models
+from griddy.nfl import models, utils
 from griddy.nfl.basesdk import EndpointConfig
 from griddy.nfl.endpoints.ngs import NgsBaseSDK
 from griddy.nfl.types import UNSET, OptionalNullable
-from griddy.nfl.utils import RetryConfig
 
 
 @sdk_endpoints
@@ -29,27 +28,24 @@ class NgsStats(NgsBaseSDK):
         season: int,
         season_type: str,
         week: Optional[int] = None,
-        retries: OptionalNullable[RetryConfig] = UNSET,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        """Get NGS passing statistics.
+        r"""Get NGS passing statistics.
 
         Returns detailed passing statistics including time to throw,
         air yards, completion probability, and more.
 
         Args:
-            season: The season year (e.g., 2025)
+            season: Season year (e.g., 2025)
             season_type: Season type (REG, PRE, POST)
             week: Optional week filter
-            retries: Override the default retry configuration
-            server_url: Override the default server URL
-            timeout_ms: Override the default timeout
-            http_headers: Additional headers to send
-
-        Returns:
-            Dict containing passing statistics
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -76,27 +72,24 @@ class NgsStats(NgsBaseSDK):
         season: int,
         season_type: str,
         week: Optional[int] = None,
-        retries: OptionalNullable[RetryConfig] = UNSET,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        """Get NGS receiving statistics.
+        r"""Get NGS receiving statistics.
 
         Returns detailed receiving statistics including separation,
         cushion, YAC over expectation, and more.
 
         Args:
-            season: The season year (e.g., 2025)
+            season: Season year (e.g., 2025)
             season_type: Season type (REG, PRE, POST)
             week: Optional week filter
-            retries: Override the default retry configuration
-            server_url: Override the default server URL
-            timeout_ms: Override the default timeout
-            http_headers: Additional headers to send
-
-        Returns:
-            NgsReceivingStatsResponse containing receiving statistics
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -123,27 +116,24 @@ class NgsStats(NgsBaseSDK):
         season: int,
         season_type: str,
         week: Optional[int] = None,
-        retries: OptionalNullable[RetryConfig] = UNSET,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        """Get NGS rushing statistics.
+        r"""Get NGS rushing statistics.
 
         Returns detailed rushing statistics including time to LOS,
         rush yards over expected, efficiency, and more.
 
         Args:
-            season: The season year (e.g., 2025)
+            season: Season year (e.g., 2025)
             season_type: Season type (REG, PRE, POST)
             week: Optional week filter
-            retries: Override the default retry configuration
-            server_url: Override the default server URL
-            timeout_ms: Override the default timeout
-            http_headers: Additional headers to send
-
-        Returns:
-            NgsRushingStatsResponse containing rushing statistics
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

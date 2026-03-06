@@ -23,6 +23,25 @@ jobs:
       - name: Run formatters
         run: uv run isort --check-only --diff "." && uv run black --check --diff .
 
+  codegen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "latest"
+      - name: Install dependencies
+        run: uv sync --group dev
+      - name: Check model inits
+        run: uv run python scripts/generate_model_inits.py --check
+      - name: Check endpoint codegen
+        run: uv run python scripts/generate_endpoints.py --check
+
   linting:
     runs-on: ubuntu-latest
     steps:

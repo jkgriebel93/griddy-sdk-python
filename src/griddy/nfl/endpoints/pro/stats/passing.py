@@ -50,8 +50,6 @@ class PlayerPassingStats(PlayerStatsBase):
             timeout_ms: Override the default request timeout configuration for this method in milliseconds
             http_headers: Additional headers to set or replace on requests.
         """
-        # TODO: It turns out the NFL includes both traditional and
-        # Next Gen Stats on the same object. Pause to think about this for a minute.
         return self._make_stats_config(
             "/api/secured/stats/players-offense/passing/week",
             "getPlayerPassingStatsByWeek",

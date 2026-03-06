@@ -1,0 +1,162 @@
+# Endpoint spec: NGS Stats
+#
+# Next Gen Stats endpoints for player tracking statistics.
+
+endpoint:
+  module_path: griddy.nfl.endpoints.ngs.stats
+  file_path: src/griddy/nfl/endpoints/ngs/stats.py
+  class_name: NgsStats
+  base_class: NgsBaseSDK
+  base_import: griddy.nfl.endpoints.ngs
+  decorator: sdk_endpoints
+  module_docstring: NGS Stats endpoints for player statistics.
+  class_docstring: |
+    NGS Stats endpoints for player statistics.
+
+    Provides access to:
+    - Passing statistics (time to throw, air yards, completion probability, etc.)
+    - Receiving statistics (separation, cushion, YAC, etc.)
+    - Rushing statistics (time to LOS, rush yards over expected, etc.)
+
+methods:
+  - name: passing_stats
+    path: /api/statboard/passing
+    operation_id: getNgsPassingStats
+    method: GET
+    error_codes: NGS_ERROR_CODES
+    request_model: GetNgsPassingStatsRequest
+    response_model: NgsPassingStatsResponse
+    docstring: |
+      Get NGS passing statistics.
+
+      Returns detailed passing statistics including time to throw,
+      air yards, completion probability, and more.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year (e.g., 2025)
+      - name: season_type
+        type: str
+        required: true
+        doc: Season type (REG, PRE, POST)
+      - name: week
+        type: int
+        required: false
+        default: null
+        doc: Optional week filter
+
+  - name: receiving_stats
+    path: /api/statboard/receiving
+    operation_id: getNgsReceivingStats
+    method: GET
+    error_codes: NGS_ERROR_CODES
+    request_model: GetNgsReceivingStatsRequest
+    response_model: NgsReceivingStatsResponse
+    docstring: |
+      Get NGS receiving statistics.
+
+      Returns detailed receiving statistics including separation,
+      cushion, YAC over expectation, and more.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year (e.g., 2025)
+      - name: season_type
+        type: str
+        required: true
+        doc: Season type (REG, PRE, POST)
+      - name: week
+        type: int
+        required: false
+        default: null
+        doc: Optional week filter
+
+  - name: rushing_stats
+    path: /api/statboard/rushing
+    operation_id: getNgsRushingStats
+    method: GET
+    error_codes: NGS_ERROR_CODES
+    request_model: GetNgsRushingStatsRequest
+    response_model: NgsRushingStatsResponse
+    docstring: |
+      Get NGS rushing statistics.
+
+      Returns detailed rushing statistics including time to LOS,
+      rush yards over expected, efficiency, and more.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year (e.g., 2025)
+      - name: season_type
+        type: str
+        required: true
+        doc: Season type (REG, PRE, POST)
+      - name: week
+        type: int
+        required: false
+        default: null
+        doc: Optional week filter
+
+request_models:
+  - class_name: GetNgsPassingStatsRequest
+    file_path: src/griddy/nfl/models/requests/get_ngs_passing_stats_op.py
+    module_docstring: Request model for NGS passing stats endpoint.
+    class_docstring: Request model for getting NGS passing stats.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year (e.g., 2025)
+      - name: season_type
+        type: str
+        alias: seasonType
+        required: true
+        doc: Season type (REG, PRE, POST)
+      - name: week
+        type: int
+        required: false
+        default: null
+        doc: Optional week filter
+
+  - class_name: GetNgsReceivingStatsRequest
+    file_path: src/griddy/nfl/models/requests/get_ngs_receiving_stats_op.py
+    module_docstring: Request model for NGS receiving stats endpoint.
+    class_docstring: Request model for getting NGS receiving stats.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year (e.g., 2025)
+      - name: season_type
+        type: str
+        alias: seasonType
+        required: true
+        doc: Season type (REG, PRE, POST)
+      - name: week
+        type: int
+        required: false
+        default: null
+        doc: Optional week filter
+
+  - class_name: GetNgsRushingStatsRequest
+    file_path: src/griddy/nfl/models/requests/get_ngs_rushing_stats_op.py
+    module_docstring: Request model for NGS rushing stats endpoint.
+    class_docstring: Request model for getting NGS rushing stats.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year (e.g., 2025)
+      - name: season_type
+        type: str
+        alias: seasonType
+        required: true
+        doc: Season type (REG, PRE, POST)
+      - name: week
+        type: int
+        required: false
+        default: null
+        doc: Optional week filter

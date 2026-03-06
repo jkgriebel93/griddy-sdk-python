@@ -1,0 +1,258 @@
+# Endpoint spec: Pro Stats - Player Passing
+#
+# This YAML spec defines the endpoint class, its methods, and request models
+# for the Player Passing Stats sub-SDK. The codegen pipeline reads these specs
+# to generate request model files and endpoint implementation files.
+
+endpoint:
+  module_path: griddy.nfl.endpoints.pro.stats.passing
+  file_path: src/griddy/nfl/endpoints/pro/stats/passing.py
+  class_name: PlayerPassingStats
+  base_class: PlayerStatsBase
+  base_import: griddy.nfl.endpoints.pro.stats.base
+  decorator: sdk_endpoints
+
+methods:
+  - name: weekly_summary
+    path: /api/secured/stats/players-offense/passing/week
+    operation_id: getPlayerPassingStatsByWeek
+    method: GET
+    config_builder: _make_stats_config
+    request_model: GetPlayerPassingStatsByWeekRequest
+    response_model: WeeklyPassingStatsResponse
+    docstring: |
+      Get Player Passing Statistics by Week
+
+      Retrieves comprehensive passing statistics for NFL players during a specified week and season.
+      Returns detailed metrics including traditional stats, advanced analytics, and Next Gen Stats
+      data. Supports filtering by teams, qualified passers, and various sorting options.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year
+      - name: season_type
+        type: SeasonTypeEnum
+        alias: seasonType
+        required: true
+        doc: Type of season
+      - name: week
+        type: WeekSlugEnum
+        required: true
+        doc: Week identifier
+      - name: limit
+        type: int
+        required: false
+        default: 50
+        doc: Maximum number of players to return
+      - name: offset
+        type: int
+        required: false
+        default: 0
+        doc: Number of records to skip for pagination
+      - name: page
+        type: int
+        required: false
+        default: 1
+        doc: Page number for pagination
+      - name: sort_key
+        type: PassingStatsCategoryEnum
+        alias: sortKey
+        required: false
+        default: null
+        doc: Field to sort by
+      - name: sort_value
+        type: SortOrderEnum
+        alias: sortValue
+        required: false
+        default: null
+        doc: Sort direction
+      - name: qualified_passer
+        type: bool
+        alias: qualifiedPasser
+        required: false
+        default: false
+        doc: Filter to only qualified passers (minimum attempts threshold)
+      - name: team_offense
+        type: List[str]
+        alias: teamOffense
+        required: false
+        default: null
+        doc: Filter by specific team IDs (supports multiple teams)
+
+  - name: season_summary
+    path: /api/secured/stats/players-offense/passing/season
+    operation_id: getPlayerPassingStatsBySeason
+    method: GET
+    config_builder: _make_stats_config
+    request_model: GetPlayerPassingStatsBySeasonRequest
+    response_model: PassingStatsResponse
+    docstring: |
+      Get Player Passing Statistics by Season
+
+      Retrieves comprehensive passing statistics for NFL players during a specified season.
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year
+      - name: season_type
+        type: SeasonTypeEnum
+        alias: seasonType
+        required: true
+        doc: Type of season
+      - name: limit
+        type: int
+        required: false
+        default: 35
+        doc: Maximum number of players to return
+      - name: offset
+        type: int
+        required: false
+        default: 0
+        doc: Number of records to skip for pagination
+      - name: page
+        type: int
+        required: false
+        default: 1
+        doc: Page number for pagination
+      - name: sort_key
+        type: PassingStatsCategoryEnum
+        alias: sortKey
+        required: false
+        default: null
+        doc: Field to sort by
+      - name: sort_value
+        type: SortOrderEnum
+        alias: sortValue
+        required: false
+        default: null
+        doc: Sort direction
+      - name: qualified_passer
+        type: bool
+        alias: qualifiedPasser
+        required: false
+        default: true
+        doc: Filter to only qualified passers (minimum attempts threshold)
+      - name: team_offense
+        type: List[str]
+        alias: teamOffense
+        required: false
+        default: null
+        doc: Filter by specific team IDs (supports multiple teams)
+
+request_models:
+  - class_name: GetPlayerPassingStatsByWeekRequest
+    file_path: src/griddy/nfl/models/requests/get_player_passing_stats_by_week_op.py
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year
+      - name: season_type
+        type: SeasonTypeEnum
+        alias: seasonType
+        required: true
+        doc: Type of season
+        enum_import: griddy.nfl.models.enums.season_type_enum.SeasonTypeEnum
+      - name: week
+        type: WeekSlugEnum
+        required: true
+        doc: Week identifier
+        enum_import: griddy.nfl.models.enums.week_slug_enum.WeekSlugEnum
+      - name: limit
+        type: int
+        required: false
+        default: 50
+        doc: Maximum number of players to return
+      - name: offset
+        type: int
+        required: false
+        default: 0
+        doc: Number of records to skip for pagination
+      - name: page
+        type: int
+        required: false
+        default: 1
+        doc: Page number for pagination
+      - name: sort_key
+        type: PassingStatsCategoryEnum
+        alias: sortKey
+        required: false
+        default: null
+        doc: Field to sort by
+        enum_import: griddy.nfl.models.enums.passing_stats_category_enum.PassingStatsCategoryEnum
+      - name: sort_value
+        type: SortOrderEnum
+        alias: sortValue
+        required: false
+        default: null
+        doc: Sort direction
+        enum_import: griddy.nfl.models.enums.sort_order_enum.SortOrderEnum
+      - name: qualified_passer
+        type: bool
+        alias: qualifiedPasser
+        required: false
+        default: false
+        doc: Filter to only qualified passers (minimum attempts threshold)
+      - name: team_offense
+        type: List[str]
+        alias: teamOffense
+        required: false
+        default: null
+        doc: Filter by specific team IDs (supports multiple teams)
+
+  - class_name: GetPlayerPassingStatsBySeasonRequest
+    file_path: src/griddy/nfl/models/requests/get_player_passing_stats_by_season_op.py
+    params:
+      - name: season
+        type: int
+        required: true
+        doc: Season year
+      - name: season_type
+        type: SeasonTypeEnum
+        alias: seasonType
+        required: true
+        doc: Type of season
+        enum_import: griddy.nfl.models.enums.season_type_enum.SeasonTypeEnum
+      - name: limit
+        type: int
+        required: false
+        default: 35
+        doc: Maximum number of players to return
+      - name: offset
+        type: int
+        required: false
+        default: 0
+        doc: Number of records to skip for pagination
+      - name: page
+        type: int
+        required: false
+        default: 1
+        doc: Page number for pagination
+      - name: sort_key
+        type: PassingStatsCategoryEnum
+        alias: sortKey
+        required: false
+        default: null
+        doc: Field to sort by
+        enum_import: griddy.nfl.models.enums.passing_stats_category_enum.PassingStatsCategoryEnum
+      - name: sort_value
+        type: SortOrderEnum
+        alias: sortValue
+        required: false
+        default: null
+        doc: Sort direction
+        enum_import: griddy.nfl.models.enums.sort_order_enum.SortOrderEnum
+      - name: qualified_passer
+        type: bool
+        alias: qualifiedPasser
+        required: false
+        default: true
+        doc: Filter to only qualified passers (minimum attempts threshold)
+      - name: team_offense
+        type: List[str]
+        alias: teamOffense
+        required: false
+        default: null
+        doc: Filter by specific team IDs (supports multiple teams)
