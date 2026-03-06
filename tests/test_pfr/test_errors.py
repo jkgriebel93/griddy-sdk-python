@@ -144,6 +144,12 @@ class TestResponseValidationError:
         err = ResponseValidationError("msg", response, ValueError("x"))
         assert err.cause is None
 
+    def test_cause_property_has_return_type_annotation(self):
+        import types
+
+        hints = types.get_type_hints(ResponseValidationError.cause.fget)
+        assert hints["return"] == BaseException | None
+
 
 @pytest.mark.unit
 class TestErrorModuleLazyLoading:
@@ -173,6 +179,13 @@ class TestErrorModuleLazyLoading:
         assert "GriddyPFRDefaultError" in d
         assert "NoResponseError" in d
         assert "ResponseValidationError" in d
+
+    def test_dir_returns_list_of_strings(self):
+        from griddy.pfr import errors
+
+        result = dir(errors)
+        assert isinstance(result, list)
+        assert all(isinstance(name, str) for name in result)
 
 
 @pytest.mark.unit

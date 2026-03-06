@@ -17,10 +17,11 @@ class ResponseValidationError(GriddyPFRError):
         cause: Exception,
         body: Optional[str] = None,
     ):
+        """Initialize with a message, raw HTTP response, causal exception, and optional body text."""
         message = f"{message}: {cause}"
         super().__init__(message, raw_response, body)
 
     @property
-    def cause(self):
+    def cause(self) -> BaseException | None:
         """Normally the Pydantic ValidationError"""
         return self.__cause__
