@@ -1,11 +1,9 @@
-"""Tests for griddy.core.utils."""
+"""Tests for griddy.core.utils.cookies."""
 
 import time
-from datetime import timezone
 
 import pytest
 
-from griddy.core.utils.converters import clean_text, safe_float, safe_int
 from griddy.core.utils.cookies import (
     Cookie,
     cookies_to_dict,
@@ -13,143 +11,6 @@ from griddy.core.utils.cookies import (
     extract_cookies_for_url,
     parse_cookies_txt,
 )
-from griddy.core.utils.datetimes import parse_date
-from griddy.core.utils.url import build_url
-
-
-@pytest.mark.unit
-class TestParseDate:
-    def test_iso_format(self):
-        result = parse_date("2024-01-15T12:00:00")
-        assert result is not None
-        assert result.year == 2024
-        assert result.month == 1
-        assert result.tzinfo == timezone.utc
-
-    def test_iso_format_with_z(self):
-        result = parse_date("2024-01-15T12:00:00Z")
-        assert result is not None
-        assert result.year == 2024
-
-    def test_iso_with_microseconds(self):
-        result = parse_date("2024-01-15T12:00:00.123456")
-        assert result is not None
-
-    def test_iso_with_microseconds_z(self):
-        result = parse_date("2024-01-15T12:00:00.123456Z")
-        assert result is not None
-
-    def test_date_time_space(self):
-        result = parse_date("2024-01-15 12:00:00")
-        assert result is not None
-
-    def test_date_only(self):
-        result = parse_date("2024-01-15")
-        assert result is not None
-        assert result.day == 15
-
-    def test_us_date_format(self):
-        result = parse_date("01/15/2024")
-        assert result is not None
-        assert result.month == 1
-
-    def test_us_date_time_format(self):
-        result = parse_date("01/15/2024 12:00:00")
-        assert result is not None
-
-    def test_invalid_string(self):
-        result = parse_date("not-a-date")
-        assert result is None
-
-    def test_none(self):
-        result = parse_date(None)
-        assert result is None
-
-    def test_empty(self):
-        result = parse_date("")
-        assert result is None
-
-
-@pytest.mark.unit
-class TestCleanText:
-    def test_normal_text(self):
-        assert clean_text("  hello  ") == "hello"
-
-    def test_whitespace_only(self):
-        assert clean_text("   ") is None
-
-    def test_none(self):
-        assert clean_text(None) is None
-
-    def test_empty(self):
-        assert clean_text("") is None
-
-    def test_text_with_tabs(self):
-        assert clean_text("\thello\n") == "hello"
-
-
-@pytest.mark.unit
-class TestSafeInt:
-    def test_valid_int(self):
-        assert safe_int(42) == 42
-
-    def test_valid_string(self):
-        assert safe_int("42") == 42
-
-    def test_invalid_string(self):
-        assert safe_int("not_a_number") is None
-
-    def test_none(self):
-        assert safe_int(None) is None
-
-    def test_float(self):
-        assert safe_int(3.14) == 3
-
-
-@pytest.mark.unit
-class TestSafeFloat:
-    def test_valid_float(self):
-        assert safe_float(3.14) == 3.14
-
-    def test_valid_string(self):
-        assert safe_float("3.14") == 3.14
-
-    def test_invalid_string(self):
-        assert safe_float("not_a_number") is None
-
-    def test_none(self):
-        assert safe_float(None) is None
-
-
-@pytest.mark.unit
-class TestBuildUrl:
-    def test_basic(self):
-        result = build_url("https://api.nfl.com", "games")
-        assert result == "https://api.nfl.com/games"
-
-    def test_with_params(self):
-        result = build_url("https://api.nfl.com", "games", {"season": 2024})
-        assert "season=2024" in result
-        assert result.startswith("https://api.nfl.com/games?")
-
-    def test_trailing_slash(self):
-        result = build_url("https://api.nfl.com/", "/games")
-        assert result == "https://api.nfl.com/games"
-
-    def test_params_with_none_filtered(self):
-        result = build_url(
-            "https://api.nfl.com", "games", {"season": 2024, "week": None}
-        )
-        assert "season=2024" in result
-        assert "week" not in result
-
-    def test_empty_path(self):
-        result = build_url("https://api.nfl.com", "")
-        assert result == "https://api.nfl.com"
-
-    def test_no_params(self):
-        result = build_url("https://api.nfl.com", "games")
-        assert "?" not in result
 
 
 @pytest.mark.unit

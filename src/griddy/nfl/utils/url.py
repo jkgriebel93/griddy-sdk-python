@@ -13,10 +13,7 @@ from typing import (
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 
-from .metadata import (
-    PathParamMetadata,
-    find_field_metadata,
-)
+from .metadata import PathParamMetadata, find_field_metadata
 from .values import (
     _get_serialized_params,
     _is_set,

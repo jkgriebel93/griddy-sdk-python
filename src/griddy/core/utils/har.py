@@ -23,7 +23,8 @@ html_template = """
 """
 
 
-def extract_minified_har_entry(har_entry: Dict):
+def extract_minified_har_entry(har_entry: Dict) -> Dict:
+    """Extract a minimal request/response pair from a HAR entry."""
     response_json = json.loads(har_entry["response"]["content"]["text"])
     request_info = {
         key: value
@@ -41,7 +42,10 @@ def extract_minified_har_entry(har_entry: Dict):
 
 
 class HarEntryPathManager:
+    """Aggregates HAR entries for a single API path, collecting headers and query params."""
+
     def __init__(self, path: str, filename_prefix: str):
+        """Initialize with an API path and filename prefix."""
         self.path = path
         self.headers = {}
         self.query_params = defaultdict(set)
@@ -54,7 +58,8 @@ class HarEntryPathManager:
         self.filename_prefix = filename_prefix
 
     @property
-    def filename(self):
+    def filename(self) -> str:
+        """Generate a filename from the API path."""
         sub_name = ""
         for node in self.path.split("/"):
             if node == "api":
@@ -65,6 +70,7 @@ class HarEntryPathManager:
         return name.replace("-", "").replace("__", "_")
 
     def as_dict(self, exclude: List[str]) -> Dict:
+        """Return a dict representation, excluding specified attributes."""
         obj_dict = {}
 
         for attr in ["path", "headers", "query_params", "response_example"]:
@@ -80,7 +86,8 @@ class HarEntryPathManager:
 
         return obj_dict
 
-    def add_entry(self, entry: Dict):
+    def add_entry(self, entry: Dict) -> None:
+        """Merge a HAR entry's headers, query params, and response into this manager."""
         if entry["request"]["path"] != self.path:
             raise ValueError(
                 f"Entry path {entry['request']['path']} "
@@ -102,6 +109,7 @@ class HarEntryPathManager:
 
 
 def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathManager]:
+    """Group minified HAR entries by API path into HarEntryPathManager instances."""
     consolidated = {}
 
     for entry in entries:
@@ -118,14 +126,16 @@ def consolidate_minified_entries(entries: List[Dict]) -> Dict[str, HarEntryPathM
 
 def write_consolidated_to_files(
     consolidated: Dict[str, HarEntryPathManager], exclude: List[str]
-):
+) -> None:
+    """Write each consolidated path manager to a JSON file."""
     for path, entries in consolidated.items():
         with open(entries.filename, "w") as outfile:
             jsonified = entries.as_dict(exclude=exclude)
             json.dump(jsonified, outfile, indent=4)
 
 
-def minify_har(har_file: str):
+def minify_har(har_file: str) -> List[Dict]:
+    """Read a HAR file and return a list of minified request/response entries."""
     with open(har_file, mode="r", encoding="utf-8-sig") as infile:
         har_entries = json.load(infile)["log"]["entries"]
 

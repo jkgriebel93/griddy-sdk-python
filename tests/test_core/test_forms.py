@@ -5,10 +5,7 @@ from typing import Annotated
 import pytest
 from pydantic import BaseModel, Field
 
-from griddy.core.utils.forms import (
-    _populate_form,
-    serialize_form_data,
-)
+from griddy.core.utils.forms import _populate_form, serialize_form_data
 from griddy.core.utils.metadata import FieldMetadata, FormMetadata
 
 

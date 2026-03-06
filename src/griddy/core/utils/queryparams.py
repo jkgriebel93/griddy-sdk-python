@@ -1,19 +1,10 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    get_type_hints,
-)
+from typing import Any, Dict, List, Optional, get_type_hints
 
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 
 from .forms import _populate_form
-from .metadata import (
-    QueryParamMetadata,
-    find_field_metadata,
-)
+from .metadata import QueryParamMetadata, find_field_metadata
 from .values import (
     _get_serialized_params,
     _is_set,
@@ -26,6 +17,7 @@ def get_query_params(
     query_params: Any,
     gbls: Optional[Any] = None,
 ) -> Dict[str, List[str]]:
+    """Extract query parameters from request params and globals."""
     params: Dict[str, List[str]] = {}
 
     globals_already_populated = _populate_query_params(query_params, gbls, params, [])
@@ -41,6 +33,7 @@ def _populate_query_params(
     query_param_values: Dict[str, List[str]],
     skip_fields: List[str],
 ) -> List[str]:
+    """Populate query parameter values from a Pydantic model's annotated fields."""
     globals_already_populated: List[str] = []
 
     if not isinstance(query_params, BaseModel):
@@ -101,7 +94,8 @@ def _populate_deep_object_query_params(
     field_name: str,
     obj: Any,
     params: Dict[str, List[str]],
-):
+) -> None:
+    """Populate deep-object style query params (e.g. filter[name]=value)."""
     if not _is_set(obj):
         return
 
@@ -115,7 +109,8 @@ def _populate_deep_object_query_params_basemodel(
     prior_params_key: str,
     obj: Any,
     params: Dict[str, List[str]],
-):
+) -> None:
+    """Recursively populate deep-object params from a Pydantic model."""
     if not _is_set(obj) or not isinstance(obj, BaseModel):
         return
 
@@ -149,7 +144,8 @@ def _populate_deep_object_query_params_dict(
     prior_params_key: str,
     value: Dict,
     params: Dict[str, List[str]],
-):
+) -> None:
+    """Recursively populate deep-object params from a dict."""
     if not _is_set(value):
         return
 
@@ -173,7 +169,8 @@ def _populate_deep_object_query_params_list(
     params_key: str,
     value: List,
     params: Dict[str, List[str]],
-):
+) -> None:
+    """Populate deep-object params from a list of values."""
     if not _is_set(value):
         return
 
@@ -193,7 +190,8 @@ def _populate_delimited_query_params(
     obj: Any,
     delimiter: str,
     query_param_values: Dict[str, List[str]],
-):
+) -> None:
+    """Populate delimited-style query params (comma or pipe separated)."""
     _populate_form(
         field_name,
         metadata.explode,

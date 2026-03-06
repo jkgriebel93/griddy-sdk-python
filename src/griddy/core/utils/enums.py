@@ -3,6 +3,8 @@ import sys
 
 
 class OpenEnumMeta(enum.EnumMeta):
+    """Enum metaclass that returns the raw value instead of raising ValueError for unknown members."""
+
     # The __call__ method `boundary` kwarg was added in 3.11 and must be present
     # for pyright. Refer also: https://github.com/pylint-dev/pylint/issues/9622
     # pylint: disable=unexpected-keyword-arg

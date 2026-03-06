@@ -5,9 +5,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.futures_market import (
-    FuturesMarket,
-)
+from griddy.nfl.models.entities.futures_market import FuturesMarket
 from griddy.nfl.types import BaseModel
 
 

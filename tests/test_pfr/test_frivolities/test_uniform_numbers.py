@@ -7,11 +7,7 @@ from griddy.pfr.models import UniformNumberPlayer, UniformNumbers
 from griddy.pfr.parsers.uniform_numbers import UniformNumbersParser
 from griddy.pfr.sdk import GriddyPFR
 
-from .conftest import (
-    FIXTURE_DIR,
-    assert_endpoint_via_mock,
-    assert_smoke,
-)
+from .conftest import FIXTURE_DIR, assert_endpoint_via_mock, assert_smoke
 from .conftest import uniform_numbers_parser as _parser
 
 # -------------------------------------------------------------------------

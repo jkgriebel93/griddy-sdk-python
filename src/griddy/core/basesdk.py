@@ -92,6 +92,8 @@ class EndpointConfig(BaseEndpointConfig):
 
 
 class BaseSDK(Generic[T_Config]):
+    """Base class for all SDK endpoint classes, providing HTTP request building, hook lifecycle, and retry logic."""
+
     sdk_configuration: T_Config
     parent_ref: Optional[object] = None
 
@@ -99,18 +101,21 @@ class BaseSDK(Generic[T_Config]):
     # Using properties allows lazy loading of error modules.
     @property
     def _default_error_cls(self) -> Type[Exception]:
+        """Return the default error class for failed API responses."""
         from griddy.core.errors import DefaultSDKError
 
         return DefaultSDKError
 
     @property
     def _no_response_error_cls(self) -> Type[Exception]:
+        """Return the error class for missing server responses."""
         from griddy.core.errors import NoResponseError
 
         return NoResponseError
 
     @property
     def _security_model_cls(self) -> Any:
+        """Return the Pydantic security model class, or None."""
         return None
 
     @property
@@ -123,11 +128,15 @@ class BaseSDK(Generic[T_Config]):
         sdk_config: T_Config,
         parent_ref: Optional[object] = None,
     ) -> None:
+        """Initialize the SDK with configuration and an optional parent reference."""
         self.sdk_configuration = sdk_config
         self.parent_ref = parent_ref
         self._cached_env_security = _UNRESOLVED
 
-    def _get_url(self, base_url, url_variables):
+    def _get_url(
+        self, base_url: Optional[str], url_variables: Optional[Dict[str, str]]
+    ) -> str:
+        """Resolve the full base URL from config, applying template variables."""
         sdk_url, sdk_variables = self.sdk_configuration.get_server_details()
 
         if base_url is None:
@@ -143,11 +152,13 @@ class BaseSDK(Generic[T_Config]):
         server_url: Optional[str] = None,
         url_variables: Optional[Dict[str, str]] = None,
     ) -> str:
+        """Return the server URL override if set, otherwise resolve from config."""
         if server_url is not None:
             return server_url
         return self._get_url(None, url_variables)
 
     def _resolve_timeout(self, timeout_ms: Optional[int] = None) -> Optional[int]:
+        """Return the explicit timeout or fall back to the configured default."""
         if timeout_ms is None:
             return self.sdk_configuration.timeout_ms
         return timeout_ms
@@ -157,6 +168,7 @@ class BaseSDK(Generic[T_Config]):
         retries: OptionalNullable[RetryConfig],
         retry_status_codes: Optional[List[str]] = None,
     ) -> Optional[Tuple[RetryConfig, List[str]]]:
+        """Resolve retry configuration from explicit value or SDK config default."""
         if retry_status_codes is None:
             retry_status_codes = list(DEFAULT_RETRY_STATUS_CODES)
 
@@ -200,6 +212,7 @@ class BaseSDK(Generic[T_Config]):
         operation_id: str,
         base_url: str,
     ) -> HookContext:
+        """Create a HookContext for the given operation and base URL."""
         return HookContext(
             config=self.sdk_configuration,
             base_url=base_url or "",
@@ -214,6 +227,7 @@ class BaseSDK(Generic[T_Config]):
         error_status_codes: List[str],
         stream_to_text: Callable[[httpx.Response], str],
     ) -> None:
+        """Raise the appropriate SDK error for a non-success JSON response."""
         client_errors = [
             code for code in error_status_codes if code.startswith(CLIENT_ERROR_PREFIX)
         ]
@@ -281,6 +295,7 @@ class BaseSDK(Generic[T_Config]):
         )
 
     def _execute_endpoint(self, config: EndpointConfig) -> T:
+        """Execute a sync API request using the given endpoint configuration."""
         base_url = self._resolve_base_url(config.server_url)
         timeout_ms = self._resolve_timeout(config.timeout_ms)
 
@@ -318,6 +333,7 @@ class BaseSDK(Generic[T_Config]):
         )
 
     async def _execute_endpoint_async(self, config: EndpointConfig) -> T:
+        """Execute an async API request using the given endpoint configuration."""
         base_url = self._resolve_base_url(config.server_url)
         timeout_ms = self._resolve_timeout(config.timeout_ms)
 
@@ -357,18 +373,18 @@ class BaseSDK(Generic[T_Config]):
 
     def _build_request_async(
         self,
-        method,
-        path,
-        base_url,
-        url_variables,
-        request,
-        request_body_required,
-        request_has_path_params,
-        request_has_query_params,
-        user_agent_header,
-        accept_header_value,
-        _globals=None,
-        security=None,
+        method: str,
+        path: str,
+        base_url: Optional[str],
+        url_variables: Optional[Dict[str, str]],
+        request: Any,
+        request_body_required: bool,
+        request_has_path_params: bool,
+        request_has_query_params: bool,
+        user_agent_header: str,
+        accept_header_value: str,
+        _globals: Optional[Any] = None,
+        security: Any = None,
         timeout_ms: Optional[int] = None,
         get_serialized_body: Optional[
             Callable[[], Optional[SerializedRequestBody]]
@@ -376,6 +392,7 @@ class BaseSDK(Generic[T_Config]):
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> httpx.Request:
+        """Build an httpx.Request using the async client."""
         client = self.sdk_configuration.async_client
         return self._build_request_with_client(
             client,
@@ -399,18 +416,18 @@ class BaseSDK(Generic[T_Config]):
 
     def _build_request(
         self,
-        method,
-        path,
-        base_url,
-        url_variables,
-        request,
-        request_body_required,
-        request_has_path_params,
-        request_has_query_params,
-        user_agent_header,
-        accept_header_value,
-        _globals=None,
-        security=None,
+        method: str,
+        path: str,
+        base_url: Optional[str],
+        url_variables: Optional[Dict[str, str]],
+        request: Any,
+        request_body_required: bool,
+        request_has_path_params: bool,
+        request_has_query_params: bool,
+        user_agent_header: str,
+        accept_header_value: str,
+        _globals: Optional[Any] = None,
+        security: Any = None,
         timeout_ms: Optional[int] = None,
         get_serialized_body: Optional[
             Callable[[], Optional[SerializedRequestBody]]
@@ -418,6 +435,7 @@ class BaseSDK(Generic[T_Config]):
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> httpx.Request:
+        """Build an httpx.Request using the sync client."""
         client = self.sdk_configuration.client
         return self._build_request_with_client(
             client,
@@ -441,19 +459,19 @@ class BaseSDK(Generic[T_Config]):
 
     def _build_request_with_client(
         self,
-        client,
-        method,
-        path,
-        base_url,
-        url_variables,
-        request,
-        request_body_required,
-        request_has_path_params,
-        request_has_query_params,
-        user_agent_header,
-        accept_header_value,
-        _globals=None,
-        security=None,
+        client: Any,
+        method: str,
+        path: str,
+        base_url: Optional[str],
+        url_variables: Optional[Dict[str, str]],
+        request: Any,
+        request_body_required: bool,
+        request_has_path_params: bool,
+        request_has_query_params: bool,
+        user_agent_header: str,
+        accept_header_value: str,
+        _globals: Optional[Any] = None,
+        security: Any = None,
         timeout_ms: Optional[int] = None,
         get_serialized_body: Optional[
             Callable[[], Optional[SerializedRequestBody]]
@@ -572,10 +590,10 @@ class BaseSDK(Generic[T_Config]):
 
     def do_request(
         self,
-        hook_ctx,
-        request,
-        error_status_codes,
-        stream=False,
+        hook_ctx: HookContext,
+        request: httpx.Request,
+        error_status_codes: List[str],
+        stream: bool = False,
         retry_config: Optional[Tuple[RetryConfig, List[str]]] = None,
     ) -> httpx.Response:
         """Send an HTTP request through the hook lifecycle with optional retries.
@@ -679,10 +697,10 @@ class BaseSDK(Generic[T_Config]):
 
     async def do_request_async(
         self,
-        hook_ctx,
-        request,
-        error_status_codes,
-        stream=False,
+        hook_ctx: HookContext,
+        request: httpx.Request,
+        error_status_codes: List[str],
+        stream: bool = False,
         retry_config: Optional[Tuple[RetryConfig, List[str]]] = None,
     ) -> httpx.Response:
         """Async variant of :meth:`do_request`.

@@ -6,22 +6,31 @@ import httpx
 
 
 class Logger(Protocol):
+    """Protocol for SDK debug loggers."""
+
     def debug(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        """Log a debug-level message."""
         pass
 
     def warning(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        """Log a warning-level message."""
         pass
 
 
 class NoOpLogger:
+    """Logger implementation that discards all messages."""
+
     def debug(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        """Discard the debug message."""
         pass
 
     def warning(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        """Discard the warning message."""
         pass
 
 
 def get_body_content(req: httpx.Request) -> str:
+    """Return the request body content as a string, or a placeholder for streaming."""
     return "<streaming body>" if not hasattr(req, "_content") else str(req.content)
 
 

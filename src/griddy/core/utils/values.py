@@ -16,6 +16,7 @@ from .serializers import marshal_json
 
 
 def match_content_type(content_type: str, pattern: str) -> bool:
+    """Check if a content type matches a pattern (exact, wildcard, or partial)."""
     if pattern in (content_type, "*", "*/*"):
         return True
 
@@ -35,6 +36,7 @@ def match_content_type(content_type: str, pattern: str) -> bool:
 
 
 def match_status_codes(status_codes: List[str], status_code: int) -> bool:
+    """Check if a status code matches any of the given patterns (exact or wildcard like 4XX)."""
     if "default" in status_codes:
         return True
 
@@ -50,13 +52,15 @@ def match_status_codes(status_codes: List[str], status_code: int) -> bool:
 T = TypeVar("T")
 
 
-def cast_partial(typ):
+def cast_partial(typ: Any) -> Callable:
+    """Return a partial of typing.cast for the given type."""
     return partial(cast, typ)
 
 
 def get_global_from_env(
     value: Optional[T], env_key: str, type_cast: Callable[[str], T]
 ) -> Optional[T]:
+    """Return value if set, otherwise read from environment and cast."""
     if value is not None:
         return value
     env_value = os.getenv(env_key)
@@ -71,6 +75,7 @@ def get_global_from_env(
 def match_response(
     response: Response, code: Union[str, List[str]], content_type: str
 ) -> bool:
+    """Check if an HTTP response matches the given status codes and content type."""
     codes = code if isinstance(code, list) else [code]
     return match_status_codes(codes, response.status_code) and match_content_type(
         response.headers.get("content-type", "application/octet-stream"), content_type
@@ -80,6 +85,7 @@ def match_response(
 def _populate_from_globals(
     param_name: str, value: Any, param_metadata_type: type, gbls: Any
 ) -> Tuple[Any, bool]:
+    """Look up a param value from globals, returning the value and whether it was found."""
     if gbls is None:
         return value, False
 
@@ -109,7 +115,8 @@ def _populate_from_globals(
     return value, found
 
 
-def _val_to_string(val) -> str:
+def _val_to_string(val: Any) -> str:
+    """Convert a value to its string representation for serialization."""
     if isinstance(val, bool):
         return str(val).lower()
     if isinstance(val, datetime):
@@ -123,6 +130,7 @@ def _val_to_string(val) -> str:
 def _get_serialized_params(
     metadata: ParamMetadata, field_name: str, obj: Any, typ: type
 ) -> Dict[str, str]:
+    """Serialize a parameter value using the metadata's serialization strategy."""
     params: Dict[str, str] = {}
 
     serialization = metadata.serialization
@@ -133,4 +141,5 @@ def _get_serialized_params(
 
 
 def _is_set(value: Any) -> bool:
+    """Return True if value is not None and not Unset."""
     return value is not None and not isinstance(value, Unset)

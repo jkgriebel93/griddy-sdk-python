@@ -5,9 +5,7 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.team_matchup_rankings import (
-    TeamMatchupRankings,
-)
+from griddy.nfl.models.entities.team_matchup_rankings import TeamMatchupRankings
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.types import BaseModel
 

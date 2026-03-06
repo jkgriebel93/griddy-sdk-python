@@ -8,6 +8,7 @@ to share HTTP client setup, debug logging, hook wiring, and the
 import asyncio
 import warnings
 from abc import abstractmethod
+from types import TracebackType
 from typing import Any, Dict, Optional
 
 import httpx
@@ -128,16 +129,30 @@ class BaseGriddySDK:
     # Context managers
     # ------------------------------------------------------------------
 
-    def __enter__(self):
+    def __enter__(self) -> "BaseGriddySDK":
+        """Enter the SDK context manager."""
         return self
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> "BaseGriddySDK":
+        """Enter the async SDK context manager."""
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
+        """Exit the SDK context manager, closing HTTP clients."""
         self.close()
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
+        """Exit the async SDK context manager, closing HTTP clients."""
         await self.aclose()
 
     # ------------------------------------------------------------------
@@ -192,6 +207,7 @@ class BaseGriddySDK:
     # ------------------------------------------------------------------
 
     def __del__(self) -> None:
+        """Emit ResourceWarning if SDK-owned HTTP clients were not closed."""
         if not hasattr(self, "sdk_configuration"):
             return
 

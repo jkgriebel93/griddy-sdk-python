@@ -6,11 +6,7 @@ from griddy.pfr.errors import ParsingError
 from griddy.pfr.models import QBWinEntry, QBWins
 from griddy.pfr.sdk import GriddyPFR
 
-from .conftest import (
-    FIXTURE_DIR,
-    assert_endpoint_via_mock,
-    assert_smoke,
-)
+from .conftest import FIXTURE_DIR, assert_endpoint_via_mock, assert_smoke
 from .conftest import qb_wins_parser as _parser
 
 # -------------------------------------------------------------------------

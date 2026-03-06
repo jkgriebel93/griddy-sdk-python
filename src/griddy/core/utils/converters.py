@@ -27,6 +27,7 @@ def clean_text(text: str | None) -> str | None:
 def multi_replace(
     text: str, chars: Iterable, replace: str = "", dedupe: bool = True
 ) -> str:
+    """Replace each character in chars within text, optionally deduplicating the replacement."""
     for c in chars:
         text = text.replace(c, replace)
 
@@ -38,6 +39,7 @@ def multi_replace(
 
 
 def snakify(text: str) -> str:
+    """Convert text to snake_case by replacing spaces with underscores and lowercasing."""
     text = multi_replace(text=text, chars=[" "], replace="_", dedupe=True)
     return text.lower()
 

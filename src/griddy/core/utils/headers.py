@@ -1,22 +1,15 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-)
+from typing import Any, Dict, List, Optional
 
 from httpx import Headers
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 
-from .metadata import (
-    HeaderMetadata,
-    find_field_metadata,
-)
+from .metadata import HeaderMetadata, find_field_metadata
 from .values import _is_set, _populate_from_globals, _val_to_string
 
 
 def get_headers(headers_params: Any, gbls: Optional[Any] = None) -> Dict[str, str]:
+    """Extract HTTP headers from request params and globals."""
     headers: Dict[str, str] = {}
 
     globals_already_populated = []
@@ -34,6 +27,7 @@ def _populate_headers(
     header_values: Dict[str, str],
     skip_fields: List[str],
 ) -> List[str]:
+    """Populate header values from a Pydantic model's annotated fields."""
     globals_already_populated: List[str] = []
 
     if not isinstance(headers_params, BaseModel):
@@ -65,6 +59,7 @@ def _populate_headers(
 
 
 def _serialize_header(explode: bool, obj: Any) -> str:
+    """Serialize a header value (model, dict, list, or scalar) to a comma-separated string."""
     if not _is_set(obj):
         return ""
 
@@ -125,6 +120,7 @@ def _serialize_header(explode: bool, obj: Any) -> str:
 
 
 def get_response_headers(headers: Headers) -> Dict[str, List[str]]:
+    """Convert httpx Headers to a dict mapping header names to lists of values."""
     res: Dict[str, List[str]] = {}
     for k, v in headers.items():
         if not k in res:

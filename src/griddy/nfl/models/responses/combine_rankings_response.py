@@ -3,9 +3,7 @@ from typing import List
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.combine_profile import (
-    CombineProfile,
-)
+from griddy.nfl.models.entities.combine_profile import CombineProfile
 from griddy.nfl.models.entities.pagination import Pagination
 from griddy.nfl.types import BaseModel
 

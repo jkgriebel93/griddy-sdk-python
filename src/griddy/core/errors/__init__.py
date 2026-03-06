@@ -24,8 +24,10 @@ _dynamic_imports: dict[str, str] = {
 
 
 def __getattr__(attr_name: str) -> object:
+    """Lazily import error classes on first access."""
     return dynamic_getattr(attr_name, _dynamic_imports, __package__, __name__)
 
 
-def __dir__():
+def __dir__() -> list[str]:
+    """List all exportable error class names."""
     return dynamic_dir(_dynamic_imports)

@@ -14,10 +14,12 @@ class NoResponseError(GriddyError):
     message: str
 
     def __init__(self, message: str = "No response received"):
+        """Initialize with an optional error message."""
         object.__setattr__(self, "message", message)
         object.__setattr__(self, "status_code", None)
         object.__setattr__(self, "response_data", {})
         Exception.__init__(self, message)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the error message."""
         return self.message

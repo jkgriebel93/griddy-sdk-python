@@ -8,6 +8,7 @@ from .metadata import SecurityMetadata, find_field_metadata
 
 
 def get_security(security: Any) -> Tuple[Dict[str, str], Dict[str, List[str]]]:
+    """Extract security headers and query params from a Pydantic security model."""
     headers: Dict[str, str] = {}
     query_params: Dict[str, List[str]] = {}
 
@@ -78,7 +79,8 @@ def get_security_from_env(
 
 def _parse_security_option(
     headers: Dict[str, str], query_params: Dict[str, List[str]], option: Any
-):
+) -> None:
+    """Parse a security option model into headers and query params."""
     if not isinstance(option, BaseModel):
         raise TypeError("security option must be a pydantic model")
 
@@ -100,7 +102,8 @@ def _parse_security_scheme(
     scheme_metadata: SecurityMetadata,
     field_name: str,
     scheme: Any,
-):
+) -> None:
+    """Parse a security scheme model into headers and query params."""
     scheme_type = scheme_metadata.scheme_type
     sub_type = scheme_metadata.sub_type
 
@@ -138,7 +141,8 @@ def _parse_security_scheme_value(
     security_metadata: SecurityMetadata,
     field_name: str,
     value: Any,
-):
+) -> None:
+    """Apply a single security scheme value to headers or query params."""
     scheme_type = scheme_metadata.scheme_type
     sub_type = scheme_metadata.sub_type
 
@@ -168,10 +172,12 @@ def _parse_security_scheme_value(
 
 
 def _apply_bearer(token: str) -> str:
+    """Prepend 'Bearer ' to a token if not already present."""
     return token.lower().startswith("bearer ") and token or f"Bearer {token}"
 
 
-def _parse_basic_auth_scheme(headers: Dict[str, str], scheme: Any):
+def _parse_basic_auth_scheme(headers: Dict[str, str], scheme: Any) -> None:
+    """Extract username/password from a basic auth model and set the Authorization header."""
     username = ""
     password = ""
 
