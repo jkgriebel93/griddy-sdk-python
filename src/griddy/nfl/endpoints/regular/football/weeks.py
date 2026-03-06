@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Weeks(BaseSDK):
+    r"""Week and season schedule endpoints."""
+
     def _get_week_of_date_config(
         self,
         *,

@@ -9,6 +9,13 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Experience(BaseSDK):
+    r"""Experience endpoints for game details.
+
+    Provides access to:
+    - Game details by slug identifier
+    - Game details by game ID with optional drive charts, replays, and standings
+    """
+
     def _get_game_details_by_slug_config(
         self,
         *,

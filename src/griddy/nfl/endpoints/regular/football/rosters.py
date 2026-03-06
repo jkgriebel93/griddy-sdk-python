@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Rosters(BaseSDK):
+    r"""Team roster endpoints by season."""
+
     def _get_rosters_config(
         self,
         *,

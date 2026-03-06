@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Draft(BaseSDK):
+    r"""NFL Draft endpoints for picks and team needs."""
+
     def _get_picks_report_config(
         self,
         *,

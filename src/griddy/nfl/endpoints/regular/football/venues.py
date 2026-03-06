@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Venues(BaseSDK):
+    r"""NFL venue and stadium information endpoints."""
+
     def _get_venues_config(
         self,
         *,
