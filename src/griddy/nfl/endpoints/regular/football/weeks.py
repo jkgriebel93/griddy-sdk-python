@@ -21,11 +21,12 @@ class Weeks(BaseSDK):
     ) -> EndpointConfig:
         r"""Get Week for Date
 
-        :param date: YYYY-MM-DD
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            date: YYYY-MM-DD
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetWeekOfDateRequest(date=date)
 
@@ -59,12 +60,13 @@ class Weeks(BaseSDK):
 
         Retrieves all weeks for a specific season including preseason, regular season, and postseason.
 
-        :param season: Season year
-        :param limit: Maximum number of weeks to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            limit: Maximum number of weeks to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetSeasonWeeksRequest(season=season, limit=limit)
 

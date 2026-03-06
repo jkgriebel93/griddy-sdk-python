@@ -26,13 +26,13 @@ class Experience(BaseSDK):
         Optionally includes replay videos. Returns the same shape as
         WeeklyGameDetail (the experience response is a subset of those fields).
 
-
-        :param slug: Game slug identifier
-        :param include_replays: Include replay videos in response
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            slug: Game slug identifier
+            include_replays: Include replay videos in response
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetGameDetailsBySlugRequest(
             slug=slug,
@@ -75,16 +75,16 @@ class Experience(BaseSDK):
         inclusion of drive chart, replays, standings, and tagged videos.
         Returns the same shape as WeeklyGameDetail.
 
-
-        :param game_id: Game identifier (UUID)
-        :param include_drive_chart: Include drive chart data in response
-        :param include_replays: Include replay videos in response
-        :param include_standings: Include standings data in response
-        :param include_tagged_videos: Include tagged videos in response
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            include_drive_chart: Include drive chart data in response
+            include_replays: Include replay videos in response
+            include_standings: Include standings data in response
+            include_tagged_videos: Include tagged videos in response
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetGameDetailsRequest(
             game_id=game_id,

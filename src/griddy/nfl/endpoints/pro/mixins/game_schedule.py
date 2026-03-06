@@ -30,12 +30,12 @@ class GameScheduleMixin:
         Returns comprehensive game data including teams, score, venue, broadcast information,
         and current game status.
 
-
-        :param game_id: Game identifier (UUID format)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID format)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -65,12 +65,12 @@ class GameScheduleMixin:
         Returns offensive, defensive, and special teams rankings with Z-scores and advantage ratings
         for various statistical categories.
 
-
-        :param game_id: Game identifier (10-digit format YYYYMMDDNN)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (10-digit format YYYYMMDDNN)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -103,16 +103,16 @@ class GameScheduleMixin:
         Retrieves comprehensive statistical rankings for both teams in a specific game.
         Returns 300+ statistical categories with rankings for offensive, defensive, and special teams performance.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param away_team_id: Away team UUID
-        :param home_team_id: Home team UUID
-        :param week: Week number
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            away_team_id: Away team UUID
+            home_team_id: Home team UUID
+            week: Week number
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -151,15 +151,15 @@ class GameScheduleMixin:
         Retrieves injury report information for a specific team in a given week.
         Returns player injury status and details for the specified team and week.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param team_id: Team identifier (UUID format)
-        :param week: Week number within the season
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            team_id: Team identifier (UUID format)
+            week: Week number within the season
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

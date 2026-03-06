@@ -28,15 +28,16 @@ class GameContentMixin:
 
         Retrieves preview content and insights for a specific game based on teams and week. Returns preview information, matchup analysis, and key storylines.
 
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number
-        :param visitor_display_name: Visiting team display name
-        :param home_display_name: Home team display name
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week number
+            visitor_display_name: Visiting team display name
+            home_display_name: Home team display name
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -78,18 +79,18 @@ class GameContentMixin:
         Retrieves analytical insights and advanced statistics for a specific game.
         Can filter by tags and exclude specific content types.
 
-
-        :param season: Season year
-        :param fapi_game_id: FAPI Game identifier (UUID)
-        :param away_team_id: Away team identifier
-        :param home_team_id: Home team identifier
-        :param limit: Maximum number of insights to return
-        :param tags: Comma-separated list of tags to filter by
-        :param exclude_tags: Comma-separated list of tags to exclude
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            fapi_game_id: FAPI Game identifier (UUID)
+            away_team_id: Away team identifier
+            home_team_id: Home team identifier
+            limit: Maximum number of insights to return
+            tags: Comma-separated list of tags to filter by
+            exclude_tags: Comma-separated list of tags to exclude
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

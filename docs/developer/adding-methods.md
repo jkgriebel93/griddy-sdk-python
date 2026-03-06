@@ -280,13 +280,13 @@ def get_{action}(
 
     Detailed description of what this endpoint returns and its purpose.
 
-    :param season: Season year
-    :param season_type: Type of season
-    # Document all parameters
-    :param retries: Override the default retry configuration
-    :param server_url: Override the default server URL
-    :param timeout_ms: Override the default request timeout in milliseconds
-    :param http_headers: Additional headers to set or replace
+    Args:
+        season: Season year
+        season_type: Type of season
+        retries: Override the default retry configuration
+        server_url: Override the default server URL
+        timeout_ms: Override the default request timeout in milliseconds
+        http_headers: Additional headers to set or replace
     """
     base_url = None
     url_variables = None

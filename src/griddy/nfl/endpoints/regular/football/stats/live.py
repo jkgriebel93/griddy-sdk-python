@@ -24,12 +24,12 @@ class LiveStats(BaseSDK):
         Retrieves live team statistics for a specific game.
         Returns awayTeam and homeTeam objects each containing 100+ stat fields.
 
-
-        :param game_id: Game identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetLiveTeamStatisticsRequest(
             game_id=game_id,
@@ -66,12 +66,12 @@ class LiveStats(BaseSDK):
         Returns awayTeam and homeTeam objects, each containing a players
         array with per-player identification and 100+ stat fields.
 
-
-        :param game_id: Game identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetLivePlayerStatisticsRequest(
             game_id=game_id,

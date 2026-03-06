@@ -29,15 +29,15 @@ class Transactions(ProSDK):
         Retrieves recent transactions including trades, signings, releases,
         practice squad moves, and injured reserve designations.
 
-
-        :param month: Month (number) to fetch transactions for
-        :param year: Year (all four digits as int) to fetch transactions for
-        :param team_id: Team UUID string
-        :param limit: Maximum number of results
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            month: Month (number) to fetch transactions for
+            year: Year (all four digits as int) to fetch transactions for
+            team_id: Team UUID string
+            limit: Maximum number of results
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

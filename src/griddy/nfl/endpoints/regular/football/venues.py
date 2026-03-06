@@ -25,13 +25,13 @@ class Venues(BaseSDK):
         Retrieves information about all NFL stadiums and venues, including international venues.
         Provides venue details such as addresses, locations, and territories.
 
-
-        :param season: Season year
-        :param limit: Maximum number of venues to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            limit: Maximum number of venues to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetVenuesRequest(
             season=season,

@@ -29,16 +29,16 @@ class Authentication(BaseSDK):
         Creates a new access token and refresh token for a client device. This is the initial authentication
         endpoint that establishes a session for accessing NFL APIs. Requires client credentials and device information.
 
-
-        :param client_key: Client application identifier key
-        :param client_secret: Client application secret for authentication
-        :param device_id: Unique device identifier (UUID format)
-        :param device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
-        :param network_type: Type of network connection
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            client_key: Client application identifier key
+            client_secret: Client application secret for authentication
+            device_id: Unique device identifier (UUID format)
+            device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
+            network_type: Type of network connection
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.TokenRequest(
             client_key=client_key,
@@ -90,20 +90,20 @@ class Authentication(BaseSDK):
         session by generating new access and refresh tokens. Requires the previous refresh token and
         signature verification.
 
-
-        :param client_key: Client application identifier key
-        :param client_secret: Client application secret for authentication
-        :param device_id: Unique device identifier (UUID format)
-        :param device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
-        :param network_type: Type of network connection
-        :param refresh_token: Valid refresh token from previous authentication
-        :param signature_timestamp: Unix timestamp for signature verification
-        :param uid: User identifier hash
-        :param uid_signature: HMAC signature for request verification
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            client_key: Client application identifier key
+            client_secret: Client application secret for authentication
+            device_id: Unique device identifier (UUID format)
+            device_info: Base64-encoded JSON containing device information such as: {\"model\":\"desktop\",\"version\":\"Chrome\",\"osName\":\"Windows\",\"osVersion\":\"10\"}
+            network_type: Type of network connection
+            refresh_token: Valid refresh token from previous authentication
+            signature_timestamp: Unix timestamp for signature verification
+            uid: User identifier hash
+            uid_signature: HMAC signature for request verification
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.RefreshTokenRequest(
             client_key=client_key,

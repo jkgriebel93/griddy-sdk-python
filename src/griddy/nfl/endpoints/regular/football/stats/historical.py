@@ -26,13 +26,13 @@ class HistoricalStats(BaseSDK):
         Returns game info, team info, and deeply nested stat categories
         (defense, passing, rushing, receiving, kicking, etc.).
 
-
-        :param game_id: Game identifier (UUID)
-        :param team_id: Team identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            team_id: Team identifier (UUID)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetHistoricalTeamStatsRequest(
             game_id=game_id,
@@ -71,13 +71,13 @@ class HistoricalStats(BaseSDK):
         Returns game and team identifiers and a list of per-player stat objects
         with nullable stat categories (defense, passing, rushing, etc.).
 
-
-        :param game_id: Game identifier (UUID)
-        :param team_id: Team identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            team_id: Team identifier (UUID)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetHistoricalPlayerStatsRequest(
             game_id=game_id,

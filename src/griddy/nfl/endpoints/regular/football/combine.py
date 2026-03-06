@@ -22,12 +22,13 @@ class Combine(BaseSDK):
     ) -> EndpointConfig:
         r"""Get Combine Profiles
 
-        :param year: Draft year
-        :param limit: Maximum number of combine profiles to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            year: Draft year
+            limit: Maximum number of combine profiles to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetCombineProfilesRequest(year=year, limit=limit)
 
@@ -62,14 +63,15 @@ class Combine(BaseSDK):
     ) -> EndpointConfig:
         r"""Get Combine Rankings
 
-        :param rank_attribute: Attribute to rank by
-        :param sort_order: Sort order
-        :param year: Draft year
-        :param limit: Maximum number of combine profiles to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            rank_attribute: Attribute to rank by
+            sort_order: Sort order
+            year: Draft year
+            limit: Maximum number of combine profiles to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetCombineRankingsRequest(
             rank_attribute=rank_attribute,

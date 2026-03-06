@@ -30,14 +30,14 @@ class Betting(ProSDK):
         Returns point spreads, money lines, and totals (over/under) for each game
         with the latest odds updates from betting markets.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number within the season
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week number within the season
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

@@ -19,10 +19,11 @@ def dynamic_getattr(
 ) -> object:
     """Module-level ``__getattr__`` backed by a *dynamic_imports* mapping.
 
-    :param attr_name: The attribute being looked up.
-    :param dynamic_imports: ``{attr: relative_module}`` mapping.
-    :param package: ``__package__`` of the calling module (for relative imports).
-    :param module_name: ``__name__`` of the calling module (for error messages).
+    Args:
+        attr_name: The attribute being looked up.
+        dynamic_imports: ``{attr: relative_module}`` mapping.
+        package: ``__package__`` of the calling module (for relative imports).
+        module_name: ``__name__`` of the calling module (for error messages).
     """
     relative_module = dynamic_imports.get(attr_name)
     if relative_module is None:
