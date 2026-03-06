@@ -174,7 +174,6 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         "content": ("griddy.nfl.endpoints.pro.content", "Content"),
         "players": ("griddy.nfl.endpoints.pro.players", "Players"),
         "stats": ("griddy.nfl.endpoints.pro.stats", "StatsSDK"),
-        # TODO: Refactor so that this call will be invoked as nfl.pro.games
         "pro_games": ("griddy.nfl.endpoints.pro.games", "ProGames"),
         "schedules": ("griddy.nfl.endpoints.pro.schedules", "Schedules"),
         "betting": ("griddy.nfl.endpoints.pro.betting", "Betting"),

@@ -160,7 +160,6 @@ class Teams(ProSDK):
             retries=retries,
         )
 
-    # TODO: These ranking methods may fit better in the stats APIs somewhere
     def _get_multiple_rankings_all_teams_config(
         self,
         *,
