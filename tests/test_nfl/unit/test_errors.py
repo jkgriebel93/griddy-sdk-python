@@ -212,6 +212,13 @@ class TestResponseValidationError:
         assert error.body == custom_body
         assert error.body != response.text
 
+    def test_cause_property_returns_base_exception_or_none(self):
+        response = _make_response(status_code=200, text="{}")
+        cause = ValueError("bad value")
+        error = ResponseValidationError("Test", response, cause=cause)
+        result = error.cause
+        assert result is None or isinstance(result, BaseException)
+
     def test_response_validation_error_inherits_from_base_error(self):
         response = _make_response(status_code=200, text="data")
         error = ResponseValidationError("Test", response, cause=Exception("Test cause"))
@@ -242,6 +249,13 @@ class TestErrorsModuleLazyLoading:
 
         GriddyNFLDefaultError = errors.GriddyNFLDefaultError
         assert GriddyNFLDefaultError.__name__ == "GriddyNFLDefaultError"
+
+    def test_dir_returns_list_of_strings(self):
+        from griddy.nfl import errors
+
+        result = dir(errors)
+        assert isinstance(result, list)
+        assert all(isinstance(name, str) for name in result)
 
     def test_invalid_attribute_raises_error(self):
         from griddy.nfl import errors

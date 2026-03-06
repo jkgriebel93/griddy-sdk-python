@@ -13,4 +13,5 @@ class GriddyNFLError(SDKError):
     def __init__(
         self, message: str, raw_response: httpx.Response, body: Optional[str] = None
     ):
+        """Initialize with a message, raw HTTP response, and optional body text."""
         super().__init__(message, raw_response, body)
