@@ -56,7 +56,6 @@ class GameContentMixin:
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            # TODO: The model is busted, so unmarshaling returns an empty dict
         )
 
     def _get_game_insights_config(

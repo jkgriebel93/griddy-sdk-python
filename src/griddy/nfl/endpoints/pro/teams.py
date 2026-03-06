@@ -10,7 +10,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Teams(ProSDK):
-
     def _get_all_teams_config(
         self,
         *,
@@ -160,7 +159,6 @@ class Teams(ProSDK):
             retries=retries,
         )
 
-    # TODO: These ranking methods may fit better in the stats APIs somewhere
     def _get_multiple_rankings_all_teams_config(
         self,
         *,

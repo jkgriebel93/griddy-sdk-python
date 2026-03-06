@@ -8,7 +8,6 @@ from griddy.nfl.endpoints.pro import ProSDK
 from griddy.nfl.types import UNSET, OptionalNullable
 
 
-# TODO: Not sure where to put this module
 @sdk_endpoints
 class Betting(ProSDK):
     r"""Game betting odds and lines"""

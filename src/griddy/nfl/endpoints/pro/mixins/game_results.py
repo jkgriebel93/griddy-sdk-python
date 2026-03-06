@@ -43,7 +43,7 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def _get_playlist_config(
@@ -75,7 +75,7 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Implement the pydantic models for PlayList
+            return_raw_json=False,
         )
 
     def _get_summary_play_config(
@@ -152,7 +152,7 @@ class GameResultsDataMixin:
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix Pydantic model
+            return_raw_json=False,
         )
 
     def _get_win_probability_min_config(

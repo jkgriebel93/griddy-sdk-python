@@ -1,9 +1,0 @@
-[flake8]
-max-line-length = 88
-select = F401
-per-file-ignores =
-    # Re-export modules — unused imports are intentional
-    src/griddy/nfl/_hooks/types.py:F401
-    src/griddy/nfl/types/basemodel.py:F401
-    src/griddy/nfl/httpclient.py:F401
-    src/griddy/pfr/httpclient.py:F401

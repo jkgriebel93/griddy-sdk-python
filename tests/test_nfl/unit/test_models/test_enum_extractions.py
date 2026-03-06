@@ -5,7 +5,6 @@ Covers TGF-153: Extract enum types for model fields and request constants.
 
 import typing
 
-import pydantic
 import pytest
 
 from griddy.nfl.models.enums.combine_enums import (

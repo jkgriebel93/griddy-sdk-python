@@ -36,11 +36,10 @@ class PersonStat(BaseModel):
 class HistoricalPlayerStatsResponse(BaseModel):
     r"""Historical player statistics for a specific game and team."""
 
-    # TODO: Verify this object schema
     game: Optional[str] = None
-    # TODO: Verify this object schema
+
     team: Optional[str] = None
-    # TODO: Verify this object schema
+
     person_stats: Annotated[
         Optional[List[PersonStat]], pydantic.Field(alias="personStats")
     ] = None

@@ -13,7 +13,6 @@ from .har import html_template
 
 
 class YAMLConsolidator:
-
     open_api_doc_keys = [
         "openapi",
         "info",
@@ -178,10 +177,8 @@ class YAMLConsolidator:
         new_components = {}
 
         for sub_component in ["schemas", "securitySchemes"]:
-
             existing = self.components.get(sub_component, {})
             for key, new_entry in components[sub_component].items():
-
                 if key in existing:
                     if new_entry == (old_entry := existing[key]):
                         continue
@@ -259,7 +256,7 @@ class YAMLConsolidator:
                 tags_html = self.create_full_html_string(self.diffs["tags"])
                 full_html += tags_html
 
-        full_html += "<br>\n" "\t</body>\n" "</html>"
+        full_html += "<br>\n\t</body>\n</html>"
         from pprint import pprint
 
         pprint(self.diff_counts, indent=4)

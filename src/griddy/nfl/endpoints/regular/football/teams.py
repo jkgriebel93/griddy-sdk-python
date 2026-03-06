@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Teams(BaseSDK):
-
     def _get_teams_config(
         self,
         *,

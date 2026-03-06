@@ -16,7 +16,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Content(ProSDK, GameContentMixin):
-
     def _get_home_film_cards_config(
         self,
         *,
@@ -98,7 +97,7 @@ class Content(ProSDK, GameContentMixin):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix Pydantic model - unmarshal is broken
+            return_raw_json=False,
         )
 
     # TODO: Consider how this method signature might be cleaned up
@@ -147,7 +146,7 @@ class Content(ProSDK, GameContentMixin):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        # TODO: Note that the actual video file itself is acquired by:
+        # Note that the actual video file itself is acquired by:
         # 1.) Extract the mcpPlaybackId of the game
         # 2.) Using it (and other stuff I've yet to dechipher the meaning of
         #       to send a POST request to https://api.nfl.com/play/v1/asset/<mcpPlaybackId>
@@ -264,7 +263,7 @@ class Content(ProSDK, GameContentMixin):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
-        # TODO: Note that the game_id used in this request
+        # Note that the game_id used in this request
         # corresponds to the Game's UUID often labeled fapi_game_id by the NFL.
         # Why is it different? Nobody knows
         r"""Get Coaches Film Videos

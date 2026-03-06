@@ -90,7 +90,6 @@ class PlayerProfileParser:
         )
 
         return {
-            # TODO: Will it actually be easier to leave birth_date as a string?
             "birth_date": birth_date,
             "birth_place": {"city": birth_city, "state": birth_state},
         }

@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Combine(BaseSDK):
-
     def _get_profiles_config(
         self,
         *,

@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Rosters(BaseSDK):
-
     def _get_rosters_config(
         self,
         *,

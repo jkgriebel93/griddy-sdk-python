@@ -11,7 +11,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 # TODO: A bunch of these endpoints seem to have disappeared since a few weeks ago?
 @sdk_endpoints
 class Transactions(ProSDK):
-
     def _get_transactions_config(
         self,
         *,

@@ -11,8 +11,28 @@ from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 GetDefensiveNearestDefenderStatsBySeasonSortKey = Literal[
-    "cov"
-    # TODO: Add the rest of these
+    "cov",
+    "snap",
+    "snapPct",
+    # Run snaps
+    "rd",
+    # Tackles
+    "tck",
+    "tStop",
+    # Hustle stops
+    "h",
+    # Pass rushes
+    "pr",
+    "sack",
+    "qbp",
+    # QB pressure rate
+    "qbpR",
+    "tgt",
+    "recNd",
+    "recYdsNd",
+    "recTdNd",
+    "int",
+    "passRatingNd",
 ]
 
 

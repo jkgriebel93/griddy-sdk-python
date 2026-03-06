@@ -2,7 +2,6 @@
 
 import json
 import sys
-from pprint import pprint
 
 from griddy.nfl import GriddyNFL
 from griddy.settings import NFL
@@ -30,7 +29,6 @@ pit_id = "10403900-8251-6892-d81c-4348525c2d47"
 nwe_id = "10403200-69ab-9ea6-5af5-e240fbc08bea"
 # play_list_response = nfl.pro_games.get_playlist(game_id=str(game_id))
 # plays_as_json = [p.model_dump() for p in play_list_response.plays]
-from pprint import pprint
 
 team_stats = nfl.football_stats.live.get_team_statistics(game_id=game_id)
 player_stats = nfl.football_stats.live.get_player_statistics(game_id=game_id)

@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Standings(BaseSDK):
-
     def _get_standings_config(
         self,
         *,

@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class PlayerRushingStats(PlayerStatsBase):
-
     def _get_weekly_summary_config(
         self,
         *,

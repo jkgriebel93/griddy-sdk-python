@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Games(BaseSDK):
-
     def _get_games_config(
         self,
         *,

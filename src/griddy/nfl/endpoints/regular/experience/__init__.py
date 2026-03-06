@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Experience(BaseSDK):
-
     def _get_game_details_by_slug_config(
         self,
         *,
