@@ -145,9 +145,9 @@ class TestResponseValidationError:
         assert err.cause is None
 
     def test_cause_property_has_return_type_annotation(self):
-        import types
+        import typing
 
-        hints = types.get_type_hints(ResponseValidationError.cause.fget)
+        hints = typing.get_type_hints(ResponseValidationError.cause.fget)
         assert hints["return"] == BaseException | None
 
 
