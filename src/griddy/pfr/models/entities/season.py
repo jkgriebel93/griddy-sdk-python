@@ -14,6 +14,8 @@ from ..base import PFRBaseModel
 
 
 class ConferenceStanding(PFRBaseModel):
+    """A single team row from the AFC or NFC standings table."""
+
     division: Optional[str] = None
     team: Optional[str] = None
     team_href: Optional[str] = None
@@ -34,6 +36,8 @@ class ConferenceStanding(PFRBaseModel):
 
 
 class PlayoffGame(PFRBaseModel):
+    """A single playoff game from the playoff_results table."""
+
     week_num: Optional[str] = None
     game_day_of_week: Optional[str] = None
     game_date: Optional[str] = None
@@ -52,6 +56,8 @@ class PlayoffGame(PFRBaseModel):
 
 
 class PlayoffStanding(PFRBaseModel):
+    """A team's playoff qualification entry with seed reasoning."""
+
     team: Optional[str] = None
     team_href: Optional[str] = None
     wins: Optional[int] = None
@@ -65,6 +71,8 @@ class PlayoffStanding(PFRBaseModel):
 
 
 class SeasonOverview(PFRBaseModel):
+    """Top-level model for a PFR season overview page."""
+
     afc_standings: List[ConferenceStanding] = []
     nfc_standings: List[ConferenceStanding] = []
     playoff_results: List[PlayoffGame] = []
@@ -85,6 +93,8 @@ class SeasonOverview(PFRBaseModel):
 
 
 class SeasonStats(PFRBaseModel):
+    """Top-level result for a PFR season stat category page."""
+
     regular_season: List[Dict[str, Any]] = []
     postseason: List[Dict[str, Any]] = []
 
@@ -93,6 +103,8 @@ class SeasonStats(PFRBaseModel):
 
 
 class WeekGame(PFRBaseModel):
+    """A single game from a weekly schedule page."""
+
     game_date: Optional[str] = None
     away_team: Optional[str] = None
     away_team_href: Optional[str] = None
@@ -117,6 +129,8 @@ class WeekGame(PFRBaseModel):
 
 
 class WeekSummary(PFRBaseModel):
+    """Top-level result for a PFR weekly schedule page."""
+
     games: List[WeekGame] = []
     players_of_the_week: List[Dict[str, Any]] = []
     top_passers: List[Dict[str, Any]] = []

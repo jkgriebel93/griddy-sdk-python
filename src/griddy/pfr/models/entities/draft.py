@@ -18,6 +18,8 @@ from ..base import PFRBaseModel
 
 
 class DraftPick(PFRBaseModel):
+    """A single draft pick row from a year draft page."""
+
     draft_round: Optional[int] = None
     draft_pick: Optional[int] = None
     team: Optional[str] = None
@@ -59,6 +61,8 @@ class DraftPick(PFRBaseModel):
 
 
 class YearDraft(PFRBaseModel):
+    """Top-level result for a PFR annual draft page."""
+
     year: Optional[int] = None
     picks: List[DraftPick] = []
 
@@ -69,6 +73,8 @@ class YearDraft(PFRBaseModel):
 
 
 class CombineEntry(PFRBaseModel):
+    """A single player row from the NFL Combine results page."""
+
     player: Optional[str] = None
     player_id: Optional[str] = None
     player_href: Optional[str] = None
@@ -97,6 +103,8 @@ class CombineEntry(PFRBaseModel):
 
 
 class CombineResults(PFRBaseModel):
+    """Top-level result for a PFR NFL Combine page."""
+
     year: Optional[int] = None
     entries: List[CombineEntry] = []
 
@@ -107,6 +115,8 @@ class CombineResults(PFRBaseModel):
 
 
 class TeamDraftPick(PFRBaseModel):
+    """A single draft pick row from a team draft history page."""
+
     year: Optional[int] = None
     year_href: Optional[str] = None
     draft_round: Optional[int] = None
@@ -144,5 +154,7 @@ class TeamDraftPick(PFRBaseModel):
 
 
 class TeamDraft(PFRBaseModel):
+    """Top-level result for a PFR team draft history page."""
+
     team: Optional[str] = None
     picks: List[TeamDraftPick] = []

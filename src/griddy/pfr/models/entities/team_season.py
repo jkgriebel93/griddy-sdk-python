@@ -1,3 +1,9 @@
+"""Pydantic models for a PFR team season page.
+
+Covers ``/teams/{team}/{year}.htm`` pages on Pro Football Reference,
+including season metadata, game log, team stats, and player stats.
+"""
+
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Union
@@ -8,6 +14,8 @@ from ..base import PFRBaseModel
 
 
 class TeamSeasonMeta(PFRBaseModel):
+    """Season-level metadata for a team (record, coaches, stadium, etc.)."""
+
     record: Optional[str] = None
     division: Optional[str] = None
     division_href: Optional[str] = None
@@ -35,6 +43,8 @@ class TeamSeasonMeta(PFRBaseModel):
 
 
 class SeasonGame(PFRBaseModel):
+    """A single game row from the team's season game log."""
+
     week_num: str
     game_day_of_week: Optional[str] = None
     game_date: Optional[str] = None
@@ -68,6 +78,8 @@ class SeasonGame(PFRBaseModel):
 
 
 class TeamSeason(PFRBaseModel):
+    """Top-level model for a PFR team season page."""
+
     meta: TeamSeasonMeta
     team_stats: Dict[str, Dict[str, Union[str, int, float, None]]]
     games: List[SeasonGame]

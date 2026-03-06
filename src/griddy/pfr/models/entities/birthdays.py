@@ -1,3 +1,9 @@
+"""Pydantic models for the PFR Birthdays page.
+
+Covers ``/friv/birthdays.cgi?month=...&day=...`` — players born on a given
+calendar day with career statistics.
+"""
+
 from __future__ import annotations
 
 from typing import List, Optional
@@ -6,6 +12,8 @@ from ..base import PFRBaseModel
 
 
 class BirthdayPlayer(PFRBaseModel):
+    """A single player entry from the birthdays table."""
+
     rank: int
     player: str
     player_href: Optional[str] = None
@@ -38,6 +46,8 @@ class BirthdayPlayer(PFRBaseModel):
 
 
 class Birthdays(PFRBaseModel):
+    """Top-level result for the PFR birthdays page."""
+
     title: str
     month: int
     day: int

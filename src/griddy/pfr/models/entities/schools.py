@@ -17,6 +17,8 @@ from ..base import PFRBaseModel
 
 
 class College(PFRBaseModel):
+    """A single college row from the all player colleges table."""
+
     rank: Optional[int] = None
     college_name: Optional[str] = None
     college_href: Optional[str] = None
@@ -44,6 +46,8 @@ class College(PFRBaseModel):
 
 
 class CollegeList(PFRBaseModel):
+    """Top-level result for the PFR all player colleges page."""
+
     colleges: List[College] = []
 
 
@@ -53,6 +57,8 @@ class CollegeList(PFRBaseModel):
 
 
 class HighSchool(PFRBaseModel):
+    """A single high school row from the high schools table."""
+
     name: Optional[str] = None
     name_href: Optional[str] = None
     city: Optional[str] = None
@@ -67,4 +73,6 @@ class HighSchool(PFRBaseModel):
 
 
 class HighSchoolList(PFRBaseModel):
+    """Top-level result for the PFR high schools page."""
+
     schools: List[HighSchool] = []

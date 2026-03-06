@@ -1,3 +1,9 @@
+"""Pydantic models for a PFR team franchise page.
+
+Covers ``/teams/{team}/`` pages on Pro Football Reference, including
+franchise metadata, all-time leaders, and year-by-year season records.
+"""
+
 from __future__ import annotations
 
 from typing import List, Optional
@@ -8,12 +14,16 @@ from ..base import PFRBaseModel
 
 
 class FranchiseLeader(PFRBaseModel):
+    """An all-time franchise leader in a stat category."""
+
     name: Optional[str] = None
     href: Optional[str] = None
     stats: Optional[str] = None
 
 
 class FranchiseMeta(PFRBaseModel):
+    """Franchise-level metadata including records and all-time leaders."""
+
     team_names: Optional[str] = None
     seasons: Optional[str] = None
     record: Optional[str] = None
@@ -32,6 +42,8 @@ class FranchiseMeta(PFRBaseModel):
 
 
 class FranchiseSeasonRecord(PFRBaseModel):
+    """A single season row from the franchise team_index table."""
+
     year_id: str
     year_href: Optional[str] = None
     league_id: Optional[str] = None
@@ -80,5 +92,7 @@ class FranchiseSeasonRecord(PFRBaseModel):
 
 
 class Franchise(PFRBaseModel):
+    """Top-level model for a PFR team franchise page."""
+
     meta: FranchiseMeta
     team_index: List[FranchiseSeasonRecord]

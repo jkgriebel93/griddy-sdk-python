@@ -8,6 +8,8 @@ from ..base import PFRBaseModel
 
 
 class QBWinEntry(PFRBaseModel):
+    """A quarterback with the number of franchises beaten and unbeaten list."""
+
     player: str
     player_href: Optional[str] = None
     player_id: Optional[str] = None
@@ -16,5 +18,7 @@ class QBWinEntry(PFRBaseModel):
 
 
 class QBWins(PFRBaseModel):
+    """Top-level result for the PFR QB wins vs. each franchise page."""
+
     title: str
     entries: List[QBWinEntry]

@@ -14,6 +14,8 @@ from ..base import PFRBaseModel
 
 
 class StadiumTeam(PFRBaseModel):
+    """A team that played at the stadium with their record there."""
+
     name: str
     team_href: Optional[str] = None
     years: Optional[str] = None
@@ -27,6 +29,8 @@ class StadiumTeam(PFRBaseModel):
 
 
 class StadiumBio(PFRBaseModel):
+    """Stadium metadata from the profile meta panel."""
+
     name: str
     address: Optional[str] = None
     years_active: Optional[str] = None
@@ -39,6 +43,8 @@ class StadiumBio(PFRBaseModel):
 
 
 class StadiumLeader(PFRBaseModel):
+    """A career statistical leader at the stadium."""
+
     player: Optional[str] = None
     player_id: Optional[str] = None
     player_href: Optional[str] = None
@@ -50,6 +56,8 @@ class StadiumLeader(PFRBaseModel):
 
 
 class StadiumBestGame(PFRBaseModel):
+    """A best individual game performance at the stadium."""
+
     player: Optional[str] = None
     player_id: Optional[str] = None
     player_href: Optional[str] = None
@@ -64,6 +72,8 @@ class StadiumBestGame(PFRBaseModel):
 
 
 class StadiumGameLeader(PFRBaseModel):
+    """A stat leader within a notable game summary."""
+
     stat_name: Optional[str] = None
     player: Optional[str] = None
     player_href: Optional[str] = None
@@ -74,6 +84,8 @@ class StadiumGameLeader(PFRBaseModel):
 
 
 class StadiumGameSummary(PFRBaseModel):
+    """A notable game at the stadium with score and stat leaders."""
+
     label: Optional[str] = None
     date: Optional[str] = None
     team_1: Optional[str] = None
@@ -90,6 +102,8 @@ class StadiumGameSummary(PFRBaseModel):
 
 
 class StadiumProfile(PFRBaseModel):
+    """Top-level model for a PFR stadium profile page."""
+
     bio: StadiumBio
     leaders: List[StadiumLeader]
     best_games: List[StadiumBestGame]

@@ -1,3 +1,8 @@
+"""Pydantic model for a single game row in a PFR season schedule.
+
+Used by the ``/years/{year}/games.htm`` schedule page parser.
+"""
+
 from __future__ import annotations
 
 from typing import Optional
@@ -6,6 +11,8 @@ from ..base import PFRBaseModel
 
 
 class ScheduleGame(PFRBaseModel):
+    """A single game entry from the PFR season schedule table."""
+
     week_num: str
     game_day_of_week: str
     game_date: str

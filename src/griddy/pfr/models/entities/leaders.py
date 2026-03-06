@@ -14,6 +14,8 @@ from ..base import PFRBaseModel
 
 
 class LeaderEntry(PFRBaseModel):
+    """A single player row from a career/season/game leaders table."""
+
     rank: Optional[int] = None
     player: Optional[str] = None
     player_id: Optional[str] = None
@@ -32,6 +34,8 @@ class LeaderEntry(PFRBaseModel):
 
 
 class Leaderboard(PFRBaseModel):
+    """Top-level result for a PFR leaderboard page."""
+
     stat: Optional[str] = None
     scope: Optional[str] = None
     title: Optional[str] = None

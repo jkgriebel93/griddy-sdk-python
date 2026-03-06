@@ -12,6 +12,8 @@ from ..base import PFRBaseModel
 
 
 class PlayerBornBefore(PFRBaseModel):
+    """A single active player born on or before the queried date."""
+
     rank: int
     player: str
     player_href: Optional[str] = None
@@ -45,6 +47,8 @@ class PlayerBornBefore(PFRBaseModel):
 
 
 class PlayersBornBefore(PFRBaseModel):
+    """Top-level result for the PFR players-born-before page."""
+
     title: str
     month: int
     day: int
