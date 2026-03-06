@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class FootballStatsSDK(LazySubSDKMixin, BaseSDK):
-    r"""Aggregates historical and live football statistics endpoints"""
+    r"""Aggregates historical and live football statistics endpoints."""
 
     historical: "HistoricalStats"
     r"""Historical game statistics (team and player level)"""
@@ -29,4 +29,5 @@ class FootballStatsSDK(LazySubSDKMixin, BaseSDK):
     }
 
     def __init__(self, sdk_config: SDKConfiguration, parent_ref: Optional[object]):
+        """Initialise the FootballStatsSDK and register lazy-loaded stat sub-SDKs."""
         super().__init__(sdk_config=sdk_config, parent_ref=parent_ref)

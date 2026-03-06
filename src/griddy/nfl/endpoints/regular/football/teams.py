@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Teams(BaseSDK):
+    r"""Team information endpoints by season."""
+
     def _get_teams_config(
         self,
         *,

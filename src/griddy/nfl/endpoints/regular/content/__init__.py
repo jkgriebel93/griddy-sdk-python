@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class VideoContent(BaseSDK):
+    r"""Video content endpoints for game replays."""
+
     def _get_video_replays_config(
         self,
         *,

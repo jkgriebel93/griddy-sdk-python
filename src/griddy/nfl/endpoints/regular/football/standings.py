@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Standings(BaseSDK):
+    r"""Team standings endpoints by season, type, and week."""
+
     def _get_standings_config(
         self,
         *,

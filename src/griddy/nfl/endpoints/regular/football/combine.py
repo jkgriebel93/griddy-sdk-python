@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Combine(BaseSDK):
+    r"""NFL Scouting Combine endpoints for profiles and rankings."""
+
     def _get_profiles_config(
         self,
         *,

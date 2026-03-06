@@ -9,6 +9,16 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Games(BaseSDK):
+    r"""Game endpoints for schedules, box scores, play-by-play, and live stats.
+
+    Provides access to:
+    - Game schedules by season, type, and week
+    - Box score data for individual games
+    - Play-by-play data with optional penalties and formations
+    - Live game statistics and summaries
+    - Weekly game details with drive charts and replays
+    """
+
     def _get_games_config(
         self,
         *,
