@@ -37,6 +37,6 @@ class TestPfrInitExports:
 
     def test_all_names_are_accessible(self):
         for name in pfr_pkg.__all__:
-            assert hasattr(
-                pfr_pkg, name
-            ), f"{name} listed in __all__ but not accessible"
+            assert hasattr(pfr_pkg, name), (
+                f"{name} listed in __all__ but not accessible"
+            )

@@ -12,26 +12,26 @@ class TestCachedPropertyParsers:
     def test_games_parser_is_cached_property(self):
         from griddy.pfr.endpoints.games import Games
 
-        assert isinstance(
-            Games.__dict__["_parser"], cached_property
-        ), "Games._parser should be a cached_property"
+        assert isinstance(Games.__dict__["_parser"], cached_property), (
+            "Games._parser should be a cached_property"
+        )
 
     def test_schedule_parser_is_cached_property(self):
         from griddy.pfr.endpoints.schedule import Schedule
 
-        assert isinstance(
-            Schedule.__dict__["_parser"], cached_property
-        ), "Schedule._parser should be a cached_property"
+        assert isinstance(Schedule.__dict__["_parser"], cached_property), (
+            "Schedule._parser should be a cached_property"
+        )
 
     def test_teams_parsers_are_cached_property(self):
         from griddy.pfr.endpoints.teams import Teams
 
-        assert isinstance(
-            Teams.__dict__["_team_season_parser"], cached_property
-        ), "Teams._team_season_parser should be a cached_property"
-        assert isinstance(
-            Teams.__dict__["_franchise_parser"], cached_property
-        ), "Teams._franchise_parser should be a cached_property"
+        assert isinstance(Teams.__dict__["_team_season_parser"], cached_property), (
+            "Teams._team_season_parser should be a cached_property"
+        )
+        assert isinstance(Teams.__dict__["_franchise_parser"], cached_property), (
+            "Teams._franchise_parser should be a cached_property"
+        )
 
     def test_players_parser_is_cached_property(self):
         from griddy.pfr.endpoints.players import Players
@@ -126,9 +126,9 @@ class TestCachedPropertyParsers:
             "_standings_on_date_parser",
         ]
         for attr in expected:
-            assert isinstance(
-                Frivolities.__dict__[attr], cached_property
-            ), f"Frivolities.{attr} should be a cached_property"
+            assert isinstance(Frivolities.__dict__[attr], cached_property), (
+                f"Frivolities.{attr} should be a cached_property"
+            )
 
 
 @pytest.mark.unit
