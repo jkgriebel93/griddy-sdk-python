@@ -1,69 +1,18 @@
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import List, Optional
 
 import pydantic
 from typing_extensions import Annotated
 
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+from griddy.nfl.models.enums.team_defense_stats_enums import (
+    TeamDefenseStatsSortKeyEnum,
+    TeamDefenseStatsSplitEnum,
+)
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
-
-# TODO: Move this to an enum module
-GetTeamDefenseStatsByWeekSortKey = Literal[
-    "total",
-    "pass",
-    "run",
-    "yds",
-    "passPct",
-    "ypp",
-    "td",
-    "passTd",
-    "rushTd",
-    "epa",
-    "epaPP",
-    "passYds",
-    "passYpp",
-    "epaPass",
-    "epaPassPP",
-    "rushYds",
-    "rushYpp",
-    "epaRush",
-    "epaRushPP",
-    "ttt",
-    "qbp",
-    "qbpPct",
-    "sackedYds",
-    "ryoe",
-    "interception",
-    "forcedFumble",
-    "fumbleRecovered",
-    "defensiveTouchdown",
-    "totalTakeaways",
-    "ppg",
-    "ypg",
-    "passYpg",
-    "rushYpg",
-    "sackedYpg",
-]
-r"""Field to sort by"""
-
-# TODO: Move this to an enum module
-GetTeamDefenseStatsByWeekSplit = Literal[
-    "TEAM_DEFENSE_BASE",
-    "TEAM_DEFENSE_NICKEL",
-    "TEAM_DEFENSE_DIME",
-    "TEAM_DEFENSE_WHEN_LEADING",
-    "TEAM_DEFENSE_WHEN_TRAILING",
-    "TEAM_DEFENSE_WHEN_TIED",
-    "TEAM_DEFENSE_RED_ZONE",
-    "TEAM_DEFENSE_GOAL_TO_GO",
-    "TEAM_DEFENSE_SHOTGUN",
-    "TEAM_DEFENSE_UNDER_CENTER",
-    "TEAM_DEFENSE_PISTOL",
-    "TEAM_DEFENSE_MOTION",
-]
 
 
 class GetTeamDefenseStatsByWeekRequest(BaseModel):
@@ -102,7 +51,7 @@ class GetTeamDefenseStatsByWeekRequest(BaseModel):
     r"""Page number for pagination"""
 
     sort_key: Annotated[
-        Optional[GetTeamDefenseStatsByWeekSortKey],
+        Optional[TeamDefenseStatsSortKeyEnum],
         pydantic.Field(alias="sortKey"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = "ypg"
@@ -116,7 +65,7 @@ class GetTeamDefenseStatsByWeekRequest(BaseModel):
     r"""Sort direction"""
 
     split: Annotated[
-        Optional[List[GetTeamDefenseStatsByWeekSplit]],
+        Optional[List[TeamDefenseStatsSplitEnum]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Defensive situation splits to filter by (supports multiple values)"""

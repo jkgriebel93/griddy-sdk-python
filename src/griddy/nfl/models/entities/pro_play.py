@@ -4,6 +4,7 @@ import pydantic
 
 from griddy.core import BaseModel
 from griddy.nfl.models import PlayStat
+from griddy.nfl.models.enums.play_state_enum import PlayStateEnum
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 # --- Nested Pydantic Models ---
@@ -60,8 +61,9 @@ class ProPlay(BaseModel):
     play_description: Annotated[
         Optional[str], pydantic.Field(alias="playDescription")
     ] = None
-    # TODO: This should probably be an enum
-    play_state: Annotated[Optional[str], pydantic.Field(alias="playState")] = None
+    play_state: Annotated[
+        Optional[PlayStateEnum], pydantic.Field(alias="playState")
+    ] = None
     play_stats: Annotated[
         Optional[List[PlayStat]], pydantic.Field(alias="playStats")
     ] = None

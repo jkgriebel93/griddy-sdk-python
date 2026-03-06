@@ -3,6 +3,9 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
+from griddy.nfl.models.enums.player_position_enum import PlayerPositionEnum
+from griddy.nfl.models.enums.player_position_group_enum import PlayerPositionGroupEnum
+from griddy.nfl.models.enums.player_status_enum import PlayerStatusEnum
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
@@ -40,14 +43,13 @@ class Person(BaseModel):
     r"""Person's surname"""
     nfl_experience: Annotated[int, pydantic.Field(alias="nflExperience")]
     r"""Number of years the person has been a part of the NFL"""
-    position: str
-    # TODO: Make an enum for this
+    position: PlayerPositionEnum
     r"""Player's position on the field"""
-    position_group: Annotated[str, pydantic.Field(alias="positionGroup")]
-    # TODO: Make an enum for this
+    position_group: Annotated[
+        PlayerPositionGroupEnum, pydantic.Field(alias="positionGroup")
+    ]
     r"""Player's position group"""
-    status: str
-    # TODO: Make an enum
+    status: PlayerStatusEnum
     r"""Whether the player is active or retired"""
     weight: int
     r"""Player's weight rounded to the nearest pound"""
