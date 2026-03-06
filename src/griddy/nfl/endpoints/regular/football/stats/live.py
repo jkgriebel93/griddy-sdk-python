@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class LiveStats(BaseSDK):
-
     def _get_team_statistics_config(
         self,
         *,

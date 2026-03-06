@@ -111,9 +111,9 @@ class TestParseScheduleTable:
         games = parser.parse(schedule_html)
         for i, game in enumerate(games):
             assert game["week_num"], f"Game {i} missing week_num"
-            assert (
-                game.get("game_day_of_week") is not None
-            ), f"Game {i} missing game_day_of_week"
+            assert game.get("game_day_of_week") is not None, (
+                f"Game {i} missing game_day_of_week"
+            )
             assert game["game_date"], f"Game {i} missing game_date"
             assert game["winner"], f"Game {i} missing winner"
             assert game["loser"], f"Game {i} missing loser"

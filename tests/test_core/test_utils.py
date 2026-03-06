@@ -248,7 +248,7 @@ class TestParseCookiesTxt:
     def test_wrong_field_count_skipped(self, tmp_path):
         cookies_file = tmp_path / "cookies.txt"
         cookies_file.write_text(
-            ".nfl.com\tTRUE\t/\n" ".nfl.com\tTRUE\t/\tFALSE\t0\ttest\tvalue\n"
+            ".nfl.com\tTRUE\t/\n.nfl.com\tTRUE\t/\tFALSE\t0\ttest\tvalue\n"
         )
         cookies = parse_cookies_txt(str(cookies_file))
         assert len(cookies) == 1

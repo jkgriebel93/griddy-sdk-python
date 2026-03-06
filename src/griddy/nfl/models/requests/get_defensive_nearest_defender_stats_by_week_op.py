@@ -12,7 +12,8 @@ from griddy.nfl.types import BaseModel
 from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 GetDefensiveNearestDefenderStatsByWeekSortKey = Literal[
-    "cov" "snap",
+    "cov",
+    "snap",
     "snapPct",
     # Run snaps
     "rd",

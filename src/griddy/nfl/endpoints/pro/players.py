@@ -10,7 +10,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Players(ProSDK):
-
     def _get_player_config(
         self,
         *,

@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Draft(BaseSDK):
-
     def _get_picks_report_config(
         self,
         *,

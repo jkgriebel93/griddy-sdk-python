@@ -16,7 +16,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class Content(ProSDK, GameContentMixin):
-
     def _get_home_film_cards_config(
         self,
         *,

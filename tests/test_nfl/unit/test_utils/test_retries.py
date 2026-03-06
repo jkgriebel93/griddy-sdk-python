@@ -174,7 +174,8 @@ class TestRetryWithBackoff:
             raise TemporaryError(resp)
 
         result = retry_with_backoff(
-            failing, max_elapsed_time=1  # 1ms - immediately expires
+            failing,
+            max_elapsed_time=1,  # 1ms - immediately expires
         )
         assert result is resp
 

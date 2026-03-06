@@ -10,7 +10,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class TeamDefenseStats(ProSDK):
-
     def _get_season_overview_config(
         self,
         *,

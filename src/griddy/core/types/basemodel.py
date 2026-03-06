@@ -26,9 +26,7 @@ class BaseModel(PydanticBaseModel):
             is_optional = not f.is_required()
             is_nullable = isinstance(f.default, Unset)
             optional_nullable = is_optional and is_nullable
-            is_set = self.__pydantic_fields_set__.intersection(
-                {n}
-            )  # pylint: disable=no-member
+            is_set = self.__pydantic_fields_set__.intersection({n})  # pylint: disable=no-member
 
             if val is not None and val != UNSET_SENTINEL:
                 m[k] = val

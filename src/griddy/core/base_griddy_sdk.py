@@ -205,8 +205,7 @@ class BaseGriddySDK:
 
         if has_unclosed:
             warnings.warn(
-                f"Unclosed {type(self).__name__}. "
-                f"Use close() or a context manager.",
+                f"Unclosed {type(self).__name__}. Use close() or a context manager.",
                 ResourceWarning,
                 stacklevel=2,
             )

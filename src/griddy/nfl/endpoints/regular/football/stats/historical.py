@@ -9,7 +9,6 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class HistoricalStats(BaseSDK):
-
     def _get_team_stats_config(
         self,
         *,
