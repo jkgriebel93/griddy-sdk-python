@@ -397,6 +397,8 @@ if TYPE_CHECKING:
     from griddy.nfl.models.enums.binary_flag_enum import BinaryFlagEnum
     from griddy.nfl.models.enums.combine_enums import (
         CollegeClassEnum,
+        CombinePositionEnum,
+        CombinePositionGroupEnum,
         DesignationEnum,
         EventFilterEnum,
     )
@@ -420,7 +422,13 @@ if TYPE_CHECKING:
     from griddy.nfl.models.enums.passing_stats_category_enum import (
         PassingStatsCategoryEnum,
     )
+    from griddy.nfl.models.enums.play_state_enum import PlayStateEnum
     from griddy.nfl.models.enums.play_type_enum import PlayTypeEnum
+    from griddy.nfl.models.enums.player_position_enum import PlayerPositionEnum
+    from griddy.nfl.models.enums.player_position_group_enum import (
+        PlayerPositionGroupEnum,
+    )
+    from griddy.nfl.models.enums.player_status_enum import PlayerStatusEnum
     from griddy.nfl.models.enums.position_enums import (
         DefenseNGSPositionEnum,
         DefenseNGSPositionGroupEnum,
@@ -436,6 +444,10 @@ if TYPE_CHECKING:
     from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
     from griddy.nfl.models.enums.site_roof_type_enum import SiteRoofTypeEnum
     from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
+    from griddy.nfl.models.enums.team_defense_stats_enums import (
+        TeamDefenseStatsSortKeyEnum,
+        TeamDefenseStatsSplitEnum,
+    )
     from griddy.nfl.models.enums.team_type_enum import TeamTypeEnum
     from griddy.nfl.models.enums.week_slug_enum import WeekSlugEnum
     from griddy.nfl.models.enums.yards_to_go_enum import YardsToGoEnum
@@ -652,8 +664,6 @@ if TYPE_CHECKING:
     )
     from griddy.nfl.models.requests.get_team_defense_stats_by_week_op import (
         GetTeamDefenseStatsByWeekRequest,
-        GetTeamDefenseStatsByWeekSortKey,
-        GetTeamDefenseStatsByWeekSplit,
     )
     from griddy.nfl.models.requests.get_team_injuries_op import GetTeamInjuriesRequest
     from griddy.nfl.models.requests.get_team_needs_op import GetTeamNeedsRequest
@@ -939,6 +949,8 @@ __all__ = [
     "CoachesFilmVideoType",
     "CollegeClassEnum",
     "CombinePerson",
+    "CombinePositionEnum",
+    "CombinePositionGroupEnum",
     "CombineProfile",
     "CombineProfilesResponse",
     "CombineRankingsResponse",
@@ -1109,8 +1121,6 @@ __all__ = [
     "GetTeamDefenseStatsBySeasonSortKey",
     "GetTeamDefenseStatsBySeasonSplit",
     "GetTeamDefenseStatsByWeekRequest",
-    "GetTeamDefenseStatsByWeekSortKey",
-    "GetTeamDefenseStatsByWeekSplit",
     "GetTeamInjuriesRequest",
     "GetTeamNeedsRequest",
     "GetTeamOffensePassStatsBySeasonRequest",
@@ -1302,6 +1312,7 @@ __all__ = [
     "PlayPlayer",
     "PlayStat",
     "PlayState",
+    "PlayStateEnum",
     "PlaySummaryResponse",
     "PlayTypeEnum",
     "PlayWinProbability",
@@ -1310,6 +1321,8 @@ __all__ = [
     "PlayerDetail",
     "PlayerGameStats",
     "PlayerPassingStats",
+    "PlayerPositionEnum",
+    "PlayerPositionGroupEnum",
     "PlayerProjection",
     "PlayerReceivingStats",
     "PlayerRushingStats",
@@ -1320,6 +1333,7 @@ __all__ = [
     "PlayerStatsResponsePagination",
     "PlayerStatsResponsePlayer",
     "PlayerStatsResponseStats",
+    "PlayerStatusEnum",
     "PlayerWeekProjectedPoints",
     "PlayerWeekProjectedPointsAttributes",
     "PlayerWeekProjectedPointsType",
@@ -1416,6 +1430,8 @@ __all__ = [
     "TeamDefenseRushStatsResponse",
     "TeamDefenseStats",
     "TeamDefenseStatsResponse",
+    "TeamDefenseStatsSortKeyEnum",
+    "TeamDefenseStatsSplitEnum",
     "TeamGameStats",
     "TeamInfo",
     "TeamInjuryReport",
@@ -1514,6 +1530,8 @@ _dynamic_imports: dict[str, str] = {
     "CoachesFilmVideoType": ".entities.coaches_film_video",
     "CollegeClassEnum": ".enums.combine_enums",
     "CombinePerson": ".entities.combine_profile",
+    "CombinePositionEnum": ".enums.combine_enums",
+    "CombinePositionGroupEnum": ".enums.combine_enums",
     "CombineProfile": ".entities.combine_profile",
     "CombineProfilesResponse": ".responses.combine_profiles_response",
     "CombineRankingsResponse": ".responses.combine_rankings_response",
@@ -1684,8 +1702,6 @@ _dynamic_imports: dict[str, str] = {
     "GetTeamDefenseStatsBySeasonSortKey": ".requests.get_team_defense_stats_by_season_op",
     "GetTeamDefenseStatsBySeasonSplit": ".requests.get_team_defense_stats_by_season_op",
     "GetTeamDefenseStatsByWeekRequest": ".requests.get_team_defense_stats_by_week_op",
-    "GetTeamDefenseStatsByWeekSortKey": ".requests.get_team_defense_stats_by_week_op",
-    "GetTeamDefenseStatsByWeekSplit": ".requests.get_team_defense_stats_by_week_op",
     "GetTeamInjuriesRequest": ".requests.get_team_injuries_op",
     "GetTeamNeedsRequest": ".requests.get_team_needs_op",
     "GetTeamOffensePassStatsBySeasonRequest": ".requests.get_team_offense_pass_stats_by_season_op",
@@ -1877,6 +1893,7 @@ _dynamic_imports: dict[str, str] = {
     "PlayPlayer": ".entities.play_player",
     "PlayStat": ".entities.play_stat",
     "PlayState": ".entities.play_detail",
+    "PlayStateEnum": ".enums.play_state_enum",
     "PlaySummaryResponse": ".responses.play_summary_response",
     "PlayTypeEnum": ".enums.play_type_enum",
     "PlayWinProbability": ".entities.play_win_probability",
@@ -1885,6 +1902,8 @@ _dynamic_imports: dict[str, str] = {
     "PlayerDetail": ".entities.player_detail",
     "PlayerGameStats": ".entities.player_game_stats",
     "PlayerPassingStats": ".entities.player_passing_stats",
+    "PlayerPositionEnum": ".enums.player_position_enum",
+    "PlayerPositionGroupEnum": ".enums.player_position_group_enum",
     "PlayerProjection": ".entities.player_projection",
     "PlayerReceivingStats": ".entities.player_receiving_stats",
     "PlayerRushingStats": ".entities.player_rushing_stats",
@@ -1895,6 +1914,7 @@ _dynamic_imports: dict[str, str] = {
     "PlayerStatsResponsePagination": ".responses.player_stats_response",
     "PlayerStatsResponsePlayer": ".responses.player_stats_response",
     "PlayerStatsResponseStats": ".responses.player_stats_response",
+    "PlayerStatusEnum": ".enums.player_status_enum",
     "PlayerWeekProjectedPoints": ".entities.player_week_projected_points",
     "PlayerWeekProjectedPointsAttributes": ".entities.player_week_projected_points",
     "PlayerWeekProjectedPointsType": ".entities.player_week_projected_points",
@@ -1991,6 +2011,8 @@ _dynamic_imports: dict[str, str] = {
     "TeamDefenseRushStatsResponse": ".responses.team_defense_rush_stats_response",
     "TeamDefenseStats": ".entities.team_defense_stats",
     "TeamDefenseStatsResponse": ".responses.team_defense_stats_response",
+    "TeamDefenseStatsSortKeyEnum": ".enums.team_defense_stats_enums",
+    "TeamDefenseStatsSplitEnum": ".enums.team_defense_stats_enums",
     "TeamGameStats": ".entities.team_game_stats",
     "TeamInfo": ".entities.team_info",
     "TeamInjuryReport": ".entities.team_injury_report",

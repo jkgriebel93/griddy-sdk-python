@@ -12,7 +12,11 @@ from griddy.nfl.models.entities.combine_events import (
     TwentyYardShuffle,
     VerticalJump,
 )
-from griddy.nfl.models.enums.combine_enums import CollegeClassEnum
+from griddy.nfl.models.enums.combine_enums import (
+    CollegeClassEnum,
+    CombinePositionEnum,
+    CombinePositionGroupEnum,
+)
 from griddy.nfl.types import BaseModel
 
 
@@ -114,13 +118,11 @@ class CombineProfile(BaseModel):
     r"""HTML - Prospect weaknesses"""
     combine_attendance: Annotated[bool, pydantic.Field(alias="combineAttendance")]
     r"""Whether or not the prospect attended the official scouting combine"""
-    position: str
-    # TODO: Make this field a complete enum
+    position: CombinePositionEnum
     r"""Player's position in college"""
-    position_group: Annotated[Optional[str], pydantic.Field(alias="positionGroup")] = (
-        None
-    )
-    # TODO: Create complete enum
+    position_group: Annotated[
+        Optional[CombinePositionGroupEnum], pydantic.Field(alias="positionGroup")
+    ] = None
     r"""Position group in college"""
     vertical_jump: Annotated[
         Optional[VerticalJump], pydantic.Field(alias="verticalJump")
