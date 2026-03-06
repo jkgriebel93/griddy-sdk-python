@@ -11,12 +11,14 @@ Requires:
 """
 
 from dataclasses import dataclass
+from typing import Any
 
 import httpx
+from playwright.async_api import Browser as AsyncBrowser
 from playwright.async_api import Error as AsyncPlaywrightError
 from playwright.async_api import async_playwright
+from playwright.sync_api import Browser, sync_playwright
 from playwright.sync_api import Error as PlaywrightError
-from playwright.sync_api import sync_playwright
 
 from griddy.settings import BROWSERLESS_HOST, BROWSERLESS_TOKEN
 
@@ -39,7 +41,24 @@ class BrowserlessError(Exception):
 
 
 class Browserless:
-    def __init__(self, config: BrowserlessConfig | None = None):
+    """Synchronous client for fetching web pages via the Browserless unblock API.
+
+    Combines the Browserless ``/chromium/unblock`` endpoint (which uses a
+    residential proxy to bypass bot detection) with Playwright CDP connections
+    to extract fully-rendered page HTML.
+    """
+
+    def __init__(self, config: BrowserlessConfig | None = None) -> None:
+        """Initialise the Browserless client.
+
+        Args:
+            config: Optional configuration overrides. Uses
+                :class:`BrowserlessConfig` defaults when *None*.
+
+        Raises:
+            BrowserlessError: If ``BROWSERLESS_HOST`` or ``BROWSERLESS_TOKEN``
+                environment variables are not set.
+        """
         if not BROWSERLESS_HOST:
             raise BrowserlessError("BROWSERLESS_HOST environment variable is not set.")
         if not BROWSERLESS_TOKEN:
@@ -50,7 +69,19 @@ class Browserless:
         self.data: dict | None = None
         self.timeout = self.config.default_timeout_ms
 
-    def fetch_data(self, url: str):
+    def fetch_data(self, url: str) -> dict[str, Any]:
+        """Call the Browserless ``/chromium/unblock`` endpoint.
+
+        Args:
+            url: The target URL to unblock.
+
+        Returns:
+            The JSON response from the unblock API, containing keys such as
+            ``browserWSEndpoint`` and ``cookies``.
+
+        Raises:
+            BrowserlessError: If the HTTP request fails.
+        """
         unblock_url = f"https://{self.host}/chromium/unblock"
         query_params = {
             "token": self.token,
@@ -81,7 +112,25 @@ class Browserless:
 
         return resp.json()
 
-    def _handle_page_navigation(self, browser, url: str, cookies: dict, element: str):
+    def _handle_page_navigation(
+        self, browser: Browser, url: str, cookies: dict, element: str
+    ) -> str:
+        """Locate or create a page in *browser* and wait for *element*.
+
+        If the unblock API already opened a page matching *url*, that page is
+        reused. Otherwise a new browser context is created, cookies are
+        injected, and the page is navigated to *url*.
+
+        Args:
+            browser: A Playwright ``Browser`` instance connected via CDP.
+            url: The target URL.
+            cookies: Cookies returned by the unblock API to inject into the
+                new context (if one is created).
+            element: CSS selector to wait for before extracting content.
+
+        Returns:
+            The page's outer HTML as a string.
+        """
         # The unblock API already navigated to the URL in the first page.
         page = None
         for ctx in browser.contexts:
@@ -103,7 +152,7 @@ class Browserless:
 
         return page.content()
 
-    def get_page_content(self, url: str, wait_for_element: str):
+    def get_page_content(self, url: str, wait_for_element: str) -> str:
         """Fetch a page's HTML via Browserless unblock API + Playwright.
 
         Calls the Browserless /chromium/unblock endpoint with a residential proxy
@@ -150,7 +199,17 @@ class AsyncBrowserless:
     ``playwright.async_api`` for CDP browser interaction.
     """
 
-    def __init__(self, config: BrowserlessConfig | None = None):
+    def __init__(self, config: BrowserlessConfig | None = None) -> None:
+        """Initialise the async Browserless client.
+
+        Args:
+            config: Optional configuration overrides. Uses
+                :class:`BrowserlessConfig` defaults when *None*.
+
+        Raises:
+            BrowserlessError: If ``BROWSERLESS_HOST`` or ``BROWSERLESS_TOKEN``
+                environment variables are not set.
+        """
         if not BROWSERLESS_HOST:
             raise BrowserlessError("BROWSERLESS_HOST environment variable is not set.")
         if not BROWSERLESS_TOKEN:
@@ -161,7 +220,19 @@ class AsyncBrowserless:
         self.data: dict | None = None
         self.timeout = self.config.default_timeout_ms
 
-    async def fetch_data(self, url: str):
+    async def fetch_data(self, url: str) -> dict[str, Any]:
+        """Call the Browserless ``/chromium/unblock`` endpoint asynchronously.
+
+        Args:
+            url: The target URL to unblock.
+
+        Returns:
+            The JSON response from the unblock API, containing keys such as
+            ``browserWSEndpoint`` and ``cookies``.
+
+        Raises:
+            BrowserlessError: If the HTTP request fails.
+        """
         unblock_url = f"https://{self.host}/chromium/unblock"
         query_params = {
             "token": self.token,
@@ -194,8 +265,22 @@ class AsyncBrowserless:
         return resp.json()
 
     async def _handle_page_navigation(
-        self, browser, url: str, cookies: dict, element: str
-    ):
+        self, browser: AsyncBrowser, url: str, cookies: dict, element: str
+    ) -> str:
+        """Locate or create a page in *browser* and wait for *element*.
+
+        Async counterpart of :meth:`Browserless._handle_page_navigation`.
+
+        Args:
+            browser: An async Playwright ``Browser`` instance connected via CDP.
+            url: The target URL.
+            cookies: Cookies returned by the unblock API to inject into the
+                new context (if one is created).
+            element: CSS selector to wait for before extracting content.
+
+        Returns:
+            The page's outer HTML as a string.
+        """
         page = None
         for ctx in browser.contexts:
             for p in ctx.pages:
@@ -216,7 +301,7 @@ class AsyncBrowserless:
 
         return await page.content()
 
-    async def get_page_content(self, url: str, wait_for_element: str):
+    async def get_page_content(self, url: str, wait_for_element: str) -> str:
         """Async version of :meth:`Browserless.get_page_content`.
 
         Args:
