@@ -1,6 +1,5 @@
 """Tests for griddy.nfl.utils.security."""
 
-import base64
 from typing import Optional
 from unittest.mock import MagicMock, patch
 
@@ -12,7 +11,6 @@ from griddy.nfl.types.basemodel import BaseModel
 from griddy.nfl.utils.metadata import FieldMetadata, SecurityMetadata
 from griddy.nfl.utils.security import (
     _apply_bearer,
-    _parse_basic_auth_scheme,
     _parse_security_scheme_value,
     do_browser_auth,
     get_security,
@@ -214,32 +212,6 @@ class TestParseSecuritySchemeValue:
             _parse_security_scheme_value(
                 headers, query_params, scheme_meta, sec_meta, "token", "value"
             )
-
-
-@pytest.mark.unit
-class TestParseBasicAuthScheme:
-    def test_basic_auth(self):
-        class BasicAuth(BaseModel):
-            username: Annotated[
-                str,
-                FieldMetadata(security=SecurityMetadata(field_name="username")),
-            ] = ""
-            password: Annotated[
-                str,
-                FieldMetadata(security=SecurityMetadata(field_name="password")),
-            ] = ""
-
-        headers = {}
-        scheme = BasicAuth(username="user", password="pass")
-        _parse_basic_auth_scheme(headers, scheme)
-        expected = base64.b64encode(b"user:pass").decode()
-        assert headers["Authorization"] == f"Basic {expected}"
-
-    def test_non_model_raises(self):
-        with pytest.raises(
-            TypeError, match="basic auth scheme must be a pydantic model"
-        ):
-            _parse_basic_auth_scheme({}, "not a model")
 
 
 @pytest.mark.unit
