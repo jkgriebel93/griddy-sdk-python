@@ -43,7 +43,7 @@ class Players(ProSDK):
             timeout_ms=timeout_ms,
             http_headers=http_headers,
             retries=retries,
-            return_raw_json=False,  # TODO: Fix unmarshaling issue
+            return_raw_json=False,
         )
 
     def _get_projected_stats_config(
