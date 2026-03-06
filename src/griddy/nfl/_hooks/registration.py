@@ -7,7 +7,7 @@ from .types import Hooks
 # in this file or in separate files in the hooks folder.
 
 
-def init_hooks(hooks: Hooks):
+def init_hooks(hooks: Hooks) -> None:
     # pylint: disable=unused-argument
     """Add hooks by calling hooks.register{sdk_init/before_request/after_success/after_error}Hook
     with an instance of a hook that implements that specific Hook interface

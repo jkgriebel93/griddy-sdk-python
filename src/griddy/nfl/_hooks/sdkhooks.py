@@ -7,4 +7,5 @@ class SDKHooks(CoreSDKHooks):
     """NFL-specific SDK hooks with NFL hook registration."""
 
     def __init__(self) -> None:
+        """Initialize NFL hooks by registering NFL-specific hook implementations."""
         super().__init__(init_hooks_fn=init_hooks)

@@ -1,7 +1,7 @@
 import base64
 import json
 import time
-from typing import Union
+from typing import Any, Dict, Union
 from uuid import uuid4
 
 import httpx
@@ -12,6 +12,8 @@ from griddy.nfl.models import NFLAuth, Security
 
 
 class HackAuthHook(BeforeRequestHook):
+    """Before-request hook that injects required NFL headers and auto-refreshes expired auth tokens."""
+
     refresh_req_data = {
         "clientKey": settings.NFL.client_key,
         "clientSecret": settings.NFL.client_secret,
@@ -31,7 +33,15 @@ class HackAuthHook(BeforeRequestHook):
         "peacockUUID": "undefined",
     }
 
-    def _do_refresh_token(self, refresh_token):
+    def _do_refresh_token(self, refresh_token: str) -> Dict[str, Any]:
+        """Exchange a refresh token for new auth credentials via the NFL token endpoint.
+
+        Args:
+            refresh_token: The current refresh token to exchange.
+
+        Returns:
+            Parsed JSON response containing new access token, refresh token, and expiry.
+        """
         refresh_url = f"{settings.NFL.token_url}/refresh"
         data = {**self.refresh_req_data, "refreshToken": refresh_token}
         response = httpx.post(url=refresh_url, data=data)
@@ -41,6 +51,7 @@ class HackAuthHook(BeforeRequestHook):
     def before_request(
         self, hook_ctx: BeforeRequestContext, request: httpx.Request
     ) -> Union[httpx.Request, Exception]:
+        """Add required NFL headers and refresh the auth token if it is near expiry."""
         request.headers["referer"] = "https://nextgenstats.nfl.com/"
         request.headers["x-override-env"] = "false"
         request.headers["sec-fetch-dest"] = "empty"
