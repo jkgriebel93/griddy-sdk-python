@@ -9,6 +9,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class PlayerReceivingStats(PlayerStatsBase):
+    r"""Player receiving statistics by week and season."""
+
     def _get_season_summary_config(
         self,
         *,

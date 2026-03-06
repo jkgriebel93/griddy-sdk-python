@@ -1,6 +1,6 @@
 """Base class for player stats endpoints."""
 
-from typing import Type
+from typing import Any, Type
 
 from griddy.core._constants import STATS_ERROR_CODES
 from griddy.nfl.basesdk import EndpointConfig
@@ -22,7 +22,7 @@ class PlayerStatsBase(ProSDK):
         operation_id: str,
         request_type: Type,
         response_type: Type,
-        **kwargs,
+        **kwargs: Any,
     ) -> EndpointConfig:
         """Build an EndpointConfig for a stats endpoint.
 

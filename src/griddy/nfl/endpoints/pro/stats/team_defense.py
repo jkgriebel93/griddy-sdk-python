@@ -10,6 +10,8 @@ from griddy.nfl.types import UNSET, OptionalNullable
 
 @sdk_endpoints
 class TeamDefenseStats(ProSDK):
+    r"""Team-level defensive statistics (overview, pass, rush) by week and season."""
+
     def _get_season_overview_config(
         self,
         *,
