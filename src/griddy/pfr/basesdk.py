@@ -22,7 +22,9 @@ class PfrParser(Protocol):
     Pydantic model construction is handled by the base SDK, not the parser.
     """
 
-    def __call__(self, html: str) -> Union[Dict[str, Any], List[Dict[str, Any]]]: ...
+    def __call__(self, html: str) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
+        """Parse raw HTML and return a dict or list of dicts for model validation."""
+        ...
 
 
 @dataclass
@@ -44,7 +46,15 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
         sdk_config: SDKConfiguration,
         parent_ref: Optional[object] = None,
         browserless_config: Optional[BrowserlessConfig] = None,
-    ):
+    ) -> None:
+        """Initialize PFR BaseSDK with Browserless clients for HTML fetching.
+
+        Args:
+            sdk_config: PFR SDK configuration with server details.
+            parent_ref: Optional reference to the parent SDK instance.
+            browserless_config: Optional Browserless configuration. Falls back
+                to the ``_browserless_config`` attribute set by GriddyPFR.
+        """
         super().__init__(sdk_config=sdk_config, parent_ref=parent_ref)
         # When called via BaseGriddySDK._init_sdk (MRO super().__init__),
         # browserless_config won't be passed. Fall back to the attribute
@@ -56,21 +66,26 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
 
     @property
     def _default_error_cls(self) -> Type[Exception]:
+        """Return the default error class for PFR API response errors."""
         return errors.GriddyPFRDefaultError
 
     @property
     def _no_response_error_cls(self) -> Type[Exception]:
+        """Return the error class raised when PFR returns no response body."""
         return errors.NoResponseError
 
     @property
     def _security_model_cls(self) -> Any:
+        """Return the Pydantic security model class for PFR authentication."""
         return models.Security
 
     @property
     def _security_env_mapping(self) -> Optional[Dict[str, str]]:
+        """Return the mapping of security fields to environment variable names."""
         return {"pfr_auth": "GRIDDY_PFR_AUTH"}
 
     def _build_url(self, config: EndpointConfig) -> str:
+        """Build the full URL from the base server URL, path template, and query params."""
         base_url, _ = self.sdk_configuration.get_server_details()
         path = config.path_template.format(**config.path_params)
         url = f"{base_url}{path}"
@@ -90,6 +105,7 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
         return str(soup)
 
     def _parse_and_validate(self, config: EndpointConfig, html: str) -> Any:
+        """Pre-process HTML, run the endpoint parser, and validate results into Pydantic models."""
         html = self._preprocess_html(html)
         try:
             result = config.parser(html)
