@@ -1,8 +1,15 @@
+"""Player profile HTML parser for Pro Football Reference.
+
+Parses ``/players/{letter}/{player_id}.htm`` pages into structured dicts
+containing biographical info, jersey numbers, career statistics, transactions,
+leaderboards, and navigation links.
+"""
+
 import logging
 import re
 from collections import defaultdict
 from datetime import date, datetime
-from typing import Mapping
+from typing import Any, Dict, Mapping
 
 from bs4 import BeautifulSoup
 from bs4.element import ResultSet, Tag
@@ -13,11 +20,30 @@ logger = logging.getLogger(__name__)
 
 
 class PlayerProfileParser:
-    def __init__(self):
+    """Parses a PFR player profile page into a structured dict.
+
+    Extracts biographical metadata, jersey number history, career statistics
+    (regular season and postseason), transactions, leaderboard appearances,
+    and navigation links from a player's Pro Football Reference page.
+    """
+
+    def __init__(self) -> None:
+        """Initialize the parser with an empty soup reference."""
         self.soup: BeautifulSoup | None = None
 
     def _extract_names(self, name_tag: Tag) -> dict:
+        """Extract structured name components from the player heading tag.
 
+        Splits the full name into first, middle, last, and suffix parts, and
+        collects any nicknames listed in parentheses.
+
+        Args:
+            name_tag: The ``<p>`` tag containing the player's display name.
+
+        Returns:
+            A dict with keys ``first_name``, ``middle_name``, ``last_name``,
+            ``suffix``, and ``nicknames``.
+        """
         full_name, *nicknames = (
             name_tag.get_text(strip=True).replace("\xa0", "").splitlines()
         )
@@ -54,6 +80,18 @@ class PlayerProfileParser:
         }
 
     def _extract_pos(self, pos_tag: Tag) -> dict:
+        """Extract position and handedness info from the position ``<p>`` tag.
+
+        Parses colon-delimited key-value pairs (e.g. ``Position: QB``) and
+        splits multi-value entries on ``-``.
+
+        Args:
+            pos_tag: The ``<p>`` tag containing position/throws/shoots info.
+
+        Returns:
+            A dict mapping lowercase keys (e.g. ``"position"``, ``"throws"``)
+            to their values.
+        """
         # This will give a list like ["Position", "QB", "Throws", "Right"]
         text_vals = [
             val.strip()
@@ -74,6 +112,16 @@ class PlayerProfileParser:
         return transformed
 
     def _extract_height_weight(self, tag: Tag) -> dict:
+        """Extract height (in total inches) and weight from the bio ``<p>`` tag.
+
+        Args:
+            tag: The ``<p>`` tag containing height in ``feet-inches`` format
+                and weight in pounds.
+
+        Returns:
+            A dict with ``height`` (total inches as int) and ``weight``
+            (pounds as str).
+        """
         height, weight = tag.get_text().replace(",", "").split()[:2]
         feet, inches = height.split("-")
 
@@ -81,7 +129,17 @@ class PlayerProfileParser:
 
         return {"height": height_inches, "weight": weight.replace("lbs", "")}
 
-    def _extract_birth_info(self, tag: Tag):
+    def _extract_birth_info(self, tag: Tag) -> Dict[str, Any]:
+        """Extract birth date and birthplace from the bio ``<p>`` tag.
+
+        Args:
+            tag: The ``<p>`` tag containing the ``#necro-birth`` element and
+                a ``<span>`` with city/state text.
+
+        Returns:
+            A dict with ``birth_date`` (datetime) and ``birth_place``
+            (dict with ``city`` and ``state``).
+        """
         birth_date_str = tag.find(id="necro-birth")["data-birth"]
         birth_date = datetime.strptime(birth_date_str, "%Y-%m-%d")
 
@@ -95,11 +153,28 @@ class PlayerProfileParser:
         }
 
     def _parse_draft_info(self, draft_text: str) -> dict:
+        """Parse draft round and overall pick from a draft description string.
+
+        Args:
+            draft_text: Text like ``"1st round (32nd overall)"``.
+
+        Returns:
+            A dict with ``round`` and ``overall`` as ints.
+        """
         reg = r"(\d{1,2})\w{2} round \((\d{1,3})\w{2} overall\)"
         match_ = re.search(reg, draft_text)
         return {"round": int(match_.group(1)), "overall": int(match_.group(2))}
 
     def _extract_pre_nfl(self, tag: Tag) -> dict:
+        """Extract pre-NFL background (college, high school, draft info).
+
+        Args:
+            tag: The ``<p>`` tag containing college, high school, and draft
+                information.
+
+        Returns:
+            A dict with ``college``, ``high_school``, and ``draft`` keys.
+        """
         text_values = [
             s.strip().replace(":", "") for s in tag.get_text().splitlines() if s.strip()
         ]
@@ -132,7 +207,21 @@ class PlayerProfileParser:
 
         return pre_nfl_info
 
-    def _extract_bio_info(self, div: Tag):
+    def _extract_bio_info(self, div: Tag) -> Dict[str, Any]:
+        """Extract all biographical info from the meta info ``<div>``.
+
+        Combines name, position, height/weight, birth, and pre-NFL data
+        into a single dict.
+
+        Args:
+            div: The ``<div>`` containing the player's biographical ``<p>``
+                tags and heading.
+
+        Returns:
+            A dict with ``names``, position fields, ``height``, ``weight``,
+            ``birth_date``, ``birth_place``, ``college``, ``high_school``,
+            and ``draft``.
+        """
         pretty_name = div.find("h1").get_text(strip=True)
         p_tags = div.find_all("p")
 
@@ -163,6 +252,15 @@ class PlayerProfileParser:
         return ret_data
 
     def _parse_meta_panel(self, panel: Tag) -> dict:
+        """Parse the ``#meta`` panel for photo URL and biographical data.
+
+        Args:
+            panel: The ``<div id="meta">`` element.
+
+        Returns:
+            A dict with ``photo_url`` and all keys from
+            :meth:`_extract_bio_info`.
+        """
         img_tag = panel.find("img")
         photo_url = img_tag["src"] if img_tag else ""
 
@@ -172,9 +270,25 @@ class PlayerProfileParser:
         return {"photo_url": photo_url, **self._extract_bio_info(div=meta_info_div)}
 
     def _parse_bling(self, tag: Tag) -> list[str]:
+        """Extract the list of accolades (Pro Bowls, All-Pro, etc.) from the bling section.
+
+        Args:
+            tag: The element containing ``<li>`` items for each accolade.
+
+        Returns:
+            A list of accolade strings.
+        """
         return [element.get_text(strip=True) for element in tag.find_all("li")]
 
     def _extract_team_and_years_jersey_num(self, text: str) -> dict:
+        """Parse a jersey-number tooltip into team name and year range.
+
+        Args:
+            text: Tooltip text like ``"Philadelphia Eagles 2020-2023"``.
+
+        Returns:
+            A dict with ``team``, ``start_year``, and ``end_year``.
+        """
         # Split on last space to separate team name from year(s).
         # This avoids issues with team names containing digits (e.g. "49ers").
         last_space_idx = text.rfind(" ")
@@ -189,6 +303,16 @@ class PlayerProfileParser:
         return {"team": team, "start_year": start_year, "end_year": end_year}
 
     def _parse_jersey_numbers(self, tag: Tag) -> list[dict]:
+        """Parse the jersey-number history from the ``uni_holder`` section.
+
+        Args:
+            tag: The ``<div class="uni_holder">`` element containing jersey
+                number ``<a>`` tags with ``data-tip`` tooltips.
+
+        Returns:
+            A list of dicts, each with ``number``, ``team``, ``start_year``,
+            and ``end_year``.
+        """
         number_info = []
         number_elements = tag.find_all("a")
 
@@ -206,6 +330,17 @@ class PlayerProfileParser:
         return number_info
 
     def _parse_stats_summary(self, tag: Tag) -> dict:
+        """Parse the career stats summary pullout section.
+
+        Extracts header/value pairs from the ``stats_pullout`` div, converting
+        numeric strings via :func:`safe_numberify`.
+
+        Args:
+            tag: The ``<div class="stats_pullout">`` element.
+
+        Returns:
+            A dict mapping stat labels to their numeric or string values.
+        """
         # noinspection PyTypeChecker
         summary_headers = [
             element.get_text(strip=True)
@@ -225,7 +360,19 @@ class PlayerProfileParser:
         values = [safe_numberify(value=v) for v in values]
         return dict(zip(summary_headers, values))
 
-    def _extract_overheader_indices(self, thead: Tag):
+    def _extract_overheader_indices(self, thead: Tag) -> Dict[int, str]:
+        """Build a mapping from column index to over-header group name.
+
+        PFR stats tables may have a row of spanning header cells (over-headers)
+        that group columns (e.g. ``"passing"``, ``"rushing"``).  This method
+        expands ``colspan`` values so each column index maps to its group.
+
+        Args:
+            thead: The ``<thead>`` element of a stats table.
+
+        Returns:
+            A dict mapping zero-based column indices to lowercase group names.
+        """
         ovr_hdr_indices = {}
 
         overheader_cells = thead.find_all("th", class_="over_header")
@@ -242,7 +389,19 @@ class PlayerProfileParser:
 
         return ovr_hdr_indices
 
-    def _group_by_over_header(self, stats: Mapping, over_header_indices: Mapping):
+    def _group_by_over_header(
+        self, stats: Mapping, over_header_indices: Mapping
+    ) -> Dict[str, Dict[str, Any]]:
+        """Nest flat stat columns under their over-header group.
+
+        Args:
+            stats: A flat dict of ``{column_name: value}`` for one season row.
+            over_header_indices: Column-index-to-group mapping from
+                :meth:`_extract_overheader_indices`.
+
+        Returns:
+            A dict keyed by group name, each containing its subset of stats.
+        """
         grouped_stats = defaultdict(dict)
 
         for idx, key_value in enumerate(stats.items()):
@@ -257,6 +416,18 @@ class PlayerProfileParser:
         return grouped_stats
 
     def _parse_stats_table(self, table: Tag) -> list[dict]:
+        """Parse a single PFR stats table into a list of season-row dicts.
+
+        Handles both flat tables and tables with over-header grouping.
+        Each row becomes a dict (or nested dict when over-headers are present)
+        with column names as keys and :func:`safe_numberify`-converted values.
+
+        Args:
+            table: A ``<table class="stats_table">`` element.
+
+        Returns:
+            A list of dicts, one per season row in the table body.
+        """
         over_header_indices = None
         if table.find(class_="over_header"):
             over_header_indices = self._extract_overheader_indices(
@@ -306,6 +477,20 @@ class PlayerProfileParser:
         return seasons
 
     def _extract_all_stats(self, stats_tables: ResultSet) -> Mapping:
+        """Parse all stats tables into regular-season and postseason groups.
+
+        Tables whose ``id`` contains ``"post"`` are filed under
+        ``"post_season"``; all others go under ``"regular_season"``.
+        The ``sim_scores`` table is skipped.
+
+        Args:
+            stats_tables: A ``ResultSet`` of ``<table class="stats_table">``
+                elements.
+
+        Returns:
+            A mapping with ``"regular_season"`` and ``"post_season"`` keys,
+            each containing table-name-keyed parsed data.
+        """
         stats = defaultdict(dict)
 
         for table in stats_tables:
@@ -322,6 +507,16 @@ class PlayerProfileParser:
         return stats
 
     def _parse_transactions(self, tag: Tag) -> list[Mapping]:
+        """Parse the transactions section into a list of dated events.
+
+        Args:
+            tag: The ``<div id="div_transactions">`` element containing
+                ``<li>`` items with ``"date: description"`` text.
+
+        Returns:
+            A list of dicts, each with ``date`` (a :class:`date`) and
+            ``description`` (str).
+        """
         date_format_string = "%B %d, %Y"
         transactions = []
 
@@ -341,6 +536,18 @@ class PlayerProfileParser:
         return transactions
 
     def _parse_bottom_nav(self, tag: Tag) -> Mapping:
+        """Parse the bottom navigation container into categorized link groups.
+
+        Extracts the overview link, general links, and label-grouped links
+        from ``<div id="bottom_nav_container">``.
+
+        Args:
+            tag: The bottom navigation ``<div>`` element.
+
+        Returns:
+            A mapping keyed by section label (e.g. ``"overview"``,
+            ``"general"``) with href values or nested dicts of hrefs.
+        """
         player_links = defaultdict(dict)
 
         children = tag.find_all(recursive=False)
@@ -376,6 +583,15 @@ class PlayerProfileParser:
         return player_links
 
     def _parse_leader_boards(self, tag: Tag) -> Mapping:
+        """Parse the leaderboard section into named board entries.
+
+        Args:
+            tag: The ``<div id="div_leaderboard">`` element containing
+                ``data_grid_box`` children.
+
+        Returns:
+            A mapping from board name to a list of cell text values.
+        """
         leader_boards = {}
 
         board_divs = tag.find_all(class_="data_grid_box")
@@ -387,6 +603,20 @@ class PlayerProfileParser:
         return leader_boards
 
     def parse(self, html: str) -> PlayerProfile:
+        """Parse a PFR player profile page into a structured dict.
+
+        Uncomments hidden HTML tables, then extracts bio, jersey numbers,
+        summary stats, full career statistics, transactions, navigation
+        links, and leaderboard data.
+
+        Args:
+            html: Raw HTML string of a PFR
+                ``/players/{letter}/{player_id}.htm`` page.
+
+        Returns:
+            A dict suitable for validation into a
+            :class:`~griddy.pfr.models.PlayerProfile` model.
+        """
         cleaned_html = re.sub(r"<!--(.*?)-->", r"\1", html, flags=re.DOTALL)
         self.soup = BeautifulSoup(cleaned_html, features="html.parser")
         bio = self._parse_meta_panel(panel=self.soup.find(id="meta"))
