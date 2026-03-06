@@ -7,6 +7,8 @@ from griddy.nfl.types import BaseModel
 
 
 class PlayerSearchResponse(BaseModel):
+    """Response containing player search results."""
+
     players: List[PlayerSearchResult]
     r"""Array of players matching search criteria"""
 

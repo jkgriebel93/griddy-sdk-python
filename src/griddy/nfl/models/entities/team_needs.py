@@ -8,6 +8,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TeamNeeds(BaseModel):
+    """Draft needs and positional priorities for a team."""
+
     team_id: Annotated[str, pydantic.Field(alias="teamId")]
     r"""Team's UUID as defined by the NFL"""
     year: int

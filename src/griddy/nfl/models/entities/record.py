@@ -6,6 +6,8 @@ from ...types import BaseModel
 
 
 class Record(BaseModel):
+    """Win-loss-tie record."""
+
     losses: Optional[int] = None
 
     ties: Optional[int] = None

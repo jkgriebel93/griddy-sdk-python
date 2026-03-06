@@ -13,6 +13,8 @@ from griddy.nfl.types import BaseModel
 
 
 class PlayByPlayResponse(BaseModel):
+    """Response containing play-by-play data."""
+
     current_drive: Annotated[Optional[Drive], pydantic.Field(alias="currentDrive")] = (
         None
     )

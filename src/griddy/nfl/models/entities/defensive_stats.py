@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class DefensiveStats(BaseModel):
+    """Team-level defensive statistics."""
+
     assisted_tackles: Annotated[
         Optional[int], pydantic.Field(alias="assistedTackles")
     ] = None

@@ -10,6 +10,8 @@ from .team import Team
 
 
 class TeamGameStats(BaseModel):
+    """Team-level statistics for a single game."""
+
     first_downs: Annotated[Optional[int], pydantic.Field(alias="firstDowns")] = None
 
     fourth_down_conversions: Annotated[

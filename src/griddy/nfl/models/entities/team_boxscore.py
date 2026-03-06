@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class TeamBoxscore(BaseModel):
+    """Team-level boxscore statistics for a game."""
+
     extra_points: Annotated[
         Optional[List[Dict[str, Any]]], pydantic.Field(alias="extraPoints")
     ] = None

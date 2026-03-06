@@ -9,6 +9,8 @@ from griddy.nfl.types import BaseModel
 
 
 class NFLAuth(BaseModel):
+    """NFL API authentication token details."""
+
     access_token: Annotated[str, pydantic.Field(alias="accessToken")]
     r"""Bearer token for NFL API requests."""
     refresh_token: Annotated[Optional[str], pydantic.Field(alias="refreshToken")] = None

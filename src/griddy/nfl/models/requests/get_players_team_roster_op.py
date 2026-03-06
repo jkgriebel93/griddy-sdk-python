@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadat
 
 
 class GetPlayersTeamRosterRequest(BaseModel):
+    """Request parameters for fetching a team roster's players."""
+
     team_id: Annotated[
         str,
         pydantic.Field(alias="teamId"),

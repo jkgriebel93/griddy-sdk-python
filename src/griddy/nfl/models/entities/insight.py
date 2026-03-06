@@ -33,6 +33,8 @@ r"""Context of the second team (typically \"defense\" for opponent)"""
 
 
 class Insight(BaseModel):
+    """Content insight or editorial analysis."""
+
     created_at: Annotated[datetime, pydantic.Field(alias="createdAt")]
     r"""Content creation timestamp"""
 

@@ -12,12 +12,16 @@ from griddy.nfl.types import BaseModel
 
 
 class StandingsResponseWeek(BaseModel):
+    """Week metadata within a standings response."""
+
     standings: Optional[List[Standings]] = None
 
     week: Optional[int] = None
 
 
 class StandingsResponse(BaseModel):
+    """Response containing standings data."""
+
     pagination: Optional[Pagination] = None
 
     season: Optional[int] = None

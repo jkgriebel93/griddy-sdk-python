@@ -14,6 +14,8 @@ from griddy.nfl.types import BaseModel
 
 
 class WeeklyPassingStatsResponse(BaseModel):
+    """Response containing weekly passing stats."""
+
     limit: int
     r"""Maximum number of results returned"""
 

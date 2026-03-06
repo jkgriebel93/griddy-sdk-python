@@ -12,6 +12,8 @@ from ...types import BaseModel
 
 
 class FilmroomPlay(BaseModel):
+    """Play entry from the NFL Film Room."""
+
     defense_team_id: Annotated[str, pydantic.Field(alias="defenseTeamId")]
     r"""Defensive team identifier"""
 

@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class TeamScore(BaseModel):
+    """Team score details within a game."""
+
     point_ot: Annotated[Optional[int], pydantic.Field(alias="pointOT")] = None
     r"""Overtime points"""
 

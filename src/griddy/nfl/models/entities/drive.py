@@ -23,6 +23,8 @@ Result = Literal[
 
 
 class Drive(BaseModel):
+    """Single offensive drive within a game."""
+
     drive_number: Annotated[Optional[int], pydantic.Field(alias="driveNumber")] = None
 
     end_time: Annotated[Optional[str], pydantic.Field(alias="endTime")] = None

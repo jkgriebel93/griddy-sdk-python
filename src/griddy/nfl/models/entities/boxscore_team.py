@@ -12,6 +12,8 @@ from ...types import BaseModel
 
 
 class BoxscoreTeam(BaseModel):
+    """Team-level data within a boxscore."""
+
     abbr: Optional[str] = None
 
     city_state: Annotated[Optional[str], pydantic.Field(alias="cityState")] = None

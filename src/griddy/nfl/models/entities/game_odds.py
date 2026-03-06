@@ -13,6 +13,8 @@ from .totals import Totals
 
 
 class GameOdds(BaseModel):
+    """Betting odds for a game including spread and over/under."""
+
     game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
     r"""Game identifier (10-digit format YYYYMMDDNN)"""
 

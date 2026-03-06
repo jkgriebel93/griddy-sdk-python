@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TeamDefenseRushStatsResponse(BaseModel):
+    """Response containing team defense rush stats."""
+
     defense: List[TeamDefenseRushStats]
 
     limit: int

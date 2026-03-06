@@ -11,6 +11,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadat
 
 
 class GetFootballGamesRequest(BaseModel):
+    """Request parameters for fetching football games."""
+
     season: Annotated[
         int, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]

@@ -11,12 +11,16 @@ from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 
 
 class UnofficialPlay(BaseModel):
+    """Unofficial play timestamp data."""
+
     date_time_stamp_utc: Annotated[
         Optional[str], pydantic.Field(alias="dateTimeStampUTC")
     ] = None
 
 
 class OffenseInfo(BaseModel):
+    """Offensive formation and personnel details for a play."""
+
     offense_formation: Annotated[
         Optional[str], pydantic.Field(alias="offenseFormation")
     ] = None
@@ -24,6 +28,8 @@ class OffenseInfo(BaseModel):
 
 
 class DefenseInfo(BaseModel):
+    """Defensive alignment and coverage details for a play."""
+
     defenders_in_the_box: Annotated[
         Optional[int], pydantic.Field(alias="defendersInTheBox")
     ] = None
@@ -36,6 +42,8 @@ class DefenseInfo(BaseModel):
 
 
 class PassInfo(BaseModel):
+    """Pass-specific details for a play."""
+
     air_yards: Annotated[Optional[float], pydantic.Field(alias="airYards")] = None
     time_to_throw: Annotated[Optional[float], pydantic.Field(alias="timeToThrow")] = (
         None
@@ -44,6 +52,8 @@ class PassInfo(BaseModel):
 
 
 class RecInfo(BaseModel):
+    """Receiver route information for a play."""
+
     route: Optional[str] = None
 
 
@@ -51,6 +61,8 @@ class RecInfo(BaseModel):
 
 
 class ProPlay(BaseModel):
+    """Detailed play data from the NFL Pro API."""
+
     game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
     play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
     down: Optional[int] = None

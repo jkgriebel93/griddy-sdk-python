@@ -6,6 +6,8 @@ from ...types import BaseModel
 
 
 class TeamVenue(BaseModel):
+    """Venue information associated with a team."""
+
     city: Optional[str] = None
     r"""Venue city"""
 

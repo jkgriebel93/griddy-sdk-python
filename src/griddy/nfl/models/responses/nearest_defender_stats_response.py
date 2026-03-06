@@ -14,6 +14,8 @@ from griddy.nfl.types import BaseModel
 
 
 class NearestDefenderStatsResponse(BaseModel):
+    """Response containing nearest-defender statistics."""
+
     defenders: List[DefensiveNearestDefenderStats]
 
     limit: int

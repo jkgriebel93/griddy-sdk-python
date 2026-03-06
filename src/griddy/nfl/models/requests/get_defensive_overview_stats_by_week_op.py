@@ -34,6 +34,8 @@ r"""Field to sort by"""
 
 
 class GetDefensiveOverviewStatsByWeekRequest(BaseModel):
+    """Request parameters for fetching weekly defensive overview stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

@@ -9,6 +9,8 @@ from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class PlayWinProbability(BaseModel):
+    """Win probability values associated with a play."""
+
     down: int
     r"""Down number (0 for kickoffs and special plays, 1-4 for regular plays)"""
 

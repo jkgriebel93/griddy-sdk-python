@@ -15,6 +15,8 @@ from .venue_info import VenueInfo
 
 
 class GameSchedule(BaseModel):
+    """Scheduled game entry with date, time, and matchup details."""
+
     game_date: Annotated[Optional[str], pydantic.Field(alias="gameDate")] = None
     r"""Game date MM/DD/YYYY"""
 

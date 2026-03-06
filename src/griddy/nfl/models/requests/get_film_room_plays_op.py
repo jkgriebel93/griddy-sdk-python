@@ -88,6 +88,8 @@ DefCoverageType = Literal[
 
 
 class GetFilmroomPlaysRequest(BaseModel):
+    """Request parameters for fetching Film Room plays."""
+
     game_id: Annotated[
         Optional[List[str]],
         pydantic.Field(alias="gameId"),

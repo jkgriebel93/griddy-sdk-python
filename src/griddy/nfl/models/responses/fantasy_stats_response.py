@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class FantasyStatsResponse(BaseModel):
+    """Response containing fantasy statistics."""
+
     limit: int
     r"""Maximum number of results returned"""
 

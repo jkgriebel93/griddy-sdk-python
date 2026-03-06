@@ -7,6 +7,8 @@ from ...utils import FieldMetadata, QueryParamMetadata
 
 
 class SearchPlayersRequest(BaseModel):
+    """Request parameters for searching NFL players."""
+
     term: Annotated[
         str, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

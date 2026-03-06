@@ -10,6 +10,8 @@ from .team_score import TeamScore
 
 
 class BoxscoreScore(BaseModel):
+    """Score breakdown within a boxscore."""
+
     home_team_score: Annotated[
         Optional[TeamScore], pydantic.Field(alias="homeTeamScore")
     ] = None

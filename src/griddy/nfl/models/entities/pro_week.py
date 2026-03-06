@@ -20,6 +20,8 @@ r"""Type of week"""
 
 
 class ProWeek(BaseModel):
+    """Week metadata from the NFL Pro API."""
+
     bye_teams: Annotated[Optional[List[Team]], pydantic.Field(alias="byeTeams")] = None
     r"""Teams on bye this week (empty array if no bye teams)"""
 

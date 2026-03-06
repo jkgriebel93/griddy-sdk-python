@@ -9,6 +9,8 @@ from ...types import UNSET, BaseModel, OptionalNullable
 
 
 class Venue(BaseModel):
+    """NFL venue details."""
+
     address: OptionalNullable[str] = UNSET
     r"""Street address"""
 

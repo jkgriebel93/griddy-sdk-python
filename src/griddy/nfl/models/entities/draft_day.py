@@ -5,6 +5,8 @@ from griddy.nfl.types import BaseModel
 
 
 class DraftDay(BaseModel):
+    """Single day within the NFL Draft."""
+
     year: int
     day: int
     first_pick: Annotated[int, pydantic.Field(alias="firstPick")]

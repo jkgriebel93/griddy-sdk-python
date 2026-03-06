@@ -21,6 +21,8 @@ r"""Prime time game designation"""
 
 
 class WeeklyGameDetailExtension(BaseModel):
+    """Extended metadata for a weekly game detail."""
+
     pass
 
 
@@ -31,6 +33,8 @@ r"""Game status"""
 
 
 class DriveChartPlayStat(BaseModel):
+    """Individual statistic within a drive chart play."""
+
     play_stat_id: Annotated[Optional[str], pydantic.Field(alias="playStatId")] = None
     gsis_player_id: Annotated[Optional[str], pydantic.Field(alias="gsisPlayerId")] = (
         None
@@ -48,6 +52,8 @@ class DriveChartPlayStat(BaseModel):
 
 
 class DriveChartPlay(BaseModel):
+    """Play entry within a drive chart."""
+
     play_id: Annotated[Optional[int], pydantic.Field(alias="playId")] = None
     clock_time: Annotated[Optional[str], pydantic.Field(alias="clockTime")] = None
     down: Optional[int] = None
@@ -113,6 +119,8 @@ class DriveChartPlay(BaseModel):
 
 
 class Drive(BaseModel):
+    """Drive summary within a weekly game detail."""
+
     sequence: Optional[int] = None
     team_id: Annotated[Optional[str], pydantic.Field(alias="teamId")] = None
     started_clock: Annotated[Optional[str], pydantic.Field(alias="startedClock")] = None
@@ -176,6 +184,8 @@ class DriveChart(BaseModel):
 
 
 class Replay(BaseModel):
+    """Video replay reference for a game."""
+
     type_: Annotated[Optional[str], pydantic.Field(alias="type")] = None
     authorizations: Optional[dict] = None
     description: Optional[str] = None
@@ -204,6 +214,8 @@ class TaggedVideos(BaseModel):
 
 
 class WeeklyGameDetail(BaseModel):
+    """Comprehensive game detail for a specific week."""
+
     away_team: Annotated[Optional[Team], pydantic.Field(alias="awayTeam")] = None
 
     broadcast_info: Annotated[

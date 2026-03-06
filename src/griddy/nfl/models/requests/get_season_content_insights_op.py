@@ -22,6 +22,8 @@ Tag = Literal[
 
 
 class GetSeasonContentInsightsRequest(BaseModel):
+    """Request parameters for fetching season content insights."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

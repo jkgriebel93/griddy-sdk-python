@@ -7,11 +7,15 @@ from griddy.nfl.types import BaseModel
 
 
 class Tweet(BaseModel):
+    """Tweet associated with a draft pick."""
+
     account: str
     sent: bool
 
 
 class DraftPick(BaseModel):
+    """Individual NFL Draft pick with player and team details."""
+
     year: int
     draft_round: Annotated[int, pydantic.Field(alias="draftRound")]
     draft_position: Annotated[int, pydantic.Field(alias="draftPosition")]

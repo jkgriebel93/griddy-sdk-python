@@ -29,6 +29,8 @@ r"""Field to sort by"""
 
 
 class GetDefensivePassRushStatsByWeekRequest(BaseModel):
+    """Request parameters for fetching weekly pass rush stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

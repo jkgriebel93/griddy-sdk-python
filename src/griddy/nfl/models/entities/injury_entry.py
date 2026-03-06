@@ -20,6 +20,8 @@ r"""Game status designation"""
 
 
 class PracticeStatus(BaseModel):
+    """Player practice participation status."""
+
     friday: Optional[PracticeStatusEnum] = None
     r"""Player practice participation status"""
 
@@ -31,6 +33,8 @@ class PracticeStatus(BaseModel):
 
 
 class InjuryEntry(BaseModel):
+    """Individual injury report entry for a player."""
+
     game_status: Annotated[
         Optional[InjuryEntryGameStatus], pydantic.Field(alias="gameStatus")
     ] = None

@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetCombineRankingsRequest(BaseModel):
+    """Request parameters for fetching NFL Combine rankings."""
+
     rank_attribute: Annotated[
         Optional[EventFilterEnum],
         pydantic.Field(alias="rankAttribute"),

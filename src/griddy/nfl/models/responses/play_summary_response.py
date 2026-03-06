@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class PlaySummaryResponse(BaseModel):
+    """Response containing a play summary."""
+
     game_id: Annotated[int, pydantic.Field(alias="gameId")]
     r"""Game identifier in integer format"""
 

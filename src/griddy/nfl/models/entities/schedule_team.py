@@ -12,6 +12,8 @@ from ...types import BaseModel
 
 
 class ScheduleTeam(BaseModel):
+    """Team information within a schedule entry."""
+
     abbr: Optional[str] = None
 
     city_state: Annotated[Optional[str], pydantic.Field(alias="cityState")] = None

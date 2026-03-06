@@ -9,12 +9,16 @@ from ...types import BaseModel
 
 
 class PointsRecordPoints(BaseModel):
+    """Points for and against in a record."""
+
     against: Optional[int] = None
 
     for_: Annotated[Optional[int], pydantic.Field(alias="for")] = None
 
 
 class PointsRecord(BaseModel):
+    """Win-loss record with associated point totals."""
+
     losses: Optional[int] = None
 
     ties: Optional[int] = None

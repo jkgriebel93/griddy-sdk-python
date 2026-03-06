@@ -16,6 +16,8 @@ from .rushing_stats import RushingStats
 
 
 class SeasonStats(BaseModel):
+    """Player statistics aggregated for a season."""
+
     defensive: Optional[DefensiveStats] = None
 
     games: Optional[int] = None

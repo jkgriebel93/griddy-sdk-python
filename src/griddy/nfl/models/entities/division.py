@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class Division(BaseModel):
+    """NFL division within a conference."""
+
     abbr: Optional[str] = None
     r"""Division abbreviation"""
 

@@ -7,6 +7,8 @@ from griddy.nfl.types import BaseModel
 
 
 class FilmroomPlaysResponse(BaseModel):
+    """Response containing Film Room plays."""
+
     count: int
     r"""Total number of plays matching the filter criteria"""
 

@@ -10,6 +10,8 @@ from griddy.nfl.types import BaseModel
 
 
 class AwayTeam(BaseModel):
+    """Away team score and status in a live game."""
+
     abbreviation: Optional[str] = None
 
     score: Optional[int] = None
@@ -18,6 +20,8 @@ class AwayTeam(BaseModel):
 
 
 class HomeTeam(BaseModel):
+    """Home team score and status in a live game."""
+
     abbreviation: Optional[str] = None
 
     score: Optional[int] = None

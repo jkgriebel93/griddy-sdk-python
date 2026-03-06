@@ -10,6 +10,8 @@ from ..response_metadata import ResponseMetadata
 
 
 class CoachesFilmResponse(BaseModel):
+    """Response containing coaches film videos."""
+
     items: List[CoachesFilmVideo]
 
     metadata: ResponseMetadata

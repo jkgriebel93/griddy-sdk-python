@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class OverallRecordPoints(BaseModel):
+    """Points scored and allowed in team record."""
+
     against: Optional[int] = None
 
     for_: Annotated[Optional[int], pydantic.Field(alias="for")] = None
@@ -26,6 +28,8 @@ r"""Type of current streak"""
 
 
 class Streak(BaseModel):
+    """Win or loss streak details."""
+
     length: Optional[int] = None
     r"""Length of current streak"""
 
@@ -34,6 +38,8 @@ class Streak(BaseModel):
 
 
 class OverallRecord(BaseModel):
+    """Overall win-loss-tie record for a team."""
+
     losses: Optional[int] = None
 
     ties: Optional[int] = None

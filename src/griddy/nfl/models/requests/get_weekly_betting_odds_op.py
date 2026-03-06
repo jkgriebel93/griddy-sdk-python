@@ -9,6 +9,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetWeeklyBettingOddsRequest(BaseModel):
+    """Request parameters for fetching weekly betting odds."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

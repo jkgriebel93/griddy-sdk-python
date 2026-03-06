@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, PathParamMetadata, QueryParamMetadat
 
 
 class GetGameDetailsBySlugRequest(BaseModel):
+    """Request parameters for fetching game details by slug."""
+
     slug: Annotated[
         str,
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),

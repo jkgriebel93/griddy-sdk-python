@@ -14,6 +14,8 @@ class Fixture(BaseModel):
 
 
 class FuturesMarket(BaseModel):
+    """Futures betting market odds for a team."""
+
     fixture: OptionalNullable[Fixture] = UNSET
     r"""Associated fixture information"""
 

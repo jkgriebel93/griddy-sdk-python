@@ -8,6 +8,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetTeamScheduleRequest(BaseModel):
+    """Request parameters for fetching a team schedule."""
+
     team_id: Annotated[
         str,
         pydantic.Field(alias="teamId"),

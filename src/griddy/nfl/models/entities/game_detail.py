@@ -15,6 +15,8 @@ from .team_info import TeamInfo
 
 
 class GameDetail(BaseModel):
+    """Detailed game information including teams, scores, and venue."""
+
     game_date: Annotated[Optional[str], pydantic.Field(alias="gameDate")] = None
 
     game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None

@@ -6,5 +6,7 @@ from griddy.nfl.types import BaseModel
 
 
 class FootballTeamsResponse(BaseModel):
+    """Response containing football teams."""
+
     teams: List[Team]
     pagination: Pagination

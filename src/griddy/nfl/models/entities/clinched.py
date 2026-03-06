@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class Clinched(BaseModel):
+    """Playoff clinching status for a team."""
+
     bye: Optional[bool] = None
     r"""Clinched first-round bye"""
 

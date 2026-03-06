@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class MatchupRankingsResponse(BaseModel):
+    """Response containing matchup rankings."""
+
     game_id: Annotated[Optional[int], pydantic.Field(alias="gameId")] = None
 
     game_key: Annotated[Optional[int], pydantic.Field(alias="gameKey")] = None

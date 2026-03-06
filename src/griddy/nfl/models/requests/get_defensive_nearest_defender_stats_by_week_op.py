@@ -38,6 +38,8 @@ GetDefensiveNearestDefenderStatsByWeekSortKey = Literal[
 
 
 class GetDefensiveNearestDefenderStatsByWeekRequest(BaseModel):
+    """Request parameters for fetching weekly nearest-defender stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

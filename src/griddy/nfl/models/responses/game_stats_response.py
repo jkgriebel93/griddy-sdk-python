@@ -11,6 +11,8 @@ class GameStatsResponseData(BaseModel):
 
 
 class GameStatsResponse(BaseModel):
+    """Response containing game statistics."""
+
     data: Optional[List[GameStatsResponseData]] = None
 
     pagination: Optional[Pagination] = None

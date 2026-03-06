@@ -11,10 +11,14 @@ from ...types import BaseModel
 
 
 class Zone(BaseModel):
+    """Passing zone identifier."""
+
     pass
 
 
 class PasserStats(BaseModel):
+    """Passer statistics by zone and game."""
+
     attempts: Optional[int] = None
 
     completions: Optional[int] = None

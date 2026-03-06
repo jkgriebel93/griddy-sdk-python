@@ -9,6 +9,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetVenuesRequest(BaseModel):
+    """Request parameters for fetching venue information."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

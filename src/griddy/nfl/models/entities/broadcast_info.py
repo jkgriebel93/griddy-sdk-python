@@ -9,12 +9,16 @@ from ...types import BaseModel
 
 
 class InternationalWatchOption(BaseModel):
+    """International broadcast viewing option."""
+
     broadcasters: Optional[List[str]] = None
 
     country_code: Annotated[Optional[str], pydantic.Field(alias="countryCode")] = None
 
 
 class StreamingNetwork(BaseModel):
+    """Streaming network availability details."""
+
     host_network: Annotated[Optional[str], pydantic.Field(alias="hostNetwork")] = None
     r"""Primary streaming network"""
 
@@ -30,6 +34,8 @@ r"""Broadcast territory scope"""
 
 
 class BroadcastInfo(BaseModel):
+    """Broadcast and streaming information for a game."""
+
     away_network_channels: Annotated[
         Optional[List[str]], pydantic.Field(alias="awayNetworkChannels")
     ] = None

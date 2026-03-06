@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class Roster(BaseModel):
+    """Team roster with players and metadata."""
+
     defense: Optional[List[Player]] = None
 
     injured_reserve: Annotated[
@@ -29,6 +31,8 @@ class Roster(BaseModel):
 
 
 class RosterResponse(BaseModel):
+    """Response containing roster data."""
+
     roster: Optional[Roster] = None
 
     season: Optional[int] = None

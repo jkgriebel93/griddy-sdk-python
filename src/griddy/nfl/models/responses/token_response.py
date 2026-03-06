@@ -7,6 +7,8 @@ from griddy.nfl.types import BaseModel
 
 
 class TokenResponse(BaseModel):
+    """Response containing authentication token data."""
+
     access_token: Annotated[str, pydantic.Field(alias="accessToken")]
     r"""JWT access token containing user permissions, subscription plans, location data, and roles.
     Include this token in the Authorization header as \"Bearer {accessToken}\" for authenticated requests.

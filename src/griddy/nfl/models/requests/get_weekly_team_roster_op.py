@@ -9,6 +9,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetWeeklyTeamRosterRequest(BaseModel):
+    """Request parameters for fetching a weekly team roster."""
+
     team_id: Annotated[
         str,
         pydantic.Field(alias="teamId"),

@@ -5,6 +5,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetFootballTeamsRequest(BaseModel):
+    """Request parameters for fetching football teams."""
+
     limit: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

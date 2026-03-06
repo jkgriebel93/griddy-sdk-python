@@ -16,6 +16,8 @@ from ...types import BaseModel
 
 
 class DefensivePlayerOverviewStats(BaseModel):
+    """Aggregated defensive overview statistics for a player."""
+
     display_name: Annotated[str, pydantic.Field(alias="displayName")]
     r"""Player's full name"""
 

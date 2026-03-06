@@ -7,6 +7,8 @@ from ...types import BaseModel
 
 
 class VideoGamePlayIds(BaseModel):
+    """Game and play identifiers for a video replay."""
+
     away_team_id: Annotated[str, pydantic.Field(alias="awayTeamId")]
     r"""Away team UUID"""
 

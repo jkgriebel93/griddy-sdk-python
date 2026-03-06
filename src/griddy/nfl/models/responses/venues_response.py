@@ -8,6 +8,8 @@ from griddy.nfl.types import BaseModel
 
 
 class VenuesResponse(BaseModel):
+    """Response containing venue information."""
+
     pagination: Optional[Pagination] = None
 
     venues: Optional[List[Venue]] = None

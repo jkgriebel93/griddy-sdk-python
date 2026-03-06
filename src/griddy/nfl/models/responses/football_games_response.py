@@ -8,6 +8,8 @@ from griddy.nfl.types import BaseModel
 
 
 class FootballGamesResponse(BaseModel):
+    """Response containing football games."""
+
     games: Optional[List[WeeklyGameDetail]] = None
 
     pagination: Optional[Pagination] = None

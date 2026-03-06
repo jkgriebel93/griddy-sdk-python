@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class KickingStats(BaseModel):
+    """Kicking statistics for a player."""
+
     extra_points_attempted: Annotated[
         Optional[int], pydantic.Field(alias="extraPointsAttempted")
     ] = None

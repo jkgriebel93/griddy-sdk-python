@@ -8,6 +8,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetGamecenterRequest(BaseModel):
+    """Request parameters for fetching Game Center data."""
+
     game_id: Annotated[
         str,
         pydantic.Field(alias="gameId"),

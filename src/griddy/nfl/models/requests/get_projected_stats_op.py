@@ -10,6 +10,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetProjectedStatsRequest(BaseModel):
+    """Request parameters for fetching projected stats."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

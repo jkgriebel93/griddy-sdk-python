@@ -9,6 +9,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetScheduledGamesRequest(BaseModel):
+    """Request parameters for fetching scheduled games."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]

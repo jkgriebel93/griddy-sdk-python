@@ -14,6 +14,8 @@ from griddy.nfl.types import BaseModel
 
 
 class HistoricalGameInfo(BaseModel):
+    """Historical game information with stats."""
+
     id: str
 
     home_team: Annotated[Optional[Team], pydantic.Field(alias="homeTeam")] = None

@@ -10,10 +10,14 @@ from griddy.nfl.types import BaseModel
 
 
 class VideoReplaysMetadata(BaseModel):
+    """Metadata for video replays."""
+
     generated_at: Annotated[Optional[str], pydantic.Field(alias="generatedAt")] = None
 
 
 class VideoReplaysPagination(BaseModel):
+    """Pagination details for video replays."""
+
     token: Optional[str] = None
 
 

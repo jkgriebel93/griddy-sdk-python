@@ -12,6 +12,8 @@ from griddy.nfl.types import BaseModel
 
 
 class RushingStatsResponse(BaseModel):
+    """Response containing rushing statistics."""
+
     limit: int
     r"""Maximum number of results returned"""
 

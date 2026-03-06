@@ -7,6 +7,8 @@ from griddy.nfl.types import BaseModel
 
 
 class InjuryReportResponse(BaseModel):
+    """Response containing injury report data."""
+
     reports: Optional[List[TeamInjuryReport]] = None
 
     season: Optional[int] = None

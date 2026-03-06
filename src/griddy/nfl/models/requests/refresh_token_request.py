@@ -17,6 +17,8 @@ r"""Type of network connection"""
 
 
 class RefreshTokenRequest(BaseModel):
+    """Request parameters for refreshing an authentication token."""
+
     client_key: Annotated[str, pydantic.Field(alias="clientKey")]
     r"""Client application identifier key"""
 

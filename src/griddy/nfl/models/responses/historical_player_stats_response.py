@@ -9,6 +9,8 @@ from griddy.nfl.types import BaseModel
 
 
 class PersonStatLineup(BaseModel):
+    """Player historical stat lineup entry."""
+
     games_dnp: Annotated[Optional[int], pydantic.Field(alias="gamesDnp")] = None
     games_ina: Annotated[Optional[int], pydantic.Field(alias="gamesIna")] = None
     games_played: Annotated[Optional[int], pydantic.Field(alias="gamesPlayed")] = None

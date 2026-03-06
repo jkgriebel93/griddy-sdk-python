@@ -9,6 +9,8 @@ from ...types import BaseModel
 
 
 class ReceivingStats(BaseModel):
+    """Team or player receiving statistics."""
+
     drops: Optional[int] = None
 
     long_reception: Annotated[Optional[int], pydantic.Field(alias="longReception")] = (

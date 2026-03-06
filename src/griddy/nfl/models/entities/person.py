@@ -11,6 +11,8 @@ from griddy.nfl.utils.unmarshal_json_response import int_to_str
 
 
 class Person(BaseModel):
+    """Basic biographical information for an NFL person."""
+
     id_: Annotated[str, pydantic.Field(alias="id")]
     r"""UUUID assigned by the NFL"""
     college_names: Annotated[Optional[List[str]], pydantic.Field(alias="collegeNames")]

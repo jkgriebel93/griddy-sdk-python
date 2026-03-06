@@ -11,6 +11,8 @@ from griddy.nfl.types import BaseModel
 
 
 class GamesResponse(BaseModel):
+    """Response containing a list of games."""
+
     games: Optional[List[Game]] = None
 
     season: Optional[str] = None

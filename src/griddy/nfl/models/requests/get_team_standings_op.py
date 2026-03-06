@@ -9,6 +9,8 @@ from griddy.nfl.utils import FieldMetadata, QueryParamMetadata
 
 
 class GetTeamStandingsRequest(BaseModel):
+    """Request parameters for fetching team standings."""
+
     season: Annotated[
         int, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
