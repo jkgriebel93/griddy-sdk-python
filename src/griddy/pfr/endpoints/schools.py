@@ -19,6 +19,7 @@ class Schools(BaseSDK):
 
     @cached_property
     def _parser(self) -> SchoolsParser:
+        """Lazily instantiate and cache the schools HTML parser."""
         return SchoolsParser()
 
     def _list_config(

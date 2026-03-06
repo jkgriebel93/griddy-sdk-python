@@ -20,6 +20,7 @@ class Stadiums(BaseSDK):
 
     @cached_property
     def _parser(self) -> StadiumParser:
+        """Lazily instantiate and cache the stadium HTML parser."""
         return StadiumParser()
 
     def _get_stadium_config(

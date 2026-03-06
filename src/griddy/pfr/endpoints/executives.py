@@ -20,6 +20,7 @@ class Executives(BaseSDK):
 
     @cached_property
     def _parser(self) -> ExecutiveProfileParser:
+        """Lazily instantiate and cache the executive profile HTML parser."""
         return ExecutiveProfileParser()
 
     def _get_config(

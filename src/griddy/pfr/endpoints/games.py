@@ -20,6 +20,7 @@ class Games(BaseSDK):
 
     @cached_property
     def _parser(self) -> GameDetailsParser:
+        """Lazily instantiate and cache the game details HTML parser."""
         return GameDetailsParser()
 
     def _get_game_details_config(

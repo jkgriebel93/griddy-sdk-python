@@ -21,6 +21,7 @@ class Seasons(BaseSDK):
 
     @cached_property
     def _parser(self) -> SeasonOverviewParser:
+        """Lazily instantiate and cache the season overview HTML parser."""
         return SeasonOverviewParser()
 
     def _get_season_config(

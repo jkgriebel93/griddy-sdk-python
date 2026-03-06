@@ -20,6 +20,7 @@ class Draft(BaseSDK):
 
     @cached_property
     def _parser(self) -> DraftParser:
+        """Lazily instantiate and cache the draft HTML parser."""
         return DraftParser()
 
     # ------------------------------------------------------------------
