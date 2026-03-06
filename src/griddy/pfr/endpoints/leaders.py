@@ -20,6 +20,7 @@ class Leaders(BaseSDK):
 
     @cached_property
     def _parser(self) -> LeadersParser:
+        """Lazily instantiate and cache the leaders HTML parser."""
         return LeadersParser()
 
     def _get_config(

@@ -19,6 +19,7 @@ class ProBowl(BaseSDK):
 
     @cached_property
     def _parser(self) -> AwardsParser:
+        """Lazily instantiate and cache the Pro Bowl HTML parser."""
         return AwardsParser()
 
     def _year_config(

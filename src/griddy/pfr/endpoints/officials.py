@@ -20,6 +20,7 @@ class Officials(BaseSDK):
 
     @cached_property
     def _parser(self) -> OfficialProfileParser:
+        """Lazily instantiate and cache the official profile HTML parser."""
         return OfficialProfileParser()
 
     def _get_official_profile_config(

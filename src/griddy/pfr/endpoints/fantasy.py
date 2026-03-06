@@ -39,6 +39,7 @@ class Fantasy(BaseSDK):
 
     @cached_property
     def _parser(self) -> FantasyParser:
+        """Lazily instantiate and cache the fantasy HTML parser."""
         return FantasyParser()
 
     # ── Top Players ──────────────────────────────────────────────────

@@ -90,70 +90,87 @@ class Frivolities(BaseSDK):
 
     @cached_property
     def _multi_team_parser(self) -> MultiTeamPlayersParser:
+        """Lazily instantiate and cache the multi-team players HTML parser."""
         return MultiTeamPlayersParser()
 
     @cached_property
     def _milestones_parser(self) -> StatisticalMilestonesParser:
+        """Lazily instantiate and cache the statistical milestones HTML parser."""
         return StatisticalMilestonesParser()
 
     @cached_property
     def _upcoming_parser(self) -> UpcomingMilestonesParser:
+        """Lazily instantiate and cache the upcoming milestones HTML parser."""
         return UpcomingMilestonesParser()
 
     @cached_property
     def _birthdays_parser(self) -> BirthdaysParser:
+        """Lazily instantiate and cache the birthdays HTML parser."""
         return BirthdaysParser()
 
     @cached_property
     def _birthplaces_parser(self) -> BirthplacesParser:
+        """Lazily instantiate and cache the birthplaces HTML parser."""
         return BirthplacesParser()
 
     @cached_property
     def _born_before_parser(self) -> PlayersBornBeforeParser:
+        """Lazily instantiate and cache the players-born-before HTML parser."""
         return PlayersBornBeforeParser()
 
     @cached_property
     def _uniform_numbers_parser(self) -> UniformNumbersParser:
+        """Lazily instantiate and cache the uniform numbers HTML parser."""
         return UniformNumbersParser()
 
     @cached_property
     def _qb_wins_parser(self) -> QBWinsParser:
+        """Lazily instantiate and cache the QB wins HTML parser."""
         return QBWinsParser()
 
     @cached_property
     def _non_qb_passers_parser(self) -> NonQBPassersParser:
+        """Lazily instantiate and cache the non-QB passers HTML parser."""
         return NonQBPassersParser()
 
     @cached_property
     def _non_skill_pos_td_parser(self) -> NonSkillPosTdParser:
+        """Lazily instantiate and cache the non-skill position TD HTML parser."""
         return NonSkillPosTdParser()
 
     @cached_property
     def _octopus_tracker_parser(self) -> OctopusTrackerParser:
+        """Lazily instantiate and cache the octopus tracker HTML parser."""
         return OctopusTrackerParser()
 
     @cached_property
     def _overtime_ties_parser(self) -> OvertimeTiesParser:
+        """Lazily instantiate and cache the overtime ties HTML parser."""
         return OvertimeTiesParser()
 
     @cached_property
     def _cups_of_coffee_parser(self) -> CupsOfCoffeeParser:
+        """Lazily instantiate and cache the cups of coffee HTML parser."""
         return CupsOfCoffeeParser()
 
     @cached_property
     def _multi_sport_players_parser(self) -> MultiSportPlayersParser:
+        """Lazily instantiate and cache the multi-sport players HTML parser."""
         return MultiSportPlayersParser()
 
     @cached_property
     def _pronunciation_guide_parser(self) -> PronunciationGuideParser:
+        """Lazily instantiate and cache the pronunciation guide HTML parser."""
         return PronunciationGuideParser()
 
     @cached_property
     def _last_undefeated_parser(self) -> LastUndefeatedParser:
+        """Lazily instantiate and cache the last undefeated HTML parser."""
         return LastUndefeatedParser()
 
     @cached_property
     def _standings_on_date_parser(self) -> StandingsOnDateParser:
+        """Lazily instantiate and cache the standings-on-date HTML parser."""
         return StandingsOnDateParser()
 
     # ── Players Who Played for Multiple Teams ─────────────────────────

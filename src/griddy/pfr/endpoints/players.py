@@ -20,6 +20,7 @@ class Players(BaseSDK):
 
     @cached_property
     def _parser(self) -> PlayerProfileParser:
+        """Lazily instantiate and cache the player profile HTML parser."""
         return PlayerProfileParser()
 
     def _get_player_profile_config(

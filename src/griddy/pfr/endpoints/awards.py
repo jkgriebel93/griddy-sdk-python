@@ -19,6 +19,7 @@ class Awards(BaseSDK):
 
     @cached_property
     def _parser(self) -> AwardsParser:
+        """Lazily instantiate and cache the awards HTML parser."""
         return AwardsParser()
 
     def _get_config(

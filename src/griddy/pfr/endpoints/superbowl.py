@@ -20,6 +20,7 @@ class SuperBowl(BaseSDK):
 
     @cached_property
     def _parser(self) -> SuperBowlParser:
+        """Lazily instantiate and cache the Super Bowl HTML parser."""
         return SuperBowlParser()
 
     def _history_config(

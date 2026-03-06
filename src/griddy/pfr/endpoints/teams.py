@@ -21,10 +21,12 @@ class Teams(BaseSDK):
 
     @cached_property
     def _team_season_parser(self) -> TeamSeasonParser:
+        """Lazily instantiate and cache the team season HTML parser."""
         return TeamSeasonParser()
 
     @cached_property
     def _franchise_parser(self) -> FranchiseParser:
+        """Lazily instantiate and cache the franchise HTML parser."""
         return FranchiseParser()
 
     # ------------------------------------------------------------------

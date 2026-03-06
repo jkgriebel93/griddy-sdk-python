@@ -20,6 +20,7 @@ class Coaches(BaseSDK):
 
     @cached_property
     def _parser(self) -> CoachProfileParser:
+        """Lazily instantiate and cache the coach profile HTML parser."""
         return CoachProfileParser()
 
     def _get_coach_profile_config(

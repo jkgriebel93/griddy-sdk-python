@@ -19,6 +19,7 @@ class Hof(BaseSDK):
 
     @cached_property
     def _parser(self) -> AwardsParser:
+        """Lazily instantiate and cache the Hall of Fame HTML parser."""
         return AwardsParser()
 
     def _list_config(

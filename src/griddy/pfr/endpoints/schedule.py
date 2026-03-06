@@ -20,6 +20,7 @@ class Schedule(BaseSDK):
 
     @cached_property
     def _parser(self) -> ScheduleParser:
+        """Lazily instantiate and cache the schedule HTML parser."""
         return ScheduleParser()
 
     def _get_season_schedule_config(
