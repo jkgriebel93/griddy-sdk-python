@@ -23,12 +23,21 @@ class ParsingError(GriddyError):
         selector: Optional[str] = None,
         html_sample: Optional[str] = None,
     ) -> None:
+        """Initialize with a message and optional context about the failed parse.
+
+        Args:
+            message: Description of the parsing failure.
+            url: The PFR URL that was fetched.
+            selector: The CSS selector or element identifier that was not found.
+            html_sample: A truncated sample of the HTML for debugging.
+        """
         super().__init__(message)
         self.url = url
         self.selector = selector
         self.html_sample = html_sample
 
     def __str__(self) -> str:
+        """Return a pipe-delimited summary including URL and selector when present."""
         parts = [self.message]
         if self.url:
             parts.append(f"url={self.url}")
