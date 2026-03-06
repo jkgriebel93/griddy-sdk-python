@@ -8,12 +8,7 @@ from typing_extensions import Annotated
 
 from griddy.nfl.types.basemodel import BaseModel
 from griddy.nfl.utils.metadata import FieldMetadata, PathParamMetadata
-from griddy.nfl.utils.url import (
-    generate_url,
-    is_optional,
-    remove_suffix,
-    template_url,
-)
+from griddy.nfl.utils.url import generate_url, is_optional, remove_suffix, template_url
 
 
 @pytest.mark.unit

@@ -25,6 +25,7 @@ class SDKHooks(Hooks):
     def __init__(
         self, init_hooks_fn: Optional[Callable[["SDKHooks"], None]] = None
     ) -> None:
+        """Initialize hook lists and optionally register hooks via init_hooks_fn."""
         self.sdk_init_hooks: List[SDKInitHook] = []
         self.before_request_hooks: List[BeforeRequestHook] = []
         self.after_success_hooks: List[AfterSuccessHook] = []
@@ -33,18 +34,23 @@ class SDKHooks(Hooks):
             init_hooks_fn(self)
 
     def register_sdk_init_hook(self, hook: SDKInitHook) -> None:
+        """Append an SDK init hook to the list."""
         self.sdk_init_hooks.append(hook)
 
     def register_before_request_hook(self, hook: BeforeRequestHook) -> None:
+        """Append a before-request hook to the list."""
         self.before_request_hooks.append(hook)
 
     def register_after_success_hook(self, hook: AfterSuccessHook) -> None:
+        """Append an after-success hook to the list."""
         self.after_success_hooks.append(hook)
 
     def register_after_error_hook(self, hook: AfterErrorHook) -> None:
+        """Append an after-error hook to the list."""
         self.after_error_hooks.append(hook)
 
     def sdk_init(self, config: Any) -> Any:
+        """Run all SDK init hooks, passing config through each."""
         for hook in self.sdk_init_hooks:
             config = hook.sdk_init(config)
         return config
@@ -52,6 +58,7 @@ class SDKHooks(Hooks):
     def before_request(
         self, hook_ctx: BeforeRequestContext, request: httpx.Request
     ) -> httpx.Request:
+        """Run all before-request hooks, threading the request through each."""
         for hook in self.before_request_hooks:
             out = hook.before_request(hook_ctx, request)
             if isinstance(out, Exception):
@@ -63,6 +70,7 @@ class SDKHooks(Hooks):
     def after_success(
         self, hook_ctx: AfterSuccessContext, response: httpx.Response
     ) -> httpx.Response:
+        """Run all after-success hooks, threading the response through each."""
         for hook in self.after_success_hooks:
             out = hook.after_success(hook_ctx, response)
             if isinstance(out, Exception):
@@ -76,6 +84,7 @@ class SDKHooks(Hooks):
         response: Optional[httpx.Response],
         error: Optional[Exception],
     ) -> Tuple[Optional[httpx.Response], Optional[Exception]]:
+        """Run all after-error hooks, threading response and error through each."""
         for hook in self.after_error_hooks:
             result = hook.after_error(hook_ctx, response, error)
             if isinstance(result, Exception):

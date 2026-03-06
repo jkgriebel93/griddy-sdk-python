@@ -6,10 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from griddy.pfr import GriddyPFR
-from griddy.pfr.models.entities.leaders import (
-    Leaderboard,
-    LeaderEntry,
-)
+from griddy.pfr.models.entities.leaders import Leaderboard, LeaderEntry
 from griddy.pfr.parsers.leaders import LeadersParser
 from griddy.settings import FIXTURE_DIR
 

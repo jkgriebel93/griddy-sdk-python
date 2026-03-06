@@ -5,14 +5,10 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.player_game_stats import (
-    PlayerGameStats,
-)
+from griddy.nfl.models.entities.player_game_stats import PlayerGameStats
 from griddy.nfl.models.entities.pro_game import ProGame
 from griddy.nfl.models.entities.scoring_play import ScoringPlay
-from griddy.nfl.models.entities.team_game_stats import (
-    TeamGameStats,
-)
+from griddy.nfl.models.entities.team_game_stats import TeamGameStats
 from griddy.nfl.types import BaseModel
 
 

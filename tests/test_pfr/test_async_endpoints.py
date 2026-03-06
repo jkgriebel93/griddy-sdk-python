@@ -154,9 +154,9 @@ class TestAsyncMethodsExist:
         ]
         for method_name in expected_async:
             assert hasattr(Frivolities, method_name), f"Missing: {method_name}"
-            assert inspect.iscoroutinefunction(getattr(Frivolities, method_name)), (
-                f"Not async: {method_name}"
-            )
+            assert inspect.iscoroutinefunction(
+                getattr(Frivolities, method_name)
+            ), f"Not async: {method_name}"
 
 
 @pytest.mark.unit

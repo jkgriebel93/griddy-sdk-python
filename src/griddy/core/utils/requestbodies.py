@@ -1,10 +1,7 @@
 import io
 import re
 from dataclasses import dataclass
-from typing import (
-    Any,
-    Optional,
-)
+from typing import Any, Optional
 
 from .forms import serialize_form_data, serialize_multipart_form
 from .serializers import marshal_json
@@ -20,6 +17,8 @@ SERIALIZATION_METHOD_TO_CONTENT_TYPE = {
 
 @dataclass
 class SerializedRequestBody:
+    """Container for a serialized HTTP request body with media type and content."""
+
     media_type: Optional[str] = None
     content: Optional[Any] = None
     data: Optional[Any] = None
@@ -31,8 +30,9 @@ def serialize_request_body(
     nullable: bool,
     optional: bool,
     serialization_method: str,
-    request_body_type,
+    request_body_type: Any,
 ) -> Optional[SerializedRequestBody]:
+    """Serialize a request body based on the given serialization method (json, form, multipart, etc.)."""
     if request_body is None:
         if not nullable and optional:
             return None

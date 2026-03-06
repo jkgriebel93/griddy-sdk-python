@@ -37,6 +37,6 @@ class TestNflInitExports:
 
     def test_all_names_are_accessible(self):
         for name in nfl_pkg.__all__:
-            assert hasattr(nfl_pkg, name), (
-                f"{name} listed in __all__ but not accessible"
-            )
+            assert hasattr(
+                nfl_pkg, name
+            ), f"{name} listed in __all__ but not accessible"

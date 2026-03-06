@@ -9,8 +9,8 @@ from pydantic import BaseModel
 from griddy.core.utils.logger import Logger, NoOpLogger
 
 # Re-export generic security functions from core
-from griddy.core.utils.security import (  # noqa: F401
-    _apply_bearer,
+from griddy.core.utils.security import _apply_bearer  # noqa: F401
+from griddy.core.utils.security import (
     _parse_basic_auth_scheme,
     _parse_security_option,
     _parse_security_scheme,

@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Literal, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Literal, Optional, TypeVar, Union
 
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic import ConfigDict, model_serializer
@@ -8,12 +8,15 @@ UNSET_SENTINEL = "~?~unset~?~sentinel~?~"
 
 
 class BaseModel(PydanticBaseModel):
+    """SDK base model with alias-aware serialization that omits unset optional fields."""
+
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, protected_namespaces=()
     )
 
     @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
+    def serialize_model(self, handler: Any) -> dict[str, Any]:
+        """Serialize the model using aliases, omitting unset optional-nullable fields."""
         serialized = handler(self)
 
         m = {}
@@ -26,7 +29,9 @@ class BaseModel(PydanticBaseModel):
             is_optional = not f.is_required()
             is_nullable = isinstance(f.default, Unset)
             optional_nullable = is_optional and is_nullable
-            is_set = self.__pydantic_fields_set__.intersection({n})  # pylint: disable=no-member
+            is_set = self.__pydantic_fields_set__.intersection(
+                {n}
+            )  # pylint: disable=no-member
 
             if val is not None and val != UNSET_SENTINEL:
                 m[k] = val
@@ -39,11 +44,15 @@ class BaseModel(PydanticBaseModel):
 
 
 class Unset(BaseModel):
+    """Sentinel model representing an explicitly unset value."""
+
     @model_serializer(mode="plain")
-    def serialize_model(self):
+    def serialize_model(self) -> str:
+        """Serialize as the UNSET_SENTINEL string."""
         return UNSET_SENTINEL
 
     def __bool__(self) -> Literal[False]:
+        """Always return False so unset values are falsy."""
         return False
 
 

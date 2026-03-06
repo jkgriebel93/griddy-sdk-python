@@ -5,9 +5,7 @@ from typing import Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.live_stat_entries import (
-    LiveTeamStatEntry,
-)
+from griddy.nfl.models.entities.live_stat_entries import LiveTeamStatEntry
 from griddy.nfl.types import BaseModel
 
 

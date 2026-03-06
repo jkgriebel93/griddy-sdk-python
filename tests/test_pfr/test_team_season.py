@@ -6,10 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from griddy.pfr import GriddyPFR
-from griddy.pfr.models.entities.team_season import (
-    SeasonGame,
-    TeamSeason,
-)
+from griddy.pfr.models.entities.team_season import SeasonGame, TeamSeason
 from griddy.pfr.parsers.team_season import TeamSeasonParser
 from griddy.settings import FIXTURE_DIR
 

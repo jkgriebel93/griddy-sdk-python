@@ -19,6 +19,7 @@ class Cookie:
         http_only: bool = True,
         include_subdomains: bool = False,
     ):
+        """Initialize a cookie with domain, path, security, expiration, and name/value."""
         self.domain = domain
         self.path = path
         self.secure = secure

@@ -6,12 +6,7 @@ from typing import List, Optional, Union
 
 import pytest
 
-from griddy.nfl.types.basemodel import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    Unset,
-)
+from griddy.nfl.types.basemodel import BaseModel, Nullable, OptionalNullable, Unset
 from griddy.nfl.utils.serializers import (
     _contains_pydantic_model,
     get_pydantic_model,

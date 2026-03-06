@@ -8,10 +8,7 @@ import pytest
 
 from griddy.nfl import errors
 from griddy.nfl.types.basemodel import BaseModel
-from griddy.nfl.utils.unmarshal_json_response import (
-    int_to_str,
-    unmarshal_json_response,
-)
+from griddy.nfl.utils.unmarshal_json_response import int_to_str, unmarshal_json_response
 
 
 class SimpleModel(BaseModel):

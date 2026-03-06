@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from griddy.nfl.models.entities.coaches_film_video import (
-    CoachesFilmVideo,
-)
+from griddy.nfl.models.entities.coaches_film_video import CoachesFilmVideo
 from griddy.nfl.models.entities.pagination import Pagination
 from griddy.nfl.types import BaseModel
 

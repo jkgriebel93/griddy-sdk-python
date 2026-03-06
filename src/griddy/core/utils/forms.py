@@ -1,19 +1,9 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Tuple,
-    get_type_hints,
-)
+from typing import Any, Dict, List, Tuple, get_type_hints
 
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 
-from .metadata import (
-    FormMetadata,
-    MultipartFormMetadata,
-    find_field_metadata,
-)
+from .metadata import FormMetadata, MultipartFormMetadata, find_field_metadata
 from .serializers import marshal_json
 from .values import _is_set, _val_to_string
 
@@ -24,7 +14,8 @@ def _populate_form(
     obj: Any,
     delimiter: str,
     form: Dict[str, List[str]],
-):
+) -> Dict[str, List[str]]:
+    """Populate form dict from a model, dict, list, or scalar value."""
     if not _is_set(obj):
         return form
 
@@ -115,6 +106,7 @@ def _extract_file_properties(file_obj: Any) -> Tuple[str, Any, Any]:
 def serialize_multipart_form(
     media_type: str, request: Any
 ) -> Tuple[str, Dict[str, Any], List[Tuple[str, Any]]]:
+    """Serialize a Pydantic request model into multipart form data."""
     form: Dict[str, Any] = {}
     files: List[Tuple[str, Any]] = []
 
@@ -189,6 +181,7 @@ def serialize_multipart_form(
 
 
 def serialize_form_data(data: Any) -> Dict[str, Any]:
+    """Serialize a Pydantic model or dict into URL-encoded form data."""
     form: Dict[str, List[str]] = {}
 
     if isinstance(data, BaseModel):

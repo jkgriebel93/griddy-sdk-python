@@ -3,9 +3,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.play_win_probability import (
-    PlayWinProbability,
-)
+from griddy.nfl.models.entities.play_win_probability import PlayWinProbability
 from griddy.nfl.types import BaseModel
 from griddy.nfl.utils.unmarshal_json_response import int_to_str
 

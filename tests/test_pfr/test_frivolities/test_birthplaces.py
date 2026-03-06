@@ -12,11 +12,7 @@ from griddy.pfr.models import (
 from griddy.pfr.parsers.birthplaces import BirthplacesParser
 from griddy.pfr.sdk import GriddyPFR
 
-from .conftest import (
-    FIXTURE_DIR,
-    assert_endpoint_via_mock,
-    assert_smoke,
-)
+from .conftest import FIXTURE_DIR, assert_endpoint_via_mock, assert_smoke
 from .conftest import birthplaces_parser as _parser
 
 # #########################################################################

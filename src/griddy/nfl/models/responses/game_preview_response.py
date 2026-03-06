@@ -1,10 +1,6 @@
 from __future__ import annotations
 
-from griddy.nfl.types import (
-    UNSET,
-    BaseModel,
-    OptionalNullable,
-)
+from griddy.nfl.types import UNSET, BaseModel, OptionalNullable
 
 
 class Preview(BaseModel):

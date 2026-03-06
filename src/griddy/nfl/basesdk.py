@@ -1,9 +1,7 @@
 from typing import Any, Dict, Optional, Type
 
-from griddy.core.basesdk import (
-    BaseEndpointConfig,  # noqa: F401
-    EndpointConfig,  # noqa: F401
-)
+from griddy.core.basesdk import BaseEndpointConfig  # noqa: F401
+from griddy.core.basesdk import EndpointConfig  # noqa: F401
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
 from . import errors, models

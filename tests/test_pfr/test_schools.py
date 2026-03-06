@@ -9,12 +9,7 @@ from unittest.mock import patch
 
 import pytest
 
-from griddy.pfr.models import (
-    College,
-    CollegeList,
-    HighSchool,
-    HighSchoolList,
-)
+from griddy.pfr.models import College, CollegeList, HighSchool, HighSchoolList
 from griddy.pfr.parsers.schools import SchoolsParser
 from griddy.pfr.sdk import GriddyPFR
 from griddy.settings import FIXTURE_DIR

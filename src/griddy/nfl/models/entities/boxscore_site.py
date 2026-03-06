@@ -6,11 +6,7 @@ import pydantic
 from typing_extensions import Annotated
 
 from griddy.nfl.models import SiteRoofTypeEnum
-from griddy.nfl.types import (
-    UNSET,
-    BaseModel,
-    OptionalNullable,
-)
+from griddy.nfl.types import UNSET, BaseModel, OptionalNullable
 
 
 class BoxscoreSite(BaseModel):

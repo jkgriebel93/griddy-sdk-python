@@ -23,6 +23,7 @@ class SDKError(APIError):
     def __init__(
         self, message: str, raw_response: httpx.Response, body: Optional[str] = None
     ):
+        """Initialize with a message, raw HTTP response, and optional body text."""
         object.__setattr__(self, "message", message)
         object.__setattr__(self, "status_code", raw_response.status_code)
         object.__setattr__(
@@ -33,5 +34,6 @@ class SDKError(APIError):
         object.__setattr__(self, "response_data", {})
         Exception.__init__(self, message)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the error message."""
         return self.message

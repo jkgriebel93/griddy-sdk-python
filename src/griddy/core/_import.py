@@ -5,10 +5,13 @@ for handling race conditions during parallel module imports.
 """
 
 import sys
+import types
 from importlib import import_module
 
 
-def dynamic_import(modname: str, package: str | None = None, retries: int = 3):
+def dynamic_import(
+    modname: str, package: str | None = None, retries: int = 3
+) -> types.ModuleType:
     """Dynamically import a module with retry logic for handling race conditions.
 
     This function handles edge cases where parallel imports can cause KeyError

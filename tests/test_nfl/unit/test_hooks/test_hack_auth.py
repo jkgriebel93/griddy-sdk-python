@@ -571,6 +571,6 @@ class TestHackAuthHook:
 
         nfl.schedules.get_schedule_season_weeks(season=2025)
 
-        assert mock_before_request.call_count == 1, (
-            "HackAuthHook.before_request was not called"
-        )
+        assert (
+            mock_before_request.call_count == 1
+        ), "HackAuthHook.before_request was not called"

@@ -1,6 +1,7 @@
 import json
 import re
 from typing import (
+    Any,
     AsyncGenerator,
     Callable,
     Generator,
@@ -16,6 +17,8 @@ T = TypeVar("T")
 
 
 class EventStream(Generic[T]):
+    """Synchronous iterator over server-sent events from a streaming HTTP response."""
+
     # Holds a reference to the SDK client to avoid it being garbage collected
     # and cause termination of the underlying httpx client.
     client_ref: Optional[object]
@@ -29,24 +32,36 @@ class EventStream(Generic[T]):
         sentinel: Optional[str] = None,
         client_ref: Optional[object] = None,
     ):
+        """Initialize with an HTTP response, decoder, optional sentinel, and client ref."""
         self.response = response
         self.generator = stream_events(response, decoder, sentinel)
         self.client_ref = client_ref
 
-    def __iter__(self):
+    def __iter__(self) -> "EventStream[T]":
+        """Return self as the iterator."""
         return self
 
-    def __next__(self):
+    def __next__(self) -> T:
+        """Return the next decoded event."""
         return next(self.generator)
 
-    def __enter__(self):
+    def __enter__(self) -> "EventStream[T]":
+        """Enter the event stream context."""
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: Any,
+    ) -> None:
+        """Close the underlying HTTP response."""
         self.response.close()
 
 
 class EventStreamAsync(Generic[T]):
+    """Asynchronous iterator over server-sent events from a streaming HTTP response."""
+
     # Holds a reference to the SDK client to avoid it being garbage collected
     # and cause termination of the underlying httpx client.
     client_ref: Optional[object]
@@ -60,24 +75,36 @@ class EventStreamAsync(Generic[T]):
         sentinel: Optional[str] = None,
         client_ref: Optional[object] = None,
     ):
+        """Initialize with an HTTP response, decoder, optional sentinel, and client ref."""
         self.response = response
         self.generator = stream_events_async(response, decoder, sentinel)
         self.client_ref = client_ref
 
-    def __aiter__(self):
+    def __aiter__(self) -> "EventStreamAsync[T]":
+        """Return self as the async iterator."""
         return self
 
-    async def __anext__(self):
+    async def __anext__(self) -> T:
+        """Return the next decoded event asynchronously."""
         return await self.generator.__anext__()
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> "EventStreamAsync[T]":
+        """Enter the async event stream context."""
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: Any,
+    ) -> None:
+        """Close the underlying HTTP response asynchronously."""
         await self.response.aclose()
 
 
 class ServerEvent:
+    """Parsed server-sent event with id, event type, data, and retry fields."""
+
     id: Optional[str] = None
     event: Optional[str] = None
     data: Optional[str] = None
@@ -96,6 +123,7 @@ async def stream_events_async(
     decoder: Callable[[str], T],
     sentinel: Optional[str] = None,
 ) -> AsyncGenerator[T, None]:
+    """Async generator yielding decoded events from a streaming HTTP response."""
     buffer = bytearray()
     position = 0
     discard = False
@@ -138,6 +166,7 @@ def stream_events(
     decoder: Callable[[str], T],
     sentinel: Optional[str] = None,
 ) -> Generator[T, None, None]:
+    """Generator yielding decoded events from a streaming HTTP response."""
     buffer = bytearray()
     position = 0
     discard = False
@@ -178,6 +207,7 @@ def stream_events(
 def _parse_event(
     raw: bytearray, decoder: Callable[[str], T], sentinel: Optional[str] = None
 ) -> Tuple[Optional[T], bool]:
+    """Parse a raw SSE message block into a decoded event."""
     block = raw.decode()
     lines = re.split(r"\r?\n|\r", block)
     publish = False
@@ -236,7 +266,10 @@ def _parse_event(
     return out, False
 
 
-def _peek_sequence(position: int, buffer: bytearray, sequence: bytes):
+def _peek_sequence(
+    position: int, buffer: bytearray, sequence: bytes
+) -> Optional[bytes]:
+    """Check if buffer at position starts with the given byte sequence."""
     if len(sequence) > (len(buffer) - position):
         return None
 

@@ -1,9 +1,10 @@
 """Class decorators for SDK endpoint boilerplate reduction."""
 
 import functools
+from typing import Callable
 
 
-def sdk_endpoints(cls):
+def sdk_endpoints(cls: type) -> type:
     """Auto-generate sync/async endpoint wrappers from config methods.
 
     Scans the class for methods matching the pattern ``_<name>_config`` and
@@ -51,7 +52,9 @@ def sdk_endpoints(cls):
     return cls
 
 
-def _make_sync(cfg_fn, cls, method_name):
+def _make_sync(cfg_fn: Callable, cls: type, method_name: str) -> Callable:
+    """Create a sync wrapper that calls the config method then _execute_endpoint."""
+
     @functools.wraps(cfg_fn)
     def wrapper(self, *args, **kwargs):
         config = cfg_fn(self, *args, **kwargs)
@@ -62,7 +65,9 @@ def _make_sync(cfg_fn, cls, method_name):
     return wrapper
 
 
-def _make_async(cfg_fn, cls, method_name):
+def _make_async(cfg_fn: Callable, cls: type, method_name: str) -> Callable:
+    """Create an async wrapper that calls the config method then _execute_endpoint_async."""
+
     @functools.wraps(cfg_fn)
     async def wrapper(self, *args, **kwargs):
         config = cfg_fn(self, *args, **kwargs)

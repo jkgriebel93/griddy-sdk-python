@@ -5,9 +5,7 @@ from typing import Any, Dict, List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.game_center_schedule import (
-    GamecenterSchedule,
-)
+from griddy.nfl.models.entities.game_center_schedule import GamecenterSchedule
 from griddy.nfl.models.entities.passer_stats import PasserStats
 from griddy.nfl.types import BaseModel
 

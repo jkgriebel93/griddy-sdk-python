@@ -4,10 +4,7 @@ from typing import Callable, Dict, Optional, Tuple, Union
 from griddy.core.sdkconfiguration import SDKConfiguration as CoreSDKConfiguration
 
 from ..nfl import models
-from ._version import (
-    __user_agent__,
-    __version__,
-)
+from ._version import __user_agent__, __version__
 from .utils import remove_suffix
 
 SERVERS = {

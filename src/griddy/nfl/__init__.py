@@ -1,7 +1,4 @@
-from ._version import (
-    __user_agent__,
-    __version__,
-)
+from ._version import __user_agent__, __version__
 from .sdk import GriddyNFL
 from .sdkconfiguration import SERVERS, SDKConfiguration
 

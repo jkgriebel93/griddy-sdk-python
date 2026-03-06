@@ -8,6 +8,8 @@ from typing_extensions import Protocol, runtime_checkable
 
 @runtime_checkable
 class HttpClient(Protocol):
+    """Protocol defining the sync HTTP client interface used by the SDK."""
+
     def send(
         self,
         request: httpx.Request,
@@ -20,6 +22,7 @@ class HttpClient(Protocol):
             bool, httpx._client.UseClientDefault
         ] = httpx.USE_CLIENT_DEFAULT,
     ) -> httpx.Response:
+        """Send a request and return a response."""
         pass
 
     def build_request(
@@ -39,14 +42,18 @@ class HttpClient(Protocol):
         ] = httpx.USE_CLIENT_DEFAULT,
         extensions: Optional[httpx._types.RequestExtensions] = None,
     ) -> httpx.Request:
+        """Build an HTTP request object from the given parameters."""
         pass
 
     def close(self) -> None:
+        """Close the HTTP client and release resources."""
         pass
 
 
 @runtime_checkable
 class AsyncHttpClient(Protocol):
+    """Protocol defining the async HTTP client interface used by the SDK."""
+
     async def send(
         self,
         request: httpx.Request,
@@ -59,6 +66,7 @@ class AsyncHttpClient(Protocol):
             bool, httpx._client.UseClientDefault
         ] = httpx.USE_CLIENT_DEFAULT,
     ) -> httpx.Response:
+        """Send a request asynchronously and return a response."""
         pass
 
     def build_request(
@@ -78,13 +86,17 @@ class AsyncHttpClient(Protocol):
         ] = httpx.USE_CLIENT_DEFAULT,
         extensions: Optional[httpx._types.RequestExtensions] = None,
     ) -> httpx.Request:
+        """Build an HTTP request object from the given parameters."""
         pass
 
     async def aclose(self) -> None:
+        """Close the async HTTP client and release resources."""
         pass
 
 
 class ClientOwner(Protocol):
+    """Protocol for objects that own sync and async HTTP clients."""
+
     client: Union[HttpClient, None]
     async_client: Union[AsyncHttpClient, None]
 

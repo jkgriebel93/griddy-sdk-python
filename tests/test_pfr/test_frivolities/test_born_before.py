@@ -7,11 +7,7 @@ from griddy.pfr.models import PlayerBornBefore, PlayersBornBefore
 from griddy.pfr.parsers.players_born_before import PlayersBornBeforeParser
 from griddy.pfr.sdk import GriddyPFR
 
-from .conftest import (
-    FIXTURE_DIR,
-    assert_endpoint_via_mock,
-    assert_smoke,
-)
+from .conftest import FIXTURE_DIR, assert_endpoint_via_mock, assert_smoke
 from .conftest import born_before_parser as _parser
 
 # -------------------------------------------------------------------------

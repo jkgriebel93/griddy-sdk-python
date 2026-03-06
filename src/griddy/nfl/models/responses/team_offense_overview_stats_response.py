@@ -5,9 +5,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.team_offense_overview_stats import (
-    TeamOffenseStats,
-)
+from griddy.nfl.models.entities.team_offense_overview_stats import TeamOffenseStats
 from griddy.nfl.models.enums.season_type_enum import SeasonTypeEnum
 from griddy.nfl.models.enums.sort_order_enum import SortOrderEnum
 from griddy.nfl.types import BaseModel

@@ -4,9 +4,7 @@ from typing import List, Optional, Union
 
 from typing_extensions import TypeAliasType
 
-from griddy.nfl.models.entities.player_projection import (
-    PlayerProjection,
-)
+from griddy.nfl.models.entities.player_projection import PlayerProjection
 from griddy.nfl.models.entities.player_week_projected_points import (
     PlayerWeekProjectedPoints,
 )

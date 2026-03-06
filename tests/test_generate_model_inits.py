@@ -31,8 +31,7 @@ def tmp_models_dir(tmp_path):
 class TestDiscoverSymbols:
     def test_discovers_classes(self, tmp_path):
         f = tmp_path / "models.py"
-        f.write_text(
-            textwrap.dedent("""\
+        f.write_text(textwrap.dedent("""\
             from pydantic import BaseModel
 
             class Foo(BaseModel):
@@ -40,25 +39,21 @@ class TestDiscoverSymbols:
 
             class Bar(BaseModel):
                 y: str
-            """)
-        )
+            """))
         assert discover_symbols(f) == ["Foo", "Bar"]
 
     def test_discovers_type_aliases(self, tmp_path):
         f = tmp_path / "enums.py"
-        f.write_text(
-            textwrap.dedent("""\
+        f.write_text(textwrap.dedent("""\
             from typing import Literal
 
             SeasonType = Literal["PRE", "REG", "POST"]
-            """)
-        )
+            """))
         assert discover_symbols(f) == ["SeasonType"]
 
     def test_discovers_mixed(self, tmp_path):
         f = tmp_path / "mixed.py"
-        f.write_text(
-            textwrap.dedent("""\
+        f.write_text(textwrap.dedent("""\
             from typing import Literal
             from pydantic import BaseModel
 
@@ -66,14 +61,12 @@ class TestDiscoverSymbols:
 
             class Game(BaseModel):
                 status: GameStatus
-            """)
-        )
+            """))
         assert discover_symbols(f) == ["GameStatus", "Game"]
 
     def test_skips_private_names(self, tmp_path):
         f = tmp_path / "private.py"
-        f.write_text(
-            textwrap.dedent("""\
+        f.write_text(textwrap.dedent("""\
             _INTERNAL = "hidden"
 
             class _PrivateClass:
@@ -81,8 +74,7 @@ class TestDiscoverSymbols:
 
             class PublicClass:
                 pass
-            """)
-        )
+            """))
         assert discover_symbols(f) == ["PublicClass"]
 
     def test_empty_file(self, tmp_path):
@@ -93,21 +85,17 @@ class TestDiscoverSymbols:
 
 class TestScanPackage:
     def test_scans_subdirectories(self, tmp_models_dir):
-        (tmp_models_dir / "entities" / "game.py").write_text(
-            textwrap.dedent("""\
+        (tmp_models_dir / "entities" / "game.py").write_text(textwrap.dedent("""\
             class Game:
                 pass
 
             class GameExtension:
                 pass
-            """)
-        )
-        (tmp_models_dir / "enums" / "season_type.py").write_text(
-            textwrap.dedent("""\
+            """))
+        (tmp_models_dir / "enums" / "season_type.py").write_text(textwrap.dedent("""\
             from typing import Literal
             SeasonType = Literal["PRE", "REG"]
-            """)
-        )
+            """))
         result = scan_package(tmp_models_dir, ["entities", "enums"])
         assert result == {
             "Game": ".entities.game",
@@ -207,12 +195,10 @@ class TestBuildDynamicImports:
 
 class TestGenerateInit:
     def test_full_generation(self, tmp_models_dir):
-        (tmp_models_dir / "entities" / "game.py").write_text(
-            textwrap.dedent("""\
+        (tmp_models_dir / "entities" / "game.py").write_text(textwrap.dedent("""\
             class Game:
                 pass
-            """)
-        )
+            """))
         result = generate_init(tmp_models_dir, "griddy.nfl.models", ["entities"])
         assert "# This file is auto-generated" in result
         assert "from typing import TYPE_CHECKING" in result

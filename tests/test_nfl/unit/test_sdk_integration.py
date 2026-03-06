@@ -89,14 +89,14 @@ class TestEndpointsSubSDKAccess:
         assert sub_sdk is not None, f"Sub-SDK '{attr_name}' should not be None"
 
         # Verify it has the expected class name
-        assert sub_sdk.__class__.__name__ == class_name, (
-            f"Sub-SDK '{attr_name}' should be instance of {class_name}, got {sub_sdk.__class__.__name__}"
-        )
+        assert (
+            sub_sdk.__class__.__name__ == class_name
+        ), f"Sub-SDK '{attr_name}' should be instance of {class_name}, got {sub_sdk.__class__.__name__}"
 
         # Verify it has the expected module
-        assert sub_sdk.__class__.__module__ == module_path, (
-            f"Sub-SDK '{attr_name}' should be from module {module_path}, got {sub_sdk.__class__.__module__}"
-        )
+        assert (
+            sub_sdk.__class__.__module__ == module_path
+        ), f"Sub-SDK '{attr_name}' should be from module {module_path}, got {sub_sdk.__class__.__module__}"
 
     @pytest.mark.parametrize("attr_name", ENDPOINTS_SUB_SDKS.keys())
     def test_sub_sdk_can_be_accessed_multiple_times(self, nfl_sdk, attr_name):
@@ -104,9 +104,9 @@ class TestEndpointsSubSDKAccess:
         first_access = getattr(nfl_sdk, attr_name)
         second_access = getattr(nfl_sdk, attr_name)
 
-        assert first_access is second_access, (
-            f"Sub-SDK '{attr_name}' should return same instance on multiple accesses"
-        )
+        assert (
+            first_access is second_access
+        ), f"Sub-SDK '{attr_name}' should return same instance on multiple accesses"
 
 
 @pytest.mark.unit
@@ -118,20 +118,20 @@ class TestEndpointsMethodAccessibility:
         combine = nfl_sdk.combine
 
         # Verify sync methods
-        assert hasattr(combine, "get_profiles"), (
-            "Combine should have get_profiles method"
-        )
-        assert hasattr(combine, "get_rankings"), (
-            "Combine should have get_rankings method"
-        )
+        assert hasattr(
+            combine, "get_profiles"
+        ), "Combine should have get_profiles method"
+        assert hasattr(
+            combine, "get_rankings"
+        ), "Combine should have get_rankings method"
 
         # Verify async methods
-        assert hasattr(combine, "get_profiles_async"), (
-            "Combine should have get_profiles_async method"
-        )
-        assert hasattr(combine, "get_rankings_async"), (
-            "Combine should have get_rankings_async method"
-        )
+        assert hasattr(
+            combine, "get_profiles_async"
+        ), "Combine should have get_profiles_async method"
+        assert hasattr(
+            combine, "get_rankings_async"
+        ), "Combine should have get_rankings_async method"
 
         # Verify methods are callable
         assert callable(combine.get_profiles)
@@ -361,9 +361,9 @@ class TestMethodSignatures:
 
         # Should have parameters for the request
         params = sig.parameters
-        assert "limit" in params or "season" in params or len(params) > 0, (
-            "Methods should accept request parameters"
-        )
+        assert (
+            "limit" in params or "season" in params or len(params) > 0
+        ), "Methods should accept request parameters"
 
     def test_async_methods_accept_required_parameters(self, nfl_sdk):
         """Verify async methods have proper signatures."""
@@ -371,9 +371,9 @@ class TestMethodSignatures:
         sig = inspect.signature(combine.get_profiles_async)
 
         params = sig.parameters
-        assert "limit" in params or "season" in params or len(params) > 0, (
-            "Async methods should accept request parameters"
-        )
+        assert (
+            "limit" in params or "season" in params or len(params) > 0
+        ), "Async methods should accept request parameters"
 
     def test_methods_accept_retry_config(self, nfl_sdk):
         """Verify methods accept retry configuration."""
@@ -409,18 +409,18 @@ class TestSubSDKInheritance:
         from griddy.nfl.basesdk import BaseSDK
 
         games = nfl_sdk.games
-        assert isinstance(games, BaseSDK), (
-            "Regular endpoint sub-SDKs should inherit from BaseSDK"
-        )
+        assert isinstance(
+            games, BaseSDK
+        ), "Regular endpoint sub-SDKs should inherit from BaseSDK"
 
     def test_pro_endpoints_inherit_from_pro_sdk(self, nfl_sdk):
         """Verify Pro API endpoints inherit from ProSDK."""
         from griddy.nfl.endpoints.pro import ProSDK
 
         content = nfl_sdk.content
-        assert isinstance(content, ProSDK), (
-            "Pro endpoint sub-SDKs should inherit from ProSDK"
-        )
+        assert isinstance(
+            content, ProSDK
+        ), "Pro endpoint sub-SDKs should inherit from ProSDK"
 
     def test_pro_sdk_inherits_from_base_sdk(self, nfl_sdk):
         """Verify ProSDK itself inherits from BaseSDK."""

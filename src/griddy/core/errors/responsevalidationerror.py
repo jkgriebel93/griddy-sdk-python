@@ -17,10 +17,11 @@ class ResponseValidationError(SDKError):
         cause: Exception,
         body: Optional[str] = None,
     ):
+        """Initialize with a message, raw response, causal exception, and optional body."""
         message = f"{message}: {cause}"
         super().__init__(message, raw_response, body)
 
     @property
-    def cause(self):
+    def cause(self) -> Exception | None:
         """Normally the Pydantic ValidationError"""
         return self.__cause__

@@ -5,7 +5,7 @@ import json
 import os
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import yaml
 
@@ -13,6 +13,8 @@ from .har import html_template
 
 
 class YAMLConsolidator:
+    """Consolidates multiple OpenAPI YAML spec files into a single spec, tracking diffs."""
+
     open_api_doc_keys = [
         "openapi",
         "info",
@@ -24,6 +26,7 @@ class YAMLConsolidator:
     ]
 
     def __init__(self, spec_dir: str, pattern: str):
+        """Initialize with a spec directory and glob pattern for YAML files."""
         self.spec_dir = Path(spec_dir)
         self.specs = {}
         self.load_specs(pattern=pattern)
@@ -49,14 +52,16 @@ class YAMLConsolidator:
 
         self.combined_spec = {}
 
-    def _set_openapi_attr(self, attr: str):
+    def _set_openapi_attr(self, attr: str) -> None:
+        """Populate an attribute with per-spec values."""
         attr_map = {}
         for spec_name, spec in self.specs.items():
             attr_map[spec_name] = spec.get(attr)
 
         setattr(self, attr, attr_map)
 
-    def add_diff_entry(self, attr, key, old, new):
+    def add_diff_entry(self, attr: str, key: str, old: Any, new: Any) -> None:
+        """Record a diff when a key's value changes between specs."""
         diff_entry = {
             "key": key,
             "existing_value": json.dumps(old, indent=4),
@@ -67,7 +72,8 @@ class YAMLConsolidator:
         diff_entry.update(self.compute_diff_info(diff_entry=diff_entry))
         self.diffs[attr].append(diff_entry)
 
-    def add_spec(self, spec_path: str | Path):
+    def add_spec(self, spec_path: str | Path) -> None:
+        """Load and register a YAML spec file."""
         if isinstance(spec_path, str):
             spec_path = Path(spec_path)
         if not spec_path.exists():
@@ -78,7 +84,8 @@ class YAMLConsolidator:
         with spec_path.open() as infile:
             self.specs[spec_path.stem] = self.get_sorted_spec(yaml.full_load(infile))
 
-    def combine_all_specs(self):
+    def combine_all_specs(self) -> None:
+        """Integrate all loaded specs into a single combined spec."""
         for name, spec in self.specs.items():
             print(name)
             self.cur_spec_name = name
@@ -94,7 +101,8 @@ class YAMLConsolidator:
             "components": self.components,
         }
 
-    def compute_diff_info(self, diff_entry: Dict):
+    def compute_diff_info(self, diff_entry: Dict) -> Dict:
+        """Compute HTML diff and similarity ratio for a diff entry."""
         differ = difflib.HtmlDiff()
         try:
             existing = diff_entry["existing_value"].splitlines()
@@ -110,7 +118,8 @@ class YAMLConsolidator:
         similarity_matcher = difflib.SequenceMatcher(None, existing, new_)
         return {"html": diff_html, "similarity": similarity_matcher.ratio()}
 
-    def create_full_html_string(self, diffs_list):
+    def create_full_html_string(self, diffs_list: List[Dict]) -> str:
+        """Build an HTML string from a list of diff entries."""
         diffs_html = "<div>\n"
         for diff_entry in diffs_list:
             diffs_html += (
@@ -124,13 +133,15 @@ class YAMLConsolidator:
         diffs_html += f"</div>"
         return diffs_html
 
-    def get_open_api_attr(self, attr: str):
+    def get_open_api_attr(self, attr: str) -> Any:
+        """Get a per-spec attribute map, loading lazily if needed."""
         if getattr(self, attr) is None:
             self._set_openapi_attr(attr=attr)
 
         return getattr(self, attr)
 
     def get_sorted_spec(self, spec: Dict) -> Dict:
+        """Sort a spec's paths, components, and tags alphabetically."""
         sorted_spec = {
             key: spec[key] for key in ["openapi", "info", "servers", "security"]
         }
@@ -140,7 +151,8 @@ class YAMLConsolidator:
 
         return sorted_spec
 
-    def handle_component_diffs(self):
+    def handle_component_diffs(self) -> tuple[str, str]:
+        """Build HTML diff strings for schema and security scheme diffs."""
         schemas_diffs = self.diffs["components"]["schemas"]
         security_schemes_diffs = self.diffs["components"]["securitySchemes"]
 
@@ -148,7 +160,8 @@ class YAMLConsolidator:
         security_schemes_html = self.create_full_html_string(security_schemes_diffs)
         return schemas_html, security_schemes_html
 
-    def integrate_attr(self, spec, attr):
+    def integrate_attr(self, spec: Dict, attr: str) -> None:
+        """Merge a single top-level spec attribute into the consolidated spec."""
         if attr == "components":
             self.integrate_components(spec[attr])
             return
@@ -173,7 +186,8 @@ class YAMLConsolidator:
 
         setattr(self, attr, existing_entries)
 
-    def integrate_components(self, components):
+    def integrate_components(self, components: Dict) -> None:
+        """Merge component schemas and security schemes into the consolidated spec."""
         new_components = {}
 
         for sub_component in ["schemas", "securitySchemes"]:
@@ -206,11 +220,13 @@ class YAMLConsolidator:
 
         self.components = new_components
 
-    def integrate_spec(self, spec):
+    def integrate_spec(self, spec: Dict) -> None:
+        """Merge all attributes of a single spec into the consolidated spec."""
         for key in ["tags", "paths", "components"]:
             self.integrate_attr(spec, key)
 
-    def integrate_tags(self, tags):
+    def integrate_tags(self, tags: List) -> None:
+        """Merge tags into the consolidated spec, recording diffs."""
         existing_tags = {t["name"]: t["description"] for t in self.tags}
 
         for t in tags:
@@ -235,14 +251,16 @@ class YAMLConsolidator:
                 self.tags.append(t)
                 self.original_entry_source[f"tags.{t['name']}"] = self.cur_spec_name
 
-    def load_specs(self, pattern: str):
+    def load_specs(self, pattern: str) -> Dict:
+        """Load all specs matching the pattern from the spec directory."""
         specs = {}
         for spec_file in self.spec_dir.glob(pattern=pattern):
             self.add_spec(spec_path=spec_file)
 
         return specs
 
-    def output_diff(self):
+    def output_diff(self) -> None:
+        """Generate and write an HTML diff report for all spec differences."""
         full_html = html_template
         for diff_type in self.diffs:
             if diff_type == "components":
@@ -262,15 +280,18 @@ class YAMLConsolidator:
         pprint(self.diff_counts, indent=4)
         self.write_to_html(file_name="pro-reg-combined.html", html_text=full_html)
 
-    def set_common_info(self, *args, **kwargs):
+    def set_common_info(self, *args: Any, **kwargs: Any) -> None:
+        """Set common OpenAPI attributes (info, servers, security) via keyword arguments."""
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def sort_all_specs(self):
+    def sort_all_specs(self) -> None:
+        """Sort all loaded specs in place."""
         for name, spec in self.specs.items():
             self.specs[name] = self.get_sorted_spec(spec=spec)
 
     def sort_entries_for_attr(self, spec: Dict, attr: str) -> Dict | List | None:
+        """Sort entries for a given spec attribute (paths, components, or tags)."""
         sorted_attr_entry = None
 
         if attr not in spec:
@@ -292,14 +313,16 @@ class YAMLConsolidator:
 
         return sorted_attr_entry
 
-    def write_spec_to_disk(self, file_name: str, spec):
+    def write_spec_to_disk(self, file_name: str, spec: Dict) -> None:
+        """Write a single spec dict to a YAML file."""
         print(f"Writing spec to {file_name}")
 
         with open(file_name, "w") as outfile:
             yaml.dump(spec, outfile)
             print(f"Success")
 
-    def write_to_disk(self, directory: str = None, suffix: str = ""):
+    def write_to_disk(self, directory: str = None, suffix: str = "") -> None:
+        """Write all loaded specs to YAML files in the given directory."""
         if directory is None:
             directory = os.getcwd()
 
@@ -308,6 +331,7 @@ class YAMLConsolidator:
             file_name = f"{directory}/{name}{suffix}.yaml"
             self.write_spec_to_disk(file_name=file_name, spec=spec)
 
-    def write_to_html(self, file_name, html_text):
+    def write_to_html(self, file_name: str, html_text: str) -> None:
+        """Write an HTML string to a file."""
         with open(file_name, "w") as outfile:
             outfile.write(html_text)

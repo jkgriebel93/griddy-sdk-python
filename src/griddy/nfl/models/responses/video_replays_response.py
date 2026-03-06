@@ -5,9 +5,7 @@ from typing import List, Optional
 import pydantic
 from typing_extensions import Annotated
 
-from griddy.nfl.models.entities.weekly_game_detail import (
-    Replay,
-)
+from griddy.nfl.models.entities.weekly_game_detail import Replay
 from griddy.nfl.types import BaseModel
 
 

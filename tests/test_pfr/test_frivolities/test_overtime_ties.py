@@ -6,11 +6,7 @@ from griddy.pfr.errors import ParsingError
 from griddy.pfr.models import OvertimeTieEntry, OvertimeTies
 from griddy.pfr.sdk import GriddyPFR
 
-from .conftest import (
-    FIXTURE_DIR,
-    assert_endpoint_via_mock,
-    assert_smoke,
-)
+from .conftest import FIXTURE_DIR, assert_endpoint_via_mock, assert_smoke
 from .conftest import overtime_ties_parser as _parser
 
 # -------------------------------------------------------------------------
