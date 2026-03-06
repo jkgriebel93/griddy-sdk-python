@@ -28,6 +28,7 @@ def generate_url(
     path_params: Any,
     gbls: Optional[Any] = None,
 ) -> str:
+    """Generate a full URL by interpolating path params into the path template."""
     path_param_values: Dict[str, str] = {}
 
     globals_already_populated = _populate_path_params(
@@ -48,6 +49,7 @@ def _populate_path_params(
     path_param_values: Dict[str, str],
     skip_fields: List[str],
 ) -> List[str]:
+    """Extract path parameter values from a Pydantic model's annotated fields."""
     globals_already_populated: List[str] = []
 
     if not isinstance(path_params, BaseModel):
@@ -134,18 +136,21 @@ def _populate_path_params(
     return globals_already_populated
 
 
-def is_optional(field):
+def is_optional(field: Any) -> bool:
+    """Check if a type annotation is Optional (Union with None)."""
     return get_origin(field) is Union and type(None) in get_args(field)
 
 
 def template_url(url_with_params: str, params: Dict[str, str]) -> str:
+    """Replace {key} placeholders in a URL with the given param values."""
     for key, value in params.items():
         url_with_params = url_with_params.replace("{" + key + "}", value)
 
     return url_with_params
 
 
-def remove_suffix(input_string, suffix):
+def remove_suffix(input_string: str, suffix: str) -> str:
+    """Remove a suffix from a string if present."""
     if suffix and input_string.endswith(suffix):
         return input_string[: -len(suffix)]
     return input_string

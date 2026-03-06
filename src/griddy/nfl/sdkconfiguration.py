@@ -16,6 +16,8 @@ SERVERS = {
 
 @dataclass
 class SDKConfiguration(CoreSDKConfiguration):
+    """NFL-specific SDK configuration with server type selection and auth info."""
+
     security: Optional[Union[models.Security, Callable[[], models.Security]]] = None
     sdk_version: str = __version__
     user_agent: str = __user_agent__
@@ -23,10 +25,12 @@ class SDKConfiguration(CoreSDKConfiguration):
     custom_auth_info: Optional[models.NFLAuth] = None
 
     def __post_init__(self) -> None:
+        """Set default server index to 0 if not provided."""
         if self.server_idx is None:
             self.server_idx = 0
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
+        """Return the base URL and params for the configured server type."""
         if self.server_url is not None and self.server_url:
             return remove_suffix(self.server_url, "/"), {}
 

@@ -253,15 +253,19 @@ class GriddyNFL(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
     # ------------------------------------------------------------------
 
     def _get_debug_logger_env_var(self) -> str:
+        """Return the environment variable name that enables debug logging."""
         return "GRIDDY_DEBUG"
 
     def _create_security(self, auth: Any) -> Any:
+        """Create a Security model from the NFL auth token."""
         return models.Security(nfl_auth=auth.access_token)
 
     def _create_sdk_configuration(self, **kwargs: Any) -> Any:
+        """Create an NFL-specific SDKConfiguration instance."""
         return SDKConfiguration(**kwargs)
 
     def _create_hooks(self) -> Any:
+        """Create and return the NFL SDK hooks instance."""
         return SDKHooks()
 
     # ------------------------------------------------------------------
