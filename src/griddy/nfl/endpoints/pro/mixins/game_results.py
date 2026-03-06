@@ -25,12 +25,12 @@ class GameResultsDataMixin:
         Retrieves comprehensive boxscore data for a specific game including team statistics,
         individual player statistics, and scoring summary. Returns empty arrays for future games.
 
-
-        :param game_id: Game identifier (10-digit format YYYYMMDDNN)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (10-digit format YYYYMMDDNN)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -56,11 +56,13 @@ class GameResultsDataMixin:
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> EndpointConfig:
         r"""
-        :param game_id: Game identifier(s) in 10-digit format (YYYYMMDDNN).  Can be a single game ID or multiple game IDs for batch retrieval.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+
+        Args:
+            game_id: Game identifier(s) in 10-digit format (YYYYMMDDNN).  Can be a single game ID or multiple game IDs for batch retrieval.
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -91,13 +93,13 @@ class GameResultsDataMixin:
         Retrieves detailed information about a specific play in a game including play description,
         statistics, involved players, win probability, and expected points.
 
-
-        :param game_id: Game identifier (UUID format)
-        :param play_id: Play identifier within the game
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID format)
+            play_id: Play identifier within the game
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -132,12 +134,12 @@ class GameResultsDataMixin:
         endpoint tracks how each play impacts the probability of each team winning the game.
         Supports querying multiple games simultaneously.
 
-
-        :param game_id: Game identifier(s) in 10-digit format (YYYYMMDDNN).  Can be a single game ID or multiple game IDs for batch retrieval.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier(s) in 10-digit format (YYYYMMDDNN).  Can be a single game ID or multiple game IDs for batch retrieval.
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -169,12 +171,12 @@ class GameResultsDataMixin:
         This endpoint provides essential win probability metrics with optimized data
         structure for performance. Supports multiple games in a single request.
 
-
-        :param fapi_game_id: Football API game identifiers (UUID format). Supports multiple game IDs to retrieve win probability data for multiple games simultaneously.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            fapi_game_id: Football API game identifiers (UUID format). Supports multiple game IDs to retrieve win probability data for multiple games simultaneously.
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

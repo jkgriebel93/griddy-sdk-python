@@ -24,12 +24,13 @@ class Teams(BaseSDK):
 
         Retrieves teams
 
-        :param season: Season year
-        :param limit: Maximum number of results to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            limit: Maximum number of results to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetFootballTeamsRequest(
             season=season,

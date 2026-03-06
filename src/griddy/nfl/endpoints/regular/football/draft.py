@@ -25,13 +25,13 @@ class Draft(BaseSDK):
         Retrieves draft information for a specific year including all rounds,
         picks, traded picks, and compensatory selections.
 
-
-        :param year: Draft year
-        :param limit: Maximum number of picks to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            year: Draft year
+            limit: Maximum number of picks to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetDraftPicksReportRequest(year=year, limit=limit)
 
@@ -64,12 +64,13 @@ class Draft(BaseSDK):
     ) -> EndpointConfig:
         r"""Get Team Needs for Draft
 
-        :param year: Draft year
-        :param limit: Maximum number of results
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            year: Draft year
+            limit: Maximum number of results
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetTeamNeedsRequest(year=year, limit=limit)
 

@@ -27,15 +27,15 @@ class Standings(BaseSDK):
         Retrieves team standings for a specific season, season type, and week.
         Includes division, conference, and overall standings with detailed statistics.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number
-        :param limit: Maximum number of results to return
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week number
+            limit: Maximum number of results to return
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetStandingsRequest(
             season=season,

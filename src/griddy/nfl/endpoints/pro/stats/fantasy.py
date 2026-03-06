@@ -41,23 +41,23 @@ class Fantasy(PlayerStatsBase):
         minimum offensive snap thresholds, and rolling N-week windows for recent performance analysis.
         Data includes traditional fantasy categories and advanced metrics for lineup optimization.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of players to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param position_group: Filter by position groups (supports multiple positions)
-        :param team_offense: Filter by specific offensive team ID
-        :param team_defense: Filter by specific defensive team ID (opponent analysis)
-        :param min_offensive_snaps: Minimum offensive snaps threshold for inclusion
-        :param last_n_weeks: Number of recent weeks to analyze (rolling window)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            limit: Maximum number of players to return
+            offset: Number of records to skip for pagination
+            page: Page number for pagination
+            sort_key: Field to sort by
+            sort_value: Sort direction
+            position_group: Filter by position groups (supports multiple positions)
+            team_offense: Filter by specific offensive team ID
+            team_defense: Filter by specific defensive team ID (opponent analysis)
+            min_offensive_snaps: Minimum offensive snaps threshold for inclusion
+            last_n_weeks: Number of recent weeks to analyze (rolling window)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return self._make_stats_config(
             "/api/secured/stats/fantasy/season",

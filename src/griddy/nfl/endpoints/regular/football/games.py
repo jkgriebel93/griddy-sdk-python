@@ -27,15 +27,15 @@ class Games(BaseSDK):
         Retrieves game information for a specific season, season type, and week from the Football API.
         This endpoint provides core game data with external IDs.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number
-        :param with_external_ids: Include external IDs in response
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week number
+            with_external_ids: Include external IDs in response
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetFootballGamesRequest(
             season=season,
@@ -74,12 +74,12 @@ class Games(BaseSDK):
         Retrieves comprehensive box score data for a specific game including
         team statistics, individual player statistics, and scoring summary.
 
-
-        :param game_id: Game identifier (UUID)
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetFootballBoxScoreRequest(game_id=game_id)
 
@@ -115,14 +115,14 @@ class Games(BaseSDK):
         Retrieves detailed play-by-play data for a specific game including
         all plays, drives, scoring events, and key statistics.
 
-
-        :param game_id: Game identifier (UUID)
-        :param include_penalties: Include penalty details
-        :param include_formations: Include offensive/defensive formations
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier (UUID)
+            include_penalties: Include penalty details
+            include_formations: Include offensive/defensive formations
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetPlayByPlayRequest(
             game_id=game_id,
@@ -162,14 +162,14 @@ class Games(BaseSDK):
         Retrieves live game statistics and summaries for games in progress or completed games.
         Provides real-time statistical data for specified season, type, and week.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week number
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetLiveGameStatsRequest(
             season=season,
@@ -213,18 +213,18 @@ class Games(BaseSDK):
         Retrieves detailed game information for a specific week including team standings,
         drive charts, replays, and tagged videos.
 
-
-        :param season: Season year
-        :param type_: Season type
-        :param week: Week number
-        :param include_drive_chart: Include drive chart data
-        :param include_replays: Include replay videos
-        :param include_standings: Include team standings
-        :param include_tagged_videos: Include tagged video content
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            type_: Season type
+            week: Week number
+            include_drive_chart: Include drive chart data
+            include_replays: Include replay videos
+            include_standings: Include team standings
+            include_tagged_videos: Include tagged video content
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         request = models.GetWeeklyGameDetailsRequest(
             season=season,

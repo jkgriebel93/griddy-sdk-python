@@ -31,20 +31,20 @@ class PlayerReceivingStats(PlayerStatsBase):
 
         Retrieves comprehensive receiving statistics for NFL players during a specified season.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param limit: Maximum number of players to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param qualified_receiver: Filter to only qualified receivers
-        :param team_offense: Filter by specific team IDs
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            limit: Maximum number of players to return
+            offset: Number of records to skip for pagination
+            page: Page number for pagination
+            sort_key: Field to sort by
+            sort_value: Sort direction
+            qualified_receiver: Filter to only qualified receivers
+            team_offense: Filter by specific team IDs
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return self._make_stats_config(
             "/api/secured/stats/players-offense/receiving/season",
@@ -88,21 +88,21 @@ class PlayerReceivingStats(PlayerStatsBase):
 
         Retrieves comprehensive receiving statistics for NFL players during a specified week.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week identifier
-        :param limit: Maximum number of players to return
-        :param offset: Number of records to skip for pagination
-        :param page: Page number for pagination
-        :param sort_key: Field to sort by
-        :param sort_value: Sort direction
-        :param qualified_receiver: Filter to only qualified receivers
-        :param team_offense: Filter by specific team IDs
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week identifier
+            limit: Maximum number of players to return
+            offset: Number of records to skip for pagination
+            page: Page number for pagination
+            sort_key: Field to sort by
+            sort_value: Sort direction
+            qualified_receiver: Filter to only qualified receivers
+            team_offense: Filter by specific team IDs
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return self._make_stats_config(
             "/api/secured/stats/players-offense/receiving/week",

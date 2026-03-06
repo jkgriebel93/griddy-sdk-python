@@ -34,12 +34,12 @@ class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin
         Retrieves advanced game statistics including passer zones, receiver separation,
         pass rush metrics, and performance leaders for a specific game.
 
-
-        :param game_id: Game identifier
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            game_id: Game identifier
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -72,14 +72,14 @@ class ProGames(ProSDK, GameScheduleMixin, GameContentMixin, GameResultsDataMixin
         This endpoint updates frequently (15-second cache) to provide live scoring updates
         during active games. Returns an empty array when no games are currently being played.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            week: Week number
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",

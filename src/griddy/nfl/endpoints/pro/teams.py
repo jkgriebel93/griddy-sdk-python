@@ -24,11 +24,11 @@ class Teams(ProSDK):
         Retrieves information for all NFL teams including regular teams and Pro Bowl teams.
         Returns comprehensive team data including colors, logos, stadiums, and contact information.
 
-
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -58,13 +58,13 @@ class Teams(ProSDK):
         Retrieves the complete roster for a specific team and season.
         Returns detailed player information including physical attributes, college info, and experience.
 
-
-        :param team_id: Team identifier (4-digit string)
-        :param season: Season year
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            team_id: Team identifier (4-digit string)
+            season: Season year
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -96,15 +96,15 @@ class Teams(ProSDK):
         Retrieves the roster for a specific team, season, season type, and week.
         Returns player information with weekly status and availability.
 
-
-        :param team_id: Team identifier (4-digit string)
-        :param season: Season year
-        :param season_type: Type of season
-        :param week: Week number within the season
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            team_id: Team identifier (4-digit string)
+            season: Season year
+            season_type: Type of season
+            week: Week number within the season
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -139,13 +139,13 @@ class Teams(ProSDK):
         Retrieves the complete schedule for a specific team and season.
         Returns all games including preseason, regular season, and postseason with scores for completed games.
 
-
-        :param team_id: Team identifier (4-digit string)
-        :param season: Season year
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            team_id: Team identifier (4-digit string)
+            season: Season year
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
@@ -181,18 +181,18 @@ class Teams(ProSDK):
         Retrieves rankings for all 32 NFL teams across multiple specified statistical categories.
         Allows comparison of teams across up to 5 different statistics simultaneously.
 
-
-        :param season: Season year
-        :param season_type: Type of season
-        :param stat0: First statistical category
-        :param stat1: Second statistical category
-        :param stat2: Third statistical category
-        :param stat3: Fourth statistical category
-        :param stat4: Fifth statistical category
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
+        Args:
+            season: Season year
+            season_type: Type of season
+            stat0: First statistical category
+            stat1: Second statistical category
+            stat2: Third statistical category
+            stat3: Fourth statistical category
+            stat4: Fifth statistical category
+            retries: Override the default retry configuration for this method
+            server_url: Override the default server URL for this method
+            timeout_ms: Override the default request timeout configuration for this method in milliseconds
+            http_headers: Additional headers to set or replace on requests.
         """
         return EndpointConfig(
             method="GET",
