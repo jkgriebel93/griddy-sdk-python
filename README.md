@@ -1,6 +1,12 @@
 # Griddy SDK
 
+[![Build Status](https://github.com/Thistle-Grow-Software/griddy-sdk-python/actions/workflows/quality-gates.yml/badge.svg)](https://github.com/Thistle-Grow-Software/griddy-sdk-python/actions/workflows/quality-gates.yml)
+[![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue)](https://www.python.org/downloads/)
+[![version](https://img.shields.io/badge/version-0.45.0-green)](https://github.com/Thistle-Grow-Software/griddy-sdk-python)
 [![codecov](https://codecov.io/gh/Thistle-Grow-Software/griddy-sdk-python/graph/badge.svg?token=WEUUCIGCRZ)](https://codecov.io/gh/Thistle-Grow-Software/griddy-sdk-python)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![mypy](https://img.shields.io/badge/type%20checker-mypy-blue)](https://mypy-lang.org/)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://jkgriebel93.github.io/griddy-docs/)
 
 A Python SDK for accessing NFL data from multiple sources including NFL.com, with other sources to come.
 
