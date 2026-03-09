@@ -44,7 +44,7 @@ class TeamStats(BaseModel):
     home: Optional[TeamGameStats] = None
 
 
-class BoxScoreResponse2(BaseModel):
+class ProBoxScoreResponse(BaseModel):
     """Detailed boxscore response with player and team stats."""
 
     game: Optional[ProGame] = None

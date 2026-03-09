@@ -724,13 +724,6 @@ if TYPE_CHECKING:
         TokenRequestNetworkType,
     )
     from griddy.nfl.models.responses.boxscore_response import BoxscoreResponse
-    from griddy.nfl.models.responses.boxscore_response_2 import (
-        Away,
-        BoxScoreResponse2,
-        Home,
-        PlayerStats,
-        TeamStats,
-    )
     from griddy.nfl.models.responses.coaches_film_response import CoachesFilmResponse
     from griddy.nfl.models.responses.combine_profiles_response import (
         CombineProfilesResponse,
@@ -801,7 +794,7 @@ if TYPE_CHECKING:
     from griddy.nfl.models.responses.live_team_statistics_response import (
         LiveTeamStatisticsResponse,
     )
-    from griddy.nfl.models.responses.lives_cores_response import LiveScoresResponse
+    from griddy.nfl.models.responses.live_scores_response import LiveScoresResponse
     from griddy.nfl.models.responses.matchup_rankings_response import (
         MatchupRankingsResponse,
     )
@@ -862,6 +855,13 @@ if TYPE_CHECKING:
         PlayerStatsResponseStats,
     )
     from griddy.nfl.models.responses.playlist_response import PlaylistResponse
+    from griddy.nfl.models.responses.pro_boxscore_response import (
+        Away,
+        Home,
+        PlayerStats,
+        ProBoxScoreResponse,
+        TeamStats,
+    )
     from griddy.nfl.models.responses.projected_stats_response import (
         Included,
         Meta,
@@ -933,7 +933,6 @@ __all__ = [
     "Background",
     "BenchPress",
     "BinaryFlagEnum",
-    "BoxScoreResponse2",
     "BoxscoreResponse",
     "BoxscoreSchedule",
     "BoxscoreScore",
@@ -1348,6 +1347,7 @@ __all__ = [
     "PracticeStatus",
     "PracticeStatusEnum",
     "Preview",
+    "ProBoxScoreResponse",
     "ProGame",
     "ProGameCategory",
     "ProGameExtension",
@@ -1509,12 +1509,11 @@ _dynamic_imports: dict[str, str] = {
     "AirYardType": ".requests.get_film_room_plays_op",
     "Award": ".entities.award",
     "AwardType": ".entities.award",
-    "Away": ".responses.boxscore_response_2",
+    "Away": ".responses.pro_boxscore_response",
     "AwayTeam": ".entities.live_game",
     "Background": ".entities.coaches_film_video",
     "BenchPress": ".entities.combine_events",
     "BinaryFlagEnum": ".enums.binary_flag_enum",
-    "BoxScoreResponse2": ".responses.boxscore_response_2",
     "BoxscoreResponse": ".responses.boxscore_response",
     "BoxscoreSchedule": ".entities.boxscore_schedule",
     "BoxscoreScore": ".entities.boxscore_score",
@@ -1750,7 +1749,7 @@ _dynamic_imports: dict[str, str] = {
     "HistoricalStatCategories": ".entities.historical_stat_categories",
     "HistoricalTeamStatsResponse": ".responses.historical_team_stats_response",
     "HistoricalTimeOfPossessionStats": ".entities.historical_stat_categories",
-    "Home": ".responses.boxscore_response_2",
+    "Home": ".responses.pro_boxscore_response",
     "HomeFilmCardsResponse": ".responses.home_filmcards_response",
     "HomeTeam": ".entities.live_game",
     "Image": ".entities.coaches_film_video",
@@ -1909,7 +1908,7 @@ _dynamic_imports: dict[str, str] = {
     "PlayerRushingStats": ".entities.player_rushing_stats",
     "PlayerSearchResponse": ".responses.player_search_response",
     "PlayerSearchResult": ".entities.player_search_result",
-    "PlayerStats": ".responses.boxscore_response_2",
+    "PlayerStats": ".responses.pro_boxscore_response",
     "PlayerStatsResponse": ".responses.player_stats_response",
     "PlayerStatsResponsePagination": ".responses.player_stats_response",
     "PlayerStatsResponsePlayer": ".responses.player_stats_response",
@@ -1929,6 +1928,7 @@ _dynamic_imports: dict[str, str] = {
     "PracticeStatus": ".entities.injury_entry",
     "PracticeStatusEnum": ".enums.practice_status_enum",
     "Preview": ".responses.game_preview_response",
+    "ProBoxScoreResponse": ".responses.pro_boxscore_response",
     "ProGame": ".entities.pro_game",
     "ProGameCategory": ".entities.pro_game",
     "ProGameExtension": ".entities.pro_game",
@@ -2031,7 +2031,7 @@ _dynamic_imports: dict[str, str] = {
     "TeamRankingsResponse": ".responses.team_rankings_response",
     "TeamRosterResponse": ".responses.team_roster_response",
     "TeamScore": ".entities.team_score",
-    "TeamStats": ".responses.boxscore_response_2",
+    "TeamStats": ".responses.pro_boxscore_response",
     "TeamTeamType": ".entities.team",
     "TeamTypeEnum": ".enums.team_type_enum",
     "TeamVenue": ".entities.team_venue",
