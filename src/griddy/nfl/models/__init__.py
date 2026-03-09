@@ -794,7 +794,7 @@ if TYPE_CHECKING:
     from griddy.nfl.models.responses.live_team_statistics_response import (
         LiveTeamStatisticsResponse,
     )
-    from griddy.nfl.models.responses.lives_cores_response import LiveScoresResponse
+    from griddy.nfl.models.responses.live_scores_response import LiveScoresResponse
     from griddy.nfl.models.responses.matchup_rankings_response import (
         MatchupRankingsResponse,
     )
