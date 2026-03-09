@@ -97,7 +97,7 @@ class Games(BaseSDK):
             path="/football/v2/games/{gameId}/boxscore",
             operation_id="getFootballBoxScore",
             request=request,
-            response_type=models.BoxScoreResponse2,
+            response_type=models.ProBoxScoreResponse,
             error_status_codes=RESOURCE_ERROR_CODES,
             request_body_required=False,
             request_has_path_params=True,
