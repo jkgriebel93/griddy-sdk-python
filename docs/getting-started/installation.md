@@ -57,10 +57,17 @@ The SDK installs the following dependencies automatically:
 | `httpx` | Modern async HTTP client for NFL module |
 | `pydantic` | Data validation and parsing |
 | `python-dateutil` | Date/time utilities |
-| `playwright` | Browser automation for authentication |
 | `pyyaml` | YAML configuration parsing |
 
 ## Optional Dependencies
+
+### Browser Authentication
+
+Install with `pip install griddy[browser-auth]`:
+
+- `playwright` - Browser automation for NFL authentication and PFR page fetching
+
+Most users do not need this extra. It is only required if you use browser-based NFL authentication (`login_email`/`login_password`) or the `GriddyPFR` client.
 
 ### Development Tools
 
@@ -96,10 +103,13 @@ Upgrade your Python installation to 3.13 or higher.
 
 ### Playwright Installation
 
-The NFL module uses Playwright for browser-based authentication. If you encounter issues:
+Playwright is an optional dependency used for browser-based NFL authentication and PFR page fetching. If you see an `ImportError` mentioning `browser-auth`:
 
 ```bash
-# Install Playwright browsers
+# Install the browser-auth extra
+pip install griddy[browser-auth]
+
+# Then install Playwright browsers
 playwright install chromium
 ```
 

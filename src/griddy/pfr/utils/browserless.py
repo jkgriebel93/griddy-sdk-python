@@ -7,20 +7,43 @@ detection.
 Requires:
     - BROWSERLESS_TOKEN environment variable
     - BROWSERLESS_HOST environment variable
-    - playwright and httpx packages
+    - httpx package
+    - playwright package (optional: pip install griddy[browser-auth])
 """
 
 from dataclasses import dataclass
 from typing import Any
 
 import httpx
-from playwright.async_api import Browser as AsyncBrowser
-from playwright.async_api import Error as AsyncPlaywrightError
-from playwright.async_api import async_playwright
-from playwright.sync_api import Browser, sync_playwright
-from playwright.sync_api import Error as PlaywrightError
 
 from griddy.settings import BROWSERLESS_HOST, BROWSERLESS_TOKEN
+
+_PLAYWRIGHT_INSTALL_MSG = (
+    "Playwright is required for Browserless page fetching but is not installed. "
+    "Install it with: pip install griddy[browser-auth]"
+)
+
+
+def _import_sync_playwright() -> tuple:
+    """Import sync Playwright components, raising a clear error if missing."""
+    try:
+        from playwright.sync_api import Error as PlaywrightError
+        from playwright.sync_api import sync_playwright
+
+        return sync_playwright, PlaywrightError
+    except ImportError:
+        raise ImportError(_PLAYWRIGHT_INSTALL_MSG) from None
+
+
+def _import_async_playwright() -> tuple:
+    """Import async Playwright components, raising a clear error if missing."""
+    try:
+        from playwright.async_api import Error as AsyncPlaywrightError
+        from playwright.async_api import async_playwright
+
+        return async_playwright, AsyncPlaywrightError
+    except ImportError:
+        raise ImportError(_PLAYWRIGHT_INSTALL_MSG) from None
 
 
 @dataclass
@@ -113,7 +136,7 @@ class Browserless:
         return resp.json()
 
     def _handle_page_navigation(
-        self, browser: Browser, url: str, cookies: dict, element: str
+        self, browser: Any, url: str, cookies: dict, element: str
     ) -> str:
         """Locate or create a page in *browser* and wait for *element*.
 
@@ -175,6 +198,8 @@ class Browserless:
 
         ws_endpoint = browserless_data.get("browserWSEndpoint")
         cookies = browserless_data.get("cookies", [])
+
+        sync_playwright, PlaywrightError = _import_sync_playwright()
 
         with sync_playwright() as pw:
             try:
@@ -265,7 +290,7 @@ class AsyncBrowserless:
         return resp.json()
 
     async def _handle_page_navigation(
-        self, browser: AsyncBrowser, url: str, cookies: dict, element: str
+        self, browser: Any, url: str, cookies: dict, element: str
     ) -> str:
         """Locate or create a page in *browser* and wait for *element*.
 
@@ -318,6 +343,8 @@ class AsyncBrowserless:
 
         ws_endpoint = browserless_data.get("browserWSEndpoint")
         cookies = browserless_data.get("cookies", [])
+
+        async_playwright, AsyncPlaywrightError = _import_async_playwright()
 
         async with async_playwright() as pw:
             try:

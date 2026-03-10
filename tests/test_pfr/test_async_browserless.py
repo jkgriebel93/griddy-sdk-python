@@ -4,13 +4,18 @@ from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import httpx
 import pytest
-from playwright.async_api import Error as AsyncPlaywrightError
 
 from griddy.pfr.utils.browserless import (
     AsyncBrowserless,
     BrowserlessConfig,
     BrowserlessError,
 )
+
+# Playwright is an optional dependency; import its error type only when available.
+try:
+    from playwright.async_api import Error as AsyncPlaywrightError
+except ImportError:  # pragma: no cover
+    AsyncPlaywrightError = None  # type: ignore[assignment,misc]
 
 _SETTINGS = "griddy.pfr.utils.browserless"
 
@@ -256,6 +261,10 @@ class TestAsyncGetPageContent:
         mock_browser = AsyncMock()
         mock_pw = AsyncMock()
         mock_pw.chromium.connect_over_cdp.return_value = mock_browser
+        mock_ap = MagicMock()
+        mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
+        mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
+        mock_error = type("AsyncPlaywrightError", (Exception,), {})
 
         with (
             patch.object(
@@ -267,7 +276,10 @@ class TestAsyncGetPageContent:
                     "cookies": [{"name": "c", "value": "v"}],
                 },
             ),
-            patch("griddy.pfr.utils.browserless.async_playwright") as mock_ap,
+            patch(
+                f"{_SETTINGS}._import_async_playwright",
+                return_value=(mock_ap, mock_error),
+            ),
             patch.object(
                 async_browserless,
                 "_handle_page_navigation",
@@ -275,9 +287,6 @@ class TestAsyncGetPageContent:
                 return_value="<html>content</html>",
             ) as mock_nav,
         ):
-            mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
-            mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
-
             result = await async_browserless.get_page_content(
                 "https://pfr.com/page", wait_for_element="#tbl"
             )
@@ -299,6 +308,10 @@ class TestAsyncGetPageContent:
         mock_browser = AsyncMock()
         mock_pw = AsyncMock()
         mock_pw.chromium.connect_over_cdp.return_value = mock_browser
+        mock_ap = MagicMock()
+        mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
+        mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
+        mock_error = type("AsyncPlaywrightError", (Exception,), {})
 
         with (
             patch.object(
@@ -307,7 +320,10 @@ class TestAsyncGetPageContent:
                 new_callable=AsyncMock,
                 return_value={"browserWSEndpoint": "ws://host"},
             ),
-            patch("griddy.pfr.utils.browserless.async_playwright") as mock_ap,
+            patch(
+                f"{_SETTINGS}._import_async_playwright",
+                return_value=(mock_ap, mock_error),
+            ),
             patch.object(
                 async_browserless,
                 "_handle_page_navigation",
@@ -315,9 +331,6 @@ class TestAsyncGetPageContent:
                 return_value="<html/>",
             ) as mock_nav,
         ):
-            mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
-            mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
-
             await async_browserless.get_page_content(
                 "https://pfr.com", wait_for_element="#el"
             )
@@ -328,17 +341,26 @@ class TestAsyncGetPageContent:
     @pytest.mark.parametrize(
         "exc",
         [
-            AsyncPlaywrightError("CDP refused"),
-            ConnectionError("connection reset"),
-            httpx.HTTPError("transport error"),
+            pytest.param(
+                AsyncPlaywrightError("CDP refused") if AsyncPlaywrightError else None,
+                id="playwright_error",
+                marks=pytest.mark.skipif(
+                    AsyncPlaywrightError is None, reason="playwright not installed"
+                ),
+            ),
+            pytest.param(ConnectionError("connection reset"), id="connection_error"),
+            pytest.param(httpx.HTTPError("transport error"), id="httpx_error"),
         ],
-        ids=["playwright_error", "connection_error", "httpx_error"],
     )
     async def test_raises_browserless_error_on_cdp_failure(
         self, async_browserless, exc
     ):
         mock_pw = AsyncMock()
         mock_pw.chromium.connect_over_cdp.side_effect = exc
+        mock_ap = MagicMock()
+        mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
+        mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
+        pw_error = type(exc) if AsyncPlaywrightError is None else AsyncPlaywrightError
 
         with (
             patch.object(
@@ -347,11 +369,11 @@ class TestAsyncGetPageContent:
                 new_callable=AsyncMock,
                 return_value={"browserWSEndpoint": "ws://host"},
             ),
-            patch("griddy.pfr.utils.browserless.async_playwright") as mock_ap,
+            patch(
+                f"{_SETTINGS}._import_async_playwright",
+                return_value=(mock_ap, pw_error),
+            ),
         ):
-            mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
-            mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
-
             with pytest.raises(BrowserlessError, match="Failed to connect Playwright"):
                 await async_browserless.get_page_content(
                     "https://pfr.com", wait_for_element="#el"
@@ -361,6 +383,10 @@ class TestAsyncGetPageContent:
     async def test_does_not_catch_unrelated_exceptions(self, async_browserless):
         mock_pw = AsyncMock()
         mock_pw.chromium.connect_over_cdp.side_effect = RuntimeError("unexpected")
+        mock_ap = MagicMock()
+        mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
+        mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
+        mock_error = type("AsyncPlaywrightError", (Exception,), {})
 
         with (
             patch.object(
@@ -369,12 +395,31 @@ class TestAsyncGetPageContent:
                 new_callable=AsyncMock,
                 return_value={"browserWSEndpoint": "ws://host"},
             ),
-            patch("griddy.pfr.utils.browserless.async_playwright") as mock_ap,
+            patch(
+                f"{_SETTINGS}._import_async_playwright",
+                return_value=(mock_ap, mock_error),
+            ),
         ):
-            mock_ap.return_value.__aenter__ = AsyncMock(return_value=mock_pw)
-            mock_ap.return_value.__aexit__ = AsyncMock(return_value=False)
-
             with pytest.raises(RuntimeError, match="unexpected"):
+                await async_browserless.get_page_content(
+                    "https://pfr.com", wait_for_element="#el"
+                )
+
+    @pytest.mark.asyncio
+    async def test_raises_import_error_when_playwright_missing(self, async_browserless):
+        with (
+            patch.object(
+                async_browserless,
+                "fetch_data",
+                new_callable=AsyncMock,
+                return_value={"browserWSEndpoint": "ws://host"},
+            ),
+            patch(
+                f"{_SETTINGS}._import_async_playwright",
+                side_effect=ImportError("pip install griddy[browser-auth]"),
+            ),
+        ):
+            with pytest.raises(ImportError, match="browser-auth"):
                 await async_browserless.get_page_content(
                     "https://pfr.com", wait_for_element="#el"
                 )
