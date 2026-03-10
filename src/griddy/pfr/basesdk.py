@@ -8,6 +8,7 @@ from griddy.core.basesdk import BaseEndpointConfig
 from griddy.core.basesdk import BaseSDK as CoreBaseSDK
 
 from . import errors, models
+from .backends import AsyncScrapingBackend, ScrapingBackend
 from .errors import ParsingError
 from .parsers._helpers import uncomment_tables
 from .sdkconfiguration import SDKConfiguration
@@ -41,13 +42,23 @@ class EndpointConfig(BaseEndpointConfig):
 class BaseSDK(CoreBaseSDK[SDKConfiguration]):
     """PFR-specific BaseSDK with PFR error classes and security model."""
 
+    browserless: ScrapingBackend
+    async_browserless: AsyncScrapingBackend
+
     def __init__(
         self,
         sdk_config: SDKConfiguration,
         parent_ref: Optional[object] = None,
         browserless_config: Optional[BrowserlessConfig] = None,
     ) -> None:
-        """Initialize PFR BaseSDK with Browserless clients for HTML fetching.
+        """Initialize PFR BaseSDK with scraping backends for HTML fetching.
+
+        The scraping backend is resolved in the following order:
+
+        1. A backend stored on ``sdk_config.scraping_backend`` (set when the
+           user passes ``scraping_backend`` to :class:`GriddyPFR`).
+        2. A ``BrowserlessConfig`` passed directly or pre-set by GriddyPFR.
+        3. A default :class:`Browserless` instance (requires env vars).
 
         Args:
             sdk_config: PFR SDK configuration with server details.
@@ -56,13 +67,22 @@ class BaseSDK(CoreBaseSDK[SDKConfiguration]):
                 to the ``_browserless_config`` attribute set by GriddyPFR.
         """
         super().__init__(sdk_config=sdk_config, parent_ref=parent_ref)
-        # When called via BaseGriddySDK._init_sdk (MRO super().__init__),
-        # browserless_config won't be passed. Fall back to the attribute
-        # that GriddyPFR pre-sets before _init_sdk runs.
-        if browserless_config is None:
-            browserless_config = getattr(self, "_browserless_config", None)
-        self.browserless = Browserless(config=browserless_config)
-        self.async_browserless = AsyncBrowserless(config=browserless_config)
+
+        # Prefer backends already stored on the shared SDKConfiguration
+        # (propagated automatically to all sub-SDKs).
+        if sdk_config.scraping_backend is not None:
+            self.browserless = sdk_config.scraping_backend
+        else:
+            if browserless_config is None:
+                browserless_config = getattr(self, "_browserless_config", None)
+            self.browserless = Browserless(config=browserless_config)
+
+        if sdk_config.async_scraping_backend is not None:
+            self.async_browserless = sdk_config.async_scraping_backend
+        else:
+            if browserless_config is None:
+                browserless_config = getattr(self, "_browserless_config", None)
+            self.async_browserless = AsyncBrowserless(config=browserless_config)
 
     @property
     def _default_error_cls(self) -> Type[Exception]:

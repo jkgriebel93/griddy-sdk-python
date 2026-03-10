@@ -11,7 +11,15 @@ class TestPfrInitExports:
         assert isinstance(pfr_pkg.__all__, list)
 
     def test_all_contains_expected_names(self):
-        expected = {"GriddyPFR", "SDKConfiguration", "SERVERS", "VERSION", "USER_AGENT"}
+        expected = {
+            "AsyncScrapingBackend",
+            "GriddyPFR",
+            "ScrapingBackend",
+            "SDKConfiguration",
+            "SERVERS",
+            "VERSION",
+            "USER_AGENT",
+        }
         assert set(pfr_pkg.__all__) == expected
 
     def test_griddy_pfr_importable(self):

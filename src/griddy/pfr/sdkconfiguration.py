@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Dict, Tuple
+from dataclasses import dataclass, field
+from typing import Any, Dict, Optional, Tuple
 
 from griddy.core.sdkconfiguration import SDKConfiguration as CoreSDKConfiguration
 
@@ -18,6 +18,8 @@ class SDKConfiguration(CoreSDKConfiguration):
     sdk_version: str = __version__
     user_agent: str = __user_agent__
     server_type: str = "default"
+    scraping_backend: Optional[Any] = field(default=None, repr=False)
+    async_scraping_backend: Optional[Any] = field(default=None, repr=False)
 
     def __post_init__(self) -> None:
         """Set default server index to 0 if not provided."""
