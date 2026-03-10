@@ -216,7 +216,7 @@ class TestParseSecuritySchemeValue:
 
 @pytest.mark.unit
 class TestDoBrowserAuthLogger:
-    @patch("griddy.nfl.utils.security.sync_playwright")
+    @patch("playwright.sync_api.sync_playwright")
     def test_uses_logger_debug_instead_of_print(self, mock_playwright):
         mock_browser = MagicMock()
         mock_page = MagicMock()
@@ -244,3 +244,13 @@ class TestDoBrowserAuthLogger:
         debug_messages = [call.args[0] for call in logger.debug.call_args_list]
         assert "Begin do_browser_auth." in debug_messages
         assert "Launching browser." in debug_messages
+
+    def test_raises_import_error_when_playwright_missing(self):
+        with patch.dict(
+            "sys.modules", {"playwright": None, "playwright.sync_api": None}
+        ):
+            with pytest.raises(ImportError, match="browser-auth"):
+                do_browser_auth(
+                    email="test@example.com",
+                    password="password",
+                )

@@ -3,7 +3,6 @@ import time
 from random import uniform
 from typing import Any, Dict, Optional
 
-from playwright.sync_api import sync_playwright
 from pydantic import BaseModel
 
 from griddy.core.utils.logger import Logger, NoOpLogger
@@ -44,6 +43,14 @@ def do_browser_auth(
     """Authenticate via browser automation and return the token response dict."""
     if logger is None:
         logger = NoOpLogger()
+
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        raise ImportError(
+            "Playwright is required for browser-based authentication but is not "
+            "installed. Install it with: pip install griddy[browser-auth]"
+        ) from None
 
     logger.debug("Begin do_browser_auth.")
     with sync_playwright() as p:
