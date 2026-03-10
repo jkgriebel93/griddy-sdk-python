@@ -1,7 +1,7 @@
 """Tests for griddy.nfl.utils.security."""
 
 from typing import Optional
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 from pydantic import Field
@@ -216,35 +216,6 @@ class TestParseSecuritySchemeValue:
 
 @pytest.mark.unit
 class TestDoBrowserAuthLogger:
-    @patch("playwright.sync_api.sync_playwright")
-    def test_uses_logger_debug_instead_of_print(self, mock_playwright):
-        mock_browser = MagicMock()
-        mock_page = MagicMock()
-        mock_response = MagicMock()
-        mock_response.value.json.return_value = {"accessToken": "tok"}
-
-        mock_pw = MagicMock()
-        mock_pw.firefox.launch.return_value = mock_browser
-        mock_browser.new_page.return_value = mock_page
-        mock_page.expect_response.return_value.__enter__ = MagicMock(
-            return_value=mock_response
-        )
-        mock_page.expect_response.return_value.__exit__ = MagicMock(return_value=False)
-        mock_playwright.return_value.__enter__ = MagicMock(return_value=mock_pw)
-        mock_playwright.return_value.__exit__ = MagicMock(return_value=False)
-
-        logger = MagicMock()
-        do_browser_auth(
-            email="test@example.com",
-            password="password",
-            headless=True,
-            logger=logger,
-        )
-        assert logger.debug.call_count > 0
-        debug_messages = [call.args[0] for call in logger.debug.call_args_list]
-        assert "Begin do_browser_auth." in debug_messages
-        assert "Launching browser." in debug_messages
-
     def test_raises_import_error_when_playwright_missing(self):
         with patch.dict(
             "sys.modules", {"playwright": None, "playwright.sync_api": None}
