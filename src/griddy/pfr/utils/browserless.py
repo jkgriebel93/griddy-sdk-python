@@ -126,6 +126,7 @@ class Browserless:
                 json=payload,
                 params=query_params,
                 headers={"Content-Type": "application/json"},
+                timeout=self.config.request_timeout / 1000,
             )
             resp.raise_for_status()
         except httpx.HTTPError as exc:
@@ -280,6 +281,7 @@ class AsyncBrowserless:
                     json=payload,
                     params=query_params,
                     headers={"Content-Type": "application/json"},
+                    timeout=self.config.request_timeout / 1000,
                 )
                 resp.raise_for_status()
         except httpx.HTTPError as exc:
