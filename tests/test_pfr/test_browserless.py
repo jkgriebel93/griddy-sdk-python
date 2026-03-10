@@ -168,6 +168,32 @@ class TestFetchData:
             with pytest.raises(BrowserlessError, match="request failed"):
                 browserless.fetch_data("https://example.com")
 
+    def test_passes_client_side_timeout_to_httpx(self, browserless):
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.post", return_value=mock_resp
+        ) as mock_post:
+            browserless.fetch_data("https://example.com")
+
+        call_kwargs = mock_post.call_args
+        assert call_kwargs[1]["timeout"] == 60_000 / 1000
+
+    def test_custom_request_timeout_forwarded_to_httpx(self):
+        config = BrowserlessConfig(request_timeout=120_000)
+        b = Browserless(config=config)
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.post", return_value=mock_resp
+        ) as mock_post:
+            b.fetch_data("https://example.com")
+
+        call_kwargs = mock_post.call_args
+        assert call_kwargs[1]["timeout"] == 120_000 / 1000
+
 
 @pytest.mark.unit
 class TestHandlePageNavigation:

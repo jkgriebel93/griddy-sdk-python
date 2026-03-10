@@ -166,6 +166,46 @@ class TestAsyncFetchData:
             with pytest.raises(BrowserlessError, match="request failed"):
                 await async_browserless.fetch_data("https://example.com")
 
+    @pytest.mark.asyncio
+    async def test_passes_client_side_timeout_to_httpx(self, async_browserless):
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        mock_client = AsyncMock()
+        mock_client.post.return_value = mock_resp
+        mock_client.__aenter__ = AsyncMock(return_value=mock_client)
+        mock_client.__aexit__ = AsyncMock(return_value=False)
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.AsyncClient",
+            return_value=mock_client,
+        ):
+            await async_browserless.fetch_data("https://example.com")
+
+        call_kwargs = mock_client.post.call_args
+        assert call_kwargs[1]["timeout"] == 60_000 / 1000
+
+    @pytest.mark.asyncio
+    async def test_custom_request_timeout_forwarded_to_httpx(self):
+        config = BrowserlessConfig(request_timeout=120_000)
+        b = AsyncBrowserless(config=config)
+        mock_resp = Mock()
+        mock_resp.json.return_value = {}
+
+        mock_client = AsyncMock()
+        mock_client.post.return_value = mock_resp
+        mock_client.__aenter__ = AsyncMock(return_value=mock_client)
+        mock_client.__aexit__ = AsyncMock(return_value=False)
+
+        with patch(
+            "griddy.pfr.utils.browserless.httpx.AsyncClient",
+            return_value=mock_client,
+        ):
+            await b.fetch_data("https://example.com")
+
+        call_kwargs = mock_client.post.call_args
+        assert call_kwargs[1]["timeout"] == 120_000 / 1000
+
 
 @pytest.mark.unit
 class TestAsyncHandlePageNavigation:
