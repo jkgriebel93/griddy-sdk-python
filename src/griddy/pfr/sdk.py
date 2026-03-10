@@ -16,6 +16,7 @@ from griddy.core.base_griddy_sdk import BaseGriddySDK
 from griddy.core.hooks.sdkhooks import SDKHooks
 
 from ._hooks.registration import init_hooks
+from .backends import AsyncScrapingBackend, ScrapingBackend
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, HttpClient
 from .sdkconfiguration import SDKConfiguration
@@ -107,6 +108,8 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
         timeout_ms: Optional[int] = None,
         debug_logger: Optional[Logger] = None,
         browserless_config: Optional[BrowserlessConfig] = None,
+        scraping_backend: Optional[ScrapingBackend] = None,
+        async_scraping_backend: Optional[AsyncScrapingBackend] = None,
     ) -> None:
         """Initialize the GriddyPFR client.
 
@@ -123,11 +126,22 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
             timeout_ms: Request timeout in milliseconds.
             debug_logger: Custom logger for debug output.
             browserless_config: Configuration for Browserless API requests.
-                Overrides default proxy, timeout, and TTL values.
+                Overrides default proxy, timeout, and TTL values. Ignored when
+                a custom *scraping_backend* is provided.
+            scraping_backend: A synchronous scraping backend that satisfies the
+                :class:`~griddy.pfr.backends.ScrapingBackend` protocol. When
+                provided, this backend is used instead of the default
+                Browserless client.
+            async_scraping_backend: An asynchronous scraping backend that
+                satisfies the :class:`~griddy.pfr.backends.AsyncScrapingBackend`
+                protocol. When provided, this backend is used instead of the
+                default async Browserless client.
         """
         # Pre-set so PFR BaseSDK.__init__ can pick it up via getattr
         # (MRO super().__init__ doesn't forward extra kwargs).
         self._browserless_config = browserless_config
+        self._scraping_backend = scraping_backend
+        self._async_scraping_backend = async_scraping_backend
         self._init_sdk(
             auth=pfr_auth,
             server_idx=server_idx,
@@ -138,6 +152,8 @@ class GriddyPFR(LazySubSDKMixin, BaseGriddySDK, BaseSDK):
             retry_config=retry_config,
             timeout_ms=timeout_ms,
             debug_logger=debug_logger,
+            scraping_backend=scraping_backend,
+            async_scraping_backend=async_scraping_backend,
         )
 
     # ------------------------------------------------------------------

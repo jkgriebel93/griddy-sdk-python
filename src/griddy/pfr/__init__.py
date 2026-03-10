@@ -1,9 +1,12 @@
 from ._version import __user_agent__, __version__
+from .backends import AsyncScrapingBackend, ScrapingBackend
 from .sdk import GriddyPFR
 from .sdkconfiguration import SERVERS, SDKConfiguration
 
 __all__ = [
+    "AsyncScrapingBackend",
     "GriddyPFR",
+    "ScrapingBackend",
     "SDKConfiguration",
     "SERVERS",
     "VERSION",
