@@ -1,71 +1,10 @@
-name: Build SDK and publish to AWS CodeArtifact
+name: Publish to CodeArtifact
 
 on:
   release:
     types: [published]
 
 jobs:
-  verify-tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source repository
-        uses: actions/checkout@v4
-
-      - name: Verify tag matches pyproject.toml version
-        run: |
-          PKG_VERSION=$(grep -E '^version = ' pyproject.toml | head -1 | cut -d'"' -f2)
-          TAG="${GITHUB_REF_NAME#v}"
-          echo "pyproject.toml version: $PKG_VERSION"
-          echo "Release tag (stripped 'v' prefix): $TAG"
-          if [ "$PKG_VERSION" != "$TAG" ]; then
-            echo "::error::Version mismatch: pyproject.toml has '$PKG_VERSION' but release tag is '$GITHUB_REF_NAME'"
-            exit 1
-          fi
-          echo "Versions match."
-
-  publish-codeartifacts:
-    runs-on: ubuntu-latest
-    needs: verify-tag
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout source repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.14'
-
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v7
-        with:
-          version: "latest"
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Install dependencies
-        run: uv sync
-
-      - name: Build package
-        run: uv build
-
-      - name: Get CodeArtifact token
-        run: |
-          CODEARTIFACT_TOKEN=$(aws codeartifact get-authorization-token \
-            --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} \
-            --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} \
-            --region ${{ secrets.AWS_REGION }} \
-            --query authorizationToken \
-            --output text)
-          echo "CODEARTIFACT_TOKEN=$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
-
-      - name: Publish to CodeArtifact
-        run: |
-          REPO_URL="https://aws:${CODEARTIFACT_TOKEN}@${{ secrets.AWS_CODEARTIFACT_DOMAIN }}-${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }}.d.codeartifact.${{ secrets.AWS_REGION }}.amazonaws.com/pypi/${{ secrets.AWS_CODEARTIFACT_REPO }}/"
-          uv publish dist/* --publish-url "$REPO_URL"
+  publish:
+    uses: Thistle-Grow-Software/.github/.github/workflows/publish-codeartifact.yml@main
+    secrets: inherit
