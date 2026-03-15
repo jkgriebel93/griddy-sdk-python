@@ -11,4 +11,8 @@ permissions:
 jobs:
   publish:
     uses: Thistle-Grow-Software/.github/.github/workflows/publish-codeartifact.yml@main
-    secrets: inherit
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
+      codeartifact-domain: ${{ secrets.AWS_CODEARTIFACT_DOMAIN }}
+      codeartifact-domain-owner: ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }}
+      codeartifact-repo: ${{ secrets.AWS_CODEARTIFACT_REPO }}
